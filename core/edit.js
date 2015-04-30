@@ -12,8 +12,6 @@
  */
 (function() { "use strict"
 
-  /** TODO: Save edit position on scroll? */
-
   /**
    * Mark edited cell
    *

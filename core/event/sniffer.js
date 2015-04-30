@@ -52,7 +52,10 @@
         /** Run the interpreter */
         CORE.eval();
       }
+      return (true);
     }
+
+    return (false);
 
   };
 
@@ -62,7 +65,7 @@
    * @method sniffCellInput
    * @static
    */
-  CORE.Event.sniffCellInput = function() {
+  CORE.Event.sniffCellInput = function(keyCode) {
 
     /** User is in edit mode? */
     if (CORE.Event.inEditMode()) {
@@ -70,6 +73,19 @@
       CORE.Cells.Used[CORE.Cells.Edit].Content = CORE.DOM.Output.children[CORE.$.getCell(CORE.Cells.Edit)].innerHTML;
       /** Check if cell is a formula */
       CORE.Event.isFormula();
+    }
+
+    /** Check if user pressed the [ENTER] */
+    if (!CORE.Event.pressedEnter(keyCode)) {
+      /** User pressed another key then [ENTER] .. */
+
+      /** Fetch the current selected cell */
+      CORE.Grid.cleanEditSelection();
+      CORE.Grid.getEditSelection(CORE.Selector.Selected.First.Letter + CORE.Selector.Selected.First.Number);
+
+      /** Focus the selected cell to allow input */
+      CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.Selected.First.Letter + CORE.Selector.Selected.First.Number))].focus();
+
     }
 
   };

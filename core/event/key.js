@@ -22,8 +22,8 @@
     switch (e.keyCode) {
       /** [UP] */
       case 38:
-				/** Dont allow scrolling if user edits a cell */
-				if (CORE.Event.inEditMode()) return void 0;
+        /** Dont allow scrolling if user edits a cell */
+        if (CORE.Event.inEditMode()) return void 0;
         if ( (CORE.Grid.Settings.scrolledY - 1) <= 0) {
           CORE.Grid.Settings.scrolledY = 0;
           CORE.Grid.updateHeight("default", 1);
@@ -39,8 +39,8 @@
         return void 0;
       /** [DOWN] */
       case 40:
-				/** Dont allow scrolling if user edits a cell */
-				if (CORE.Event.inEditMode()) return void 0;
+        /** Dont allow scrolling if user edits a cell */
+        if (CORE.Event.inEditMode()) return void 0;
         CORE.Grid.Settings.scrolledY += 1;
         CORE.Grid.updateHeight("down", 1);
         CORE.Grid.generateMenu();
@@ -48,8 +48,8 @@
         return void 0;
       /** [LEFT] */
       case 37:
-				/** Dont allow scrolling if user edits a cell */
-				if (CORE.Event.inEditMode()) return void 0;
+        /** Dont allow scrolling if user edits a cell */
+        if (CORE.Event.inEditMode()) return void 0;
         if (CORE.Grid.Settings.scrolledX - CORE.Settings.Scroll.Horizontal <= 0) {
           CORE.Grid.Settings.scrolledX = 0;
           CORE.Grid.updateWidth("default");
@@ -65,8 +65,8 @@
         return void 0;
       /** [RIGHT] */
       case 39:
-				/** Dont allow scrolling if user edits a cell */
-				if (CORE.Event.inEditMode()) return void 0;
+        /** Dont allow scrolling if user edits a cell */
+        if (CORE.Event.inEditMode()) return void 0;
         CORE.Grid.Settings.scrolledX += CORE.Settings.Scroll.Horizontal;
         CORE.Grid.updateWidth("right");
         CORE.Grid.generateMenu();
@@ -78,10 +78,7 @@
      * Check if user edits a cell
      * Delayed to fix some cell input issues
      */
-    setTimeout( function() { CORE.Event.sniffCellInput(e.keyCode); }, 5);
-
-    /** Check if user pressed the enter key */
-    CORE.Event.pressedEnter(e.keyCode);
+    setTimeout( function() { CORE.Event.sniffCellInput(e.keyCode); }, 1);
 
   };
 

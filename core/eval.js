@@ -31,15 +31,20 @@
       if (cells[ii].Formula && cells[ii].Formula.length) {
         formulas.push({
           name: ii,
+          /** Validate formula, add the parent cell value before the formula to emulate a variable assignment */
           value: cells[ii].Formula.substr(0, 0) + ii + cells[ii].Formula.substr(0)
         });
       }
     }
 
     if (formulas && formulas.length) {
+      /** Process all formulas found */
       for (var ii = 0; ii < formulas.length; ++ii) {
+        /** Receive the result */
         result = ENGEL.interpret(formulas[ii].value).VAR[formulas[ii].name].value.value;
+        /** Display the result */
         CORE.DOM.Output.children[CORE.$.getCell(formulas[ii].name)].innerHTML = result;
+        /** Update used cell stack content */
         CORE.Cells.Used[formulas[ii].name].Content = result;
       }
     }
