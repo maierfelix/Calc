@@ -106,8 +106,19 @@
         /** Cell starts with a "=" and will be interpreted as a formula */
         if (cellEditContent[0] === "=") {
           CORE.Cells.Used[CORE.Cells.Edit].Formula = cellEditContent;
+
+          /** 
+           * Set cell text to uppercase cause its a formula
+           * Warning: Text isnt really uppercased!
+           */
+          CORE.DOM.Output.children[(CORE.$.getCell(CORE.Cells.Edit))].style.textTransform = "uppercase";
+
         /** Cell has no formula anymore */
         } else {
+
+          /** Set text back to default */
+          CORE.DOM.Output.children[(CORE.$.getCell(CORE.Cells.Edit))].style.textTransform = "none";
+
           /** Clean the cell formula if it has content */
           if (CORE.Cells.Used[CORE.Cells.Edit].Formula && CORE.Cells.Used[CORE.Cells.Edit].Formula.length) {
             CORE.Cells.Used[CORE.Cells.Edit].Formula = null;

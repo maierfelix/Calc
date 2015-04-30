@@ -67,8 +67,8 @@
             CORE.Cells.Used[newLetter + newNumber].Formula.length) {
           /** Cell formula doesnt match with its content (seems like we got a calculation result) */
           if (CORE.Cells.Used[newLetter + newNumber].Formula !== CORE.Cells.Used[newLetter + newNumber].Content) {
-            /** Disgorge the formula */
-            CORE.DOM.Output.children[newJumps].innerHTML = CORE.Cells.Used[newLetter + newNumber].Formula;
+            /** Disgorge the formula, also trim it */
+            CORE.DOM.Output.children[newJumps].innerHTML = (CORE.Cells.Used[newLetter + newNumber].Formula).trim();
           }
         }
       }
