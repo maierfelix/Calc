@@ -16,6 +16,7 @@ NovaeCalc is not stable yet.
    - [ ] Adjust cell size to its content 
    - [ ] Custom cell colors
    - [ ] Mobile friendly
+   - [ ] Realtime cells
 
  - [ ] Functionalities
    - [x] Export projects
