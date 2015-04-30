@@ -1,0 +1,139 @@
+<!DOCTYPE HTML>
+<html>
+<!--
+ This file is part of the NovaeCalc project.
+
+ It is permitted to use, redistribute and/or modify this software
+ under the terms of the MIT License
+
+ @author Felix Maier <maier.felix96@gmail.com>
+ @copyright (c) 2015 Felix Maier, @felixmaier
+
+ -->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="NovaeCalc">
+  <link rel="apple-touch-icon" sizes="57x57" href="icon/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="icon/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="icon/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="icon/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="icon/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="icon/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="icon/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="icon/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="icon/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="icon/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="icon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="icon/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="icon/favicon-16x16.png">
+  <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+  <title>NovaeCalc</title>
+  <link rel="stylesheet" type="text/css" href="style/font-awesome.min.css"></link>
+  <link rel="stylesheet" type="text/css" href="style/style.css"></link>
+  <link rel="stylesheet" type="text/css" href="style/gravit.css"></link>
+  <link rel="stylesheet" type="text/css" href="style/dialog.css"></link>
+  <link rel="stylesheet" type="text/css" href="style/dialog-dean.css"></link>
+</head>
+<body class="g-desktop">
+  <div id="workspace">
+
+    <div id="windows">
+      <div>
+        <div id="container" tabindex="0" class="g-cursor-select">
+
+          <!-- Current hovered cell -->
+          <div id="current_cell" class="row default_layer" style="height: 35px; width: 75px; left:0px; top: 25px;"></div>
+
+          <!-- Horizontal alphabetical menu -->
+          <div id="letter_menu" class="menu_hor"></div>
+
+          <!-- Vertical numeric menu -->
+          <div id="number_menu" class="menu_ver"></div>
+
+          <div class="body_container">
+            <!-- Cell Grid -->
+            <div id="output" class="viewport" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div id="header">
+      <!-- Top menu -->
+      <nav class="g-menu-bar" style="height: 100%;">
+        <ul class="g-menu g-menu-root">
+          <li id="menu_file" name="File" class="g-menu-item g-menu-item-menu"><span class="g-menu-item-caption">File</span></li>
+          <li id="menu_edit" name="Edit" class="g-menu-item g-menu-item-menu"><span class="g-menu-item-caption">Edit</span></li>
+          <li id="menu_modify" name="Modify" class="g-menu-item g-menu-item-menu"><span class="g-menu-item-caption">Modify</span></li>
+          <li id="menu_view" name="View" class="g-menu-item g-menu-item-menu"><span class="g-menu-item-caption">View</span></li>
+          <li id="menu_debug" name="Debug" class="g-menu-item g-menu-item-menu"><span class="g-menu-item-caption">Debug</span></li>
+        </ul>
+      </nav>
+      <div id="menu_dialogs" style="display:none;position:absolute;">
+        <ul name="File" class="g-menu g-menu-bottom" style="left: 0px; top: 25px;display:none;">
+          <li class="g-menu-item">
+            <span class="g-menu-item-caption">New...</span>
+            <span class="g-menu-item-shortcut">Ctrl+N</span>
+          </li>
+          <li id="open" class="g-menu-item">
+            <input id="import_file" type="file" class="custom-file-input" style="width: 65px;" /></span>
+            <span class="g-menu-item-shortcut">Ctrl+O</span>
+          </li>
+          <li class="g-menu-item">
+            <span class="g-menu-item-caption">Export</span>
+            <span class="g-menu-item-shortcut">Ctrl+S</span>
+          </li>
+          <li id="save" class="g-menu-item">
+            <span class="g-menu-item-caption">Export as Image</span>
+            <span class="g-menu-item-shortcut">Ctrl+I</span>
+          </li>
+        </ul>
+        <ul name="Edit" class="g-menu g-menu-bottom" style="left: 35px; top: 25px;display:none;">
+          <li id="test" class="g-menu-item">
+            <span class="g-menu-item-caption">Test...</span>
+            <span class="g-menu-item-shortcut">Ctrl+I</span>
+          </li>
+        </ul>
+      </div>
+      <div class="windows">
+        <div class="tab g-active"><span id="debug" class="title">Untitled</span><span class="close fa fa-times"></span></div>
+      </div>
+      <!-- Name -->
+      <div class="view" style="padding-right:0px;">
+        <nav class="g-menu-bar" style="height: 100%;">
+          <ul class="g-menu g-menu-root">
+            <li class="g-menu-item g-menu-item-menu">
+              <span class="g-menu-item-icon" style="display: none;"></span>
+              <span class="g-menu-item-caption">NovaeCalc 0.2 Beta</span>
+              <span class="g-menu-item-tail"></span></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <div id="file_image_output" class="dialog dialog--open" style="display:none;">
+      <div class="dialog__content" style="z-index: 99999;">
+        <h2><i class="fa fa-download"></i></h2>
+        <h2>
+          Your project was successfully exported into the image below!</h2>
+          <div>
+            <div class="action" id="file" style="width: 100%;height: 100%;"></div>
+          </div>
+          <br/><br/>
+          <h2><strong>Touch and hold the image for about 2 seconds until a menu appears.</strong></h2>
+          <h2><strong>Click on “Save Image“.</strong></h2>
+          <i id="file_image_output_close" class="fa fa-close" style="position:absolute;z-index: 99999;right: 15px;top: 10px;"></i>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Load ressources -->
+  <script src="lib/import.js" type="text/javascript"></script>
+  <script src="init.js" type="text/javascript"></script>
+
+</body>
+</html>
