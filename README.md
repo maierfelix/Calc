@@ -3,7 +3,7 @@
 
 # Description
 NovaeCalc is a lightning browserbased spreadsheet software.
-Source will be committed soon.
+NovaeCalc is not stable yet.
 
 ## Current state:
 
@@ -12,7 +12,7 @@ Source will be committed soon.
    - [x] Infinite horizontal scrolling (~ 16.100)
    - [x] Select cell fields in all directions
    - [x] Resize cell rows
-   - [ ] Edit cell content
+   - [x] Edit cell content
    - [ ] Adjust cell size to its content 
    - [ ] Custom cell colors
    - [ ] Mobile friendly
@@ -31,9 +31,9 @@ Source will be committed soon.
    - [ ] Syntax
    - [ ] Multi-language support
    - [ ] String functions
-   - [ ] Numeric functions
+   - [x] Numeric functions
    - [ ] Statistical functions
-   - [ ] Logical functions
+   - [x] Logical functions
    - [ ] Information functions
    - [ ] Date / Time functions
 
