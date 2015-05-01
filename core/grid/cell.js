@@ -44,6 +44,14 @@
      */
     this.Content = null;
 
+    /**
+     * Cell has a custom font
+     *
+     * @property Font
+     * @type String
+     */
+    this.Font = null;
+
   };
 
 }).call(this);

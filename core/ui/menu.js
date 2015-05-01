@@ -143,6 +143,9 @@
 
     });
 
+    /** Initialize settings menu */
+    CORE_UI.initSettingsMenu();
+
   };
 
   /** Close all menus */

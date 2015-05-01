@@ -67,20 +67,20 @@
     Mouse: {
       /** Mouse pressed or not? Also prevent multiple execution of mousedown event */
       Pressed: false,
-			/** Prevent multiple execution of mousemove event */
-			lastMousePosition: {
-				x: 0,
-				y: 0
-			},
+      /** Prevent multiple execution of mousemove event */
+      lastMousePosition: {
+        x: 0,
+        y: 0
+      },
       /** User resizes a cell */
       CellResize: false,
       /** User edits a cell */
       Edit: false
     },
-		Keyboard: {
-			/** Sift key pressed */
-			Shift: false
-		}
+    Keyboard: {
+      /** Sift key pressed */
+      Shift: false
+    }
   };
 
   /** Alphabet Template */
@@ -106,6 +106,9 @@
 
   /** Select and prepare the debug container */
   CORE.DOM.DebugContainer = document.querySelector("#debug");
+
+  /** Select and prepare the debug container */
+  CORE.DOM.ChangeFont = document.querySelector("#change_font");
 
   /** Assign it global */
   root.CORE = CORE;

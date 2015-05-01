@@ -85,7 +85,6 @@
 
       /** Focus the selected cell to allow input */
       CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.Selected.First.Letter + CORE.Selector.Selected.First.Number))].focus();
-
     }
 
   };
@@ -107,7 +106,7 @@
         if (cellEditContent[0] === "=") {
           CORE.Cells.Used[CORE.Cells.Edit].Formula = cellEditContent;
 
-          /** 
+           /** 
            * Set cell text to uppercase cause its a formula
            * Warning: Text isnt really uppercased!
            */

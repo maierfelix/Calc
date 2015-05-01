@@ -56,10 +56,22 @@
 
       CORE.DOM.Output.children[ii].setAttribute("name", Letter + calculation);
 
-      /** Check if cell has custom content */
+      /** Check if cell is registered */
       if (CORE.Cells.Used[Letter + calculation]) {
-        CORE.DOM.Output.children[ii].innerHTML = CORE.Cells.Used[Letter + calculation].Content;
+
+        /** Check if cell has custom content */
+        if (CORE.Cells.Used[Letter + calculation].Content) {
+          CORE.DOM.Output.children[ii].innerHTML = CORE.Cells.Used[Letter + calculation].Content;
+        }
+
+        /** Check if cell has a custom font */
+        if (CORE.Cells.Used[Letter + calculation].Font) {
+          CORE.DOM.Output.children[ii].style.fontFamily = CORE.Cells.Used[Letter + calculation].Font;
+        }
+
+      /** Hold all other cells without custom thingys fresh & clean */
       } else {
+        CORE.DOM.Output.children[ii].style.fontFamily = "";
         CORE.DOM.Output.children[ii].innerHTML = "";
       }
 
@@ -120,10 +132,22 @@
 
                 CORE.DOM.Output.children[calculation].setAttribute("name", Letter + calculation);
 
-                /** Check if cell has custom content */
+                /** Check if cell is registered */
                 if (CORE.Cells.Used[Letter + calculation]) {
-                  CORE.DOM.Output.children[calculation].innerHTML = CORE.Cells.Used[Letter + calculation].Content;
+
+                  /** Check if cell has custom content */
+                  if (CORE.Cells.Used[Letter + calculation].Content) {
+                    CORE.DOM.Output.children[calculation].innerHTML = CORE.Cells.Used[Letter + calculation].Content;
+                  }
+
+                  /** Check if cell has a custom font */
+                  if (CORE.Cells.Used[Letter + calculation].Font) {
+                    CORE.DOM.Output.children[calculation].style.fontFamily = CORE.Cells.Used[Letter + calculation].Font;
+                  }
+
+                /** Hold all other cells without custom thingys fresh & clean */
                 } else {
+                  CORE.DOM.Output.children[calculation].style.fontFamily = "";
                   CORE.DOM.Output.children[calculation].innerHTML = "";
                 }
 

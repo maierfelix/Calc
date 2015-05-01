@@ -17,7 +17,7 @@
     this.KeyWords = [
 
       /** Statements */
-      { name: "LX_IF",     rx: /^if(?![a-zA-Z0-9_])/     },
+      { name: "LX_IF",     rx: /^IF(?![a-zA-Z0-9_])/     },
       { name: "LX_ELSE",   rx: /^else(?![a-zA-Z0-9_])/   },
 
       /** Punctuation */
