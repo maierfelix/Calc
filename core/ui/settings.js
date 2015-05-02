@@ -135,7 +135,7 @@
         CORE.DOM.ChangeFontSize.value = CORE.Cells.Used[cell].FontSize;
       /** Reset font size menu value to default */
       } else {
-        CORE.DOM.ChangeFontSize.value = CORE.DOM.ChangeFontSize.children[0].getAttribute("value");
+        CORE.DOM.ChangeFontSize.value = CORE.DOM.ChangeFontSize.children[6].getAttribute("value");
       }
 
       /** Check if cell has a custom font color */
@@ -152,7 +152,7 @@
       /** Reset font menu */
       CORE.DOM.ChangeFont.value = CORE.DOM.ChangeFont.children[0].getAttribute("value");
       /** Reset font size menu */
-      CORE.DOM.ChangeFontSize.value = CORE.DOM.ChangeFontSize.children[0].getAttribute("value");
+      CORE.DOM.ChangeFontSize.value = CORE.DOM.ChangeFontSize.children[6].getAttribute("value");
       /** Reset font color menu */
       CORE.DOM.ChangeFontColor.children[0].style.borderBottom = "4px solid #000";
     }
