@@ -100,14 +100,8 @@
     /** Add hover effect for all selected cells */
     for (var ii = 0; ii < this.SelectedCells.length; ++ii) {
 
-      if (CORE.Cells.Used[this.SelectedCells[ii]]) {
-
-        /** Check if cell has a custom font */
-        if (CORE.Cells.Used[this.SelectedCells[ii]].Font) {
-          console.log(CORE.Cells.Used[this.SelectedCells[ii]].Font);
-        }
-
-      }
+      /** Synchronize custom cells with the cell settings menu if 1 cell is selected */
+      if (this.SelectedCells.length === 1) CORE_UI.updateSettingsMenu(this.SelectedCells[ii]);
 
       letters = this.SelectedCells[ii].match(CORE.REGEX.numbers).join("");
       numbers = parseInt(this.SelectedCells[ii].match(CORE.REGEX.letters).join(""));

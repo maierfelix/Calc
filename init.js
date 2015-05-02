@@ -14,12 +14,14 @@ Import.scripts = [
   /** Libraries */
   "lib/fastclick.min.js",
   "lib/js2png.js",
-  "lib/ajax.js",
+  "lib/ajax.min.js",
+	"lib/colorpicker.min.js",
   /** Menu */
   "core/ui/main.js",
   "core/ui/menu.js",
   "core/ui/action.js",
   "core/ui/modal.js",
+  "core/ui/settings.js",
   /** Run the core */
   "core/main.js",
   "core/eval.js",

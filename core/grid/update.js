@@ -69,9 +69,21 @@
           CORE.DOM.Output.children[ii].style.fontFamily = CORE.Cells.Used[Letter + calculation].Font;
         }
 
+        /** Check if cell has a custom font size */
+        if (CORE.Cells.Used[Letter + calculation].FontSize) {
+          CORE.DOM.Output.children[ii].style.fontSize = CORE.Cells.Used[Letter + calculation].FontSize + "px";
+        }
+
+        /** Check if cell has a custom font color */
+        if (CORE.Cells.Used[Letter + calculation].Color) {
+          CORE.DOM.Output.children[ii].style.color = CORE.Cells.Used[Letter + calculation].Color;
+        }
+
       /** Hold all other cells without custom thingys fresh & clean */
       } else {
         CORE.DOM.Output.children[ii].style.fontFamily = "";
+        CORE.DOM.Output.children[ii].style.fontSize = 12 + "px";
+        CORE.DOM.Output.children[ii].style.color = "#000";
         CORE.DOM.Output.children[ii].innerHTML = "";
       }
 
@@ -145,9 +157,15 @@
                     CORE.DOM.Output.children[calculation].style.fontFamily = CORE.Cells.Used[Letter + calculation].Font;
                   }
 
+                  /** Check if cell has a custom font size */
+                  if (CORE.Cells.Used[Letter + calculation].FontSize) {
+                    CORE.DOM.Output.children[calculation].style.fontSize = CORE.Cells.Used[Letter + calculation].FontSize + "px";
+                  }
+
                 /** Hold all other cells without custom thingys fresh & clean */
                 } else {
                   CORE.DOM.Output.children[calculation].style.fontFamily = "";
+                  CORE.DOM.Output.children[calculation].style.fontSize = 12 + "px";
                   CORE.DOM.Output.children[calculation].innerHTML = "";
                 }
 

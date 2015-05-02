@@ -45,7 +45,7 @@
         <div id="container" tabindex="0" class="g-cursor-select">
 
           <!-- Current hovered cell -->
-          <div id="current_cell" class="row default_layer" style="height: 35px; width: 75px; left:0px; top: 25px;"></div>
+          <div id="current_cell" class="row default_layer" style="height: 35px; width: 75px; left:0px; top: 70px;"></div>
 
           <!-- Horizontal alphabetical menu -->
           <div id="letter_menu" class="menu_hor"></div>
@@ -114,6 +114,74 @@
       </div>
     </div>
 
+    <!-- Cell settings menu -->
+    <div id="header" class="menu_bar">
+      <nav class="g-menu-bar" style="height: 100%;">
+        <ul class="g-menu g-menu-root">
+          <li class="g-menu-item g-menu-item-menu">
+            <!-- Font change menu -->
+            <label style="position: absolute; top: 10px; left: 10px;">
+              <select id="change_font" data-property="size-preset" style="width: 110px;height:25px;">
+                <option value="arial, sans, sans-serif">Arial</option>
+                <option value="'courier new', monospace">Courier New</option>
+                <option value="georgia">Georgia</option>
+              </select>
+            </label>
+            <!-- Font size menu -->
+            <label style="position: absolute; top: 10px; left: 130px;">
+              <select id="change_fontSize" data-property="size-preset" style="width: 110px;height:25px;">
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="14">14</option>
+                <option value="18">18</option>
+                <option value="24">24</option>
+                <option value="36">36</option>
+              </select>
+            </label>
+            <!-- Font color menu -->
+            <label style="position: absolute; top: 10px; left: 250px;">
+              <button id="change_fontColor" data-property="sref" style="width: 40px; height: 25px;">
+                <span style="border-bottom: 4px solid #000;position: absolute;margin-left: -2px;margin-top: -4px;font-size: 13px;">A </span>
+                <span class="fa fa-caret-down" style="margin-left: 19px;"></span>
+              </button>
+              <div hide="true" style="display:none;position: absolute;z-index: 9999;">
+                <div id="slide"></div>
+              </div>
+            </label>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Right click menu -->
+    <div id="right_click_menu" style="position: absolute;top: 0px;left: 0px;z-index: 99999;display:none;">
+      <div id="menu_dialogs">
+        <ul name="File" class="g-menu g-menu-bottom" style="left: 0px; top: 25px;">
+          <li class="g-menu-item">
+            <span class="g-menu-item-caption">New...</span>
+            <span class="g-menu-item-shortcut">Ctrl+N</span>
+          </li>
+          <li id="open" class="g-menu-item">
+            <input id="import_file" type="file" class="custom-file-input" style="width: 65px;" /></span>
+            <span class="g-menu-item-shortcut">Ctrl+O</span>
+          </li>
+          <li class="g-menu-item">
+            <span class="g-menu-item-caption">Export</span>
+            <span class="g-menu-item-shortcut">Ctrl+S</span>
+          </li>
+          <li id="save" class="g-menu-item">
+            <span class="g-menu-item-caption">Export as Image</span>
+            <span class="g-menu-item-shortcut">Ctrl+I</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
     <div id="file_image_output" class="dialog dialog--open" style="display:none;">
       <div class="dialog__content" style="z-index: 99999;">
         <h2><i class="fa fa-download"></i></h2>
@@ -132,7 +200,7 @@
   </div>
 
   <!-- Load ressources -->
-  <script src="lib/import.js" type="text/javascript"></script>
+  <script src="lib/import.min.js" type="text/javascript"></script>
   <script src="init.js" type="text/javascript"></script>
 
 </body>

@@ -107,8 +107,14 @@
   /** Select and prepare the debug container */
   CORE.DOM.DebugContainer = document.querySelector("#debug");
 
-  /** Select and prepare the debug container */
+  /** Select and prepare the font change container */
   CORE.DOM.ChangeFont = document.querySelector("#change_font");
+
+  /** Select and prepare the font size container */
+  CORE.DOM.ChangeFontSize = document.querySelector("#change_fontSize");
+
+  /** Select and prepare font color container */
+  CORE.DOM.ChangeFontColor = document.querySelector("#change_fontColor");
 
   /** Assign it global */
   root.CORE = CORE;

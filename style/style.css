@@ -11,9 +11,49 @@ body {
   top: 0px;
 }
 
+/** Colorpicker */
+#picker {
+  width: 200px;
+  height: 200px;
+}
+
+#slide { 
+  width: 30px;
+  height: 200px;
+}
+
+.changeFontLabel {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+.picker-wrapper {
+  display: none;
+}
+
+/** Colorpicker END */
+
+.menu_bar {
+  top: 25px;
+  border-top: 1px solid #000;
+  height: 45px !important;
+}
+
+.body_container {
+  position: absolute;
+  overflow: hidden;
+  bottom: 0px;
+  width: 100%;
+  left: 75px;
+  top: 105px;
+}
+
 .menu_hor {
   position: absolute;
-  top: 25px;
+  top: 70px;
   left: -75px;
   width: 100%;
   height: 35px;
@@ -22,7 +62,7 @@ body {
 
 .menu_ver {
   position: absolute;
-  top: 25px;
+  top: 70px;
   left: 0px;
   width: 75px;
   height: 100%;
@@ -63,15 +103,6 @@ body {
   position: absolute;
   height: 100%;
   width: 100%;
-}
-
-.body_container {
-  position: absolute;
-  overflow: hidden;
-  bottom: 0px;
-  width: 100%;
-  left: 75px;
-  top: 60px;
 }
 
 .viewport {
@@ -125,15 +156,15 @@ body {
   -moz-user-select: text;
   -o-user-select: text;
   user-select: text;
-	-webkit-line-break: after-white-space;
-	-webkit-user-modify: read-write-plaintext-only;
-	-moz-user-modify: read-write-plaintext-only;
-	-o-user-modify: read-write-plaintext-only;
-	user-modify: read-write-plaintext-only;
-	-webkit-transform: translateZ(0);
-	-moz-transform: translateZ(0);
-	-o-transform: translateZ(0);
-	transform: translateZ(0);
+  -webkit-line-break: after-white-space;
+  -webkit-user-modify: read-write-plaintext-only;
+  -moz-user-modify: read-write-plaintext-only;
+  -o-user-modify: read-write-plaintext-only;
+  user-modify: read-write-plaintext-only;
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 .cell_select {
@@ -204,6 +235,12 @@ body {
   background: transparent;
 }
 
-::selection{ background-color: transparent;}
-::moz-selection{ background-color: transparent;}
-::webkit-selection{ background-color: transparent;}
+::selection {
+  background-color: rgba(179, 229, 252, 0.9);
+}
+::moz-selection{
+  background-color: rgba(179, 229, 252, 0.9);
+}
+::webkit-selection{
+  background-color: rgba(179, 229, 252, 0.9);
+}

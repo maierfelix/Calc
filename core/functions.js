@@ -193,6 +193,35 @@
   };
 
   /**
+   * Check if a cell is selected
+   * If not, register it into the cell used stack
+   *
+   * @method validCell
+   * @static
+   */
+  CORE.$.validCell = function() {
+
+    /** Check if a cell is selected */
+    if (CORE.Selector.Selected.First.Letter && (CORE.Selector.Selected.First.Number >= 0) ) {
+
+      var letter = CORE.Selector.Selected.First.Letter,
+          number = CORE.Selector.Selected.First.Number;
+
+      /** Cell is not used yet */
+      if (!CORE.Cells.Used[letter + number]) {
+        CORE.Cells.Used[letter + number] = new CORE.Grid.Cell();
+      }
+
+      /** Cell was successfully registered ? */
+      if (CORE.Cells.Used[letter + number]) return (true);
+
+    }
+
+    return (false);
+
+  };
+
+  /**
    * Clear the selection of all texts in the document
    *
    * @method looseSelection

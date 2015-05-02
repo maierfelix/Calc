@@ -52,6 +52,14 @@
      */
     this.Font = null;
 
+    /**
+     * Cell has a custom font size
+     *
+     * @property FontSize
+     * @type String
+     */
+    this.FontSize = null;
+
   };
 
 }).call(this);
