@@ -48,8 +48,8 @@
         CORE.DOM.Output.children[(CORE.$.getCell(letter + number))].style.fontFamily = e.target.children[e.target.selectedIndex].getAttribute("value");
       }
 
-			/** Dont loose the selection */
-			CORE.Selector.getSelection();
+      /** Dont loose the selection */
+      CORE.Selector.getSelection();
 
     });
 
@@ -68,8 +68,8 @@
         CORE.DOM.Output.children[(CORE.$.getCell(letter + number))].style.fontSize = e.target.children[e.target.selectedIndex].getAttribute("value") + "px";
       }
 
-			/** Dont loose the selection */
-			CORE.Selector.getSelection();
+      /** Dont loose the selection */
+      CORE.Selector.getSelection();
 
     });
 
@@ -107,8 +107,8 @@
         CORE.DOM.Output.children[(CORE.$.getCell(letter + number))].style.color = element.children[0].style.borderBottomColor;
       }
 
-			/** Dont loose the selection */
-			CORE.Selector.getSelection();
+      /** Dont loose the selection */
+      CORE.Selector.getSelection();
 
     });
 
