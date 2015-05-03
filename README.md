@@ -14,7 +14,7 @@ NovaeCalc is not stable yet.
    - [x] Resize cell rows
    - [x] Edit cell content
    - [ ] Adjust cell size to its content 
-   - [ ] Custom cell colors
+   - [x] Custom cell colors
    - [ ] Mobile friendly
    - [ ] Realtime cells
 
