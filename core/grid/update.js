@@ -79,8 +79,37 @@
           CORE.DOM.Output.children[ii].style.color = CORE.Cells.Used[Letter + calculation].Color;
         }
 
+        /** Check if cell has custom border settings */
+        if (CORE.Cells.Used[Letter + calculation].Border.used) {
+          /** Left border */
+          if (CORE.Cells.Used[Letter + calculation].Border.left) {
+             CORE.DOM.Output.children[ii].style.borderLeft = "2px solid black";
+          }
+          /** Right border */
+          if (CORE.Cells.Used[Letter + calculation].Border.right) {
+            CORE.DOM.Output.children[ii].style.borderRight = "2px solid black";
+          }
+          /** Top border */
+          if (CORE.Cells.Used[Letter + calculation].Border.top) {
+            CORE.DOM.Output.children[ii].style.borderTop = "2px solid black";
+          }
+          /** Bottom border */
+          if (CORE.Cells.Used[Letter + calculation].Border.bottom) {
+            CORE.DOM.Output.children[ii].style.borderBottom = "2px solid black";
+          }
+          /** Full border */
+          if (CORE.Cells.Used[Letter + calculation].Border.full) {
+            CORE.DOM.Output.children[ii].style.border = "2px solid black";
+          }
+        }
+
       /** Hold all other cells without custom thingys fresh & clean */
       } else {
+				CORE.DOM.Output.children[ii].style.border = "";
+        CORE.DOM.Output.children[ii].style.borderLeft = "";
+        CORE.DOM.Output.children[ii].style.borderRight = "";
+        CORE.DOM.Output.children[ii].style.borderTop = "";
+        CORE.DOM.Output.children[ii].style.borderBottom = "";
         CORE.DOM.Output.children[ii].style.fontFamily = "";
         CORE.DOM.Output.children[ii].style.fontSize = 12 + "px";
         CORE.DOM.Output.children[ii].style.color = "#000";
@@ -162,8 +191,37 @@
                     CORE.DOM.Output.children[calculation].style.fontSize = CORE.Cells.Used[Letter + calculation].FontSize + "px";
                   }
 
+                  /** Check if cell has custom border settings */
+                  if (CORE.Cells.Used[Letter + calculation].Border.used) {
+                    /** Left border */
+                    if (CORE.Cells.Used[Letter + calculation].Border.left) {
+                      CORE.DOM.Output.children[calculation].style.borderLeft = "2px solid black";
+                    }
+                    /** Right border */
+                    if (CORE.Cells.Used[Letter + calculation].Border.right) {
+                      CORE.DOM.Output.children[calculation].style.borderRight = "2px solid black";
+                    }
+                    /** Top border */
+                    if (CORE.Cells.Used[Letter + calculation].Border.top) {
+                      CORE.DOM.Output.children[calculation].style.borderTop = "2px solid black";
+                    }
+                    /** Bottom border */
+                    if (CORE.Cells.Used[Letter + calculation].Border.bottom) {
+                      CORE.DOM.Output.children[calculation].style.borderBottom = "2px solid black";
+                    }
+                    /** Full border */
+                    if (CORE.Cells.Used[Letter + calculation].Border.full) {
+                      CORE.DOM.Output.children[calculation].style.border = "2px solid black";
+                    }
+                  }
+
                 /** Hold all other cells without custom thingys fresh & clean */
                 } else {
+                  CORE.DOM.Output.children[calculation].style.border = "";
+                  CORE.DOM.Output.children[calculation].style.borderLeft = "";
+                  CORE.DOM.Output.children[calculation].style.borderRight = "";
+                  CORE.DOM.Output.children[calculation].style.borderTop = "";
+                  CORE.DOM.Output.children[calculation].style.borderBottom = "";
                   CORE.DOM.Output.children[calculation].style.fontFamily = "";
                   CORE.DOM.Output.children[calculation].style.fontSize = 12 + "px";
                   CORE.DOM.Output.children[calculation].innerHTML = "";

@@ -2044,9 +2044,3 @@ div.g-form>div:not(:last-child)>div>label:last-child {
 .panel-properties .properties-panels {
     height: 100%
 }
-.panel-properties .properties-panels>.properties-panel-content {
-    position: relative;
-    height: 100%;
-    float: left;
-    border-right: 1px solid #353839
-}

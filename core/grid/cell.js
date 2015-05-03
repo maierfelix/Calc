@@ -21,7 +21,7 @@
   CORE.Grid.prototype.Cell = function() {
 
     /**
-     * Cell has a custom color
+     * Cell has a custom font color
      *
      * @property Color
      * @type String
@@ -45,7 +45,7 @@
     this.Content = null;
 
     /**
-     * Cell has a custom font
+     * Cell has a custom font family
      *
      * @property Font
      * @type String
@@ -59,6 +59,47 @@
      * @type String
      */
     this.FontSize = null;
+
+    /**
+     * Cell font is bold
+     *
+     * @property FontBold
+     * @type String
+     */
+    this.FontBold = null;
+
+    /**
+     * Cell font is italic
+     *
+     * @property FontItalic
+     * @type String
+     */
+    this.FontItalic = null;
+
+    /**
+     * Cell has custom borders
+     *
+     * @property Border
+     * @type Object
+     */
+    this.Border = {
+      /** Top border */
+      top: null,
+      /** Bottom border */
+      bottom: null,
+      /** Left border */
+      left: null,
+      /** Right border */
+      right: null,
+      /** Full bordered */
+      full: null,
+      /** Border style */
+      style: null,
+      /** Border color */
+      color: null,
+      /** Cell uses a custom border ? */
+      used: null
+    };
 
   };
 

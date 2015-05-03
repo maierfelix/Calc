@@ -153,9 +153,56 @@
                 <div id="slide"></div>
               </div>
             </label>
+            <!-- Cell border menu -->
+            <label hide="true" style="position: absolute; top: 10px; left: 300px;">
+              <button id="change_border" data-property="sref" style="width: 40px; height: 25px;">
+                <span class="close fa fa-columns" style="position: absolute;margin-left: 0px;margin-top: 2px;"></span>
+                <span class="fa fa-caret-down" style="margin-left: 19px;"></span>
+              </button>
+            </label>
           </li>
         </ul>
       </nav>
+    </div>
+
+    <!-- Border settings menu -->
+    <div id="border_settings_menu" style="position: absolute;top: 37px;left: 300px;z-index: 99999;display:none;">
+      <div id="panels" class="collapse-none" style="left: 0px; width: 150px;height: 140px;top: 25px;border-bottom: 1px solid black;">
+        <div class="panels-tabs">
+          <div class="panels-frame" style="height: 138px;">
+            <div class="panel-container panel-properties">
+              <div class="properties-panels">
+                <div id="border_settings_menu_items" class="properties-panel-content" style="width: 250px;">
+                  <button id="border_left" style="width: 55px; height: 25px; position: absolute; left: 15px; top: 10px;">
+                    <span>Left</span>
+                  </button>
+                  <button id="border_right" style="width: 55px; height: 25px; position: absolute; left: 15px; top: 40px;">
+                    <span>Right</span>
+                  </button>
+                  <button id="border_top" style="width: 55px; height: 25px; position: absolute; left: 75px; top: 10px;">
+                    <span>Top</span>
+                  </button>
+                  <button id="border_bottom" style="width: 55px; height: 25px; position: absolute; left: 75px; top: 40px;">
+                    <span>Bottom</span>
+                  </button>
+                  <button id="border_all" style="width: 55px; height: 25px; position: absolute; left: 15px; top: 70px;">
+                    <span>All</span>
+                  </button>
+                  <button id="border_outer" style="width: 55px; height: 25px; position: absolute; left: 75px; top: 70px;">
+                    <span>Outer</span>
+                  </button>
+                  <button style="position: absolute;width: 55px; height: 25px;left: 15px;top: 100px;">
+                    <span style="border-bottom: 4px solid #000;position: absolute;margin-left: -16px;margin-top: -12px;font-size: 13px;">Color</span>
+                  </button>
+                  <button style="position: absolute;width: 55px; height: 25px;left: 75px;top: 100px;">
+                    <span style="position: absolute;margin-left: -16px;margin-top: -9px;font-size: 13px;">Style</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Right click menu -->

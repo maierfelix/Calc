@@ -116,6 +116,15 @@
   /** Select and prepare font color container */
   CORE.DOM.ChangeFontColor = document.querySelector("#change_fontColor");
 
+  /** Select and prepare border settings container */
+  CORE.DOM.ChangeCellBorder = document.querySelector("#change_border");
+
+  /** Select and prepare border settings menu */
+  CORE.DOM.ChangeCellBorderMenu = document.querySelector("#border_settings_menu");
+
+  /** Select and prepare border settings menu items */
+  CORE.DOM.ChangeCellBorderMenuItems = document.querySelector("#border_settings_menu_items");
+
   /** Assign it global */
   root.CORE = CORE;
 

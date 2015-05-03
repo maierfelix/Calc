@@ -74,6 +74,12 @@
         return void 0;
     }
 
+    /** Prevent line breaks on user input */
+    if (e.keyCode === 13) {
+      e.preventDefault();
+      CORE.Event.pressedEnter(e.keyCode);
+    }
+
     /** 
      * Check if user edits a cell
      * Delayed to fix some cell input issues
