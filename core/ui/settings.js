@@ -24,7 +24,7 @@
       document.querySelector("#slide"),
       function(hex, hsv, rgb) {
         /** Update bottom border of font color change menu */
-        CORE.DOM.ChangeFontColor.children[0].style.borderBottom = "4px solid " + hex;
+        CORE.DOM.ChangeFontColorPreview.style.color = hex;
         CORE.DOM.ChangeFontColor.disabled = false;
         
       }
@@ -78,10 +78,7 @@
     /** Initialize font color menu */
     CORE.DOM.ChangeFontColor.addEventListener('click', function(e) {
 
-      var element = null;
-
-      if (e.target.id === "change_fontColor") element = e.target;
-      else if (e.target.parentNode.id === "change_fontColor") element = e.target.parentNode;
+      var element = CORE.DOM.ChangeFontColor;
 
       /** Display menu switch */
       if (element.parentNode.children[1]) {
@@ -105,9 +102,9 @@
             number = CORE.Selector.Selected.First.Number;
 
         /** Update the font color */
-        CORE.Cells.Used[letter + number].Color = element.children[0].style.borderBottomColor;
+        CORE.Cells.Used[letter + number].Color = CORE.DOM.ChangeFontColorPreview.style.color;
         /** Immediately update cells font color */
-        CORE.DOM.Output.children[(CORE.$.getCell(letter + number))].style.color = element.children[0].style.borderBottomColor;
+        CORE.DOM.Output.children[(CORE.$.getCell(letter + number))].style.color = CORE.DOM.ChangeFontColorPreview.style.color;
       }
 
       /** Dont loose the selection */
@@ -120,7 +117,7 @@
   /** Initialize the border settings menu */
   CORE_UI.initBorderChangeMenu = function() {
 
-    /** Initialize font color menu */
+    /** Initialize border menu */
     CORE.DOM.ChangeCellBorder.addEventListener('click', function(e) {
 
       var element = null;
@@ -303,10 +300,10 @@
       /** Check if cell has a custom font color */
       if (CORE.Cells.Used[cell].Color) {
         /** Update font color menu value */
-        CORE.DOM.ChangeFontColor.children[0].style.borderBottom = "4px solid " + CORE.Cells.Used[cell].Color;
+        CORE.DOM.ChangeFontColorPreview.style.color = CORE.Cells.Used[cell].Color;
       /** Reset font color menu value to default */
       } else {
-        CORE.DOM.ChangeFontColor.children[0].style.borderBottom = "4px solid #000";
+        CORE.DOM.ChangeFontColorPreview.style.color = "#000";
       }
 
     /** Reset the whole menu */
@@ -316,7 +313,7 @@
       /** Reset font size menu */
       CORE.DOM.ChangeFontSize.value = CORE.DOM.ChangeFontSize.children[6].getAttribute("value");
       /** Reset font color menu */
-      CORE.DOM.ChangeFontColor.children[0].style.borderBottom = "4px solid #000";
+      CORE.DOM.ChangeFontColorPreview.style.color = "#000";
     }
 
   };

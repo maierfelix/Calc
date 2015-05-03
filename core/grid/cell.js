@@ -29,6 +29,14 @@
     this.Color = null;
 
     /**
+     * Cell has a custom background color
+     *
+     * @property BackgroundColor
+     * @type String
+     */
+    this.BackgroundColor = null;
+
+    /**
      * Cell contains a formula
      *
      * @property Formula

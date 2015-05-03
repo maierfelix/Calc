@@ -121,7 +121,7 @@
           <li class="g-menu-item g-menu-item-menu">
             <!-- Font change menu -->
             <label style="position: absolute; top: 10px; left: 10px;">
-              <select id="change_font" data-property="size-preset" style="width: 110px;height:25px;">
+              <select id="change_font" style="width: 110px;height:25px;">
                 <option value="arial, sans, sans-serif">Arial</option>
                 <option value="'courier new', monospace">Courier New</option>
                 <option value="georgia">Georgia</option>
@@ -129,7 +129,7 @@
             </label>
             <!-- Font size menu -->
             <label style="position: absolute; top: 10px; left: 130px;">
-              <select id="change_fontSize" data-property="size-preset" style="width: 110px;height:25px;">
+              <select id="change_fontSize" style="width: 110px;height:25px;">
                 <option value="6">6</option>
                 <option value="7">7</option>
                 <option value="8">8</option>
@@ -143,19 +143,37 @@
                 <option value="36">36</option>
               </select>
             </label>
-            <!-- Font color menu -->
+            <!-- Cell bold -->
             <label style="position: absolute; top: 10px; left: 250px;">
-              <button id="change_fontColor" data-property="sref" style="width: 40px; height: 25px;">
-                <span style="border-bottom: 4px solid #000;position: absolute;margin-left: -2px;margin-top: -4px;font-size: 13px;">A </span>
+              <button id="change_bold" style="width: 40px; height: 25px;">
+                <span class="close fa fa-bold"></span>
+              </button>
+            </label>
+            <!-- Cell italic -->
+            <label style="position: absolute; top: 10px; left: 300px;">
+              <button id="change_italic" style="width: 40px; height: 25px;">
+                <span class="close fa fa-italic"></span>
+              </button>
+            </label>
+            <!-- Font color menu -->
+            <label style="position: absolute; top: 10px; left: 350px;">
+              <button id="change_fontColor" style="width: 40px; height: 25px;">
+                <span style="position: absolute;">
+                  <span id="font_color_preview" class="fa fa-font" style="color:#000;"></span>
+                </span>
                 <span class="fa fa-caret-down" style="margin-left: 19px;"></span>
               </button>
               <div hide="true" style="display:none;position: absolute;z-index: 9999;">
                 <div id="slide"></div>
               </div>
             </label>
+            <!-- Cell background color -->
+            <label style="position: absolute; top: 10px; left: 400px;">
+              <div class="g-input g-cursor-pipette" style="min-width: 40px;min-height: 25px;background: #fff;"></div>
+            </label>
             <!-- Cell border menu -->
-            <label hide="true" style="position: absolute; top: 10px; left: 300px;">
-              <button id="change_border" data-property="sref" style="width: 40px; height: 25px;">
+            <label hide="true" style="position: absolute; top: 10px; left: 450px;">
+              <button id="change_border" style="width: 40px; height: 25px;">
                 <span class="close fa fa-columns" style="position: absolute;margin-left: 0px;margin-top: 2px;"></span>
                 <span class="fa fa-caret-down" style="margin-left: 19px;"></span>
               </button>
@@ -166,7 +184,7 @@
     </div>
 
     <!-- Border settings menu -->
-    <div id="border_settings_menu" style="position: absolute;top: 37px;left: 300px;z-index: 99999;display:none;">
+    <div id="border_settings_menu" style="position: absolute;top: 37px;left: 400px;z-index: 99999;display:none;">
       <div id="panels" class="collapse-none" style="left: 0px; width: 150px;height: 140px;top: 25px;border-bottom: 1px solid black;">
         <div class="panels-tabs">
           <div class="panels-frame" style="height: 138px;">
