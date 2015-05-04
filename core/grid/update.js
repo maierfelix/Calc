@@ -79,6 +79,21 @@
           CORE.DOM.Output.children[ii].style.color = CORE.Cells.Used[Letter + calculation].Color;
         }
 
+        /** Check if cell has a custom font bold property */
+        if (CORE.Cells.Used[Letter + calculation].FontBold) {
+          CORE.DOM.Output.children[ii].style.fontWeight = "bold";
+        }
+
+        /** Check if cell has a custom font italic property */
+        if (CORE.Cells.Used[Letter + calculation].FontItalic) {
+          CORE.DOM.Output.children[ii].style.fontStyle = "italic";
+        }
+
+        /** Check if cell has a custom background color */
+        if (CORE.Cells.Used[Letter + calculation].BackgroundColor) {
+           CORE.DOM.Output.children[ii].style.background = CORE.Cells.Used[Letter + calculation].BackgroundColor;
+        }
+
         /** Check if cell has custom border settings */
         if (CORE.Cells.Used[Letter + calculation].Border.used) {
           /** Left border */
@@ -105,13 +120,16 @@
 
       /** Hold all other cells without custom thingys fresh & clean */
       } else {
-				CORE.DOM.Output.children[ii].style.border = "";
         CORE.DOM.Output.children[ii].style.borderLeft = "";
         CORE.DOM.Output.children[ii].style.borderRight = "";
         CORE.DOM.Output.children[ii].style.borderTop = "";
         CORE.DOM.Output.children[ii].style.borderBottom = "";
+        CORE.DOM.Output.children[ii].style.border = "";
         CORE.DOM.Output.children[ii].style.fontFamily = "";
         CORE.DOM.Output.children[ii].style.fontSize = 12 + "px";
+        CORE.DOM.Output.children[ii].style.fontStyle = "normal";
+        CORE.DOM.Output.children[ii].style.fontWeight = "normal";
+        CORE.DOM.Output.children[ii].style.background = "#fff";
         CORE.DOM.Output.children[ii].style.color = "#000";
         CORE.DOM.Output.children[ii].innerHTML = "";
       }
@@ -191,6 +209,21 @@
                     CORE.DOM.Output.children[calculation].style.fontSize = CORE.Cells.Used[Letter + calculation].FontSize + "px";
                   }
 
+                  /** Check if cell has a custom font bold property */
+                  if (CORE.Cells.Used[Letter + calculation].FontBold) {
+                    CORE.DOM.Output.children[calculation].style.fontWeight = "bold";
+                  }
+
+                  /** Check if cell has a custom font italic property */
+                  if (CORE.Cells.Used[Letter + calculation].FontItalic) {
+                    CORE.DOM.Output.children[calculation].style.fontStyle = "italic";
+                  }
+
+                  /** Check if cell has a custom background color */
+                  if (CORE.Cells.Used[Letter + calculation].BackgroundColor) {
+                    CORE.DOM.Output.children[calculation].style.background = CORE.Cells.Used[Letter + calculation].BackgroundColor;
+                  }
+
                   /** Check if cell has custom border settings */
                   if (CORE.Cells.Used[Letter + calculation].Border.used) {
                     /** Left border */
@@ -217,13 +250,17 @@
 
                 /** Hold all other cells without custom thingys fresh & clean */
                 } else {
-                  CORE.DOM.Output.children[calculation].style.border = "";
                   CORE.DOM.Output.children[calculation].style.borderLeft = "";
                   CORE.DOM.Output.children[calculation].style.borderRight = "";
                   CORE.DOM.Output.children[calculation].style.borderTop = "";
                   CORE.DOM.Output.children[calculation].style.borderBottom = "";
+                  CORE.DOM.Output.children[calculation].style.border = "";
                   CORE.DOM.Output.children[calculation].style.fontFamily = "";
                   CORE.DOM.Output.children[calculation].style.fontSize = 12 + "px";
+                  CORE.DOM.Output.children[calculation].style.fontStyle = "normal";
+                  CORE.DOM.Output.children[calculation].style.fontWeight = "normal";
+                  CORE.DOM.Output.children[calculation].style.background = "#fff";
+                  CORE.DOM.Output.children[calculation].style.color = "#000";
                   CORE.DOM.Output.children[calculation].innerHTML = "";
                 }
 

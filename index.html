@@ -146,13 +146,13 @@
             <!-- Cell bold -->
             <label style="position: absolute; top: 10px; left: 250px;">
               <button id="change_bold" style="width: 40px; height: 25px;">
-                <span class="close fa fa-bold"></span>
+                <span id="change_bold_preview" class="close fa fa-bold"></span>
               </button>
             </label>
             <!-- Cell italic -->
             <label style="position: absolute; top: 10px; left: 300px;">
               <button id="change_italic" style="width: 40px; height: 25px;">
-                <span class="close fa fa-italic"></span>
+                <span id="change_italic_preview" class="close fa fa-italic"></span>
               </button>
             </label>
             <!-- Font color menu -->
@@ -168,8 +168,11 @@
               </div>
             </label>
             <!-- Cell background color -->
-            <label style="position: absolute; top: 10px; left: 400px;">
+            <label id="change_background" style="position: absolute; top: 10px; left: 400px;">
               <div class="g-input g-cursor-pipette" style="min-width: 40px;min-height: 25px;background: #fff;"></div>
+              <div hide="true" style="display:none;position: absolute;z-index: 9999;">
+                <div id="slide_background"></div>
+              </div>
             </label>
             <!-- Cell border menu -->
             <label hide="true" style="position: absolute; top: 10px; left: 450px;">
@@ -194,10 +197,10 @@
                   <button id="border_left" style="width: 55px; height: 25px; position: absolute; left: 15px; top: 10px;">
                     <span>Left</span>
                   </button>
-                  <button id="border_right" style="width: 55px; height: 25px; position: absolute; left: 15px; top: 40px;">
+                  <button id="border_right" style="width: 55px; height: 25px; position: absolute; left: 75px; top: 10px;">
                     <span>Right</span>
                   </button>
-                  <button id="border_top" style="width: 55px; height: 25px; position: absolute; left: 75px; top: 10px;">
+                  <button id="border_top" style="width: 55px; height: 25px; position: absolute; left: 15px; top: 40px;">
                     <span>Top</span>
                   </button>
                   <button id="border_bottom" style="width: 55px; height: 25px; position: absolute; left: 75px; top: 40px;">

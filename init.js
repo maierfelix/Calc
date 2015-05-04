@@ -15,13 +15,18 @@ Import.scripts = [
   "lib/fastclick.min.js",
   "lib/js2png.js",
   "lib/ajax.min.js",
-	"lib/colorpicker.min.js",
+  "lib/colorpicker.min.js",
   /** Menu */
   "core/ui/main.js",
   "core/ui/menu.js",
   "core/ui/action.js",
   "core/ui/modal.js",
   "core/ui/settings.js",
+  /** Menu cell styling */
+  "core/ui/style/border.js",
+  "core/ui/style/font.js",
+  "core/ui/style/background.js",
+  "core/ui/style/update.js",
   /** Run the core */
   "core/main.js",
   "core/eval.js",

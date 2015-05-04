@@ -101,7 +101,7 @@
     for (var ii = 0; ii < this.SelectedCells.length; ++ii) {
 
       /** Synchronize custom cells with the cell settings menu if 1 cell is selected */
-      if (this.SelectedCells.length === 1) CORE_UI.updateSettingsMenu(this.SelectedCells[ii]);
+      if (this.SelectedCells.length === 1) CORE_UI.updateCellStyleMenu(this.SelectedCells[ii]);
 
       letters = this.SelectedCells[ii].match(CORE.REGEX.numbers).join("");
       numbers = parseInt(this.SelectedCells[ii].match(CORE.REGEX.letters).join(""));

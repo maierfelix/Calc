@@ -31,7 +31,7 @@
         oldNumber = 0,
         oldJumps = 0;
 
-    /** User edit something right now */
+    /** User edits something right now */
     CORE.Input.Mouse.Edit = true;
 
     newJumps = ( ( CORE.$.alphaToNumber(newLetter) - 1 ) * this.Settings.y ) + newNumber - 1;
@@ -62,13 +62,29 @@
 
       /** Cell was successfully registered */
       if (CORE.Cells.Used[newLetter + newNumber]) {
-        /** Cell has a formula */
-        if (CORE.Cells.Used[newLetter + newNumber].Formula && 
-            CORE.Cells.Used[newLetter + newNumber].Formula.length) {
-          /** Cell formula doesnt match with its content (seems like we got a calculation result) */
-          if (CORE.Cells.Used[newLetter + newNumber].Formula !== CORE.Cells.Used[newLetter + newNumber].Content) {
-            /** Disgorge the formula, also trim it */
-            CORE.DOM.Output.children[newJumps].innerHTML = (CORE.Cells.Used[newLetter + newNumber].Formula).trim();
+        /** Cell was successfully registered into the interpreter cell stack */
+        if (CORE.validCell(newLetter + newNumber)) {
+          /** Cell has a formula */
+          if (CORE.Cells.Used[newLetter + newNumber].Formula && 
+              CORE.Cells.Used[newLetter + newNumber].Formula.length) {
+            /** Cell formula doesnt match with its content (seems like we got a calculation result) */
+            if (CORE.Cells.Used[newLetter + newNumber].Formula !== CORE.Cells.Used[newLetter + newNumber].Content) {
+              /** Disgorge the formula, also trim it */
+              CORE.DOM.Output.children[newJumps].innerHTML = (CORE.Cells.Used[newLetter + newNumber].Formula).trim();
+            }
+          }
+        /** Register the cell into the interpreter cell stack */
+        } else {
+          /** Register the cell into the interpreter variable stack */
+          CORE.registerCell(newLetter + newNumber);
+          /** Cell has a formula */
+          if (CORE.Cells.Used[newLetter + newNumber].Formula && 
+              CORE.Cells.Used[newLetter + newNumber].Formula.length) {
+            /** Cell formula doesnt match with its content (seems like we got a calculation result) */
+            if (CORE.Cells.Used[newLetter + newNumber].Formula !== CORE.Cells.Used[newLetter + newNumber].Content) {
+              /** Disgorge the formula, also trim it */
+              CORE.DOM.Output.children[newJumps].innerHTML = (CORE.Cells.Used[newLetter + newNumber].Formula).trim();
+            }
           }
         }
       }

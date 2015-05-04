@@ -143,8 +143,8 @@
 
     });
 
-    /** Initialize settings menu */
-    CORE_UI.initSettingsMenu();
+    /** Initialize cell style menu */
+    CORE_UI.initCellStyleMenu();
 
   };
 

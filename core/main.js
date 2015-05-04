@@ -119,6 +119,18 @@
   /** Select and prepare font color preview container */
   CORE.DOM.ChangeFontColorPreview = document.querySelector("#font_color_preview");
 
+  /** Select and prepare the font bold change container */
+  CORE.DOM.ChangeFontBold = document.querySelector("#change_bold");
+
+  /** Select and prepare the font bold preview container */
+  CORE.DOM.ChangeFontBoldPreview = document.querySelector("#change_bold_preview");
+
+  /** Select and prepare the font italic change container */
+  CORE.DOM.ChangeFontItalic = document.querySelector("#change_italic");
+
+  /** Select and prepare the font italic change container */
+  CORE.DOM.ChangeFontItalicPreview = document.querySelector("#change_italic_preview");
+
   /** Select and prepare border settings container */
   CORE.DOM.ChangeCellBorder = document.querySelector("#change_border");
 
@@ -127,6 +139,9 @@
 
   /** Select and prepare border settings menu items container */
   CORE.DOM.ChangeCellBorderMenuItems = document.querySelector("#border_settings_menu_items");
+
+  /** Select and prepare background cell settings container */
+  CORE.DOM.ChangeCellBackground = document.querySelector("#change_background");
 
   /** Assign it global */
   root.CORE = CORE;

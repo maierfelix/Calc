@@ -73,6 +73,21 @@
   };
 
   /**
+   * Check if a cell was successfully registered into the interpreter cell stack
+   *
+   * @method validCell
+   * @static
+   */
+  CORE.validCell = function() {
+
+    /** Cell is registered */
+    if (ENGEL.STACK.get(arguments[0])) return (true);
+    /** Cell is not registered */
+    return (false);
+
+  };
+
+  /**
    * Update a cell in the stack
    *
    * @method updateCell
