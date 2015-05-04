@@ -41,8 +41,12 @@ Import.scripts = [
   "core/grid/update.js",
   "core/grid/resize.js",
   "core/grid/cell.js",
+  /** Selector */
+  "core/selector/main.js",
+  "core/selector/hover.js",
+  "core/selector/menu.js",
+  "core/selector/select.js",
   /** Helpers */
-  "core/select.js",
   "core/functions.js",
   "core/edit.js",
   "core/file.js",
