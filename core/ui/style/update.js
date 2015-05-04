@@ -42,7 +42,7 @@
         CORE.DOM.ChangeFontColorPreview.style.color = CORE.Cells.Used[cell].Color;
       /** Reset font color menu value to default */
       } else {
-        CORE.DOM.ChangeFontColorPreview.style.color = "#000";
+        CORE.DOM.ChangeFontColorPreview.style.color = "#c7c7c7";
       }
 
       /** Check if cell has font bold */
@@ -79,7 +79,7 @@
       /** Reset font size menu */
       CORE.DOM.ChangeFontSize.value = CORE.DOM.ChangeFontSize.children[6].getAttribute("value");
       /** Reset font color menu */
-      CORE.DOM.ChangeFontColorPreview.style.color = "#000";
+      CORE.DOM.ChangeFontColorPreview.style.color = "#c7c7c7";
       /** Reset font bold menu color to default */
       CORE.DOM.ChangeFontBoldPreview.style.color = "#c7c7c7";
       /** Reset font italic menu color to default */

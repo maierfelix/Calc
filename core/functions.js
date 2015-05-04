@@ -72,8 +72,7 @@
    * @static
    */
   CORE.$.calculateScrollAmount = function() { 
-    //return (Math.floor((Math.pow(CORE.Settings.Height, Math.floor(Math.log(CORE.Settings.Height) / Math.log(CORE.Settings.Height))) / 100)));
-    return 1;
+    return (Math.floor((Math.pow(CORE.Settings.Height, Math.floor(Math.log(CORE.Settings.Height) / Math.log(CORE.Settings.Height))) / 100) / 2));
   };
 
   /**

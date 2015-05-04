@@ -91,7 +91,7 @@
 
         /** Check if cell has a custom background color */
         if (CORE.Cells.Used[Letter + calculation].BackgroundColor) {
-           CORE.DOM.Output.children[ii].style.background = CORE.Cells.Used[Letter + calculation].BackgroundColor;
+          CORE.DOM.Output.children[ii].style.background = CORE.Cells.Used[Letter + calculation].BackgroundColor;
         }
 
         /** Check if cell has custom border settings */
