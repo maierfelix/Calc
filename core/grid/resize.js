@@ -69,8 +69,6 @@
   /**
    * Detect cell column enlargement on vertical numeric row
    *
-   * BUGS: after change height of a cell column, mouse scrolling causes massive bugs
-   *
    * @method resizeVertical
    * @static
    */
@@ -102,6 +100,9 @@
       /** Update all cell rows top position behind the customized cell column with its new height */
       if (Number > kk) {
         totalTopShift += customCell[kk].Height;
+        cellRow.top = (this.cellArray[ii].origTop + totalTopShift) + "px";
+      /** Update all cells before the custimzed cell with its top position */
+      } else if (Number < kk) {
         cellRow.top = (this.cellArray[ii].origTop + totalTopShift) + "px";
       }
 
