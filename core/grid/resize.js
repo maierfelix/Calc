@@ -101,7 +101,7 @@
       if (Number > kk) {
         totalTopShift += customCell[kk].Height;
         cellRow.top = (this.cellArray[ii].origTop + totalTopShift) + "px";
-      /** Update all cells before the custimzed cell with its top position */
+      /** Update all cells before the customized cell with its top position */
       } else if (Number < kk) {
         cellRow.top = (this.cellArray[ii].origTop + totalTopShift) + "px";
       }

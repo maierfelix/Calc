@@ -56,83 +56,13 @@
 
       CORE.DOM.Output.children[ii].setAttribute("name", Letter + calculation);
 
-      /** Check if cell is registered */
+      /** Check if cell is registered, if yes update its styling */
       if (CORE.Cells.Used[Letter + calculation]) {
-
-        /** Check if cell has custom content */
-        if (CORE.Cells.Used[Letter + calculation].Content) {
-          CORE.DOM.Output.children[ii].innerHTML = CORE.Cells.Used[Letter + calculation].Content;
-        }
-
-        /** Check if cell has a custom font */
-        if (CORE.Cells.Used[Letter + calculation].Font) {
-          CORE.DOM.Output.children[ii].style.fontFamily = CORE.Cells.Used[Letter + calculation].Font;
-        }
-
-        /** Check if cell has a custom font size */
-        if (CORE.Cells.Used[Letter + calculation].FontSize) {
-          CORE.DOM.Output.children[ii].style.fontSize = CORE.Cells.Used[Letter + calculation].FontSize + "px";
-        }
-
-        /** Check if cell has a custom font color */
-        if (CORE.Cells.Used[Letter + calculation].Color) {
-          CORE.DOM.Output.children[ii].style.color = CORE.Cells.Used[Letter + calculation].Color;
-        }
-
-        /** Check if cell has a custom font bold property */
-        if (CORE.Cells.Used[Letter + calculation].FontBold) {
-          CORE.DOM.Output.children[ii].style.fontWeight = "bold";
-        }
-
-        /** Check if cell has a custom font italic property */
-        if (CORE.Cells.Used[Letter + calculation].FontItalic) {
-          CORE.DOM.Output.children[ii].style.fontStyle = "italic";
-        }
-
-        /** Check if cell has a custom background color */
-        if (CORE.Cells.Used[Letter + calculation].BackgroundColor) {
-          CORE.DOM.Output.children[ii].style.background = CORE.Cells.Used[Letter + calculation].BackgroundColor;
-        }
-
-        /** Check if cell has custom border settings */
-        if (CORE.Cells.Used[Letter + calculation].Border.used) {
-          /** Left border */
-          if (CORE.Cells.Used[Letter + calculation].Border.left) {
-             CORE.DOM.Output.children[ii].style.borderLeft = "2px solid black";
-          }
-          /** Right border */
-          if (CORE.Cells.Used[Letter + calculation].Border.right) {
-            CORE.DOM.Output.children[ii].style.borderRight = "2px solid black";
-          }
-          /** Top border */
-          if (CORE.Cells.Used[Letter + calculation].Border.top) {
-            CORE.DOM.Output.children[ii].style.borderTop = "2px solid black";
-          }
-          /** Bottom border */
-          if (CORE.Cells.Used[Letter + calculation].Border.bottom) {
-            CORE.DOM.Output.children[ii].style.borderBottom = "2px solid black";
-          }
-          /** Full border */
-          if (CORE.Cells.Used[Letter + calculation].Border.full) {
-            CORE.DOM.Output.children[ii].style.border = "2px solid black";
-          }
-        }
-
-      /** Hold all other cells without custom thingys fresh & clean */
-      } else {
-        CORE.DOM.Output.children[ii].style.borderLeft = "";
-        CORE.DOM.Output.children[ii].style.borderRight = "";
-        CORE.DOM.Output.children[ii].style.borderTop = "";
-        CORE.DOM.Output.children[ii].style.borderBottom = "";
-        CORE.DOM.Output.children[ii].style.border = "";
-        CORE.DOM.Output.children[ii].style.fontFamily = "";
-        CORE.DOM.Output.children[ii].style.fontSize = 12 + "px";
-        CORE.DOM.Output.children[ii].style.fontStyle = "normal";
-        CORE.DOM.Output.children[ii].style.fontWeight = "normal";
-        CORE.DOM.Output.children[ii].style.background = "#fff";
-        CORE.DOM.Output.children[ii].style.color = "#000";
-        CORE.DOM.Output.children[ii].innerHTML = "";
+        this.removeCellStyling(ii);
+        this.updateCellStyling(Letter + calculation, ii);
       }
+      /** Remove style of cell */
+      else this.removeCellStyling(ii);
 
       this.resizeHorizontal(Letter, ii);
       this.resizeVertical(calculation, ii);
@@ -191,78 +121,13 @@
 
                 CORE.DOM.Output.children[calculation].setAttribute("name", Letter + calculation);
 
-                /** Check if cell is registered */
+                /** Check if cell is registered, if yes update its styling */
                 if (CORE.Cells.Used[Letter + calculation]) {
-
-                  /** Check if cell has custom content */
-                  if (CORE.Cells.Used[Letter + calculation].Content) {
-                    CORE.DOM.Output.children[calculation].innerHTML = CORE.Cells.Used[Letter + calculation].Content;
-                  }
-
-                  /** Check if cell has a custom font */
-                  if (CORE.Cells.Used[Letter + calculation].Font) {
-                    CORE.DOM.Output.children[calculation].style.fontFamily = CORE.Cells.Used[Letter + calculation].Font;
-                  }
-
-                  /** Check if cell has a custom font size */
-                  if (CORE.Cells.Used[Letter + calculation].FontSize) {
-                    CORE.DOM.Output.children[calculation].style.fontSize = CORE.Cells.Used[Letter + calculation].FontSize + "px";
-                  }
-
-                  /** Check if cell has a custom font bold property */
-                  if (CORE.Cells.Used[Letter + calculation].FontBold) {
-                    CORE.DOM.Output.children[calculation].style.fontWeight = "bold";
-                  }
-
-                  /** Check if cell has a custom font italic property */
-                  if (CORE.Cells.Used[Letter + calculation].FontItalic) {
-                    CORE.DOM.Output.children[calculation].style.fontStyle = "italic";
-                  }
-
-                  /** Check if cell has a custom background color */
-                  if (CORE.Cells.Used[Letter + calculation].BackgroundColor) {
-                    CORE.DOM.Output.children[calculation].style.background = CORE.Cells.Used[Letter + calculation].BackgroundColor;
-                  }
-
-                  /** Check if cell has custom border settings */
-                  if (CORE.Cells.Used[Letter + calculation].Border.used) {
-                    /** Left border */
-                    if (CORE.Cells.Used[Letter + calculation].Border.left) {
-                      CORE.DOM.Output.children[calculation].style.borderLeft = "2px solid black";
-                    }
-                    /** Right border */
-                    if (CORE.Cells.Used[Letter + calculation].Border.right) {
-                      CORE.DOM.Output.children[calculation].style.borderRight = "2px solid black";
-                    }
-                    /** Top border */
-                    if (CORE.Cells.Used[Letter + calculation].Border.top) {
-                      CORE.DOM.Output.children[calculation].style.borderTop = "2px solid black";
-                    }
-                    /** Bottom border */
-                    if (CORE.Cells.Used[Letter + calculation].Border.bottom) {
-                      CORE.DOM.Output.children[calculation].style.borderBottom = "2px solid black";
-                    }
-                    /** Full border */
-                    if (CORE.Cells.Used[Letter + calculation].Border.full) {
-                      CORE.DOM.Output.children[calculation].style.border = "2px solid black";
-                    }
-                  }
-
-                /** Hold all other cells without custom thingys fresh & clean */
-                } else {
-                  CORE.DOM.Output.children[calculation].style.borderLeft = "";
-                  CORE.DOM.Output.children[calculation].style.borderRight = "";
-                  CORE.DOM.Output.children[calculation].style.borderTop = "";
-                  CORE.DOM.Output.children[calculation].style.borderBottom = "";
-                  CORE.DOM.Output.children[calculation].style.border = "";
-                  CORE.DOM.Output.children[calculation].style.fontFamily = "";
-                  CORE.DOM.Output.children[calculation].style.fontSize = 12 + "px";
-                  CORE.DOM.Output.children[calculation].style.fontStyle = "normal";
-                  CORE.DOM.Output.children[calculation].style.fontWeight = "normal";
-                  CORE.DOM.Output.children[calculation].style.background = "#fff";
-                  CORE.DOM.Output.children[calculation].style.color = "#000";
-                  CORE.DOM.Output.children[calculation].innerHTML = "";
+                  this.removeCellStyling(calculation);
+                  this.updateCellStyling(Letter + calculation, calculation);
                 }
+                /** Remove style of cell */
+                else this.removeCellStyling(calculation);
 
               }
             }
@@ -290,6 +155,98 @@
     }
 
     this.updateHeight("default", CORE.Settings.Scroll.Vertical);
+
+  };
+
+  /**
+   * Update specific cell with a custom styling
+   *
+   * @method updateCellStyling
+   * @static
+   */
+  CORE.Grid.prototype.updateCellStyling = function(name, ii) {
+
+    /** Check if cell has custom content */
+    if (CORE.Cells.Used[name].Content) {
+      CORE.DOM.Output.children[ii].innerHTML = CORE.Cells.Used[name].Content;
+    }
+
+    /** Check if cell has a custom font */
+    if (CORE.Cells.Used[name].Font) {
+      CORE.DOM.Output.children[ii].style.fontFamily = CORE.Cells.Used[name].Font;
+    }
+
+    /** Check if cell has a custom font size */
+    if (CORE.Cells.Used[name].FontSize) {
+      CORE.DOM.Output.children[ii].style.fontSize = CORE.Cells.Used[name].FontSize + "px";
+    }
+
+    /** Check if cell has a custom font color */
+    if (CORE.Cells.Used[name].Color) {
+      CORE.DOM.Output.children[ii].style.color = CORE.Cells.Used[name].Color;
+    }
+
+    /** Check if cell has a custom font bold property */
+    if (CORE.Cells.Used[name].FontBold) {
+      CORE.DOM.Output.children[ii].style.fontWeight = "bold";
+    }
+
+    /** Check if cell has a custom font italic property */
+    if (CORE.Cells.Used[name].FontItalic) {
+      CORE.DOM.Output.children[ii].style.fontStyle = "italic";
+    }
+
+    /** Check if cell has a custom background color */
+    if (CORE.Cells.Used[name].BackgroundColor) {
+      CORE.DOM.Output.children[ii].style.background = CORE.Cells.Used[name].BackgroundColor;
+    }
+
+    /** Check if cell has custom border settings */
+    if (CORE.Cells.Used[name].Border.used) {
+      /** Left border */
+      if (CORE.Cells.Used[name].Border.left) {
+        CORE.DOM.Output.children[ii].style.borderLeft = "2px solid black";
+      }
+      /** Right border */
+      if (CORE.Cells.Used[name].Border.right) {
+        CORE.DOM.Output.children[ii].style.borderRight = "2px solid black";
+      }
+      /** Top border */
+      if (CORE.Cells.Used[name].Border.top) {
+        CORE.DOM.Output.children[ii].style.borderTop = "2px solid black";
+      }
+      /** Bottom border */
+      if (CORE.Cells.Used[name].Border.bottom) {
+        CORE.DOM.Output.children[ii].style.borderBottom = "2px solid black";
+      }
+      /** Full border */
+      if (CORE.Cells.Used[name].Border.full) {
+        CORE.DOM.Output.children[ii].style.border = "2px solid black";
+      }
+    }
+
+  };
+
+  /**
+   * Remove specific cell styling
+   *
+   * @method removeCellStyling
+   * @static
+   */
+  CORE.Grid.prototype.removeCellStyling = function(ii) {
+
+    CORE.DOM.Output.children[ii].style.borderLeft = "";
+    CORE.DOM.Output.children[ii].style.borderRight = "";
+    CORE.DOM.Output.children[ii].style.borderTop = "";
+    CORE.DOM.Output.children[ii].style.borderBottom = "";
+    CORE.DOM.Output.children[ii].style.border = "";
+    CORE.DOM.Output.children[ii].style.fontFamily = "";
+    CORE.DOM.Output.children[ii].style.fontSize = 12 + "px";
+    CORE.DOM.Output.children[ii].style.fontStyle = "normal";
+    CORE.DOM.Output.children[ii].style.fontWeight = "normal";
+    CORE.DOM.Output.children[ii].style.background = "#fff";
+    CORE.DOM.Output.children[ii].style.color = "#000";
+    CORE.DOM.Output.children[ii].innerHTML = "";
 
   };
 
