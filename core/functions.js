@@ -163,10 +163,27 @@
 
     var letter = name.match(CORE.REGEX.numbers).join(""),
         number = parseInt(name.match(CORE.REGEX.letters).join("")),
-        jumps = ( ( CORE.$.alphaToNumber(letter) - 1 ) * CORE.Grid.Settings.y ) + number - 1;
+        jumps = ((CORE.Grid.Settings.y * (CORE.$.alphaToNumber(letter) - 1) ) + number - 1 - CORE.Grid.Settings.scrolledY) - (CORE.Grid.Settings.y * CORE.Grid.Settings.scrolledX);
 
     if (CORE.DOM.Output.children[jumps]) return (jumps);
     else return void 0;
+
+  };
+
+  /**
+   * Check if a cell is in view
+   *
+   * @method cellInView
+   * @static
+   */
+  CORE.$.cellInView = function(name) {
+
+    var letter = name.match(CORE.REGEX.numbers).join(""),
+        number = parseInt(name.match(CORE.REGEX.letters).join("")),
+        jumps = ((CORE.Grid.Settings.y * (CORE.$.alphaToNumber(letter) - 1) ) + number - 1 - CORE.Grid.Settings.scrolledY) - (CORE.Grid.Settings.y * CORE.Grid.Settings.scrolledX);
+
+    if (isNaN(jumps % CORE.Grid.Settings.scrolledY) && jumps % CORE.Grid.Settings.scrolledY >= 0) return (true);
+    return (false);
 
   };
 
@@ -180,7 +197,7 @@
 
     var letter = name.match(CORE.REGEX.numbers).join(""),
         number = parseInt(name.match(CORE.REGEX.letters).join("")),
-        jumps = ( ( CORE.$.alphaToNumber(letter) - 1 ) * CORE.Grid.Settings.y ) + number - 1;
+        jumps = ((CORE.Grid.Settings.y * (CORE.$.alphaToNumber(letter) - 1) ) + number - 1 - CORE.Grid.Settings.scrolledY) - (CORE.Grid.Settings.y * CORE.Grid.Settings.scrolledX);
 
     /** Found the cell, replace its content */
     if (CORE.DOM.Output.children[jumps]) {

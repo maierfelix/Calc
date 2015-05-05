@@ -34,14 +34,14 @@
     /** User edits something right now */
     CORE.Input.Mouse.Edit = true;
 
-    newJumps = ( ( CORE.$.alphaToNumber(newLetter) - 1 ) * this.Settings.y ) + newNumber - 1;
+    newJumps = ((this.Settings.y * (CORE.$.alphaToNumber(newLetter) - 1) ) + newNumber - 1 - this.Settings.scrolledY) - (this.Settings.y * this.Settings.scrolledX);
 
     /** Clean old edited cell border */
     if (CORE.Cells.Edit) {
 
       oldLetter = CORE.Cells.Edit.match(CORE.REGEX.numbers).join("");
       oldNumber = parseInt(CORE.Cells.Edit.match(CORE.REGEX.letters).join(""));
-      oldJumps = ( ( CORE.$.alphaToNumber(oldLetter) - 1 ) * this.Settings.y ) + oldNumber - 1;
+      oldJumps = ((this.Settings.y * (CORE.$.alphaToNumber(oldLetter) - 1) ) + oldNumber - 1 - this.Settings.scrolledY) - (this.Settings.y * this.Settings.scrolledX);
 
       if (CORE.DOM.Output.children[oldJumps]) {
         CORE.DOM.Output.children[oldJumps].classList.remove("cell_edit");
@@ -70,7 +70,7 @@
             /** Cell formula doesnt match with its content (seems like we got a calculation result) */
             if (CORE.Cells.Used[newLetter + newNumber].Formula !== CORE.Cells.Used[newLetter + newNumber].Content) {
               /** Disgorge the formula, also trim it */
-              CORE.DOM.Output.children[newJumps].innerHTML = (CORE.Cells.Used[newLetter + newNumber].Formula).trim();
+              CORE.DOM.Output.children[newJumps].innerHTML = CORE.Cells.Used[newLetter + newNumber].Formula;
             }
           }
         /** Register the cell into the interpreter cell stack */
@@ -83,7 +83,7 @@
             /** Cell formula doesnt match with its content (seems like we got a calculation result) */
             if (CORE.Cells.Used[newLetter + newNumber].Formula !== CORE.Cells.Used[newLetter + newNumber].Content) {
               /** Disgorge the formula, also trim it */
-              CORE.DOM.Output.children[newJumps].innerHTML = (CORE.Cells.Used[newLetter + newNumber].Formula).trim();
+              CORE.DOM.Output.children[newJumps].innerHTML = CORE.Cells.Used[newLetter + newNumber].Formula;
             }
           }
         }
@@ -98,7 +98,7 @@
     CORE.Selector.deleteCellHoverEffect();
 
     /** Update selection menu */
-    CORE.Selector.menuSelection((CORE.$.alphaToNumber(newLetter) - 1), (newNumber - 1));
+    CORE.Selector.menuSelection( (CORE.$.alphaToNumber(newLetter) - 1), (newNumber - 1));
 
   };
 
@@ -114,11 +114,7 @@
 
       var letter = CORE.Cells.Edit.match(CORE.REGEX.numbers).join(""),
           number = parseInt(CORE.Cells.Edit.match(CORE.REGEX.letters).join("")),
-          jumps = ( ( CORE.$.alphaToNumber(letter) - 1 ) * this.Settings.y ) + number - 1;
-
-      if (CORE.DOM.Output.children[jumps]) {
-        CORE.DOM.Output.children[jumps].classList.remove("cell_edit");
-      }
+          jumps = ((this.Settings.y * (CORE.$.alphaToNumber(letter) - 1) ) + number - 1 - this.Settings.scrolledY) - (this.Settings.y * this.Settings.scrolledX);
 
       /** Cell was successfully registered */
       if (CORE.Cells.Used[letter + number]) {

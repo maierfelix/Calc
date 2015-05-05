@@ -20,6 +20,7 @@
    */
   CORE.Selector.prototype.menuSelection = function(x, y) {
 
+    x -= CORE.Grid.Settings.scrolledX;
     y -= CORE.Grid.Settings.scrolledY;
 
     /** Clean the menu */
@@ -37,7 +38,7 @@
     this.MenuSelection.Horizontal = x;
     this.MenuSelection.Vertical = y;
 
-    if (CORE.DOM.HorizontalMenu.children[x] && CORE.DOM.HorizontalMenu.children[y]) {
+    if (CORE.DOM.HorizontalMenu.children[x] && CORE.DOM.VerticalMenu.children[y]) {
 
       CORE.DOM.HorizontalMenu.children[x].classList.add("cell_bright");
       CORE.DOM.HorizontalMenu.children[x].classList.remove("cell_dark");

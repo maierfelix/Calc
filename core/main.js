@@ -17,6 +17,9 @@
   /** Static Namespace Class */
   var CORE = CORE || {};
 
+  /** NovaeCalc Version */
+  CORE.Version = "0.2";
+
   /** Create DOM Object */
   CORE.DOM = {};
 

@@ -34,15 +34,13 @@
       letters = this.SelectedCells[ii].match(CORE.REGEX.numbers).join("");
       numbers = parseInt(this.SelectedCells[ii].match(CORE.REGEX.letters).join(""));
 
-      if (numbers >= CORE.Grid.Settings.scrolledY) {
+      jumps = ((CORE.Grid.Settings.y * (CORE.$.alphaToNumber(letters) - 1) ) + numbers - 1 - CORE.Grid.Settings.scrolledY) - (CORE.Grid.Settings.y * CORE.Grid.Settings.scrolledX);
 
-      jumps = ( ( CORE.$.alphaToNumber(letters) - 1 ) * CORE.Grid.Settings.y ) + numbers - 1;
-
-      if (CORE.DOM.Output.children[jumps - CORE.Grid.Settings.scrolledY]) CORE.DOM.Output.children[jumps - CORE.Grid.Settings.scrolledY].classList.add(style);
+      if (CORE.DOM.Output.children[jumps]) {
+        CORE.DOM.Output.children[jumps].classList.add(style);
+      }
 
       CORE.DOM.DebugContainer.innerHTML += this.SelectedCells[ii] + ", ";
-
-      }
 
     }
 
@@ -70,16 +68,11 @@
       letters = this.SelectedCells[ii].match(CORE.REGEX.numbers).join("");
       numbers = parseInt(this.SelectedCells[ii].match(CORE.REGEX.letters).join(""));
 
-      jumps = ( ( CORE.$.alphaToNumber(letters) - 1 ) * CORE.Grid.Settings.y ) + numbers - 1;
+      jumps = ((CORE.Grid.Settings.y * (CORE.$.alphaToNumber(letters) - 1) ) + numbers - 1 - CORE.Grid.Settings.scrolledY) - (CORE.Grid.Settings.y * CORE.Grid.Settings.scrolledX);
 
-      CORE.DOM.Output.children[jumps - CORE.Grid.Settings.scrolledY].classList.remove(style);
-      CORE.DOM.Output.children[jumps + CORE.Grid.Settings.scrolledY].classList.remove(style);
-
-      CORE.DOM.Output.children[jumps - CORE.Grid.Settings.scrolledY + 1].classList.remove(style);
-      CORE.DOM.Output.children[jumps + CORE.Grid.Settings.scrolledY + 1].classList.remove(style);
-
-      CORE.DOM.Output.children[jumps - CORE.Grid.Settings.scrolledY - 1].classList.remove(style);
-      CORE.DOM.Output.children[jumps + CORE.Grid.Settings.scrolledY - 1].classList.remove(style);
+      if (CORE.DOM.Output.children[jumps]) {
+        CORE.DOM.Output.children[jumps].classList.remove(style);
+      }
 
     }
 

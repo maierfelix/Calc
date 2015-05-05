@@ -26,12 +26,14 @@
         if (CORE.Event.inEditMode()) return void 0;
         if ( (CORE.Grid.Settings.scrolledY - 1) <= 0) {
           CORE.Grid.Settings.scrolledY = 0;
+          CORE.Grid.Settings.lastScrollY = 1;
           CORE.Grid.updateHeight("default", 1);
           CORE.Grid.generateMenu();
           CORE.Selector.getSelection();
         }
         else if ( (CORE.Grid.Settings.scrolledY - 1) >= 0) {
           CORE.Grid.Settings.scrolledY -= 1;
+          CORE.Grid.Settings.lastScrollY = 1;
           CORE.Grid.updateHeight("up", 1);
           CORE.Grid.generateMenu();
           CORE.Selector.getSelection();
@@ -42,6 +44,7 @@
         /** Dont allow scrolling if user edits a cell */
         if (CORE.Event.inEditMode()) return void 0;
         CORE.Grid.Settings.scrolledY += 1;
+        CORE.Grid.Settings.lastScrollY = 1;
         CORE.Grid.updateHeight("down", 1);
         CORE.Grid.generateMenu();
         CORE.Selector.getSelection();
@@ -52,12 +55,14 @@
         if (CORE.Event.inEditMode()) return void 0;
         if (CORE.Grid.Settings.scrolledX - CORE.Settings.Scroll.Horizontal <= 0) {
           CORE.Grid.Settings.scrolledX = 0;
+          CORE.Grid.Settings.lastScrollX = 0;
           CORE.Grid.updateWidth("default");
           CORE.Grid.generateMenu();
           CORE.Selector.getSelection();
         }
         else if (CORE.Grid.Settings.scrolledX - CORE.Settings.Scroll.Horizontal >= 0) {
           CORE.Grid.Settings.scrolledX -= CORE.Settings.Scroll.Horizontal;
+          CORE.Grid.Settings.lastScrollX = CORE.Settings.Scroll.Horizontal;
           CORE.Grid.updateWidth("left");
           CORE.Grid.generateMenu();
           CORE.Selector.getSelection();
@@ -68,6 +73,7 @@
         /** Dont allow scrolling if user edits a cell */
         if (CORE.Event.inEditMode()) return void 0;
         CORE.Grid.Settings.scrolledX += CORE.Settings.Scroll.Horizontal;
+        CORE.Grid.Settings.lastScrollX = CORE.Settings.Scroll.Horizontal;
         CORE.Grid.updateWidth("right");
         CORE.Grid.generateMenu();
         CORE.Selector.getSelection();

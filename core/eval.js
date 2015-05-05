@@ -42,10 +42,13 @@
       for (var ii = 0; ii < formulas.length; ++ii) {
         /** Receive the result */
         result = ENGEL.interpret(formulas[ii].value).VAR[formulas[ii].name].value.value;
-        /** Display the result */
-        CORE.DOM.Output.children[CORE.$.getCell(formulas[ii].name)].innerHTML = result;
         /** Update used cell stack content */
         CORE.Cells.Used[formulas[ii].name].Content = result;
+        /** Check if cell is in view */
+        if (CORE.$.cellInView(formulas[ii].name)) { console.log(formulas[ii].name);
+          /** Display the result, if cell is in view */
+          CORE.DOM.Output.children[CORE.$.getCell(formulas[ii].name)].innerHTML = result;
+        }
       }
     }
 

@@ -27,7 +27,9 @@
       scrolledX: 0,
       scrolledY: 0,
       cellResizedX: 0,
-      cellResizedY: 0
+      cellResizedY: 0,
+      lastScrollX: 0,
+      lastScrollY: 0
     };
 
     /** Define Cell sizes */
@@ -104,7 +106,7 @@
 
     /** - to + conversion */
     this.Settings.x = ( ~ this.Settings.x + 1 ) - 1;
-    this.Settings.y = ( ~ this.Settings.y + 1 ) - 3;
+    this.Settings.y = ( ~ this.Settings.y + 1 ) - 4;
 
   };
 
