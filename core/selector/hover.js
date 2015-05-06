@@ -20,8 +20,8 @@
    */
   CORE.Selector.prototype.addCellHoverEffect = function() {
 
-    var letters = null,
-        numbers = 0,
+    var letter = null,
+        number = 0,
         jumps = 0,
         style = this.SelectedCells.length <= 1 ? "single_row_hovered" : "row_hovered";
 
@@ -31,10 +31,10 @@
       /** Synchronize custom cells with the cell settings menu if 1 cell is selected */
       if (this.SelectedCells.length === 1) CORE_UI.updateCellStyleMenu(this.SelectedCells[ii]);
 
-      letters = this.SelectedCells[ii].match(CORE.REGEX.numbers).join("");
-      numbers = parseInt(this.SelectedCells[ii].match(CORE.REGEX.letters).join(""));
+      letter = this.SelectedCells[ii].match(CORE.REGEX.numbers).join("");
+      number = parseInt(this.SelectedCells[ii].match(CORE.REGEX.letters).join(""));
 
-      jumps = ((CORE.Grid.Settings.y * (CORE.$.alphaToNumber(letters) - 1) ) + numbers - 1 - CORE.Grid.Settings.scrolledY) - (CORE.Grid.Settings.y * CORE.Grid.Settings.scrolledX);
+      jumps = ((CORE.Grid.Settings.y * (CORE.$.alphaToNumber(letter) - 1) ) + number - 1 - CORE.Grid.Settings.scrolledY) - (CORE.Grid.Settings.y * CORE.Grid.Settings.scrolledX);
 
       if (CORE.DOM.Output.children[jumps]) {
         CORE.DOM.Output.children[jumps].classList.add(style);
@@ -57,18 +57,23 @@
     /** No cells found */
     if (!this.SelectedCells.length) return void 0;
 
-    var letters = null,
-        numbers = 0,
+    var letter = null,
+        number = 0,
         jumps = 0,
         style = this.SelectedCells.length <= 1 ? "single_row_hovered" : "row_hovered";
 
     /** Delete hover effect for all selected cells */
     for (var ii = 0; ii < this.SelectedCells.length; ++ii) {
 
-      letters = this.SelectedCells[ii].match(CORE.REGEX.numbers).join("");
-      numbers = parseInt(this.SelectedCells[ii].match(CORE.REGEX.letters).join(""));
+      letter = this.SelectedCells[ii].match(CORE.REGEX.numbers).join("");
+      number = parseInt(this.SelectedCells[ii].match(CORE.REGEX.letters).join(""));
 
-      jumps = ((CORE.Grid.Settings.y * (CORE.$.alphaToNumber(letters) - 1) ) + numbers - 1 - CORE.Grid.Settings.scrolledY) - (CORE.Grid.Settings.y * CORE.Grid.Settings.scrolledX);
+      jumps = ((CORE.Grid.Settings.y * (CORE.$.alphaToNumber(letter) - 1) ) + number - 1 - CORE.Grid.Settings.scrolledY) - (CORE.Grid.Settings.y * CORE.Grid.Settings.scrolledX);
+
+			//console.log(CORE.$.alphaToNumber(letter), jumps, jumps % CORE.$.alphaToNumber(letter), CORE.Grid.Settings.lastScrollY, CORE.Grid.Settings.scrolledY);
+
+			/** Algorithm to detect if thingy is in correct cell row */
+			//console.log( (jumps +  CORE.Grid.Settings.scrolledY), (jumps +  CORE.Grid.Settings.scrolledY % CORE.Grid.Settings.y), CORE.Grid.Settings.lastScrollY);
 
       if (CORE.DOM.Output.children[jumps]) {
         CORE.DOM.Output.children[jumps].classList.remove(style);

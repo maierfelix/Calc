@@ -25,9 +25,7 @@
       /** User edits a valid cell */
       if (CORE.Cells.Edit) {
         /** Check if edited cell got successfully registered inside the cell edit stack */
-        if (CORE.Cells.Used[CORE.Cells.Edit]) {
-          return (true);
-        }
+        if (CORE.Cells.Used[CORE.Cells.Edit]) return (true);
       }
     }
 

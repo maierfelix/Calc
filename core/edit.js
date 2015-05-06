@@ -116,6 +116,16 @@
           number = parseInt(CORE.Cells.Edit.match(CORE.REGEX.letters).join("")),
           jumps = ((this.Settings.y * (CORE.$.alphaToNumber(letter) - 1) ) + number - 1 - this.Settings.scrolledY) - (this.Settings.y * this.Settings.scrolledX);
 
+			if (CORE.DOM.Output.children[jumps]) {
+        CORE.DOM.Output.children[jumps].classList.remove("cell_edit");
+      }
+			if (CORE.DOM.Output.children[jumps + CORE.Grid.Settings.lastScrollY]) {
+        CORE.DOM.Output.children[jumps + CORE.Grid.Settings.lastScrollY].classList.remove("cell_edit");
+      }
+			if (CORE.DOM.Output.children[jumps - CORE.Grid.Settings.lastScrollY]) {
+        CORE.DOM.Output.children[jumps - CORE.Grid.Settings.lastScrollY].classList.remove("cell_edit");
+      }
+
       /** Cell was successfully registered */
       if (CORE.Cells.Used[letter + number]) {
         /** Cell has a formula */

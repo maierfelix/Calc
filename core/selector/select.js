@@ -149,9 +149,6 @@
       }
     }
 
-    /** Delete selection effect of all last selected cells */ 
-    this.deleteCellHoverEffect();
-
     /** Add selection effect to all selected cells */
     this.addCellHoverEffect();
 

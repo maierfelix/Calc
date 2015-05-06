@@ -66,7 +66,7 @@
     /** Valid cell ? */
     if (e.target.parentNode.id === CORE.DOM.Output.id) {
 
-      /** Make sure the first property gets updated a maximum of 1 time per wipe */
+      /** Make sure the first property gets updated a maximum of 1 time per click */
       if (!CORE.Cells.Selected.First) {
         CORE.Cells.Selected.First = e.target.getAttribute("name");
         CORE.Cells.Selected.Last = CORE.Cells.Selected.First;
@@ -83,9 +83,27 @@
           CORE.Grid.cleanEditSelection();
         }
 
+        /** User edits a cell and clicked on another cell which was also edited */
+        if ( CORE.Input.Mouse.Edit &&
+             CORE.Cells.Edit !== CORE.Cells.Selected.First ||
+             CORE.Cells.Edit !== CORE.Cells.Selected.Last  && 
+             CORE.Cells.Selected.First === CORE.Cells.Selected.Last) {
+          CORE.Grid.cleanEditSelection();
+        }
+
       }
+
     /** User selected another cell, delete edited cell */
-    } else if (CORE.Input.Mouse.Edit) CORE.Grid.cleanEditSelection();
+    } else if (CORE.Input.Mouse.Edit) {
+      /** User clicked inside the cell grid */
+      if (e.target.parentNode.id === CORE.DOM.Output.id) {
+        CORE.Grid.cleanEditSelection();
+      /** User chose the dark space */
+      } else {
+        CORE.Selector.getSelection();
+        CORE.Grid.getEditSelection(CORE.Cells.Edit);
+      }
+    }
 
     this.lastMouseDown = e.timeStamp;
 
@@ -114,6 +132,8 @@
   /**
    * Listen for mouse wipe
    *
+   * TODO: Wipe on edited cells!
+   *
    * @method mouseWipe
    * @static
    */
@@ -137,8 +157,16 @@
 
         /** Two selected cell coordinates */
         if (CORE.Cells.Selected.First && CORE.Cells.Selected.Last) {
-          /** The result */
+          /** Cell was never edited */
           if (!CORE.Cells.Used[CORE.Cells.Selected.First]) CORE.Selector.getSelection();
+          /** Cell is in edited state */
+          else {
+            /** Dont allow hover selection of the currently edited cell */
+            if (CORE.Cells.Edit !== CORE.Cells.Selected.First && 
+                CORE.Cells.Edit !== CORE.Cells.Selected.Last) {
+              CORE.Selector.getSelection();
+            }
+          }
         }
 
         /** Clean edited cells only if the current selected cell isn't edited */
