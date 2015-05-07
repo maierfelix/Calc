@@ -88,6 +88,7 @@
              CORE.Cells.Edit !== CORE.Cells.Selected.First ||
              CORE.Cells.Edit !== CORE.Cells.Selected.Last  && 
              CORE.Cells.Selected.First === CORE.Cells.Selected.Last) {
+          CORE.eval();
           CORE.Grid.cleanEditSelection();
         }
 

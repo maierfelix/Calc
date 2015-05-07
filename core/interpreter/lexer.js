@@ -116,6 +116,11 @@
             match[0] = match[0].slice(0, -1);
           }
 
+          /** Turn variables uppercase */
+          if (this.KeyWords[ii].name === "LX_VAR") { 
+            match[0] = (match[0]).toUpperCase();
+          }
+
           this.TOKENS.push({
             type:  this.KeyWords[ii].name,
             value: match[0].trim()
