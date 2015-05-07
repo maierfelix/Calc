@@ -53,6 +53,9 @@
     /** Begin the magic */
     CORE.Event.resize();
 
+    /** Select major first cell in the grid */
+    CORE.Selector.selectFirstCell();
+
   };
 
   /**
