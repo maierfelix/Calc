@@ -84,14 +84,14 @@ body {
   color: #fff !important;
   background: #5a6676 !important;
   border: solid 1px #000 !important;
-  font: 12px "Roboto",sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 .cell_bright {
   color: #FFC400 !important;
   background: #69788c !important;
   border: solid 1px #8699b3 !important;
-  font: 12px "Roboto",sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 .cell_dark:hover {
@@ -125,8 +125,8 @@ body {
 }
 
 .row_hovered {
-  background: #E1F5FE;
-  color: #000;
+  background: #E1F5FE !important;
+  color: #000 !important;
 }
 
 .single_row_hovered {
