@@ -160,4 +160,40 @@
 
   };
 
+  /**
+   * Select the first cell (x: 0, y: 0)
+   *
+   * @method selectFirstCell
+   * @static
+   */
+  CORE.Selector.prototype.selectFirstCell = function() {
+
+    CORE.Cells.Selected.First = "A1";
+
+    CORE.Cells.Selected.Last = "A1";
+
+    CORE.Cells.Select = "A1";
+
+    this.getSelection();
+
+  };
+
+  /**
+   * Select a specific cell
+   *
+   * @method selectCell
+   * @static
+   */
+  CORE.Selector.prototype.selectCell = function(name) {
+
+    CORE.Cells.Selected.First = name;
+
+    CORE.Cells.Selected.Last = name;
+
+    CORE.Cells.Select = name;
+
+    this.getSelection();
+
+  };
+
 }).call(this);
