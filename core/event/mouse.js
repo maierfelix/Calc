@@ -132,7 +132,7 @@
   /**
    * Listen for mouse wipe
    *
-   * TODO: Wipe on edited cells!
+   * TODO: Start wipe on edited cells!
    *
    * @method mouseWipe
    * @static
@@ -161,11 +161,8 @@
           if (!CORE.Cells.Used[CORE.Cells.Selected.First]) CORE.Selector.getSelection();
           /** Cell is in edited state */
           else {
-            /** Dont allow hover selection of the currently edited cell */
-            if (CORE.Cells.Edit !== CORE.Cells.Selected.First && 
-                CORE.Cells.Edit !== CORE.Cells.Selected.Last) {
-              CORE.Selector.getSelection();
-            }
+            CORE.Grid.cleanEditSelection();
+            CORE.Selector.getSelection();
           }
         }
 
