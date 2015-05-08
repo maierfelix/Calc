@@ -43,6 +43,9 @@
     /** Array of all processed and selected cells */
     this.SelectedCells = [];
 
+    /** Parent cell, can only be changed by mouse or selectCell function */
+    this.parentSelectedCell = null;
+
   };
 
   CORE.Selector.prototype = CORE.Selector;

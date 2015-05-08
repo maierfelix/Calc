@@ -24,10 +24,16 @@
     this.Settings = {
       x: 0,
       y: 0,
+      /** Mouse scrolled amount */
       scrolledX: 0,
       scrolledY: 0,
+      /** Key scrolled amount */
+      keyScrolledX: 0,
+      keyScrolledY: 0,
+      /** Total resized cell amount */
       cellResizedX: 0,
       cellResizedY: 0,
+      /** Last scroll amount */
       lastScrollX: 0,
       lastScrollY: 0
     };

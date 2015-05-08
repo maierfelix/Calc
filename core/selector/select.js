@@ -161,7 +161,7 @@
   };
 
   /**
-   * Select a specific cell
+   * Select a single specific cell
    *
    * @method selectCell
    * @static
@@ -171,17 +171,82 @@
     var letter = name.match(CORE.REGEX.numbers).join(""),
         number = parseInt(name.match(CORE.REGEX.letters).join(""));
 
+    /** Delete hover effect of previous cell */
+    this.deleteCellHoverEffect();
+
     CORE.Cells.Select = name;
 
-    CORE.Selector.Selected.First.Letter = letter;
-    CORE.Selector.Selected.First.Number = number;
+    this.Selected.First.Letter = letter;
+    this.Selected.First.Number = number;
 
-    CORE.Selector.Selected.Last.Letter = letter;
-    CORE.Selector.Selected.Last.Number = number;
+    this.Selected.Last.Letter = letter;
+    this.Selected.Last.Number = number;
 
-    CORE.Selector.SelectedCells.push(name);
+    this.SelectedCells = [];
+    this.SelectedCells.push(name);
 
     this.getSelection();
+
+  };
+
+  /**
+   * Select a specific cell by key press
+   *
+   * @method selectCellByKeyPress
+   * @static
+   */
+  CORE.Selector.prototype.selectCellByKeyPress = function() {
+
+    var letter = this.parentSelectedCell.match(CORE.REGEX.numbers).join(""),
+        number = parseInt(this.parentSelectedCell.match(CORE.REGEX.letters).join(""));
+
+    /** Dont overscroll left axis start */
+    if ( (CORE.Grid.Settings.keyScrolledX + CORE.$.alphaToNumber(letter)) <= 0) { console.log(0)
+      letter = CORE.$.numberToAlpha(CORE.$.alphaToNumber(letter) + CORE.Grid.Settings.keyScrolledX);
+      CORE.Grid.Settings.keyScrolledX = 0;
+    /** Dont overscroll left axis end */
+    } else if ((CORE.Grid.Settings.keyScrolledX + CORE.$.alphaToNumber(letter)) >= CORE.Grid.Settings.x) {
+      letter = CORE.$.numberToAlpha(CORE.Grid.Settings.x);
+    /** Update the letter */
+    } else {
+      letter = CORE.$.numberToAlpha(CORE.$.alphaToNumber(letter) + CORE.Grid.Settings.keyScrolledX);
+    }
+
+    /** Dont overscroll top axis start */
+    if ( (CORE.Grid.Settings.keyScrolledY + number) <= 0) {
+      number = 1;
+      CORE.Grid.Settings.keyScrolledY = 0;
+    /** Dont overscroll top axis end */
+    } else if ((CORE.Grid.Settings.keyScrolledY + number) >= CORE.Grid.Settings.y) {
+      number = CORE.Grid.Settings.y;
+    /** Update the number */
+    } else {
+      number = number + CORE.Grid.Settings.keyScrolledY;
+    }
+
+    this.selectCell(letter + number);
+
+  };
+
+  /**
+   * Move the current selection a specific amount down
+   *
+   * @method moveSelectionDown
+   * @static
+   */
+  CORE.Selector.prototype.moveSelectionDown = function(amount) {
+
+    var letter = (this.Selected.First.Letter + this.Selected.First.Number).match(CORE.REGEX.numbers).join(""),
+        number = parseInt((this.Selected.First.Letter + this.Selected.First.Number).match(CORE.REGEX.letters).join(""));
+
+    /** Update parent cell */
+    this.parentSelectedCell = letter + (number + amount);
+
+    /** Reset all key scroll axis amount */
+    CORE.Grid.Settings.keyScrolledX = CORE.Grid.Settings.keyScrolledY = 0;
+
+    /** Select the new cell */
+    this.selectCell( letter + (number + amount) );
 
   };
 

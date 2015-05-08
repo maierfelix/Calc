@@ -41,7 +41,7 @@
     /** Initialize Grid Plugin */
     CORE.Grid = new CORE.Grid();
 
-    /** Caluclate Grid sizes */
+    /** Calculate Grid sizes */
     CORE.Grid.calculateGrid();
 
     /** Initialize Selector Plugin */
@@ -52,6 +52,9 @@
 
     /** Begin the magic */
     CORE.Event.resize();
+
+    /** Define first cell in grid as parent cell */
+    CORE.Selector.parentSelectedCell = "A1";
 
     /** Select major first cell in the grid */
     CORE.Selector.selectCell("A1");

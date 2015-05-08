@@ -83,6 +83,12 @@
 
       /** Focus the selected cell to allow input */
       CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.Selected.First.Letter + CORE.Selector.Selected.First.Number))].focus();
+    /** User pressed enter */
+    } else {
+			CORE.Grid.getEditSelection(CORE.Selector.Selected.First.Letter + CORE.Selector.Selected.First.Number);
+			CORE.Grid.cleanEditSelection();
+      /** Take selection and move it 1 down */
+      CORE.Selector.moveSelectionDown(1);
     }
 
   };

@@ -71,6 +71,9 @@
         CORE.Cells.Selected.First = e.target.getAttribute("name");
         CORE.Cells.Selected.Last = CORE.Cells.Selected.First;
 
+        /** Update parent cell, so keypress only moving will work */
+        CORE.Selector.parentSelectedCell = CORE.Cells.Selected.First;
+
         /** Two selected cell coordinates */
         if (CORE.Cells.Selected.First && CORE.Cells.Selected.Last) {
           /** Only execute selection if user doesnt edit a cell at the moment */
