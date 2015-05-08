@@ -54,7 +54,7 @@
     CORE.Event.resize();
 
     /** Select major first cell in the grid */
-    CORE.Selector.selectFirstCell();
+    CORE.Selector.selectCell("A1");
 
   };
 
