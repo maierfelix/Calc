@@ -265,4 +265,26 @@
 
   };
 
+  /**
+   * Select a specific text in the document
+   *
+   * @method selectText
+   * @static
+   */
+  CORE.$.selectText = function(element) {
+
+    var character = element.innerHTML.length, 
+        select;
+
+    if (document.selection) {
+      select = document.selection.createRange();
+      select.moveStart('character', character);
+      select.select();
+    } else {
+      select = window.getSelection();
+      select.collapse(element.firstChild, character);
+    }
+
+  };
+
 }).call(this);

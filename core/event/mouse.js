@@ -73,6 +73,7 @@
 
         /** Update parent cell, so keypress only moving will work */
         CORE.Selector.parentSelectedCell = CORE.Cells.Selected.First;
+        CORE.Grid.Settings.keyScrolledX = CORE.Grid.Settings.keyScrolledY = 0;
 
         /** Two selected cell coordinates */
         if (CORE.Cells.Selected.First && CORE.Cells.Selected.Last) {

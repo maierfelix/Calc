@@ -77,16 +77,22 @@
     if (!CORE.Event.pressedEnter(keyCode)) {
       /** User pressed another key then [ENTER] .. */
 
+      var element = null;
+
       /** Fetch the current selected cell */
       CORE.Grid.cleanEditSelection();
       CORE.Grid.getEditSelection(CORE.Selector.Selected.First.Letter + CORE.Selector.Selected.First.Number);
 
+      element = CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.Selected.First.Letter + CORE.Selector.Selected.First.Number))];
+
       /** Focus the selected cell to allow input */
-      CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.Selected.First.Letter + CORE.Selector.Selected.First.Number))].focus();
+      element.focus();
+
     /** User pressed enter */
     } else {
-			CORE.Grid.getEditSelection(CORE.Selector.Selected.First.Letter + CORE.Selector.Selected.First.Number);
-			CORE.Grid.cleanEditSelection();
+      CORE.eval();
+      CORE.Grid.getEditSelection(CORE.Selector.Selected.First.Letter + CORE.Selector.Selected.First.Number);
+      CORE.Grid.cleanEditSelection();
       /** Take selection and move it 1 down */
       CORE.Selector.moveSelectionDown(1);
     }
