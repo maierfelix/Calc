@@ -44,6 +44,7 @@ Import.scripts = [
   /** Selector */
   "core/selector/main.js",
   "core/selector/hover.js",
+  "core/selector/key.js",
   "core/selector/menu.js",
   "core/selector/select.js",
   /** Helpers */
