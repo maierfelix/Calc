@@ -49,3 +49,4 @@ NovaeCalc is not stable yet.
 ## Libraries
  * [JS2PNG](https://github.com/felixmaier/JS2PNG)
  * [ImportJS](https://github.com/felixmaier/ImportJS)
+ * [ColorPicker](https://github.com/DavidDurman/FlexiColorPicker)
