@@ -62,9 +62,14 @@ Import.after = function() {
   ENGEL.init();
   CORE_UI.init();
   CORE_UI.MODAL.init();
-  CORE.$.init();
+  /** Add fade out animation, hide element */
+  document.querySelector("#loader").classList.add("fadeOut");
+  setTimeout( function() { CORE.$.init(); }, 250);
+  setTimeout( function() { document.querySelector("#loader").style.display = "none"; }, 750);
 };
 Import.each = function(percent) {
-  //console.log(percent);
+  /** Update percentage in document */
+  document.querySelector(".loader-title").innerHTML = percent + "%";
+  if (percent >= 95) document.querySelector(".loader-wrapper").classList.add("fadeOut");
 };
 Import.me();

@@ -57,14 +57,21 @@
 
       /** Max delay of 250 milliseconds */
       if (difference && difference <= 250) {
-        CORE.Event.mouseDoubleClick(e);
-        return void 0;
+        if (e.target.parentNode.id === CORE.DOM.Output.id) {
+          /** Prevent double mouse clicks between multiple cells */
+          if (e.target.getAttribute("name") === this.lastMouseDownCell) {
+            CORE.Event.mouseDoubleClick(e);
+            return void 0;
+          }
+        }
       }
 
     }
 
     /** Valid cell ? */
     if (e.target.parentNode.id === CORE.DOM.Output.id) {
+
+      this.lastMouseDownCell = e.target.getAttribute("name");
 
       /** Make sure the first property gets updated a maximum of 1 time per click */
       if (!CORE.Cells.Selected.First) {

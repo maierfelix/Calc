@@ -77,7 +77,7 @@
       Menu: {
         Alphabetical: {
           element: "div",
-          class: "row cell_dark",
+          class: "row cell_dark_alpha",
           style: {
             height: this.CellTemplate.Height,
             width: this.CellTemplate.Width
@@ -85,7 +85,7 @@
         },
         Numeric: {
           element: "div",
-          class: "row cell_dark",
+          class: "row cell_dark_number",
           style: {
             height: this.CellTemplate.Height,
             width:  (this.CellTemplate.Width / 2)
@@ -111,8 +111,8 @@
     this.Settings.y = Math.ceil( - ( CORE.Settings.Height / this.CellTemplate.Height ) );
 
     /** - to + conversion */
-    this.Settings.x = ( ~ this.Settings.x + 1 ) - 1;
-    this.Settings.y = ( ~ this.Settings.y + 1 ) - 4;
+    this.Settings.x = ( ~ this.Settings.x + 1 ) + 1;
+    this.Settings.y = ( ~ this.Settings.y + 1 );
 
   };
 

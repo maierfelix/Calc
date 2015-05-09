@@ -48,18 +48,22 @@
       /** Check if cell has font bold */
       if (CORE.Cells.Used[cell].FontBold) {
         /** Update font bold menu color */
-        CORE.DOM.ChangeFontBoldPreview.style.color = "#fff";
+        CORE.DOM.ChangeFontBoldPreview.parentNode.style.background = "#d3f0e0";
+        CORE.DOM.ChangeFontBoldPreview.style.color = "#7d7d7d";
       /** Reset font bold menu color to default */
       } else {
+        CORE.DOM.ChangeFontBoldPreview.parentNode.style.background = "#fff";
         CORE.DOM.ChangeFontBoldPreview.style.color = "#c7c7c7";
       }
 
       /** Check if cell has font italic */
       if (CORE.Cells.Used[cell].FontItalic) {
         /** Update font italic menu color */
-        CORE.DOM.ChangeFontItalicPreview.style.color = "#fff";
+        CORE.DOM.ChangeFontItalicPreview.parentNode.style.background = "#d3f0e0";
+        CORE.DOM.ChangeFontItalicPreview.style.color = "#7d7d7d";
       /** Reset font italic menu color to default */
       } else {
+        CORE.DOM.ChangeFontItalicPreview.parentNode.style.background = "#fff";
         CORE.DOM.ChangeFontItalicPreview.style.color = "#c7c7c7";
       }
 
@@ -82,8 +86,12 @@
       CORE.DOM.ChangeFontColorPreview.style.color = "#c7c7c7";
       /** Reset font bold menu color to default */
       CORE.DOM.ChangeFontBoldPreview.style.color = "#c7c7c7";
+      /** Reset font bold menu background color to default */
+      CORE.DOM.ChangeFontBoldPreview.parentNode.style.background = "#fff";
       /** Reset font italic menu color to default */
       CORE.DOM.ChangeFontItalicPreview.style.color = "#c7c7c7";
+      /** Reset font italic menu color to default */
+      CORE.DOM.ChangeFontItalicPreview.parentNode.style.background = "#fff";
       /** Reset cell background color to default */
       CORE.DOM.ChangeCellBackground.children[0].style.background = "#fff";
     }

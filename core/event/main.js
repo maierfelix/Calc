@@ -15,7 +15,9 @@
   /** Create Event Object */
   CORE.Event = {
     /** Save last mouse click to identify single and double clicks */
-    lastMoseDown: 0
+    lastMoseDown: 0,
+    /** Save last clicked cell */
+    lastMoseDownCell: null
   };
 
   /**

@@ -70,11 +70,6 @@
 
       jumps = ((CORE.Grid.Settings.y * (CORE.$.alphaToNumber(letter) - 1) ) + number - 1 - CORE.Grid.Settings.scrolledY) - (CORE.Grid.Settings.y * CORE.Grid.Settings.scrolledX);
 
-			//console.log(CORE.$.alphaToNumber(letter), jumps, jumps % CORE.$.alphaToNumber(letter), CORE.Grid.Settings.lastScrollY, CORE.Grid.Settings.scrolledY);
-
-			/** Algorithm to detect if thingy is in correct cell row */
-			//console.log( (jumps +  CORE.Grid.Settings.scrolledY), (jumps +  CORE.Grid.Settings.scrolledY % CORE.Grid.Settings.y), CORE.Grid.Settings.lastScrollY);
-
       if (CORE.DOM.Output.children[jumps]) {
         CORE.DOM.Output.children[jumps].classList.remove(style);
       }
