@@ -81,11 +81,11 @@ body {
 }
 
 .cell_dark_alpha {
-	color: #000;
+  color: #000;
   background: #fff;
   border: solid 1px lightgrey;
   font-family: 'Roboto', sans-serif;
-	border-bottom: solid 1px darkgrey !important;
+  border-bottom: solid 1px darkgrey !important;
 }
 
 .cell_bright {
@@ -102,15 +102,15 @@ body {
 }
 
 .cell_dark_number {
-	color: #000;
+  color: #000;
   background: #fff;
   border: solid 1px lightgrey;
   font-family: 'Roboto', sans-serif;
-	border-right: solid 1px darkgrey !important;
+  border-right: solid 1px darkgrey !important;
 }
 
 .cell_dark_number:hover {
-	color: #000 !important;
+  color: #000 !important;
   cursor: pointer;
 }
 
@@ -141,7 +141,7 @@ body {
 
 .row_hovered {
   background: #c6c6c6 !important;
-	border: solid 1px darkgrey;
+  border: solid 1px darkgrey;
   color: #000 !important;
 }
 
@@ -264,7 +264,7 @@ body {
 /** Loading */
 
 .loader-background {
-	background-color: background: rgb(107, 216, 97);
+  background-color: background: rgb(107, 216, 97);
   background-image: -moz-linear-gradient(#6bd861, #5dbb54);
   background-image: -webkit-linear-gradient(#6bd861, #5dbb54);
   background-image: linear-gradient(#6bd861, #5dbb54);
@@ -277,27 +277,32 @@ body {
   padding-top: 60px;
   margin-bottom: 60px;
   color: #fff;
-	width: 100%;
-	height: 100%;
-	position: absolute;
+  width: 100%;
+  height: 100%;
+  position: absolute;
   z-index: 3;
   top: 0px;
   left: 0px;
 }
 
 .loader-title {
-	position: absolute;
-	z-index: 99;
+  position: absolute;
+  z-index: 99;
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
-	margin-top: 70px;
-	color: #fff;
+  margin-top: 70px;
+  color: #fff;
+}
+
+#loader-comment {
+  margin-top: 240px;
+  color: #fff;
 }
 
 .loader-wrapper {
   position: absolute;
-	z-index: 99;
+  z-index: 99;
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
