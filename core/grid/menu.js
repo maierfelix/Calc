@@ -132,7 +132,7 @@
     /** Center vertical menu text */
     if (type === "numeric") {
       /** Center cell text vertically, do a small view fix */
-      style += " line-height: " + ( height - 18 ) + "px;";
+      style += " line-height: " + ( height - 8 ) + "px;";
     }
 
     var element = null;

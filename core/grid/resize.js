@@ -86,12 +86,12 @@
       /** Update top position of the custom cell column */
       cellRow.top = (this.cellArray[ii].origTop) + "px";
       /** Center cell text content */
-      cellRow.lineHeight = ((this.cellArray[ii].origHeight + customCell[Number].Height) - 18 ) + "px";
+      cellRow.lineHeight = ((this.cellArray[ii].origHeight + customCell[Number].Height) - 8 ) + "px";
     }
     /** Reset height of all cells without a custom height */
     else {
       cellRow.height = this.cellArray[ii].origHeight + "px";
-      cellRow.lineHeight = (this.cellArray[ii].origHeight - 18) + "px";
+      cellRow.lineHeight = (this.cellArray[ii].origHeight - 8) + "px";
     }
 
     /** Search for custom cell rows */

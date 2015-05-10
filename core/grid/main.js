@@ -40,8 +40,8 @@
 
     /** Define Cell sizes */
     this.CellTemplate = {
-      Width: 150,
-      Height: 35
+      Width: 100,
+      Height: 25
     };
 
     /** Helper to detect mouse scroll direction */

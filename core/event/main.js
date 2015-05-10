@@ -28,18 +28,39 @@
    */
   CORE.Event.init = function() {
 
-    window.addEventListener("resize", CORE.Event.resize, false);
+    /** Mobile platform */
+    if (CORE.Settings.Mobile) {
 
-    window.addEventListener("mousedown", CORE.Event.mouseDown, false);
+      window.addEventListener("resize", CORE.Event.resize, false);
 
-    window.addEventListener("mouseup", CORE.Event.mouseUp, false);
+      window.addEventListener("touchstart", CORE.Event.mouseDown, false);
 
-    window.addEventListener("mousemove", CORE.Event.mouseWipe, false);
+      window.addEventListener("touchend", CORE.Event.mouseUp, false);
 
-    window.addEventListener("mousewheel", CORE.Event.scroll, false);
-    window.addEventListener("DOMMouseScroll", CORE.Event.scroll, false);
+      window.addEventListener("touchmove", CORE.Event.mouseWipe, false);
 
-    window.addEventListener("keydown", CORE.Event.keyPress, false);
+      window.addEventListener("mousewheel", CORE.Event.scroll, false);
+      window.addEventListener("scroll", CORE.Event.scroll, false);
+
+      window.addEventListener("keydown", CORE.Event.keyPress, false);
+
+    /** Desktop */
+    } else {
+
+      window.addEventListener("resize", CORE.Event.resize, false);
+
+      window.addEventListener("mousedown", CORE.Event.mouseDown, false);
+
+      window.addEventListener("mouseup", CORE.Event.mouseUp, false);
+
+      window.addEventListener("mousemove", CORE.Event.mouseWipe, false);
+
+      window.addEventListener("mousewheel", CORE.Event.scroll, false);
+      window.addEventListener("DOMMouseScroll", CORE.Event.scroll, false);
+
+      window.addEventListener("keydown", CORE.Event.keyPress, false);
+
+    }
 
   };
 
