@@ -40,10 +40,19 @@
     if ( (CORE.Grid.Settings.keyScrolledY + number) <= 0) {
       number = 1;
       CORE.Grid.Settings.keyScrolledY += 1;
+      /** Dont scroll below zero */
+      CORE.Grid.Settings.scrolledY -= CORE.Grid.Settings.scrolledY > 0 ? 1 : 0;
+      /** Update grid and menu */
+      CORE.Grid.updateHeight("up", 1);
+      CORE.Grid.generateMenu();
     /** Dont overscroll top axis end */
     } else if ((CORE.Grid.Settings.keyScrolledY + number) >= CORE.Grid.Settings.y + 1) {
-      number = CORE.Grid.Settings.y;
+      CORE.Grid.Settings.scrolledY += 1;
+      number = CORE.Grid.Settings.y + CORE.Grid.Settings.scrolledY;
       CORE.Grid.Settings.keyScrolledY -= 1;
+      /** Update grid and menu */
+      CORE.Grid.updateHeight("up", 1);
+      CORE.Grid.generateMenu();
     /** Update the number */
     } else {
       number = number + CORE.Grid.Settings.keyScrolledY;

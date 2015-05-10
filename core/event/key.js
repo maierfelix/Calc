@@ -19,6 +19,22 @@
    * @static
    */
   CORE.Event.keyPress = function(e) {
+
+    /** Update empty timestamp */
+    if (!this.lastKeyPress) this.lastKeyPress = e.timeStamp;
+
+    /** Handle timestamps */
+    if (this.lastKeyPress > 0) {
+
+       /** Calculate difference between this and last timestamp */
+      var difference = e.timeStamp - this.lastKeyPress;
+
+      /** Prevent too fast key scrolling */
+      if (difference && difference <= 55) return void 0;
+
+    }
+
+    /** Handle arrow keys */
     switch (e.keyCode) {
       /** [UP] */
       case 38:
@@ -26,8 +42,9 @@
         if (CORE.Event.inEditMode()) return void 0;
         CORE.Grid.Settings.keyScrolledY -= 1;
         CORE.Grid.Settings.lastScrollY = 1;
-        CORE.Grid.updateHeight("up", 1);
         CORE.Selector.selectCellByKeyPress();
+        /** Update last key press timestamp */
+        this.lastKeyPress = e.timeStamp - 40;
         return void 0;
       /** [DOWN] */
       case 40:
@@ -35,8 +52,10 @@
         if (CORE.Event.inEditMode()) return void 0;
         CORE.Grid.Settings.keyScrolledY += 1;
         CORE.Grid.Settings.lastScrollY = 1;
-        CORE.Grid.updateHeight("down", 1);
         CORE.Selector.selectCellByKeyPress();
+        CORE.Grid.updateHeight("down", 1);
+        /** Update last key press timestamp */
+        this.lastKeyPress = e.timeStamp - 40;
         return void 0;
       /** [LEFT] */
       case 37:
@@ -46,6 +65,8 @@
         CORE.Grid.Settings.lastScrollX = CORE.Settings.Scroll.Horizontal;
         CORE.Grid.updateWidth("left");
         CORE.Selector.selectCellByKeyPress();
+        /** Update last key press timestamp */
+        this.lastKeyPress = e.timeStamp;
         return void 0;
       /** [RIGHT] */
       case 39:
@@ -55,6 +76,8 @@
         CORE.Grid.Settings.lastScrollX = CORE.Settings.Scroll.Horizontal;
         CORE.Grid.updateWidth("right");
         CORE.Selector.selectCellByKeyPress();
+        /** Update last key press timestamp */
+        this.lastKeyPress = e.timeStamp;
         return void 0;
     }
 

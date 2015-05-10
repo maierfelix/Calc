@@ -126,8 +126,15 @@
       }
     }
 
-    style = "height: " + height + "px; width: " + width + "px;";
-    style += " left:" + x + "px; top: " + y + "px;";
+    if (type === "numeric") {
+      style = "height: " + height + "px; width: " + width + "px;";
+      style += " left:" + x + "px; top: " + y + "px;";
+    }
+    /** Alphabetical menu border overlay fix by add 1 to the width */
+    else if (type === "alpha") {
+      style = "height: " + height + "px; width: " + (width + 1) + "px;";
+      style += " left:" + x + "px; top: " + y + "px;";
+    }
 
     /** Center vertical menu text */
     if (type === "numeric") {
