@@ -89,9 +89,9 @@ body {
 }
 
 .cell_bright {
-  color: #217346 !important;
+  color: #1E88E5 !important;
   background: #dedede !important;
-  border: solid 1px #217346 !important;
+  border: solid 1px #64B5F6 !important;
   font-family: 'Roboto', sans-serif;
   font-weight: bold;
   padding: 4px !important;
@@ -162,7 +162,7 @@ body {
 }
 
 .single_row_hovered {
-  border: 2px solid rgba(33, 115, 70, 1);
+  border: 2px solid rgba(66, 165, 245, 1);
   background: #fff;
   color: #000;
   padding-top: 2px;
@@ -171,7 +171,7 @@ body {
 }
 
 .cell_edit {
-  border: solid 2px #217346 !important;
+  border: solid 2px rgba(66, 165, 245, 1) !important;
   background: #fff;
   -webkit-box-shadow: 0 3px 5px rgba(0,0,0,0.4);
   -moz-box-shadow: 0 3px 5px rgba(0,0,0,0.4);
@@ -274,22 +274,22 @@ body {
 }
 
 ::selection {
-  background-color: rgba(211, 240, 224, 0.9);
+  background-color: rgba(187, 222, 251, 0.8);
 }
 ::moz-selection{
-  background-color: rgba(211, 240, 224, 0.9);
+  background-color: rgba(187, 222, 251, 0.8);
 }
 ::webkit-selection{
-  background-color: rgba(211, 240, 224, 0.9);
+  background-color: rgba(187, 222, 251, 0.8);
 }
 
 /** Loading */
 
 .loader-background {
   background-color: background: rgb(107, 216, 97);
-  background-image: -moz-linear-gradient(#6bd861, #5dbb54);
-  background-image: -webkit-linear-gradient(#6bd861, #5dbb54);
-  background-image: linear-gradient(#6bd861, #5dbb54);
+  background-image: -webkit-gradient(linear,left top,left bottom,from(#699CCC),to(#96E6FF));
+  background-image: -moz-gradient(linear,left top,left bottom,from(#699CCC),to(#96E6FF));
+  background-image: gradient(linear,left top,left bottom,from(#699CCC),to(#96E6FF));
   background-repeat: repeat-x;
   background-color: #081218;
   background-repeat: no-repeat;
@@ -349,10 +349,14 @@ body {
 }
 @-webkit-keyframes animate {
   0% { 
-    transform: rotate(0deg)
+    -webkit-transform: rotate(0deg);
+		-ms-transform: rotate(0deg);
+		transform: rotate(0deg)
   }
   100% { 
-    transform: rotate(220deg)
+    -webkit-transform: rotate(220deg);
+		-ms-transform: rotate(220deg);
+		transform: rotate(220deg)
   }
 }
 .loader:after {
@@ -371,14 +375,18 @@ body {
 @-webkit-keyframes animate2 {
   0% {
     box-shadow: inset #fff 0 0 0 17px;
-    transform: rotate(-140deg);
+    -webkit-transform: rotate(-140deg);
+		-ms-transform: rotate(-140deg);
+		transform: rotate(-140deg)
   }
   50% {
     box-shadow: inset #fff 0 0 0 2px;
   }
   100% {
     box-shadow: inset #fff 0 0 0 17px;
-    transform: rotate(140deg);
+    -webkit-transform: rotate(140deg);
+		-ms-transform: rotate(140deg);
+		transform: rotate(140deg)
   }
 }
 
