@@ -81,7 +81,7 @@
       Edit: false
     },
     Keyboard: {
-      /** Sift key pressed */
+      /** Shift key pressed */
       Shift: false
     }
   };

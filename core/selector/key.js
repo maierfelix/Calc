@@ -58,8 +58,38 @@
       number = number + (CORE.Grid.Settings.keyScrolledY + CORE.Grid.Settings.scrolledY);
     }
 
+    /** User presses the shift key */
+    if (CORE.Input.Keyboard.Shift) {
+      this.getSelectionByKeyPress(letter, number);
+    }
     /** Select the new cell */
-    this.selectCell(letter + number);
+    else this.selectCell(letter + number);
+
+  };
+
+  /**
+   * User takes a selection by using the arrow keys
+   *
+   * @method getSelectionByKeyPress
+   * @static
+   */
+  CORE.Selector.prototype.getSelectionByKeyPress = function(letter, number) {
+
+    /** User presses the shift key */
+    if (CORE.Input.Keyboard.Shift) {
+
+      CORE.Cells.Select = CORE.Selector.Selected.First.Letter + CORE.Selector.Selected.First.Number;
+
+      CORE.Selector.Selected.Last.Letter = letter;
+      CORE.Selector.Selected.Last.Number = number;
+
+      CORE.Selector.SelectedCells.push(letter + number);
+
+      CORE.Selector.getSelection();
+
+      //console.log(CORE.Selector.Selected.First, CORE.Selector.Selected.Last, CORE.Selector.SelectedCells);
+
+    }
 
   };
 

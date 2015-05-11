@@ -246,6 +246,24 @@
   };
 
   /**
+   * Check if multiple cells was selected and each is valid
+   * If not, register each into the cell used stack
+   *
+   * @method validateCells
+   * @static
+   */
+  CORE.$.validateCells = function() {
+
+    /** Loop through all selected cells */
+    for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {
+      if (!CORE.Cells.Used[CORE.Selector.SelectedCells[ii]]) {
+        CORE.Cells.Used[CORE.Selector.SelectedCells[ii]] = new CORE.Grid.Cell();
+      }
+    }
+
+  };
+
+  /**
    * Clear the selection of all texts in the document
    *
    * @method looseSelection

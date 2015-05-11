@@ -49,10 +49,11 @@
           if (e.target.id) mode = e.target.id;
           else if (e.target.parentNode.id) mode = e.target.parentNode.id;
 
-          /** Check if a cell is selected and in the cell used stack */
-          if (CORE.$.validCell()) {
-            CORE_UI.updateCellBorder(mode);
-          }
+          /** Validate all selected cells */
+          CORE.$.validateCells();
+
+          /** Update the cells border */
+          CORE_UI.updateCellBorder(mode);
 
           /** Dont loose the selection */
           CORE.Selector.getSelection();
@@ -66,104 +67,89 @@
   /** Update a cells border */
   CORE_UI.updateCellBorder = function(id) {
 
-    var letter = CORE.Selector.Selected.First.Letter,
-        number = CORE.Selector.Selected.First.Number;
+    /** Loop through all selected cells */
+    for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {
 
-    /** Cell uses custom border style */
-    if (CORE.Cells.Used[letter + number]) {
-      if (!CORE.Cells.Used[letter + number].Border.used) CORE.Cells.Used[letter + number].Border.used = true;
-    }
+      /** Cell uses custom border style */
+      if (!CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.used) CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.used = true;
 
-    /** Left border */
-    if (id === "border_left") {
-      /** Cell already exists in cell stack */
-      if (CORE.Cells.Used[letter + number]) {
+      /** Left border */
+      if (id === "border_left") {
         /** Check if user wants to disable the border by applying it again */
-        if (CORE.Cells.Used[letter + number].Border.left) {
-          CORE.Cells.Used[letter + number].Border.left = null;
-          CORE.DOM.Output.children[(CORE.$.getCell(letter + number))].style.borderLeft = "";
+        if (CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.left) {
+          CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.left = null;
+          CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.SelectedCells[ii]))].style.borderLeft = "";
         } else {
           /** Update cell used stack */
-          CORE.Cells.Used[letter + number].Border.left = true;
+          CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.left = true;
           /** Immediately update cells border */
-          CORE.DOM.Output.children[(CORE.$.getCell(letter + number))].style.borderLeft = "2px solid black";
+          CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.SelectedCells[ii]))].style.borderLeft = "2px solid black";
         }
       }
-    }
 
-    /** Right border */
-    if (id === "border_right") {
-      /** Cell already exists in cell stack */
-      if (CORE.Cells.Used[letter + number]) {
+      /** Right border */
+      if (id === "border_right") {
         /** Check if user wants to disable the border by applying it again */
-        if (CORE.Cells.Used[letter + number].Border.right) {
-          CORE.Cells.Used[letter + number].Border.right = null;
-          CORE.DOM.Output.children[(CORE.$.getCell(letter + number))].style.borderRight = "";
+        if (CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.right) {
+          CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.right = null;
+          CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.SelectedCells[ii]))].style.borderRight = "";
         } else {
           /** Update cell used stack */
-          CORE.Cells.Used[letter + number].Border.right = true;
+          CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.right = true;
           /** Immediately update cells border */
-          CORE.DOM.Output.children[(CORE.$.getCell(letter + number))].style.borderRight = "2px solid black";
+          CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.SelectedCells[ii]))].style.borderRight = "2px solid black";
         }
       }
-    }
 
-    /** Top border */
-    if (id === "border_top") {
-      /** Cell already exists in cell stack */
-      if (CORE.Cells.Used[letter + number]) {
+      /** Top border */
+      if (id === "border_top") {
         /** Check if user wants to disable the border by applying it again */
-        if (CORE.Cells.Used[letter + number].Border.top) {
-          CORE.Cells.Used[letter + number].Border.top = null;
-          CORE.DOM.Output.children[(CORE.$.getCell(letter + number))].style.borderTop = "";
+        if (CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.top) {
+          CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.top = null;
+          CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.SelectedCells[ii]))].style.borderTop = "";
         } else {
           /** Update cell used stack */
-          CORE.Cells.Used[letter + number].Border.top = true;
+          CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.top = true;
           /** Immediately update cells border */
-          CORE.DOM.Output.children[(CORE.$.getCell(letter + number))].style.borderTop = "2px solid black";
+          CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.SelectedCells[ii]))].style.borderTop = "2px solid black";
         }
       }
-    }
 
-    /** Bottom border */
-    if (id === "border_bottom") {
-      /** Cell already exists in cell stack */
-      if (CORE.Cells.Used[letter + number]) {
+      /** Bottom border */
+      if (id === "border_bottom") {
         /** Check if user wants to disable the border by applying it again */
-        if (CORE.Cells.Used[letter + number].Border.bottom) {
-          CORE.Cells.Used[letter + number].Border.bottom = null;
-          CORE.DOM.Output.children[(CORE.$.getCell(letter + number))].style.borderBottom = "";
+        if (CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.bottom) {
+          CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.bottom = null;
+          CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.SelectedCells[ii]))].style.borderBottom = "";
         } else {
           /** Update cell used stack */
-          CORE.Cells.Used[letter + number].Border.bottom = true;
+          CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.bottom = true;
           /** Immediately update cells border */
-          CORE.DOM.Output.children[(CORE.$.getCell(letter + number))].style.borderBottom = "2px solid black";
+          CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.SelectedCells[ii]))].style.borderBottom = "2px solid black";
         }
       }
-    }
 
-    /** Full border */
-    if (id === "border_all") {
-      /** Cell already exists in cell stack */
-      if (CORE.Cells.Used[letter + number]) {
+      /** Full border */
+      if (id === "border_all") {
         /** Check if user wants to disable the border by applying it again */
-        if (CORE.Cells.Used[letter + number].Border.full) {
-          CORE.Cells.Used[letter + number].Border.full = null;
-          CORE.DOM.Output.children[(CORE.$.getCell(letter + number))].style.border = "";
+        if (CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.full) {
+          CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.full = null;
+          CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.SelectedCells[ii]))].style.border = "";
         } else {
           /** Update cell used stack */
-          CORE.Cells.Used[letter + number].Border.full = true;
+          CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.full = true;
 
           /** Reset all other border settings to default */
-          CORE.Cells.Used[letter + number].Border.left = null;
-          CORE.Cells.Used[letter + number].Border.right = null;
-          CORE.Cells.Used[letter + number].Border.top = null;
-          CORE.Cells.Used[letter + number].Border.bottom = null;
+          CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.left = null;
+          CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.right = null;
+          CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.top = null;
+          CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.bottom = null;
 
           /** Immediately update cells border */
-          CORE.DOM.Output.children[(CORE.$.getCell(letter + number))].style.border = "2px solid black";
+          CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.SelectedCells[ii]))].style.border = "2px solid black";
         }
       }
+
     }
 
   };

@@ -34,6 +34,20 @@
   };
 
   /**
+   * Check if user pressed a arrow key
+   *
+   * @method pressedArrowKey
+   * @static
+   */
+  CORE.Event.pressedArrowKey = function(keyCode) {
+
+    /** Check if user pressed an arrow key */
+    if ([37, 38, 39, 40].indexOf(keyCode) >= 0) return (true);
+    return (false);
+
+  };
+
+  /**
    * Check if user pressed the enter key
    *
    * @method pressedEnter

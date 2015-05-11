@@ -48,7 +48,7 @@
       /** Check if cell has font bold */
       if (CORE.Cells.Used[cell].FontBold) {
         /** Update font bold menu color */
-        CORE.DOM.ChangeFontBoldPreview.parentNode.style.background = "#d3f0e0";
+        CORE.DOM.ChangeFontBoldPreview.parentNode.style.background = "rgba(144, 202, 249,0.3)";
         CORE.DOM.ChangeFontBoldPreview.style.color = "#7d7d7d";
       /** Reset font bold menu color to default */
       } else {
@@ -59,7 +59,7 @@
       /** Check if cell has font italic */
       if (CORE.Cells.Used[cell].FontItalic) {
         /** Update font italic menu color */
-        CORE.DOM.ChangeFontItalicPreview.parentNode.style.background = "#d3f0e0";
+        CORE.DOM.ChangeFontItalicPreview.parentNode.style.background = "rgba(144, 202, 249,0.3)";
         CORE.DOM.ChangeFontItalicPreview.style.color = "#7d7d7d";
       /** Reset font italic menu color to default */
       } else {

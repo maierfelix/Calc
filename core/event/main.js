@@ -60,6 +60,8 @@
 
       window.addEventListener("keydown", CORE.Event.keyPress, false);
 
+      window.addEventListener("keyup", CORE.Event.keyUp, false);
+
     }
 
   };

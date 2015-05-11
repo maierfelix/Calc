@@ -87,11 +87,34 @@
       CORE.Event.pressedEnter(e.keyCode);
     }
 
+    /** User pressed the shift key */
+    if (e.keyCode === 16) {
+      e.preventDefault();
+      CORE.Input.Keyboard.Shift = true;
+      return void 0;
+    }
+
     /** 
      * Check if user edits a cell
      * Delayed to fix some cell input issues
      */
     setTimeout( function() { CORE.Event.sniffCellInput(e.keyCode); }, 1);
+
+  };
+
+  /**
+   * Listen for key leave
+   *
+   * @method keyUp
+   * @static
+   */
+  CORE.Event.keyUp = function(e) {
+
+    /** User left the shift key */
+    if (e.keyCode === 16) {
+      e.preventDefault();
+      CORE.Input.Keyboard.Shift = false;
+    }
 
   };
 

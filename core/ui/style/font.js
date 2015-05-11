@@ -29,16 +29,17 @@
     /** Initialize font change menu */
     CORE.DOM.ChangeFont.addEventListener('change', function(e) {
 
-      /** Check if a cell is selected and in the cell used stack */
-      if (CORE.$.validCell()) {
+      /** Validate all selected cells */
+      CORE.$.validateCells();
 
-        var letter = CORE.Selector.Selected.First.Letter,
-            number = CORE.Selector.Selected.First.Number;
-
+      /** Loop through all selected cells */
+      for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {
         /** Update the font */
-        CORE.Cells.Used[letter + number].Font = e.target.value;
-        /** Immediately update cells font */
-        CORE.DOM.Output.children[(CORE.$.getCell(letter + number))].style.fontFamily = e.target.children[e.target.selectedIndex].getAttribute("value");
+        if (CORE.Cells.Used[CORE.Selector.SelectedCells[ii]]) {
+          CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Font = e.target.value;
+          /** Immediately update cells font */
+          CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.SelectedCells[ii]))].style.fontFamily = e.target.children[e.target.selectedIndex].getAttribute("value");
+        }
       }
 
       /** Dont loose the selection */
@@ -55,16 +56,15 @@
     /** Initialize font size menu */
     CORE.DOM.ChangeFontSize.addEventListener('change', function(e) {
 
-      /** Check if a cell is selected and in the cell used stack */
-      if (CORE.$.validCell()) {
+      /** Validate all selected cells */
+      CORE.$.validateCells();
 
-        var letter = CORE.Selector.Selected.First.Letter,
-            number = CORE.Selector.Selected.First.Number;
-
+      /** Loop through all selected cells */
+      for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {
         /** Update the font size */
-        CORE.Cells.Used[letter + number].FontSize = parseInt(e.target.value);
+        CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].FontSize = parseInt(e.target.value);
         /** Immediately update cells font size */
-        CORE.DOM.Output.children[(CORE.$.getCell(letter + number))].style.fontSize = e.target.children[e.target.selectedIndex].getAttribute("value") + "px";
+        CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.SelectedCells[ii]))].style.fontSize = e.target.children[e.target.selectedIndex].getAttribute("value") + "px";
       }
 
       /** Dont loose the selection */
@@ -81,23 +81,22 @@
     /** Initialize font bold menu item */
     CORE.DOM.ChangeFontBold.addEventListener('click', function(e) {
 
-      /** Check if a cell is selected and in the cell used stack */
-      if (CORE.$.validCell()) {
+      /** Validate all selected cells */
+      CORE.$.validateCells();
 
-        var letter = CORE.Selector.Selected.First.Letter,
-            number = CORE.Selector.Selected.First.Number;
-
+      /** Loop through all selected cells */
+      for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {
         /** User wants to disable bold property by executing again */
-        if (CORE.Cells.Used[letter + number].FontBold) {
+        if (CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].FontBold) {
           /** Update the font bold */
-          CORE.Cells.Used[letter + number].FontBold = false;
+          CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].FontBold = false;
           /** Immediately update cells font bold */
-          CORE.DOM.Output.children[(CORE.$.getCell(letter + number))].style.fontWeight = "normal";
+          CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.SelectedCells[ii]))].style.fontWeight = "normal";
         } else {
           /** Update the font bold */
-          CORE.Cells.Used[letter + number].FontBold = true;
+          CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].FontBold = true;
           /** Immediately update cells font bold */
-          CORE.DOM.Output.children[(CORE.$.getCell(letter + number))].style.fontWeight = "bold";
+          CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.SelectedCells[ii]))].style.fontWeight = "bold";
         }
       }
 
@@ -109,23 +108,22 @@
     /** Initialize font italic menu item */
     CORE.DOM.ChangeFontItalic.addEventListener('click', function(e) {
 
-      /** Check if a cell is selected and in the cell used stack */
-      if (CORE.$.validCell()) {
+      /** Validate all selected cells */
+      CORE.$.validateCells();
 
-        var letter = CORE.Selector.Selected.First.Letter,
-            number = CORE.Selector.Selected.First.Number;
-
+      /** Loop through all selected cells */
+      for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {
         /** User wants to disable italic property by executing again */
-        if (CORE.Cells.Used[letter + number].FontItalic) {
+        if (CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].FontItalic) {
           /** Update the font italic */
-          CORE.Cells.Used[letter + number].FontItalic = false;
+          CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].FontItalic = false;
           /** Immediately update cells font italic */
-          CORE.DOM.Output.children[(CORE.$.getCell(letter + number))].style.fontStyle = "normal";
+          CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.SelectedCells[ii]))].style.fontStyle = "normal";
         } else {
           /** Update the font italic */
-          CORE.Cells.Used[letter + number].FontItalic = true;
+          CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].FontItalic = true;
           /** Immediately update cells font italic */
-          CORE.DOM.Output.children[(CORE.$.getCell(letter + number))].style.fontStyle = "italic";
+          CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.SelectedCells[ii]))].style.fontStyle = "italic";
         }
       }
 
@@ -154,16 +152,15 @@
 
       }
 
-      /** Check if a cell is selected and in the cell used stack */
-      if (CORE.$.validCell()) {
+      /** Validate all selected cells */
+      CORE.$.validateCells();
 
-        var letter = CORE.Selector.Selected.First.Letter,
-            number = CORE.Selector.Selected.First.Number;
-
+      /** Loop through all selected cells */
+      for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {
         /** Update the font color */
-        CORE.Cells.Used[letter + number].Color = CORE.DOM.ChangeFontColorPreview.style.color;
+        CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Color = CORE.DOM.ChangeFontColorPreview.style.color;
         /** Immediately update cells font color */
-        CORE.DOM.Output.children[(CORE.$.getCell(letter + number))].style.color = CORE.DOM.ChangeFontColorPreview.style.color;
+        CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.SelectedCells[ii]))].style.color = CORE.DOM.ChangeFontColorPreview.style.color;
       }
 
       /** Dont loose the selection */

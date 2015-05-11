@@ -44,16 +44,15 @@
 
       }
 
-      /** Check if a cell is selected and in the cell used stack */
-      if (CORE.$.validCell()) {
+      /** Validate all selected cells */
+      CORE.$.validateCells();
 
-        var letter = CORE.Selector.Selected.First.Letter,
-            number = CORE.Selector.Selected.First.Number;
-
+      /** Loop through all selected cells */
+      for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {
         /** Update the cell background color */
-        CORE.Cells.Used[letter + number].BackgroundColor = CORE.DOM.ChangeCellBackground.children[1].style.background;
+        CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].BackgroundColor = CORE.DOM.ChangeCellBackground.children[1].style.background;
         /** Immediately update cells background color */
-        CORE.DOM.Output.children[(CORE.$.getCell(letter + number))].style.background = CORE.DOM.ChangeCellBackground.children[1].style.background;
+        CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.SelectedCells[ii]))].style.background = CORE.DOM.ChangeCellBackground.children[1].style.background;
       }
 
       /** Dont loose the selection */
