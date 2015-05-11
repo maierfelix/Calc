@@ -41,7 +41,7 @@
       number = 1;
       CORE.Grid.Settings.keyScrolledY += 1;
       /** Dont scroll below zero */
-      CORE.Grid.Settings.scrolledY -= CORE.Grid.Settings.scrolledY > 0 ? 1 : 0;
+      if (CORE.Grid.Settings.scrolledY >= 1) CORE.Grid.Settings.scrolledY -= 1;
       /** Update grid and menu */
       CORE.Grid.updateHeight("up", 1);
       CORE.Grid.generateMenu();
@@ -55,7 +55,7 @@
       CORE.Grid.generateMenu();
     /** Update the number */
     } else {
-      number = number + CORE.Grid.Settings.keyScrolledY;
+      number = number + (CORE.Grid.Settings.keyScrolledY + CORE.Grid.Settings.scrolledY);
     }
 
     /** Select the new cell */

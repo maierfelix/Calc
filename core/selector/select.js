@@ -206,6 +206,15 @@
     /** Reset all key scroll axis amount */
     CORE.Grid.Settings.keyScrolledX = CORE.Grid.Settings.keyScrolledY = 0;
 
+    /** Scroll one down, user edited cell at final bottom */
+    if ((CORE.Grid.Settings.keyScrolledY + number) >= CORE.Grid.Settings.y) {
+      CORE.Grid.Settings.scrolledY += 1;
+      CORE.Grid.Settings.keyScrolledY -= 1;
+      /** Update grid and menu */
+      CORE.Grid.updateHeight("up", 1);
+      CORE.Grid.generateMenu();
+    }
+
     /** Select the new cell */
     this.selectCell( letter + (number + amount) );
 

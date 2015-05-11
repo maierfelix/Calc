@@ -73,6 +73,8 @@
 
       this.lastMouseDownCell = e.target.getAttribute("name");
 
+      CORE.Cells.Select = this.lastMouseDownCell;
+
       /** Make sure the first property gets updated a maximum of 1 time per click */
       if (!CORE.Cells.Selected.First) {
         CORE.Cells.Selected.First = e.target.getAttribute("name");
