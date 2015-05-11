@@ -18,6 +18,10 @@
     save: function() {
       CORE.File.export();
     },
+    /** SAVE IMAGE */
+    saveImage: function() {
+      CORE.File.exportImage();
+    },
     /** OPEN */
     open: function() {
       CORE.File.import();

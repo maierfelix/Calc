@@ -117,29 +117,38 @@
     }
 
     document.querySelector("#import_file").addEventListener('change', function(e) {
+
       var input = e.target;
 
-        var reader = new FileReader();
+      var reader = new FileReader();
 
-        reader.onload = function(){
-          
+      reader.onload = function(){
+
+        /** Image save file */
+        if ((reader.result.substr(11)).match("png")) {
+
           var img = new Image();
               img.src = reader.result;
-          
+
           AJAX.POST(img.src, "server/base64ToImage.php", function(response) {
 
             img = new Image();
             img.src = "server/uploads/" + response;
 
             JS2PNG.Decode(img, function(data) {
-              console.log(data);
+              CORE.File.import(data);
             });
 
           });
 
-        };
+        /** Data save file */
+        } else {
+          CORE.File.import(reader.result);
+        }
 
-        reader.readAsDataURL(input.files[0]);
+      };
+
+      reader.readAsText(input.files[0]);
 
     });
 
