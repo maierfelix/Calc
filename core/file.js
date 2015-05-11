@@ -32,10 +32,11 @@
 
     var cellData = '"Cells":' + JSON.stringify(CORE.Cells) + ",";
     var cellSizes = '"CellSizes":' + JSON.stringify(CORE.Grid.customCellSizes) + ",";
+    var cellStack = '"CellStack":' + JSON.stringify(ENGEL.STACK.VAR) + ",";
     var coreSettings = '"CoreSettings":' + JSON.stringify(CORE.Settings) + ",";
     var gridSettings = '"GridSettings":' + JSON.stringify(CORE.Grid.Settings);
 
-    return ("{" + cellData + cellSizes + coreSettings + gridSettings + "}");
+    return ("{" + cellData + cellSizes + cellStack + coreSettings + gridSettings + "}");
 
   };
 
@@ -57,6 +58,9 @@
 
     /** Update used cells */
     CORE.Cells = data.Cells;
+
+    /** Update variable stack */
+    ENGEL.STACK.VAR = data.CellStack;
 
     /** Update everything */
     CORE.Event.resize();
