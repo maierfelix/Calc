@@ -28,10 +28,14 @@
 
     /** No cells selected */
     if (!CORE.Cells.Selected.First || !CORE.Cells.Selected.Last) {
-      if (!this.SelectedCells.length) return void 0;
-      first = this.SelectedCells[0];
-      last = this.SelectedCells.length > 1 ? this.SelectedCells[this.SelectedCells.length - 1] : this.SelectedCells[0];
+      if (this.SelectedCells.length) {
+        first = this.SelectedCells[0];
+        last = this.SelectedCells.length > 1 ? this.SelectedCells[this.SelectedCells.length - 1] : this.SelectedCells[0];
+      }
     }
+
+    if (!this.Selected.First.Letter || !this.Selected.First.Number ||
+        !this.Selected.Last.Letter || !this.Selected.Last.Number) return void 0;
 
     /** Convert first selected cell into usable format */
     this.Selected.First.Letter = first.match(CORE.REGEX.numbers).join("");
