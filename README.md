@@ -24,7 +24,6 @@ NovaeCalc is not stable yet.
    - [x] Import project
    - [x] Import projects saved as image
    - [ ] Backup projects into LocalStorage
-   - [ ] Manual grid size settings
    - [ ] Jump to (x, y)
    - [ ] Debug
 
@@ -45,8 +44,10 @@ NovaeCalc is not stable yet.
    - [ ] Administrative area
    - [ ] Share project
    - [ ] Multi-user live editing
+   - [ ] Synchronization
   
 ## Libraries
  * [JS2PNG](https://github.com/felixmaier/JS2PNG)
+ * [Engelscript](https://github.com/felixmaier/Engelscript)
  * [ImportJS](https://github.com/felixmaier/ImportJS)
  * [ColorPicker](https://github.com/DavidDurman/FlexiColorPicker)
