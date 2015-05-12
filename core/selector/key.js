@@ -78,15 +78,9 @@
     /** User presses the shift key */
     if (CORE.Input.Keyboard.Shift) {
 
-      CORE.Cells.Select = CORE.Selector.Selected.First.Letter + CORE.Selector.Selected.First.Number;
+      CORE.Cells.Selected.First = CORE.Cells.Select;
 
-      CORE.Selector.Selected.Last.Letter = letter;
-      CORE.Selector.Selected.Last.Number = number;
-
-      CORE.Cells.Selected.First = CORE.Selector.Selected.First.Letter + CORE.Selector.Selected.First.Number;
-      CORE.Cells.Selected.First = letter + number;
-
-      CORE.Selector.SelectedCells.push(letter + number);
+      CORE.Cells.Selected.Last = letter + number;
 
       CORE.Selector.getSelection();
 
