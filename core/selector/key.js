@@ -25,15 +25,24 @@
 
     /** Dont overscroll left axis start */
     if ( (CORE.Grid.Settings.keyScrolledX + CORE.$.alphaToNumber(letter)) <= 0) {
-      letter = CORE.$.numberToAlpha(CORE.$.alphaToNumber(letter) + CORE.Grid.Settings.keyScrolledX);
+      letter = CORE.$.numberToAlpha(CORE.$.alphaToNumber(letter) + CORE.Grid.Settings.keyScrolledX + CORE.Grid.Settings.scrolledX);
+      /** Dont scroll below zero */
+      if (CORE.Grid.Settings.scrolledX >= 1) CORE.Grid.Settings.scrolledX -= 1;
       CORE.Grid.Settings.keyScrolledX += 1;
+      /** Update grid and menu */
+      CORE.Grid.updateWidth("default");
+      CORE.Grid.generateMenu();
     /** Dont overscroll left axis end */
     } else if ((CORE.Grid.Settings.keyScrolledX + CORE.$.alphaToNumber(letter)) >= (CORE.Grid.Settings.x + 1)) {
-      letter = CORE.$.numberToAlpha(CORE.Grid.Settings.x);
+      CORE.Grid.Settings.scrolledX += 1;
+      letter = CORE.$.numberToAlpha(CORE.Grid.Settings.x + CORE.Grid.Settings.scrolledX);
       CORE.Grid.Settings.keyScrolledX -= 1;
+      /** Update grid and menu */
+      CORE.Grid.updateWidth("default");
+      CORE.Grid.generateMenu();
     /** Update the letter */
     } else {
-      letter = CORE.$.numberToAlpha(CORE.$.alphaToNumber(letter) + CORE.Grid.Settings.keyScrolledX);
+      letter = CORE.$.numberToAlpha(CORE.$.alphaToNumber(letter) + CORE.Grid.Settings.keyScrolledX + CORE.Grid.Settings.scrolledX);
     }
 
     /** Dont overscroll top axis start */

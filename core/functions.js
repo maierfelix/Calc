@@ -187,26 +187,9 @@
     var row = CORE.$.alphaToNumber(letter);
         row = row <= 1 ? 1 : row;
 
-    if (jumps < ( (CORE.$.alphaToNumber(letter) * CORE.Grid.Settings.y) - CORE.Grid.Settings.y ) ) return (false);
-    else if (jumps >= (CORE.$.alphaToNumber(letter) * CORE.Grid.Settings.y) ) return (false);
+    if (jumps < ( (CORE.$.alphaToNumber(letter) * CORE.Grid.Settings.y) - CORE.Grid.Settings.y ) - (CORE.Grid.Settings.y * CORE.Grid.Settings.scrolledX) ) return (false);
+    else if (jumps >= (CORE.$.alphaToNumber(letter) * CORE.Grid.Settings.y) - (CORE.Grid.Settings.y * CORE.Grid.Settings.scrolledX) ) return (false);
     return (true);
-
-  };
-
-  /**
-   * Check if a cell is in view
-   *
-   * @method cellInView
-   * @static
-   */
-  CORE.$.cellInView = function(name) {
-
-    var letter = name.match(CORE.REGEX.numbers).join(""),
-        number = parseInt(name.match(CORE.REGEX.letters).join("")),
-        jumps = ((CORE.Grid.Settings.y * (CORE.$.alphaToNumber(letter) - 1) ) + number - 1 - CORE.Grid.Settings.scrolledY) - (CORE.Grid.Settings.y * CORE.Grid.Settings.scrolledX);
-
-    if (isNaN(jumps % CORE.Grid.Settings.scrolledY) && jumps % CORE.Grid.Settings.scrolledY >= 0) return (true);
-    return (false);
 
   };
 

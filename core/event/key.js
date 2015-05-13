@@ -30,7 +30,7 @@
       var difference = e.timeStamp - this.lastKeyPress;
 
       /** Prevent too fast key scrolling */
-      if (difference && difference <= 55) return void 0;
+      if (difference && difference <= 100) return void 0;
 
     }
 
@@ -44,7 +44,7 @@
         CORE.Grid.Settings.lastScrollY = 1;
         CORE.Selector.selectCellByKeyPress();
         /** Update last key press timestamp */
-        this.lastKeyPress = e.timeStamp - 40;
+        this.lastKeyPress = e.timeStamp - 100;
         return void 0;
       /** [DOWN] */
       case 40:
@@ -53,9 +53,8 @@
         CORE.Grid.Settings.keyScrolledY += 1;
         CORE.Grid.Settings.lastScrollY = 1;
         CORE.Selector.selectCellByKeyPress();
-        CORE.Grid.updateHeight("down", 1);
         /** Update last key press timestamp */
-        this.lastKeyPress = e.timeStamp - 40;
+        this.lastKeyPress = e.timeStamp - 100;
         return void 0;
       /** [LEFT] */
       case 37:
@@ -63,10 +62,9 @@
         if (CORE.Event.inEditMode()) return void 0;
         CORE.Grid.Settings.keyScrolledX -= CORE.Settings.Scroll.Horizontal;
         CORE.Grid.Settings.lastScrollX = CORE.Settings.Scroll.Horizontal;
-        CORE.Grid.updateWidth("left");
         CORE.Selector.selectCellByKeyPress();
         /** Update last key press timestamp */
-        this.lastKeyPress = e.timeStamp;
+        this.lastKeyPress = e.timeStamp - 100;
         return void 0;
       /** [RIGHT] */
       case 39:
@@ -74,10 +72,9 @@
         if (CORE.Event.inEditMode()) return void 0;
         CORE.Grid.Settings.keyScrolledX += CORE.Settings.Scroll.Horizontal;
         CORE.Grid.Settings.lastScrollX = CORE.Settings.Scroll.Horizontal;
-        CORE.Grid.updateWidth("right");
         CORE.Selector.selectCellByKeyPress();
         /** Update last key press timestamp */
-        this.lastKeyPress = e.timeStamp;
+        this.lastKeyPress = e.timeStamp - 100;
         return void 0;
     }
 
