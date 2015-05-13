@@ -29,6 +29,8 @@
     /** Initialize font change menu */
     CORE.DOM.ChangeFont.addEventListener('change', function(e) {
 
+      var jumps = null;
+
       /** Validate all selected cells */
       CORE.$.validateCells();
 
@@ -38,7 +40,8 @@
         if (CORE.Cells.Used[CORE.Selector.SelectedCells[ii]]) {
           CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Font = e.target.value;
           /** Immediately update cells font */
-          CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.SelectedCells[ii]))].style.fontFamily = e.target.children[e.target.selectedIndex].getAttribute("value");
+          jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
+          if (jumps) CORE.DOM.Output.children[jumps].style.fontFamily = e.target.children[e.target.selectedIndex].getAttribute("value");
         }
       }
 
@@ -56,6 +59,8 @@
     /** Initialize font size menu */
     CORE.DOM.ChangeFontSize.addEventListener('change', function(e) {
 
+      var jumps = null;
+
       /** Validate all selected cells */
       CORE.$.validateCells();
 
@@ -64,7 +69,8 @@
         /** Update the font size */
         CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].FontSize = parseInt(e.target.value);
         /** Immediately update cells font size */
-        CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.SelectedCells[ii]))].style.fontSize = e.target.children[e.target.selectedIndex].getAttribute("value") + "px";
+        jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
+        if (jumps) CORE.DOM.Output.children[jumps].style.fontSize = e.target.children[e.target.selectedIndex].getAttribute("value") + "px";
       }
 
       /** Dont loose the selection */
@@ -81,6 +87,8 @@
     /** Initialize font bold menu item */
     CORE.DOM.ChangeFontBold.addEventListener('click', function(e) {
 
+      var jumps = null;
+
       /** Validate all selected cells */
       CORE.$.validateCells();
 
@@ -91,12 +99,14 @@
           /** Update the font bold */
           CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].FontBold = false;
           /** Immediately update cells font bold */
-          CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.SelectedCells[ii]))].style.fontWeight = "normal";
+          jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
+          if (jumps) CORE.DOM.Output.children[jumps].style.fontWeight = "normal";
         } else {
           /** Update the font bold */
           CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].FontBold = true;
           /** Immediately update cells font bold */
-          CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.SelectedCells[ii]))].style.fontWeight = "bold";
+          jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
+          if (jumps) CORE.DOM.Output.children[jumps].style.fontWeight = "bold";
         }
       }
 
@@ -108,6 +118,8 @@
     /** Initialize font italic menu item */
     CORE.DOM.ChangeFontItalic.addEventListener('click', function(e) {
 
+      var jumps = null;
+
       /** Validate all selected cells */
       CORE.$.validateCells();
 
@@ -118,12 +130,14 @@
           /** Update the font italic */
           CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].FontItalic = false;
           /** Immediately update cells font italic */
-          CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.SelectedCells[ii]))].style.fontStyle = "normal";
+          jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
+          if (jumps) CORE.DOM.Output.children[jumps].style.fontStyle = "normal";
         } else {
           /** Update the font italic */
           CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].FontItalic = true;
           /** Immediately update cells font italic */
-          CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.SelectedCells[ii]))].style.fontStyle = "italic";
+          jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
+          if (jumps) CORE.DOM.Output.children[jumps].style.fontStyle = "italic";
         }
       }
 
@@ -136,6 +150,7 @@
     CORE.DOM.ChangeFontColor.addEventListener('click', function(e) {
 
       var element = CORE.DOM.ChangeFontColor;
+      var jumps = null;
 
       /** Display menu switch */
       if (element.parentNode.children[1]) {
@@ -160,7 +175,8 @@
         /** Update the font color */
         CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Color = CORE.DOM.ChangeFontColorPreview.style.color;
         /** Immediately update cells font color */
-        CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.SelectedCells[ii]))].style.color = CORE.DOM.ChangeFontColorPreview.style.color;
+        jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
+        if (jumps) CORE.DOM.Output.children[jumps].style.color = CORE.DOM.ChangeFontColorPreview.style.color;
       }
 
       /** Dont loose the selection */

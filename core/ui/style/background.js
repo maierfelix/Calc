@@ -52,7 +52,8 @@
         /** Update the cell background color */
         CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].BackgroundColor = CORE.DOM.ChangeCellBackground.children[1].style.background;
         /** Immediately update cells background color */
-        CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.SelectedCells[ii]))].style.background = CORE.DOM.ChangeCellBackground.children[1].style.background;
+        var jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
+        if (jumps) CORE.DOM.Output.children[jumps].style.background = CORE.DOM.ChangeCellBackground.children[1].style.background;
       }
 
       /** Dont loose the selection */

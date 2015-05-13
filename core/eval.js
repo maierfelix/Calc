@@ -45,7 +45,8 @@
         /** Update used cell stack content */
         CORE.Cells.Used[formulas[ii].name].Content = result;
         /** Display the result, if cell is in view */
-        CORE.DOM.Output.children[CORE.$.getCell(formulas[ii].name)].innerHTML = result;
+        var jumps = CORE.$.getCell(formulas[ii].name);
+        if (jumps) CORE.DOM.Output.children[jumps].innerHTML = result;
       }
     }
 

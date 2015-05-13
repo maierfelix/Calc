@@ -134,7 +134,8 @@
           /** Cell formula doesnt match with its content (seems like we got a calculation result) */
           if (CORE.Cells.Used[letter + number].Formula !== CORE.Cells.Used[letter + number].Content) {
             /** Disgorge the formula */
-            CORE.DOM.Output.children[jumps].innerHTML = CORE.Cells.Used[letter + number].Content;
+            jumps = CORE.$.getCell(letter + number);
+            if (jumps) CORE.DOM.Output.children[jumps].innerHTML = CORE.Cells.Used[letter + number].Content;
           }
         }
       }

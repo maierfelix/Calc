@@ -78,10 +78,13 @@
     /** User presses the shift key */
     if (CORE.Input.Keyboard.Shift) {
 
+      /** Use first selected cell as parent cell selection */
       CORE.Cells.Selected.First = CORE.Cells.Select;
 
+      /** Update last selected cell */
       CORE.Cells.Selected.Last = letter + number;
 
+      /** Proccess the new selection */
       CORE.Selector.getSelection();
 
     }

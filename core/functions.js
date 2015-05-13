@@ -171,8 +171,25 @@
         number = parseInt(name.match(CORE.REGEX.letters).join("")),
         jumps = ((CORE.Grid.Settings.y * (CORE.$.alphaToNumber(letter) - 1) ) + number - 1 - CORE.Grid.Settings.scrolledY) - (CORE.Grid.Settings.y * CORE.Grid.Settings.scrolledX);
 
-    if (CORE.DOM.Output.children[jumps]) return (jumps);
+    if (CORE.DOM.Output.children[jumps] && CORE.$.isInView(letter, jumps)) return (jumps);
     else return void 0;
+
+  };
+
+  /**
+   * Check if a cell is in its correct row
+   *
+   * @method isInView
+   * @static
+   */
+  CORE.$.isInView = function(letter, jumps) {
+
+    var row = CORE.$.alphaToNumber(letter);
+        row = row <= 1 ? 1 : row;
+
+    if (jumps < ( (CORE.$.alphaToNumber(letter) * CORE.Grid.Settings.y) - CORE.Grid.Settings.y ) ) return (false);
+    else if (jumps >= (CORE.$.alphaToNumber(letter) * CORE.Grid.Settings.y) ) return (false);
+    return (true);
 
   };
 

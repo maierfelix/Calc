@@ -36,8 +36,11 @@
       /** Synchronize custom cells with the cell settings menu if 1 cell is selected */
       if (this.SelectedCells.length === 1) CORE_UI.updateCellStyleMenu(this.SelectedCells[ii]);
 
-      if (CORE.DOM.Output.children[jumps]) {
-        CORE.DOM.Output.children[jumps].classList.add(style);
+      /** Test if selection is in view */
+      if (CORE.$.isInView(letter, jumps)) {
+        if (CORE.DOM.Output.children[jumps]) {
+          CORE.DOM.Output.children[jumps].classList.add(style);
+        }
       }
 
       CORE.DOM.DebugContainer.innerHTML += this.SelectedCells[ii] + ", ";
@@ -67,6 +70,18 @@
 
       letter = this.SelectedCells[ii].match(CORE.REGEX.numbers).join("");
       number = parseInt(this.SelectedCells[ii].match(CORE.REGEX.letters).join(""));
+
+      jumps = ((CORE.Grid.Settings.y * (CORE.$.alphaToNumber(letter) - 1) ) + number - 1 - CORE.Grid.Settings.scrolledY) - (CORE.Grid.Settings.y * CORE.Grid.Settings.scrolledX) + CORE.Grid.Settings.lastScrollY;
+
+      if (CORE.DOM.Output.children[jumps]) {
+        CORE.DOM.Output.children[jumps].classList.remove(style);
+      }
+
+      jumps = ((CORE.Grid.Settings.y * (CORE.$.alphaToNumber(letter) - 1) ) + number - 1 - CORE.Grid.Settings.scrolledY) - (CORE.Grid.Settings.y * CORE.Grid.Settings.scrolledX) - CORE.Settings.Scroll.Vertical;
+
+      if (CORE.DOM.Output.children[jumps]) {
+        CORE.DOM.Output.children[jumps].classList.remove(style);
+      }
 
       jumps = ((CORE.Grid.Settings.y * (CORE.$.alphaToNumber(letter) - 1) ) + number - 1 - CORE.Grid.Settings.scrolledY) - (CORE.Grid.Settings.y * CORE.Grid.Settings.scrolledX);
 

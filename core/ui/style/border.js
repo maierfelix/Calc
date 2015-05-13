@@ -67,6 +67,9 @@
   /** Update a cells border */
   CORE_UI.updateCellBorder = function(id) {
 
+    /** Check if cell to update is in view */
+    var jumps = null;
+
     /** Loop through all selected cells */
     for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {
 
@@ -78,12 +81,14 @@
         /** Check if user wants to disable the border by applying it again */
         if (CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.left) {
           CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.left = null;
-          CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.SelectedCells[ii]))].style.borderLeft = "";
+          jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
+          if (jumps) CORE.DOM.Output.children[jumps].style.borderLeft = "";
         } else {
           /** Update cell used stack */
           CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.left = true;
           /** Immediately update cells border */
-          CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.SelectedCells[ii]))].style.borderLeft = "2px solid black";
+          jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
+          if (jumps) CORE.DOM.Output.children[jumps].style.borderLeft = "2px solid black";
         }
       }
 
@@ -92,12 +97,14 @@
         /** Check if user wants to disable the border by applying it again */
         if (CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.right) {
           CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.right = null;
-          CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.SelectedCells[ii]))].style.borderRight = "";
+          jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
+          if (jumps) CORE.DOM.Output.children[jumps].style.borderRight = "";
         } else {
           /** Update cell used stack */
           CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.right = true;
           /** Immediately update cells border */
-          CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.SelectedCells[ii]))].style.borderRight = "2px solid black";
+          jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
+          if (jumps) CORE.DOM.Output.children[jumps].style.borderRight = "2px solid black";
         }
       }
 
@@ -106,12 +113,14 @@
         /** Check if user wants to disable the border by applying it again */
         if (CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.top) {
           CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.top = null;
-          CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.SelectedCells[ii]))].style.borderTop = "";
+          jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
+          if (jumps) CORE.DOM.Output.children[jumps].style.borderTop = "";
         } else {
           /** Update cell used stack */
           CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.top = true;
           /** Immediately update cells border */
-          CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.SelectedCells[ii]))].style.borderTop = "2px solid black";
+          jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
+          if (jumps) CORE.DOM.Output.children[jumps].style.borderTop = "2px solid black";
         }
       }
 
@@ -120,12 +129,14 @@
         /** Check if user wants to disable the border by applying it again */
         if (CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.bottom) {
           CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.bottom = null;
-          CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.SelectedCells[ii]))].style.borderBottom = "";
+          jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
+          if (jumps) CORE.DOM.Output.children[jumps].style.borderBottom = "";
         } else {
           /** Update cell used stack */
           CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.bottom = true;
           /** Immediately update cells border */
-          CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.SelectedCells[ii]))].style.borderBottom = "2px solid black";
+          jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
+          if (jumps) CORE.DOM.Output.children[jumps].style.borderBottom = "2px solid black";
         }
       }
 
@@ -134,7 +145,8 @@
         /** Check if user wants to disable the border by applying it again */
         if (CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.full) {
           CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.full = null;
-          CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.SelectedCells[ii]))].style.border = "";
+          jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
+          if (jumps) CORE.DOM.Output.children[jumps].style.border = "";
         } else {
           /** Update cell used stack */
           CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.full = true;
@@ -146,7 +158,8 @@
           CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.bottom = null;
 
           /** Immediately update cells border */
-          CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.SelectedCells[ii]))].style.border = "2px solid black";
+          jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
+          if (jumps) CORE.DOM.Output.children[jumps].style.border = "2px solid black";
         }
       }
 

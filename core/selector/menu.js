@@ -26,11 +26,15 @@
     /** Clean the menu */
     if (this.MenuSelection.Horizontal >= 0 && this.MenuSelection.Vertical >= 0) {
 
-      CORE.DOM.HorizontalMenu.children[this.MenuSelection.Horizontal].classList.add("cell_dark");
-      CORE.DOM.HorizontalMenu.children[this.MenuSelection.Horizontal].classList.remove("cell_bright");
+      if (CORE.DOM.HorizontalMenu.children[this.MenuSelection.Horizontal]) {
+        CORE.DOM.HorizontalMenu.children[this.MenuSelection.Horizontal].classList.add("cell_dark");
+        CORE.DOM.HorizontalMenu.children[this.MenuSelection.Horizontal].classList.remove("cell_bright");
+      }
 
-      CORE.DOM.VerticalMenu.children[this.MenuSelection.Vertical].classList.add("cell_dark");
-      CORE.DOM.VerticalMenu.children[this.MenuSelection.Vertical].classList.remove("cell_bright");
+      if (CORE.DOM.VerticalMenu.children[this.MenuSelection.Vertical]) {
+        CORE.DOM.VerticalMenu.children[this.MenuSelection.Vertical].classList.add("cell_dark");
+        CORE.DOM.VerticalMenu.children[this.MenuSelection.Vertical].classList.remove("cell_bright");
+      }
 
     }
 
