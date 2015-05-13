@@ -37,6 +37,7 @@
   <link rel="stylesheet" type="text/css" href="style/gravit.css"></link>
   <link rel="stylesheet" type="text/css" href="style/dialog.css"></link>
   <link rel="stylesheet" type="text/css" href="style/dialog-dean.css"></link>
+  <link rel="stylesheet" type="text/css" href="style/eight-bit-color-picker.css"></link>
 </head>
 <body class="g-desktop">
   <div id="workspace">
@@ -164,15 +165,15 @@
                 </span>
                 <span class="fa fa-caret-down" style="margin-left: 19px;"></span>
               </button>
-              <div hide="true" style="display:none;position: absolute;z-index: 9999;">
-                <div id="slide"></div>
+              <div hide="true" style="display:block;position: absolute;z-index: 9999;">
+                <div id="font_colorpicker" class="eight-bit-color-picker"></div>
               </div>
             </label>
             <!-- Cell background color -->
-            <label id="change_background" style="position: absolute; top: 10px; left: 400px;">
-              <div class="g-input g-cursor-pipette" style="min-width: 40px;min-height: 25px;background: #fff;"></div>
-              <div hide="true" style="display:none;position: absolute;z-index: 9999;">
-                <div id="slide_background"></div>
+            <label id="change_background" style="position: absolute; top: 10px; left: 400px;height: 25px;">
+              <div class="g-input g-cursor-pipette" style="min-width: 40px;min-height: 23px;background: #fff;"></div>
+              <div style="display:block;position: absolute;z-index: 9999;">
+                <div id="background_colorpicker" class="eight-bit-color-picker"></div>
               </div>
             </label>
             <!-- Cell border menu -->

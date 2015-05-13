@@ -520,16 +520,6 @@ textArea {
     line-height: 18px;
     display: inline-block
 }
-.g-button:not(:last-child),
-.g-grid:not(:last-child),
-.g-input:not(:last-child),
-.g-list:not(:last-child),
-button:not(:last-child),
-input:not(:last-child),
-select:not(:last-child),
-textArea:not(:last-child) {
-    margin-right: 3px
-}
 .g-button:disabled,
 .g-grid:disabled,
 .g-input:disabled,

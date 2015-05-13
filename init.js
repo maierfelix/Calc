@@ -15,7 +15,7 @@ Import.scripts = [
   "lib/fastclick.min.js",
   "lib/js2png.js",
   "lib/ajax.min.js",
-  "lib/colorpicker.min.js",
+  "lib/eight-bit-color-picker.min.js",
   /** Menu */
   "core/ui/main.js",
   "core/ui/menu.js",

@@ -82,13 +82,13 @@
         if (CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.left) {
           CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.left = null;
           jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
-          if (jumps) CORE.DOM.Output.children[jumps].style.borderLeft = "";
+          if (jumps >= 0) CORE.DOM.Output.children[jumps].style.borderLeft = "";
         } else {
           /** Update cell used stack */
           CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.left = true;
           /** Immediately update cells border */
           jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
-          if (jumps) CORE.DOM.Output.children[jumps].style.borderLeft = "2px solid black";
+          if (jumps >= 0) CORE.DOM.Output.children[jumps].style.borderLeft = "2px solid black";
         }
       }
 
@@ -98,13 +98,13 @@
         if (CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.right) {
           CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.right = null;
           jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
-          if (jumps) CORE.DOM.Output.children[jumps].style.borderRight = "";
+          if (jumps >= 0) CORE.DOM.Output.children[jumps].style.borderRight = "";
         } else {
           /** Update cell used stack */
           CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.right = true;
           /** Immediately update cells border */
           jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
-          if (jumps) CORE.DOM.Output.children[jumps].style.borderRight = "2px solid black";
+          if (jumps >= 0) CORE.DOM.Output.children[jumps].style.borderRight = "2px solid black";
         }
       }
 
@@ -114,13 +114,13 @@
         if (CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.top) {
           CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.top = null;
           jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
-          if (jumps) CORE.DOM.Output.children[jumps].style.borderTop = "";
+          if (jumps >= 0) CORE.DOM.Output.children[jumps].style.borderTop = "";
         } else {
           /** Update cell used stack */
           CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.top = true;
           /** Immediately update cells border */
           jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
-          if (jumps) CORE.DOM.Output.children[jumps].style.borderTop = "2px solid black";
+          if (jumps >= 0) CORE.DOM.Output.children[jumps].style.borderTop = "2px solid black";
         }
       }
 
@@ -130,13 +130,13 @@
         if (CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.bottom) {
           CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.bottom = null;
           jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
-          if (jumps) CORE.DOM.Output.children[jumps].style.borderBottom = "";
+          if (jumps >= 0) CORE.DOM.Output.children[jumps].style.borderBottom = "";
         } else {
           /** Update cell used stack */
           CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.bottom = true;
           /** Immediately update cells border */
           jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
-          if (jumps) CORE.DOM.Output.children[jumps].style.borderBottom = "2px solid black";
+          if (jumps >= 0) CORE.DOM.Output.children[jumps].style.borderBottom = "2px solid black";
         }
       }
 
@@ -146,7 +146,7 @@
         if (CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.full) {
           CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.full = null;
           jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
-          if (jumps) CORE.DOM.Output.children[jumps].style.border = "";
+          if (jumps >= 0) CORE.DOM.Output.children[jumps].style.border = "";
         } else {
           /** Update cell used stack */
           CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Border.full = true;
@@ -159,7 +159,7 @@
 
           /** Immediately update cells border */
           jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
-          if (jumps) CORE.DOM.Output.children[jumps].style.border = "2px solid black";
+          if (jumps >= 0) CORE.DOM.Output.children[jumps].style.border = "2px solid black";
         }
       }
 

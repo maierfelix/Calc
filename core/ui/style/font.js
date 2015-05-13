@@ -16,15 +16,9 @@
   CORE_UI.initFontChangeMenu = function() {
 
     /** Initialize color picker */
-    ColorPicker(
-      document.querySelector("#slide"),
-      function(hex, hsv, rgb) {
-        /** Update color of color change menu */
-        CORE.DOM.ChangeFontColorPreview.style.color = hex;
-        CORE.DOM.ChangeFontColor.disabled = false;
-        
-      }
-    );
+    var pickers = document.querySelector("#font_colorpicker");
+
+    var colorpicker = new EightBitColorPicker({ el: pickers });
 
     /** Initialize font change menu */
     CORE.DOM.ChangeFont.addEventListener('change', function(e) {
@@ -41,7 +35,7 @@
           CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Font = e.target.value;
           /** Immediately update cells font */
           jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
-          if (jumps) CORE.DOM.Output.children[jumps].style.fontFamily = e.target.children[e.target.selectedIndex].getAttribute("value");
+          if (jumps >= 0) CORE.DOM.Output.children[jumps].style.fontFamily = e.target.children[e.target.selectedIndex].getAttribute("value");
         }
       }
 
@@ -70,7 +64,7 @@
         CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].FontSize = parseInt(e.target.value);
         /** Immediately update cells font size */
         jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
-        if (jumps) CORE.DOM.Output.children[jumps].style.fontSize = e.target.children[e.target.selectedIndex].getAttribute("value") + "px";
+        if (jumps >= 0) CORE.DOM.Output.children[jumps].style.fontSize = e.target.children[e.target.selectedIndex].getAttribute("value") + "px";
       }
 
       /** Dont loose the selection */
@@ -106,7 +100,7 @@
           CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].FontBold = true;
           /** Immediately update cells font bold */
           jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
-          if (jumps) CORE.DOM.Output.children[jumps].style.fontWeight = "bold";
+          if (jumps >= 0) CORE.DOM.Output.children[jumps].style.fontWeight = "bold";
         }
       }
 
@@ -131,13 +125,13 @@
           CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].FontItalic = false;
           /** Immediately update cells font italic */
           jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
-          if (jumps) CORE.DOM.Output.children[jumps].style.fontStyle = "normal";
+          if (jumps >= 0) CORE.DOM.Output.children[jumps].style.fontStyle = "normal";
         } else {
           /** Update the font italic */
           CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].FontItalic = true;
           /** Immediately update cells font italic */
           jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
-          if (jumps) CORE.DOM.Output.children[jumps].style.fontStyle = "italic";
+          if (jumps >= 0) CORE.DOM.Output.children[jumps].style.fontStyle = "italic";
         }
       }
 
@@ -156,13 +150,12 @@
       if (element.parentNode.children[1]) {
 
         if (element.parentNode.children[1].getAttribute("hide") === "true") {
-          element.parentNode.children[1].style.display = "block";
           element.parentNode.children[1].setAttribute("hide", "false");
-          element.disabled = true;
+          colorpicker.show();
         }
         else if (element.parentNode.children[1].getAttribute("hide") === "false") {
-          element.parentNode.children[1].style.display = "none";
           element.parentNode.children[1].setAttribute("hide", "true");
+          colorpicker.hide();
         }
 
       }
@@ -173,10 +166,10 @@
       /** Loop through all selected cells */
       for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {
         /** Update the font color */
-        CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Color = CORE.DOM.ChangeFontColorPreview.style.color;
+        CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Color = pickers.children[0].style.background;
         /** Immediately update cells font color */
         jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
-        if (jumps) CORE.DOM.Output.children[jumps].style.color = CORE.DOM.ChangeFontColorPreview.style.color;
+        if (jumps >= 0) CORE.DOM.Output.children[jumps].style.color = pickers.children[0].style.background;
       }
 
       /** Dont loose the selection */
