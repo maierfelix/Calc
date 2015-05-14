@@ -146,8 +146,6 @@
   /**
    * Listen for mouse wipe
    *
-   * TODO: Start wipe on edited cells!
-   *
    * @method mouseWipe
    * @static
    */

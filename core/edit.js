@@ -69,8 +69,10 @@
               CORE.Cells.Used[newLetter + newNumber].Formula.length) {
             /** Cell formula doesnt match with its content (seems like we got a calculation result) */
             if (CORE.Cells.Used[newLetter + newNumber].Formula !== CORE.Cells.Used[newLetter + newNumber].Content) {
-              /** Disgorge the formula, also trim it */
+              /** Disgorge the formula */
               CORE.DOM.Output.children[newJumps].innerHTML = CORE.Cells.Used[newLetter + newNumber].Formula;
+              /** Move cursor to end of cell content text */
+              this.goToEndOfCellText();
             }
           }
         /** Register the cell into the interpreter cell stack */
@@ -82,8 +84,10 @@
               CORE.Cells.Used[newLetter + newNumber].Formula.length) {
             /** Cell formula doesnt match with its content (seems like we got a calculation result) */
             if (CORE.Cells.Used[newLetter + newNumber].Formula !== CORE.Cells.Used[newLetter + newNumber].Content) {
-              /** Disgorge the formula, also trim it */
+              /** Disgorge the formula */
               CORE.DOM.Output.children[newJumps].innerHTML = CORE.Cells.Used[newLetter + newNumber].Formula;
+              /** Move cursor to end of cell content text */
+              this.goToEndOfCellText();
             }
           }
         }
@@ -144,6 +148,24 @@
 
     /** User does not edit anything anymore */
     CORE.Input.Mouse.Edit = false;
+
+  };
+
+  /**
+   * Go to the end of a cell content text
+   *
+   * @method goToEndOfCellText
+   * @static
+   */
+  CORE.Grid.prototype.goToEndOfCellText = function() {
+
+    if (CORE.Selector.Selected.First.Letter && CORE.Selector.Selected.First.Number) {
+
+      var jumps = CORE.$.getCell(CORE.Selector.Selected.First.Letter + CORE.Selector.Selected.First.Number);
+
+      if (jumps >= 0) CORE.$.selectText(CORE.DOM.Output.children[jumps]);
+
+    }
 
   };
 
