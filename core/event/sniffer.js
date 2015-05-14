@@ -102,6 +102,9 @@
       /** Focus the selected cell to allow input */
       element.focus();
 
+      /** Move cursor to end of cell content text */
+      if (CORE.Cells.Used[CORE.Cells.Edit].Content) CORE.Grid.goToEndOfCellText();
+
     /** User pressed enter */
     } else {
       CORE.eval();
