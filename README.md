@@ -50,4 +50,4 @@ NovaeCalc is not stable yet.
  * [JS2PNG](https://github.com/felixmaier/JS2PNG)
  * [Engelscript](https://github.com/felixmaier/Engelscript)
  * [ImportJS](https://github.com/felixmaier/ImportJS)
- * [ColorPicker](https://github.com/DavidDurman/FlexiColorPicker)
+ * [Eight Bit Color Picker](https://github.com/bilalq/eight-bit-color-picker)
