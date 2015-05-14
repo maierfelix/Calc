@@ -29,6 +29,8 @@
       /** Clean old double click selection */
       CORE.Grid.cleanEditSelection();
 
+      CORE.Selector.cellFocusSwitch = false;
+
       CORE.Grid.getEditSelection(attribute);
 
     }

@@ -32,7 +32,7 @@
         formulas.push({
           name: ii,
           /** Validate formula, add the parent cell value before the formula to emulate a variable assignment */
-          value: (cells[ii].Formula.substr(0, 0) + ii + cells[ii].Formula.substr(0)).toUpperCase()
+          value: (cells[ii].Formula.substr(0, 0) + ii + cells[ii].Formula.substr(0))
         });
       }
     }

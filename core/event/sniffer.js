@@ -81,6 +81,8 @@
 
     /** User is in edit mode? */
     if (CORE.Event.inEditMode()) {
+      /** Go to the end of a cell text if edit first time */
+      CORE.Selector.cellFocusSwitch = false;
       /** Get cell content and pass it into the cell edit cell stack */
       CORE.Cells.Used[CORE.Cells.Edit].Content = CORE.DOM.Output.children[CORE.$.getCell(CORE.Cells.Edit)].innerHTML;
       /** Check if cell is a formula */
@@ -103,7 +105,9 @@
       element.focus();
 
       /** Move cursor to end of cell content text */
-      if (CORE.Cells.Used[CORE.Cells.Edit].Content) CORE.Grid.goToEndOfCellText();
+      if (CORE.Cells.Used[CORE.Cells.Edit].Content && CORE.Selector.cellFocusSwitch) CORE.Grid.goToEndOfCellText();
+
+      CORE.Selector.cellFocusSwitch = true;
 
     /** User pressed enter */
     } else {
