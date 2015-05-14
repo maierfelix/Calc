@@ -24,9 +24,9 @@ body {
 
 #current_cell {
   height: 25px;
-  width: 50px;
-  left: 0px;
-  top: 70px;
+  width: 51px;
+  left: -1px;
+  top: 100px;
   border-right: none !important;
 }
 
@@ -40,6 +40,18 @@ body {
   -moz-user-select: none;
   -o-user-select: none;
   user-select: none;
+}
+
+.formula_input {
+	height: 25px;
+	width: 480px;
+	border: 1px solid #7c3b99;
+}
+
+.formula_input:focus {
+	-webkit-box-shadow: 0 3px 5px rgba(0,0,0,0.4);
+  -moz-box-shadow: 0 3px 5px rgba(0,0,0,0.4);
+  box-shadow: 0 3px 5px rgba(0,0,0,0.4);
 }
 
 .picker-wrapper {
@@ -60,12 +72,12 @@ body {
   bottom: 0px;
   width: 100%;
   left: 50px;
-  top: 95px;
+  top: 125px;
 }
 
 .menu_hor {
   position: absolute;
-  top: 70px;
+  top: 100px;
   left: -50px;
   width: 100%;
   height: 25px;
@@ -74,7 +86,7 @@ body {
 
 .menu_ver {
   position: absolute;
-  top: 70px;
+  top: 100px;
   left: 0px;
   width: 50px;
   height: 100%;
@@ -86,16 +98,15 @@ body {
 }
 
 .default_layer {
-  background: #fff !important;
+  background: #7c3b99 !important;
   cursor: default !important;
-  border: solid 1px lightgrey !important;
-  color: #000 !important;
+  color: #fff !important;
 }
 
 .cell_bright {
-  color: #1E88E5 !important;
+  color: #502663 !important;
   background: #dedede !important;
-  border: solid 1px #64B5F6 !important;
+  border: solid 1px #6e3488 !important;
   font-family: 'Roboto', sans-serif;
   font-weight: bold;
   padding: 4px !important;
@@ -113,7 +124,7 @@ body {
 }
 
 .cell_dark_alpha:hover {
-  color: #000 !important;
+  color: #7c3b99 !important;
   cursor: pointer;
 }
 
@@ -126,7 +137,7 @@ body {
 }
 
 .cell_dark_number:hover {
-  color: #000 !important;
+  color: #7c3b99 !important;
   cursor: pointer;
 }
 
@@ -166,7 +177,7 @@ body {
 }
 
 .single_row_hovered {
-  border: 2px solid rgba(66, 165, 245, 1);
+  border: 2px solid #7c3b99;
   background: #fff;
   color: #000;
   padding-top: 2px;
@@ -175,7 +186,7 @@ body {
 }
 
 .cell_edit {
-  border: solid 2px rgba(66, 165, 245, 1) !important;
+  border: solid 2px #7c3b99 !important;
   background: #fff;
   -webkit-box-shadow: 0 3px 5px rgba(0,0,0,0.4);
   -moz-box-shadow: 0 3px 5px rgba(0,0,0,0.4);
@@ -291,9 +302,9 @@ body {
 
 .loader-background {
   background-color: background: rgb(107, 216, 97);
-  background-image: -webkit-gradient(linear,left top,left bottom,from(#699CCC),to(#96E6FF));
-  background-image: -moz-gradient(linear,left top,left bottom,from(#699CCC),to(#96E6FF));
-  background-image: gradient(linear,left top,left bottom,from(#699CCC),to(#96E6FF));
+  background-image: -webkit-gradient(linear,left top,left bottom,from(#502663),to(#0b4d7d));
+  background-image: -moz-gradient(linear,left top,left bottom,from(#502663),to(#0b4d7d));
+  background-image: gradient(linear,left top,left bottom,from(#502663),to(#0b4d7d));
   background-repeat: repeat-x;
   background-color: #081218;
   background-repeat: no-repeat;
@@ -336,62 +347,6 @@ body {
   -webkit-transform: translate(-50%,-50%);
   -ms-transform: translate(-50%,-50%);
   transform: translate(-50%,-50%);
-}
-
-.loader {
-  -webkit-animation: animate 1.5s linear infinite;
-   -moz-animation: animate 1.5s linear infinite;
-    -ms-animation: animate 1.5s linear infinite;
-     -o-animation: animate 1.5s linear infinite;
-        animation: animate 1.5s linear infinite;
-  clip: rect(0, 80px, 80px, 40px); 
-  height: 80px;
-  width: 80px;
-  position: absolute;
-  left: calc(50% - 40px);
-  top: calc(50% - 40px);
-}
-@-webkit-keyframes animate {
-  0% { 
-    -webkit-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
-    transform: rotate(0deg)
-  }
-  100% { 
-    -webkit-transform: rotate(220deg);
-    -ms-transform: rotate(220deg);
-    transform: rotate(220deg)
-  }
-}
-.loader:after {
-  -webkit-animation: animate2 1.5s ease-in-out infinite;
-   -moz-animation: animate2 1.5s ease-in-out infinite;
-    -ms-animation: animate2 1.5s ease-in-out infinite;
-     -o-animation: animate2 1.5s ease-in-out infinite;
-        animation: animate2 1.5s ease-in-out infinite;
-  clip: rect(0, 80px, 80px, 40px);
-  content:'';
-  border-radius: 50%; 
-  height: 80px;
-  width: 80px;
-  position: absolute; 
-} 
-@-webkit-keyframes animate2 {
-  0% {
-    box-shadow: inset #fff 0 0 0 17px;
-    -webkit-transform: rotate(-140deg);
-    -ms-transform: rotate(-140deg);
-    transform: rotate(-140deg)
-  }
-  50% {
-    box-shadow: inset #fff 0 0 0 2px;
-  }
-  100% {
-    box-shadow: inset #fff 0 0 0 17px;
-    -webkit-transform: rotate(140deg);
-    -ms-transform: rotate(140deg);
-    transform: rotate(140deg)
-  }
 }
 
 .fadeOut {

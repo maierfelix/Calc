@@ -79,12 +79,15 @@
    */
   CORE.Event.sniffCellInput = function(keyCode) {
 
+    var jumps = 0;
+
     /** User is in edit mode? */
     if (CORE.Event.inEditMode()) {
       /** Go to the end of a cell text if edit first time */
       CORE.Selector.cellFocusSwitch = false;
       /** Get cell content and pass it into the cell edit cell stack */
-      CORE.Cells.Used[CORE.Cells.Edit].Content = CORE.DOM.Output.children[CORE.$.getCell(CORE.Cells.Edit)].innerHTML;
+      jumps = CORE.$.getCell(CORE.Cells.Edit);
+      if (jumps >= 0) CORE.Cells.Used[CORE.Cells.Edit].Content = CORE.DOM.Output.children[jumps].innerHTML;
       /** Check if cell is a formula */
       CORE.Event.isFormula();
     }
@@ -99,7 +102,8 @@
       CORE.Grid.cleanEditSelection();
       CORE.Grid.getEditSelection(CORE.Selector.Selected.First.Letter + CORE.Selector.Selected.First.Number);
 
-      element = CORE.DOM.Output.children[(CORE.$.getCell(CORE.Selector.Selected.First.Letter + CORE.Selector.Selected.First.Number))];
+      jumps = CORE.$.getCell(CORE.Selector.Selected.First.Letter + CORE.Selector.Selected.First.Number);
+      if (jumps >= 0) element = CORE.DOM.Output.children[jumps];
 
       /** Focus the selected cell to allow input */
       element.focus();

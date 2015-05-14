@@ -70,15 +70,6 @@ Import.after = function() {
 Import.each = function(percent) {
   /** Update percentage in document */
   document.querySelector(".loader-title").innerHTML = percent + "%";
-  if (percent <= 12) document.querySelector("#loader-comment").innerHTML = "Loading dependencies..";
-  else if (percent <= 28) document.querySelector("#loader-comment").innerHTML = "Preparing menu..";
-  else if (percent <= 40) document.querySelector("#loader-comment").innerHTML = "Initialise styling..";
-  else if (percent <= 45) document.querySelector("#loader-comment").innerHTML = "Initialise core..";
-  else if (percent <= 57) document.querySelector("#loader-comment").innerHTML = "Preparing input..";
-  else if (percent <= 72) document.querySelector("#loader-comment").innerHTML = "Preparing grid..";
-  else if (percent <= 87) document.querySelector("#loader-comment").innerHTML = "Preparing selector..";
-  else if (percent <= 94) document.querySelector("#loader-comment").innerHTML = "Initialise helpers..";
-  else if (percent <= 100) document.querySelector("#loader-comment").innerHTML = "Initialise interpreter..";
   if (percent >= 99) document.querySelector(".loader-wrapper").classList.add("fadeOut");
 };
 Import.me();

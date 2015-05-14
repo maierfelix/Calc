@@ -270,7 +270,7 @@ ul.jqtree-tree .jqtree-element {
 }
 ul.jqtree-tree li.jqtree-selected>.jqtree-element,
 ul.jqtree-tree li.jqtree-selected>.jqtree-element:hover {
-    background: #1E88E5;
+    background: #72368c;
     color: #fff
 }
 
@@ -504,10 +504,6 @@ button,
 input,
 select,
 textArea {
-    appearance: none;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    -ms-appearance: none;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -601,7 +597,7 @@ input[type=submit].g-flat.g-active,
 input[type=submit].g-flat.g-active *,
 input[type=submit].g-flat:active,
 input[type=submit].g-flat:active * {
-    color: #1E88E5
+    color: #72368c
 }
 .g-button.g-flat.g-active svg,
 .g-button.g-flat:active svg,
@@ -611,8 +607,8 @@ input[type=button].g-flat.g-active svg,
 input[type=button].g-flat:active svg,
 input[type=submit].g-flat.g-active svg,
 input[type=submit].g-flat:active svg {
-    fill: #1E88E5;
-    stroke: #1E88E5
+    fill: #72368c;
+    stroke: #72368c
 }
 .g-button span:not(:last-child),
 button span:not(:last-child),
@@ -636,7 +632,7 @@ input:not([type=button]):not([type=submit]):not([type=checkbox]):not([type=radio
 select:focus,
 textArea:focus {
     outline: 0;
-    border: 1px solid #1E88E5
+    border: 1px solid #72368c
 }
 select {
     text-indent: .01px;
@@ -746,7 +742,7 @@ textArea {
     color: #fff
 }
 .g-grid>div.g-selected {
-    background: #1E88E5
+    background: #72368c
 }
 .g-grid>div.g-selected,
 .g-grid>div.g-selected * {
@@ -1036,7 +1032,7 @@ div.g-form>div:not(:last-child)>div>label:last-child {
 .g-panel>.header>.controls button.g-active *,
 .g-panel>.header>.controls button:active,
 .g-panel>.header>.controls button:active * {
-    color: #1E88E5
+    color: #72368c
 }
 .g-color-editor,
 .g-color-editor .color-container {
@@ -1270,7 +1266,7 @@ div.g-form>div:not(:last-child)>div>label:last-child {
     top: 18px
 }
 .g-pivot>.side.g-active {
-    background: #1E88E5
+    background: #72368c
 }
 .g-pattern-editor {
     width: 490px
@@ -1335,7 +1331,7 @@ div.g-form>div:not(:last-child)>div>label:last-child {
     padding: 2px
 }
 .g-style-panel .style-block.selected {
-    background: #1E88E5;
+    background: #72368c;
     color: #fff
 }
 .g-style-panel .style-block.drop {
@@ -1382,7 +1378,7 @@ div.g-form>div:not(:last-child)>div>label:last-child {
     margin: 1px
 }
 .g-swatch-panel .swatch-block.selected {
-    border: 1px solid #1E88E5;
+    border: 1px solid #72368c;
     margin: 0
 }
 .g-swatch-panel .swatch-block.drop {
@@ -1402,7 +1398,7 @@ div.g-form>div:not(:last-child)>div>label:last-child {
 }
 .g-swatch-panel.g-swatch-list .swatch-block.selected {
     border: 0;
-    background: #1E88E5;
+    background: #72368c;
     color: #fff;
     margin: 1px
 }
@@ -1460,7 +1456,7 @@ div.g-form>div:not(:last-child)>div>label:last-child {
     padding-left: 3px
 }
 #header>.windows>.tab>.close:hover {
-    color: #1E88E5
+    color: #72368c
 }
 #header>.view {
     float: right;
@@ -1676,7 +1672,7 @@ div.g-form>div:not(:last-child)>div>label:last-child {
 #palettes .palette-group>.palette-group-header button.g-active *,
 #palettes .palette-group>.palette-group-header button:active,
 #palettes .palette-group>.palette-group-header button:active * {
-    color: #1E88E5
+    color: #72368c
 }
 #palettes .palette-group>.palette-group-header>.palette-group-tabs {
     width: 100%
@@ -1879,7 +1875,7 @@ div.g-form>div:not(:last-child)>div>label:last-child {
     color: #fff
 }
 .palette-layers .layers div.jqtree-element.g-selected {
-    background: #1E88E5
+    background: #72368c
 }
 .palette-layers .layers div.jqtree-element.g-selected,
 .palette-layers .layers div.jqtree-element.g-selected * {
