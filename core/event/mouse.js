@@ -201,6 +201,20 @@
    */
   CORE.Event.scroll = function(e) {
 
+    /** Update empty timestamp */
+    if (!this.lastMouseScroll) this.lastMouseScroll = e.timeStamp;
+
+    /** Handle timestamps */
+    if (this.lastMouseScroll > 0) {
+
+       /** Calculate difference between this and last timestamp */
+      var difference = e.timeStamp - this.lastMouseScroll;
+
+      /** Prevent too fast mouse scrolling */
+      if (difference && difference <= 30) return void 0;
+
+    }
+
     var direction = 0;
 
     /** Make sure the grid was scrolled */
@@ -228,7 +242,7 @@
         CORE.Grid.Settings.scrolledY += CORE.Settings.Scroll.Vertical;
         CORE.Grid.Settings.lastScrollY = CORE.Settings.Scroll.Vertical;
         CORE.Grid.updateHeight("down", CORE.Settings.Scroll.Vertical);
-        CORE.Grid.generateMenu();
+        CORE.Grid.updateMenu();
         CORE.Selector.getSelection();
       }
       else if (direction === "up") {
@@ -236,17 +250,19 @@
           CORE.Grid.Settings.scrolledY = 0;
           CORE.Grid.Settings.lastScrollY = 0;
           CORE.Grid.updateHeight("default", CORE.Settings.Scroll.Vertical);
-          CORE.Grid.generateMenu();
+          CORE.Grid.updateMenu();
           CORE.Selector.getSelection();
         }
         else if (CORE.Grid.Settings.scrolledY - CORE.Settings.Scroll.Vertical >= 0) {
           CORE.Grid.Settings.scrolledY -= CORE.Settings.Scroll.Vertical;
           CORE.Grid.Settings.lastScrollY = CORE.Settings.Scroll.Vertical;
           CORE.Grid.updateHeight("up", CORE.Settings.Scroll.Vertical);
-          CORE.Grid.generateMenu();
+          CORE.Grid.updateMenu();
           CORE.Selector.getSelection();
         }
       }
+
+			this.lastMouseScroll = e.timeStamp;
 
     }
 
