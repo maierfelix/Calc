@@ -67,6 +67,9 @@
     /** Clean everything */
     CORE.Cells.Selected.Last = null;
 
+    /** Clean debug field */
+    CORE.DOM.DebugContainer.innerHTML = "";
+
     /** Clean last selected cells */
     this.SelectedCells = [];
 

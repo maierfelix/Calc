@@ -43,6 +43,8 @@
         }
       }
 
+      CORE.DOM.DebugContainer.innerHTML += this.SelectedCells[ii] + ", ";
+
     }
 
   };
