@@ -6,6 +6,10 @@ body {
   font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
 }
 
+#container {
+	outline:none;
+}
+
 #menu_dialogs {
   position: absolute;
   top: 0px;

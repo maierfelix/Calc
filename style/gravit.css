@@ -734,9 +734,7 @@ textArea {
 .g-grid>div * {
     line-height: 1!important
 }
-.g-grid>div.g-active {
-    background: #5a6676
-}
+
 .g-grid>div.g-active,
 .g-grid>div.g-active * {
     color: #fff
@@ -928,15 +926,6 @@ div.g-form>div:not(:last-child)>div>label:last-child {
 }
 .g-menu-item.g-disabled>span {
     opacity: .5
-}
-.g-menu-root>.g-menu-item:active:not(.g-disabled),
-.g-menu-root>.g-menu-item:active:not(.g-disabled)>span,
-.g-menu:not(.g-menu-root)>.g-menu-item.g-hover:not(.g-disabled),
-.g-menu:not(.g-menu-root)>.g-menu-item.g-hover:not(.g-disabled)>span,
-.g-menu>.g-menu-item.g-active:not(.g-disabled),
-.g-menu>.g-menu-item.g-active:not(.g-disabled)>span {
-    background: #5a6676;
-    color: #fff
 }
 .g-menu:not(.g-menu-root)>.g-menu-item.g-menu-item-checked {
     padding-left: 4px
