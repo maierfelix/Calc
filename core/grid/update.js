@@ -64,8 +64,10 @@
       /** Remove style of cell */
       else this.removeCellStyling(ii);
 
-      this.resizeHorizontal(Letter, ii);
-      this.resizeVertical(calculation, ii);
+      /** Horizontal cell row got resized */
+      if (this.Settings.cellResizedX > 0) this.resizeHorizontal(Letter, ii);
+      /** Vertical cell row got resized */
+      if (this.Settings.cellResizedY > 0) this.resizeVertical(calculation, ii);
 
       if ( (ii + 1) % br === 0) {
         Letter = CORE.$.numberToAlpha(CORE.$.alphaToNumber(Letter) + 1);
@@ -123,11 +125,9 @@
 
                 /** Check if cell is registered, if yes update its styling */
                 if (CORE.Cells.Used[Letter + calculation]) {
-                  this.removeCellStyling(calculation);
+
                   this.updateCellStyling(Letter + calculation, calculation);
                 }
-                /** Remove style of cell */
-                else this.removeCellStyling(calculation);
 
               }
             }
