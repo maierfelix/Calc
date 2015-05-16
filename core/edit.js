@@ -36,7 +36,7 @@
 
     newJumps = ((this.Settings.y * (CORE.$.alphaToNumber(newLetter) - 1) ) + newNumber - 1 - this.Settings.scrolledY) - (this.Settings.y * this.Settings.scrolledX);
 
-    /** Clean old edited cell border */
+    /** Clean old edited cell */
     if (CORE.Cells.Edit) {
 
       oldLetter = CORE.Cells.Edit.match(CORE.REGEX.numbers).join("");
@@ -48,7 +48,7 @@
       }
     }
 
-    /** Update current edited cell border */
+    /** Update current edited cell */
     if (CORE.DOM.Output.children[newJumps]) {
 
       CORE.DOM.Output.children[newJumps].classList.add("cell_edit");
@@ -97,6 +97,8 @@
 
     /** Update old edited cell */
     CORE.Cells.Edit = (newLetter + newNumber);
+
+    CORE.DOM.CurrentCell.innerHTML = CORE.Cells.Edit;
 
     /** Make sure all selections are deleted */
     CORE.Selector.deleteCellHoverEffect();

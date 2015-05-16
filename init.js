@@ -29,6 +29,7 @@ Import.scripts = [
   "core/ui/style/update.js",
   /** Run the core */
   "core/main.js",
+  "core/dom.js",
   "core/eval.js",
   /** Input */
   "core/event/main.js",

@@ -18,6 +18,16 @@
     /** Check if cell was registered */
     if (CORE.Cells.Used[cell]) {
 
+      /** Check if cell contains a formula - (higher priority than content!) */
+      if (CORE.Cells.Used[cell].Formula) {
+        CORE.DOM.CellInput.value = CORE.Cells.Used[cell].Formula;
+      /** Check if cell has a custom content */
+      } else if (CORE.Cells.Used[cell].Content) {
+        /** Update cell input content */
+        CORE.DOM.CellInput.value = CORE.Cells.Used[cell].Content;
+      /** Reset cell input content */
+      } else CORE.DOM.CellInput.value = "";
+
       /** Check if cell has a custom font */
       if (CORE.Cells.Used[cell].Font) {
         /** Update font menu value */
@@ -78,6 +88,8 @@
 
     /** Reset the whole menu */
     } else {
+      /** Reset cell input */
+      CORE.DOM.CellInput.value = "";
       /** Reset font menu */
       CORE.DOM.ChangeFont.value = CORE.DOM.ChangeFont.children[0].getAttribute("value");
       /** Reset font size menu */

@@ -31,7 +31,7 @@
       CORE.Grid.Settings.keyScrolledX += 1;
       /** Update grid and menu */
       CORE.Grid.updateWidth("default");
-      CORE.Grid.generateMenu();
+      CORE.Grid.updateMenu();
     /** Dont overscroll left axis end */
     } else if ((CORE.Grid.Settings.keyScrolledX + CORE.$.alphaToNumber(letter)) >= (CORE.Grid.Settings.x + 1)) {
       CORE.Grid.Settings.scrolledX += 1;
@@ -39,7 +39,7 @@
       CORE.Grid.Settings.keyScrolledX -= 1;
       /** Update grid and menu */
       CORE.Grid.updateWidth("default");
-      CORE.Grid.generateMenu();
+      CORE.Grid.updateMenu();
     /** Update the letter */
     } else {
       letter = CORE.$.numberToAlpha(CORE.$.alphaToNumber(letter) + CORE.Grid.Settings.keyScrolledX + CORE.Grid.Settings.scrolledX);
@@ -53,7 +53,7 @@
       if (CORE.Grid.Settings.scrolledY >= 1) CORE.Grid.Settings.scrolledY -= 1;
       /** Update grid and menu */
       CORE.Grid.updateHeight("up", 1);
-      CORE.Grid.generateMenu();
+      CORE.Grid.updateMenu();
     /** Dont overscroll top axis end */
     } else if ((CORE.Grid.Settings.keyScrolledY + number) >= CORE.Grid.Settings.y + 1) {
       CORE.Grid.Settings.scrolledY += 1;
@@ -61,7 +61,7 @@
       CORE.Grid.Settings.keyScrolledY -= 1;
       /** Update grid and menu */
       CORE.Grid.updateHeight("up", 1);
-      CORE.Grid.generateMenu();
+      CORE.Grid.updateMenu();
     /** Update the number */
     } else {
       number = number + (CORE.Grid.Settings.keyScrolledY + CORE.Grid.Settings.scrolledY);

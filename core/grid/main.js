@@ -112,7 +112,7 @@
 
     /** - to + conversion */
     this.Settings.x = ( ~ this.Settings.x + 1 );
-    this.Settings.y = ( ~ this.Settings.y + 1 ) - 3;
+    this.Settings.y = ( ~ this.Settings.y + 1 ) - 4;
 
   };
 
@@ -126,7 +126,7 @@
 
     for (var ii = 0; ii < CORE.DOM.Output.children.length; ++ii) {
       CORE.DOM.Output.children[ii].addEventListener(this.mouseMode, function(e) {
-        CORE.DOM.CurrentCell.innerHTML = e.target.getAttribute("name");
+        if (!CORE.Input.Mouse.Edit) CORE.DOM.CurrentCell.innerHTML = e.target.getAttribute("name");
       });
     }
 

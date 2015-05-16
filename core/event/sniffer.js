@@ -87,29 +87,24 @@
       CORE.Selector.cellFocusSwitch = false;
       /** Get cell content and pass it into the cell edit cell stack */
       jumps = CORE.$.getCell(CORE.Cells.Edit);
-      if (jumps >= 0) CORE.Cells.Used[CORE.Cells.Edit].Content = CORE.DOM.Output.children[jumps].innerHTML;
-      /** Check if cell is a formula */
-      CORE.Event.isFormula();
+      if (jumps >= 0) CORE.Cells.Used[CORE.Cells.Edit].Content = CORE.DOM.CellInput.value;
     }
 
-    /** Check if user pressed the [ENTER] */
+    /** Check if user pressed [ENTER] */
     if (!CORE.Event.pressedEnter(keyCode)) {
-      /** User pressed another key then [ENTER] .. */
+      /** User pressed another key then [ENTER] */
 
-      var element = null;
+      /** Focus the cell input field to allow input */
+      CORE.DOM.CellInput.focus();
 
       /** Fetch the current selected cell */
       CORE.Grid.cleanEditSelection();
       CORE.Grid.getEditSelection(CORE.Selector.Selected.First.Letter + CORE.Selector.Selected.First.Number);
 
-      jumps = CORE.$.getCell(CORE.Selector.Selected.First.Letter + CORE.Selector.Selected.First.Number);
-      if (jumps >= 0) element = CORE.DOM.Output.children[jumps];
-
-      /** Focus the selected cell to allow input */
-      element.focus();
-
       /** Move cursor to end of cell content text */
       if (CORE.Cells.Used[CORE.Cells.Edit].Content && CORE.Selector.cellFocusSwitch) CORE.Grid.goToEndOfCellText();
+
+      this.processCellContent();
 
       CORE.Selector.cellFocusSwitch = true;
 
@@ -154,6 +149,30 @@
         }
       }
     }
+
+  };
+
+  /**
+   * Take value of input cell and pass it into the accordingly cell
+   *
+   * @method processCellContent
+   * @static
+   */
+  CORE.Event.processCellContent = function() {
+
+    var element = null,
+        jumps = 0;
+
+    setTimeout(function() {
+      jumps = CORE.$.getCell(CORE.Selector.Selected.First.Letter + CORE.Selector.Selected.First.Number);
+      if (jumps >= 0) element = CORE.DOM.Output.children[jumps];
+      /** Update cell used stack value with cell input fields value */
+      CORE.Cells.Used[CORE.Cells.Edit].Content = CORE.DOM.CellInput.value;
+      /** Update cell content with cell used stack value */
+      if (element) element.innerHTML = CORE.Cells.Used[CORE.Cells.Edit].Content;
+      /** Check if cell is a formula */
+      CORE.Event.isFormula();
+    }, 1);
 
   };
 

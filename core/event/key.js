@@ -91,11 +91,8 @@
       return void 0;
     }
 
-    /** 
-     * Check if user edits a cell
-     * Delayed to fix some cell input issues
-     */
-    setTimeout( function() { CORE.Event.sniffCellInput(e.keyCode); }, 1);
+    /** Check if user edits a cell */
+    CORE.Event.sniffCellInput(e.keyCode);
 
   };
 

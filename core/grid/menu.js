@@ -346,4 +346,40 @@
 
   };
 
+  /**
+   * Update the menu
+   *
+   * @method updateMenu
+   * @static
+   */
+  CORE.Grid.prototype.updateMenu = function() {
+
+    /** User resized some cells */
+    if (CORE.Grid.Settings.cellResizedX || CORE.Grid.Settings.cellResizedY) {
+      this.generateMenu();
+    /** No resizes */
+    } else this.updateMenuNoResizement();
+
+  };
+
+  /**
+   * Update the menu, dont care about resizes
+   *
+   * @method updateMenuNoResizement
+   * @static
+   */
+  CORE.Grid.prototype.updateMenuNoResizement = function() {
+
+    /** Update vertical numeric menu */
+    for (var yy = 0; yy < this.Settings.y; ++yy) {
+      CORE.DOM.VerticalMenu.children[yy].innerHTML = (yy + this.Settings.scrolledY) + 1;
+    }
+
+    /** Update horizontal alphabetical menu */
+    for (var xx = 0; xx < this.Settings.x; ++xx) {
+      CORE.DOM.HorizontalMenu.children[xx].innerHTML = CORE.$.numberToAlpha( (xx + this.Settings.scrolledX) + 1);
+    }
+
+  };
+
 }).call(this);
