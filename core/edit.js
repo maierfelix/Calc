@@ -25,39 +25,33 @@
     /** New edit selection position */
     var newLetter = id.match(CORE.REGEX.numbers).join(""),
         newNumber = parseInt(id.match(CORE.REGEX.letters).join("")),
-        newJumps = 0,
-        /** Old edit selection position */
-        oldLetter = null,
-        oldNumber = 0,
-        oldJumps = 0;
+        jumps = 0,
+        element = null;
 
     /** User edits something right now */
     CORE.Input.Mouse.Edit = true;
 
-    newJumps = ((this.Settings.y * (CORE.$.alphaToNumber(newLetter) - 1) ) + newNumber - 1 - this.Settings.scrolledY) - (this.Settings.y * this.Settings.scrolledX);
-
     /** Clean old edited cell */
     if (CORE.Cells.Edit) {
 
-      oldLetter = CORE.Cells.Edit.match(CORE.REGEX.numbers).join("");
-      oldNumber = parseInt(CORE.Cells.Edit.match(CORE.REGEX.letters).join(""));
-      oldJumps = ((this.Settings.y * (CORE.$.alphaToNumber(oldLetter) - 1) ) + oldNumber - 1 - this.Settings.scrolledY) - (this.Settings.y * this.Settings.scrolledX);
+      jumps = CORE.$.getCell(CORE.Cells.Edit);
+      if (jumps >= 0) element = CORE.DOM.Output.children[jumps];
 
-      if (CORE.DOM.Output.children[oldJumps]) {
-        CORE.DOM.Output.children[oldJumps].classList.remove("cell_edit");
-      }
+      if (element) element.classList.remove("cell_edit");
+
     }
 
-    /** Update current edited cell */
-    if (CORE.DOM.Output.children[newJumps]) {
+    jumps = CORE.$.getCell(id);
+    if (jumps >= 0) element = CORE.DOM.Output.children[jumps];
 
-      CORE.DOM.Output.children[newJumps].classList.add("cell_edit");
+    /** Update current edited cell */
+    if (element) {
+
+      element.classList.add("cell_edit");
 
       /** Register new cell */
       if (!CORE.Cells.Used[newLetter + newNumber]) {
-        CORE.Cells.Used[newLetter + newNumber] = new CORE.Grid.Cell();
-        /** Register the cell into the interpreter variable stack */
-        CORE.registerCell(newLetter + newNumber);
+        this.registerCell(newLetter + newNumber);
       }
 
       /** Cell was successfully registered */
@@ -70,22 +64,22 @@
             /** Cell formula doesnt match with its content (seems like we got a calculation result) */
             if (CORE.Cells.Used[newLetter + newNumber].Formula !== CORE.Cells.Used[newLetter + newNumber].Content) {
               /** Disgorge the formula */
-              CORE.DOM.Output.children[newJumps].innerHTML = CORE.Cells.Used[newLetter + newNumber].Formula;
+              element.innerHTML = CORE.Cells.Used[newLetter + newNumber].Formula;
               /** Move cursor to end of cell content text */
               this.goToEndOfCellText();
             }
           }
-        /** Register the cell into the interpreter cell stack */
+        /** Cell not registered yet */
         } else {
           /** Register the cell into the interpreter variable stack */
-          CORE.registerCell(newLetter + newNumber);
+          CORE.registerCellVariable(newLetter + newNumber);
           /** Cell has a formula */
           if (CORE.Cells.Used[newLetter + newNumber].Formula && 
               CORE.Cells.Used[newLetter + newNumber].Formula.length) {
             /** Cell formula doesnt match with its content (seems like we got a calculation result) */
             if (CORE.Cells.Used[newLetter + newNumber].Formula !== CORE.Cells.Used[newLetter + newNumber].Content) {
               /** Disgorge the formula */
-              CORE.DOM.Output.children[newJumps].innerHTML = CORE.Cells.Used[newLetter + newNumber].Formula;
+              element.innerHTML = CORE.Cells.Used[newLetter + newNumber].Formula;
               /** Move cursor to end of cell content text */
               this.goToEndOfCellText();
             }
@@ -98,6 +92,7 @@
     /** Update old edited cell */
     CORE.Cells.Edit = (newLetter + newNumber);
 
+    /** Update current select cell */
     CORE.DOM.CurrentCell.innerHTML = CORE.Cells.Edit;
 
     /** Make sure all selections are deleted */
@@ -169,6 +164,18 @@
 
     }
 
+  };
+
+  /**
+   * Register a cell into the cell used stack
+   *
+   * @method registerCell
+   * @static
+   */
+  CORE.Grid.prototype.registerCell = function() {
+    CORE.Cells.Used[arguments[0]] = new CORE.Grid.Cell();
+    /** Register the cell into the interpreter variable stack */
+    CORE.registerCellVariable(arguments[0]);
   };
 
 }).call(this);

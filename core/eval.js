@@ -55,10 +55,10 @@
   /**
    * Register a new cell into the stack
    *
-   * @method registerCell
+   * @method registerCellVariable
    * @static
    */
-  CORE.registerCell = function() {
+  CORE.registerCellVariable = function() {
 
     /** Cell is not registered yet */
     if (!ENGEL.STACK.get(arguments[0])) {

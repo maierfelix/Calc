@@ -111,7 +111,7 @@
     this.Settings.y = Math.ceil( - ( CORE.Settings.Height / this.CellTemplate.Height ) );
 
     /** - to + conversion */
-    this.Settings.x = ( ~ this.Settings.x + 1 );
+    this.Settings.x = ( ~ this.Settings.x + 1 ) + 1;
     this.Settings.y = ( ~ this.Settings.y + 1 ) - 4;
 
   };

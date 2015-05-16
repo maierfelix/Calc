@@ -70,6 +70,20 @@
 
     }
 
+    /** Cell formula input field clicked */
+    if (e.target.id === "cell_input") {
+
+      /** User selected a cell */
+      if (CORE.Cells.Select) {
+        CORE.eval();
+        CORE.Grid.cleanEditSelection();
+        CORE.Grid.getEditSelection(CORE.Cells.Select);
+      }
+
+      return void 0;
+
+    }
+
     /** Valid cell ? */
     if (e.target.parentNode.id === CORE.DOM.Output.id) {
 

@@ -101,12 +101,7 @@
       CORE.Grid.cleanEditSelection();
       CORE.Grid.getEditSelection(CORE.Selector.Selected.First.Letter + CORE.Selector.Selected.First.Number);
 
-      /** Move cursor to end of cell content text */
-      if (CORE.Cells.Used[CORE.Cells.Edit].Content && CORE.Selector.cellFocusSwitch) CORE.Grid.goToEndOfCellText();
-
       this.processCellContent();
-
-      CORE.Selector.cellFocusSwitch = true;
 
     /** User pressed enter */
     } else {
@@ -167,11 +162,16 @@
       jumps = CORE.$.getCell(CORE.Selector.Selected.First.Letter + CORE.Selector.Selected.First.Number);
       if (jumps >= 0) element = CORE.DOM.Output.children[jumps];
       /** Update cell used stack value with cell input fields value */
-      CORE.Cells.Used[CORE.Cells.Edit].Content = CORE.DOM.CellInput.value;
+      if (CORE.Cells.Used[CORE.Cells.Edit]) CORE.Cells.Used[CORE.Cells.Edit].Content = CORE.DOM.CellInput.value;
+      /** Cell is not in view, register it anyway */
+      else CORE.Grid.registerCell(CORE.Cells.Edit);
       /** Update cell content with cell used stack value */
       if (element) element.innerHTML = CORE.Cells.Used[CORE.Cells.Edit].Content;
       /** Check if cell is a formula */
       CORE.Event.isFormula();
+      /** Move cursor to end of cell content text */
+      if (CORE.Cells.Used[CORE.Cells.Edit] && CORE.Cells.Used[CORE.Cells.Edit].Content && CORE.Selector.cellFocusSwitch) CORE.Grid.goToEndOfCellText();
+      CORE.Selector.cellFocusSwitch = true;
     }, 1);
 
   };
