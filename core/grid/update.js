@@ -65,9 +65,9 @@
       else this.removeCellStyling(ii);
 
       /** Horizontal cell row got resized */
-      if (this.Settings.cellResizedX > 0) this.resizeHorizontal(Letter, ii);
+      this.resizeHorizontal(Letter, ii);
       /** Vertical cell row got resized */
-      if (this.Settings.cellResizedY > 0) this.resizeVertical(calculation, ii);
+      this.resizeVertical(calculation, ii);
 
       if ( (ii + 1) % br === 0) {
         Letter = CORE.$.numberToAlpha(CORE.$.alphaToNumber(Letter) + 1);
