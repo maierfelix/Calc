@@ -94,13 +94,11 @@
     if (!CORE.Event.pressedEnter(keyCode)) {
       /** User pressed another key then [ENTER] */
 
-      /** Focus the cell input field to allow input */
-      CORE.DOM.CellInput.focus();
-
       /** Fetch the current selected cell */
       CORE.Grid.cleanEditSelection();
       CORE.Grid.getEditSelection(CORE.Selector.Selected.First.Letter + CORE.Selector.Selected.First.Number);
 
+      /** Async input processing */
       this.processCellContent();
 
     /** User pressed enter */
@@ -110,6 +108,7 @@
       CORE.Grid.cleanEditSelection();
       /** Take selection and move it 1 down */
       CORE.Selector.moveSelectionDown(1);
+      CORE.DOM.CellInput.blur();
     }
 
   };
@@ -158,6 +157,9 @@
     var element = null,
         jumps = 0;
 
+    /** Focus the cell input field on start typing */
+    CORE.DOM.CellInput.focus();
+
     setTimeout(function() {
       jumps = CORE.$.getCell(CORE.Selector.Selected.First.Letter + CORE.Selector.Selected.First.Number);
       if (jumps >= 0) element = CORE.DOM.Output.children[jumps];
@@ -172,6 +174,8 @@
       /** Move cursor to end of cell content text */
       if (CORE.Cells.Used[CORE.Cells.Edit] && CORE.Cells.Used[CORE.Cells.Edit].Content && CORE.Selector.cellFocusSwitch) CORE.Grid.goToEndOfCellText();
       CORE.Selector.cellFocusSwitch = true;
+      /** Focus the cell input field while typing */
+      CORE.DOM.CellInput.focus();
     }, 1);
 
   };

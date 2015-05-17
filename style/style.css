@@ -51,6 +51,7 @@ body {
 	width: 480px;
 	border: 1px solid #7c3b99;
 	padding-left: 5px;
+	color: #000;
 }
 
 .formula_input:focus {
