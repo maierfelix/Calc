@@ -44,23 +44,23 @@
 
       { name: "LX_COMMA", rx: /^,/ },
 
-      /** Operators */
-      { name: "LX_PLUS",  rx: /^\+(?!\+)/ },
-      { name: "LX_MINUS", rx: /^\-(?!-)/  },
-      { name: "LX_MULT",  rx: /^[*]+/     },
-      { name: "LX_DIV",   rx: /^[/]+/     },
-
       /** Instructions */
       { name: "LX_LOG",       rx: /^(log)*\(/                  },
       { name: "LX_PRINT",     rx: /^(print)*\(/                },
 
       /** Math functions */
-      { name: "LX_MATH",      rx: /^(asin|sin|acos|cos|atan|atan2|tan|sqrt|cbrt|exp|random|min|max)*\(/ },
+      { name: "LX_MATH",      rx: /^(asin|sin|acos|cos|atan|atan2|tan|sqrt|cbrt|exp|random|min|max|round|floor|ceil)*\(/ },
 
       /** Types */
       { name: "LX_VAR",        rx: /^[a-zA-Z_][a-zA-Z0-9_]*/             },
-      { name: "LX_NUMBER",     rx: /^[0-9]+(\.\d+[0-9]*)?/               },
+      { name: "LX_NUMBER",     rx: /^[-]?[0-9]+(\.\d+[0-9]*)?/           },
       { name: "LX_STRING",     rx: /^"(\\\\"|[^"])*"|'"'(\\\\'|[^'])*'"/ },
+
+      /** Operators */
+      { name: "LX_PLUS",  rx: /^\+(?!\+)/ },
+      { name: "LX_MINUS", rx: /^\-(?!-)/  },
+      { name: "LX_MULT",  rx: /^[*]+/     },
+      { name: "LX_DIV",   rx: /^[/]+/     },
 
     ];
 

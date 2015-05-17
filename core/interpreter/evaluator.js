@@ -18,16 +18,16 @@
 
     this.Functions = {
       LX_PLUS: function(c) {
-      return self[self.switcher](c.left, self.functionName) +  self[self.switcher](c.right, self.functionName);
+        return self[self.switcher](c.left, self.functionName) + self[self.switcher](c.right, self.functionName);
       },
       LX_MINUS: function(c) {
-      return self[self.switcher](c.left, self.functionName) -  self[self.switcher](c.right, self.functionName);
+        return self[self.switcher](c.left, self.functionName) - self[self.switcher](c.right, self.functionName);
       },
       LX_MULT: function(c) {
-      return self[self.switcher](c.left, self.functionName) *  self[self.switcher](c.right, self.functionName);
+        return self[self.switcher](c.left, self.functionName) * self[self.switcher](c.right, self.functionName);
       },
       LX_DIV: function(c) {
-      return self[self.switcher](c.left, self.functionName) /  self[self.switcher](c.right, self.functionName);
+        return self[self.switcher](c.left, self.functionName) / self[self.switcher](c.right, self.functionName);
       },
       LX_EQ: function(c) { 
         return self[self.switcher](c.left, self.functionName) == self[self.switcher](c.right, self.functionName);
@@ -36,10 +36,10 @@
         return self[self.switcher](c.left, self.functionName) != self[self.switcher](c.right, self.functionName);
       },
       LX_LW: function(c) { 
-        return self[self.switcher](c.left, self.functionName) <  self[self.switcher](c.right, self.functionName);
+        return self[self.switcher](c.left, self.functionName) < self[self.switcher](c.right, self.functionName);
       },
       LX_GR: function(c) { 
-        return self[self.switcher](c.left, self.functionName) >  self[self.switcher](c.right, self.functionName);
+        return self[self.switcher](c.left, self.functionName) > self[self.switcher](c.right, self.functionName);
       },
       LX_LWE: function(c) { 
         return self[self.switcher](c.left, self.functionName) <= self[self.switcher](c.right, self.functionName);
@@ -63,7 +63,7 @@
     this.preDefFunc = {
       display: ["log", "print"],
       /** Math api */
-      math: ["asin", "sin", "acos", "cos", "atan", "atan2", "tan", "sqrt", "cbrt", "exp", "random", "min", "max"]
+      math: ["asin", "sin", "acos", "cos", "atan", "atan2", "tan", "sqrt", "cbrt", "exp", "random", "min", "max", "round", "floor", "ceil"]
     };
 
   };
