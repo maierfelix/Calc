@@ -169,6 +169,11 @@
                 <span class="fa fa-caret-down" style="margin-left: 19px;"></span>
               </button>
             </label>
+            <label style="position: absolute; top: 10px; left: 500px;">
+              <button id="change_livecell" style="width: 40px; height: 25px;">
+                <span id="change_livecell_preview" class="fa fa-wifi"></span>
+              </button>
+            </label>
             <label style="position: absolute;top: 40px;left: 10px;">
               <input type="text" id="cell_input" class="formula_input"></input>
             </label>
@@ -264,6 +269,19 @@
       <h2 class="loader-title" style="padding-top: 55px;padding-left: 5px;"></h2>
     </div>
     <div class="loader-background"></div>
+  </div>
+
+  <div class="vex-content livecell_container" style="display:block;">
+		<div class="vex-dialog-message" style="padding-bottom: 2px;">Live cells:</div>
+    <div class="vex-dialog-input">
+      <div id="livecell_current" class="g-list" style="width: 300px; height: 400px;">
+        <div>Infinite Canvas</div>
+        <div>Twitter Header (1500px × 500px)</div>
+        <div>Twitter Post (1024px × 512px)</div>
+        <div>Facebook Header (851px × 315px)</div>
+        <div>Facebook App (810px × 450px)</div>
+      </div>
+    </div>
   </div>
 
   <!-- Load ressources -->

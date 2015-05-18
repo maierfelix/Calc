@@ -34,6 +34,9 @@
 
     }
 
+    /** User edits a live cells url */
+    if (CORE.Input.Mouse.LiveCellEdit) return void 0;
+
     /** Handle arrow keys */
     switch (e.keyCode) {
       /** [UP] */

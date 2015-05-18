@@ -18,7 +18,7 @@
   var CORE = CORE || {};
 
   /** NovaeCalc Version */
-  CORE.Version = "0.2";
+  CORE.Version = "0.3";
 
   /** Create DOM Object */
   CORE.DOM = {};
@@ -41,7 +41,9 @@
     /** Cell currently edited */
     Edit: null,
     /** Cells with custom content */
-    Used: {}
+    Used: {},
+    /** Live cells */
+    Live: {}
   };
 
   /** Mobile detection */
@@ -78,7 +80,9 @@
       /** User resizes a cell */
       CellResize: false,
       /** User edits a cell */
-      Edit: false
+      Edit: false,
+      /** User edits a live cell url */
+      LiveCellEdit: false
     },
     Keyboard: {
       /** Shift key pressed */

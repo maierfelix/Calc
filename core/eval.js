@@ -99,9 +99,6 @@
     /** Cell was registered successfully */
     if (ENGEL.STACK.get(name)) {
 
-      /** If value is numeric, check if its above zero */
-      if (!isNaN(arguments[1])) if (arguments[1] <= 0) return void 0;
-
       /** Update the cell value */
       ENGEL.STACK.update(name, {
         raw: arguments[1],

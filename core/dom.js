@@ -57,6 +57,15 @@
   /** Select and prepare the font italic change container */
   CORE.DOM.ChangeFontItalicPreview = document.querySelector("#change_italic_preview");
 
+  /** Select and prepare the cell ilive cell container */
+  CORE.DOM.ChangeLiveCell = document.querySelector("#change_livecell");
+
+  /** Select and prepare the live cell preview container */
+  CORE.DOM.ChangeLiveCellPreview = document.querySelector("#change_livecell_preview");
+
+  /** Select and prepare the live cell output container */
+  CORE.DOM.LiveCellOutput = document.querySelector("#livecell_current");
+
   /** Select and prepare border settings container */
   CORE.DOM.ChangeCellBorder = document.querySelector("#change_border");
 

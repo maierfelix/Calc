@@ -178,4 +178,14 @@
     CORE.registerCellVariable(arguments[0]);
   };
 
+  /**
+   * Register a live cell into the cell live stack
+   *
+   * @method registerLiveCell
+   * @static
+   */
+  CORE.Grid.prototype.registerLiveCell = function() {
+    CORE.Cells.Live[arguments[0]] = new CORE.Grid.LiveCell();
+  };
+
 }).call(this);

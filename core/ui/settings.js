@@ -24,6 +24,9 @@
     /** Background styling menu */
     CORE_UI.initBackgroundChangeMenu();
 
+    /** Live cell menu */
+    CORE_UI.initLiveCellMenu();
+
   };
 
 }).call(this);

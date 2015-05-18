@@ -87,6 +87,9 @@
     /** Valid cell ? */
     if (e.target.parentNode.id === CORE.DOM.Output.id) {
 
+      /** User aborted live cell edit */
+      CORE.Input.Mouse.LiveCellEdit = false;
+
       this.lastMouseDownCell = e.target.getAttribute("name");
 
       CORE.Cells.Select = this.lastMouseDownCell;
@@ -107,10 +110,7 @@
         }
 
         /** Clean edited cells only if the current selected cell isn't edited */
-        if (!CORE.Cells.Used[CORE.Cells.Selected.First]) {
-          CORE.eval();
-          CORE.Grid.cleanEditSelection();
-        }
+        if (!CORE.Cells.Used[CORE.Cells.Selected.First]) CORE.Grid.cleanEditSelection();
 
         /** User edits a cell and clicked on another cell which was also edited */
         if ( CORE.Input.Mouse.Edit &&
