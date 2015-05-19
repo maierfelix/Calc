@@ -7,6 +7,7 @@ This is the included documentation for the NovaeCalc project.
 * [User interface](#User interface)
 * [Formulas](#Formulas)
 * [Projects](#Projects)
+* [Live Cells](#Live Cells)
 
 ## User interface
 
@@ -33,6 +34,7 @@ on the letter symbol and start dragging it into the given direction.
 Cells styling can be determined by the user.
 Select one or more cells and see the menu above the cell formula input field,
 to customize a cells styling.
+Click on a styling button to append a styling. Clicking on it again reverses it.
 
 ## Formulas
 All formulas start by a `=`.
@@ -64,5 +66,31 @@ Round number upwards to the nearest integer: "ceil"
 ### Open
 Click on "*File*" on the left top and choose "*Open..*".
 
-## Save
+### Save
 Click on "*File*" on the left top and click on "*Export..*".
+
+## Live Cells
+
+### Parent live cells
+A parent live cell initialises an ajax connection between the cell and the output from an external link.
+The output has to be JSON formatted.
+Click on the wifi symbol and enter a url to define a parent live cell.
+
+Example:
+```js
+A1 + "graph.facebook.com/" + A2
+```
+The above command contains the url to the facebook graph. You can inject as much cell content as you want, so the url will be variable and depends on your cell's.
+
+A1 can be "*http://*" or "*https://*".
+A2 can contain a username like "*BillGates*" or "*SteveJobs*".
+
+### Child live cells
+Child live cells receives the JSON data from a parent live cell.
+
+Example:
+```js
+=JSON(A1)->"name";
+```
+The above command presumes a parent live cell at *A1*, and print its property called "*name*".
+Import "*examples/LiveFacebook.nvc*" to see how it works.
