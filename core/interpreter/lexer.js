@@ -56,7 +56,7 @@
       /** Types */
       { name: "LX_VAR",        rx: /^[a-zA-Z_][a-zA-Z0-9_]*/             },
       { name: "LX_NUMBER",     rx: /^[-]?[0-9]+(\.\d+[0-9]*)?/           },
-      { name: "LX_STRING",     rx: /^"(\\\\"|[^"])*"|'"'(\\\\'|[^'])*'"/ },
+      { name: "LX_STRING",     rx: /^"(\\\\"|[^"])(.*?)"|'"'(\\\\'|[^'])*'"/ },
 
       /** Operators */
       { name: "LX_PLUS",  rx: /^\+(?!\+)/ },
@@ -71,8 +71,6 @@
     this.notBlank = /^\S+/;
 
     this.lineBreak = /^[\r\n]+/;
-
-    this.comment = /(\/\*[\w\'\s\r\n\*]*\*\/)|(\/\/[\w\s\']*)|(\<![\-\-\s\w\>\/]*\>)/g;
 
     /**
      * Regular Expression functions
@@ -99,9 +97,6 @@
     this.TOKENS = [];
 
     var line = 1e0;
-
-    /** Delete comments */
-    input = input.replace(this.comment, "");
 
     while (input) {
 

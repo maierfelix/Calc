@@ -37,7 +37,7 @@
 
     for (var ii in CORE.Cells.Live) {
       /** Check for valid url */
-      if (CORE.Cells.Live[ii].Url.length) {
+      if (CORE.Cells.Live[ii].UncompiledUrl.length) {
         this.awake(ii);
       }
     }
@@ -94,6 +94,8 @@
     /** Async this fix */
     var self = this;
 
+		CORE.Cells.Live[name].Url = ENGEL.interpret(CORE.Cells.Live[name].UncompiledUrl).VAR[name].value.value;
+
     AJAX.GET(CORE.Cells.Live[name].Url, function(data) {
       CORE.Cells.Live[name].Data = data;
       /** Go on */
@@ -130,7 +132,7 @@
    * @static
    */
   CORE.Awakener.prototype.reset = function() {
-console.log(CORE.Cells.Live);
+
     for (var ii in CORE.Cells.Live) {
       CORE.Cells.Live[ii].Active = false;
     }

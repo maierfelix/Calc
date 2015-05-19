@@ -36,8 +36,8 @@
       /** Only 1 selected cell */
       if (CORE.Selector.SelectedCells.length === 1) {
         /** Seems like there is already an attached url */
-        if (CORE.Cells.Live[CORE.Selector.SelectedCells[0]].Url.length) {
-          input.value = CORE.Cells.Live[CORE.Selector.SelectedCells[0]].Url;
+        if (CORE.Cells.Live[CORE.Selector.SelectedCells[0]].UncompiledUrl.length) {
+          input.value = CORE.Cells.Live[CORE.Selector.SelectedCells[0]].UncompiledUrl;
         }
       }
 
@@ -48,12 +48,13 @@
           /** Cell exists in cell live stack */
           if (CORE.Cells.Live[CORE.Selector.SelectedCells[ii]]) {
             /** Update live cells url */
-            CORE.Cells.Live[CORE.Selector.SelectedCells[ii]].Url = this.value;
+						CORE.Cells.Live[CORE.Selector.SelectedCells[ii]].UncompiledUrl = CORE.Selector.SelectedCells[ii] + "=" + this.value;
+            CORE.Cells.Live[CORE.Selector.SelectedCells[ii]].Url = ENGEL.interpret(CORE.Cells.Live[CORE.Selector.SelectedCells[ii]].UncompiledUrl).VAR[CORE.Selector.SelectedCells[ii]].value.value;
           }
         }
 
         CORE.Awakener.evalLive();
-        CORE.Input.Mouse.LiveCellEdit = false;
+        CORE.Input.Mouse.LiveCellEdit = true;
 
       });
 
