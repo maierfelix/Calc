@@ -86,6 +86,10 @@
 
     CORE.Grid.updateWidth("right");
 
+    CORE.Awakener.reset();
+
+    CORE.Awakener.evalLive();
+
     CORE.eval();
 
   };

@@ -118,12 +118,21 @@
       if (CORE.$.isJSON(CORE.Cells.Live[name].Data)) {
         CORE.Cells.Live[name].Data = JSON.parse(CORE.Cells.Live[name].Data);
       }
-      /** Update cells content */
-      CORE.Cells.Used[name].Content = CORE.Cells.Live[name].Data.name;
-      /** Update cells content */
-      var jumps = CORE.$.getCell(name);
-      if (jumps >= 0) CORE.DOM.Output.children[jumps].innerHTML = CORE.Cells.Used[name].Content;
       CORE.eval();
+    }
+
+  };
+
+  /**
+   * Reset all live cells to inactive
+   *
+   * @method reset
+   * @static
+   */
+  CORE.Awakener.prototype.reset = function() {
+console.log(CORE.Cells.Live);
+    for (var ii in CORE.Cells.Live) {
+      CORE.Cells.Live[ii].Active = false;
     }
 
   };
