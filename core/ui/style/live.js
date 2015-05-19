@@ -31,15 +31,15 @@
 
       var textarea = document.createElement("textarea");
           textarea.setAttribute("placeholder", "Enter a url..");
-					textarea.value = "";
+          textarea.value = "";
 
-			/** Only 1 selected cell */
+      /** Only 1 selected cell */
       if (CORE.Selector.SelectedCells.length === 1) {
-				/** Seems like there is already an attached url */
-				if (CORE.Cells.Live[CORE.Selector.SelectedCells[0]].Url.length) {
-					textarea.value = CORE.Cells.Live[CORE.Selector.SelectedCells[0]].Url;
-				}
-			}
+        /** Seems like there is already an attached url */
+        if (CORE.Cells.Live[CORE.Selector.SelectedCells[0]].Url.length) {
+          textarea.value = CORE.Cells.Live[CORE.Selector.SelectedCells[0]].Url;
+        }
+      }
 
       textarea.addEventListener('change', function() {
 
