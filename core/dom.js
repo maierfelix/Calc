@@ -66,6 +66,9 @@
   /** Select and prepare the live cell output container */
   CORE.DOM.LiveCellOutput = document.querySelector("#livecell_current");
 
+  /** Select and prepare the whole live cell container */
+  CORE.DOM.LiveCellContainer = document.querySelector("#livecell_current_container");
+
   /** Select and prepare border settings container */
   CORE.DOM.ChangeCellBorder = document.querySelector("#change_border");
 

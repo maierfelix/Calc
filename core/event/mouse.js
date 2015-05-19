@@ -90,6 +90,9 @@
       /** User aborted live cell edit */
       CORE.Input.Mouse.LiveCellEdit = false;
 
+      /** Hide live cell container */
+      CORE.DOM.LiveCellContainer.style.display = "none";
+
       this.lastMouseDownCell = e.target.getAttribute("name");
 
       CORE.Cells.Select = this.lastMouseDownCell;

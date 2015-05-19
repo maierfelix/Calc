@@ -107,7 +107,7 @@
       /** Reset cell background color to default */
       CORE.DOM.ChangeCellBackground.children[0].style.background = "#fff";
       /** Reset live cell background color to default */
-      CORE.DOM.ChangeLiveCellPreview.style.background = "#fff";
+      CORE.DOM.ChangeLiveCellPreview.parentNode.style.background = "#fff";
     }
 
     /** Check if cell was registered */
@@ -115,15 +115,15 @@
       /** Check if cell is active */
       if (CORE.Cells.Live[cell].Active) {
         /** Update live cell menu background */
-        CORE.DOM.ChangeLiveCellPreview.style.background = "rgba(124, 59, 153, 0.2)";
+        CORE.DOM.ChangeLiveCellPreview.parentNode.style.background = "rgba(124, 59, 153, 0.2)";
       /** Reset live cell menu back to default */
       } else {
-        CORE.DOM.ChangeLiveCellPreview.style.background = "#fff";
+        CORE.DOM.ChangeLiveCellPreview.parentNode.style.background = "#fff";
       }
 
     /** Live cell not registered */
     } else {
-      CORE.DOM.ChangeLiveCellPreview.style.background = "#fff";
+      CORE.DOM.ChangeLiveCellPreview.parentNode.style.background = "#fff";
     }
 
   };

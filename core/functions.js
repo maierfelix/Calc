@@ -38,6 +38,9 @@
     /** Initialize File Plugin */
     CORE.File = new CORE.File();
 
+    /** Initialize Awakener Plugin */
+    CORE.Awakener = new CORE.Awakener();
+
     /** Initialize Grid Plugin */
     CORE.Grid = new CORE.Grid();
 
@@ -302,6 +305,24 @@
       select = window.getSelection();
       select.collapse(element.firstChild, character);
     }
+
+  };
+
+  /**
+   * Check if string is a json
+   *
+   * @method isJSON
+   * @static
+   */
+  CORE.$.isJSON = function(string) {
+
+    try {
+      JSON.parse(string);
+    } catch (e) {
+      return (false);
+    }
+
+    return (true);
 
   };
 

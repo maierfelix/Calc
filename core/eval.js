@@ -109,4 +109,26 @@
 
   };
 
+  /**
+   * Register a cell into the cell used stack
+   *
+   * @method registerCell
+   * @static
+   */
+  CORE.registerCell = function() {
+    CORE.Cells.Used[arguments[0]] = new CORE.Grid.Cell();
+    /** Register the cell into the interpreter variable stack */
+    CORE.registerCellVariable(arguments[0]);
+  };
+
+  /**
+   * Register a live cell into the cell live stack
+   *
+   * @method registerLiveCell
+   * @static
+   */
+  CORE.registerLiveCell = function() {
+    CORE.Cells.Live[arguments[0]] = new CORE.Grid.LiveCell();
+  };
+
 }).call(this);

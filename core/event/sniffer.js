@@ -166,7 +166,7 @@
       /** Update cell used stack value with cell input fields value */
       if (CORE.Cells.Used[CORE.Cells.Edit]) CORE.Cells.Used[CORE.Cells.Edit].Content = CORE.DOM.CellInput.value;
       /** Cell is not in view, register it anyway */
-      else CORE.Grid.registerCell(CORE.Cells.Edit);
+      else CORE.registerCell(CORE.Cells.Edit);
       /** Update cell content with cell used stack value */
       if (element) element.innerHTML = CORE.Cells.Used[CORE.Cells.Edit].Content;
       /** Check if cell is a formula */

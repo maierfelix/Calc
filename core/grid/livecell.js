@@ -34,7 +34,7 @@
      * @property RefreshTime
      * @type Integer
      */
-    this.RefreshTime = 0;
+    this.RefreshTime = 2500;
 
     /**
      * Live cell is active or not
@@ -43,6 +43,14 @@
      * @type Boolean
      */
     this.Active = false;
+
+    /**
+     * Save received data
+     *
+     * @property Data
+     * @type String
+     */
+    this.Data = "";
 
   };
 

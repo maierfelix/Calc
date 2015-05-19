@@ -54,6 +54,7 @@ Import.scripts = [
   "core/functions.js",
   "core/edit.js",
   "core/file.js",
+  "core/awakener.js",
   /** Interpreter */
   "core/interpreter/main.js",
   "core/interpreter/stack.js",
