@@ -87,10 +87,17 @@
       CORE.Event.pressedEnter(e.keyCode);
     }
 
-    /** User pressed the shift key */
+    /** User pressed the [SHIFT] key */
     if (e.keyCode === 16) {
       e.preventDefault();
       CORE.Input.Keyboard.Shift = true;
+      return void 0;
+    }
+
+    /** User pressed the [STRG] key */
+    if (e.keyCode === 17) {
+      e.preventDefault();
+      CORE.Input.Keyboard.Strg = true;
       return void 0;
     }
 
@@ -107,10 +114,16 @@
    */
   CORE.Event.keyUp = function(e) {
 
-    /** User left the shift key */
+    /** User left the [SHIFT] key */
     if (e.keyCode === 16) {
       e.preventDefault();
       CORE.Input.Keyboard.Shift = false;
+    }
+
+    /** User left the [STRG] key */
+    if (e.keyCode === 17) {
+      e.preventDefault();
+      CORE.Input.Keyboard.Strg = false;
     }
 
   };

@@ -287,14 +287,22 @@
         if (block[0] && block[0].type === "LX_ASSIGN") {
 
           /** Assign a function */
-          if (["LX_FUNC_CALL", "LX_MATH"].indexOf(block[1].type) >= 0) {
+          if (["LX_MATH"].indexOf(block[1].type) >= 0) {
 
             block.shift();
 
             directScope[directScope.length - 1].init = {};
-
             directScope[directScope.length - 1].init = _createAst(block);
             directScope[directScope.length - 1].init.ExpressionStatement.variableCall = variableCall.value;
+
+          /** Assign a JSON function */
+          } else if (["LX_JSON"].indexOf(block[1].type) >= 0) {
+
+            block.shift();
+
+            directScope[directScope.length - 1].init = {};
+            directScope[directScope.length - 1].init = _createAst(block);
+            directScope[directScope.length - 1].init.SingleCallExpression.variableCall = variableCall.value;
 
             /** Assign a binary expression */
           } else {
@@ -355,6 +363,46 @@
           block.shift();
 
         }
+
+      /** JSON data processing */
+      } else if (["LX_JSON"].indexOf(block[0].type) >= 0) {
+
+        var _node = {
+          SingleCallExpression: {
+            expression: {
+              type: "CallExpression",
+              init: null,
+              callee: {
+                type: null,
+                name: null
+              },
+            },
+            arguments: [],
+          }
+        };
+
+        var directScope = _node.SingleCallExpression;
+
+        if (["LX_JSON"].indexOf(block[0].type) >= 0) {
+          directScope.expression.callee.name = block[0].value;
+          directScope.expression.callee.type = "Identifier";
+        }
+
+        block.shift();
+        block.shift();
+
+        if (block[0].type === "LX_VAR") block[0].type = "Identifier";
+        else block[0].type = "Literal";
+        directScope.arguments.push(block[0]);
+
+        block.shift();
+        block.shift();
+
+        directScope.expression.init = block[1];
+
+        block.shift();
+        block.shift();
+        block.shift();
 
       }
 

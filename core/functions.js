@@ -294,7 +294,7 @@
    */
   CORE.$.selectText = function(element) {
 
-    var character = element.innerHTML.length, 
+    var character = element.textContent.length, 
         select;
 
     if (document.selection) {

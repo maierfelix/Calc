@@ -61,7 +61,8 @@
       CORE.Cells.Live[name].Active = true;
       /** Attach timeout */
       this.currentlyRunning[name] = setInterval(function() {
-        self.get(name);
+        /** Dont refresh if user is in edit mode */
+        if (!CORE.Input.Mouse.Edit) self.get(name);
       }, CORE.Cells.Live[name].RefreshTime);
     }
 
@@ -121,7 +122,8 @@
       CORE.Cells.Used[name].Content = CORE.Cells.Live[name].Data.name;
       /** Update cells content */
       var jumps = CORE.$.getCell(name);
-      if (jumps) CORE.DOM.Output.children[jumps].innerHTML = CORE.Cells.Used[name].Content;
+      if (jumps >= 0) CORE.DOM.Output.children[jumps].innerHTML = CORE.Cells.Used[name].Content;
+      CORE.eval();
     }
 
   };

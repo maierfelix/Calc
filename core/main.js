@@ -85,8 +85,10 @@
       LiveCellEdit: false
     },
     Keyboard: {
-      /** Shift key pressed */
-      Shift: false
+      /** [SHIFT] key pressed */
+      Shift: false,
+      /** [STRG] key pressed */
+      Strg: false
     }
   };
 

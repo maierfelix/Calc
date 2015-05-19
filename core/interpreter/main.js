@@ -36,7 +36,7 @@
     ENGEL.STACK.TIMER.start = performance.now();
 
     this.lexed = this.Lexer.lex(stream);
-
+//for (var ii = 0; ii < this.lexed.length;++ii) console.log(this.lexed[ii]);
     this.ast = this.Parser.parse(this.lexed);
 
     this.Evaluator.evaluate(this.ast);

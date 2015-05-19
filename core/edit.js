@@ -136,7 +136,7 @@
           if (CORE.Cells.Used[letter + number].Formula !== CORE.Cells.Used[letter + number].Content) {
             /** Disgorge the formula */
             jumps = CORE.$.getCell(letter + number);
-            if (jumps) CORE.DOM.Output.children[jumps].innerHTML = CORE.Cells.Used[letter + number].Content;
+            if (jumps >= 0) CORE.DOM.Output.children[jumps].innerHTML = CORE.Cells.Used[letter + number].Content;
           }
         }
       }

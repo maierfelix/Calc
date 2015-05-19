@@ -29,19 +29,19 @@
         if (!CORE.Cells.Live[CORE.Selector.SelectedCells[ii]]) CORE.registerLiveCell(CORE.Selector.SelectedCells[ii]);
       }
 
-      var textarea = document.createElement("textarea");
-          textarea.setAttribute("placeholder", "Enter a url..");
-          textarea.value = "";
+      var input = document.createElement("input");
+          input.setAttribute("placeholder", "Enter a url..");
+          input.value = "";
 
       /** Only 1 selected cell */
       if (CORE.Selector.SelectedCells.length === 1) {
         /** Seems like there is already an attached url */
         if (CORE.Cells.Live[CORE.Selector.SelectedCells[0]].Url.length) {
-          textarea.value = CORE.Cells.Live[CORE.Selector.SelectedCells[0]].Url;
+          input.value = CORE.Cells.Live[CORE.Selector.SelectedCells[0]].Url;
         }
       }
 
-      textarea.addEventListener('change', function() {
+      input.addEventListener('input', function() {
 
         /** Append url for each selected cell */
         for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {
@@ -57,7 +57,7 @@
 
       });
 
-      CORE.DOM.LiveCellOutput.appendChild(textarea);
+      CORE.DOM.LiveCellOutput.appendChild(input);
 
       /** Dont loose the selection */
       CORE.Selector.getSelection();

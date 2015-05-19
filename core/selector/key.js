@@ -55,7 +55,7 @@
       CORE.Grid.updateHeight("up", 1);
       CORE.Grid.updateMenu();
     /** Dont overscroll top axis end */
-    } else if ((CORE.Grid.Settings.keyScrolledY + number) >= CORE.Grid.Settings.y + 1) {
+    } else if ((CORE.Grid.Settings.keyScrolledY + number) >= (CORE.Grid.Settings.y + 1) ) {
       CORE.Grid.Settings.scrolledY += 1;
       number = CORE.Grid.Settings.y + CORE.Grid.Settings.scrolledY;
       CORE.Grid.Settings.keyScrolledY -= 1;

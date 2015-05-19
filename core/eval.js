@@ -46,7 +46,7 @@
         CORE.Cells.Used[formulas[ii].name].Content = result;
         /** Display the result, if cell is in view */
         var jumps = CORE.$.getCell(formulas[ii].name);
-        if (jumps) CORE.DOM.Output.children[jumps].innerHTML = result;
+        if (jumps >= 0) CORE.DOM.Output.children[jumps].innerHTML = result;
       }
     }
 

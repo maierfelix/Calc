@@ -63,7 +63,8 @@
     this.preDefFunc = {
       display: ["log", "print"],
       /** Math api */
-      math: ["asin", "sin", "acos", "cos", "atan", "atan2", "tan", "sqrt", "cbrt", "exp", "random", "min", "max", "round", "floor", "ceil"]
+      math: ["asin", "sin", "acos", "cos", "atan", "atan2", "tan", "sqrt", "cbrt", "exp", "random", "min", "max", "round", "floor", "ceil"],
+      json: ["JSON"]
     };
 
   };
@@ -189,6 +190,9 @@
           rawValue = this.evalExpression(variable.init.ExpressionStatement);
           declared = variable.id.name;
           return;
+        } else if (variable.init.SingleCallExpression) {
+          rawValue = this.evalExpression(variable.init.SingleCallExpression);
+          declared = variable.id.name;
         }
 
       }
@@ -300,6 +304,28 @@
         if (logArray && logArray.length) {
           result = Math[callee.name].apply(null, logArray);
         } else result = Math[callee.name].apply(null, null);
+      }
+
+      if (node.variableCall) {
+        if (ENGEL.STACK.get(node.variableCall)) {
+          ENGEL.STACK.update(node.variableCall, {
+            raw: result,
+            value: self.TypeMaster(result).value,
+            type: typeof result
+          });
+        }
+      }
+
+    /** JSON call */
+    } else if (this.preDefFunc.json.indexOf(callee.name) >= 0) {
+
+      var result;
+
+      var fetchValue = self.TypeMaster(node.expression.init.value).value;
+
+      /** Search for live cell json data */
+      if (CORE.Cells.Live[node.arguments[0].value]) {
+        if (CORE.Cells.Live[node.arguments[0].value].Data[fetchValue]) result = CORE.Cells.Live[node.arguments[0].value].Data[fetchValue];
       }
 
       if (node.variableCall) {
