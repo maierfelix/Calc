@@ -53,6 +53,9 @@
       /** Math functions */
       { name: "LX_MATH",      rx: /^(asin|sin|acos|cos|atan|atan2|tan|sqrt|cbrt|exp|random|min|max|round|floor|ceil)*\(/ },
 
+      /** Connect function */
+      { name: "LX_CONNECT",   rx: /^(CONNECT|connect)/ },
+
       /** Types */
       { name: "LX_VAR",        rx: /^[a-zA-Z_][a-zA-Z0-9_]*/             },
       { name: "LX_NUMBER",     rx: /^[-]?[0-9]+(\.\d+[0-9]*)?/           },

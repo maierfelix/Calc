@@ -240,7 +240,7 @@
       }
 
       /** Direct binary expression */
-      else if (["LX_NUMBER"].indexOf(block[0].type) >= 0) {
+      else if (["LX_NUMBER", "LX_STRING"].indexOf(block[0].type) >= 0) {
 
         _shift();
 
@@ -265,6 +265,27 @@
         };
 
         var directScope = _node.AssignmentExpression.expressions;
+
+        /** Single variable */
+        if (!block[1]) {
+          _node.AssignmentExpression.expressions.push({
+            type: "SequenceExpression",
+            id: {
+              type: "Identifier",
+              name: block[0].value
+            },
+            init: {
+              BinaryExpression: {
+                Identifier: {
+                  value: block[0].value
+                }
+              }
+            }
+          });
+
+          block.shift();
+
+        }
 
         /** Assign multiple variable assignments */
         while (block[0] && ["LX_ASSIGN", "LX_SEMIC"].indexOf(block[0].type) < 0) {
@@ -303,6 +324,15 @@
             directScope[directScope.length - 1].init = {};
             directScope[directScope.length - 1].init = _createAst(block);
             directScope[directScope.length - 1].init.SingleCallExpression.variableCall = variableCall.value;
+
+            /** Assign a binary expression */
+          } else if (["LX_CONNECT"].indexOf(block[1].type) >= 0) {
+
+            block.shift();
+
+            directScope[directScope.length - 1].init = {};
+            directScope[directScope.length - 1].init = _createAst(block);
+            directScope[directScope.length - 1].init.ExpressionStatement.variableCall = variableCall.value;
 
             /** Assign a binary expression */
           } else {
@@ -403,6 +433,64 @@
         block.shift();
         block.shift();
         block.shift();
+
+      /** AJAX Connect */
+      } else if (["LX_CONNECT"].indexOf(block[0].type) >= 0) {
+
+        var _node = {
+          ExpressionStatement: {
+            expression: {
+              type: "CallExpression",
+              callee: {
+                type: null,
+                name: null
+              }
+            },
+            arguments: []
+          },
+        };
+
+        var directScope = _node.ExpressionStatement;
+
+        var parentArray = [],
+            array = [];
+
+        if (["LX_CONNECT"].indexOf(block[0].type) >= 0) {
+          directScope.expression.callee.name = block[0].value;
+          directScope.expression.callee.type = "Identifier";
+        }
+
+        block.shift();
+
+        /** TODO: Support inner formula brackets! Note: Use jumpers */
+        if (block[0].type === "LX_LPAR") {
+
+          block.shift();
+
+          while (block[0]) {
+
+            if (block[0].type === "LX_COMMA") {
+              parentArray.push(array);
+              array = [];
+            } else if (block[0].type === "LX_RPAR") {
+              parentArray.push(array);
+              break;
+            }
+
+            if (block[0].type !== "LX_COMMA") {
+              array.push(block[0]);
+            }
+
+            block.shift();
+
+          }
+
+          for (var ii = 0; ii < parentArray.length; ++ii) {
+            Statement = block = parentArray[ii];
+            directScope.arguments.push(_createAst(parentArray[ii]));
+          }
+
+        }
 
       }
 

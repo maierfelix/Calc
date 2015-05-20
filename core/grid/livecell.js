@@ -29,14 +29,6 @@
     this.Url = "";
 
     /**
-     * The uncompiled url to fetch data from
-     *
-     * @property Url
-     * @type String
-     */
-    this.UncompiledUrl = "";
-
-    /**
      * Data refresh time
      *
      * @property RefreshTime

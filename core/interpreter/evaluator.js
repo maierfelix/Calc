@@ -64,7 +64,8 @@
       display: ["log", "print"],
       /** Math api */
       math: ["asin", "sin", "acos", "cos", "atan", "atan2", "tan", "sqrt", "cbrt", "exp", "random", "min", "max", "round", "floor", "ceil"],
-      json: ["JSON"]
+      json: ["JSON", "json"],
+      ajax: ["CONNECT", "connect"]
     };
 
   };
@@ -338,6 +339,33 @@
         }
       }
 
+    /** AJAX connect */
+    } else if (this.preDefFunc.ajax.indexOf(callee.name) >= 0) {
+
+      var urlValue = "",
+          timeValue = 0;
+
+      urlValue = this.interpretExpression(node.arguments[0].DirectiveBinaryExpression.init);
+
+      /** Variable call */
+      if (node.arguments[1].AssignmentExpression) {
+        timeValue = this.interpretExpression(node.arguments[1].AssignmentExpression.expressions[0].init.BinaryExpression);
+      /** Binary */
+      } else {
+        timeValue = this.interpretExpression(node.arguments[1].DirectiveBinaryExpression.init);
+      }
+
+      /** Register live cell */
+      if (!CORE.Cells.Live[node.variableCall]) CORE.registerLiveCell(node.variableCall);
+
+      /** Check if live cell got registered, if yes update its url */
+      if (CORE.Cells.Live[node.variableCall]) {
+        CORE.Cells.Live[node.variableCall].Url = urlValue;
+        CORE.Cells.Live[node.variableCall].RefreshTime = timeValue;
+      }
+
+      CORE.Awakener.evalLive();
+
     }
 
   };
@@ -368,7 +396,7 @@
 
     };
 
-    if (ast.children) {
+    if (ast && ast.children) {
 
       for (var ii = 0; ii < ast.children.length; ++ii) {
 

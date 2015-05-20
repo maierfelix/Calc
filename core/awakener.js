@@ -37,7 +37,8 @@
 
     for (var ii in CORE.Cells.Live) {
       /** Check for valid url */
-      if (CORE.Cells.Live[ii].UncompiledUrl.length) {
+      if (CORE.Cells.Live[ii].Url) {
+        this.asleep(ii);
         this.awake(ii);
       }
     }
@@ -84,17 +85,15 @@
   };
 
   /**
-   * Stop a live cell
+   * Get data from a live cell
    *
-   * @method asleep
+   * @method get
    * @static
    */
   CORE.Awakener.prototype.get = function(name) {
 
     /** Async this fix */
     var self = this;
-
-		CORE.Cells.Live[name].Url = ENGEL.interpret(CORE.Cells.Live[name].UncompiledUrl).VAR[name].value.value;
 
     AJAX.GET(CORE.Cells.Live[name].Url, function(data) {
       CORE.Cells.Live[name].Data = data;
