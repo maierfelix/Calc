@@ -1,3 +1,15 @@
+/**
+ * This file is part of the NovaeCalc project.
+ *
+ * It is permitted to use, redistribute and/or modify this software
+ * under the terms of the MIT License
+ *
+ * @author Felix Maier <maier.felix96@gmail.com>
+ * @copyright (c) 2015 Felix Maier, @felixmaier
+ *
+ * You may not change or remove these lines
+ *
+ */
 (function() { "use strict"
 
   /**
@@ -9,39 +21,38 @@
   ENGEL.LEXER = function() {
 
     /** Token list */
-    this.TOKENS = [];
+    this.Tokens = [];
 
-    /**
-     * Keyword object contains precompiled regular expressions
-     */
+    /** Precompile lexical regular expressions */
     this.KeyWords = [
 
       /** Statements */
-      { name: "LX_IF",     rx: /^IF(?![a-zA-Z0-9_])/     },
-      { name: "LX_ELSE",   rx: /^else(?![a-zA-Z0-9_])/   },
+      { name: "LX_IF",     rx: /^(WENN|IF)(?![a-zA-Z0-9_])/    },
+      { name: "LX_ELSE",   rx: /^(SONST|ELSE)(?![a-zA-Z0-9_])/ },
 
-      /** Punctuation */
+      /** Brackets */
       { name: "LX_LPAR",   rx: /^[\\(]()+/ },
       { name: "LX_RPAR",   rx: /^[\\)]()+/ },
-      { name: "LX_LBRAC",  rx: /^[\\{]+/ },
-      { name: "LX_RBRAC",  rx: /^[\\}]+/ },
-      { name: "LX_LHBRAC", rx: /^\[.*?/  },
-      { name: "LX_RHBRAC", rx: /^\].*?/  },
-      { name: "LX_SEMIC",  rx: /^[;]+/   },
+      { name: "LX_LBRAC",  rx: /^[\\{]+/   },
+      { name: "LX_RBRAC",  rx: /^[\\}]+/   },
+      { name: "LX_LHBRAC", rx: /^\[.*?/    },
+      { name: "LX_RHBRAC", rx: /^\].*?/    },
+      { name: "LX_SEMIC",  rx: /^[;]+/     },
 
       /** Comparison */
-      { name: "LX_EQ",  rx: /^==/             },
-      { name: "LX_NEQ", rx: /^!=/             },
-      { name: "LX_AND", rx: /^(&&)/           },
-      { name: "LX_OR",  rx: /^([\\|\\|])+/    },
-      { name: "LX_GRE", rx: /^>=/             },
-      { name: "LX_LWE", rx: /^<=/             },
-      { name: "LX_GR",  rx: /^>/              },
-      { name: "LX_LW",  rx: /^</              },
+      { name: "LX_EQ",  rx: /^==/          },
+      { name: "LX_NEQ", rx: /^!=/          },
+      { name: "LX_AND", rx: /^(&&)/        },
+      { name: "LX_OR",  rx: /^([\\|\\|])+/ },
+      { name: "LX_GRE", rx: /^>=/          },
+      { name: "LX_LWE", rx: /^<=/          },
+      { name: "LX_GR",  rx: /^>/           },
+      { name: "LX_LW",  rx: /^</           },
 
       /** Assignment */
       { name: "LX_ASSIGN", rx: /^=/ },
 
+      /** Comma */
       { name: "LX_COMMA", rx: /^,/ },
 
       /** Instructions */
@@ -51,15 +62,15 @@
       { name: "LX_JSON_CALL", rx: /^->/         },
 
       /** Math functions */
-      { name: "LX_MATH",      rx: /^(asin|sin|acos|cos|atan|atan2|tan|sqrt|cbrt|exp|random|min|max|round|floor|ceil)*\(/ },
+      { name: "LX_MATH", rx: /^(asin|sin|acos|cos|atan|atan2|tan|sqrt|cbrt|exp|random|min|max|round|floor|ceil)/ },
 
       /** Connect function */
-      { name: "LX_CONNECT",   rx: /^(CONNECT|connect)/ },
+      { name: "LX_CONNECT", rx: /^(CONNECT|connect)/ },
 
       /** Types */
-      { name: "LX_VAR",        rx: /^[a-zA-Z_][a-zA-Z0-9_]*/             },
-      { name: "LX_NUMBER",     rx: /^[-]?[0-9]+(\.\d+[0-9]*)?/           },
-      { name: "LX_STRING",     rx: /^"(\\\\"|[^"])(.*?)"|'"'(\\\\'|[^'])*'"/ },
+      { name: "LX_VAR",    rx: /^[a-zA-Z_][a-zA-Z0-9_]*/                 },
+      { name: "LX_NUMBER", rx: /^[-]?[0-9]+(\.\d+[0-9]*)?/               },
+      { name: "LX_STRING", rx: /^"(\\\\"|[^"])(.*?)"|'"'(\\\\'|[^'])*'"/ },
 
       /** Operators */
       { name: "LX_PLUS",  rx: /^\+(?!\+)/ },
@@ -69,19 +80,22 @@
 
     ];
 
+    /** Precompile regex */
     this.blank = /^[ \t\v\f]+/;
 
+    /** Precompile regex */
     this.notBlank = /^\S+/;
 
+    /** Precompile regex */
     this.lineBreak = /^[\r\n]+/;
 
-    /**
-     * Regular Expression functions
-     */
+    /** Is blank */
     this.isBlank = function() { return arguments[0e0].match(this.blank); };
 
+    /** Is not blank */
     this.isNotBlank = function() { return arguments[0e0].match(this.notBlank); };
 
+    /** Is line break */
     this.isLineBreak = function() { return arguments[0e0].match(this.lineBreak); };
 
   };
@@ -89,26 +103,26 @@
   ENGEL.LEXER.prototype = ENGEL.LEXER;
 
   /**
-   * Evaluates a string and generates a list of tokens
+   * Lexical analysis a string and generates a list of tokens
    *
    * @method lex
-   * @return {Array} of Tokens
+   * @return {array} of Tokens
    * @static
    */
   ENGEL.LEXER.prototype.lex = function(input) {
 
-    this.TOKENS = [];
+    /** Clean tokens */
+    this.Tokens = [];
 
-    var line = 1e0;
-
+    /** Scan the input stream */
     while (input) {
 
+      /** Ignore blanks */
       var match = this.isLineBreak(input) || this.isBlank(input);
-
-      if (this.isLineBreak(input)) line += match[0].length;
 
       for (var ii = 0e0; !match && ii < this.KeyWords.length; ++ii) {
 
+        /** Matches with a keyword regex */
         if (match = input.match(this.KeyWords[ii].rx)) {
 
           /** Optimize math and display function calls */
@@ -116,12 +130,12 @@
             match[0] = match[0].slice(0, -1);
           }
 
-          /** Turn variables uppercase */
+          /** Turn variables automatically uppercase */
           if (this.KeyWords[ii].name === "LX_VAR") { 
             match[0] = (match[0]).toUpperCase();
           }
 
-          this.TOKENS.push({
+          this.Tokens.push({
             type:  this.KeyWords[ii].name,
             value: match[0].trim()
           });
@@ -130,17 +144,19 @@
 
       }
 
+      /** Doesnt match with any regex */
       if (!match) {
-        console.log("Error in line: " + line + "\n " + input[0] + " is not defined!");
+        console.log(input[0] + " is not defined!");
         break;
       }
 
+      /** Continue if stream goes on */
       if (match || this.notBlank(input)) input = input.substring(match[0e0].length);
       else break;
 
     }
 
-    return (this.TOKENS);
+    return (this.Tokens);
 
   };
 

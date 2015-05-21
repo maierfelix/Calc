@@ -1,5 +1,4 @@
-(function() {
-  "use strict"
+(function() { "use strict"
 
   /**
    * The Parser
@@ -9,501 +8,269 @@
    */
   ENGEL.PARSER = function() {
 
-    /** Ast template */
-    this.AST = [];
+    /** Global block object */
+    this.block = null;
 
-    /** Block object template */
-    this.BLOCK = {
-      type: "LX_BLOCK",
-      children: []
-    };
+    /** Current block global block object */
+    this.currentBlock = null;
 
   };
 
   ENGEL.PARSER.prototype = ENGEL;
 
   /**
-   * Evaluate the token list and generate a ast from it
+   * Evaluate the token list and generate an AST from it
    *
    * @method parse
-   * @return {Object} AST
+   * @return {object} AST
    * @static
    */
   ENGEL.PARSER.prototype.parse = function(input) {
 
-    this.AST = [];
+    return (this.createAST(input));
 
-    this.BLOCK = {
-      type: "LX_BLOCK",
-      children: []
+  };
+
+  /**
+   * Create an AST
+   *
+   * @method createAST
+   * @return {object} AST
+   * @static
+   */
+  ENGEL.PARSER.prototype.createAST = function(block) {
+
+    if (!block[0]) return (block);
+
+    /** Global access */
+    this.block = block;
+
+    /** Detected variable */
+    if (this.block[0].type === "LX_VAR") this.variable();
+
+  };
+
+  /**
+   * Create an variable AST
+   *
+   * @method variable
+   * @return {object} variable AST
+   * @static
+   */
+  ENGEL.PARSER.prototype.variable = function() {
+
+    /** Shorter syntax */
+    var block = this.block;
+
+    /** Save variable */
+    var variable = block[0];
+
+    /** Variable AST template */
+    var node = {
+      AssignmentExpression: {
+        id: {
+          type: "Identifier",
+          name: ""
+        },
+        init: null,
+        kind: "var"
+      }
     };
 
-    var self = this;
-
-    var _selfBlock = this.BLOCK;
-
-    var Statement;
-
-    var _current;
-
-    /** Build a block */
-    var _buildBlock = function(data) {
-
-      var _currentStatement,
-        _validatedBlock;
-
-      while (_currentStatement = _nextBlock()) {
-
-        if (!_currentStatement || !_currentStatement.length) break;
-
-        Statement = _currentStatement;
-
-        _validatedBlock = _createAst(_currentStatement);
-
-        if (_validatedBlock) _selfBlock.children.push(_validatedBlock);
-
-      }
-
-      return _selfBlock;
-
-    };
-
-    /** Go to the next block, break on semicolons */
-    var _nextBlock = function() {
-
-      var _block = [],
-        _currentStatement;
-
-      while (_currentStatement = input.shift()) {
-        _block.push(_currentStatement);
-        if (!_currentStatement || _currentStatement.type === "LX_SEMIC") break;
-      }
-
-      return _block;
-
-    };
-
-    var _accept = function(block) {
-      if (!_current) return false;
-      if (typeof block === "string") {
-        if (_current.type === block) return true;
-      } else {
-        for (var ii = 0; ii < block.length; ++ii) {
-          if (_current.type === block[ii]) return true;
-        }
-      }
-      return false;
-    };
-
-    var _expect = function(block) {
-      if (_accept(block)) return true;
-      return false;
-    };
-
-    var _shift = function() {
-      _current = Statement.shift();
-    };
-
-    var _ruleTerm = function() {
-
-      var node,
-        parent;
-
-      node = _ruleFactor();
-
-      while (_accept(["LX_MULT", "LX_DIV", "LX_EQ", "LX_NEQ", "LX_GR", "LX_GRE", "LX_LW", "LX_LWE", "LX_AND", "LX_OR"])) {
-        parent = {
-          operator: _current.type,
-          left: node
-        };
-        _shift();
-        parent.right = _ruleFactor();
-        node = parent;
-      }
-
-      return node;
-    };
-
-    var _ruleFactor = function() {
-
-      var node,
-        mode;
-
-      if (_accept(["LX_NUMBER", "LX_VAR", "LX_STRING"])) {
-        if (["LX_NUMBER", "LX_STRING"].indexOf(_current.type) >= 0) mode = "Literal";
-        else mode = "Identifier";
-        node = {};
-        node[mode] = {
-          value: self.TypeMaster(_current.value).value
-        };
-        _shift();
-      } else if (_accept("LX_LPAR")) {
-        _shift();
-        node = _ruleExpression();
-        if (_expect("LX_RPAR")) _shift();
-      }
-
-      return node;
-
-    };
-
-    /** Rule expression */
-    var _ruleExpression = function() {
-
-      var parent,
-        node;
-
-      if (!_accept("LX_MINUS")) {
-        if (_accept("LX_PLUS")) {
-          _shift();
-        } else {
-          node = _ruleTerm();
-        }
-      }
-      while (_accept(["LX_PLUS", "LX_MINUS", "LX_EQ", "LX_NEQ", "LX_GR", "LX_GRE", "LX_LW", "LX_LWE", "LX_AND", "LX_OR"])) {
-        parent = {
-          operator: _current.type,
-          left: node
-        };
-        _shift();
-        parent.right = _ruleTerm();
-        node = parent;
-      }
-
-      return node;
-
-    };
-
-    /** Create ast from a block */
-    var _createAst = function(block) {
-
-      if (!block[0]) return block;
-
-      /** If statement */
-      if (["LX_IF"].indexOf(block[0].type) >= 0) {
-
-        var _node = {
-          IfStatement: {
-            body: [],
-            condition: {}
-          }
-        };
-
-        var directScope = _node.IfStatement;
-
-        block.shift();
-        _shift();
-
-        directScope.condition = _ruleExpression();
-
-        var directbody = directScope.body;
-        var bodyBlock = [];
-
-        /** Combine function body block with the future block */
-        bodyBlock = bodyBlock.concat(Statement);
-
-        var futureBlock;
-
-        /** Get the remaining function body, join it with the old body block */
-        first: while (futureBlock = _nextBlock()) {
-
-          bodyBlock = bodyBlock.concat(futureBlock);
-
-          for (var ii = 0; ii < bodyBlock.length; ++ii) {
-            if (bodyBlock[ii].type === "LX_RBRAC") break first;
-          }
-
-          if (!futureBlock || !futureBlock.length) break;
-
-        }
-
-        Statement = block = bodyBlock;
-
-        var newBlocks = [];
-
-        while (block[0] && block[0].type !== "LX_RBRAC") {
-
-          if (block[0].type !== "LX_SEMIC") {
-            newBlocks.push(block[0]);
-          } else {
-            newBlocks.push(block[0]);
-            Statement = newBlocks;
-            directbody.push(_createAst(newBlocks));
-          }
-
-          block.shift();
-
-        }
-
-        Statement = block;
-
-      }
-
-      /** Direct binary expression */
-      else if (["LX_NUMBER", "LX_STRING"].indexOf(block[0].type) >= 0) {
-
-        _shift();
-
-        var _node = {
-          DirectiveBinaryExpression: {
-            init: _ruleExpression()
-          }
-        };
-
-      }
-
-      /** Variable Assignment START */
-      else if (["LX_VAR", "LX_CONST"].indexOf(block[0].type) >= 0) {
-
-        var variableCall = block[0];
-
-        var _node = {
-          AssignmentExpression: {
-            expressions: [],
-            kind: block[0].type === "LX_VAR" ? "var" : "const"
-          }
-        };
-
-        var directScope = _node.AssignmentExpression.expressions;
-
-        /** Single variable */
-        if (!block[1]) {
-          _node.AssignmentExpression.expressions.push({
-            type: "SequenceExpression",
-            id: {
-              type: "Identifier",
-              name: block[0].value
-            },
-            init: {
-              BinaryExpression: {
-                Identifier: {
-                  value: block[0].value
-                }
-              }
-            }
-          });
-
-          block.shift();
-
-        }
-
-        /** Assign multiple variable assignments */
-        while (block[0] && ["LX_ASSIGN", "LX_SEMIC"].indexOf(block[0].type) < 0) {
- 
-          if (["LX_COMMA", "LX_SEMIC"].indexOf(block[0].type) < 0) {
-            _node.AssignmentExpression.expressions.push({
-              type: "SequenceExpression",
-              id: {
-                type: "Identifier",
-                name: block[0].value
-              },
-              init: null
-            });
-          }
-
-          block.shift();
-
-        }
-
-        if (block[0] && block[0].type === "LX_ASSIGN") {
-
-          /** Assign a function */
-          if (["LX_MATH"].indexOf(block[1].type) >= 0) {
-
-            block.shift();
-
-            directScope[directScope.length - 1].init = {};
-            directScope[directScope.length - 1].init = _createAst(block);
-            directScope[directScope.length - 1].init.ExpressionStatement.variableCall = variableCall.value;
-
-          /** Assign a JSON function */
-          } else if (["LX_JSON"].indexOf(block[1].type) >= 0) {
-
-            block.shift();
-
-            directScope[directScope.length - 1].init = {};
-            directScope[directScope.length - 1].init = _createAst(block);
-            directScope[directScope.length - 1].init.SingleCallExpression.variableCall = variableCall.value;
-
-            /** Assign a binary expression */
-          } else if (["LX_CONNECT"].indexOf(block[1].type) >= 0) {
-
-            block.shift();
-
-            directScope[directScope.length - 1].init = {};
-            directScope[directScope.length - 1].init = _createAst(block);
-            directScope[directScope.length - 1].init.ExpressionStatement.variableCall = variableCall.value;
-
-            /** Assign a binary expression */
-          } else {
-
-            block.shift();
-            _shift();
-
-            directScope[directScope.length - 1].init = {
-              BinaryExpression: _ruleExpression()
-            };
-
-          }
-
-        }
-
-      }
-      /** Variable Assignment END */
-
-      /** Methods START */
-      else if (["LX_PRINT", "LX_LOG", "LX_MATH"].indexOf(block[0].type) >= 0) {
-
-        var variableCall = block[0];
-
-        var _node = {
-          ExpressionStatement: {
-            expression: {
-              type: "CallExpression",
-              callee: {
-                type: null,
-                name: null
-              }
-            },
-            arguments: [],
-          }
-        };
-
-        var directScope = _node.ExpressionStatement;
-
-        while (block[0]) {
-
-          /** Log method detected */
-          if (["LX_LOG"].indexOf(block[0].type) >= 0) {
-            directScope.expression.callee.name = block[0].value;
-            directScope.expression.callee.type = "Identifier";
-
-            /** Math method detected */
-          } else if (["LX_MATH"].indexOf(block[0].type) >= 0) {
-            directScope.expression.callee.name = block[0].value;
-            directScope.expression.callee.type = "Identifier";
-
-            /** Push method arguments into the node array */
-          } else if (["LX_VAR", "LX_NUMBER", "LX_STRING"].indexOf(block[0].type) >= 0) {
-            if (block[0].type === "LX_VAR") block[0].type = "Identifier";
-            else block[0].type = "Literal";
-            directScope.arguments.push(block[0]);
-          }
-
-          block.shift();
-
-        }
-
-      /** JSON data processing */
-      } else if (["LX_JSON"].indexOf(block[0].type) >= 0) {
-
-        var _node = {
-          SingleCallExpression: {
-            expression: {
-              type: "CallExpression",
-              init: null,
-              callee: {
-                type: null,
-                name: null
-              },
-            },
-            arguments: [],
-          }
-        };
-
-        var directScope = _node.SingleCallExpression;
-
-        if (["LX_JSON"].indexOf(block[0].type) >= 0) {
-          directScope.expression.callee.name = block[0].value;
-          directScope.expression.callee.type = "Identifier";
-        }
-
-        block.shift();
-        block.shift();
-
-        if (block[0].type === "LX_VAR") block[0].type = "Identifier";
-        else block[0].type = "Literal";
-        directScope.arguments.push(block[0]);
-
-        block.shift();
-        block.shift();
-
-        directScope.expression.init = block[1];
-
-        block.shift();
-        block.shift();
-        block.shift();
-
-      /** AJAX Connect */
-      } else if (["LX_CONNECT"].indexOf(block[0].type) >= 0) {
-
-        var _node = {
-          ExpressionStatement: {
-            expression: {
-              type: "CallExpression",
-              callee: {
-                type: null,
-                name: null
-              }
-            },
-            arguments: []
-          },
-        };
-
-        var directScope = _node.ExpressionStatement;
-
-        var parentArray = [],
-            array = [];
-
-        if (["LX_CONNECT"].indexOf(block[0].type) >= 0) {
-          directScope.expression.callee.name = block[0].value;
-          directScope.expression.callee.type = "Identifier";
-        }
-
-        block.shift();
-
-        /** TODO: Support inner formula brackets! Note: Use jumpers */
-        if (block[0].type === "LX_LPAR") {
-
-          block.shift();
-
-          while (block[0]) {
-
-            if (block[0].type === "LX_COMMA") {
-              parentArray.push(array);
-              array = [];
-            } else if (block[0].type === "LX_RPAR") {
-              parentArray.push(array);
-              break;
-            }
-
-            if (block[0].type !== "LX_COMMA") {
-              array.push(block[0]);
-            }
-
-            block.shift();
-
-          }
-
-          for (var ii = 0; ii < parentArray.length; ++ii) {
-            Statement = block = parentArray[ii];
-            directScope.arguments.push(_createAst(parentArray[ii]));
-          }
-
-        }
-
-      }
-
+    /** Direct scope for shorter syntax */
+    var directScope = node.AssignmentExpression;
+
+    /** Delete variable block */
+    if (block[0].type === "LX_VAR") {
+      /** Assign variable name */
+      directScope.id.name = block[0].value;
       block.shift();
+    }
 
-      _createAst(block);
+    /** Variable assignment starts */
+    if (block[0] && block[0].type === "LX_ASSIGN") {
 
-      return _node;
+      /** Delete variable assignment block */
+      block.shift();
+      this.shift();
 
-    };
+      directScope.init = {
+        Expression: this.ruleExpression()
+      };
 
-    return (_buildBlock(input));
+    }
+
+    return (node);
+
+  };
+
+  /**
+   * Create an expression AST
+   *
+   * @method ruleExpression
+   * @return {object} expression AST
+   * @static
+   */
+  ENGEL.PARSER.prototype.ruleExpression = function() {
+
+    var parent;
+    var node;
+
+    if (!this.accept("LX_MINUS")) {
+      if (this.accept("LX_PLUS")) {
+        this.shift();
+      } else {
+        node = this.ruleTerm();
+      }
+    }
+
+    while (this.accept(["LX_PLUS", "LX_MINUS", "LX_EQ", "LX_NEQ", "LX_GR", "LX_GRE", "LX_LW", "LX_LWE", "LX_AND", "LX_OR"])) {
+      /** Left */
+      parent = {
+        operator: this.currentBlock.type,
+        left: node
+      };
+      /** Right */
+      this.shift();
+      parent.right = this.ruleTerm();
+      node = parent;
+    }
+
+    return (node);
+
+  };
+
+  /**
+   * Create an term expression AST
+   *
+   * @method ruleTerm
+   * @return {object} term AST
+   * @static
+   */
+  ENGEL.PARSER.prototype.ruleTerm = function() {
+
+    var node;
+    var parent;
+
+    node = this.ruleFactor();
+
+    /** Check for a following calculation */
+    while (this.accept(["LX_MULT", "LX_DIV", "LX_EQ", "LX_NEQ", "LX_GR", "LX_GRE", "LX_LW", "LX_LWE", "LX_AND", "LX_OR"])) {
+      /** Left */
+      parent = {
+        operator: this.currentBlock.type,
+        left: node
+      };
+      /** Right */
+      this.shift();
+      parent.right = this.ruleFactor();
+      node = parent;
+    }
+
+    return (node);
+
+  };
+
+  /**
+   * Create a single factor expression AST
+   *
+   * @method ruleFactor
+   * @return {object} factor AST
+   * @static
+   */
+  ENGEL.PARSER.prototype.ruleFactor = function() {
+
+    var node;
+    var mode;
+
+    /** Numbers, variables and strings are allowed */
+    if (this.accept(["LX_NUMBER", "LX_VAR", "LX_STRING"])) {
+      /** Handle numbers and strings the same */
+      if (["LX_NUMBER", "LX_STRING"].indexOf(this.currentBlock.type) >= 0) mode = "Literal";
+      /** Variable */
+      else mode = "Identifier";
+      node = {};
+      node[mode] = {
+        value: ENGEL.TypeMaster(this.currentBlock.value).value
+      };
+      this.shift();
+    /** Bracket calculation */
+    } else if (this.accept("LX_LPAR")) {
+      this.shift();
+      /** Calculate inner bracket */
+      node = this.ruleExpression();
+      if (this.expect("LX_RPAR")) this.shift();
+    }
+
+    return (node);
+
+  };
+
+  /**
+   * Accept a block or not
+   *
+   * @method accept
+   * @static
+   */
+  ENGEL.PARSER.prototype.accept = function(type) {
+
+    if (!this.block[0]) return (false);
+
+    if (typeof type === "string") {
+      /** Single accept argument */
+      if (this.currentBlock && this.currentBlock.type === type) return (true);
+    } else {
+      /** Loop through the type array */
+      for (var ii = 0; ii < type.length; ++ii) {
+        if (this.currentBlock && this.currentBlock.type === type[ii]) return true;
+      }
+    }
+
+    return (false);
+
+  };
+
+  /**
+   * Shift the current block
+   *
+   * @method shift
+   * @static
+   */
+  ENGEL.PARSER.prototype.shift = function() {
+
+    this.currentBlock = this.block.shift();
+
+  };
+
+  /**
+   * Expect a specific block
+   *
+   * @method expect
+   * @static
+   */
+  ENGEL.PARSER.prototype.expect = function(type) {
+
+    if (this.accept(type)) return (true);
+
+    return (false);
 
   };
 
 }).call(this);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
