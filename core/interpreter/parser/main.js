@@ -61,7 +61,7 @@
     this.block = block;
 
     /** Detected variable */
-    if (this.block[0].type === "LX_VAR") return (this.variable());
+    if (this.block[0].type === "LX_VAR") return(this.variable());
 
   };
 
@@ -77,6 +77,21 @@
     /** Shorter syntax */
     var block = this.block;
 
+    /** Variable assignment template */
+    var node = {
+      AssignmentExpression: {
+        id: {
+          type: "Identifier",
+          name: block[0].value
+        },
+        init: null,
+        kind: "var"
+      }
+    };
+
+    /** Direct scope for shorter syntax */
+    var directScope = node.AssignmentExpression;
+
     /** Save variable */
     var variable = block[0].type === "LX_VAR" ? block[0].value : "undefined";
 
@@ -89,56 +104,45 @@
       this.shift();
 
       /** Only shift, if we got no function call */
-      if (this.ReservedFunctions.indexOf(block[0].type) <= -1) return (this.expressionAssignment(variable));
+      if (this.ReservedFunctions.indexOf(block[0].type) <= -1) {
+        directScope.init = this.expressionStatement();
+        return (node);
+      }
 
       /** Function call variable assignment */
-      if (this.ReservedFunctions.indexOf(block[0].type) >= 0) return (this.functionAssignment(variable));
+      if (this.ReservedFunctions.indexOf(block[0].type) >= 0) {
+        directScope.init = this.functionAssignment();
+        return (node);
+      }
 
     }
 
   };
 
   /**
-   * Create an variable expression assignment AST
+   * Create an variable expression statement AST
    *
-   * @method expressionAssignment
-   * @return {object} expression Assignment AST
+   * @method expressionStatement
+   * @return {object} expression statement AST
    * @static
    */
-  ENGEL.PARSER.prototype.expressionAssignment = function() {
+  ENGEL.PARSER.prototype.expressionStatement = function() {
 
     /** Shorter syntax */
     var block = this.block;
 
-    /** Variable AST template */
-    var node = {
-      AssignmentExpression: {
-        id: {
-          type: "Identifier",
-          name: ""
-        },
-        init: null,
-        kind: "var"
-      }
-    };
-
-    /** Direct scope for shorter syntax */
-    var directScope = node.AssignmentExpression;
-
-    /** Update variable to update value */
-    directScope.id.name = arguments[0];
+    /** Variable assignment template */
+    var ExpressionStatement = null;
 
     /** Add semicolon the end */
     if (block[block.length - 1] && 
       block[block.length - 1].type !== "LX_SEMIC") this.addSemicolon();
 
-    this.currentBlock = block.shift();
+    this.shift();
 
-    directScope.init = {
-      AssignmentExpression: this.ruleExpression()
-    };
+    ExpressionStatement = this.ruleExpression();
 
-    return (node);
+    return ({ ExpressionStatement });
 
   };
 
@@ -154,7 +158,18 @@
     /** Shorter syntax */
     var block = this.block;
 
-    console.log(block[0]);
+    /** Direct scope for shorter syntax */
+    var directScope = node.AssignmentExpression;
+
+    /** Call expression template */
+    directScope.init = {
+      CallExpression: {
+        callee: {
+          Identifier: block[0].value
+        },
+        arguments: []
+      }
+    };
 
   };
 

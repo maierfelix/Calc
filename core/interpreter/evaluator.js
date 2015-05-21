@@ -148,30 +148,18 @@
     }
 
     /** Assign expression to variable */
-    if (node.init) { console.log(node.init);
+    if (node.init) {
 
       var rawValue;
 
-      if (node.init.BinaryExpression) {
-        rawValue = this.interpretExpression(node.init.BinaryExpression);
+      if (node.init.ExpressionStatement) {
+        rawValue = this.interpretExpression(node.init.ExpressionStatement);
         ENGEL.STACK.update(node.id.name, {
           raw: rawValue,
           value: this.TypeMaster(rawValue).value,
           type: typeof rawValue
         });
         declared = node.id.name;
-      } else if (node.init.AssignmentExpression) {
-        rawValue = this.interpretExpression(node.init.AssignmentExpression);
-        ENGEL.STACK.update(node.id.name, {
-          raw: rawValue,
-          value: this.TypeMaster(rawValue).value,
-          type: typeof rawValue
-        });
-        declared = node.id.name;
-      } else if (node.init.ExpressionStatement) {
-        rawValue = this.evalExpression(node.init.ExpressionStatement);
-        declared = node.id.name;
-        return;
       } else if (node.init.SingleCallExpression) {
         rawValue = this.evalExpression(node.init.SingleCallExpression);
         declared = node.id.name;
