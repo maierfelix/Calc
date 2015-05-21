@@ -27,8 +27,8 @@
     this.KeyWords = [
 
       /** Statements */
-      { name: "LX_IF",     rx: /^(WENN|IF)(?![a-zA-Z0-9_])/    },
-      { name: "LX_ELSE",   rx: /^(SONST|ELSE)(?![a-zA-Z0-9_])/ },
+      { name: "LX_IF",     rx: /^(wenn|if)(?![a-zA-Z0-9_])/    },
+      { name: "LX_ELSE",   rx: /^(sonst|else)(?![a-zA-Z0-9_])/ },
 
       /** Brackets */
       { name: "LX_LPAR",   rx: /^[\\(]()+/ },
@@ -65,7 +65,7 @@
       { name: "LX_MATH", rx: /^(asin|sin|acos|cos|atan|atan2|tan|sqrt|cbrt|exp|random|min|max|round|floor|ceil)/ },
 
       /** Connect function */
-      { name: "LX_CONNECT", rx: /^(CONNECT|connect)/ },
+      { name: "LX_CONNECT", rx: /^(verbinden|connect)/ },
 
       /** Types */
       { name: "LX_VAR",    rx: /^[a-zA-Z_][a-zA-Z0-9_]*/                 },

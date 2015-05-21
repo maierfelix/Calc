@@ -73,22 +73,6 @@
   ENGEL.EVAL.prototype = ENGEL;
 
   /**
-   * Eval an if statement
-   *
-   * @method evalIfStatement
-   * @static
-   */
-  ENGEL.EVAL.prototype.evalIfStatement = function(ast) {
-    /** If condition is true, execute the if statements body */
-    console.log(this.interpretExpression(ast.condition));
-    if (this.interpretExpression(ast.condition)) {
-      for (var ii = 0; ii < ast.body.length; ++ii) {
-        this.evaluate(ast.body[ii]);
-      }
-    }
-  };
-
-  /**
    * Interpret Expression
    *
    * @method interpretExpression
@@ -102,16 +86,19 @@
 
     this.switcher = "interpretExpression";
 
+    /** Got a variable */
     if (ast.Identifier) {
       var value = ENGEL.STACK.getValue(ast.Identifier.value);
       if (value || value === "" || value === 0) return value;
       return 0;
     }
 
+    /** Got a number or string */
     if (ast.Literal) {
       return ast.Literal.value;
     }
 
+    /** Got an operator */
     if (this.Functions[ast.operator]) {
       return this.Functions[ast.operator](ast);
     }
@@ -134,94 +121,48 @@
 
     var declared = null;
 
-    var ii = 0;
-
-    for (; ii < nodes.length; ++ii) {
-
-      var variable = nodes[ii];
-
-      /** Push Variable into Stack */
-      if (variable.id.type === "Identifier") {
-        if (ENGEL.STACK.VAR[variable.id.name]) {
-          if (ENGEL.STACK.VAR[variable.id.name].type === "const") {
-            console.info("Warning: " + variable.id.name + " is defined as a constant!");
-            break;
-          }
-          if (ENGEL.STACK.VAR[variable.id.name].type === "var" && ENGEL.STACK.VAR[variable.id.name].type !== mode) {
-            console.info("Warning: " + variable.id.name + " has not the correct type!");
-            break;
-          }
-        } else {
-          /** Initialise stack variable */
-          ENGEL.STACK.VAR[variable.id.name] = {
-            name: variable.id.name,
-            type: mode,
-            value: {
-              value: null,
-              type: null,
-              raw: null
-            }
-          };
+    /** Push Variable into Stack */
+    if (node.id.type === "Identifier") {
+      /** Initialise empty var stack variable */
+      ENGEL.STACK.VAR[node.id.name] = {
+        name: node.id.name,
+        type: mode,
+        value: {
+          value: null,
+          type: null,
+          raw: null
         }
-
-      }
-
-      /** Assign expression to variable */
-      if (variable.init) {
-
-        var rawValue;
-
-        if (variable.init.BinaryExpression) {
-          rawValue = this.interpretExpression(variable.init.BinaryExpression);
-          ENGEL.STACK.update(variable.id.name, {
-            raw: rawValue,
-            value: this.TypeMaster(rawValue).value,
-            type: typeof rawValue
-          });
-          declared = variable.id.name;
-        } else if (variable.init.AssignmentExpression) {
-          rawValue = this.interpretExpression(variable.init.AssignmentExpression);
-          ENGEL.STACK.update(variable.id.name, {
-            raw: rawValue,
-            value: this.TypeMaster(rawValue).value,
-            type: typeof rawValue
-          });
-          declared = variable.id.name;
-        } else if (variable.init.ExpressionStatement) {
-          rawValue = this.evalExpression(variable.init.ExpressionStatement);
-          declared = variable.id.name;
-          return;
-        } else if (variable.init.SingleCallExpression) {
-          rawValue = this.evalExpression(variable.init.SingleCallExpression);
-          declared = variable.id.name;
-        }
-
-      }
-
+      };
     }
 
-    /** Got multiple declarations, inherit parent values */
-    if (ii > 1e0 && declared) {
+    /** Assign expression to variable */
+    if (node.init) { console.log(node.init);
 
-      for (var kk = 0; kk < ii; ++kk) {
+      var rawValue;
 
-        var childValue = ENGEL.STACK.VAR[nodes[kk].id.name];
-
-        if (childValue) {
-
-          /** Variable declarations */
-          if (!childValue.value.raw && !childValue.value.value && !childValue.value.type) {
-            childValue.value = ENGEL.STACK.VAR[declared].value;
-          }
-          /** Variable assignments */
-          else if (childValue.value.raw &&
-            childValue.value.value &&
-            childValue.value.type) {
-            childValue.value = ENGEL.STACK.VAR[declared].value;
-          }
-
-        }
-
+      if (node.init.BinaryExpression) {
+        rawValue = this.interpretExpression(node.init.BinaryExpression);
+        ENGEL.STACK.update(node.id.name, {
+          raw: rawValue,
+          value: this.TypeMaster(rawValue).value,
+          type: typeof rawValue
+        });
+        declared = node.id.name;
+      } else if (node.init.AssignmentExpression) {
+        rawValue = this.interpretExpression(node.init.AssignmentExpression);
+        ENGEL.STACK.update(node.id.name, {
+          raw: rawValue,
+          value: this.TypeMaster(rawValue).value,
+          type: typeof rawValue
+        });
+        declared = node.id.name;
+      } else if (node.init.ExpressionStatement) {
+        rawValue = this.evalExpression(node.init.ExpressionStatement);
+        declared = node.id.name;
+        return;
+      } else if (node.init.SingleCallExpression) {
+        rawValue = this.evalExpression(node.init.SingleCallExpression);
+        declared = node.id.name;
       }
 
     }
@@ -249,128 +190,6 @@
   };
 
   /**
-   * Handle expressions
-   *
-   * @method evalExpression
-   * @static
-   */
-  ENGEL.EVAL.prototype.evalExpression = function(node) {
-
-    var self = this;
-
-    var callee = node.expression.callee;
-
-    var args = node.arguments;
-
-    /** Built in display functions call */
-    if (this.preDefFunc.display.indexOf(callee.name) >= 0) {
-
-      var logArray = [];
-
-      for (var ii = 0; ii < args.length; ++ii) {
-
-        /** Has to be defined in the stack */
-        if (args[ii].type === "Identifier") {
-          logArray.push(self.TypeMaster(ENGEL.STACK.getValue(args[ii].value)).value);
-        } else if (args[ii].type === "Literal") {
-          logArray.push(self.TypeMaster(args[ii].value).value);
-        }
-
-      }
-
-      if (logArray && logArray.length) {
-        Function.prototype.apply.call(console.log, console, logArray);
-      }
-
-      /** Math function call */
-    } else if (this.preDefFunc.math.indexOf(callee.name) >= 0) {
-
-      /** Special case random */
-      var result;
-
-      var logArray = [];
-
-      for (var ii = 0; ii < args.length; ++ii) {
-
-        /** Has to be defined in the stack */
-        if (args[ii].type === "Identifier") {
-          logArray.push(self.TypeMaster(ENGEL.STACK.getValue(args[ii].value)).value);
-        } else if (args[ii].type === "Literal") {
-          logArray.push(self.TypeMaster(args[ii].value).value);
-        }
-
-      }
-
-      if (Math[callee.name]) {
-        if (logArray && logArray.length) {
-          result = Math[callee.name].apply(null, logArray);
-        } else result = Math[callee.name].apply(null, null);
-      }
-
-      if (node.variableCall) {
-        if (ENGEL.STACK.get(node.variableCall)) {
-          ENGEL.STACK.update(node.variableCall, {
-            raw: result,
-            value: self.TypeMaster(result).value,
-            type: typeof result
-          });
-        }
-      }
-
-    /** JSON call */
-    } else if (this.preDefFunc.json.indexOf(callee.name) >= 0) {
-
-      var result;
-
-      var fetchValue = self.TypeMaster(node.expression.init.value).value;
-
-      /** Search for live cell json data */
-      if (CORE.Cells.Live[node.arguments[0].value]) {
-        if (CORE.Cells.Live[node.arguments[0].value].Data[fetchValue]) result = CORE.Cells.Live[node.arguments[0].value].Data[fetchValue];
-      }
-
-      if (node.variableCall) {
-        if (ENGEL.STACK.get(node.variableCall)) {
-          ENGEL.STACK.update(node.variableCall, {
-            raw: result,
-            value: self.TypeMaster(result).value,
-            type: typeof result
-          });
-        }
-      }
-
-    /** AJAX connect */
-    } else if (this.preDefFunc.ajax.indexOf(callee.name) >= 0) {
-
-      var urlValue = "",
-          timeValue = 0;
-
-      urlValue = this.interpretExpression(node.arguments[0].DirectiveBinaryExpression.init);
-
-      /** Variable call */
-      if (node.arguments[1].AssignmentExpression) {
-        timeValue = this.interpretExpression(node.arguments[1].AssignmentExpression.expressions[0].init.BinaryExpression);
-      /** Binary */
-      } else {
-        timeValue = this.interpretExpression(node.arguments[1].DirectiveBinaryExpression.init);
-      }
-
-      /** Register live cell */
-      if (!CORE.Cells.Live[node.variableCall]) CORE.registerLiveCell(node.variableCall);
-
-      /** Check if live cell got registered, if yes update its url */
-      if (CORE.Cells.Live[node.variableCall]) {
-        CORE.Cells.Live[node.variableCall].Url = urlValue;
-        CORE.Cells.Live[node.variableCall].RefreshTime = timeValue;
-      }
-
-      CORE.Awakener.evalLive();
-
-    }
-
-  };
-
-  /**
    * Evaluate AST
    *
    * @method evaluate
@@ -378,37 +197,13 @@
    */
   ENGEL.EVAL.prototype.evaluate = function(ast) {
 
-    var self = this;
-
-    var _evaluate = function(node) {
-
-      if (node.DirectiveBinaryExpression) {
-        self.evalDirectiveExpression(node.DirectiveBinaryExpression);
-      } else if (node.VariableDeclaration) {
-        self.evalVariable(node.VariableDeclaration);
-      } else if (node.AssignmentExpression) {
-        self.evalVariable(node.AssignmentExpression);
-      } else if (node.ExpressionStatement) {
-        self.evalExpression(node.ExpressionStatement);
-      } else if (node.IfStatement) {
-        self.evalIfStatement(node.IfStatement);
-      }
-
-    };
-
-    if (ast && ast.children) {
-
-      for (var ii = 0; ii < ast.children.length; ++ii) {
-
-        var node = ast.children[ii];
-
-        if (!node) return;
-
-        _evaluate(node);
-
-      }
-
-    } else _evaluate(ast);
+    /** Directive binary expression without any assignment */
+    if (ast.DirectiveBinaryExpression) {
+      this.evalDirectiveExpression(ast.DirectiveBinaryExpression);
+    /** Variable value assignment */
+    } else if (ast.AssignmentExpression) {
+      this.evalVariable(ast.AssignmentExpression);
+    }
 
   };
 

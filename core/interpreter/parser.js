@@ -46,7 +46,7 @@
     this.block = block;
 
     /** Detected variable */
-    if (this.block[0].type === "LX_VAR") this.variable();
+    if (this.block[0].type === "LX_VAR") return (this.variable());
 
   };
 
@@ -92,10 +92,13 @@
 
       /** Delete variable assignment block */
       block.shift();
+      /** Add semicolon the end */
+      this.addSemicolon();
+
       this.shift();
 
       directScope.init = {
-        Expression: this.ruleExpression()
+        AssignmentExpression: this.ruleExpression()
       };
 
     }
@@ -256,21 +259,19 @@
 
   };
 
+  /**
+   * Add a semicolon to a block end
+   *
+   * @method addSemicolon
+   * @static
+   */
+  ENGEL.PARSER.prototype.addSemicolon = function() {
+
+    this.block.push({
+      type: "LX_SEMIC",
+      value: ","
+    });
+
+  };
+
 }).call(this);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
