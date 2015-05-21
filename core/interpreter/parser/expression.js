@@ -1,111 +1,16 @@
+/**
+ * This file is part of the NovaeCalc project.
+ *
+ * It is permitted to use, redistribute and/or modify this software
+ * under the terms of the MIT License
+ *
+ * @author Felix Maier <maier.felix96@gmail.com>
+ * @copyright (c) 2015 Felix Maier, @felixmaier
+ *
+ * You may not change or remove these lines
+ *
+ */
 (function() { "use strict"
-
-  /**
-   * The Parser
-   *
-   * @class PARSER
-   * @static
-   */
-  ENGEL.PARSER = function() {
-
-    /** Global block object */
-    this.block = null;
-
-    /** Current block global block object */
-    this.currentBlock = null;
-
-  };
-
-  ENGEL.PARSER.prototype = ENGEL;
-
-  /**
-   * Evaluate the token list and generate an AST from it
-   *
-   * @method parse
-   * @return {object} AST
-   * @static
-   */
-  ENGEL.PARSER.prototype.parse = function(input) {
-
-    return (this.createAST(input));
-
-  };
-
-  /**
-   * Create an AST
-   *
-   * @method createAST
-   * @return {object} AST
-   * @static
-   */
-  ENGEL.PARSER.prototype.createAST = function(block) {
-
-    if (!block[0]) return (block);
-
-    /** Global access */
-    this.block = block;
-
-    /** Detected variable */
-    if (this.block[0].type === "LX_VAR") return (this.variable());
-
-  };
-
-  /**
-   * Create an variable AST
-   *
-   * @method variable
-   * @return {object} variable AST
-   * @static
-   */
-  ENGEL.PARSER.prototype.variable = function() {
-
-    /** Shorter syntax */
-    var block = this.block;
-
-    /** Save variable */
-    var variable = block[0];
-
-    /** Variable AST template */
-    var node = {
-      AssignmentExpression: {
-        id: {
-          type: "Identifier",
-          name: ""
-        },
-        init: null,
-        kind: "var"
-      }
-    };
-
-    /** Direct scope for shorter syntax */
-    var directScope = node.AssignmentExpression;
-
-    /** Delete variable block */
-    if (block[0].type === "LX_VAR") {
-      /** Assign variable name */
-      directScope.id.name = block[0].value;
-      block.shift();
-    }
-
-    /** Variable assignment starts */
-    if (block[0] && block[0].type === "LX_ASSIGN") {
-
-      /** Delete variable assignment block */
-      block.shift();
-      /** Add semicolon the end */
-      this.addSemicolon();
-
-      this.shift();
-
-      directScope.init = {
-        AssignmentExpression: this.ruleExpression()
-      };
-
-    }
-
-    return (node);
-
-  };
 
   /**
    * Create an expression AST
@@ -256,21 +161,6 @@
     if (this.accept(type)) return (true);
 
     return (false);
-
-  };
-
-  /**
-   * Add a semicolon to a block end
-   *
-   * @method addSemicolon
-   * @static
-   */
-  ENGEL.PARSER.prototype.addSemicolon = function() {
-
-    this.block.push({
-      type: "LX_SEMIC",
-      value: ","
-    });
 
   };
 
