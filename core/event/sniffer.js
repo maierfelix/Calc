@@ -61,8 +61,6 @@
       if (CORE.Event.inEditMode()) {
         CORE.Grid.cleanEditSelection();
         CORE.Selector.getSelection();
-        /** Run the interpreter */
-        CORE.eval();
       }
       return (true);
     }

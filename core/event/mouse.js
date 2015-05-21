@@ -112,9 +112,6 @@
           CORE.Selector.getSelection();
         }
 
-        /** Clean edited cells only if the current selected cell isn't edited */
-        if (!CORE.Cells.Used[CORE.Cells.Selected.First]) CORE.Grid.cleanEditSelection();
-
         /** User edits a cell and clicked on another cell which was also edited */
         if ( CORE.Input.Mouse.Edit &&
              CORE.Cells.Edit !== CORE.Cells.Selected.First ||
@@ -123,6 +120,9 @@
           CORE.eval();
           CORE.Grid.cleanEditSelection();
         }
+
+        /** Clean edited cells only if the current selected cell isn't edited */
+        if (!CORE.Cells.Used[CORE.Cells.Selected.First]) CORE.Grid.cleanEditSelection();
 
       }
 
