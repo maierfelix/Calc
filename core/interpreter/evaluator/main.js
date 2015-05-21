@@ -128,7 +128,7 @@
         declared = node.id.name;
       /** Function call */
       } else if (node.init.CallExpression) {
-        rawValue = this.evalExpression(node.init.CallExpression);
+        rawValue = this.evalExpression(node.init.CallExpression, node.id.name);
         declared = node.id.name;
       }
 

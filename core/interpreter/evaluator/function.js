@@ -18,7 +18,7 @@
    * @method evalExpression
    * @static
    */
-  ENGEL.EVAL.prototype.evalExpression = function(node) {
+  ENGEL.EVAL.prototype.evalExpression = function(node, name) {
 
     var self = this;
 
@@ -26,7 +26,7 @@
 
     var args = node.arguments;
 
-    if (this.preDefFunc.ajax.indexOf(callee.Identifier) >= 0) {
+    if (this.preDefFunc.ajax.indexOf(callee.Identifier) >= 0) { console.log(node);
 
       var urlValue = "",
           timeValue = 0;
@@ -37,13 +37,18 @@
       /** Process time argument */
       timeValue = this.interpretExpression(node.arguments[1]);
 
+      if (timeValue <= 0) {
+        console.info(name + ": Invalid refresh time value, reset to " + 1000 + "!");
+        timeValue = 2500;
+      }
+
       /** Register live cell */
-      if (!CORE.Cells.Live[node.variableCall]) CORE.registerLiveCell(node.variableCall);
+      if (!CORE.Cells.Live[name]) CORE.registerLiveCell(name);
 
       /** Check if live cell got registered, if yes update its url */
-      if (CORE.Cells.Live[node.variableCall]) {
-        CORE.Cells.Live[node.variableCall].Url = urlValue;
-        CORE.Cells.Live[node.variableCall].RefreshTime = timeValue;
+      if (CORE.Cells.Live[name]) {
+        CORE.Cells.Live[name].Url = urlValue;
+        CORE.Cells.Live[name].RefreshTime = timeValue;
       }
 
       CORE.Awakener.evalLive();

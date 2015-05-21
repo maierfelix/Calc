@@ -172,48 +172,69 @@
     var directScope = CallExpression;
 
     /** Read arguments */
-    if (block[0].type === "LX_LPAR") {
+    if (block[0].type === "LX_LPAR") directScope.arguments = this.readFunctionArguments();
+
+    return ({ CallExpression });
+
+  };
+
+  /**
+   * Read a functions arguments
+   *
+   * @method readFunctionArguments
+   * @return {array} function arguments array
+   * @static
+   */
+  ENGEL.PARSER.prototype.readFunctionArguments = function() {
+
+    /** Shorter syntax */
+    var block = this.block;
+
+    var parentArray = [],
+        array = [],
+        argumentArray = [];
+
+    /** To ignore parentheses */
+    var jumper = 0;
+
+    while (block[0]) {
+
+      if (block[0].type === "LX_LPAR") jumper++;
+      else if (block[0].type === "LX_RPAR") jumper--;
+
+      if (block[0].type === "LX_COMMA") {
+        parentArray.push(array);
+        array = [];
+      } else if (block[0].type === "LX_RPAR") {
+        if (jumper <= 0) {
+          parentArray.push(array);
+          jumper = 0;
+          break;
+        }
+      }
+
+      if (block[0].type !== "LX_COMMA") {
+        array.push(block[0]);
+      }
 
       block.shift();
 
-      var parentArray = [],
-            array = [],
-            backupBlock = [];
+    }
 
-      while (block[0]) {
+    for (var ii = 0; ii < parentArray.length; ++ii) {
 
-        if (block[0].type === "LX_COMMA") {
-          parentArray.push(array);
-          array = [];
-        } else if (block[0].type === "LX_RPAR") {
-          parentArray.push(array);
-          break;
-        }
+      this.block = block = parentArray[ii];
+      this.shift();
 
-        if (block[0].type !== "LX_COMMA") {
-          array.push(block[0]);
-        }
+      /** Add semicolon the end */
+      this.addSemicolon();
 
-        block.shift();
-
-      }
-
-      for (var ii = 0; ii < parentArray.length; ++ii) {
-
-        this.block = block = parentArray[ii];
-        this.shift();
-
-        /** Add semicolon the end */
-        this.addSemicolon();
-
-        /** Generate AST of function parameters */
-        directScope.arguments.push(this.ruleExpression());
-
-      }
+      /** Generate AST of function parameters */
+      argumentArray.push(this.ruleExpression());
 
     }
 
-    return ({ CallExpression });
+    return (argumentArray);
 
   };
 
