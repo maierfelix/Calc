@@ -12,7 +12,7 @@
  */
 (function() { "use strict"
 
-	/**
+  /**
    * Detect type of input data, return converted data and type declaration
    *
    * @method TypeMaster

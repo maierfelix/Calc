@@ -158,18 +158,62 @@
     /** Shorter syntax */
     var block = this.block;
 
-    /** Direct scope for shorter syntax */
-    var directScope = node.AssignmentExpression;
-
     /** Call expression template */
-    directScope.init = {
-      CallExpression: {
-        callee: {
-          Identifier: block[0].value
-        },
-        arguments: []
-      }
+    var CallExpression = {
+      callee: {
+        Identifier: block[0].value
+      },
+      arguments: []
     };
+
+    this.shift();
+
+    /** Direct scope for shorter syntax */
+    var directScope = CallExpression;
+
+    /** Read arguments */
+    if (block[0].type === "LX_LPAR") {
+
+      block.shift();
+
+      var parentArray = [],
+            array = [],
+            backupBlock = [];
+
+      while (block[0]) {
+
+        if (block[0].type === "LX_COMMA") {
+          parentArray.push(array);
+          array = [];
+        } else if (block[0].type === "LX_RPAR") {
+          parentArray.push(array);
+          break;
+        }
+
+        if (block[0].type !== "LX_COMMA") {
+          array.push(block[0]);
+        }
+
+        block.shift();
+
+      }
+
+      for (var ii = 0; ii < parentArray.length; ++ii) {
+
+        this.block = block = parentArray[ii];
+        this.shift();
+
+        /** Add semicolon the end */
+        this.addSemicolon();
+
+        /** Generate AST of function parameters */
+        directScope.arguments.push(this.ruleExpression());
+
+      }
+
+    }
+
+    return ({ CallExpression });
 
   };
 

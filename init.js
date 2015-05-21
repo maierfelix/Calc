@@ -59,9 +59,12 @@ Import.scripts = [
   "core/interpreter/main.js",
   "core/interpreter/stack.js",
   "core/interpreter/lexer.js",
-  "core/interpreter/parser.js",
-  "core/interpreter/evaluator.js",
-	"core/interpreter/type.js"
+  "core/interpreter/parser/main.js",
+  "core/interpreter/parser/expression.js",
+  "core/interpreter/evaluator/main.js",
+  "core/interpreter/evaluator/expression.js",
+  "core/interpreter/evaluator/function.js",
+  "core/interpreter/type.js"
 ];
 Import.after = function() {
   ENGEL.init();
