@@ -94,7 +94,7 @@
           CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].FontBold = false;
           /** Immediately update cells font bold */
           jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
-          if (jumps) CORE.DOM.Output.children[jumps].style.fontWeight = "normal";
+          if (jumps >= 0) CORE.DOM.Output.children[jumps].style.fontWeight = "normal";
         } else {
           /** Update the font bold */
           CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].FontBold = true;
