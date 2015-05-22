@@ -40,7 +40,7 @@
 
       if (timeValue <= 0) {
         console.info(name + ": Invalid refresh time value, reset to " + 1000 + "!");
-        timeValue = 2500;
+        timeValue = 1000;
       }
 
       /** Register live cell */
