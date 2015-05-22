@@ -27,7 +27,7 @@
     this.currentBlock = null;
 
     /** Reserved functions */
-    this.ReservedFunctions = ["LX_CONNECT"];
+    this.ReservedFunctions = ["LX_CONNECT", "LX_JSON"];
 
   };
 
@@ -168,11 +168,20 @@
 
     this.shift();
 
-    /** Direct scope for shorter syntax */
-    var directScope = CallExpression;
-
-    /** Read arguments */
-    if (block[0].type === "LX_LPAR") directScope.arguments = this.readFunctionArguments();
+    /** Read arguments of CONNECT function */
+    if (this.currentBlock.type === "LX_CONNECT") {
+      if (block[0].type === "LX_LPAR") CallExpression.arguments = this.readFunctionArguments();
+    /** Read arguments of JSON function */
+    } else if (this.currentBlock.type === "LX_JSON") {
+      if (block[0].type === "LX_LPAR") CallExpression.arguments = this.readFunctionArguments();
+      /** Create array of following json operations */
+      CallExpression.append = [];
+      /** Delete right parenthese */
+      this.shift();
+      /** Delete first JSON call method */
+      this.shift();
+      CallExpression.append = this.readFunctionArguments();
+    }
 
     return ({ CallExpression });
 
@@ -202,10 +211,10 @@
       if (block[0].type === "LX_LPAR") jumper++;
       else if (block[0].type === "LX_RPAR") jumper--;
 
-      if (block[0].type === "LX_COMMA") {
+      if (["LX_COMMA", "LX_JSON_CALL"].indexOf(block[0].type) >= 0) {
         parentArray.push(array);
         array = [];
-      } else if (block[0].type === "LX_RPAR") {
+      } else if (["LX_RPAR", "LX_SEMIC"].indexOf(block[0].type) >= 0) {
         if (jumper <= 0) {
           parentArray.push(array);
           jumper = 0;
@@ -213,7 +222,7 @@
         }
       }
 
-      if (block[0].type !== "LX_COMMA") {
+      if (["LX_COMMA", "LX_JSON_CALL"].indexOf(block[0].type) <= -1) {
         array.push(block[0]);
       }
 
@@ -223,7 +232,7 @@
 
     for (var ii = 0; ii < parentArray.length; ++ii) {
 
-      this.block = block = parentArray[ii];
+      this.block = parentArray[ii];
       this.shift();
 
       /** Add semicolon the end */
@@ -233,6 +242,8 @@
       argumentArray.push(this.ruleExpression());
 
     }
+
+    this.block = block;
 
     return (argumentArray);
 

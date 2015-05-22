@@ -26,7 +26,8 @@
 
     var args = node.arguments;
 
-    if (this.preDefFunc.ajax.indexOf(callee.Identifier) >= 0) { console.log(node);
+    /** CONNECT */
+    if (this.preDefFunc.ajax.indexOf(callee.Identifier) >= 0) {
 
       var urlValue = "",
           timeValue = 0;
@@ -53,7 +54,55 @@
 
       CORE.Awakener.evalLive();
 
+    /** JSON */
+    } else if (this.preDefFunc.json.indexOf(callee.Identifier) >= 0) {
+
+      /** Get variable to fetch data from */
+      var dataTarget = node.arguments[0].Identifier.value;
+
+      /** Data variable */
+      var result = null;
+
+      /** Search for live cell json data */
+      if (CORE.Cells.Live[dataTarget]) {
+        /** Compile appended JSON pipeline */
+        for (var ii = 0; ii < node.append.length; ++ii) {
+          node.append[ii] = this.interpretExpression(node.append[ii]);
+        }
+        if (CORE.Cells.Live[dataTarget].Data) {
+          result = this.readJSONTree(CORE.Cells.Live[dataTarget].Data, node.append);
+        }
+      }
+
+      /** Update variable in the stack */
+      if (ENGEL.STACK.get(name)) {
+        ENGEL.STACK.update(name, {
+          raw: result,
+          value: self.TypeMaster(result).value,
+          type: typeof result
+        });
+      }
+
     }
+
+  };
+
+  /**
+   * Recursively read a json tree
+   *
+   * @method readJSONTree
+   * @static
+   */
+  ENGEL.EVAL.prototype.readJSONTree = function(data, index) {
+
+    var value = null;
+
+    if (data[index[0]]) {
+      value = index.shift();
+      if (index.length >= 1) return (this.readJSONTree(data[value], index));
+    }
+
+    return (data[value]);
 
   };
 
