@@ -36,7 +36,7 @@ NovaeCalc is not stable yet.
    - [x] Logical functions
    - [ ] Information functions
    - [ ] Date / Time functions
-   - [x] Basic JSON processing
+   - [x] JSON processing
 
 - [ ] Server
    - [ ] Groups
