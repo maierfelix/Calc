@@ -83,8 +83,12 @@
     if (CORE.Event.inEditMode()) {
       /** Go to the end of a cell text if edit first time */
       CORE.Selector.cellFocusSwitch = false;
+
+      var letter = CORE.$.alphaToNumber(CORE.Cells.Edit.match(CORE.REGEX.numbers).join(""));
+      var number = parseInt(CORE.Cells.Edit.match(CORE.REGEX.letters).join(""));
+
       /** Get cell content and pass it into the cell edit cell stack */
-      jumps = CORE.$.getCell(CORE.Cells.Edit);
+      jumps = CORE.$.getCell({ letter: letter, number: number });
       if (jumps >= 0) CORE.Cells.Used[CORE.Cells.Edit].Content = CORE.DOM.CellInput.value;
     }
 
@@ -159,7 +163,7 @@
     CORE.DOM.CellInput.focus();
 
     setTimeout(function() {
-      jumps = CORE.$.getCell(CORE.Selector.Selected.First.Letter + CORE.Selector.Selected.First.Number);
+      jumps = CORE.$.getCell({ letter: CORE.Selector.Selected.First.Letter, number: CORE.Selector.Selected.First.Number });
       if (jumps >= 0) element = CORE.DOM.Output.children[jumps];
       /** Update cell used stack value with cell input fields value */
       if (CORE.Cells.Used[CORE.Cells.Edit]) CORE.Cells.Used[CORE.Cells.Edit].Content = CORE.DOM.CellInput.value;

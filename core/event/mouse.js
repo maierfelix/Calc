@@ -74,7 +74,7 @@
     if (e.target.id === "cell_input") {
 
       /** User selected a cell */
-      if (CORE.Cells.Select) {
+      if (CORE.Cells.Select.Letter && CORE.Cells.Select.Number) {
         CORE.eval();
         CORE.Grid.cleanEditSelection();
         CORE.Grid.getEditSelection(CORE.Cells.Select);
@@ -93,13 +93,25 @@
       /** Hide live cell container */
       CORE.DOM.LiveCellContainer.style.display = "none";
 
-      this.lastMouseDownCell = e.target.getAttribute("name");
+      var name = e.target.getAttribute("name");
+      var letter = CORE.$.alphaToNumber(name.match(CORE.REGEX.numbers).join(""));
+      var number = parseInt(name.match(CORE.REGEX.letters).join(""));
 
-      CORE.Cells.Select = this.lastMouseDownCell;
+      var cellName = (CORE.$.numberToAlpha(letter)) + number;
+
+      CORE.Event.lastMouseDownCell.Letter = letter;
+      CORE.Event.lastMouseDownCell.Number = number;
+
+      CORE.Cells.Select = CORE.Event.lastMouseDownCell;
 
       /** Make sure the first property gets updated a maximum of 1 time per click */
-      if (!CORE.Cells.Selected.First) {
-        CORE.Cells.Selected.First = e.target.getAttribute("name");
+      if (!CORE.Cells.Selected.First.Letter && !CORE.Cells.Selected.First.Number) {
+
+        CORE.Cells.Selected.First = {
+          Letter: letter,
+          Number: number
+        };
+
         CORE.Cells.Selected.Last = CORE.Cells.Selected.First;
 
         /** Update parent cell, so keypress only moving will work */
@@ -107,7 +119,10 @@
         CORE.Grid.Settings.keyScrolledX = CORE.Grid.Settings.keyScrolledY = 0;
 
         /** Two selected cell coordinates */
-        if (CORE.Cells.Selected.First && CORE.Cells.Selected.Last) {
+        if (CORE.Cells.Selected.First.Letter &&
+            CORE.Cells.Selected.First.Number &&
+            CORE.Cells.Selected.Last.Letter &&
+            CORE.Cells.Selected.Last.Number) {
           /** Only execute selection if user doesnt edit a cell at the moment */
           CORE.Selector.getSelection();
         }
@@ -122,7 +137,7 @@
         }
 
         /** Clean edited cells only if the current selected cell isn't edited */
-        if (!CORE.Cells.Used[CORE.Cells.Selected.First]) CORE.Grid.cleanEditSelection();
+        if (!CORE.Cells.Used[cellName]) CORE.Grid.cleanEditSelection();
 
       }
 
@@ -150,7 +165,10 @@
     CORE.Input.Mouse.Pressed = false;
 
     /** Clean Selected Cells */
-    CORE.Cells.Selected.First = CORE.Cells.Selected.First = null;
+    CORE.Cells.Selected.First = CORE.Cells.Selected.First = {
+      Letter: 0,
+      Number: 0
+    };
 
     /** User resized something */
     if (CORE.Input.Mouse.CellResize) {
@@ -178,18 +196,37 @@
     if (CORE.Input.Mouse.Pressed) {
       /** Valid cell ? */
       if (e.target.parentNode.id === CORE.DOM.Output.id) {
+
+        var name = e.target.getAttribute("name");
+        var letter = CORE.$.alphaToNumber(name.match(CORE.REGEX.numbers).join(""));
+        var number = parseInt(name.match(CORE.REGEX.letters).join(""));
+        var cellName = (CORE.$.numberToAlpha(letter)) + number;
+
         /** Make sure the first property gets updated a maximum of 1 time per wipe */
-        if (!CORE.Cells.Selected.First) CORE.Cells.Selected.First = e.target.getAttribute("name");
+        if (!CORE.Cells.Selected.First.Letter && !CORE.Cells.Selected.First.Number) {
+
+          CORE.Cells.Selected.First = {
+            Letter: letter,
+            Number: number
+          }
+
+        }
 
         /** Calm Down, dont overwrite stack value with same value again */
-        if (CORE.Cells.Selected.Last === e.target.getAttribute("name")) return;
+        //if (CORE.Cells.Selected.Last === e.target.getAttribute("name")) return;
 
-        CORE.Cells.Selected.Last = e.target.getAttribute("name");
+        CORE.Cells.Selected.Last = {
+          Letter: letter,
+          Number: number
+        }
 
         /** Two selected cell coordinates */
-        if (CORE.Cells.Selected.First && CORE.Cells.Selected.Last) {
+        if (CORE.Cells.Selected.First.Letter &&
+            CORE.Cells.Selected.First.Number &&
+            CORE.Cells.Selected.Last.Letter &&
+            CORE.Cells.Selected.Last.Number) {
           /** Cell was never edited */
-          if (!CORE.Cells.Used[CORE.Cells.Selected.First]) CORE.Selector.getSelection();
+          if (!CORE.Cells.Used[cellName]) CORE.Selector.getSelection();
           /** Cell is in edited state */
           else {
             CORE.Grid.cleanEditSelection();
@@ -198,7 +235,7 @@
         }
 
         /** Clean edited cells only if the current selected cell isn't edited */
-        if (!CORE.Cells.Used[CORE.Cells.Selected.First]) CORE.Grid.cleanEditSelection();
+        if (!CORE.Cells.Used[cellName]) CORE.Grid.cleanEditSelection();
 
       }
 

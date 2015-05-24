@@ -18,31 +18,24 @@
    * @method getEditSelection
    * @static
    */
-  CORE.Grid.prototype.getEditSelection = function(id) {
+  CORE.Grid.prototype.getEditSelection = function(object) {
 
-    if (!id || id === undefined) return void 0;
+    if (!object || object === undefined) return void 0;
 
     /** New edit selection position */
-    var newLetter = id.match(CORE.REGEX.numbers).join(""),
-        newNumber = parseInt(id.match(CORE.REGEX.letters).join("")),
+    var newLetter = object.letter,
+        newNumber = object.number,
         jumps = 0,
         element = null;
 
     /** User edits something right now */
     CORE.Input.Mouse.Edit = true;
 
-    /** Clean old edited cell */
-    if (CORE.Cells.Edit) {
-
-      jumps = CORE.$.getCell(CORE.Cells.Edit);
-      if (jumps >= 0) element = CORE.DOM.Output.children[jumps];
-
-      if (element) element.classList.remove("cell_edit");
-
-    }
-
-    jumps = CORE.$.getCell(id);
+    jumps = CORE.$.getCell(object);
     if (jumps >= 0) element = CORE.DOM.Output.children[jumps];
+
+    /** Clean old edited cell */
+    if (element) element.classList.remove("cell_edit");
 
     /** Update current edited cell */
     if (element) {
@@ -92,7 +85,7 @@
     /** Update old edited cell */
     CORE.Cells.Edit = (newLetter + newNumber);
 
-    /** Update current select cell */
+    /** Update current selected cell */
     CORE.DOM.CurrentCell.innerHTML = CORE.Cells.Edit;
 
     /** Make sure all selections are deleted */
@@ -109,7 +102,7 @@
    * @method cleanEditSelection
    * @static
    */
-  CORE.Grid.prototype.cleanEditSelection = function() {
+  CORE.Grid.prototype.cleanEditSelection = function() { console.log(0);
 
     if (CORE.Cells.Edit) {
 
@@ -135,7 +128,7 @@
           /** Cell formula doesnt match with its content (seems like we got a calculation result) */
           if (CORE.Cells.Used[letter + number].Formula !== CORE.Cells.Used[letter + number].Content) {
             /** Disgorge the formula */
-            jumps = CORE.$.getCell(letter + number);
+            jumps = CORE.$.getCell({ letter: letter, number: number });
             if (jumps >= 0) CORE.DOM.Output.children[jumps].innerHTML = CORE.Cells.Used[letter + number].Content;
           }
         }
@@ -158,7 +151,7 @@
 
     if (CORE.Selector.Selected.First.Letter && CORE.Selector.Selected.First.Number) {
 
-      var jumps = CORE.$.getCell(CORE.Selector.Selected.First.Letter + CORE.Selector.Selected.First.Number);
+      var jumps = CORE.$.getCell({ letter: CORE.Selector.Selected.First.Letter, number: CORE.Selector.Selected.First.Number });
 
       if (jumps >= 0) CORE.$.selectText(CORE.DOM.Output.children[jumps]);
 

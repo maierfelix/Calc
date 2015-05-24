@@ -168,10 +168,10 @@
    * @method getCell
    * @static
    */
-  CORE.$.getCell = function(name) {
+  CORE.$.getCell = function(object) {
 
-    var letter = name.match(CORE.REGEX.numbers).join(""),
-        number = parseInt(name.match(CORE.REGEX.letters).join("")),
+    var letter = object.letter,
+        number = object.number,
         jumps = ((CORE.Grid.Settings.y * (CORE.$.alphaToNumber(letter) - 1) ) + number - 1 - CORE.Grid.Settings.scrolledY) - (CORE.Grid.Settings.y * CORE.Grid.Settings.scrolledX);
 
     if (CORE.DOM.Output.children[jumps] && CORE.$.isInView(letter, jumps)) return (jumps);
@@ -187,7 +187,7 @@
    */
   CORE.$.isInView = function(letter, jumps) {
 
-    var row = CORE.$.alphaToNumber(letter);
+    var row = letter;
         row = row <= 1 ? 1 : row;
 
     if (jumps < ( (CORE.$.alphaToNumber(letter) * CORE.Grid.Settings.y) - CORE.Grid.Settings.y ) - (CORE.Grid.Settings.y * CORE.Grid.Settings.scrolledX) ) return (false);

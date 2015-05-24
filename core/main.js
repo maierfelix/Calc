@@ -34,16 +34,27 @@
     /** Cell Selection Helper */
     Selected: {
       /** First selected cell */
-      First: null,
+      First: {
+        Letter: 0,
+        Number: 0
+      },
       /** Last selected cell */
-      Last:  null
+      Last: {
+        Letter: 0,
+        Number: 0
+      }
     },
     /** Cell currently edited */
     Edit: null,
     /** Cells with custom content */
     Used: {},
     /** Live cells */
-    Live: {}
+    Live: {},
+    /** Currently selected cell */
+    Select: {
+      Letter: 0,
+      Number: 0
+    }
   };
 
   /** Mobile detection */

@@ -17,7 +17,10 @@
     /** Save last mouse click to identify single and double clicks */
     lastMoseDown: 0,
     /** Save last clicked cell */
-    lastMoseDownCell: null
+    lastMouseDownCell: {
+      Letter: 0,
+      Number: 0
+    }
   };
 
   /**
