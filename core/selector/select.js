@@ -61,12 +61,6 @@
     /** If height is negative, convert into positive */
     if (height < 0) height = ( ~ height + 1 );
 
-    /** Clean everything */
-    CORE.Cells.Selected.Last = {
-      Letter: 0,
-      Number: 0
-    };
-
     /** Clean last selected cells */
     this.SelectedCells = [];
 
@@ -167,10 +161,10 @@
    * @method selectCell
    * @static
    */
-  CORE.Selector.prototype.selectCell = function(name) {
+  CORE.Selector.prototype.selectCell = function(letter, number) {
 
-    var letter = CORE.$.alphaToNumber(name.match(CORE.REGEX.numbers).join("")),
-        number = parseInt(name.match(CORE.REGEX.letters).join(""));
+    var letter = letter,
+        number = number;
 
     /** Delete hover effect of previous cell */
     this.deleteCellHoverEffect();
@@ -205,11 +199,11 @@
    */
   CORE.Selector.prototype.moveSelectionDown = function(amount) {
 
-    var letter = (this.Selected.First.Letter + this.Selected.First.Number).match(CORE.REGEX.numbers).join(""),
-        number = parseInt((this.Selected.First.Letter + this.Selected.First.Number).match(CORE.REGEX.letters).join(""));
+    var letter = this.Selected.First.Letter,
+        number = (this.Selected.First.Letter + this.Selected.First.Number);
 
     /** Update parent cell */
-    this.parentSelectedCell = letter + (number + amount);
+    this.parentSelectedCell = CORE.$.numberToAlpha(letter) + (number + amount);
 
     /** Reset all key scroll axis amount */
     CORE.Grid.Settings.keyScrolledX = CORE.Grid.Settings.keyScrolledY = 0;
@@ -224,7 +218,7 @@
     }
 
     /** Select the new cell */
-    this.selectCell( letter + (number + amount) );
+    this.selectCell(letter, (number + amount));
 
   };
 

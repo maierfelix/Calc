@@ -13,7 +13,9 @@
 (function() { "use strict"
 
   /** Update the cell style menu */
-  CORE_UI.updateCellStyleMenu = function(cell) {
+  CORE_UI.updateCellStyleMenu = function(cellName) {
+
+    var cell = CORE.$.numberToAlpha(cellName.letter) + cellName.number;
 
     /** Check if cell was registered */
     if (CORE.Cells.Used[cell]) {

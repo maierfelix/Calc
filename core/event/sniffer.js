@@ -98,7 +98,7 @@
 
       /** Fetch the current selected cell */
       CORE.Grid.cleanEditSelection();
-      CORE.Grid.getEditSelection(CORE.Selector.Selected.First.Letter + CORE.Selector.Selected.First.Number);
+      CORE.Grid.getEditSelection({ letter: CORE.Selector.Selected.First.Letter, number: CORE.Selector.Selected.First.Number });
 
       /** Async input processing */
       this.processCellContent();
@@ -106,7 +106,7 @@
     /** User pressed enter */
     } else {
       CORE.eval();
-      CORE.Grid.getEditSelection(CORE.Selector.Selected.First.Letter + CORE.Selector.Selected.First.Number);
+      CORE.Grid.getEditSelection({ letter: CORE.Selector.Selected.First.Letter, number: CORE.Selector.Selected.First.Number });
       CORE.Grid.cleanEditSelection();
       /** Take selection and move it 1 down */
       CORE.Selector.moveSelectionDown(1);

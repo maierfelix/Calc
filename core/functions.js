@@ -172,7 +172,7 @@
 
     var letter = object.letter,
         number = object.number,
-        jumps = ((CORE.Grid.Settings.y * (CORE.$.alphaToNumber(letter) - 1) ) + number - 1 - CORE.Grid.Settings.scrolledY) - (CORE.Grid.Settings.y * CORE.Grid.Settings.scrolledX);
+        jumps = ((CORE.Grid.Settings.y * (letter - 1) ) + number - 1 - CORE.Grid.Settings.scrolledY) - (CORE.Grid.Settings.y * CORE.Grid.Settings.scrolledX);
 
     if (CORE.DOM.Output.children[jumps] && CORE.$.isInView(letter, jumps)) return (jumps);
     else return void 0;
@@ -190,30 +190,9 @@
     var row = letter;
         row = row <= 1 ? 1 : row;
 
-    if (jumps < ( (CORE.$.alphaToNumber(letter) * CORE.Grid.Settings.y) - CORE.Grid.Settings.y ) - (CORE.Grid.Settings.y * CORE.Grid.Settings.scrolledX) ) return (false);
-    else if (jumps >= (CORE.$.alphaToNumber(letter) * CORE.Grid.Settings.y) - (CORE.Grid.Settings.y * CORE.Grid.Settings.scrolledX) ) return (false);
+    if (jumps < ( (letter * CORE.Grid.Settings.y) - CORE.Grid.Settings.y ) - (CORE.Grid.Settings.y * CORE.Grid.Settings.scrolledX) ) return (false);
+    else if (jumps >= (letter * CORE.Grid.Settings.y) - (CORE.Grid.Settings.y * CORE.Grid.Settings.scrolledX) ) return (false);
     return (true);
-
-  };
-
-  /**
-   * Update a specific cells content
-   *
-   * @method updateCell
-   * @static
-   */
-  CORE.$.updateCell = function(name, content) {
-
-    var letter = name.match(CORE.REGEX.numbers).join(""),
-        number = parseInt(name.match(CORE.REGEX.letters).join("")),
-        jumps = ((CORE.Grid.Settings.y * (CORE.$.alphaToNumber(letter) - 1) ) + number - 1 - CORE.Grid.Settings.scrolledY) - (CORE.Grid.Settings.y * CORE.Grid.Settings.scrolledX);
-
-    /** Found the cell, replace its content */
-    if (CORE.DOM.Output.children[jumps]) {
-      CORE.DOM.Output.children[jumps].innerHTML = content;
-    }
-
-    return void 0;
 
   };
 
@@ -259,9 +238,8 @@
 
     /** Loop through all selected cells */
     for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {
-      if (!CORE.Cells.Used[CORE.Selector.SelectedCells[ii]]) {
-        CORE.Cells.Used[CORE.Selector.SelectedCells[ii]] = new CORE.Grid.Cell();
-      }
+      var name = CORE.$.numberToAlpha(CORE.Selector.SelectedCells[ii].letter) + CORE.Selector.SelectedCells[ii].number;
+      if (!CORE.Cells.Used[name]) CORE.Cells.Used[name] = new CORE.Grid.Cell();
     }
 
   };

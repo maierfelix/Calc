@@ -83,7 +83,7 @@
     }
 
     /** Update old edited cell */
-    CORE.Cells.Edit = (newLetter + newNumber);
+    CORE.Cells.Edit = (CORE.$.numberToAlpha(newLetter) + newNumber);
 
     /** Update current selected cell */
     CORE.DOM.CurrentCell.innerHTML = CORE.Cells.Edit;
@@ -92,7 +92,7 @@
     CORE.Selector.deleteCellHoverEffect();
 
     /** Update selection menu */
-    CORE.Selector.menuSelection( (CORE.$.alphaToNumber(newLetter) - 1), (newNumber - 1));
+    CORE.Selector.menuSelection( (newLetter - 1), (newNumber - 1));
 
   };
 
@@ -102,7 +102,7 @@
    * @method cleanEditSelection
    * @static
    */
-  CORE.Grid.prototype.cleanEditSelection = function() { console.log(0);
+  CORE.Grid.prototype.cleanEditSelection = function() {
 
     if (CORE.Cells.Edit) {
 

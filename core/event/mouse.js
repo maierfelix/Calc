@@ -104,8 +104,6 @@
 
       CORE.Cells.Select = CORE.Event.lastMouseDownCell;
 
-      /** Make sure the first property gets updated a maximum of 1 time per click */
-      if (!CORE.Cells.Selected.First.Letter && !CORE.Cells.Selected.First.Number) {
 
         CORE.Cells.Selected.First = {
           Letter: letter,
@@ -139,8 +137,6 @@
         /** Clean edited cells only if the current selected cell isn't edited */
         if (!CORE.Cells.Used[cellName]) CORE.Grid.cleanEditSelection();
 
-      }
-
     /** User selected another cell, delete edited cell */
     } else if (CORE.Input.Mouse.Edit) {
       /** User clicked inside the cell grid */
@@ -165,9 +161,9 @@
     CORE.Input.Mouse.Pressed = false;
 
     /** Clean Selected Cells */
-    CORE.Cells.Selected.First = CORE.Cells.Selected.First = {
-      Letter: 0,
-      Number: 0
+    CORE.Cells.Selected.First = {
+      Letter: CORE.Cells.Select.Letter,
+      Number: CORE.Cells.Select.Number
     };
 
     /** User resized something */
@@ -213,7 +209,7 @@
         }
 
         /** Calm Down, dont overwrite stack value with same value again */
-        //if (CORE.Cells.Selected.Last === e.target.getAttribute("name")) return;
+        if ( (CORE.$.numberToAlpha(CORE.Cells.Selected.Last.Letter) + CORE.Cells.Selected.Last.Number) === cellName) return void 0;
 
         CORE.Cells.Selected.Last = {
           Letter: letter,

@@ -23,18 +23,19 @@
     /** Initialize font change menu */
     CORE.DOM.ChangeFont.addEventListener('change', function(e) {
 
-      var jumps = null;
+      var jumps = 0;
 
       /** Validate all selected cells */
       CORE.$.validateCells();
 
       /** Loop through all selected cells */
       for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {
+        var cellName = CORE.$.numberToAlpha(CORE.Selector.SelectedCells[ii].letter) + CORE.Selector.SelectedCells[ii].number;
         /** Update the font */
-        if (CORE.Cells.Used[CORE.Selector.SelectedCells[ii]]) {
-          CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Font = e.target.value;
+        if (CORE.Cells.Used[cellName]) {
+          CORE.Cells.Used[cellName].Font = e.target.value;
           /** Immediately update cells font */
-          jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
+          jumps = CORE.$.getCell({ letter: CORE.Selector.SelectedCells[ii].letter, number: CORE.Selector.SelectedCells[ii].number });
           if (jumps >= 0) CORE.DOM.Output.children[jumps].style.fontFamily = e.target.children[e.target.selectedIndex].getAttribute("value");
         }
       }
@@ -53,17 +54,18 @@
     /** Initialize font size menu */
     CORE.DOM.ChangeFontSize.addEventListener('change', function(e) {
 
-      var jumps = null;
+      var jumps = 0;
 
       /** Validate all selected cells */
       CORE.$.validateCells();
 
       /** Loop through all selected cells */
       for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {
+        var cellName = CORE.$.numberToAlpha(CORE.Selector.SelectedCells[ii].letter) + CORE.Selector.SelectedCells[ii].number;
         /** Update the font size */
-        CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].FontSize = parseInt(e.target.value);
+        CORE.Cells.Used[cellName].FontSize = parseInt(e.target.value);
         /** Immediately update cells font size */
-        jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
+        jumps = CORE.$.getCell({ letter: CORE.Selector.SelectedCells[ii].letter, number: CORE.Selector.SelectedCells[ii].number });
         if (jumps >= 0) CORE.DOM.Output.children[jumps].style.fontSize = e.target.children[e.target.selectedIndex].getAttribute("value") + "px";
       }
 
@@ -81,25 +83,26 @@
     /** Initialize font bold menu item */
     CORE.DOM.ChangeFontBold.addEventListener('click', function(e) {
 
-      var jumps = null;
+      var jumps = 0;
 
       /** Validate all selected cells */
       CORE.$.validateCells();
 
       /** Loop through all selected cells */
       for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {
+        var cellName = CORE.$.numberToAlpha(CORE.Selector.SelectedCells[ii].letter) + CORE.Selector.SelectedCells[ii].number;
         /** User wants to disable bold property by executing again */
-        if (CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].FontBold) {
+        if (CORE.Cells.Used[cellName].FontBold) {
           /** Update the font bold */
-          CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].FontBold = false;
+          CORE.Cells.Used[cellName].FontBold = false;
           /** Immediately update cells font bold */
-          jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
+          jumps = CORE.$.getCell({ letter: CORE.Selector.SelectedCells[ii].letter, number: CORE.Selector.SelectedCells[ii].number });
           if (jumps >= 0) CORE.DOM.Output.children[jumps].style.fontWeight = "normal";
         } else {
           /** Update the font bold */
-          CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].FontBold = true;
+          CORE.Cells.Used[cellName].FontBold = true;
           /** Immediately update cells font bold */
-          jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
+          jumps = CORE.$.getCell({ letter: CORE.Selector.SelectedCells[ii].letter, number: CORE.Selector.SelectedCells[ii].number });
           if (jumps >= 0) CORE.DOM.Output.children[jumps].style.fontWeight = "bold";
         }
       }
@@ -112,25 +115,26 @@
     /** Initialize font italic menu item */
     CORE.DOM.ChangeFontItalic.addEventListener('click', function(e) {
 
-      var jumps = null;
+      var jumps = 0;
 
       /** Validate all selected cells */
       CORE.$.validateCells();
 
       /** Loop through all selected cells */
       for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {
+        var cellName = CORE.$.numberToAlpha(CORE.Selector.SelectedCells[ii].letter) + CORE.Selector.SelectedCells[ii].number;
         /** User wants to disable italic property by executing again */
-        if (CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].FontItalic) {
+        if (CORE.Cells.Used[cellName].FontItalic) {
           /** Update the font italic */
-          CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].FontItalic = false;
+          CORE.Cells.Used[cellName].FontItalic = false;
           /** Immediately update cells font italic */
-          jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
+          jumps = CORE.$.getCell({ letter: CORE.Selector.SelectedCells[ii].letter, number: CORE.Selector.SelectedCells[ii].number });
           if (jumps >= 0) CORE.DOM.Output.children[jumps].style.fontStyle = "normal";
         } else {
           /** Update the font italic */
-          CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].FontItalic = true;
+          CORE.Cells.Used[cellName].FontItalic = true;
           /** Immediately update cells font italic */
-          jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
+          jumps = CORE.$.getCell({ letter: CORE.Selector.SelectedCells[ii].letter, number: CORE.Selector.SelectedCells[ii].number });
           if (jumps >= 0) CORE.DOM.Output.children[jumps].style.fontStyle = "italic";
         }
       }
@@ -144,7 +148,7 @@
     CORE.DOM.ChangeFontColor.addEventListener('click', function(e) {
 
       var element = CORE.DOM.ChangeFontColor;
-      var jumps = null;
+      var jumps = 0;
 
       /** Display menu switch */
       if (element.parentNode.children[1]) {
@@ -165,10 +169,11 @@
 
       /** Loop through all selected cells */
       for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {
+        var cellName = CORE.$.numberToAlpha(CORE.Selector.SelectedCells[ii].letter) + CORE.Selector.SelectedCells[ii].number;
         /** Update the font color */
-        CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].Color = pickers.children[0].style.background;
+        CORE.Cells.Used[cellName].Color = pickers.children[0].style.background;
         /** Immediately update cells font color */
-        jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
+        jumps = CORE.$.getCell({ letter: CORE.Selector.SelectedCells[ii].letter, number: CORE.Selector.SelectedCells[ii].number });
         if (jumps >= 0) CORE.DOM.Output.children[jumps].style.color = pickers.children[0].style.background;
       }
 

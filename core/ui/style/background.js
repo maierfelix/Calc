@@ -30,10 +30,11 @@
 
       /** Loop through all selected cells */
       for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {
+        var name = CORE.$.numberToAlpha(CORE.Selector.SelectedCells[ii].letter) + CORE.Selector.SelectedCells[ii].number;
         /** Update the cell background color */
-        CORE.Cells.Used[CORE.Selector.SelectedCells[ii]].BackgroundColor = pickers.children[0].style.background;
+        CORE.Cells.Used[name].BackgroundColor = pickers.children[0].style.background;
         /** Immediately update cells background color */
-        var jumps = CORE.$.getCell(CORE.Selector.SelectedCells[ii]);
+        var jumps = CORE.$.getCell({ letter: CORE.Selector.SelectedCells[ii].letter, number: CORE.Selector.SelectedCells[ii].number });
         if (jumps >= 0) CORE.DOM.Output.children[jumps].style.background = pickers.children[0].style.background;
       }
 
