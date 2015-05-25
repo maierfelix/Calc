@@ -260,6 +260,14 @@
        /** Calculate difference between this and last timestamp */
       var difference = e.timeStamp - this.lastMouseScroll;
 
+      /** Scroll increment, if user scrolls fast */
+      if (difference < 40) {
+        CORE.Settings.Scroll.Vertical++;
+      /** Otherwise, reset scroll amount */
+      } else {
+        CORE.Settings.Scroll.Vertical = CORE.Settings.Scroll.OriginalVertical;
+      }
+
       /** Prevent too fast mouse scrolling */
       if (difference && difference <= 30) return void 0;
 
@@ -297,8 +305,8 @@
       }
       else if (direction === "up") {
         if (CORE.Grid.Settings.scrolledY - CORE.Settings.Scroll.Vertical <= 0) {
-          CORE.Grid.Settings.scrolledY = 0;
-          CORE.Grid.Settings.lastScrollY = 0;
+          CORE.Grid.Settings.scrolledY = CORE.Grid.Settings.scrolledY -= CORE.Settings.Scroll.Vertical;
+          CORE.Grid.Settings.lastScrollY = CORE.Settings.Scroll.Vertical;
           CORE.Grid.updateHeight("default", CORE.Settings.Scroll.Vertical);
           CORE.Grid.updateMenu();
           CORE.Selector.getSelection();

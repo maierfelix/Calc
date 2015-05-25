@@ -30,7 +30,7 @@
     CORE.$.isMobile();
 
     /** Calculate scroll amount */
-    CORE.Settings.Scroll.Vertical = CORE.$.calculateScrollAmount();
+    CORE.Settings.Scroll.OriginalVertical = CORE.Settings.Scroll.Vertical = CORE.$.calculateScrollAmount();
 
     /** Fastclick if we're on mobile */
     if (CORE.Settings.Mobile) FastClick.attach(document.body);
@@ -57,10 +57,13 @@
     CORE.Event.resize();
 
     /** Define first cell in grid as parent cell */
-    CORE.Selector.parentSelectedCell = "A1";
+    CORE.Selector.parentSelectedCell = {
+      Letter: 1,
+      Number: 1
+    };
 
     /** Select major first cell in the grid */
-    CORE.Selector.selectCell("A1");
+    CORE.Selector.selectCell(1, 1);
 
   };
 
@@ -190,7 +193,7 @@
     var row = letter;
         row = row <= 1 ? 1 : row;
 
-    if (jumps < ( (letter * CORE.Grid.Settings.y) - CORE.Grid.Settings.y ) - (CORE.Grid.Settings.y * CORE.Grid.Settings.scrolledX) ) return (false);
+    if (jumps < ( (letter * CORE.Grid.Settings.y) - CORE.Grid.Settings.y) - (CORE.Grid.Settings.y * CORE.Grid.Settings.scrolledX) ) return (false);
     else if (jumps >= (letter * CORE.Grid.Settings.y) - (CORE.Grid.Settings.y * CORE.Grid.Settings.scrolledX) ) return (false);
     return (true);
 

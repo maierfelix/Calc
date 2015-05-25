@@ -20,12 +20,12 @@
    */
   CORE.Selector.prototype.selectCellByKeyPress = function() {
 
-    var letter = this.parentSelectedCell.match(CORE.REGEX.numbers).join(""),
-        number = parseInt(this.parentSelectedCell.match(CORE.REGEX.letters).join(""));
+    var letter = this.parentSelectedCell.Letter,
+        number = this.parentSelectedCell.Number;
 
     /** Dont overscroll left axis start */
-    if ( (CORE.Grid.Settings.keyScrolledX + CORE.$.alphaToNumber(letter)) <= 0) {
-      letter = CORE.$.numberToAlpha(CORE.$.alphaToNumber(letter) + CORE.Grid.Settings.keyScrolledX + CORE.Grid.Settings.scrolledX);
+    if ( (CORE.Grid.Settings.keyScrolledX + letter) <= 0) {
+      letter = CORE.$.numberToAlpha(letter + CORE.Grid.Settings.keyScrolledX + CORE.Grid.Settings.scrolledX);
       /** Dont scroll below zero */
       if (CORE.Grid.Settings.scrolledX >= 1) CORE.Grid.Settings.scrolledX -= 1;
       CORE.Grid.Settings.keyScrolledX += 1;
@@ -42,7 +42,7 @@
       CORE.Grid.updateMenu();
     /** Update the letter */
     } else {
-      letter = CORE.$.numberToAlpha(CORE.$.alphaToNumber(letter) + CORE.Grid.Settings.keyScrolledX + CORE.Grid.Settings.scrolledX);
+      letter = CORE.$.numberToAlpha(letter + CORE.Grid.Settings.keyScrolledX + CORE.Grid.Settings.scrolledX);
     }
 
     /** Dont overscroll top axis start */
@@ -72,7 +72,7 @@
       this.getSelectionByKeyPress(letter, number);
     }
     /** Select the new cell */
-    else this.selectCell(letter + number);
+    else this.selectCell(CORE.$.alphaToNumber(letter), number);
 
   };
 
@@ -91,7 +91,8 @@
       CORE.Cells.Selected.First = CORE.Cells.Select;
 
       /** Update last selected cell */
-      CORE.Cells.Selected.Last = letter + number;
+      CORE.Cells.Selected.Last.Letter = letter;
+      CORE.Cells.Selected.Last.Number = number;
 
       /** Proccess the new selection */
       CORE.Selector.getSelection();

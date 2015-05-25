@@ -69,7 +69,9 @@
   /** Cells to scroll per scroll */
   CORE.Settings.Scroll = {
     Vertical: 1,
-    Horizontal: 1
+    OriginalVertical: 1,
+    Horizontal: 1,
+    OriginalHorizontal: 1
   };
 
   /** Precompile regex operations */

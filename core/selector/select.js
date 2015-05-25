@@ -174,18 +174,22 @@
       Number: number
     };
 
+    CORE.Cells.Selected.First.Letter = letter;
+    CORE.Cells.Selected.First.Number = number;
+
+    CORE.Cells.Selected.Last.Letter = letter;
+    CORE.Cells.Selected.Last.Number = number;
+
     this.Selected.First.Letter = letter;
     this.Selected.First.Number = number;
 
     this.Selected.Last.Letter = letter;
     this.Selected.Last.Number = number;
 
-    this.SelectedCells = [];
-
-    this.SelectedCells.push({
+    this.SelectedCells = [{
       letter: letter,
       number: number
-    });
+    }];
 
     this.getSelection();
 
@@ -203,7 +207,10 @@
         number = (this.Selected.First.Letter + this.Selected.First.Number);
 
     /** Update parent cell */
-    this.parentSelectedCell = CORE.$.numberToAlpha(letter) + (number + amount);
+    this.parentSelectedCell = {
+      Letter: letter,
+      Number: (number + amount)
+    };
 
     /** Reset all key scroll axis amount */
     CORE.Grid.Settings.keyScrolledX = CORE.Grid.Settings.keyScrolledY = 0;

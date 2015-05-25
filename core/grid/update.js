@@ -25,11 +25,6 @@
         br = this.Settings.y,
         helper = 0,
         calculation = 0,
-        customAlphaCell = this.customCellSizes.alphabetical,
-        /** Total amount of shifting cell columns to left */
-        totalLeftShift = 0,
-        totalLeftShiftHelper = 0,
-        lastLetter = null,
         /** Cell name attributes */
         Letter = null,
         Number = 0;
@@ -37,6 +32,8 @@
     /** Speed optimization, avoid using regular expressions */
     if (this.Settings.scrolledX <= 0) Letter = CORE.DOM.Output.children[0].getAttribute("name").match(CORE.REGEX.numbers).join("");
     else Letter = CORE.$.numberToAlpha(this.Settings.scrolledX + 1);
+
+    this.Settings.scrolledY = this.Settings.scrolledY < 0 ? 0 : this.Settings.scrolledY;
 
     for (var ii = 0; ii < width * height; ++ii) {
 
@@ -125,7 +122,6 @@
 
                 /** Check if cell is registered, if yes update its styling */
                 if (CORE.Cells.Used[Letter + calculation]) {
-
                   this.updateCellStyling(Letter + calculation, calculation);
                 }
 
