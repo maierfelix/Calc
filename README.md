@@ -50,6 +50,10 @@ NovaeCalc is not stable yet.
 ## Todo:
 - [ ] Increase cell resize performance (Important)
 
+## Notes:
+- [ ] Speed is a core feature
+- [ ] Possibly include server-side cell calculation option
+
 ## Libraries
  * [JS2PNG](https://github.com/felixmaier/JS2PNG)
  * [Engelscript](https://github.com/felixmaier/Engelscript)
