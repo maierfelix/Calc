@@ -46,7 +46,10 @@ NovaeCalc is not stable yet.
    - [ ] Share project
    - [ ] Multi-user live editing
    - [ ] Synchronization
-  
+
+## Todo:
+- [ ] Increase cell resize performance (Important)
+
 ## Libraries
  * [JS2PNG](https://github.com/felixmaier/JS2PNG)
  * [Engelscript](https://github.com/felixmaier/Engelscript)
