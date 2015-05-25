@@ -107,7 +107,7 @@
     if (CORE.Cells.Edit) {
 
       var letter = CORE.Cells.Edit.match(CORE.REGEX.numbers).join(""),
-          number = parseInt(CORE.Cells.Edit.match(CORE.REGEX.letters).join("")),
+          number = ~~(CORE.Cells.Edit.match(CORE.REGEX.letters).join("")),
           jumps = ((this.Settings.y * (CORE.$.alphaToNumber(letter) - 1) ) + number - 1 - this.Settings.scrolledY) - (this.Settings.y * this.Settings.scrolledX);
 
       if (CORE.DOM.Output.children[jumps]) {

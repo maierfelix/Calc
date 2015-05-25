@@ -63,7 +63,7 @@
       for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {
         var cellName = CORE.$.numberToAlpha(CORE.Selector.SelectedCells[ii].letter) + CORE.Selector.SelectedCells[ii].number;
         /** Update the font size */
-        CORE.Cells.Used[cellName].FontSize = parseInt(e.target.value);
+        CORE.Cells.Used[cellName].FontSize = ~~(e.target.value);
         /** Immediately update cells font size */
         jumps = CORE.$.getCell({ letter: CORE.Selector.SelectedCells[ii].letter, number: CORE.Selector.SelectedCells[ii].number });
         if (jumps >= 0) CORE.DOM.Output.children[jumps].style.fontSize = e.target.children[e.target.selectedIndex].getAttribute("value") + "px";

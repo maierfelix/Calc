@@ -95,7 +95,7 @@
 
       var name = e.target.getAttribute("name");
       var letter = CORE.$.alphaToNumber(name.match(CORE.REGEX.numbers).join(""));
-      var number = parseInt(name.match(CORE.REGEX.letters).join(""));
+      var number = ~~(name.match(CORE.REGEX.letters).join(""));
 
       var cellName = (CORE.$.numberToAlpha(letter)) + number;
 
@@ -195,7 +195,7 @@
 
         var name = e.target.getAttribute("name");
         var letter = CORE.$.alphaToNumber(name.match(CORE.REGEX.numbers).join(""));
-        var number = parseInt(name.match(CORE.REGEX.letters).join(""));
+        var number = ~~(name.match(CORE.REGEX.letters).join(""));
         var cellName = (CORE.$.numberToAlpha(letter)) + number;
 
         /** Make sure the first property gets updated a maximum of 1 time per wipe */

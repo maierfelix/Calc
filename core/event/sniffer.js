@@ -85,7 +85,7 @@
       CORE.Selector.cellFocusSwitch = false;
 
       var letter = CORE.$.alphaToNumber(CORE.Cells.Edit.match(CORE.REGEX.numbers).join(""));
-      var number = parseInt(CORE.Cells.Edit.match(CORE.REGEX.letters).join(""));
+      var number = ~~(CORE.Cells.Edit.match(CORE.REGEX.letters).join(""));
 
       /** Get cell content and pass it into the cell edit cell stack */
       jumps = CORE.$.getCell({ letter: letter, number: number });

@@ -35,11 +35,15 @@
     /** Reset width of all cells without a custom width */
     else cellRow.width = this.cellArray[ii].origWidth + "px";
 
+    var letterToNumber = CORE.$.alphaToNumber(Letter);
+
     /** Search for custom cell rows */
     for (var kk in customCell) {
 
+      var kkToNumber = CORE.$.alphaToNumber(kk);
+
       /** Update all cell rows left position behind the customized cell column with its new width */
-      if (CORE.$.alphaToNumber(Letter) > CORE.$.alphaToNumber(kk)) {
+      if (letterToNumber > kkToNumber) {
         totalLeftShift += customCell[kk].Width;
         cellRow.left = (this.cellArray[ii].origLeft + totalLeftShift) + "px";
       }
@@ -48,15 +52,15 @@
       if (this.Settings.scrolledX > 0) {
 
         /** Check if customized cell column is in view */
-        if (CORE.$.alphaToNumber(kk) <= this.Settings.scrolledX) {
+        if (kkToNumber <= this.Settings.scrolledX) {
           cellRow.left = this.cellArray[ii].origLeft + "px";
         }
 
       }
 
       /** Custom cell column is not in view anymore, so substract its custom width from all cell rows behind */
-      if (CORE.$.alphaToNumber(Letter) >= CORE.$.alphaToNumber(kk)) {
-        if (this.Settings.scrolledX >= CORE.$.alphaToNumber(kk)) {
+      if (letterToNumber >= kkToNumber) {
+        if (this.Settings.scrolledX >= kkToNumber) {
           totalLeftShift -= customCell[kk].Width;
           cellRow.left = (this.cellArray[ii].origLeft + totalLeftShift) + "px";
         }

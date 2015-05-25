@@ -47,7 +47,7 @@
 
         var name = formulas[ii].name;
         var letter = CORE.$.alphaToNumber(name.match(CORE.REGEX.numbers).join(""));
-        var number = parseInt(name.match(CORE.REGEX.letters).join(""));
+        var number = ~~(name.match(CORE.REGEX.letters).join(""));
 
         /** Display the result, if cell is in view */
         var jumps = CORE.$.getCell({ letter: letter, number: number });
