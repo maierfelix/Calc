@@ -48,7 +48,7 @@ NovaeCalc is not stable yet.
    - [ ] Synchronization
 
 ## Todo:
-- [ ] Increase cell resize performance (Important)
+- [ ] Increase cell resize performance (Each resized cell causes massive performance loss)
 
 ## Notes:
 - [ ] Speed is a core feature
