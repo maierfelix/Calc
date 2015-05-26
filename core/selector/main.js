@@ -44,7 +44,10 @@
     this.SelectedCells = [];
 
     /** Parent cell, can only be changed by mouse or selectCell function */
-    this.parentSelectedCell = null;
+    this.parentSelectedCell = {
+      Letter: 0,
+      Number: 0
+    };
 
     /** Helper variable, to detect if user starts to edit a cell*/
     this.cellFocusSwitch = false;

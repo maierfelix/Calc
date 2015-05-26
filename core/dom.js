@@ -12,6 +12,9 @@
  */
 (function() { "use strict"
 
+	/** Cache the grid dom here */
+	CORE.DOM.Cache = {};
+
   /** Select and prepare the file output container */
   CORE.DOM.FileOutput = document.querySelector("#file");
 

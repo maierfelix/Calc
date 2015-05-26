@@ -20,12 +20,12 @@
    */
   CORE.Selector.prototype.selectCellByKeyPress = function() {
 
-    var letter = this.parentSelectedCell.Letter,
-        number = this.parentSelectedCell.Number;
+    var letter = this.parentSelectedCell.Letter;
+    var number = this.parentSelectedCell.Number;
 
     /** Dont overscroll left axis start */
     if ( (CORE.Grid.Settings.keyScrolledX + letter) <= 0) {
-      letter = CORE.$.numberToAlpha(letter + CORE.Grid.Settings.keyScrolledX + CORE.Grid.Settings.scrolledX);
+      letter = letter + CORE.Grid.Settings.keyScrolledX + CORE.Grid.Settings.scrolledX;
       /** Dont scroll below zero */
       if (CORE.Grid.Settings.scrolledX >= 1) CORE.Grid.Settings.scrolledX -= 1;
       CORE.Grid.Settings.keyScrolledX += 1;
@@ -33,16 +33,16 @@
       CORE.Grid.updateWidth("default");
       CORE.Grid.updateMenu();
     /** Dont overscroll left axis end */
-    } else if ((CORE.Grid.Settings.keyScrolledX + CORE.$.alphaToNumber(letter)) >= (CORE.Grid.Settings.x + 1)) {
+    } else if ((CORE.Grid.Settings.keyScrolledX + letter) >= (CORE.Grid.Settings.x + 1)) {
       CORE.Grid.Settings.scrolledX += 1;
-      letter = CORE.$.numberToAlpha(CORE.Grid.Settings.x + CORE.Grid.Settings.scrolledX);
+      letter = CORE.Grid.Settings.x + CORE.Grid.Settings.scrolledX;
       CORE.Grid.Settings.keyScrolledX -= 1;
       /** Update grid and menu */
       CORE.Grid.updateWidth("default");
       CORE.Grid.updateMenu();
     /** Update the letter */
     } else {
-      letter = CORE.$.numberToAlpha(letter + CORE.Grid.Settings.keyScrolledX + CORE.Grid.Settings.scrolledX);
+      letter = letter + (CORE.Grid.Settings.keyScrolledX + CORE.Grid.Settings.scrolledX);
     }
 
     /** Dont overscroll top axis start */
@@ -72,7 +72,7 @@
       this.getSelectionByKeyPress(letter, number);
     }
     /** Select the new cell */
-    else this.selectCell(CORE.$.alphaToNumber(letter), number);
+    else this.selectCell(letter, number);
 
   };
 
@@ -91,8 +91,7 @@
       CORE.Cells.Selected.First = CORE.Cells.Select;
 
       /** Update last selected cell */
-      CORE.Cells.Selected.Last.Letter = letter;
-      CORE.Cells.Selected.Last.Number = number;
+      CORE.Cells.Selected.Last = letter + number;
 
       /** Proccess the new selection */
       CORE.Selector.getSelection();

@@ -46,7 +46,14 @@
   CORE.Event.mouseDown = function (e) {
 
     /** Only accept left click, prevent multiple mousedown event */
-    if (e.button == 2 || e.which === 3 || CORE.Input.Mouse.Pressed) return void 0;
+    if (e.button === 1 || /** Middle click */
+        e.button === 2 || /** Right click */
+        e.which  === 3 || /** Right click */
+        e.which  === 2 || /** Middle click */
+        CORE.Input.Mouse.Pressed) {
+          e.preventDefault();
+          return void 0;
+        }
 
     /** Update empty timestamp */
     if (!this.lastMouseDown) this.lastMouseDown = e.timeStamp;
@@ -262,7 +269,7 @@
 
       /** Scroll increment, if user scrolls fast */
       if (difference < 40) {
-        CORE.Settings.Scroll.Vertical++;
+        CORE.Settings.Scroll.Vertical += 2;
       /** Otherwise, reset scroll amount */
       } else {
         CORE.Settings.Scroll.Vertical = CORE.Settings.Scroll.OriginalVertical;
@@ -305,8 +312,8 @@
       }
       else if (direction === "up") {
         if (CORE.Grid.Settings.scrolledY - CORE.Settings.Scroll.Vertical <= 0) {
-          CORE.Grid.Settings.scrolledY = CORE.Grid.Settings.scrolledY -= CORE.Settings.Scroll.Vertical;
-          CORE.Grid.Settings.lastScrollY = CORE.Settings.Scroll.Vertical;
+          CORE.Grid.Settings.scrolledY = 0;
+          CORE.Grid.Settings.lastScrollY = 0;
           CORE.Grid.updateHeight("default", CORE.Settings.Scroll.Vertical);
           CORE.Grid.updateMenu();
           CORE.Selector.getSelection();

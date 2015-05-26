@@ -60,6 +60,9 @@
       numeric: {}
     };
 
+		/** Save each grid cell */
+		this.cellArray = []
+
     /** Different action on desktop and mobile */
     this.mouseMode = !CORE.Settings.Mobile ? "mouseover" : "click";
 
@@ -215,6 +218,8 @@
     }
 
     CORE.DOM.Output.innerHTML = output;
+
+    this.cacheDOM();
 
     this.addCellListeners();
 

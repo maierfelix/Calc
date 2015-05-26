@@ -163,9 +163,6 @@
    */
   CORE.Selector.prototype.selectCell = function(letter, number) {
 
-    var letter = letter,
-        number = number;
-
     /** Delete hover effect of previous cell */
     this.deleteCellHoverEffect();
 

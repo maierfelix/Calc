@@ -20,10 +20,11 @@
    */
   CORE.Grid.prototype.resizeHorizontal = function(Letter, ii) {
 
-    var customCell = this.customCellSizes.alphabetical,
-      /** Total amount of shifting cell rows to left */
-      totalLeftShift = 0,
-      cellRow = CORE.DOM.Output.children[ii].style;
+    var customCell = this.customCellSizes.alphabetical;
+    /** Total amount of shifting cell rows to left */
+    var totalLeftShift = 0;
+    /** DOM caching */
+    var cellRow = CORE.DOM.Cache[ii].style;
 
     /** The current cell column has a custom width */
     if (customCell[Letter]) {
@@ -78,10 +79,11 @@
    */
   CORE.Grid.prototype.resizeVertical = function(Number, ii) {
 
-    var customCell = this.customCellSizes.numeric,
-      /** Total amount of shifting cell rows to top */
-      totalTopShift = 0,
-      cellRow = CORE.DOM.Output.children[ii].style;
+    var customCell = this.customCellSizes.numeric;
+    /** Total amount of shifting cell rows to top */
+    var totalTopShift = 0;
+    /** DOM caching */
+    var cellRow = CORE.DOM.Cache[ii].style;
 
     /** The current cell column has a custom height */
     if (customCell[Number]) {

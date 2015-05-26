@@ -164,60 +164,60 @@
 
     /** Check if cell has custom content */
     if (CORE.Cells.Used[name].Content) {
-      CORE.DOM.Output.children[ii].innerHTML = CORE.Cells.Used[name].Content;
+      CORE.DOM.Cache[ii].innerHTML = CORE.Cells.Used[name].Content;
     }
 
     /** Check if cell has a custom font */
     if (CORE.Cells.Used[name].Font) {
-      CORE.DOM.Output.children[ii].style.fontFamily = CORE.Cells.Used[name].Font;
+      CORE.DOM.Cache[ii].style.fontFamily = CORE.Cells.Used[name].Font;
     }
 
     /** Check if cell has a custom font size */
     if (CORE.Cells.Used[name].FontSize) {
-      CORE.DOM.Output.children[ii].style.fontSize = CORE.Cells.Used[name].FontSize + "px";
+      CORE.DOM.Cache[ii].style.fontSize = CORE.Cells.Used[name].FontSize + "px";
     }
 
     /** Check if cell has a custom font color */
     if (CORE.Cells.Used[name].Color) {
-      CORE.DOM.Output.children[ii].style.color = CORE.Cells.Used[name].Color;
+      CORE.DOM.Cache[ii].style.color = CORE.Cells.Used[name].Color;
     }
 
     /** Check if cell has a custom font bold property */
     if (CORE.Cells.Used[name].FontBold) {
-      CORE.DOM.Output.children[ii].style.fontWeight = "bold";
+      CORE.DOM.Cache[ii].style.fontWeight = "bold";
     }
 
     /** Check if cell has a custom font italic property */
     if (CORE.Cells.Used[name].FontItalic) {
-      CORE.DOM.Output.children[ii].style.fontStyle = "italic";
+      CORE.DOM.Cache[ii].style.fontStyle = "italic";
     }
 
     /** Check if cell has a custom background color */
     if (CORE.Cells.Used[name].BackgroundColor) {
-      CORE.DOM.Output.children[ii].style.background = CORE.Cells.Used[name].BackgroundColor;
+      CORE.DOM.Cache[ii].style.background = CORE.Cells.Used[name].BackgroundColor;
     }
 
     /** Check if cell has custom border settings */
     if (CORE.Cells.Used[name].Border.used) {
       /** Left border */
       if (CORE.Cells.Used[name].Border.left) {
-        CORE.DOM.Output.children[ii].style.borderLeft = "2px solid black";
+        CORE.DOM.Cache[ii].style.borderLeft = "2px solid black";
       }
       /** Right border */
       if (CORE.Cells.Used[name].Border.right) {
-        CORE.DOM.Output.children[ii].style.borderRight = "2px solid black";
+        CORE.DOM.Cache[ii].style.borderRight = "2px solid black";
       }
       /** Top border */
       if (CORE.Cells.Used[name].Border.top) {
-        CORE.DOM.Output.children[ii].style.borderTop = "2px solid black";
+        CORE.DOM.Cache[ii].style.borderTop = "2px solid black";
       }
       /** Bottom border */
       if (CORE.Cells.Used[name].Border.bottom) {
-        CORE.DOM.Output.children[ii].style.borderBottom = "2px solid black";
+        CORE.DOM.Cache[ii].style.borderBottom = "2px solid black";
       }
       /** Full border */
       if (CORE.Cells.Used[name].Border.full) {
-        CORE.DOM.Output.children[ii].style.border = "2px solid black";
+        CORE.DOM.Cache[ii].style.border = "2px solid black";
       }
     }
 
@@ -231,18 +231,18 @@
    */
   CORE.Grid.prototype.removeCellStyling = function(ii) {
 
-    CORE.DOM.Output.children[ii].style.borderLeft = "";
-    CORE.DOM.Output.children[ii].style.borderRight = "";
-    CORE.DOM.Output.children[ii].style.borderTop = "";
-    CORE.DOM.Output.children[ii].style.borderBottom = "";
-    CORE.DOM.Output.children[ii].style.border = "";
-    CORE.DOM.Output.children[ii].style.fontFamily = "";
-    CORE.DOM.Output.children[ii].style.fontSize = 12 + "px";
-    CORE.DOM.Output.children[ii].style.fontStyle = "normal";
-    CORE.DOM.Output.children[ii].style.fontWeight = "normal";
-    CORE.DOM.Output.children[ii].style.background = "#fff";
-    CORE.DOM.Output.children[ii].style.color = "#000";
-    CORE.DOM.Output.children[ii].innerHTML = "";
+    CORE.DOM.Cache[ii].style.borderLeft = "";
+    CORE.DOM.Cache[ii].style.borderRight = "";
+    CORE.DOM.Cache[ii].style.borderTop = "";
+    CORE.DOM.Cache[ii].style.borderBottom = "";
+    CORE.DOM.Cache[ii].style.border = "";
+    CORE.DOM.Cache[ii].style.fontFamily = "";
+    CORE.DOM.Cache[ii].style.fontSize = 12 + "px";
+    CORE.DOM.Cache[ii].style.fontStyle = "normal";
+    CORE.DOM.Cache[ii].style.fontWeight = "normal";
+    CORE.DOM.Cache[ii].style.background = "#fff";
+    CORE.DOM.Cache[ii].style.color = "#000";
+    CORE.DOM.Cache[ii].innerHTML = "";
 
   };
 

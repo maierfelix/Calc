@@ -39,6 +39,7 @@ Import.scripts = [
   "core/event/sniffer.js",
   /** Grid */
   "core/grid/main.js",
+  "core/grid/cache.js",
   "core/grid/menu.js",
   "core/grid/update.js",
   "core/grid/resize.js",
