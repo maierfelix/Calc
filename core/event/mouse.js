@@ -111,7 +111,6 @@
 
       CORE.Cells.Select = CORE.Event.lastMouseDownCell;
 
-
         CORE.Cells.Selected.First = {
           Letter: letter,
           Number: number

@@ -109,7 +109,7 @@
       CORE.Grid.getEditSelection({ letter: CORE.Selector.Selected.First.Letter, number: CORE.Selector.Selected.First.Number });
       CORE.Grid.cleanEditSelection();
       /** Take selection and move it 1 down */
-      CORE.Selector.moveSelectionDown(1);
+      CORE.Selector.moveSelection("down", 1);
       CORE.DOM.CellInput.blur();
     }
 
