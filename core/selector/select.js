@@ -201,7 +201,7 @@
   CORE.Selector.prototype.moveSelectionDown = function(amount) {
 
     var letter = this.Selected.First.Letter,
-        number = (this.Selected.First.Letter + this.Selected.First.Number);
+        number = this.Selected.First.Number;
 
     /** Update parent cell */
     this.parentSelectedCell = {

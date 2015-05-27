@@ -177,8 +177,9 @@
         number = object.number,
         jumps = ((CORE.Grid.Settings.y * (letter - 1) ) + number - 1 - CORE.Grid.Settings.scrolledY) - (CORE.Grid.Settings.y * CORE.Grid.Settings.scrolledX);
 
-    if (CORE.DOM.Output.children[jumps] && CORE.$.isInView(letter, jumps)) return (jumps);
-    else return void 0;
+    if (CORE.$.isInView(letter, jumps) && CORE.DOM.Output.children[jumps]) return (jumps);
+
+    return void 0;
 
   };
 
