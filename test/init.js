@@ -22,6 +22,7 @@
 
     var engelResult = 0;
     var jsResult = 0;
+    var failures = 0;
 
     var array = [
       /** Plus */
@@ -37,7 +38,10 @@
       /** Negative numbers */
       "a = -20",
       /** Parenthesis */
-      "a = -(2 * 2) + 10"
+      "a = -(2 * 2) + 10",
+      "a = -( (2*2) + -(5+2) )",
+      "a = -( (-5*5) + (7*7) + -(-9) )",
+      "a = -( -(2*2) + 5 )"
     ];
 
     for (var ii = 0; ii < array.length; ++ii) {
@@ -46,12 +50,15 @@
       jsResult = parseInt(window.eval(array[ii].slice(4)));
 
       if (engelResult !== jsResult) {
+        failures++;
         console.log("#### Results doesn't match! => " + (array[ii].slice(4)) + " ####");
         console.log( "ENGEL:", engelResult);
         console.log( "JS:   ", jsResult);
       }
 
     }
+
+    if (!failures) console.log("All tests passed successfully!");
 
   };
 
