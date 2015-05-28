@@ -58,7 +58,5 @@ NovaeCalc is not stable yet.
 - [ ] Fast scrolling up and down causes wrong rendered selection areas (Only if scrolledY =^ 0)
 
 ## Libraries
- * [JS2PNG](https://github.com/felixmaier/JS2PNG)
- * [Engelscript](https://github.com/felixmaier/Engelscript)
  * [ImportJS](https://github.com/felixmaier/ImportJS)
  * [Eight Bit Color Picker](https://github.com/bilalq/eight-bit-color-picker)
