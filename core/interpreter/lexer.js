@@ -85,6 +85,15 @@
 
     ];
 
+    /** Reserved words in javascript */
+    this.reservedKeyWords = [
+      "INFINITY",
+      "NAN"
+    ];
+
+    /** Precompile regex */
+    this.isVariable = /^[A-Z]+[0-9]+$/;
+
     /** Precompile regex */
     this.blank = /^[ \t\v\f]+/;
 
@@ -102,6 +111,9 @@
 
     /** Is line break */
     this.isLineBreak = function() { return arguments[0e0].match(this.lineBreak); };
+
+    /** Is valid variable */
+    this.isValidVariable = function() { return arguments[0e0].match(this.isVariable); };
 
   };
 
@@ -138,6 +150,14 @@
           /** Turn variables automatically uppercase */
           if (this.KeyWords[ii].name === "LX_VAR") { 
             match[0] = (match[0]).toUpperCase();
+            /** Check if variable is a reserved word */
+            if (this.reservedKeyWords.indexOf(match[0]) >= 0) {
+              console.log(match[0] + " is a reserved word and shall not be used!");
+            }
+            /** Check if variable is valid */
+            if (!this.isValidVariable(match[0])) {
+              console.log(match[0] + " is a invalid variable name!");
+            }
           }
 
           this.Tokens.push({
