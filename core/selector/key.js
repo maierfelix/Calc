@@ -10,7 +10,8 @@
  * You may not change or remove these lines
  *
  */
-(function() { "use strict"
+
+"use strict"
 
   /**
    * Select a specific cell by key press
@@ -99,5 +100,3 @@
     }
 
   };
-
-}).call(this);

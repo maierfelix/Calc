@@ -10,7 +10,8 @@
  * You may not change or remove these lines
  *
  */
-(function() { "use strict"
+
+"use strict"
 
   /** Initialize the background settings menu */
   CORE_UI.initLiveCellMenu = function() {
@@ -18,5 +19,3 @@
     /** TODO: Disable live cells */
 
   };
-
-}).call(this);

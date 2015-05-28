@@ -10,7 +10,8 @@
  * You may not change or remove these lines
  *
  */
-(function() { "use strict"
+
+"use strict"
 
   /** Initialize the border settings menu */
   CORE_UI.initBorderChangeMenu = function() {
@@ -160,5 +161,3 @@
     }
 
   };
-
-}).call(this);

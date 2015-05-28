@@ -10,7 +10,8 @@
  * You may not change or remove these lines
  *
  */
-(function() { "use strict"
+
+"use strict"
 
   /**
    * Detect type of input data, return converted data and type declaration
@@ -42,5 +43,3 @@
     return (object);
 
   };
-
-}).call(this);

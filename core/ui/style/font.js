@@ -10,7 +10,8 @@
  * You may not change or remove these lines
  *
  */
-(function() { "use strict"
+
+"use strict"
 
   /** Initialize the font change menu */
   CORE_UI.initFontChangeMenu = function() {
@@ -183,5 +184,3 @@
     });
 
   };
-
-}).call(this);

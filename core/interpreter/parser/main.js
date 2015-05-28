@@ -10,7 +10,8 @@
  * You may not change or remove these lines
  *
  */
-(function() { "use strict"
+
+"use strict"
 
   /**
    * The Parser
@@ -263,5 +264,3 @@
     });
 
   };
-
-}).call(this);

@@ -10,7 +10,8 @@
  * You may not change or remove these lines
  *
  */
-(function() { "use strict"
+
+"use strict"
 
   /**
    * Chache the whole grid DOM
@@ -30,5 +31,3 @@
     }
 
   };
-
-}).call(this);

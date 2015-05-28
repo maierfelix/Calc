@@ -10,7 +10,8 @@
  * You may not change or remove these lines
  *
  */
-(function() { "use strict"
+
+"use strict"
 
   /**
    * Represents a virtual variable stack
@@ -98,5 +99,3 @@
     }
     return void 0;
   };
-
-}).call(this);

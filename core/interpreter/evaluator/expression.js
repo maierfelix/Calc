@@ -10,7 +10,8 @@
  * You may not change or remove these lines
  *
  */
-(function() { "use strict"
+
+"use strict"
 
   /**
    * Interpret Expression
@@ -46,5 +47,3 @@
     return void 0;
 
   };
-
-}).call(this);

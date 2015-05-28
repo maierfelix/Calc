@@ -10,7 +10,8 @@
  * You may not change or remove these lines
  *
  */
-(function() { "use strict"
+
+"use strict"
 
   /** Initialize the cell style menu */
   CORE_UI.initCellStyleMenu = function() {
@@ -25,5 +26,3 @@
     CORE_UI.initBackgroundChangeMenu();
 
   };
-
-}).call(this);

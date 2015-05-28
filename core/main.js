@@ -10,7 +10,8 @@
  * You may not change or remove these lines
  *
  */
-(function() { "use strict"
+
+"use strict"
 
   var root = this;
 
@@ -110,5 +111,3 @@
 
   /** Assign it global */
   root.CORE = CORE;
-
-}).call(this);

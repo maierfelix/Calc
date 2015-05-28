@@ -10,7 +10,8 @@
  * You may not change or remove these lines
  *
  */
-(function() { "use strict"
+
+"use strict"
 
   /**
    * The Grid
@@ -60,8 +61,8 @@
       numeric: {}
     };
 
-		/** Save each grid cell */
-		this.cellArray = []
+    /** Save each grid cell */
+    this.cellArray = []
 
     /** Different action on desktop and mobile */
     this.mouseMode = !CORE.Settings.Mobile ? "mouseover" : "click";
@@ -229,5 +230,3 @@
     if (CORE.Input.Mouse.Edit) this.getEditSelection(CORE.Cells.Edit);
 
   };
-
-}).call(this);

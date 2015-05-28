@@ -10,7 +10,8 @@
  * You may not change or remove these lines
  *
  */
-(function() { "use strict"
+
+"use strict"
 
   /**
    * Check if user is in edit mode
@@ -181,5 +182,3 @@
     }, 1);
 
   };
-
-}).call(this);

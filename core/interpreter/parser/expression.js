@@ -10,7 +10,8 @@
  * You may not change or remove these lines
  *
  */
-(function() { "use strict"
+
+"use strict"
 
   /**
    * Create an expression AST
@@ -163,5 +164,3 @@
     return (false);
 
   };
-
-}).call(this);

@@ -10,7 +10,8 @@
  * You may not change or remove these lines
  *
  */
-(function() { "use strict"
+
+"use strict"
 
   /**
    * Run the interpreter
@@ -135,5 +136,3 @@
   CORE.registerLiveCell = function() {
     CORE.Cells.Live[arguments[0]] = new CORE.Grid.LiveCell();
   };
-
-}).call(this);

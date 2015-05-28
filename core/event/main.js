@@ -10,7 +10,8 @@
  * You may not change or remove these lines
  *
  */
-(function() { "use strict"
+
+"use strict"
 
   /** Create Event Object */
   CORE.Event = {
@@ -96,5 +97,3 @@
     CORE.eval();
 
   };
-
-}).call(this);

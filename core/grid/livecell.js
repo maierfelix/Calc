@@ -10,7 +10,8 @@
  * You may not change or remove these lines
  *
  */
-(function() { "use strict"
+
+"use strict"
 
   /**
    * LiveCell Class
@@ -53,5 +54,3 @@
     this.Data = "";
 
   };
-
-}).call(this);

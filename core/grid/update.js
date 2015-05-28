@@ -10,7 +10,8 @@
  * You may not change or remove these lines
  *
  */
-(function() { "use strict"
+
+"use strict"
 
   /**
    * Update the grid height
@@ -245,5 +246,3 @@
     CORE.DOM.Cache[ii].innerHTML = "";
 
   };
-
-}).call(this);

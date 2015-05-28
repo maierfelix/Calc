@@ -10,7 +10,8 @@
  * You may not change or remove these lines
  *
  */
-(function() { "use strict"
+
+"use strict"
 
   /**
    * Listen for key presses
@@ -127,5 +128,3 @@
     }
 
   };
-
-}).call(this);

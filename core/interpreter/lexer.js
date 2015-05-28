@@ -10,7 +10,8 @@
  * You may not change or remove these lines
  *
  */
-(function() { "use strict"
+
+"use strict"
 
   /**
    * The Lexer
@@ -159,5 +160,3 @@
     return (this.Tokens);
 
   };
-
-}).call(this);

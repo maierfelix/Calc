@@ -10,7 +10,8 @@
  * You may not change or remove these lines
  *
  */
-(function() { "use strict"
+
+"use strict"
 
   /** Update the cell style menu */
   CORE_UI.updateCellStyleMenu = function(cellName) {
@@ -129,5 +130,3 @@
     }
 
   };
-
-}).call(this);

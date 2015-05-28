@@ -10,7 +10,8 @@
  * You may not change or remove these lines
  *
  */
-(function() { "use strict"
+
+"use strict"
 
   /**
    * Selection Helper
@@ -55,5 +56,3 @@
   };
 
   CORE.Selector.prototype = CORE.Selector;
-
-}).call(this);

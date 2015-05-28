@@ -10,9 +10,10 @@
  * You may not change or remove these lines
  *
  */
-(function() { "use strict"
 
-/**
+"use strict"
+
+  /**
    * Visualize the selection
    *
    * @method getSelection
@@ -234,5 +235,3 @@
     this.selectCell(letter, (numberResult));
 
   };
-
-}).call(this);

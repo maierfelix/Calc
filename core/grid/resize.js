@@ -10,7 +10,8 @@
  * You may not change or remove these lines
  *
  */
-(function() { "use strict"
+
+"use strict"
 
   /**
    * Detect cell column enlargement on horizontal alphabetical row
@@ -133,5 +134,3 @@
     }
 
   };
-
-}).call(this);

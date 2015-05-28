@@ -10,7 +10,8 @@
  * You may not change or remove these lines
  *
  */
-(function() { "use strict"
+
+"use strict"
 
   /**
    * Dynamically generate a menu
@@ -381,5 +382,3 @@
     }
 
   };
-
-}).call(this);

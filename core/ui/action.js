@@ -10,7 +10,8 @@
  * You may not change or remove these lines
  *
  */
-(function() { "use strict"
+
+"use strict"
 
   /** Create Action Object */
   CORE_UI.ACTION = {
@@ -27,5 +28,3 @@
       CORE.File.import();
     }
   };
-
-}).call(this);

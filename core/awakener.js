@@ -10,7 +10,8 @@
  * You may not change or remove these lines
  *
  */
-(function() { "use strict"
+
+"use strict"
 
   /**
    * Awakener, to handle live cells
@@ -137,5 +138,3 @@
     }
 
   };
-
-}).call(this);

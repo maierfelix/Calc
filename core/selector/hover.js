@@ -10,7 +10,8 @@
  * You may not change or remove these lines
  *
  */
-(function() { "use strict"
+
+"use strict"
 
   /**
    * Add hover effect for all selected cells
@@ -90,5 +91,3 @@
     }
 
   };
-
-}).call(this);

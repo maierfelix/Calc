@@ -10,10 +10,12 @@
  * You may not change or remove these lines
  *
  */
+
+"use strict"
+
 Import.scripts = [
   /** Libraries */
   "lib/fastclick.min.js",
-  "lib/js2png.js",
   "lib/ajax.min.js",
   "lib/eight-bit-color-picker.min.js",
   /** Menu */
@@ -67,6 +69,7 @@ Import.scripts = [
   "core/interpreter/evaluator/function.js",
   "core/interpreter/type.js"
 ];
+
 Import.after = function() {
   ENGEL.init();
   CORE_UI.init();
@@ -76,9 +79,11 @@ Import.after = function() {
   setTimeout( function() { CORE.$.init(); }, 250);
   setTimeout( function() { document.querySelector("#loader").style.display = "none"; }, 750);
 };
+
 Import.each = function(percent) {
   /** Update percentage in document */
   document.querySelector(".loader-title").innerHTML = percent + "%";
   if (percent >= 99) document.querySelector(".loader-wrapper").classList.add("fadeOut");
 };
+
 Import.me();
