@@ -25,6 +25,9 @@
     var failures = 0;
 
     var array = [
+      /** Float numbers */
+      "a = (2.5 + 2.0)",
+      "a = (-2.5 + 2.0) + 2.25",
       /** Plus */
       "a = 2 + 2",
       /** Minus */
@@ -47,7 +50,7 @@
     for (var ii = 0; ii < array.length; ++ii) {
 
       engelResult = ENGEL.interpret(array[ii]).VAR["A"].value.value;
-      jsResult = parseInt(window.eval(array[ii].slice(4)));
+      jsResult = parseFloat(window.eval(array[ii].slice(4)));
 
       if (engelResult !== jsResult) {
         failures++;
