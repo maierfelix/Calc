@@ -109,6 +109,7 @@
       /** Calculate inner bracket */
       node = this.ruleExpression();
       if (this.expect("LX_RPAR")) this.shift();
+    /** Operator precedence */
     } else if (this.accept(["LX_UPLUS", "LX_UMINUS"])) {
       node = {
         operator: this.currentBlock.type

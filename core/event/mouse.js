@@ -275,9 +275,6 @@
         CORE.Settings.Scroll.Vertical = CORE.Settings.Scroll.OriginalVertical;
       }
 
-      /** Prevent too fast mouse scrolling */
-      if (difference && difference <= 30) return void 0;
-
     }
 
     var direction = 0;

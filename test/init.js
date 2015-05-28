@@ -69,7 +69,7 @@
 
     }
 
-    if (!failures) console.log("All tests passed successfully!");
+    if (!failures) console.info("%cAll tests passed successfully!", "color: darkgreen;");
 
   };
 
