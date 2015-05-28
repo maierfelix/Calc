@@ -73,10 +73,6 @@
       { name: "LX_NUMBER", rx: /^[-]?[0-9]+(\.\d+[0-9]*)?/               },
       { name: "LX_STRING", rx: /^"(\\\\"|[^"])(.*?)"|'"'(\\\\'|[^'])*'"/ },
 
-      /** Unary */
-      { name: "LX_UPLUS",  rx: /^(\+)*\(/  },
-      { name: "LX_UMINUS", rx: /^(\-)*\(/  },
-
       /** Operators */
       { name: "LX_PLUS",  rx: /^\+(?!\+)/ },
       { name: "LX_MINUS", rx: /^\-(?!-)/  },
@@ -170,6 +166,32 @@
                   type:  "LX_MINUS",
                   value: "-"
                 });
+                match[0] = match[0].slice(0, 1);
+                break;
+              }
+            }
+          }
+
+          /** Parenthesis operator precedence */
+          if (["LX_MINUS", "LX_PLUS"].indexOf(this.KeyWords[ii].name) >= 0) {
+            /** Last token was a number, variable or a string */
+            if (["LX_NUMBER", "LX_VAR", "LX_STRING", "LX_RPAR"].indexOf(this.Tokens[this.Tokens.length - 1].type) <= -1) {
+              /** Check if left opening parenthesis is following */
+              if (input.substring(match[0e0].length)[0] === "(") {
+                switch (this.KeyWords[ii].name) {
+                  case "LX_PLUS":
+                    this.Tokens.push({
+                      type:  "LX_UPLUS",
+                      value: match[0].trim()
+                    });
+                    break;
+                  case "LX_MINUS":
+                    this.Tokens.push({
+                      type:  "LX_UMINUS",
+                      value: match[0].trim()
+                    });
+                    break;
+                }
                 match[0] = match[0].slice(0, 1);
                 break;
               }

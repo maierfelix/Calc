@@ -20,6 +20,8 @@
 
     /** Default variable name */
     var varName = "A1 =";
+    /** Save the variable name without equal sign */
+    var singleVarName = varName.slice(0, 2);
 
     var engelResult = 0;
     var jsResult = 0;
@@ -27,38 +29,42 @@
 
     var array = [
       /** Float numbers */
-      "(2.5 + 2.0)",
-      "(-2.5 + 2.0) + 2.25",
+      "(2.5+2.0)",
+      "(-2.5+2.0)+2.25",
       /** Plus */
-      "2 + 2",
-      "99 + 9 + 3",
+      "2+2",
+      "99+9+3",
       /** Minus */
-      "2 - 2",
-      "999 - 9",
-      "100 - 5 - 10",
-      "999 - -9",
+      "2-2",
+      "999-9",
+      "100-5-10",
+      "999- -9",
       /** Mult */
-      "2 * 2",
+      "2*2",
       /** Division */
-      "10 / 2",
-      /** Operator predecence */
-      "5 + 5 * 2",
+      "10/2",
+      /** Operator precedence */
+      "5+5*2",
       /** Negative numbers */
       "-20",
-      "(-2.5 * 2)",
-      "100 -22 - -30",
-      "22-5+10- -20 * -7 / (-33.5)",
-      /** Parenthesis operator predecence */
-      "-(2 * 2) + 10",
-      "-( (2*2) + -(5+2) )",
-      "-( (-5*5) + (7*7) + -(-9) )",
-      "-( -(2*2) + 5 )",
-      "(-(-(5*5))) + -(-5*-(-5))"
+      "(-2.5*2)",
+      "100-22- -30",
+      "22-5+10- -20*-7/(-33.5)",
+      /** Parenthesis */
+      "(5*5)-(2+10)*3-(99)",
+      /** Parenthesis operator precedence */
+      "-(2*2)+10",
+      "-((2*2)+-(5+2))",
+      "-((-5*5)+(7*7)+-(-9))",
+      "-(-(2*2)+5)",
+      "(-(-(5*5)))+-(-5*-(-5))",
+      /** Complex */
+      "3+3/2.5*4+22+(-(-(9)+-(9*9)*-((945.95)+(94/748*1.115))+44+2))+(55+5.55)"
     ];
 
     for (var ii = 0; ii < array.length; ++ii) {
 
-      engelResult = ENGEL.interpret(varName + array[ii]).VAR[varName.slice(0, 2)].value.value;
+      engelResult = ENGEL.interpret(varName + array[ii]).VAR[singleVarName].value.value;
       jsResult = parseFloat(window.eval(array[ii]));
 
       if (engelResult !== jsResult) {

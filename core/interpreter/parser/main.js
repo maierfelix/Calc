@@ -251,7 +251,7 @@
   };
 
   /**
-   * Add a semicolon to a block end
+   * Automatic semicolon insertion
    *
    * @method addSemicolon
    * @static
