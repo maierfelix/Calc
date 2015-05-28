@@ -160,6 +160,22 @@
             }
           }
 
+          /** Special case, user wrote a subtraction without spaces */
+          if (this.KeyWords[ii].name === "LX_NUMBER") {
+            /** Create difference between negative numbers and subtraction order */
+            if (this.Tokens[this.Tokens.length - 1].type === "LX_NUMBER") {
+              /** Negative number */
+              if (parseFloat(match[0]) < 0) {
+                this.Tokens.push({
+                  type:  "LX_MINUS",
+                  value: "-"
+                });
+                match[0] = match[0].slice(0, 1);
+                break;
+              }
+            }
+          }
+
           this.Tokens.push({
             type:  this.KeyWords[ii].name,
             value: match[0].trim()
