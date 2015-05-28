@@ -30,6 +30,12 @@
     this.functionName = null;
 
     this.Functions = {
+      LX_UPLUS: function(c) {
+        return +(self.interpretExpression(c));
+      },
+      LX_UMINUS: function(c) {
+        return -(self.interpretExpression(c));
+      },
       LX_PLUS: function(c) {
         return self[self.switcher](c.left, self.functionName) + self[self.switcher](c.right, self.functionName);
       },

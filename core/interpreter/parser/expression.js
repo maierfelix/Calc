@@ -33,7 +33,7 @@
       }
     }
 
-    while (this.accept(["LX_PLUS", "LX_MINUS", "LX_EQ", "LX_NEQ", "LX_GR", "LX_GRE", "LX_LW", "LX_LWE", "LX_AND", "LX_OR"])) {
+    while (this.accept(["LX_PLUS", "LX_MINUS", "LX_EQ", "LX_NEQ", "LX_GR", "LX_GRE", "LX_LW", "LX_LWE", "LX_AND", "LX_OR", "LX_UPLUS", "LX_UMINUS"])) {
       /** Left */
       parent = {
         operator: this.currentBlock.type,
@@ -64,7 +64,18 @@
     node = this.ruleFactor();
 
     /** Check for a following calculation */
-    while (this.accept(["LX_MULT", "LX_DIV", "LX_EQ", "LX_NEQ", "LX_GR", "LX_GRE", "LX_LW", "LX_LWE", "LX_AND", "LX_OR"])) {
+    while (this.accept(["LX_MULT", "LX_DIV", "LX_EQ", "LX_NEQ", "LX_GR", "LX_GRE", "LX_LW", "LX_LWE", "LX_AND", "LX_OR", "LX_UPLUS", "LX_UMINUS"])) {
+      /** Special AST for operator precedence */
+      if (["LX_UPLUS", "LX_UMINUS"].indexOf(this.currentBlock.type) >= 0) {
+        /** Left */
+        parent = {
+          operator: this.currentBlock.type
+        };
+        /** Right */
+        this.shift();
+        parent.init = this.ruleExpression();
+        return (parent);
+      }
       /** Left */
       parent = {
         operator: this.currentBlock.type,

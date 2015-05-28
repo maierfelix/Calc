@@ -73,6 +73,10 @@
       { name: "LX_NUMBER", rx: /^[-]?[0-9]+(\.\d+[0-9]*)?/               },
       { name: "LX_STRING", rx: /^"(\\\\"|[^"])(.*?)"|'"'(\\\\'|[^'])*'"/ },
 
+      /** Unary */
+      { name: "LX_UPLUS",  rx: /^(\+)*\(/  },
+      { name: "LX_UMINUS", rx: /^(\-)*\(/  },
+
       /** Operators */
       { name: "LX_PLUS",  rx: /^\+(?!\+)/ },
       { name: "LX_MINUS", rx: /^\-(?!-)/  },
@@ -126,8 +130,8 @@
         /** Matches with a keyword regex */
         if (match = input.match(this.KeyWords[ii].rx)) {
 
-          /** Optimize math and display function calls */
-          if (["LX_LOG", "LX_PRINT", "LX_MATH"].indexOf(this.KeyWords[ii].name) >= 0) {
+          /** Optimize math, display function and operator precedences */
+          if (["LX_LOG", "LX_PRINT", "LX_MATH", "LX_UPLUS", "LX_UMINUS"].indexOf(this.KeyWords[ii].name) >= 0) {
             match[0] = match[0].slice(0, -1);
           }
 

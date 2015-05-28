@@ -27,6 +27,11 @@
 
     this.switcher = "interpretExpression";
 
+    /** Got operator precedence */
+    if (ast.init) {
+      return this.Functions[ast.operator](ast.init);
+    }
+
     /** Got a variable */
     if (ast.Identifier) {
       var value = ENGEL.STACK.getValue(ast.Identifier.value);
