@@ -19,7 +19,7 @@
   var interpret = function() {
 
     /** Default variable name */
-    var varName = "A1";
+    var varName = "A1 =";
 
     var engelResult = 0;
     var jsResult = 0;
@@ -27,35 +27,35 @@
 
     var array = [
       /** Float numbers */
-      "= (2.5 + 2.0)",
-      "= (-2.5 + 2.0) + 2.25",
+      "(2.5 + 2.0)",
+      "(-2.5 + 2.0) + 2.25",
       /** Plus */
-      "= 2 + 2",
+      "2 + 2",
       /** Minus */
-      "= 2 - 2",
+      "2 - 2",
       /** Mult */
-      "= 2 * 2",
+      "2 * 2",
       /** Division */
-      "= 10 / 2",
+      "10 / 2",
       /** Operator predecence */
-      "= 5 + 5 * 2",
+      "5 + 5 * 2",
       /** Negative numbers */
-      "= -20",
+      "-20",
       /** Parenthesis */
-      "= -(2 * 2) + 10",
-      "= -( (2*2) + -(5+2) )",
-      "= -( (-5*5) + (7*7) + -(-9) )",
-      "= -( -(2*2) + 5 )"
+      "-(2 * 2) + 10",
+      "-( (2*2) + -(5+2) )",
+      "-( (-5*5) + (7*7) + -(-9) )",
+      "-( -(2*2) + 5 )"
     ];
 
     for (var ii = 0; ii < array.length; ++ii) {
 
-      engelResult = ENGEL.interpret(varName + array[ii]).VAR[varName].value.value;
-      jsResult = parseFloat(window.eval(array[ii].slice(2)));
+      engelResult = ENGEL.interpret(varName + array[ii]).VAR[varName.slice(0, 2)].value.value;
+      jsResult = parseFloat(window.eval(array[ii]));
 
       if (engelResult !== jsResult) {
         failures++;
-        console.log("#### Results doesn't match! => " + (array[ii].slice(2)) + " ####");
+        console.log("#### Results doesn't match! => " + (array[ii]) + " ####");
         console.log( "ENGEL:", engelResult);
         console.log( "JS:   ", jsResult);
       }
