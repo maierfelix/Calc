@@ -25,7 +25,7 @@
       if (CORE.Cells.Used[cell].Formula) {
         CORE.DOM.CellInput.value = CORE.Cells.Used[cell].Formula;
       /** Check if cell has a custom content */
-      } else if (CORE.Cells.Used[cell].Content) {
+      } else if (CORE.Cells.Used[cell].Content !== undefined && CORE.Cells.Used[cell].Content !== null) {
         /** Update cell input content */
         CORE.DOM.CellInput.value = CORE.Cells.Used[cell].Content;
       /** Reset cell input content */

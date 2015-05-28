@@ -172,11 +172,11 @@
             }
           }
 
-          /** Parenthesis operator precedence */
+          /** Parentheses operator precedence */
           if (["LX_MINUS", "LX_PLUS"].indexOf(this.KeyWords[ii].name) >= 0) {
             /** Last token was a number, variable or a string */
             if (["LX_NUMBER", "LX_VAR", "LX_STRING", "LX_RPAR"].indexOf(this.Tokens[this.Tokens.length - 1].type) <= -1) {
-              /** Check if left opening parenthesis is following */
+              /** Check if left opening parentheses is following */
               if (input.substring(match[0e0].length)[0] === "(") {
                 switch (this.KeyWords[ii].name) {
                   case "LX_PLUS":

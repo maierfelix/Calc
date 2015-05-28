@@ -128,7 +128,7 @@
     if (CORE.Event.inEditMode()) {
       var cellEditContent = CORE.Cells.Used[CORE.Cells.Edit].Content;
       /** Check if cell is filled and valid */
-      if (cellEditContent && cellEditContent.length) {
+      if (cellEditContent !== undefined && cellEditContent !== null && cellEditContent.length) {
         /** Cell starts with a "=" and will be interpreted as a formula */
         if (cellEditContent[0] === "=") {
           CORE.Cells.Used[CORE.Cells.Edit].Formula = cellEditContent;

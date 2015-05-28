@@ -99,7 +99,7 @@
     var value = null;
 
     /** Check if property exists */
-    if (data[index[0]] !== "undefined" || data[index[0]] !== "null") {
+    if (data[index[0]] !== undefined || data[index[0]] !== null) {
       value = index.shift();
       if (index.length >= 1) return (this.readJSONTree(data[value], index));
     }

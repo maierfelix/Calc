@@ -50,9 +50,9 @@
       "(-2.5*2)",
       "100-22- -30",
       "22-5+10- -20*-7/(-33.5)",
-      /** Parenthesis */
+      /** Parentheses */
       "(5*5)-(2+10)*3-(99)",
-      /** Parenthesis operator precedence */
+      /** Parentheses operator precedence */
       "-(2*2)+10",
       "-((2*2)+-(5+2))",
       "-((-5*5)+(7*7)+-(-9))",

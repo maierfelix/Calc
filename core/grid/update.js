@@ -164,7 +164,7 @@
   CORE.Grid.prototype.updateCellStyling = function(name, ii) {
 
     /** Check if cell has custom content */
-    if (CORE.Cells.Used[name].Content) {
+    if (CORE.Cells.Used[name].Content !== undefined && CORE.Cells.Used[name].Content !== null) {
       CORE.DOM.Cache[ii].innerHTML = CORE.Cells.Used[name].Content;
     }
 
