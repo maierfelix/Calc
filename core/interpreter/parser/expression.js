@@ -115,7 +115,7 @@
       };
       this.shift();
       /** Calculate inner bracket */
-      node.init = this.ruleExpression();
+      node.init = this.ruleFactor();
     }
 
     return (node);
