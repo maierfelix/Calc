@@ -32,6 +32,11 @@
       return this.Functions[ast.operator](ast.init);
     }
 
+    /** Function call */
+    if (ast.CallExpression) {
+      return this.evalExpression(ast.CallExpression);
+    }
+
     /** Got a variable */
     if (ast.Identifier) {
       var value = ENGEL.STACK.getValue(ast.Identifier.value);

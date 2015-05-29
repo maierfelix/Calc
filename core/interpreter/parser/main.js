@@ -107,23 +107,9 @@
 
       this.shift();
 
-      /** Only shift, if we got no function call */
-      if ( (this.ReservedFunctions.concat(this.MathFunctions)).indexOf(block[0].type) <= -1) {
-        directScope.init = this.expressionStatement();
-        return (node);
-      }
+      directScope.init = this.expressionStatement();
 
-      /** Function call variable assignment */
-      if (this.ReservedFunctions.indexOf(block[0].type) >= 0) {
-        directScope.init = this.functionAssignment();
-        return (node);
-      }
-
-      /** Math function call variable assignment */
-      if (this.MathFunctions.indexOf(block[0].type) >= 0) {
-        directScope.init = this.functionAssignment();
-        return (node);
-      }
+			return (node);
 
     }
 

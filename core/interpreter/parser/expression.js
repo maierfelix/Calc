@@ -117,6 +117,11 @@
       this.shift();
       /** Calculate inner bracket */
       node.init = this.ruleFactor();
+    /** Function call */
+    } else if (this.accept(this.ReservedFunctions.concat(this.MathFunctions))) {
+      /** Add math function name to block start */
+      this.block.unshift(this.currentBlock);
+      node = this.functionAssignment();
     }
 
     return (node);
