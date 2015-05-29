@@ -139,7 +139,7 @@
         if (match = input.match(this.KeyWords[ii].rx)) {
 
           /** Optimize math, display function and operator precedences */
-          if (["LX_LOG", "LX_PRINT", "LX_MATH", "LX_UPLUS", "LX_UMINUS"].indexOf(this.KeyWords[ii].name) >= 0) {
+          if (["LX_UPLUS", "LX_UMINUS"].indexOf(this.KeyWords[ii].name) >= 0) {
             match[0] = match[0].slice(0, -1);
           }
 

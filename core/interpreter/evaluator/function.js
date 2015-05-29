@@ -55,8 +55,12 @@
 
       CORE.Awakener.evalLive();
 
+      return void 0;
+
+    }
+
     /** JSON */
-    } else if (this.preDefFunc.json.indexOf(callee.Identifier) >= 0) {
+    if (this.preDefFunc.json.indexOf(callee.Identifier) >= 0) {
 
       /** Get variable to fetch data from */
       var dataTarget = node.arguments[0].Identifier.value;
@@ -83,6 +87,48 @@
           type: typeof result
         });
       }
+
+      return void 0;
+
+    }
+
+    /** Math api */
+    if (this.preDefFunc.math.indexOf(callee.Identifier) >= 0) {
+
+      /** Final result */
+      var result = null;
+
+      /** Compiled arguments */
+      var argumentArray = [];
+
+      for (var ii = 0; ii < node.arguments.length; ++ii) {
+        if (!node.arguments[ii].CallExpression) {
+          argumentArray.push(this.interpretExpression(node.arguments[ii]));
+        } else {
+          /** Evaluate the function call, dont pass over a variable name to update! */
+          argumentArray.push(this.evalExpression(node.arguments[ii].CallExpression));
+        }
+      }
+
+      /** Check if math api function exists */
+      if (window.Math[callee.Identifier]) {
+
+        if (argumentArray && argumentArray.length) {
+          result = Math[callee.Identifier].apply(null, argumentArray);
+        } else result = Math[callee.Identifier].apply(null, null);
+
+      }
+
+      /** Update variable in the stack */
+      if (name && ENGEL.STACK.get(name)) {
+        ENGEL.STACK.update(name, {
+          raw: result,
+          value: self.TypeMaster(result).value,
+          type: typeof result
+        });
+      }
+
+      return (result);
 
     }
 

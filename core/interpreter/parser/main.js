@@ -30,6 +30,9 @@
     /** Reserved functions */
     this.ReservedFunctions = ["LX_CONNECT", "LX_JSON"];
 
+    /** Math functions */
+    this.MathFunctions = ["LX_MATH"];
+
   };
 
   ENGEL.PARSER.prototype = ENGEL;
@@ -105,13 +108,19 @@
       this.shift();
 
       /** Only shift, if we got no function call */
-      if (this.ReservedFunctions.indexOf(block[0].type) <= -1) {
+      if ( (this.ReservedFunctions.concat(this.MathFunctions)).indexOf(block[0].type) <= -1) {
         directScope.init = this.expressionStatement();
         return (node);
       }
 
       /** Function call variable assignment */
       if (this.ReservedFunctions.indexOf(block[0].type) >= 0) {
+        directScope.init = this.functionAssignment();
+        return (node);
+      }
+
+      /** Math function call variable assignment */
+      if (this.MathFunctions.indexOf(block[0].type) >= 0) {
         directScope.init = this.functionAssignment();
         return (node);
       }
@@ -172,6 +181,9 @@
     /** Read arguments of CONNECT function */
     if (this.currentBlock.type === "LX_CONNECT") {
       if (block[0].type === "LX_LPAR") CallExpression.arguments = this.readFunctionArguments();
+    /** Read arguments of Math function call */
+    } else if (this.MathFunctions.indexOf(this.currentBlock.type) >= 0) {
+      if (block[0].type === "LX_LPAR") CallExpression.arguments = this.readFunctionArguments();
     /** Read arguments of JSON function */
     } else if (this.currentBlock.type === "LX_JSON") {
       if (block[0].type === "LX_LPAR") CallExpression.arguments = this.readFunctionArguments();
@@ -200,14 +212,24 @@
     /** Shorter syntax */
     var block = this.block;
 
-    var parentArray = [],
-        array = [],
-        argumentArray = [];
+    var parentArray = [];
+    var array = [];
+    var argumentArray = [];
 
     /** To ignore parentheses */
     var jumper = 0;
 
+    /** Empty arguments */
+    if (this.emptyArguments()) return ([]);
+
     while (block[0]) {
+
+      /** Function call inside the arguments */
+      if ((this.ReservedFunctions.concat(this.MathFunctions)).indexOf(block[0].type) >= 0) {
+        parentArray.push(this.functionAssignment());
+        this.shift();
+        block.shift();
+      }
 
       if (block[0].type === "LX_LPAR") jumper++;
       else if (block[0].type === "LX_RPAR") jumper--;
@@ -233,20 +255,43 @@
 
     for (var ii = 0; ii < parentArray.length; ++ii) {
 
-      this.block = parentArray[ii];
-      this.shift();
+      /** Default argument block */
+      if (!parentArray[ii].CallExpression) {
 
-      /** Add semicolon the end */
-      this.addSemicolon();
+        this.block = parentArray[ii];
+        this.shift();
 
-      /** Generate AST of function parameters */
-      argumentArray.push(this.ruleExpression());
+        /** Add semicolon the end */
+        this.addSemicolon();
+
+        /** Generate AST of function parameters */
+        argumentArray.push(this.ruleExpression());
+
+      /** Function call inside the arguments, already parsed */
+      } else argumentArray.push(parentArray[ii]);
 
     }
 
     this.block = block;
 
     return (argumentArray);
+
+  };
+
+  /**
+   * Check if function arguments are empty
+   *
+   * @method emptyArguments
+   * @static
+   */
+  ENGEL.PARSER.prototype.emptyArguments = function() {
+
+    if (this.block[0] && this.block[1]) {
+      if (this.block[0].type === "LX_LPAR" &&
+          this.block[1].type === "LX_RPAR") return (true);
+    }
+
+    return (false);
 
   };
 
