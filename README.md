@@ -53,6 +53,7 @@ NovaeCalc is not stable yet.
 ## Notes:
 - [ ] Speed is a core feature
 - [ ] Possibly include server-side cell calculation option
+- [ ] Pow: Math.pow => (2^2)^2, LX_POW
 
 ## Bugs:
 - [ ] Fast scrolling up and down causes wrong rendered selection areas (Only if scrolledY =^ 0)
