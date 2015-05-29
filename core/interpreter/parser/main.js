@@ -109,7 +109,7 @@
 
       directScope.init = this.expressionStatement();
 
-			return (node);
+      return (node);
 
     }
 
@@ -181,6 +181,9 @@
       this.shift();
       CallExpression.append = this.readFunctionArguments();
     }
+
+    this.shift();
+    this.shift();
 
     return ({ CallExpression });
 
@@ -273,8 +276,14 @@
   ENGEL.PARSER.prototype.emptyArguments = function() {
 
     if (this.block[0] && this.block[1]) {
-      if (this.block[0].type === "LX_LPAR" &&
-          this.block[1].type === "LX_RPAR") return (true);
+      if (this.block[0].type === "LX_LPAR") {
+        this.shift();
+        if (this.block[0].type === "LX_RPAR") {
+          this.shift();
+          this.shift();
+          return (true);
+        }
+      }
     }
 
     return (false);

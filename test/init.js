@@ -23,6 +23,9 @@
     /** Save the variable name without equal sign */
     var singleVarName = varName.slice(0, 2);
 
+    var reservedFunctions = ["asin","sin","acos","cos","atan","atan2","tan","sqrt","cbrt","exp","random","min","max","round","floor","ceil"];
+    var compile = "";
+
     var engelResult = 0;
     var jsResult = 0;
     var failures = 0;
@@ -59,13 +62,25 @@
       "-(-(2*2)+5)",
       "(-(-(5*5)))+-(-5*-(-5))",
       /** Complex */
-      "3+3/2.5*4+22+(-(-(9)+-(9*9)*-((945.95)+(94/748*1.115))+44+2))+(55+5.55)"
+      "3+3/2.5*4+22+(-(-(9)+-(9*9)*-((945.95)+(94/748*1.115))+44+2))+(55+-5.55)",
+      /** Math api */
+      "50 + max(10, max(100, 200, 300), 40, 60, 77, 5) + 100",
+      "50 - 10 + max(2*3, max(100, max(400, 500)), 40, 77, 5) + ((100 / 2) * 2)" // Buggy
     ];
 
     for (var ii = 0; ii < array.length; ++ii) {
 
+      compile = array[ii];
+
+      /** Automatically translate math api calls into js format */
+      for (var kk = 0; kk < reservedFunctions.length; ++kk) {
+        if (compile.match(reservedFunctions[kk])) {
+          compile = compile.replace( new RegExp("" + reservedFunctions[kk] + "", "g"), "Math." + reservedFunctions[kk]);
+        }
+      }
+
       engelResult = ENGEL.interpret(varName + array[ii]).VAR[singleVarName].value.value;
-      jsResult = parseFloat(window.eval(array[ii]));
+      jsResult = parseFloat(window.eval(compile));
 
       if (engelResult !== jsResult) {
         failures++;
