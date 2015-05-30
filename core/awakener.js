@@ -11,7 +11,7 @@
  *
  */
 
-"use strict"
+"use strict";
 
   /**
    * Awakener, to handle live cells

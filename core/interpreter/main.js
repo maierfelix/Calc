@@ -11,7 +11,7 @@
  *
  */
 
-"use strict"
+"use strict";
 
   var root = this;
 
@@ -52,7 +52,7 @@
 
     /** Generate AST */
     this.ast = this.Parser.parse(this.lexed);
-
+console.log(this.ast);
     /** Evaluate the AST */
     this.Evaluator.evaluate(this.ast);
 

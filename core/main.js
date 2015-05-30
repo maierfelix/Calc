@@ -11,7 +11,7 @@
  *
  */
 
-"use strict"
+"use strict";
 
   var root = this;
 

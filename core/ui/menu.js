@@ -11,7 +11,7 @@
  *
  */
 
-"use strict"
+"use strict";
 
   /** Select and prepare the menu dialog container */
   CORE_UI.MENU_DIALOG_CONTAINER = document.querySelector("#menu_dialogs");

@@ -11,7 +11,7 @@
  *
  */
 
-"use strict"
+"use strict";
 
   /**
    * Add hover effect for all selected cells

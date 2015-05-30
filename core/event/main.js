@@ -11,7 +11,7 @@
  *
  */
 
-"use strict"
+"use strict";
 
   /** Create Event Object */
   CORE.Event = {

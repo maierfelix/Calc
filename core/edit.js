@@ -11,7 +11,7 @@
  *
  */
 
-"use strict"
+"use strict";
 
   /**
    * Mark edited cell

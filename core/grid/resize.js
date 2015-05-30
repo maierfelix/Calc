@@ -11,7 +11,7 @@
  *
  */
 
-"use strict"
+"use strict";
 
   /**
    * Detect cell column enlargement on horizontal alphabetical row

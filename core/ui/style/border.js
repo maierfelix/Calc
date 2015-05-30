@@ -11,7 +11,7 @@
  *
  */
 
-"use strict"
+"use strict";
 
   /** Initialize the border settings menu */
   CORE_UI.initBorderChangeMenu = function() {

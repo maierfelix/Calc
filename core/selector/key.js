@@ -11,7 +11,7 @@
  *
  */
 
-"use strict"
+"use strict";
 
   /**
    * Select a specific cell by key press

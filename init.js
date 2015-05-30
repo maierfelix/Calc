@@ -11,13 +11,15 @@
  *
  */
 
-"use strict"
+"use strict";
 
 Import.scripts = [
   /** Libraries */
   "lib/fastclick.min.js",
   "lib/ajax.min.js",
   "lib/eight-bit-color-picker.min.js",
+  /** Polyfills */
+  "core/polyfill.js",
   /** Menu */
   "core/ui/main.js",
   "core/ui/menu.js",

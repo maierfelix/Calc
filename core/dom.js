@@ -11,7 +11,7 @@
  *
  */
 
-"use strict"
+"use strict";
 
   /** Cache the grid dom here */
   CORE.DOM.Cache = {};

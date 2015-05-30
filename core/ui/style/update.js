@@ -11,7 +11,7 @@
  *
  */
 
-"use strict"
+"use strict";
 
   /** Update the cell style menu */
   CORE_UI.updateCellStyleMenu = function(cellName) {

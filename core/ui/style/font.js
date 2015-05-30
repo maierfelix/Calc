@@ -11,7 +11,7 @@
  *
  */
 
-"use strict"
+"use strict";
 
   /** Initialize the font change menu */
   CORE_UI.initFontChangeMenu = function() {

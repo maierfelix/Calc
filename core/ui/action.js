@@ -11,7 +11,7 @@
  *
  */
 
-"use strict"
+"use strict";
 
   /** Create Action Object */
   CORE_UI.ACTION = {

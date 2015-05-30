@@ -11,7 +11,7 @@
  *
  */
 
-"use strict"
+"use strict";
 
   /** Initialize the background settings menu */
   CORE_UI.initLiveCellMenu = function() {

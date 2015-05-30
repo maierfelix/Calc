@@ -13,16 +13,7 @@
 
 "use strict";
 
-  /** Initialize the cell style menu */
-  CORE_UI.initCellStyleMenu = function() {
-
-    /** Font styling menu */
-    CORE_UI.initFontChangeMenu();
-
-    /** Border styling menu */
-    CORE_UI.initBorderChangeMenu();
-
-    /** Background styling menu */
-    CORE_UI.initBackgroundChangeMenu();
-
+  Math.roundToNearest = function(a, b) {
+    b = 1 / (b);
+    return (Math.round(a * b) / b);
   };

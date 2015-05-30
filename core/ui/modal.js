@@ -11,7 +11,7 @@
  *
  */
 
-"use strict"
+"use strict";
 
   /** Create DOM Object */
   CORE_UI.MODAL = {};

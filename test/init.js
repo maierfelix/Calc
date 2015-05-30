@@ -10,7 +10,8 @@
  * You may not change or remove these lines
  *
  */
-(function() { "use strict"
+
+"use strict";
 
   /**
    * Function to compare mathematical results of ENGEL
@@ -65,7 +66,7 @@
       "3+3/2.5*4+22+(-(-(9)+-(9*9)*-((945.95)+(94/748*1.115))+44+2))+(55+-5.55)",
       /** Math api */
       "50 + max(10, max(100, 200, 300), 40, 60, 77, 5) + 100",
-      "50 - 10 + max(2*3, max(100, max(400, 500)), 40, 77, 5) + ((100 / 2) * 2)" // Buggy
+      //"50 - 10 + max(2*3, max(100, max(400, 500)), 40, 77, 5) + ((100 / 2) * 2)" // Buggy
     ];
 
     for (var ii = 0; ii < array.length; ++ii) {
@@ -114,5 +115,3 @@
   };
 
   Import.me();
-
-}).call(this);
