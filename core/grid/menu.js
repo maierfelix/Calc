@@ -178,6 +178,7 @@
 
         element.addEventListener("mouseup", function(e) {
           this.setAttribute("clicked", 0);
+          CORE.Event.lastAction.scrollY = false;
         });
 
         element.addEventListener("mouseout", function(e) {

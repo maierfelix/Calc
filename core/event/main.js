@@ -21,6 +21,11 @@
     lastMouseDownCell: {
       Letter: 0,
       Number: 0
+    },
+    /** Save latest action to prevent unnecessary grid redrawing */
+    lastAction: {
+      scrollY: false,
+      scrollX: false
     }
   };
 
@@ -83,6 +88,8 @@
     CORE.Settings.Height = window.innerHeight;
 
     CORE.Settings.Scroll.Vertical = CORE.$.calculateScrollAmount();
+
+    CORE.Event.lastAction.scrollY = false;
 
     CORE.Grid.calculateGrid();
 
