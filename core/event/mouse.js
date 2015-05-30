@@ -300,8 +300,8 @@
 
       direction = direction ? "down" : "up";
 
-			/** User scrolled up or down, dont redraw */
-			CORE.Event.lastAction.scrollY = true;
+      /** User scrolled up or down, dont redraw */
+      CORE.Event.lastAction.scrollY = true;
 
       if (direction === "down") {
         CORE.Grid.Settings.scrolledY += CORE.Settings.Scroll.Vertical;
