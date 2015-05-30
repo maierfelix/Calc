@@ -178,6 +178,7 @@
 
         element.addEventListener("mouseup", function(e) {
           this.setAttribute("clicked", 0);
+          /** Re-render grid */
           CORE.Event.lastAction.scrollY = false;
         });
 
