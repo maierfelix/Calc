@@ -21,7 +21,7 @@
    */
   CORE.Selector.prototype.addCellHoverEffect = function() {
 
-    var letter = null,
+    var letter = 0,
         number = 0,
         jumps = 0,
         style = this.SelectedCells.length <= 1 ? "single_row_hovered" : "row_hovered";
@@ -32,13 +32,13 @@
       letter = this.SelectedCells[ii].letter;
       number = this.SelectedCells[ii].number;
 
-      jumps = ((CORE.Grid.Settings.y * (letter - 1) ) + number - 1 - CORE.Grid.Settings.scrolledY) - (CORE.Grid.Settings.y * CORE.Grid.Settings.scrolledX);
-
       /** Synchronize custom cells with the cell settings menu if 1 cell is selected */
       if (this.SelectedCells.length === 1) CORE_UI.updateCellStyleMenu(this.SelectedCells[ii]);
 
+      jumps = CORE.$.getCell({ letter: letter, number: number });
+
       /** Test if selection is in view */
-      if (CORE.$.isInView(letter, jumps)) {
+      if (jumps >= 0) {
         if (CORE.DOM.Output.children[jumps]) {
           CORE.DOM.Output.children[jumps].classList.add(style);
         }
@@ -59,35 +59,14 @@
     /** No cells found */
     if (!this.SelectedCells.length) return void 0;
 
-    var letter = null,
+    var letter = 0,
         number = 0,
         jumps = 0,
         style = this.SelectedCells.length <= 1 ? "single_row_hovered" : "row_hovered";
 
     /** Delete hover effect for all selected cells */
-    for (var ii = 0; ii < this.SelectedCells.length; ++ii) {
-
-      letter = this.SelectedCells[ii].letter;
-      number = this.SelectedCells[ii].number;
-
-      jumps = ((CORE.Grid.Settings.y * (letter - 1) ) + number - 1 - CORE.Grid.Settings.scrolledY) - (CORE.Grid.Settings.y * CORE.Grid.Settings.scrolledX) + CORE.Grid.Settings.lastScrollY;
-
-      if (CORE.DOM.Output.children[jumps]) {
-        CORE.DOM.Output.children[jumps].classList.remove(style);
-      }
-
-      jumps = ((CORE.Grid.Settings.y * (letter - 1) ) + number - 1 - CORE.Grid.Settings.scrolledY) - (CORE.Grid.Settings.y * CORE.Grid.Settings.scrolledX) - CORE.Settings.Scroll.Vertical;
-
-      if (CORE.DOM.Output.children[jumps]) {
-        CORE.DOM.Output.children[jumps].classList.remove(style);
-      }
-
-      jumps = ((CORE.Grid.Settings.y * (letter - 1) ) + number - 1 - CORE.Grid.Settings.scrolledY) - (CORE.Grid.Settings.y * CORE.Grid.Settings.scrolledX);
-
-      if (CORE.DOM.Output.children[jumps]) {
-        CORE.DOM.Output.children[jumps].classList.remove(style);
-      }
-
+    for (var ii = 0; ii < CORE.DOM.CacheArray.length; ++ii) {
+      CORE.DOM.CacheArray[ii].classList.remove(style);
     }
 
   };

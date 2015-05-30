@@ -26,8 +26,12 @@
 
     CORE.DOM.Cache = {};
 
+    /** Used for faster iteration */
+    CORE.DOM.CacheArray = [];
+
     for (var ii = 0; ii < childLength; ++ii) {
       CORE.DOM.Cache[ii] = children[ii];
+      CORE.DOM.CacheArray.push(children[ii]);
     }
 
   };
