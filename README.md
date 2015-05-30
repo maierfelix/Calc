@@ -8,7 +8,7 @@ NovaeCalc is not stable yet.
 ## Current state:
 
  - [ ] Cell logic
-   - [x] Infinite vertical scrolling (~ 2^53)
+   - [x] Infinite vertical scrolling (~ 2^53 - 1)
    - [x] Infinite horizontal scrolling (~ 16.100)
    - [x] Select cell fields in all directions
    - [x] Resize cell rows
