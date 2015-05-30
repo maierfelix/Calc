@@ -49,6 +49,7 @@ NovaeCalc is not stable yet.
 
 ## Todo:
 - [ ] Increase cell resize performance (Each resized cell causes massive performance loss) -> Only perform resize if in-view!
+- [ ] Interpreter function to round X to the nearest X
 
 ## Notes:
 - [ ] Speed is a core feature
