@@ -226,10 +226,11 @@
     if (dir === "down" && (CORE.Grid.Settings.keyScrolledY + number ) >= (CORE.Grid.Settings.y + CORE.Grid.Settings.scrolledY)) {
       CORE.Grid.Settings.scrolledY += 1;
       CORE.Grid.Settings.keyScrolledY -= 1;
-      /** Update grid and menu */
-      CORE.Grid.updateHeight("up", 1);
-      CORE.Grid.generateMenu();
     }
+
+    /** Update grid and menu */
+    CORE.Grid.updateHeight("up", 1);
+    CORE.Grid.generateMenu();
 
     /** Select the new cell */
     this.selectCell(letter, (numberResult));

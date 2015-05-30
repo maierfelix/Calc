@@ -24,7 +24,7 @@
     if (!object || object === undefined) return void 0;
 
     /** New edit selection position */
-    var newLetter = object.letter,
+    var newLetter = CORE.$.numberToAlpha(object.letter),
         newNumber = object.number,
         jumps = 0,
         element = null;
@@ -84,7 +84,7 @@
     }
 
     /** Update old edited cell */
-    CORE.Cells.Edit = (CORE.$.numberToAlpha(newLetter) + newNumber);
+    CORE.Cells.Edit = (newLetter + newNumber);
 
     /** Update current selected cell */
     CORE.DOM.CurrentCell.innerHTML = CORE.Cells.Edit;
@@ -93,7 +93,7 @@
     CORE.Selector.deleteCellHoverEffect();
 
     /** Update selection menu */
-    CORE.Selector.menuSelection( (newLetter - 1), (newNumber - 1));
+    CORE.Selector.menuSelection( (CORE.$.alphaToNumber(newLetter) - 1), (newNumber - 1));
 
   };
 
