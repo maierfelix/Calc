@@ -34,7 +34,8 @@
     if (this.Settings.scrolledX <= 0) Letter = CORE.DOM.Output.children[0].getAttribute("name").match(CORE.REGEX.numbers).join("");
     else Letter = CORE.$.numberToAlpha(this.Settings.scrolledX + 1);
 
-    this.Settings.scrolledY = this.Settings.scrolledY < 0 ? 0 : this.Settings.scrolledY;
+    /** Check if safe integer, also don't go below zero */
+    this.Settings.scrolledY = this.Settings.scrolledY < 0 ? 0 : CORE.$.isSafeInteger(this.Settings.scrolledY);
 
     for (var ii = 0; ii < width * height; ++ii) {
 
@@ -146,6 +147,9 @@
           }
           else Letter = CORE.$.numberToAlpha(this.Settings.scrolledX + 1);
         }
+
+        /** Check if safe integer */
+        this.Settings.scrolledX = CORE.$.isSafeInteger(this.Settings.scrolledX)
 
       }
 

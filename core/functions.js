@@ -308,3 +308,19 @@
     return (true);
 
   };
+
+  /**
+   * Is number a safe integer
+   *
+   * @method isSafeInteger
+   * @static
+   */
+  CORE.$.isSafeInteger = function(number) {
+
+    if (number >= 9E15) {
+      if (number >= window.Number.MAX_SAFE_INTEGER) return (window.Number.MAX_SAFE_INTEGER - 1);
+    }
+
+    return (number);
+
+  };
