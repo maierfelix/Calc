@@ -106,8 +106,5 @@
     }
   };
 
-  /** Alphabet Template */
-  CORE.Alphabet = [];
-
   /** Assign it global */
   root.CORE = CORE;
