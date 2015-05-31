@@ -268,8 +268,8 @@
       var difference = e.timeStamp - this.lastMouseScroll;
 
       /** Scroll increment, if user scrolls fast */
-      if (difference < 40) {
-        CORE.Settings.Scroll.Vertical += 2;
+      if (difference <= Math.floor(CORE.Grid.Settings.y * 1.5)) {
+        CORE.Settings.Scroll.Vertical += Math.floor(CORE.Settings.Scroll.OriginalVertical / 1.25);
       /** Otherwise, reset scroll amount */
       } else {
         CORE.Settings.Scroll.Vertical = CORE.Settings.Scroll.OriginalVertical;
