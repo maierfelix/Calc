@@ -55,6 +55,7 @@ Import.scripts = [
   "core/selector/key.js",
   "core/selector/menu.js",
   "core/selector/select.js",
+  "core/selector/functions.js",
   /** Helpers */
   "core/functions.js",
   "core/edit.js",

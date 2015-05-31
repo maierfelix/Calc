@@ -158,6 +158,13 @@
         }
       }
 
+      /** Outer border */
+      if (id === "border_outer") {
+        CORE.Selector.getOuterSelection();
+        /** Skip everything else, since we apply outer border only 1 time */
+        return void 0;
+      }
+
     }
 
   };
