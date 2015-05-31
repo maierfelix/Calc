@@ -46,19 +46,18 @@ NovaeCalc is not stable yet.
    - [ ] Share project
    - [ ] Multi-user live editing
    - [ ] Synchronization
+   - [ ] Screen mirroring
 
 ## Todo:
-- [ ] Increase cell resize performance (Each resized cell causes massive performance loss) -> Only perform resize if in-view!
 - [ ] Interpreter function to round X to the nearest X
+- [ ] Pow support: Math.pow => (2^2)^2, LX_POW
+- [ ] Use tabulator for horizontal cell scrolling
 
 ## Notes:
 - [ ] Speed is a core feature
 - [ ] Possibly include server-side cell calculation option
-- [ ] Pow: Math.pow => (2^2)^2, LX_POW
-
-## Bugs:
-- [ ] Fast scrolling up and down causes wrong rendered selection areas (Only if scrolledY =^ 0)
 
 ## Libraries
  * [ImportJS](https://github.com/felixmaier/ImportJS)
  * [Eight Bit Color Picker](https://github.com/bilalq/eight-bit-color-picker)
+ * [Fastclick](https://github.com/ftlabs/fastclick)
