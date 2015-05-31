@@ -102,6 +102,14 @@
       return void 0;
     }
 
+    /** User pressed the [Tab] key */
+    if (e.keyCode === 9) {
+      e.preventDefault();
+      CORE.Input.Keyboard.Tab = true;
+      CORE.Event.navigateTo("right", 1);
+      return void 0;
+    }
+
     /** Check if user edits a cell */
     CORE.Event.sniffCellInput(e.keyCode);
 
@@ -125,6 +133,12 @@
     if (e.keyCode === 17) {
       e.preventDefault();
       CORE.Input.Keyboard.Strg = false;
+    }
+
+    /** User left the [TAB] key */
+    if (e.keyCode === 9) {
+      e.preventDefault();
+      CORE.Input.Keyboard.Tab = false;
     }
 
   };

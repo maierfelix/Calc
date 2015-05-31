@@ -67,9 +67,10 @@
       if (!CORE.Event.lastAction.scrollY) {
         /** Horizontal cell row got resized */
         this.resizeHorizontal(Letter, ii);
-        /** Vertical cell row got resized */
-        this.resizeVertical(calculation, ii);
       }
+
+      /** Vertical cell row got resized */
+      this.resizeVertical(calculation, ii);
 
       if ( (ii + 1) % br === 0) {
         Letter = CORE.$.numberToAlpha(CORE.$.alphaToNumber(Letter) + 1);

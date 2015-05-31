@@ -102,7 +102,9 @@
       /** [SHIFT] key pressed */
       Shift: false,
       /** [STRG] key pressed */
-      Strg: false
+      Strg: false,
+      /** [TAB] key pressed */
+      Tab: false
     }
   };
 

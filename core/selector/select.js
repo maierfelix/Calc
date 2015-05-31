@@ -204,20 +204,38 @@
     var letter = this.Selected.First.Letter,
         number = this.Selected.First.Number;
 
-    var numberResult = 0;
-
-    this.parentSelectedCell.Letter = letter;
+    var letterResult = letter;
+    var numberResult = number;
 
     switch (dir) {
+      case "right":
+        letterResult = (letter + amount);
+        break;
+      case "left":
+        letterResult = (letter - amount);
+        break;
       case "up":
         numberResult = (number - amount);
         break;
       case "down":
         numberResult = (number + amount);
         break;
+    };
+
+    /** Dont overscroll left */
+    if (letterResult <= 0) {
+      letterResult = 1;
+      this.parentSelectedCell.Letter = letterResult;
     }
 
-    this.parentSelectedCell.Number = numberResult;
+    /** Dont overscroll top */
+    if (numberResult <= 0) {
+      numberResult = 1;
+      this.parentSelectedCell.Number = numberResult;
+    }
+
+    this.Selected.First = this.parentSelectedCell;
+    this.Selected.Last = this.parentSelectedCell;
 
     /** Reset all key scroll axis amount */
     CORE.Grid.Settings.keyScrolledX = CORE.Grid.Settings.keyScrolledY = 0;
@@ -228,11 +246,19 @@
       CORE.Grid.Settings.keyScrolledY -= 1;
     }
 
+    /** Scroll one down, user edited cell at final bottom */
+    if (dir === "up") {
+      if (CORE.Grid.Settings.keyScrolledY + number <= (CORE.Grid.Settings.scrolledY + 1)) {
+        CORE.Grid.Settings.scrolledY -= 1;
+      }
+      CORE.Grid.Settings.keyScrolledY += 1;
+    }
+
     /** Update grid and menu */
     CORE.Grid.updateHeight("up", 1);
     CORE.Grid.generateMenu();
 
     /** Select the new cell */
-    this.selectCell(letter, (numberResult));
+    this.selectCell(letterResult, (numberResult));
 
   };

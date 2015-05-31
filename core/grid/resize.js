@@ -85,52 +85,76 @@
     var totalTopShift = 0;
     /** DOM caching */
     var cellRow = CORE.DOM.Cache[ii].style;
+    /** Cache cell object height */
+    var cellHeight = this.cellArray[ii].origHeight;
+    /** Cache cell object top position */
+    var cellTop = this.cellArray[ii].origTop;
 
     /** The current cell column has a custom height */
     if (customCell[Number]) {
       /** Update height of the custom cell column */
-      cellRow.height = (this.cellArray[ii].origHeight + customCell[Number].Height) + "px";
+      cellRow.height = (cellHeight + customCell[Number].Height) + "px";
       /** Update top position of the custom cell column */
-      cellRow.top = (this.cellArray[ii].origTop) + "px";
-      /** Center cell text content */
-      cellRow.lineHeight = ((this.cellArray[ii].origHeight + customCell[Number].Height) - 8 ) + "px";
+      cellRow.top = (cellTop) + "px";
     }
     /** Reset height of all cells without a custom height */
-    else {
-      cellRow.height = this.cellArray[ii].origHeight + "px";
-      cellRow.lineHeight = (this.cellArray[ii].origHeight - 8) + "px";
+    else cellRow.height = cellHeight + "px";
+
+    if (!this.verticalInView(Number)) {
+      if (this.Settings.resizeY) {
+        this.Settings.resizeY = false;
+      } else return void 0;
     }
+
+    console.log(0);
 
     /** Search for custom cell rows */
     for (var kk in customCell) {
 
       /** Update all cell rows top position behind the customized cell column with its new height */
-      if (Number > kk) {
-        totalTopShift += customCell[kk].Height;
-        cellRow.top = (this.cellArray[ii].origTop + totalTopShift) + "px";
-      /** Update all cells before the customized cell with its top position */
-      } else if (Number < kk) {
-        cellRow.top = (this.cellArray[ii].origTop + totalTopShift) + "px";
-      }
+      if (Number > kk) totalTopShift += customCell[kk].Height;
+
+      cellRow.top = (cellTop + totalTopShift) + "px";
 
       /** User has scrolled the grid */
       if (this.Settings.scrolledY > 0) {
-
         /** Check if customized cell column is in view */
         if (kk <= this.Settings.scrolledY) {
-          cellRow.top = this.cellArray[ii].origTop + "px";
+          cellRow.top = cellTop + "px";
         }
-
       }
 
       /** Custom cell column is not in view anymore, so substract its custom height from all cell rows behind */
       if (Number >= kk) {
         if (this.Settings.scrolledY >= kk) {
           totalTopShift -= customCell[kk].Height;
-          cellRow.top = (this.cellArray[ii].origTop + totalTopShift) + "px";
+          cellRow.top = (cellTop + totalTopShift) + "px";
         }
       }
 
     }
+
+  };
+
+  /**
+   * Check if a cell is in view
+   *
+   * @method verticalInView
+   * @static
+   */
+  CORE.Grid.prototype.verticalInView = function(number) {
+
+    var length = this.customCellSizes.array.length;
+
+    for (var ii = 0; ii < length; ++ii) {
+
+      if (this.customCellSizes.array[ii] === number && number >= this.Settings.scrolledY) {
+        this.Settings.resizeY = true;
+        return (true);
+      }
+
+    }
+
+    return (false);
 
   };

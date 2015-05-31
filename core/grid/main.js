@@ -36,7 +36,9 @@
       cellResizedY: 0,
       /** Last scroll amount */
       lastScrollX: 0,
-      lastScrollY: 0
+      lastScrollY: 0,
+      /** Time to resize Y axis */
+      resizeY: false
     };
 
     /** Define Cell sizes */
@@ -58,7 +60,9 @@
       /** Alphabetical menu */
       alphabetical: {},
       /** Numeric menu */
-      numeric: {}
+      numeric: {},
+      /** Fast access array */
+      array: []
     };
 
     /** Save each grid cell */

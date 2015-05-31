@@ -13,7 +13,7 @@
 
 "use strict";
 
-  Math.roundToNearest = function(a, b) {
+  Math.roundTo = function(a, b) {
     b = 1 / (b);
     return (Math.round(a * b) / b);
   };

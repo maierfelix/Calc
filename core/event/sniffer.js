@@ -105,14 +105,7 @@
       this.processCellContent();
 
     /** User pressed enter */
-    } else {
-      CORE.eval();
-      CORE.Grid.getEditSelection({ letter: CORE.Selector.Selected.First.Letter, number: CORE.Selector.Selected.First.Number });
-      CORE.Grid.cleanEditSelection();
-      /** Take selection and move it 1 down */
-      CORE.Selector.moveSelection("down", 1);
-      CORE.DOM.CellInput.blur();
-    }
+    } else CORE.Event.navigateTo("down", 1);
 
   };
 
@@ -180,5 +173,28 @@
       /** Focus the cell input field while typing */
       CORE.DOM.CellInput.focus();
     }, 1);
+
+  };
+
+  /**
+   * User edited a cell and wants to navigate to another
+   *
+   * @method navigateTo
+   * @static
+   */
+  CORE.Event.navigateTo = function(direction, amount) {
+
+    /** Run the interpreter */
+    CORE.eval();
+
+    CORE.Grid.getEditSelection({ letter: CORE.Selector.Selected.First.Letter, number: CORE.Selector.Selected.First.Number });
+
+    CORE.Grid.cleanEditSelection();
+
+    /** Take selection and move it */
+    CORE.Selector.moveSelection(direction, amount);
+
+    /** Leave the input */
+    CORE.DOM.CellInput.blur();
 
   };
