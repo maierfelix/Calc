@@ -30,6 +30,9 @@
     this.functionName = null;
 
     this.Functions = {
+      LX_POW: function(c) {
+        return Math.pow(self.interpretExpression(c.left), self.interpretExpression(c.right));
+      },
       LX_UPLUS: function(c) {
         return +(self.interpretExpression(c));
       },
@@ -82,7 +85,7 @@
     this.preDefFunc = {
       display: ["log", "print"],
       /** Math api */
-      math: ["asin", "sin", "acos", "cos", "atan", "atan2", "tan", "sqrt", "cbrt", "exp", "random", "min", "max", "round", "floor", "ceil"],
+      math: ["asin", "sin", "acos", "cos", "atan", "atan2", "tan", "sqrt", "cbrt", "exp", "random", "min", "max", "round", "floor", "ceil", "roundTo"],
       json: ["JSON", "json"],
       ajax: ["CONNECT", "connect"]
     };

@@ -69,6 +69,7 @@
         CORE.Selector.selectCellByKeyPress();
         /** Update last key press timestamp */
         this.lastKeyPress = e.timeStamp - 100;
+        CORE.Event.lastAction.scrollY = false;
         return void 0;
       /** [RIGHT] */
       case 39:
@@ -79,6 +80,7 @@
         CORE.Selector.selectCellByKeyPress();
         /** Update last key press timestamp */
         this.lastKeyPress = e.timeStamp - 100;
+        CORE.Event.lastAction.scrollY = false;
         return void 0;
     }
 

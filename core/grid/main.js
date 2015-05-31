@@ -36,9 +36,7 @@
       cellResizedY: 0,
       /** Last scroll amount */
       lastScrollX: 0,
-      lastScrollY: 0,
-      /** Time to resize Y axis */
-      resizeY: false
+      lastScrollY: 0
     };
 
     /** Define Cell sizes */

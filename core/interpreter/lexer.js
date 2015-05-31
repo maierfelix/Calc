@@ -57,13 +57,11 @@
       { name: "LX_COMMA", rx: /^,/ },
 
       /** Instructions */
-      { name: "LX_LOG",       rx: /^(log)*\(/   },
-      { name: "LX_PRINT",     rx: /^(print)*\(/ },
       { name: "LX_JSON",      rx: /^(JSON)/     },
       { name: "LX_JSON_CALL", rx: /^->/         },
 
       /** Math functions */
-      { name: "LX_MATH", rx: /^(asin|sin|acos|cos|atan|atan2|tan|sqrt|cbrt|exp|random|min|max|round|floor|ceil)/ },
+      { name: "LX_MATH", rx: /^(roundTo|asin|sin|acos|cos|atan|atan2|tan|sqrt|cbrt|exp|random|min|max|round|floor|ceil)/ },
 
       /** Connect function */
       { name: "LX_CONNECT", rx: /^(verbinden|connect)/ },
@@ -78,6 +76,7 @@
       { name: "LX_MINUS", rx: /^\-(?!-)/  },
       { name: "LX_MULT",  rx: /^[*]+/     },
       { name: "LX_DIV",   rx: /^[/]+/     },
+      { name: "LX_POW",   rx: /^[^]/      },
 
     ];
 

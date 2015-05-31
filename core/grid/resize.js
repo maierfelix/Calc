@@ -100,13 +100,7 @@
     /** Reset height of all cells without a custom height */
     else cellRow.height = cellHeight + "px";
 
-    if (!this.verticalInView(Number)) {
-      if (this.Settings.resizeY) {
-        this.Settings.resizeY = false;
-      } else return void 0;
-    }
-
-    console.log(0);
+    if (!this.verticalInView(Number)) return void 0;
 
     /** Search for custom cell rows */
     for (var kk in customCell) {
@@ -148,9 +142,10 @@
 
     for (var ii = 0; ii < length; ++ii) {
 
-      if (this.customCellSizes.array[ii] === number && number >= this.Settings.scrolledY) {
-        this.Settings.resizeY = true;
-        return (true);
+      if (this.customCellSizes.array[ii] <= (this.Settings.scrolledY + (this.Settings.y + this.Settings.lastScrollY))) {
+        if (this.customCellSizes.array[ii] >= (this.Settings.scrolledY - (this.Settings.lastScrollY))) {
+          return (true);
+        }
       }
 
     }
