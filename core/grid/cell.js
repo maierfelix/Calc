@@ -75,7 +75,7 @@
      * @property FontBold
      * @type String
      */
-    this.FontBold = null;
+    this.FontBold = false;
 
     /**
      * Cell font is italic
@@ -83,7 +83,15 @@
      * @property FontItalic
      * @type String
      */
-    this.FontItalic = null;
+    this.FontItalic = false;
+
+    /**
+     * Cell font is underlined
+     *
+     * @property FontUnderlined
+     * @type String
+     */
+    this.FontUnderlined = false;
 
     /**
      * Cell has custom borders
@@ -93,21 +101,21 @@
      */
     this.Border = {
       /** Top border */
-      top: null,
+      top: false,
       /** Bottom border */
-      bottom: null,
+      bottom: false,
       /** Left border */
-      left: null,
+      left: false,
       /** Right border */
-      right: null,
+      right: false,
       /** Full bordered */
-      full: null,
+      full: false,
       /** Border style */
-      style: null,
+      style: false,
       /** Border color */
       color: null,
       /** Cell uses a custom border ? */
-      used: null
+      used: false
     };
 
   };

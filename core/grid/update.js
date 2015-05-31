@@ -201,6 +201,11 @@
       CORE.DOM.Cache[ii].style.fontStyle = "italic";
     }
 
+    /** Check if cells font is underlined */
+    if (CORE.Cells.Used[name].FontUnderlined) {
+      CORE.DOM.Cache[ii].style.textDecoration = "underline";
+    }
+
     /** Check if cell has a custom background color */
     if (CORE.Cells.Used[name].BackgroundColor) {
       CORE.DOM.Cache[ii].style.background = CORE.Cells.Used[name].BackgroundColor;
@@ -249,6 +254,7 @@
     CORE.DOM.Cache[ii].style.fontSize = 12 + "px";
     CORE.DOM.Cache[ii].style.fontStyle = "normal";
     CORE.DOM.Cache[ii].style.fontWeight = "normal";
+    CORE.DOM.Cache[ii].style.textDecoration = "none";
     CORE.DOM.Cache[ii].style.background = "#fff";
     CORE.DOM.Cache[ii].style.color = "#000";
     CORE.DOM.Cache[ii].innerHTML = "";

@@ -80,6 +80,17 @@
         CORE.DOM.ChangeFontItalicPreview.style.color = "#c7c7c7";
       }
 
+      /** Check if cell font is underlined */
+      if (CORE.Cells.Used[cell].FontUnderlined) {
+        /** Update font italic menu color */
+        CORE.DOM.ChangeFontUnderlinePreview.parentNode.style.background = "rgba(124, 59, 153, 0.2)";
+        CORE.DOM.ChangeFontUnderlinePreview.style.color = "#7d7d7d";
+      /** Reset cell font underlined menu color to default */
+      } else {
+        CORE.DOM.ChangeFontUnderlinePreview.parentNode.style.background = "#fff";
+        CORE.DOM.ChangeFontUnderlinePreview.style.color = "#c7c7c7";
+      }
+
       /** Check if cell has a custom background */
       if (CORE.Cells.Used[cell].BackgroundColor) {
         /** Update cell background color */
@@ -107,6 +118,10 @@
       CORE.DOM.ChangeFontItalicPreview.style.color = "#c7c7c7";
       /** Reset font italic menu color to default */
       CORE.DOM.ChangeFontItalicPreview.parentNode.style.background = "#fff";
+      /** Reset font underline menu color to default */
+      CORE.DOM.ChangeFontUnderlinePreview.style.color = "#c7c7c7";
+      /** Reset font underline menu color to default */
+      CORE.DOM.ChangeFontUnderlinePreview.parentNode.style.background = "#fff";
       /** Reset cell background color to default */
       CORE.DOM.ChangeCellBackground.children[0].style.background = "#fff";
       /** Reset live cell background color to default */

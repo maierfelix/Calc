@@ -145,6 +145,38 @@
 
     });
 
+    /** Initialize font underline menu item */
+    CORE.DOM.ChangeFontUnderline.addEventListener('click', function(e) {
+
+      var jumps = 0;
+
+      /** Validate all selected cells */
+      CORE.$.validateCells();
+
+      /** Loop through all selected cells */
+      for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {
+        var cellName = CORE.$.numberToAlpha(CORE.Selector.SelectedCells[ii].letter) + CORE.Selector.SelectedCells[ii].number;
+        /** User wants to disable underlined property by executing again */
+        if (CORE.Cells.Used[cellName].FontUnderlined) {
+          /** Update the font underlined */
+          CORE.Cells.Used[cellName].FontUnderlined = false;
+          /** Immediately update cells font underlined */
+          jumps = CORE.$.getCell({ letter: CORE.Selector.SelectedCells[ii].letter, number: CORE.Selector.SelectedCells[ii].number });
+          if (jumps >= 0) CORE.DOM.Output.children[jumps].style.textDecoration = "none";
+        } else {
+          /** Update the font underlined */
+          CORE.Cells.Used[cellName].FontUnderlined = true;
+          /** Immediately update cells font underlined */
+          jumps = CORE.$.getCell({ letter: CORE.Selector.SelectedCells[ii].letter, number: CORE.Selector.SelectedCells[ii].number });
+          if (jumps >= 0) CORE.DOM.Output.children[jumps].style.textDecoration = "underline";
+        }
+      }
+
+      /** Dont loose the selection */
+      CORE.Selector.getSelection();
+
+    });
+
     /** Initialize font color menu */
     CORE.DOM.ChangeFontColor.addEventListener('click', function(e) {
 

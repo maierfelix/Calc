@@ -61,6 +61,12 @@
   /** Select and prepare the font italic change container */
   CORE.DOM.ChangeFontItalicPreview = document.querySelector("#change_italic_preview");
 
+  /** Select and prepare the font underline change container */
+  CORE.DOM.ChangeFontUnderline = document.querySelector("#change_underline");
+
+  /** Select and prepare the font underline change container */
+  CORE.DOM.ChangeFontUnderlinePreview = document.querySelector("#change_underline_preview");
+
   /** Select and prepare the cell ilive cell container */
   CORE.DOM.ChangeLiveCell = document.querySelector("#change_livecell");
 
