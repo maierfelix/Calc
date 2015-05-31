@@ -15,16 +15,19 @@ This is the included documentation for the NovaeCalc project.
 Use your mouse scroll wheel to scroll the grid up and down.
 The scrolling amount depends on your screen height.
 You can also scroll with the arrow keys in single steps into all directions.
+Use the *PAGE* up and down keys to scroll a whole screen height into the given direction.
 
 ### Selecting
 Select cells by simply click on them.
 Multiple cells can be selected by dragging the mouse to a second cell.
 Press the *SHIFT* key, to select cells with your arrow keys.
+Press the *ENTER* key, to move 1 cell down.
+Press the *TAB* key, to move 1 cell to the right.
 
 ### Editing
 Edit a cells content by double click on a cell.
 You can also select a cell and directly start typing.
-Press the *ENTER* key to automatically move 1 cell down after you finished your editing.
+Press the *ENTER* key to submit your changes.
 
 ### Resizing
 You can customize cell rows and columns by move your mouse
@@ -34,11 +37,11 @@ on the letter symbol and start dragging it into the given direction.
 Cells styling can be determined by the user.
 Select one or more cells and see the menu above the cell formula input field,
 to customize a cells styling.
-Click on a styling button to append a styling. Clicking on it again reverses it.
+Click on a styling button to append a styling. Clicking on it again reverses the changes.
 
 ## Formulas
 All formulas start by a `=`.
-Everything behind will be attached to the attendant cell.
+Everything behind will be executed and attached to the attendant cell.
 
 ### Math functions
 Currently supported math functions are:
@@ -58,7 +61,8 @@ Find the lowest number of its arguments: "min",
 Find the highest number of its arguments: "max",
 Round number to the nearest integer: "round",
 Round number downwards to the nearest integer: "floor",
-Round number upwards to the nearest integer: "ceil"
+Round number upwards to the nearest integer: "ceil",
+Round a number to a nearest X integer: "roundTo"
 ```
 
 ## Projects
