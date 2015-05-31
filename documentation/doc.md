@@ -40,8 +40,10 @@ to customize a cells styling.
 Click on a styling button to append a styling. Clicking on it again reverses the changes.
 
 ## Formulas
+The interpreter of NovaeCalc's formulas is called *Engelscript*.
 All formulas start by a `=`.
 Everything behind will be executed and attached to the attendant cell.
+*Engelscript* has an automatic semicolon insertion, so it's not really necessary to finish formulas by a semicolon, but it's recommended.
 
 ### Math functions
 Currently supported math functions are:
