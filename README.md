@@ -2,8 +2,9 @@
 ![NovaeCalc](http://i.imgur.com/irzQbPn.png)
 
 # Description
-NovaeCalc is a lightning browserbased spreadsheet software.
-NovaeCalc is not stable yet.
+NovaeCalc is a lightning browserbased spreadsheet software.<br/>
+NovaeCalc is not stable yet.<br/>
+NovaeCalc runs the best on Google Chrome.
 
 ## Current state:
 
