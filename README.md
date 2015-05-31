@@ -17,6 +17,7 @@ NovaeCalc is not stable yet.
    - [x] Custom cell styles
    - [ ] Mobile friendly
    - [x] Realtime cells
+   - [ ] Insert, delete columns and rows
 
  - [ ] Functionalities
    - [x] Export projects
@@ -24,6 +25,7 @@ NovaeCalc is not stable yet.
    - [x] Import project
    - [x] Import projects saved as image
    - [ ] Backup projects into LocalStorage
+   - [ ] Undo, redo stack
    - [ ] Jump to (x, y)
    - [ ] Debug
 
@@ -33,7 +35,7 @@ NovaeCalc is not stable yet.
    - [ ] String functions
    - [x] Numeric functions
    - [ ] Statistical functions
-   - [x] Logical functions
+   - [ ] Logical functions
    - [ ] Information functions
    - [ ] Date / Time functions
    - [x] JSON processing
@@ -49,12 +51,9 @@ NovaeCalc is not stable yet.
    - [ ] Screen mirroring
 
 ## Todo:
-- [ ] Interpreter function to round X to the nearest X
 - [ ] Pow support: Math.pow => (2^2)^2, LX_POW
-- [ ] Use tabulator for horizontal cell scrolling
 
 ## Notes:
-- [ ] Speed is a core feature
 - [ ] Possibly include server-side cell calculation option
 
 ## Libraries
