@@ -234,9 +234,6 @@
       this.parentSelectedCell.Number = numberResult;
     }
 
-    this.Selected.First = this.parentSelectedCell;
-    this.Selected.Last = this.parentSelectedCell;
-
     /** Reset all key scroll axis amount */
     CORE.Grid.Settings.keyScrolledX = CORE.Grid.Settings.keyScrolledY = 0;
 
