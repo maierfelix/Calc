@@ -153,6 +153,9 @@
 
     var ii = 0;
 
+    /** Clean counter */
+    var kk = 0;
+
     var x, y = 0;
 
     var style = null;
@@ -162,7 +165,8 @@
 
     var output = "";
 
-    this.cellArray = [];
+    /** Preallocate required memory */
+    this.cellArray = new Array(this.Settings.x * this.Settings.y);
 
     this.generateMenu();
 
@@ -190,7 +194,6 @@
         style += " left:" + x + "px; top: " + y + "px;";
 
         /** !Evil DOM Content */
-        //output += '<' + this.Templates.Cell.element + ' name="' + Letter + Number + '" id="' + ii + '" class="' + this.Templates.Cell.class + '" style="' + style + '">' + Letter + Number + '</' + this.Templates.Cell.element + '>';
         output += '<' + this.Templates.Cell.element + ' name="' + Letter + Number + '" id="' + ii + '" class="' + this.Templates.Cell.class + '" style="' + style + '">';
         /** Check if cell contains custom content */
         if (CORE.Cells.Used[Letter + Number]) {
@@ -202,7 +205,7 @@
         if (ii % this.Settings.y === 0) Number = 0;
 
         /** Save current user view */
-        this.cellArray.push({
+        this.cellArray[kk] = {
           id: ii,
           x: xx,
           y: yy,
@@ -214,7 +217,9 @@
           origTop: y,
           /** Original left position */
           origLeft: x
-        });
+        };
+
+        kk++;
 
       }
 

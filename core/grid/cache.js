@@ -26,12 +26,12 @@
 
     CORE.DOM.Cache = {};
 
-    /** Used for faster iteration */
-    CORE.DOM.CacheArray = [];
+    /** Used for faster iteration, also preallocate required memory */
+    CORE.DOM.CacheArray = new Array(childLength);
 
     for (var ii = 0; ii < childLength; ++ii) {
       CORE.DOM.Cache[ii] = children[ii];
-      CORE.DOM.CacheArray.push(children[ii]);
+      CORE.DOM.CacheArray[ii] = children[ii];
     }
 
   };
