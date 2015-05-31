@@ -34,80 +34,54 @@
       right: []
     };
 
-    var jumps = 0;
-
     var cacheTarget = "";
 
     /** Minimum field size: 2x2 */
-    if (height >= 2 && width >= 2) {
-
-      for (var ii = 0; ii < this.SelectedCells.length; ++ii) {
-        /** Get outer left */
-        if (first.Letter === this.SelectedCells[ii].letter) {
-          object.left.push(this.SelectedCells[ii]);
-        }
-        /** Get outer right */
-        if (last.Letter === this.SelectedCells[ii].letter) {
-          object.right.push(this.SelectedCells[ii]);
-        }
-        /** Get outer top */
-        if (first.Number === this.SelectedCells[ii].number) {
-          object.top.push(this.SelectedCells[ii]);
-        }
-        /** Get outer bottom */
-        if (last.Number === this.SelectedCells[ii].number) {
-          object.bottom.push(this.SelectedCells[ii]);
-        }
+    for (var ii = 0; ii < this.SelectedCells.length; ++ii) {
+      /** Get outer left */
+      if (first.Letter === this.SelectedCells[ii].letter) {
+        object.left.push(this.SelectedCells[ii]);
       }
-
-      /** Top */
-      for (var ii = 0; ii < object.top.length; ++ii) {
-        cacheTarget = CORE.Cells.Used[CORE.$.numberToAlpha(object.top[ii].letter) + object.top[ii].number];
-        cacheTarget.Border.used = true;
-        cacheTarget.Border.top = true;
-        jumps = CORE.$.getCell({ letter: object.top[ii].letter, number: object.top[ii].number });
-        /** Update top border */
-        if (jumps >= 0) {
-          
-        }
+      /** Get outer right */
+      if (last.Letter === this.SelectedCells[ii].letter) {
+        object.right.push(this.SelectedCells[ii]);
       }
-
-      /** Bottom */
-      for (var ii = 0; ii < object.bottom.length; ++ii) {
-        cacheTarget = CORE.Cells.Used[CORE.$.numberToAlpha(object.bottom[ii].letter) + object.bottom[ii].number];
-        cacheTarget.Border.used = true;
-        cacheTarget.Border.bottom = true;
-        jumps = CORE.$.getCell({ letter: object.bottom[ii].letter, number: object.bottom[ii].number });
-        /** Update bottom border */
-        if (jumps >= 0) {
-          
-        }
+      /** Get outer top */
+      if (first.Number === this.SelectedCells[ii].number) {
+        object.top.push(this.SelectedCells[ii]);
       }
-
-      /** Left */
-      for (var ii = 0; ii < object.left.length; ++ii) {
-        cacheTarget = CORE.Cells.Used[CORE.$.numberToAlpha(object.left[ii].letter) + object.left[ii].number];
-        cacheTarget.Border.used = true;
-        cacheTarget.Border.left = true;
-        jumps = CORE.$.getCell({ letter: object.left[ii].letter, number: object.left[ii].number });
-        /** Update left border */
-        if (jumps >= 0) {
-          
-        }
+      /** Get outer bottom */
+      if (last.Number === this.SelectedCells[ii].number) {
+        object.bottom.push(this.SelectedCells[ii]);
       }
+    }
 
-      /** Right */
-      for (var ii = 0; ii < object.right.length; ++ii) {
-        cacheTarget = CORE.Cells.Used[CORE.$.numberToAlpha(object.right[ii].letter) + object.right[ii].number];
-        cacheTarget.Border.used = true;
-        cacheTarget.Border.right = true;
-        jumps = CORE.$.getCell({ letter: object.right[ii].letter, number: object.right[ii].number });
-        /** Update right border */
-        if (jumps >= 0) {
-          
-        }
-      }
+    /** Top */
+    for (var ii = 0; ii < object.top.length; ++ii) {
+      cacheTarget = CORE.Cells.Used[CORE.$.numberToAlpha(object.top[ii].letter) + object.top[ii].number];
+      cacheTarget.Border.used = true;
+      cacheTarget.Border.top = true;
+    }
 
+    /** Bottom */
+    for (var ii = 0; ii < object.bottom.length; ++ii) {
+      cacheTarget = CORE.Cells.Used[CORE.$.numberToAlpha(object.bottom[ii].letter) + object.bottom[ii].number];
+      cacheTarget.Border.used = true;
+      cacheTarget.Border.bottom = true;
+    }
+
+    /** Left */
+    for (var ii = 0; ii < object.left.length; ++ii) {
+      cacheTarget = CORE.Cells.Used[CORE.$.numberToAlpha(object.left[ii].letter) + object.left[ii].number];
+      cacheTarget.Border.used = true;
+      cacheTarget.Border.left = true;
+    }
+
+    /** Right */
+    for (var ii = 0; ii < object.right.length; ++ii) {
+      cacheTarget = CORE.Cells.Used[CORE.$.numberToAlpha(object.right[ii].letter) + object.right[ii].number];
+      cacheTarget.Border.used = true;
+      cacheTarget.Border.right = true;
     }
 
     CORE.Grid.updateWidth("default");
