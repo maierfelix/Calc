@@ -307,24 +307,30 @@
         CORE.Grid.Settings.scrolledY += CORE.Settings.Scroll.Vertical;
         CORE.Grid.Settings.lastScrollY = CORE.Settings.Scroll.Vertical;
         CORE.Grid.updateHeight("down", CORE.Settings.Scroll.Vertical);
-        CORE.Grid.updateMenu();
-        CORE.Selector.getSelection();
       }
       else if (direction === "up") {
         if (CORE.Grid.Settings.scrolledY - CORE.Settings.Scroll.Vertical <= 0) {
           CORE.Grid.Settings.scrolledY = 0;
           CORE.Grid.Settings.lastScrollY = 0;
           CORE.Grid.updateHeight("default", CORE.Settings.Scroll.Vertical);
-          CORE.Grid.updateMenu();
-          CORE.Selector.getSelection();
         }
         else if (CORE.Grid.Settings.scrolledY - CORE.Settings.Scroll.Vertical >= 0) {
           CORE.Grid.Settings.scrolledY -= CORE.Settings.Scroll.Vertical;
           CORE.Grid.Settings.lastScrollY = CORE.Settings.Scroll.Vertical;
           CORE.Grid.updateHeight("up", CORE.Settings.Scroll.Vertical);
-          CORE.Grid.updateMenu();
-          CORE.Selector.getSelection();
         }
+      }
+
+      /** Make sure user scrolled */
+      if (direction) {
+        /** Update menu, get new selection */
+        CORE.Grid.updateMenu();
+        CORE.Selector.getSelection();
+
+        /** Simulate mouse move to display the scrolled selection */
+        CORE.Input.Mouse.lastMousePosition.x = Math.random();
+        CORE.Input.Mouse.lastMousePosition.y = Math.random();
+        CORE.Event.mouseWipe(e);
       }
 
       this.lastMouseScroll = e.timeStamp;

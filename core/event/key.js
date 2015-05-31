@@ -38,6 +38,48 @@
     /** User edits a live cells url */
     if (CORE.Input.Mouse.LiveCellEdit) return void 0;
 
+    /** Prevent line breaks on user input */
+    if (e.keyCode === 13) {
+      e.preventDefault();
+      CORE.Event.pressedEnter(e.keyCode);
+    }
+
+    /** User pressed the [SHIFT] key */
+    if (e.keyCode === 16) {
+      e.preventDefault();
+      CORE.Input.Keyboard.Shift = true;
+      return void 0;
+    }
+
+    /** User pressed the [STRG] key */
+    if (e.keyCode === 17) {
+      e.preventDefault();
+      CORE.Input.Keyboard.Strg = true;
+      return void 0;
+    }
+
+    /** User pressed the [Tab] key */
+    if (e.keyCode === 9) {
+      e.preventDefault();
+      CORE.Input.Keyboard.Tab = true;
+      CORE.Event.navigateTo("right", 1);
+      return void 0;
+    }
+
+    /** User pressed the [PAGE_UP] key */
+    if (e.keyCode === 33) {
+      e.preventDefault();
+      CORE.Selector.jump("up", CORE.Grid.Settings.y);
+      return void 0;
+    }
+
+    /** User pressed the [PAGE_DOWN] key */
+    if (e.keyCode === 34) {
+      e.preventDefault();
+      CORE.Selector.jump("down", CORE.Grid.Settings.y);
+      return void 0;
+    }
+
     /** Handle arrow keys */
     switch (e.keyCode) {
       /** [UP] */
@@ -82,34 +124,6 @@
         this.lastKeyPress = e.timeStamp - 100;
         CORE.Event.lastAction.scrollY = false;
         return void 0;
-    }
-
-    /** Prevent line breaks on user input */
-    if (e.keyCode === 13) {
-      e.preventDefault();
-      CORE.Event.pressedEnter(e.keyCode);
-    }
-
-    /** User pressed the [SHIFT] key */
-    if (e.keyCode === 16) {
-      e.preventDefault();
-      CORE.Input.Keyboard.Shift = true;
-      return void 0;
-    }
-
-    /** User pressed the [STRG] key */
-    if (e.keyCode === 17) {
-      e.preventDefault();
-      CORE.Input.Keyboard.Strg = true;
-      return void 0;
-    }
-
-    /** User pressed the [Tab] key */
-    if (e.keyCode === 9) {
-      e.preventDefault();
-      CORE.Input.Keyboard.Tab = true;
-      CORE.Event.navigateTo("right", 1);
-      return void 0;
     }
 
     /** Check if user edits a cell */

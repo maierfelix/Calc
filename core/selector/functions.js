@@ -113,3 +113,28 @@
     CORE.Grid.updateWidth("default");
 
   };
+
+  /**
+   * Jump a specific amount into a specific axis
+   *
+   * @method jump
+   * @static
+   */
+  CORE.Selector.prototype.jump = function(direction, amount) {
+
+    switch (direction) {
+      case "up":
+        CORE.Grid.Settings.scrolledY -= amount >= 0 ? (amount - 1) : 0;
+        break;
+      case "down":
+        CORE.Grid.Settings.scrolledY += (amount - 1);
+        break;
+    }
+
+    CORE.Grid.updateHeight(direction, amount);
+    CORE.Grid.updateMenu();
+    CORE.Selector.getSelection();
+    CORE.Selector.selectCellByKeyPress();
+    CORE.Event.lastAction.scrollY = true;
+
+  };
