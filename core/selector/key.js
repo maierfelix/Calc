@@ -92,7 +92,10 @@
       CORE.Cells.Selected.First = CORE.Cells.Select;
 
       /** Update last selected cell */
-      CORE.Cells.Selected.Last = letter + number;
+      CORE.Cells.Selected.Last = {
+        Letter: letter,
+        Number: number
+      };
 
       /** Proccess the new selection */
       CORE.Selector.getSelection();
