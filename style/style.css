@@ -7,7 +7,7 @@ body {
 }
 
 #container {
-	outline:none;
+  outline:none;
 }
 
 #menu_dialogs {
@@ -32,6 +32,7 @@ body {
   left: -1px;
   top: 100px;
   border-right: none !important;
+  z-index: 9;
 }
 
 #change_background {
@@ -47,15 +48,15 @@ body {
 }
 
 .formula_input {
-	height: 25px;
-	width: 480px;
-	border: 1px solid #7c3b99;
-	padding-left: 5px;
-	color: #000;
+  height: 25px;
+  width: 480px;
+  border: 1px solid #7c3b99;
+  padding-left: 5px;
+  color: #000;
 }
 
 .formula_input:focus {
-	-webkit-box-shadow: 0 3px 5px rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0 3px 5px rgba(0,0,0,0.4);
   -moz-box-shadow: 0 3px 5px rgba(0,0,0,0.4);
   box-shadow: 0 3px 5px rgba(0,0,0,0.4);
 }
@@ -70,6 +71,7 @@ body {
   top: 25px;
   border-top: 1px solid #000;
   height: 45px !important;
+  z-index: 9;
 }
 
 .body_container {
@@ -77,6 +79,7 @@ body {
   overflow: hidden;
   bottom: 0px;
   width: 100%;
+  height: 100%;
   left: 50px;
   top: 125px;
 }
@@ -96,7 +99,7 @@ body {
   left: 0px;
   width: 50px;
   height: 100%;
-  z-index: 3;
+  z-index: 1;
 }
 
 .menu_bright {
@@ -379,6 +382,28 @@ body {
   -webkit-transform: translate(-50%,-50%);
   -ms-transform: translate(-50%,-50%);
   transform: translate(-50%,-50%);
-	border: 2px solid #7c3b99;
+  border: 2px solid #7c3b99;
   padding: 10px;
+}
+
+.moveUp {
+  -webkit-transform: translate3d(0px, -25px, 0px);
+  -moz-transform: translate3d(0px, -25px, 0px);
+  -ms-transform: translate3d(0px, -25px, 0px);
+  transform: translate3d(0px, -25px, 0px);
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.moveDown {
+  -webkit-transform: translate3d(0px, 25px, 0px);
+  -moz-transform: translate3d(0px, 25px, 0px);
+  -ms-transform: translate3d(0px, 25px, 0px);
+  transform: translate3d(0px, 25px, 0px);
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }

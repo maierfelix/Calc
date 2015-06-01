@@ -118,7 +118,7 @@
 
     /** - to + conversion */
     this.Settings.x = ( ~ this.Settings.x + 1 ) + 1;
-    this.Settings.y = ( ~ this.Settings.y + 1 ) - 4;
+    this.Settings.y = ( ~ this.Settings.y + 1 ) - 3;
 
   };
 

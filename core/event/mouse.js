@@ -269,6 +269,8 @@
     /** Update empty timestamp */
     if (!this.lastMouseScroll) this.lastMouseScroll = e.timeStamp;
 
+    var calcDifference = Math.floor(CORE.Grid.Settings.y * 1.5);
+
     /** Handle timestamps */
     if (this.lastMouseScroll > 0) {
 
@@ -276,7 +278,7 @@
       var difference = e.timeStamp - this.lastMouseScroll;
 
       /** Scroll increment, if user scrolls fast */
-      if (difference <= Math.floor(CORE.Grid.Settings.y * 1.5)) {
+      if (difference <= calcDifference) {
         CORE.Settings.Scroll.Vertical += Math.floor(CORE.Settings.Scroll.OriginalVertical / 1.25);
       /** Otherwise, reset scroll amount */
       } else {
@@ -314,6 +316,19 @@
       if (direction === "down") {
         CORE.Grid.Settings.scrolledY += CORE.Settings.Scroll.Vertical;
         CORE.Grid.Settings.lastScrollY = CORE.Settings.Scroll.Vertical;
+
+        /** Animate */
+        if (difference > calcDifference * 2) {
+          CORE.DOM.Output.classList.remove("moveDown");
+          CORE.DOM.VerticalMenu.classList.remove("moveDown");
+          CORE.DOM.Output.classList.remove("moveUp");
+          CORE.DOM.VerticalMenu.classList.remove("moveUp");
+          setTimeout( function() {
+            CORE.DOM.Output.classList.add("moveUp");
+            CORE.DOM.VerticalMenu.classList.add("moveUp");
+          }, 55);
+        }
+
         CORE.Grid.updateHeight("down", CORE.Settings.Scroll.Vertical);
       }
       else if (direction === "up") {
@@ -321,12 +336,37 @@
           CORE.Grid.Settings.scrolledY = 0;
           CORE.Grid.Settings.lastScrollY = 0;
           CORE.Grid.updateHeight("default", CORE.Settings.Scroll.Vertical);
+
+          /** Animate */
+          CORE.DOM.Output.classList.remove("moveDown");
+          CORE.DOM.VerticalMenu.classList.remove("moveDown");
+          CORE.DOM.Output.classList.remove("moveUp");
+          CORE.DOM.VerticalMenu.classList.remove("moveUp");
+          CORE.DOM.Output.style.top = "0px";
+          CORE.DOM.VerticalMenu.style.top = "100px";
+
         }
         else if (CORE.Grid.Settings.scrolledY - CORE.Settings.Scroll.Vertical >= 0) {
           CORE.Grid.Settings.scrolledY -= CORE.Settings.Scroll.Vertical;
           CORE.Grid.Settings.lastScrollY = CORE.Settings.Scroll.Vertical;
           CORE.Grid.updateHeight("up", CORE.Settings.Scroll.Vertical);
+
+          /** Animate */
+          if (difference > calcDifference * 2) {
+            CORE.DOM.Output.classList.remove("moveDown");
+            CORE.DOM.VerticalMenu.classList.remove("moveDown");
+            CORE.DOM.Output.classList.remove("moveUp");
+            CORE.DOM.VerticalMenu.classList.remove("moveUp");
+            setTimeout( function() {
+              CORE.DOM.Output.classList.add("moveDown");
+              CORE.DOM.VerticalMenu.classList.add("moveDown");
+              CORE.DOM.Output.style.top = "-25px";
+              CORE.DOM.VerticalMenu.style.top = "75px";
+            }, 1);
+          }
+
         }
+
       }
 
       /** Make sure user scrolled */
