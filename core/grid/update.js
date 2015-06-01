@@ -127,9 +127,10 @@
                 CORE.DOM.Output.children[calculation].setAttribute("name", Letter + calculation);
 
                 /** Check if cell is registered, if yes update its styling */
-                if (CORE.Cells.Used[Letter] && [Letter + calculation]) {
+                /* Seems like not necessary */
+                /*if (CORE.Cells.Used[Letter] && [Letter + calculation]) {
                   this.updateCellStyling(Letter, Letter + calculation, calculation);
-                }
+                }*/
 
               }
             }

@@ -231,9 +231,8 @@
             CORE.Cells.Selected.Last.Letter &&
             CORE.Cells.Selected.Last.Number) {
           /** Cell was never edited */
-          if (CORE.Cells.Used[CORE.$.numberToAlpha(letter)]) {
-            if (!CORE.Cells.Used[CORE.$.numberToAlpha(letter)][cellName]) CORE.Selector.getSelection();
-          }
+          if (!CORE.Cells.Used[CORE.$.numberToAlpha(letter)]) CORE.Selector.getSelection();
+          else if (!CORE.Cells.Used[CORE.$.numberToAlpha(letter)][cellName]) CORE.Selector.getSelection();
           /** Cell is in edited state */
           else {
             CORE.Grid.cleanEditSelection();
