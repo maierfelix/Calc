@@ -196,8 +196,8 @@
         /** !Evil DOM Content */
         output += '<' + this.Templates.Cell.element + ' name="' + Letter + Number + '" id="' + ii + '" class="' + this.Templates.Cell.class + '" style="' + style + '">';
         /** Check if cell contains custom content */
-        if (CORE.Cells.Used[Letter + Number]) {
-          output += CORE.Cells.Used[Letter + Number].Content;
+        if (CORE.Cells.Used[Letter] && CORE.Cells.Used[Letter][Letter + Number]) {
+          output += CORE.Cells.Used[Letter][Letter + Number].Content;
         }
         output += '</' + this.Templates.Cell.element + '>';
 

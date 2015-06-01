@@ -28,23 +28,28 @@
     var result = 0;
 
     for (var ii in cells) {
-      /** Cell has a formula */
-      if (cells[ii].Formula && cells[ii].Formula.length) {
-        formulas.push({
-          name: ii,
-          /** Validate formula, add the parent cell value before the formula to emulate a variable assignment */
-          value: (cells[ii].Formula.substr(0, 0) + ii + cells[ii].Formula.substr(0))
-        });
+      for (var kk in cells[ii]) {
+        /** Cell has a formula */
+        if (cells[ii][kk].Formula && cells[ii][kk].Formula.length) {
+          formulas.push({
+            name: kk,
+            /** Validate formula, add the parent cell value before the formula to emulate a variable assignment */
+            value: (cells[ii][kk].Formula.substr(0, 0) + kk + cells[ii][kk].Formula.substr(0))
+          });
+        }
       }
     }
 
     if (formulas && formulas.length) {
       /** Process all formulas found */
       for (var ii = 0; ii < formulas.length; ++ii) {
+
+        var letter = formulas[ii].name.match(CORE.REGEX.numbers).join("");
+
         /** Receive the result */
         result = ENGEL.interpret(formulas[ii].value).VAR[formulas[ii].name].value.value;
         /** Update used cell stack content */
-        CORE.Cells.Used[formulas[ii].name].Content = result;
+        CORE.Cells.Used[letter][formulas[ii].name].Content = result;
 
         var name = formulas[ii].name;
         var letter = CORE.$.alphaToNumber(name.match(CORE.REGEX.numbers).join(""));
@@ -122,7 +127,12 @@
    * @static
    */
   CORE.registerCell = function() {
-    CORE.Cells.Used[arguments[0]] = new CORE.Grid.Cell();
+
+    var letter = arguments[0].match(CORE.REGEX.numbers).join("");
+    var number = arguments[0].match(CORE.REGEX.letters).join("");
+
+    CORE.$.registerCell({ letter: letter, number: number });
+
     /** Register the cell into the interpreter variable stack */
     CORE.registerCellVariable(arguments[0]);
   };

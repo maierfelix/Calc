@@ -212,11 +212,9 @@
       /** Valid cell selection */
       if (letter && number > 0) {
         /** Cell is not used yet */
-        if (!CORE.Cells.Used[letter + number]) {
-          CORE.Cells.Used[letter + number] = new CORE.Grid.Cell();
-        }
+        CORE.$.registerCell({ letter: letter, number: number });
         /** Cell was successfully registered ? */
-        if (CORE.Cells.Used[letter + number]) return (true);
+        if (CORE.Cells.Used[letter][letter + number]) return (true);
       }
 
     }
@@ -236,8 +234,32 @@
 
     /** Loop through all selected cells */
     for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {
-      var name = CORE.$.numberToAlpha(CORE.Selector.SelectedCells[ii].letter) + CORE.Selector.SelectedCells[ii].number;
-      if (!CORE.Cells.Used[name]) CORE.Cells.Used[name] = new CORE.Grid.Cell();
+      var letter = CORE.$.numberToAlpha(CORE.Selector.SelectedCells[ii].letter);
+      var number = CORE.Selector.SelectedCells[ii].number;
+      CORE.$.registerCell({ letter: letter, number: number });
+    }
+
+  };
+
+  /**
+   * Register a used cell
+   *
+   * @method registerCell
+   * @static
+   */
+  CORE.$.registerCell = function(object) {
+
+    var letter = object.letter;
+    var number = object.number;
+    var name = letter + number;
+
+    if (CORE.Cells.Used[letter]) {
+      if (!CORE.Cells.Used[letter][name]) {
+        CORE.Cells.Used[letter][name] = new CORE.Grid.Cell();
+      }
+    } else {
+      CORE.Cells.Used[letter] = {};
+      CORE.Cells.Used[letter][name] = new CORE.Grid.Cell();
     }
 
   };

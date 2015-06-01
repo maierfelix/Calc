@@ -142,7 +142,9 @@
         }
 
         /** Clean edited cells only if the current selected cell isn't edited */
-        if (!CORE.Cells.Used[cellName]) CORE.Grid.cleanEditSelection();
+        if (CORE.Cells.Used[CORE.$.numberToAlpha(letter)]) {
+          if (!CORE.Cells.Used[CORE.$.numberToAlpha(letter)][cellName]) CORE.Grid.cleanEditSelection();
+        }
 
     /** User selected another cell, delete edited cell */
     } else if (CORE.Input.Mouse.Edit) {
@@ -229,7 +231,9 @@
             CORE.Cells.Selected.Last.Letter &&
             CORE.Cells.Selected.Last.Number) {
           /** Cell was never edited */
-          if (!CORE.Cells.Used[cellName]) CORE.Selector.getSelection();
+          if (CORE.Cells.Used[CORE.$.numberToAlpha(letter)]) {
+            if (!CORE.Cells.Used[CORE.$.numberToAlpha(letter)][cellName]) CORE.Selector.getSelection();
+          }
           /** Cell is in edited state */
           else {
             CORE.Grid.cleanEditSelection();
@@ -238,7 +242,9 @@
         }
 
         /** Clean edited cells only if the current selected cell isn't edited */
-        if (!CORE.Cells.Used[cellName]) CORE.Grid.cleanEditSelection();
+        if (CORE.Cells.Used[CORE.$.numberToAlpha(letter)]) {
+          if (CORE.Cells.Used[CORE.$.numberToAlpha(letter)][cellName]) CORE.Grid.cleanEditSelection();
+        }
 
       }
 

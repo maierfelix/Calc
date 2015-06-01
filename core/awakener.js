@@ -112,10 +112,12 @@
    */
   CORE.Awakener.prototype.processData = function(name) {
 
+    var letter = name.match(CORE.REGEX.numbers).join("");
+
     /** Check if we go some data */
     if (CORE.Cells.Live[name].Data && CORE.Cells.Live[name].Data.length) {
       /** Try to attach it to its attendant cell */
-      if (!CORE.Cells.Used[name]) CORE.registerCell(name);
+      if (!CORE.Cells.Used[letter][name]) CORE.registerCell(name);
       /** If data is JSON, parse and attach it */
       if (CORE.$.isJSON(CORE.Cells.Live[name].Data)) {
         CORE.Cells.Live[name].Data = JSON.parse(CORE.Cells.Live[name].Data);

@@ -31,10 +31,11 @@
 
       /** Loop through all selected cells */
       for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {
-        var cellName = CORE.$.numberToAlpha(CORE.Selector.SelectedCells[ii].letter) + CORE.Selector.SelectedCells[ii].number;
+        var letter = CORE.$.numberToAlpha(CORE.Selector.SelectedCells[ii].letter);
+        var cellName = letter + CORE.Selector.SelectedCells[ii].number;
         /** Update the font */
-        if (CORE.Cells.Used[cellName]) {
-          CORE.Cells.Used[cellName].Font = e.target.value;
+        if (CORE.Cells.Used[letter][cellName]) {
+          CORE.Cells.Used[letter][cellName].Font = e.target.value;
           /** Immediately update cells font */
           jumps = CORE.$.getCell({ letter: CORE.Selector.SelectedCells[ii].letter, number: CORE.Selector.SelectedCells[ii].number });
           if (jumps >= 0) CORE.DOM.Output.children[jumps].style.fontFamily = e.target.children[e.target.selectedIndex].getAttribute("value");
@@ -62,9 +63,10 @@
 
       /** Loop through all selected cells */
       for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {
-        var cellName = CORE.$.numberToAlpha(CORE.Selector.SelectedCells[ii].letter) + CORE.Selector.SelectedCells[ii].number;
+        var letter = CORE.$.numberToAlpha(CORE.Selector.SelectedCells[ii].letter);
+        var cellName = letter + CORE.Selector.SelectedCells[ii].number;
         /** Update the font size */
-        CORE.Cells.Used[cellName].FontSize = ~~(e.target.value);
+        CORE.Cells.Used[letter][cellName].FontSize = ~~(e.target.value);
         /** Immediately update cells font size */
         jumps = CORE.$.getCell({ letter: CORE.Selector.SelectedCells[ii].letter, number: CORE.Selector.SelectedCells[ii].number });
         if (jumps >= 0) CORE.DOM.Output.children[jumps].style.fontSize = e.target.children[e.target.selectedIndex].getAttribute("value") + "px";
@@ -91,17 +93,18 @@
 
       /** Loop through all selected cells */
       for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {
-        var cellName = CORE.$.numberToAlpha(CORE.Selector.SelectedCells[ii].letter) + CORE.Selector.SelectedCells[ii].number;
+        var letter = CORE.$.numberToAlpha(CORE.Selector.SelectedCells[ii].letter);
+        var cellName = letter + CORE.Selector.SelectedCells[ii].number;
         /** User wants to disable bold property by executing again */
-        if (CORE.Cells.Used[cellName].FontBold) {
+        if (CORE.Cells.Used[letter][cellName].FontBold) {
           /** Update the font bold */
-          CORE.Cells.Used[cellName].FontBold = false;
+          CORE.Cells.Used[letter][cellName].FontBold = false;
           /** Immediately update cells font bold */
           jumps = CORE.$.getCell({ letter: CORE.Selector.SelectedCells[ii].letter, number: CORE.Selector.SelectedCells[ii].number });
           if (jumps >= 0) CORE.DOM.Output.children[jumps].style.fontWeight = "normal";
         } else {
           /** Update the font bold */
-          CORE.Cells.Used[cellName].FontBold = true;
+          CORE.Cells.Used[letter][cellName].FontBold = true;
           /** Immediately update cells font bold */
           jumps = CORE.$.getCell({ letter: CORE.Selector.SelectedCells[ii].letter, number: CORE.Selector.SelectedCells[ii].number });
           if (jumps >= 0) CORE.DOM.Output.children[jumps].style.fontWeight = "bold";
@@ -123,17 +126,18 @@
 
       /** Loop through all selected cells */
       for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {
-        var cellName = CORE.$.numberToAlpha(CORE.Selector.SelectedCells[ii].letter) + CORE.Selector.SelectedCells[ii].number;
+        var letter = CORE.$.numberToAlpha(CORE.Selector.SelectedCells[ii].letter);
+        var cellName = letter + CORE.Selector.SelectedCells[ii].number;
         /** User wants to disable italic property by executing again */
-        if (CORE.Cells.Used[cellName].FontItalic) {
+        if (CORE.Cells.Used[letter][cellName].FontItalic) {
           /** Update the font italic */
-          CORE.Cells.Used[cellName].FontItalic = false;
+          CORE.Cells.Used[letter][cellName].FontItalic = false;
           /** Immediately update cells font italic */
           jumps = CORE.$.getCell({ letter: CORE.Selector.SelectedCells[ii].letter, number: CORE.Selector.SelectedCells[ii].number });
           if (jumps >= 0) CORE.DOM.Output.children[jumps].style.fontStyle = "normal";
         } else {
           /** Update the font italic */
-          CORE.Cells.Used[cellName].FontItalic = true;
+          CORE.Cells.Used[letter][cellName].FontItalic = true;
           /** Immediately update cells font italic */
           jumps = CORE.$.getCell({ letter: CORE.Selector.SelectedCells[ii].letter, number: CORE.Selector.SelectedCells[ii].number });
           if (jumps >= 0) CORE.DOM.Output.children[jumps].style.fontStyle = "italic";
@@ -155,17 +159,18 @@
 
       /** Loop through all selected cells */
       for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {
-        var cellName = CORE.$.numberToAlpha(CORE.Selector.SelectedCells[ii].letter) + CORE.Selector.SelectedCells[ii].number;
+        var letter = CORE.$.numberToAlpha(CORE.Selector.SelectedCells[ii].letter);
+        var cellName = letter + CORE.Selector.SelectedCells[ii].number;
         /** User wants to disable underlined property by executing again */
-        if (CORE.Cells.Used[cellName].FontUnderlined) {
+        if (CORE.Cells.Used[letter][cellName].FontUnderlined) {
           /** Update the font underlined */
-          CORE.Cells.Used[cellName].FontUnderlined = false;
+          CORE.Cells.Used[letter][cellName].FontUnderlined = false;
           /** Immediately update cells font underlined */
           jumps = CORE.$.getCell({ letter: CORE.Selector.SelectedCells[ii].letter, number: CORE.Selector.SelectedCells[ii].number });
           if (jumps >= 0) CORE.DOM.Output.children[jumps].style.textDecoration = "none";
         } else {
           /** Update the font underlined */
-          CORE.Cells.Used[cellName].FontUnderlined = true;
+          CORE.Cells.Used[letter][cellName].FontUnderlined = true;
           /** Immediately update cells font underlined */
           jumps = CORE.$.getCell({ letter: CORE.Selector.SelectedCells[ii].letter, number: CORE.Selector.SelectedCells[ii].number });
           if (jumps >= 0) CORE.DOM.Output.children[jumps].style.textDecoration = "underline";
@@ -202,9 +207,10 @@
 
       /** Loop through all selected cells */
       for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {
-        var cellName = CORE.$.numberToAlpha(CORE.Selector.SelectedCells[ii].letter) + CORE.Selector.SelectedCells[ii].number;
+        var letter = CORE.$.numberToAlpha(CORE.Selector.SelectedCells[ii].letter);
+        var cellName = letter + CORE.Selector.SelectedCells[ii].number;
         /** Update the font color */
-        CORE.Cells.Used[cellName].Color = pickers.children[0].style.background;
+        CORE.Cells.Used[letter][cellName].Color = pickers.children[0].style.background;
         /** Immediately update cells font color */
         jumps = CORE.$.getCell({ letter: CORE.Selector.SelectedCells[ii].letter, number: CORE.Selector.SelectedCells[ii].number });
         if (jumps >= 0) CORE.DOM.Output.children[jumps].style.color = pickers.children[0].style.background;

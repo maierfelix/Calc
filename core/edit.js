@@ -44,21 +44,21 @@
       element.classList.add("cell_edit");
 
       /** Register new cell */
-      if (!CORE.Cells.Used[newLetter + newNumber]) {
+      if (!CORE.Cells.Used[newLetter]) {
         CORE.registerCell(newLetter + newNumber);
-      }
+      } else if (!CORE.Cells.Used[newLetter][newLetter + newNumber]) CORE.registerCell(newLetter + newNumber);
 
       /** Cell was successfully registered */
-      if (CORE.Cells.Used[newLetter + newNumber]) {
+      if (CORE.Cells.Used[newLetter] && CORE.Cells.Used[newLetter][newLetter + newNumber]) {
         /** Cell was successfully registered into the interpreter cell stack */
         if (CORE.validCell(newLetter + newNumber)) {
           /** Cell has a formula */
-          if (CORE.Cells.Used[newLetter + newNumber].Formula && 
-              CORE.Cells.Used[newLetter + newNumber].Formula.length) {
+          if (CORE.Cells.Used[newLetter][newLetter + newNumber].Formula && 
+              CORE.Cells.Used[newLetter][newLetter + newNumber].Formula.length) {
             /** Cell formula doesnt match with its content (seems like we got a calculation result) */
-            if (CORE.Cells.Used[newLetter + newNumber].Formula !== CORE.Cells.Used[newLetter + newNumber].Content) {
+            if (CORE.Cells.Used[newLetter][newLetter + newNumber].Formula !== CORE.Cells.Used[newLetter][newLetter + newNumber].Content) {
               /** Disgorge the formula */
-              element.innerHTML = CORE.Cells.Used[newLetter + newNumber].Formula;
+              element.innerHTML = CORE.Cells.Used[newLetter][newLetter + newNumber].Formula;
               /** Move cursor to end of cell content text */
               this.goToEndOfCellText();
             }
@@ -68,12 +68,12 @@
           /** Register the cell into the interpreter variable stack */
           CORE.registerCellVariable(newLetter + newNumber);
           /** Cell has a formula */
-          if (CORE.Cells.Used[newLetter + newNumber].Formula && 
-              CORE.Cells.Used[newLetter + newNumber].Formula.length) {
+          if (CORE.Cells.Used[newLetter][newLetter + newNumber].Formula && 
+              CORE.Cells.Used[newLetter][newLetter + newNumber].Formula.length) {
             /** Cell formula doesnt match with its content (seems like we got a calculation result) */
-            if (CORE.Cells.Used[newLetter + newNumber].Formula !== CORE.Cells.Used[newLetter + newNumber].Content) {
+            if (CORE.Cells.Used[newLetter][newLetter + newNumber].Formula !== CORE.Cells.Used[newLetter][newLetter + newNumber].Content) {
               /** Disgorge the formula */
-              element.innerHTML = CORE.Cells.Used[newLetter + newNumber].Formula;
+              element.innerHTML = CORE.Cells.Used[newLetter][newLetter + newNumber].Formula;
               /** Move cursor to end of cell content text */
               this.goToEndOfCellText();
             }
@@ -122,15 +122,15 @@
       }
 
       /** Cell was successfully registered */
-      if (CORE.Cells.Used[letter + number]) {
+      if (CORE.Cells.Used[letter] && CORE.Cells.Used[letter][letter + number]) {
         /** Cell has a formula */
-        if (CORE.Cells.Used[letter + number].Formula && 
-            CORE.Cells.Used[letter + number].Formula.length) {
+        if (CORE.Cells.Used[letter][letter + number].Formula && 
+            CORE.Cells.Used[letter][letter + number].Formula.length) {
           /** Cell formula doesnt match with its content (seems like we got a calculation result) */
-          if (CORE.Cells.Used[letter + number].Formula !== CORE.Cells.Used[letter + number].Content) {
+          if (CORE.Cells.Used[letter][letter + number].Formula !== CORE.Cells.Used[letter][letter + number].Content) {
             /** Disgorge the formula */
             jumps = CORE.$.getCell({ letter: letter, number: number });
-            if (jumps >= 0) CORE.DOM.Output.children[jumps].innerHTML = CORE.Cells.Used[letter + number].Content;
+            if (jumps >= 0) CORE.DOM.Output.children[jumps].innerHTML = CORE.Cells.Used[letter][letter + number].Content;
           }
         }
       }
