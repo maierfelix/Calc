@@ -55,21 +55,23 @@
 
       CORE.DOM.Output.children[ii].setAttribute("name", Letter + calculation);
 
-      /** Check if cell is registered, if yes update its styling */
-      if (CORE.Cells.Used[Letter] && CORE.Cells.Used[Letter][Letter + calculation]) {
-        this.removeCellStyling(ii);
-        this.updateCellStyling(Letter, Letter + calculation, ii);
+      /** Remove style of cell */
+      this.removeCellStyling(ii);
+
       /** Master selection column */
-      } else if (CORE.Selector.masterSelected.Columns[Letter]) {
-        this.removeCellStyling(ii);
+      if (CORE.Selector.masterSelected.Columns[Letter]) {
         this.updateCellMasterStyling(Letter, ii);
       /** Master selection row */
       } else if (CORE.Selector.masterSelected.Rows[calculation]) {
-        this.removeCellStyling(ii);
         this.updateCellMasterStyling(calculation, ii);
       }
-      /** Remove style of cell */
-      else this.removeCellStyling(ii);
+
+      /** Check if cell is registered, if yes update its styling */
+      if (CORE.Cells.Used[Letter] && CORE.Cells.Used[Letter][Letter + calculation]) {
+        /** Higher priority than master styling */
+        this.removeCellStyling(ii);
+        this.updateCellStyling(Letter, Letter + calculation, ii);
+      }
 
       /** Only resize grid if necessary */
       if (!CORE.Event.lastAction.scrollY) {
@@ -294,6 +296,30 @@
     /** Check if cell has a custom background color */
     if (data.BackgroundColor) {
       CORE.DOM.Cache[ii].style.background = data.BackgroundColor;
+    }
+
+    /** Check if cell has custom border settings */
+    if (data.Border.used) {
+      /** Left border */
+      if (data.Border.left) {
+        CORE.DOM.Cache[ii].style.borderLeft = "2px solid black";
+      }
+      /** Right border */
+      if (data.Border.right) {
+        CORE.DOM.Cache[ii].style.borderRight = "2px solid black";
+      }
+      /** Top border */
+      if (data.Border.top) {
+        CORE.DOM.Cache[ii].style.borderTop = "2px solid black";
+      }
+      /** Bottom border */
+      if (data.Border.bottom) {
+        CORE.DOM.Cache[ii].style.borderBottom = "2px solid black";
+      }
+      /** Full border */
+      if (data.Border.full) {
+        CORE.DOM.Cache[ii].style.border = "2px solid black";
+      }
     }
 
   };

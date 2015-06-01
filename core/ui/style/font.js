@@ -26,6 +26,16 @@
 
       var jumps = 0;
 
+      /** Shorter syntax */
+      var masterCell = CORE.Selector.masterSelected;
+
+      /** Active master selection */
+      if (CORE.Selector.masterSelected.Current && CORE.Selector.masterSelected.Current !== null) {
+        masterCell = masterCell.Columns[masterCell.Current] || masterCell.Rows[masterCell.Current];
+        /** Check if master cell exists */
+        if (masterCell) masterCell.Font = e.target.value;
+      }
+
       /** Validate all selected cells */
       CORE.$.validateCells();
 
@@ -58,6 +68,16 @@
 
       var jumps = 0;
 
+      /** Shorter syntax */
+      var masterCell = CORE.Selector.masterSelected;
+
+      /** Active master selection */
+      if (CORE.Selector.masterSelected.Current && CORE.Selector.masterSelected.Current !== null) {
+        masterCell = masterCell.Columns[masterCell.Current] || masterCell.Rows[masterCell.Current];
+        /** Check if master cell exists */
+        if (masterCell) masterCell.FontSize = ~~(e.target.value);
+      }
+
       /** Validate all selected cells */
       CORE.$.validateCells();
 
@@ -87,6 +107,19 @@
     CORE.DOM.ChangeFontBold.addEventListener('click', function(e) {
 
       var jumps = 0;
+
+      /** Shorter syntax */
+      var masterCell = CORE.Selector.masterSelected;
+
+      /** Active master selection */
+      if (CORE.Selector.masterSelected.Current && CORE.Selector.masterSelected.Current !== null) {
+        masterCell = masterCell.Columns[masterCell.Current] || masterCell.Rows[masterCell.Current];
+        /** Check if master cell exists */
+        if (masterCell) {
+          if (masterCell.FontBold) masterCell.FontBold = false;
+          else masterCell.FontBold = true;
+        }
+      }
 
       /** Validate all selected cells */
       CORE.$.validateCells();
@@ -121,6 +154,19 @@
 
       var jumps = 0;
 
+      /** Shorter syntax */
+      var masterCell = CORE.Selector.masterSelected;
+
+      /** Active master selection */
+      if (CORE.Selector.masterSelected.Current && CORE.Selector.masterSelected.Current !== null) {
+        masterCell = masterCell.Columns[masterCell.Current] || masterCell.Rows[masterCell.Current];
+        /** Check if master cell exists */
+        if (masterCell) {
+          if (masterCell.FontItalic) masterCell.FontItalic = false;
+          else masterCell.FontItalic = true;
+        }
+      }
+
       /** Validate all selected cells */
       CORE.$.validateCells();
 
@@ -153,6 +199,19 @@
     CORE.DOM.ChangeFontUnderline.addEventListener('click', function(e) {
 
       var jumps = 0;
+
+      /** Shorter syntax */
+      var masterCell = CORE.Selector.masterSelected;
+
+      /** Active master selection */
+      if (CORE.Selector.masterSelected.Current && CORE.Selector.masterSelected.Current !== null) {
+        masterCell = masterCell.Columns[masterCell.Current] || masterCell.Rows[masterCell.Current];
+        /** Check if master cell exists */
+        if (masterCell) {
+          if (masterCell.FontUnderlined) masterCell.FontUnderlined = false;
+          else masterCell.FontUnderlined = true;
+        }
+      }
 
       /** Validate all selected cells */
       CORE.$.validateCells();
@@ -200,6 +259,16 @@
           colorpicker.hide();
         }
 
+      }
+
+      /** Shorter syntax */
+      var masterCell = CORE.Selector.masterSelected;
+
+      /** Active master selection */
+      if (CORE.Selector.masterSelected.Current && CORE.Selector.masterSelected.Current !== null) {
+        masterCell = masterCell.Columns[masterCell.Current] || masterCell.Rows[masterCell.Current];
+        /** Check if master cell exists */
+        if (masterCell) masterCell.Color = pickers.children[0].style.background;
       }
 
       /** Validate all selected cells */
