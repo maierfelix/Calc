@@ -38,6 +38,7 @@ Cells styling can be determined by the user.
 Select one or more cells and see the menu above the cell formula input field,
 to customize a cells styling.
 Click on a styling button to append a styling. Clicking on it again reverses the changes.
+Double click on a column or row to append an infinite styling to it.
 
 ## Formulas
 The interpreter of NovaeCalc's formulas is called *Engelscript*.
