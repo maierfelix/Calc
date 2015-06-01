@@ -47,7 +47,7 @@
     },
     /** Cell currently edited */
     Edit: null,
-    /** Cells with custom content */
+    /** Customized cells -> Dictionary lookup: Used[a-Z][a-Z+0-9] */
     Used: {},
     /** Live cells */
     Live: {},
