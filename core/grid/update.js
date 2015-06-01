@@ -69,7 +69,6 @@
       /** Check if cell is registered, if yes update its styling */
       if (CORE.Cells.Used[Letter] && CORE.Cells.Used[Letter][Letter + calculation]) {
         /** Higher priority than master styling */
-        this.removeCellStyling(ii);
         this.updateCellStyling(Letter, Letter + calculation, ii);
       }
 
