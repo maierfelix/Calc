@@ -24,6 +24,33 @@
     /** Delete selection effect of all last selected cells */ 
     this.deleteCellHoverEffect();
 
+    /** Active master selection */
+    if (this.masterSelected.Current && this.masterSelected.Current !== null) {
+      /** Column master selection */
+      if (typeof this.masterSelected.Current === "string") {
+        CORE.Cells.Selected.First = {
+          Letter: CORE.$.alphaToNumber(this.masterSelected.Current),
+          Number: CORE.Grid.Settings.scrolledY
+        };
+        CORE.Cells.Selected.Last = {
+          Letter: CORE.$.alphaToNumber(this.masterSelected.Current),
+          /** + 1 to set last selection out of view */
+          Number: CORE.Grid.Settings.y + (CORE.Grid.Settings.scrolledY + 1)
+        };
+      /** Row master selection */
+      } else if (typeof this.masterSelected.Current === "number") {
+        CORE.Cells.Selected.First = {
+          Letter: CORE.Grid.Settings.scrolledX,
+          Number: this.masterSelected.Current
+        };
+        CORE.Cells.Selected.Last = {
+          /** + 1 to set last selection out of view */
+          Letter: CORE.Grid.Settings.scrolledX + (CORE.Grid.Settings.x + 1),
+          Number: this.masterSelected.Current
+        };
+      }
+    }
+
     var first = CORE.Cells.Selected.First,
         last = CORE.Cells.Selected.Last;
 

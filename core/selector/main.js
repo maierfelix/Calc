@@ -53,6 +53,14 @@
     /** Helper variable, to detect if user starts to edit a cell*/
     this.cellFocusSwitch = false;
 
+    /** Master selected columns and rows */
+    this.masterSelected = {
+      /** Current selected master cell */
+      Current: null,
+      Columns: {},
+      Rows: {}
+    };
+
   };
 
   CORE.Selector.prototype = CORE.Selector;

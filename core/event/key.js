@@ -41,6 +41,8 @@
     /** Prevent line breaks on user input */
     if (e.keyCode === 13) {
       e.preventDefault();
+      /** Disable master selection */
+      CORE.Selector.masterSelected.Current = null;
       CORE.Event.pressedEnter(e.keyCode);
     }
 
@@ -62,6 +64,8 @@
     if (e.keyCode === 9) {
       e.preventDefault();
       CORE.Input.Keyboard.Tab = true;
+      /** Disable master selection */
+      CORE.Selector.masterSelected.Current = null;
       CORE.Event.navigateTo("right", 1);
       return void 0;
     }
@@ -69,6 +73,8 @@
     /** User pressed the [PAGE_UP] key */
     if (e.keyCode === 33) {
       e.preventDefault();
+      /** Disable master selection */
+      CORE.Selector.masterSelected.Current = null;
       CORE.Selector.jump("up", CORE.Grid.Settings.y);
       return void 0;
     }
@@ -76,6 +82,8 @@
     /** User pressed the [PAGE_DOWN] key */
     if (e.keyCode === 34) {
       e.preventDefault();
+      /** Disable master selection */
+      CORE.Selector.masterSelected.Current = null;
       CORE.Selector.jump("down", CORE.Grid.Settings.y);
       return void 0;
     }
@@ -88,6 +96,8 @@
         if (CORE.Event.inEditMode()) return void 0;
         CORE.Grid.Settings.keyScrolledY -= 1;
         CORE.Grid.Settings.lastScrollY = 1;
+        /** Disable master selection */
+        CORE.Selector.masterSelected.Current = null;
         CORE.Selector.selectCellByKeyPress();
         /** Update last key press timestamp */
         this.lastKeyPress = e.timeStamp - 100;
@@ -98,6 +108,8 @@
         if (CORE.Event.inEditMode()) return void 0;
         CORE.Grid.Settings.keyScrolledY += 1;
         CORE.Grid.Settings.lastScrollY = 1;
+        /** Disable master selection */
+        CORE.Selector.masterSelected.Current = null;
         CORE.Selector.selectCellByKeyPress();
         /** Update last key press timestamp */
         this.lastKeyPress = e.timeStamp - 100;
@@ -108,6 +120,8 @@
         if (CORE.Event.inEditMode()) return void 0;
         CORE.Grid.Settings.keyScrolledX -= CORE.Settings.Scroll.Horizontal;
         CORE.Grid.Settings.lastScrollX = CORE.Settings.Scroll.Horizontal;
+        /** Disable master selection */
+        CORE.Selector.masterSelected.Current = null;
         CORE.Selector.selectCellByKeyPress();
         /** Update last key press timestamp */
         this.lastKeyPress = e.timeStamp - 100;
@@ -119,6 +133,8 @@
         if (CORE.Event.inEditMode()) return void 0;
         CORE.Grid.Settings.keyScrolledX += CORE.Settings.Scroll.Horizontal;
         CORE.Grid.Settings.lastScrollX = CORE.Settings.Scroll.Horizontal;
+        /** Disable master selection */
+        CORE.Selector.masterSelected.Current = null;
         CORE.Selector.selectCellByKeyPress();
         /** Update last key press timestamp */
         this.lastKeyPress = e.timeStamp - 100;

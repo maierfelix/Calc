@@ -85,21 +85,16 @@
    */
   CORE.Selector.prototype.getSelectionByKeyPress = function(letter, number) {
 
-    /** User presses the shift key */
-    if (CORE.Input.Keyboard.Shift) {
+    /** Use first selected cell as parent cell selection */
+    CORE.Cells.Selected.First = CORE.Cells.Select;
 
-      /** Use first selected cell as parent cell selection */
-      CORE.Cells.Selected.First = CORE.Cells.Select;
+    /** Update last selected cell */
+    CORE.Cells.Selected.Last = {
+      Letter: letter,
+      Number: number
+    };
 
-      /** Update last selected cell */
-      CORE.Cells.Selected.Last = {
-        Letter: letter,
-        Number: number
-      };
-
-      /** Proccess the new selection */
-      CORE.Selector.getSelection();
-
-    }
+    /** Proccess the new selection */
+    CORE.Selector.getSelection();
 
   };

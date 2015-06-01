@@ -98,6 +98,9 @@
       /** User aborted live cell edit */
       CORE.Input.Mouse.LiveCellEdit = false;
 
+      /** User aborted master selection */
+      CORE.Selector.masterSelected.Current = null;
+
       /** Hide live cell container */
       CORE.DOM.LiveCellContainer.style.display = "none";
 

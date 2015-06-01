@@ -49,6 +49,8 @@ Import.scripts = [
   "core/grid/resize.js",
   "core/grid/cell.js",
   "core/grid/livecell.js",
+  /** Injector */
+  "core/injector/main.js",
   /** Selector */
   "core/selector/main.js",
   "core/selector/hover.js",
@@ -56,6 +58,7 @@ Import.scripts = [
   "core/selector/menu.js",
   "core/selector/select.js",
   "core/selector/functions.js",
+  "core/selector/master.js",
   /** Helpers */
   "core/functions.js",
   "core/edit.js",

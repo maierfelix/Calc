@@ -169,9 +169,15 @@
         element.className = template.class;
         element.setAttribute("clicked", 0);
         element.setAttribute("style", style);
+        element.setAttribute("timestamp", new Date().getTime());
         element.innerHTML = Letter;
 
         element.addEventListener("mousedown", function(e) {
+          /** Double click */
+          if (new Date().getTime() - parseInt(this.getAttribute("timestamp")) <= 250) {
+            /** Do a master selection */
+            CORE.Selector.masterSelect(e.target.innerHTML);
+          } else this.setAttribute("timestamp", e.timeStamp);
           this.setAttribute("clicked", 1);
           CORE.Input.Mouse.CellResize = true;
         });
@@ -180,6 +186,7 @@
           this.setAttribute("clicked", 0);
           /** Re-render grid */
           CORE.Event.lastAction.scrollY = false;
+          this.setAttribute("timestamp", e.timeStamp);
         });
 
         element.addEventListener("mouseout", function(e) {
@@ -267,9 +274,15 @@
         element.className = template.class;
         element.setAttribute("clicked", 0);
         element.setAttribute("style", style);
+        element.setAttribute("timestamp", new Date().getTime());
         element.innerHTML = Letter;
 
         element.addEventListener("mousedown", function(e) {
+          /** Double click */
+          if (new Date().getTime() - parseInt(this.getAttribute("timestamp")) <= 250) {
+            /** Do a master selection */
+            CORE.Selector.masterSelect(parseInt(e.target.innerHTML));
+          } else this.setAttribute("timestamp", e.timeStamp);
           this.setAttribute("clicked", 1);
           CORE.Input.Mouse.CellResize = true;
         });

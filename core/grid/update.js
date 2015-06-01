@@ -59,6 +59,14 @@
       if (CORE.Cells.Used[Letter] && CORE.Cells.Used[Letter][Letter + calculation]) {
         this.removeCellStyling(ii);
         this.updateCellStyling(Letter, Letter + calculation, ii);
+      /** Master selection column */
+      } else if (CORE.Selector.masterSelected.Columns[Letter]) {
+        this.removeCellStyling(ii);
+        this.updateCellMasterStyling(Letter, ii);
+      /** Master selection row */
+      } else if (CORE.Selector.masterSelected.Rows[calculation]) {
+        this.removeCellStyling(ii);
+        this.updateCellMasterStyling(calculation, ii);
       }
       /** Remove style of cell */
       else this.removeCellStyling(ii);
@@ -238,6 +246,54 @@
       if (CORE.Cells.Used[name][cell].Border.full) {
         CORE.DOM.Cache[ii].style.border = "2px solid black";
       }
+    }
+
+  };
+
+  /**
+   * Update specific cell with a master selection styling
+   *
+   * @method updateCellMasterStyling
+   * @static
+   */
+  CORE.Grid.prototype.updateCellMasterStyling = function(name, ii) {
+
+    /** Switch between columns and rows */
+    var data = CORE.Selector.masterSelected.Columns[name] || CORE.Selector.masterSelected.Rows[name];
+
+    /** Check if cell has a custom font */
+    if (data.Font) {
+      CORE.DOM.Cache[ii].style.fontFamily = data.Font;
+    }
+
+    /** Check if cell has a custom font size */
+    if (data.FontSize) {
+      CORE.DOM.Cache[ii].style.fontSize = data.FontSize + "px";
+    }
+
+    /** Check if cell has a custom font color */
+    if (data.Color) {
+      CORE.DOM.Cache[ii].style.color = data.Color;
+    }
+
+    /** Check if cell has a custom font bold property */
+    if (data.FontBold) {
+      CORE.DOM.Cache[ii].style.fontWeight = "bold";
+    }
+
+    /** Check if cell has a custom font italic property */
+    if (data.FontItalic) {
+      CORE.DOM.Cache[ii].style.fontStyle = "italic";
+    }
+
+    /** Check if cells font is underlined */
+    if (data.FontUnderlined) {
+      CORE.DOM.Cache[ii].style.textDecoration = "underline";
+    }
+
+    /** Check if cell has a custom background color */
+    if (data.BackgroundColor) {
+      CORE.DOM.Cache[ii].style.background = data.BackgroundColor;
     }
 
   };

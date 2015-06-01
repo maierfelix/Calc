@@ -48,6 +48,9 @@
     /** Initialize Selector Plugin */
     CORE.Selector = new CORE.Selector();
 
+    /** Initialize Injector Plugin */
+    CORE.Injector = new CORE.Injector();
+
     /** Initialize all event listeners */
     CORE.Event.init();
 
