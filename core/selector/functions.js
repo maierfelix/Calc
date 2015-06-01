@@ -24,17 +24,12 @@
     var first = this.Selected.First;
     var last = this.Selected.Last;
 
-    var height = this.Selected.Last.Number - this.Selected.First.Number + 1;
-    var width = this.Selected.Last.Letter - this.Selected.First.Letter + 1;
-
     var object = {
       top: [],
       bottom: [],
       left: [],
       right: []
     };
-
-    var cacheTarget = "";
 
     /** Minimum field size: 2x2 */
     for (var ii = 0; ii < this.SelectedCells.length; ++ii) {
@@ -56,6 +51,22 @@
       }
     }
 
+    return (object);
+
+  };
+
+  /**
+   * Draw a border of a object
+   *
+   * @method drawOuterBorder
+   * @static
+   */
+  CORE.Selector.prototype.drawOuterBorder = function() {
+
+    var object = this.getOuterSelection();
+
+    var cacheTarget = "";
+  
     /** Top */
     for (var ii = 0; ii < object.top.length; ++ii) {
       cacheTarget = CORE.Cells.Used[CORE.$.numberToAlpha(object.top[ii].letter) + object.top[ii].number];

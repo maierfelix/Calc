@@ -311,7 +311,7 @@
   CORE.$.isSafeInteger = function(number) {
 
     if (number >= 9E15) {
-      if (number >= window.Number.MAX_SAFE_INTEGER) return (window.Number.MAX_SAFE_INTEGER - 1);
+      if (number >= window.Number.MAX_SAFE_INTEGER) return (Number.MAX_SAFE_INTEGER - 1);
     }
 
     return (number);
