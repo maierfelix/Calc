@@ -21,36 +21,16 @@
    */
   CORE.Injector.prototype.insertColumn = function() {
 
-    var selectedCell = CORE.Cells.Selected.First;
-
     var usedCells = CORE.Cells.Used;
 
-    var letter = CORE.$.numberToAlpha(selectedCell.Letter);
-    var number = selectedCell.Number;
+    var masterCells = CORE.Selector.masterSelected.Columns;
 
-    var cellLetter;
-    var cellNumber;
+    var customArray = this.getUsedCells();
 
-    var customArray = [];
-
-    /** Move everything behind this letter 1 right */
-    for (var ii in usedCells) {
-
-      /** Get each letter behind */
-      if (usedCells[ii] && CORE.$.alphaToNumber(ii) > selectedCell.Letter) {
-
-        /** Go through each cell */
-        for (var cell in usedCells[ii]) {
-          cellLetter = CORE.$.numberToAlpha(CORE.$.alphaToNumber(cell.match(CORE.REGEX.numbers).join("")) + 1);
-          cellNumber = ~~(cell.match(CORE.REGEX.letters).join(""));
-          usedCells[ii][cellLetter + cellNumber] = usedCells[ii][cell];
-          delete usedCells[ii][cell];
-        }
-
-        customArray.push({ old: ii, new: cellLetter });
-
-      }
-
+    /** Abort if empty */
+    if (!customArray.length) {
+      CORE.Grid.updateWidth("default");
+      return void 0;
     }
 
     /** Sort array alphabetically */
@@ -63,6 +43,27 @@
       var value = customArray[ii];
       usedCells[value.new] = usedCells[value.old];
       delete usedCells[value.old];
+    }
+
+    /** Process master cells */
+    customArray = this.getMasterColumns();
+
+    /** Sort array alphabetically */
+    customArray = customArray.sortOn("old");
+
+    /** Abort if empty */
+    if (!customArray.length) {
+      CORE.Grid.updateWidth("default");
+      return void 0;
+    }
+
+    ii = customArray.length;
+
+    /** Reversed */
+    while (ii--) {
+      var value = customArray[ii];
+      masterCells[value.new] = masterCells[value.old];
+      delete masterCells[value.old];
     }
 
     CORE.Grid.updateWidth("default");

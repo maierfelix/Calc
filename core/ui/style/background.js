@@ -30,10 +30,14 @@
       var masterCell = CORE.Selector.masterSelected;
 
       /** Active master selection */
-      if (CORE.Selector.masterSelected.Current && CORE.Selector.masterSelected.Current !== null) {
+      if (masterCell.Current && masterCell.Current !== null) {
         masterCell = masterCell.Columns[masterCell.Current] || masterCell.Rows[masterCell.Current];
         /** Check if master cell exists */
         if (masterCell) masterCell.BackgroundColor = pickers.children[0].style.background;
+        CORE.Grid.updateWidth("default");
+        /** Dont loose the selection */
+        CORE.Selector.getSelection();
+        return void 0;
       }
 
       /** Validate all selected cells */

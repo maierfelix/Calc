@@ -279,7 +279,7 @@
 
       /** Scroll increment, if user scrolls fast */
       if (difference <= calcDifference) {
-        CORE.Settings.Scroll.Vertical += Math.floor(CORE.Settings.Scroll.OriginalVertical / 1.25);
+        CORE.Settings.Scroll.Vertical += Math.floor(CORE.Settings.Scroll.OriginalVertical * 1.5);
       /** Otherwise, reset scroll amount */
       } else {
         CORE.Settings.Scroll.Vertical = CORE.Settings.Scroll.OriginalVertical;

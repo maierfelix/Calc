@@ -34,6 +34,10 @@
         masterCell = masterCell.Columns[masterCell.Current] || masterCell.Rows[masterCell.Current];
         /** Check if master cell exists */
         if (masterCell) masterCell.Font = e.target.value;
+        CORE.Grid.updateWidth("default");
+        /** Dont loose the selection */
+        CORE.Selector.getSelection();
+        return void 0;
       }
 
       /** Validate all selected cells */
@@ -76,6 +80,10 @@
         masterCell = masterCell.Columns[masterCell.Current] || masterCell.Rows[masterCell.Current];
         /** Check if master cell exists */
         if (masterCell) masterCell.FontSize = ~~(e.target.value);
+        CORE.Grid.updateWidth("default");
+        /** Dont loose the selection */
+        CORE.Selector.getSelection();
+        return void 0;
       }
 
       /** Validate all selected cells */
@@ -119,6 +127,10 @@
           if (masterCell.FontBold) masterCell.FontBold = false;
           else masterCell.FontBold = true;
         }
+        CORE.Grid.updateWidth("default");
+        /** Dont loose the selection */
+        CORE.Selector.getSelection();
+        return void 0;
       }
 
       /** Validate all selected cells */
@@ -165,6 +177,10 @@
           if (masterCell.FontItalic) masterCell.FontItalic = false;
           else masterCell.FontItalic = true;
         }
+        CORE.Grid.updateWidth("default");
+        /** Dont loose the selection */
+        CORE.Selector.getSelection();
+        return void 0;
       }
 
       /** Validate all selected cells */
@@ -211,6 +227,10 @@
           if (masterCell.FontUnderlined) masterCell.FontUnderlined = false;
           else masterCell.FontUnderlined = true;
         }
+        CORE.Grid.updateWidth("default");
+        /** Dont loose the selection */
+        CORE.Selector.getSelection();
+        return void 0;
       }
 
       /** Validate all selected cells */
@@ -269,6 +289,10 @@
         masterCell = masterCell.Columns[masterCell.Current] || masterCell.Rows[masterCell.Current];
         /** Check if master cell exists */
         if (masterCell) masterCell.Color = pickers.children[0].style.background;
+        CORE.Grid.updateWidth("default");
+        /** Dont loose the selection */
+        CORE.Selector.getSelection();
+        return void 0;
       }
 
       /** Validate all selected cells */

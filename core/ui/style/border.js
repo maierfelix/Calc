@@ -100,6 +100,10 @@
         if (masterCell) {
           if (masterCell.Border.left) masterCell.Border.left = false;
           else masterCell.Border.left = true;
+          CORE.Grid.updateWidth("default");
+          /** Dont loose the selection */
+          CORE.Selector.getSelection();
+          return void 0;
         }
         /** Check if user wants to disable the border by applying it again */
         if (CORE.Cells.Used[letter][cellName].Border.left) {
@@ -119,6 +123,10 @@
         if (masterCell) {
           if (masterCell.Border.right) masterCell.Border.right = false;
           else masterCell.Border.right = true;
+          CORE.Grid.updateWidth("default");
+          /** Dont loose the selection */
+          CORE.Selector.getSelection();
+          return void 0;
         }
         /** Check if user wants to disable the border by applying it again */
         if (CORE.Cells.Used[letter][cellName].Border.right) {
@@ -138,6 +146,10 @@
         if (masterCell) {
           if (masterCell.Border.top) masterCell.Border.top = false;
           else masterCell.Border.top = true;
+          CORE.Grid.updateWidth("default");
+          /** Dont loose the selection */
+          CORE.Selector.getSelection();
+          return void 0;
         }
         /** Check if user wants to disable the border by applying it again */
         if (CORE.Cells.Used[letter][cellName].Border.top) {
@@ -157,6 +169,10 @@
         if (masterCell) {
           if (masterCell.Border.bottom) masterCell.Border.bottom = false;
           else masterCell.Border.bottom = true;
+          CORE.Grid.updateWidth("default");
+          /** Dont loose the selection */
+          CORE.Selector.getSelection();
+          return void 0;
         }
         /** Check if user wants to disable the border by applying it again */
         if (CORE.Cells.Used[letter][cellName].Border.bottom) {
@@ -182,6 +198,10 @@
             masterCell.Border.top = false;
             masterCell.Border.bottom = false;
           }
+          CORE.Grid.updateWidth("default");
+          /** Dont loose the selection */
+          CORE.Selector.getSelection();
+          return void 0;
         }
         /** Check if user wants to disable the border by applying it again */
         if (CORE.Cells.Used[letter][cellName].Border.full) {
@@ -214,6 +234,10 @@
             if (masterCell.Border.left) CORE.DOM.Output.children[jumps].style.borderLeft = "2px solid black";
             if (masterCell.Border.right) CORE.DOM.Output.children[jumps].style.borderRight = "2px solid black";
           }
+          CORE.Grid.updateWidth("default");
+          /** Dont loose the selection */
+          CORE.Selector.getSelection();
+          return void 0;
         }
         CORE.Selector.drawOuterBorder();
         /** Skip everything else, since we apply outer border only 1 time */

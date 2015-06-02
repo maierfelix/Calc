@@ -17,9 +17,13 @@
   CORE_UI.initInjectionButtons = function() {
 
     /** Initialize insert column button */
-    CORE.DOM.InsertColumn.addEventListener('click', CORE.Injector.insertColumn);
+    CORE.DOM.InsertColumn.addEventListener('click', function() {
+      CORE.Injector.insertColumn();
+    });
 
     /** Initialize insert row button */
-    CORE.DOM.InsertRow.addEventListener('click', CORE.Injector.insertRow);
+    CORE.DOM.InsertRow.addEventListener('click', function() {
+      CORE.Injector.insertRow();
+    });
 
   };
