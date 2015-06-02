@@ -64,11 +64,11 @@
 
     /** Convert first selected cell into usable format */
     this.Selected.First.Letter = first.Letter;
-    this.Selected.First.Number = first.Number;
+    this.Selected.First.Number = first.Number || 1;
 
     /** Convert last selected cell into usable format */
     this.Selected.Last.Letter = last.Letter;
-    this.Selected.Last.Number = last.Number;
+    this.Selected.Last.Number = last.Number || 1;
 
     /** Calculate space between the 2 selected cells */
     var width = CORE.$.alphaToNumber(this.Selected.Last.Letter) - CORE.$.alphaToNumber(this.Selected.First.Letter);

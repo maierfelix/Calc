@@ -269,6 +269,9 @@
     /** Update empty timestamp */
     if (!this.lastMouseScroll) this.lastMouseScroll = e.timeStamp;
 
+    /** Abort if [STRG] key pressed */
+    if (CORE.Input.Keyboard.Strg) return void 0;
+
     var calcDifference = Math.floor(CORE.Grid.Settings.y * 1.5);
 
     /** Handle timestamps */

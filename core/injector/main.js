@@ -44,7 +44,7 @@
     for (var ii in usedCells) {
 
       /** Get each letter behind */
-      if (usedCells[ii] && CORE.$.alphaToNumber(ii) > selectedCell.Letter) {
+      if (usedCells[ii] && CORE.$.alphaToNumber(ii) >= selectedCell.Letter) {
 
         /** Go through each cell */
         for (var cell in usedCells[ii]) {
@@ -82,7 +82,7 @@
     for (var ii in masterCells) {
 
       /** Get each letter behind */
-      if (masterCells[ii] && CORE.$.alphaToNumber(ii) > selectedCell.Letter) {
+      if (masterCells[ii] && CORE.$.alphaToNumber(ii) >= selectedCell.Letter) {
         customArray.push({ old: ii, new: (CORE.$.numberToAlpha(CORE.$.alphaToNumber(ii) + 1)) });
       }
 
