@@ -25,13 +25,22 @@
 
     var masterCells = CORE.Selector.masterSelected.Columns;
 
-    var customArray = this.getUsedCells();
+    /** Process master cells */
+    var customArray = this.getMasterColumns();
 
-    /** Abort if empty */
-    if (!customArray.length) {
-      CORE.Grid.updateWidth("default");
-      return void 0;
+    /** Sort array alphabetically */
+    customArray = customArray.sortOn("old");
+
+    ii = customArray.length;
+
+    /** Reversed */
+    while (ii--) {
+      var value = customArray[ii];
+      masterCells[value.new] = masterCells[value.old];
+      delete masterCells[value.old];
     }
+
+    customArray = this.getUsedCells();
 
     /** Sort array alphabetically */
     customArray = customArray.sortOn("old");
@@ -43,27 +52,6 @@
       var value = customArray[ii];
       usedCells[value.new] = usedCells[value.old];
       delete usedCells[value.old];
-    }
-
-    /** Process master cells */
-    customArray = this.getMasterColumns();
-
-    /** Sort array alphabetically */
-    customArray = customArray.sortOn("old");
-
-    /** Abort if empty */
-    if (!customArray.length) {
-      CORE.Grid.updateWidth("default");
-      return void 0;
-    }
-
-    ii = customArray.length;
-
-    /** Reversed */
-    while (ii--) {
-      var value = customArray[ii];
-      masterCells[value.new] = masterCells[value.old];
-      delete masterCells[value.old];
     }
 
     CORE.Grid.updateWidth("default");

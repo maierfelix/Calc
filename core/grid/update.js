@@ -298,7 +298,7 @@
     }
 
     /** Check if cell has custom border settings */
-    if (data.Border.used) {
+    if (data.Border && data.Border.used) {
       /** Left border */
       if (data.Border.left) {
         CORE.DOM.Cache[ii].style.borderLeft = "2px solid black";
