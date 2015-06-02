@@ -19,7 +19,7 @@
    * @method deleteColumn
    * @static
    */
-  CORE.Injector.prototype.deleteColumn = function(name) {
+  CORE.Injector.prototype.deleteColumn = function() {
 
     
 
@@ -31,7 +31,7 @@
    * @method deleteRow
    * @static
    */
-  CORE.Injector.prototype.deleteRow = function(name) {
+  CORE.Injector.prototype.deleteRow = function() {
 
     
 

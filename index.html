@@ -171,14 +171,29 @@
                 <span class="fa fa-caret-down" style="margin-left: 19px;"></span>
               </button>
             </label>
+            <!-- Insert column button -->
             <label style="position: absolute; top: 10px; left: 550px;">
+              <button id="insert_column" style="width: 40px; height: 25px;">
+                <span class="fa fa-reply-all insertColumn"></span>
+              </button>
+            </label>
+            <!-- Insert row button -->
+            <label style="position: absolute; top: 10px; left: 600px;">
+              <button id="insert_row" style="width: 40px; height: 25px;">
+                <span class="fa fa-reply-all insertRow flip"></span>
+              </button>
+            </label>
+            <!-- Live cell button -->
+            <label style="position: absolute; top: 10px; left: 650px;">
               <button id="change_livecell" style="width: 40px; height: 25px;">
                 <span id="change_livecell_preview" class="fa fa-wifi"></span>
               </button>
             </label>
+            <!-- Formula input -->
             <label style="position: absolute;top: 40px;left: 10px;">
               <input type="text" id="cell_input" class="formula_input"></input>
             </label>
+            <!-- Grid scroll animation fix -->
             <label style="position: absolute;top: 35px;left: 0px;width: 100px;height: 0px;z-index: -1;">
               <div style="width: 100%;background: #fff;height: 39px;z-index: -1;"></div>
             </label>

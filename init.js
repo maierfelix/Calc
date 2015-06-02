@@ -31,6 +31,7 @@ Import.scripts = [
   "core/ui/style/font.js",
   "core/ui/style/background.js",
   "core/ui/style/live.js",
+  "core/ui/style/insert.js",
   "core/ui/style/update.js",
   /** Run the core */
   "core/main.js",
@@ -51,6 +52,8 @@ Import.scripts = [
   "core/grid/livecell.js",
   /** Injector */
   "core/injector/main.js",
+  "core/injector/insert.js",
+  "core/injector/delete.js",
   /** Selector */
   "core/selector/main.js",
   "core/selector/hover.js",

@@ -91,5 +91,11 @@
   /** Select and prepare background cell settings container */
   CORE.DOM.ChangeCellBackground = document.querySelector("#change_background");
 
+  /** Select and prepare the insert column button */
+  CORE.DOM.InsertColumn = document.querySelector("#insert_column");
+
+  /** Select and prepare the insert row button */
+  CORE.DOM.InsertRow = document.querySelector("#insert_row");
+
   /** Select and prepare the cell input container */
   CORE.DOM.CellInput = document.querySelector("#cell_input");

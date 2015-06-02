@@ -13,7 +13,36 @@
 
 "use strict";
 
+  /** Round integer to its nearst X integer */
   Math.roundTo = function(a, b) {
     b = 1 / (b);
     return (Math.round(a * b) / b);
+  };
+
+  /**
+   * Sort an array holding objects alphabetically by a passed property
+   * Syntax: array.sortOn(thisArg)
+   */
+  Array.prototype.sortOn = function(prop) {
+
+    if (typeof prop !== 'string') {
+      throw new TypeError(prop + " is not a string");
+    }
+
+    if (Object.prototype.toString.call(this) === '[object Array]'){
+      return (this.sort (
+        function (a, b) {
+          if (a[prop] < b[prop]) {
+            return (-1);
+          } else if (a[prop] > b[prop]) {
+            return (1);
+          } else {
+            return (0);
+          }
+        }
+      ));
+    } else {
+      throw new TypeError(this + " is not an array");
+    }
+
   };

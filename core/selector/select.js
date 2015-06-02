@@ -265,7 +265,7 @@
     CORE.Grid.Settings.keyScrolledX = CORE.Grid.Settings.keyScrolledY = 0;
 
     /** Scroll one down, user edited cell at final bottom */
-    if (dir === "down" && (CORE.Grid.Settings.keyScrolledY + number ) >= (CORE.Grid.Settings.y + CORE.Grid.Settings.scrolledY)) {
+    if (dir === "down" && (CORE.Grid.Settings.keyScrolledY + number) >= (CORE.Grid.Settings.y + CORE.Grid.Settings.scrolledY - 1)) {
       CORE.Grid.Settings.scrolledY += 1;
       CORE.Grid.Settings.keyScrolledY -= 1;
     }

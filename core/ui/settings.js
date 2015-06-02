@@ -25,4 +25,7 @@
     /** Background styling menu */
     CORE_UI.initBackgroundChangeMenu();
 
+    /** Insert columns and rows menu */
+    CORE_UI.initInjectionButtons();
+
   };
