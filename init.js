@@ -18,13 +18,13 @@ Import.scripts = [
   "lib/fastclick.min.js",
   "lib/ajax.min.js",
   "lib/eight-bit-color-picker.min.js",
+  "style/mui/js/mui.min.js",
   /** Polyfills */
   "core/polyfill.js",
   /** Menu */
   "core/ui/main.js",
   "core/ui/menu.js",
   "core/ui/action.js",
-  "core/ui/modal.js",
   "core/ui/settings.js",
   /** Menu cell styling */
   "core/ui/style/border.js",
@@ -82,7 +82,6 @@ Import.scripts = [
 Import.after = function() {
   ENGEL.init();
   CORE_UI.init();
-  CORE_UI.MODAL.init();
   /** Add fade out animation, hide element */
   document.querySelector("#loader").classList.add("fadeOut");
   setTimeout( function() { CORE.$.init(); }, 250);

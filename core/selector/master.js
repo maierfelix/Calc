@@ -42,3 +42,17 @@
     this.masterSelected.Current = name;
 
   };
+
+  /**
+   * Overwrite cell styling with master styling
+   *
+   * @method inheritMasterStyling
+   * @static
+   */
+  CORE.Selector.prototype.inheritMasterStyling = function(name, masterCell, property) {
+
+    for (var ii in CORE.Cells.Used[name]) {
+      CORE.Cells.Used[name][ii][property] = masterCell[property];
+    }
+
+  };

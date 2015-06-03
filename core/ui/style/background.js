@@ -28,20 +28,22 @@
 
       /** Shorter syntax */
       var masterCell = CORE.Selector.masterSelected;
+      var currentMaster = masterCell.Current;
 
       /** Active master selection */
       if (masterCell.Current && masterCell.Current !== null) {
         masterCell = masterCell.Columns[masterCell.Current] || masterCell.Rows[masterCell.Current];
         /** Check if master cell exists */
         if (masterCell) masterCell.BackgroundColor = pickers.children[0].style.background;
-        CORE.Grid.updateWidth("default");
-        /** Dont loose the selection */
-        CORE.Selector.getSelection();
-        return void 0;
       }
 
       /** Validate all selected cells */
       CORE.$.validateCells();
+
+      /** Overwrite used cells styling */
+      if (CORE.Cells.Used[currentMaster]) {
+        CORE.Selector.inheritMasterStyling(currentMaster, masterCell, "BackgroundColor");
+      }
 
       /** Loop through all selected cells */
       for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {

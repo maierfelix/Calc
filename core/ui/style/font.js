@@ -28,20 +28,22 @@
 
       /** Shorter syntax */
       var masterCell = CORE.Selector.masterSelected;
+      var currentMaster = masterCell.Current;
 
       /** Active master selection */
       if (CORE.Selector.masterSelected.Current && CORE.Selector.masterSelected.Current !== null) {
         masterCell = masterCell.Columns[masterCell.Current] || masterCell.Rows[masterCell.Current];
         /** Check if master cell exists */
         if (masterCell) masterCell.Font = e.target.value;
-        CORE.Grid.updateWidth("default");
-        /** Dont loose the selection */
-        CORE.Selector.getSelection();
-        return void 0;
       }
 
       /** Validate all selected cells */
       CORE.$.validateCells();
+
+      /** Overwrite used cells styling */
+      if (CORE.Cells.Used[currentMaster]) {
+        CORE.Selector.inheritMasterStyling(currentMaster, masterCell, "Font");
+      }
 
       /** Loop through all selected cells */
       for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {
@@ -74,20 +76,22 @@
 
       /** Shorter syntax */
       var masterCell = CORE.Selector.masterSelected;
+      var currentMaster = masterCell.Current;
 
       /** Active master selection */
       if (CORE.Selector.masterSelected.Current && CORE.Selector.masterSelected.Current !== null) {
         masterCell = masterCell.Columns[masterCell.Current] || masterCell.Rows[masterCell.Current];
         /** Check if master cell exists */
         if (masterCell) masterCell.FontSize = ~~(e.target.value);
-        CORE.Grid.updateWidth("default");
-        /** Dont loose the selection */
-        CORE.Selector.getSelection();
-        return void 0;
       }
 
       /** Validate all selected cells */
       CORE.$.validateCells();
+
+      /** Overwrite used cells styling */
+      if (CORE.Cells.Used[currentMaster]) {
+        CORE.Selector.inheritMasterStyling(currentMaster, masterCell, "FontSize");
+      }
 
       /** Loop through all selected cells */
       for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {
@@ -118,6 +122,7 @@
 
       /** Shorter syntax */
       var masterCell = CORE.Selector.masterSelected;
+      var currentMaster = masterCell.Current;
 
       /** Active master selection */
       if (CORE.Selector.masterSelected.Current && CORE.Selector.masterSelected.Current !== null) {
@@ -127,14 +132,15 @@
           if (masterCell.FontBold) masterCell.FontBold = false;
           else masterCell.FontBold = true;
         }
-        CORE.Grid.updateWidth("default");
-        /** Dont loose the selection */
-        CORE.Selector.getSelection();
-        return void 0;
       }
 
       /** Validate all selected cells */
       CORE.$.validateCells();
+
+      /** Overwrite used cells styling */
+      if (CORE.Cells.Used[currentMaster]) {
+        CORE.Selector.inheritMasterStyling(currentMaster, masterCell, "FontBold");
+      }
 
       /** Loop through all selected cells */
       for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {
@@ -168,6 +174,7 @@
 
       /** Shorter syntax */
       var masterCell = CORE.Selector.masterSelected;
+      var currentMaster = masterCell.Current;
 
       /** Active master selection */
       if (CORE.Selector.masterSelected.Current && CORE.Selector.masterSelected.Current !== null) {
@@ -177,14 +184,15 @@
           if (masterCell.FontItalic) masterCell.FontItalic = false;
           else masterCell.FontItalic = true;
         }
-        CORE.Grid.updateWidth("default");
-        /** Dont loose the selection */
-        CORE.Selector.getSelection();
-        return void 0;
       }
 
       /** Validate all selected cells */
       CORE.$.validateCells();
+
+      /** Overwrite used cells styling */
+      if (CORE.Cells.Used[currentMaster]) {
+        CORE.Selector.inheritMasterStyling(currentMaster, masterCell, "FontItalic");
+      }
 
       /** Loop through all selected cells */
       for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {
@@ -218,6 +226,7 @@
 
       /** Shorter syntax */
       var masterCell = CORE.Selector.masterSelected;
+      var currentMaster = masterCell.Current;
 
       /** Active master selection */
       if (CORE.Selector.masterSelected.Current && CORE.Selector.masterSelected.Current !== null) {
@@ -227,14 +236,15 @@
           if (masterCell.FontUnderlined) masterCell.FontUnderlined = false;
           else masterCell.FontUnderlined = true;
         }
-        CORE.Grid.updateWidth("default");
-        /** Dont loose the selection */
-        CORE.Selector.getSelection();
-        return void 0;
       }
 
       /** Validate all selected cells */
       CORE.$.validateCells();
+
+      /** Overwrite used cells styling */
+      if (CORE.Cells.Used[currentMaster]) {
+        CORE.Selector.inheritMasterStyling(currentMaster, masterCell, "FontUnderlined");
+      }
 
       /** Loop through all selected cells */
       for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {
@@ -283,20 +293,22 @@
 
       /** Shorter syntax */
       var masterCell = CORE.Selector.masterSelected;
+      var currentMaster = masterCell.Current;
 
       /** Active master selection */
       if (CORE.Selector.masterSelected.Current && CORE.Selector.masterSelected.Current !== null) {
         masterCell = masterCell.Columns[masterCell.Current] || masterCell.Rows[masterCell.Current];
         /** Check if master cell exists */
         if (masterCell) masterCell.Color = pickers.children[0].style.background;
-        CORE.Grid.updateWidth("default");
-        /** Dont loose the selection */
-        CORE.Selector.getSelection();
-        return void 0;
       }
 
       /** Validate all selected cells */
       CORE.$.validateCells();
+
+      /** Overwrite used cells styling */
+      if (CORE.Cells.Used[currentMaster]) {
+        CORE.Selector.inheritMasterStyling(currentMaster, masterCell, "Color");
+      }
 
       /** Loop through all selected cells */
       for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {

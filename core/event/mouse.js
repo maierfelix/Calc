@@ -88,8 +88,21 @@
         CORE.Grid.getEditSelection(CORE.Cells.Select);
       }
 
+      /** Dont loose selection */
+      CORE.Selector.getSelection();
+
       return void 0;
 
+    }
+
+    /** Horizontal menu clicked */
+    if (e.target.parentNode.id === CORE.DOM.VerticalMenu.id) {
+      CORE.Cells.Select.Number = ~~(e.target.innerHTML);
+    }
+
+    /** Vertical menu clicked */
+    if (e.target.parentNode.id === CORE.DOM.HorizontalMenu.id) {
+      CORE.Cells.Select.Letter = CORE.$.alphaToNumber(e.target.innerHTML);
     }
 
     /** Valid cell ? */
