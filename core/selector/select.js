@@ -26,6 +26,8 @@
 
     /** Active master selection */
     if (this.masterSelected.Current && this.masterSelected.Current !== null) {
+      /** Dont loose master selection */
+      this.masterSelect(this.masterSelected.Current);
       /** Column master selection */
       if (typeof this.masterSelected.Current === "string") {
         CORE.Cells.Selected.First = {
