@@ -95,14 +95,14 @@
 
     }
 
-    /** Horizontal menu clicked */
+    /** Vertical menu clicked */
     if (e.target.parentNode.id === CORE.DOM.VerticalMenu.id) {
-      CORE.Cells.Select.Number = ~~(e.target.innerHTML);
+      if (CORE.Selector.SelectedCells.length <= 1) CORE.Cells.Select.Number = ~~(e.target.innerHTML);
     }
 
-    /** Vertical menu clicked */
+    /** Horizontal menu clicked */
     if (e.target.parentNode.id === CORE.DOM.HorizontalMenu.id) {
-      CORE.Cells.Select.Letter = CORE.$.alphaToNumber(e.target.innerHTML);
+      if (CORE.Selector.SelectedCells.length <= 1) CORE.Cells.Select.Letter = CORE.$.alphaToNumber(e.target.innerHTML);
     }
 
     /** Valid cell ? */

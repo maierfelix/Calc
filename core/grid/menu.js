@@ -174,7 +174,7 @@
 
         element.addEventListener("mousedown", function(e) {
           /** Double click */
-          if (new Date().getTime() - parseInt(this.getAttribute("timestamp")) <= 250) {
+          if (new Date().getTime() - parseInt(this.getAttribute("timestamp")) <= 150) {
             /** Do a master selection */
             CORE.Selector.masterSelect(e.target.innerHTML);
           } else this.setAttribute("timestamp", e.timeStamp);
@@ -279,7 +279,7 @@
 
         element.addEventListener("mousedown", function(e) {
           /** Double click */
-          if (new Date().getTime() - parseInt(this.getAttribute("timestamp")) <= 250) {
+          if (new Date().getTime() - parseInt(this.getAttribute("timestamp")) <= 150) {
             /** Do a master selection */
             CORE.Selector.masterSelect(parseInt(e.target.innerHTML));
           } else this.setAttribute("timestamp", e.timeStamp);
