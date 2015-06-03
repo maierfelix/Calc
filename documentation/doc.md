@@ -15,7 +15,7 @@ This is the included documentation for the NovaeCalc project.
 Use your mouse scroll wheel to scroll the grid up and down.
 The scrolling amount depends on your screen height.
 You can also scroll with the arrow keys in single steps into all directions.
-Use the *PAGE* up and down keys to scroll a whole screen height into the given direction.
+Use the *PAGE* up and *PAGE* down keys to scroll a whole screen height into the given direction.
 
 ### Selecting
 Select cells by simply click on them.
