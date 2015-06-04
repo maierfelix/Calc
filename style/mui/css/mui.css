@@ -1601,7 +1601,8 @@ hr {
 .mui-panel {
   padding: 10px;
   padding-top: 5px;
-  margin-bottom: 20px;
+  padding-left: 5px;
+  margin-bottom: 0px;
   border-radius: 0;
   background-color: #FFF;
 }
@@ -1624,7 +1625,6 @@ hr {
   cursor: pointer;
   background-image: none;
   border: none;
-  white-space: nowrap;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -1635,7 +1635,6 @@ hr {
   line-height: 18px;
   letter-spacing: 0.05em;
   color: rgba(0, 0, 0, 0.87);
-  text-transform: uppercase;
   height: 27px;
   line-height: 27px;
   padding: 0 26px;
@@ -1708,7 +1707,7 @@ fieldset[disabled] .mui-btn {
 }
 
 .mui-btn-sm {
-	height: 27px;
+  height: 27px;
   line-height: 27px;
   width: 28px;
   padding: 0px;
@@ -2316,8 +2315,9 @@ input[type="search"] {
 
 .mui-form-group {
   position: relative;
-  margin-bottom: 20px;
-  padding-top: 15px;
+  margin-bottom: 3px;
+  padding-top: 0px;
+  margin-top: -5px;
 }
 
 .mui-form-group > label {

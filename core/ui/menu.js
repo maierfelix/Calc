@@ -41,12 +41,6 @@
     active: false
   };
 
-  /** Select and prepare the view menu container */
-  CORE_UI.MENU.View = {
-    $: document.querySelector("#menu_view"),
-    active: false
-  };
-
   /** Initialize everything */
   CORE_UI.init = function() {
 

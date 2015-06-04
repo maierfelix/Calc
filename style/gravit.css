@@ -843,8 +843,9 @@ input[type=submit] span:not(:last-child) {
 input:not([type=button]):not([type=submit]):not([type=checkbox]):not([type=radio]),
 select,
 textArea {
-    border-radius: 0;
-    background: #fff;
+  border: 1px solid #7c3b99;
+  border-radius: 1px;
+  background: #fff;
 }
 .g-grid:focus,
 .g-input:focus,

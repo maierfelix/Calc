@@ -314,17 +314,13 @@ body {
 
 /** Scrollbar */
 
-::-webkit-scrollbar-track {
-  border-left: 1px solid #e9e9e9;
-}
-
 ::-webkit-scrollbar {
   width: 1px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
-	border-radius: 1px;
+  border-radius: 1px;
   background-color: rgba(0,0,0,.15);
   background-clip: padding-box;
   border: 1px solid transparent;
@@ -465,7 +461,7 @@ body {
 }
 
 .img-button {
-	image-rendering: optimizeSpeed;
+  image-rendering: optimizeSpeed;
   image-rendering: -moz-crisp-edges;
   image-rendering: -o-crisp-edges;
   image-rendering: -webkit-optimize-contrast;
@@ -475,9 +471,9 @@ body {
 }
 
 #change_bold {
-  width: 23px;
-  height: 23px;
-	background-color: rgba(50, 50, 50, 0.70);
+  width: 18px;
+  height: 18px;
+  background-color: rgba(50, 50, 50, 0.70);
   display: inline-block;
   -webkit-mask: url(../icon/bold.svg) no-repeat 50% 50%;
   mask: url(../icon/bold.svg) no-repeat 50% 50%;
@@ -486,9 +482,9 @@ body {
 }
 
 #change_italic {
-  width: 23px;
-  height: 23px;
-	background-color: rgba(50, 50, 50, 0.70);
+  width: 18px;
+  height: 18px;
+  background-color: rgba(50, 50, 50, 0.70);
   display: inline-block;
   -webkit-mask: url(../icon/italic.svg) no-repeat 50% 50%;
   mask: url(../icon/italic.svg) no-repeat 50% 50%;
@@ -497,9 +493,9 @@ body {
 }
 
 #change_underline {
-  width: 23px;
-  height: 23px;
-	background-color: rgba(50, 50, 50, 0.70);
+  width: 18px;
+  height: 18px;
+  background-color: rgba(50, 50, 50, 0.70);
   display: inline-block;
   -webkit-mask: url(../icon/underlined.svg) no-repeat 50% 50%;
   mask: url(../icon/underlined.svg) no-repeat 50% 50%;
@@ -508,9 +504,9 @@ body {
 }
 
 #change_fontColor {
-  width: 23px;
-  height: 23px;
-	background-color: rgba(50, 50, 50, 0.70);
+  width: 18px;
+  height: 18px;
+  background-color: rgba(50, 50, 50, 0.70);
   display: inline-block;
   -webkit-mask: url(../icon/letter_color.svg) no-repeat 50% 50%;
   mask: url(../icon/letter_color.svg) no-repeat 50% 50%;
@@ -519,9 +515,9 @@ body {
 }
 
 #change_background {
-  width: 23px;
-  height: 23px;
-	background-color: rgba(50, 50, 50, 0.70);
+  width: 18px;
+  height: 18px;
+  background-color: rgba(50, 50, 50, 0.70);
   display: inline-block;
   -webkit-mask: url(../icon/bucket.svg) no-repeat 50% 50%;
   mask: url(../icon/bucket.svg) no-repeat 50% 50%;
@@ -530,9 +526,9 @@ body {
 }
 
 #change_border {
-  width: 23px;
-  height: 23px;
-	background-color: rgba(50, 50, 50, 0.70);
+  width: 18px;
+  height: 18px;
+  background-color: rgba(50, 50, 50, 0.70);
   display: inline-block;
   -webkit-mask: url(../icon/border.svg) no-repeat 50% 50%;
   mask: url(../icon/border.svg) no-repeat 50% 50%;
@@ -541,9 +537,9 @@ body {
 }
 
 #insert_column {
-  width: 23px;
-  height: 23px;
-	background-color: rgba(50, 50, 50, 0.70);
+  width: 18px;
+  height: 18px;
+  background-color: rgba(50, 50, 50, 0.70);
   display: inline-block;
   -webkit-mask: url(../icon/insert_column.svg) no-repeat 50% 50%;
   mask: url(../icon/insert_column.svg) no-repeat 50% 50%;
@@ -552,9 +548,9 @@ body {
 }
 
 #delete_column {
-  width: 23px;
-  height: 23px;
-	background-color: rgba(50, 50, 50, 0.70);
+  width: 18px;
+  height: 18px;
+  background-color: rgba(50, 50, 50, 0.70);
   display: inline-block;
   -webkit-mask: url(../icon/delete_column.svg) no-repeat 50% 50%;
   mask: url(../icon/delete_column.svg) no-repeat 50% 50%;
@@ -563,9 +559,9 @@ body {
 }
 
 #insert_row {
-  width: 23px;
-  height: 23px;
-	background-color: rgba(50, 50, 50, 0.70);
+  width: 18px;
+  height: 18px;
+  background-color: rgba(50, 50, 50, 0.70);
   display: inline-block;
   -webkit-mask: url(../icon/insert_row.svg) no-repeat 50% 50%;
   mask: url(../icon/insert_row.svg) no-repeat 50% 50%;
@@ -574,12 +570,93 @@ body {
 }
 
 #delete_row {
-  width: 23px;
-  height: 23px;
-	background-color: rgba(50, 50, 50, 0.70);
+  width: 18px;
+  height: 18px;
+  background-color: rgba(50, 50, 50, 0.70);
   display: inline-block;
   -webkit-mask: url(../icon/delete_row.svg) no-repeat 50% 50%;
   mask: url(../icon/delete_row.svg) no-repeat 50% 50%;
   -webkit-mask-size: cover;
   mask-size: cover;
 }
+
+#change_font {
+  min-width: 110px;
+  max-width: 110px;
+}
+
+#change_fontSize {
+  min-width: 70px;
+  max-width: 75px;
+}
+
+.menu_items {
+  margin-left: -11px;
+  margin-right: -10px;
+  margin-top: -5px;
+  background-color: #7c3b99;
+  left: 0px;
+  width: auto;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  height: 57px;
+}
+
+#cell_input {
+  padding-left: 20px;
+  margin-left: 10px;
+  margin-top: 0px;
+}
+
+.calculate-icon {
+  color: #7c3b99;
+  position:absolute;
+  font-size:2em;
+}
+
+.icon_bar {
+  padding-top: 2px !important;
+  padding-bottom: 0px !important;
+  width:auto;
+  overflow-x:scroll;
+  overflow-y:hidden;
+  white-space:nowrap;
+}
+
+.cell_formula {
+	width: 23px !important;
+  height: 23px !important;
+  display: inline-block !important;
+  -webkit-mask: url(../icon/formula.svg) no-repeat 50% 50%;
+  mask: url(../icon/formula.svg) no-repeat 50% 50%;
+  -webkit-mask-size: cover;
+  mask-size: cover;
+	background: rgba(50, 50, 50, 0.7) !important;
+  position: absolute !important;
+  margin-left: 10px !important;
+  margin-top: 4px !important;
+}
+
+.fa-file {
+	color: #fff;
+}
+
+.fa-pencil {
+	color: #fff;
+}
+
+.fa-cogs {
+	color: #fff;
+}
+
+.input-container {
+	width: 550px;
+}
+
+@media (min-width: 400px) and (max-width: 600px) {
+  .input-container {
+		padding-top: 10px;
+		width: 100%;
+	}
+ }

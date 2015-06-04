@@ -59,10 +59,10 @@
       /** Check if cell has a custom font color */
       if (CORE.Cells.Used[letter][cell].Color) {
         /** Update font color menu value */
-        CORE.DOM.ChangeFontColor.style.color = CORE.Cells.Used[letter][cell].Color;
+        CORE.DOM.ChangeFontColor.style.background = CORE.Cells.Used[letter][cell].Color;
       /** Reset font color menu value to default */
       } else {
-        CORE.DOM.ChangeFontColor.style.color = "rgba(50, 50, 50, 0.70)";
+        CORE.DOM.ChangeFontColor.style.background = "rgba(50, 50, 50, 0.70)";
       }
 
       /** Check if cell has font bold */
@@ -121,8 +121,8 @@
 
       /** Column */
       if (masterColumns[letter].Color) {
-        CORE.DOM.ChangeFontColor.style.color = masterColumns[letter].Color;
-      } else CORE.DOM.ChangeFontColor.style.color = "rgba(50, 50, 50, 0.70)";
+        CORE.DOM.ChangeFontColor.style.background = masterColumns[letter].Color;
+      } else CORE.DOM.ChangeFontColor.style.background = "rgba(50, 50, 50, 0.70)";
 
       /** Column */
       if (masterColumns[letter].FontBold) {

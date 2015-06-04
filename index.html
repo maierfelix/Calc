@@ -29,21 +29,19 @@
 <body class="g-desktop">
   <div class="mui-container" style="margin-bottom: -19px;">
     <div class="mui-panel">
-      <div style="margin-left:-10px;margin-right:-10px;margin-top:-5px;background-color:#7c3b99;left:0px;width:auto;overflow-x:scroll;overflow-y:hidden;white-space:nowrap;height: 57px;">
-        <button id="menu_file" name="File" class="mui-btn mui-btn-hiddenPurple mui-btn-lg">File</button>
-        <button id="menu_edit" name="Edit" class="mui-btn mui-btn-hiddenPurple mui-btn-lg">Edit</button>
-        <button id="menu_modify" class="mui-btn mui-btn-hiddenPurple mui-btn-lg">Modify</button>
-        <button id="menu_view" class="mui-btn mui-btn-hiddenPurple mui-btn-lg">View</button>
+      <div class="menu_items">
+        <button id="menu_file" name="File" class="mui-btn mui-btn-hiddenPurple mui-btn-lg"><span class="fa fa-file"></span> File</button>
+        <button id="menu_edit" name="Edit" class="mui-btn mui-btn-hiddenPurple mui-btn-lg"><span class="fa fa-pencil"></span> Edit</button>
+        <button id="menu_modify" class="mui-btn mui-btn-hiddenPurple mui-btn-lg"><span class="fa fa-cogs"></span> Modify</button>
         <span style="padding-left:5px;">
           <button class="mui-btn mui-btn-default mui-btn-mini" style="color:#fff;background-color:#ab82be;">Untitled</button>
           <button class="mui-btn mui-btn-floating mui-btn-floating-mini">+</button>
         </span>
       </div>
-      <div class="mui-divider-top"></div>
-      <div style="padding-top: 5px;width:auto;overflow-x:scroll;overflow-y:hidden;white-space:nowrap;">
-        <!-- Change Font -->
-        <div class="mui-dropdown" style="padding-right:5px;">
-          <button id="change_font" class="mui-btn mui-btn-raised mui-btn-default" data-mui-toggle="dropdown">
+      <div class="mui-panel icon_bar">
+        <div>
+          <!-- Change Font -->
+          <button id="change_font" class="mui-btn mui-btn-raised mui-btn-primary" data-mui-toggle="dropdown">
             Arial
             <span class="mui-caret"></span>
           </button>
@@ -52,10 +50,8 @@
             <li><a href="#">Courier New</a></li>
             <li><a href="#">Georgia</a></li>
           </ul>
-        </div>
-        <!-- Change Font Size -->
-        <div class="mui-dropdown" style="padding-right:5px;">
-          <button id="change_fontSize" class="mui-btn mui-btn-raised mui-btn-default" data-mui-toggle="dropdown">
+          <!-- Change Font Size -->
+          <button id="change_fontSize" class="mui-btn mui-btn-raised mui-btn-primary" data-mui-toggle="dropdown">
             12
             <span class="mui-caret"></span>
           </button>
@@ -72,7 +68,6 @@
             <li><a href="#">24</a></li>
             <li><a href="#">36</a></li>
           </ul>
-        </div>
         <!-- Change Font Bold -->
         <button id="change_bold" class="mui-btn mui-btn-default mui-btn-raised mui-btn-sm"></button>
         <!-- Change Font Italic -->
@@ -95,12 +90,12 @@
         <button id="delete_row" class="mui-btn mui-btn-default mui-btn-raised mui-btn-sm"></button>
         <!-- Live Cell -->
         <button id="change_livecell" class="mui-btn mui-btn-default mui-btn-raised mui-btn-sm close fa fa-wifi"></button>
+        </div>
       </div>
-      <div class="mui-divider-top"></div>
-      <div class="mui-row" style="padding-left:15px;">
-        <div class="mui-form-group" style="width:65%;margin-bottom:0px;">
-          <span class="fa fa-calculator fa-6" style="color: #7c3b99;position:absolute;font-size:2em;"></span>
-          <input id="cell_input" type="text" class="mui-form-control" placeholder="Enter a formula.." style="padding-left:5px;padding-left:5px;margin-left:30px;margin-top:-3px;">
+      <div class="mui-row input-container" style="padding-left:10px;padding-bottom:15px;">
+        <div class="mui-form-group">
+          <button class="mui-btn mui-btn-default mui-btn-raised mui-btn-sm cell_formula"></button>
+          <input id="cell_input" type="text" class="mui-form-control">
         </div>
       </div>
     </div>
@@ -197,26 +192,6 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
-
-    <!-- Right click menu -->
-    <div id="right_click_menu" style="position: absolute;top: 0px;left: 0px;z-index: 99999;display:none;">
-      <div id="menu_dialogs">
-        <ul name="File" class="g-menu g-menu-bottom" style="left: 0px; top: 25px;">
-          <li class="g-menu-item">
-            <span class="g-menu-item-caption">New...</span>
-            <span class="g-menu-item-shortcut">Ctrl+N</span>
-          </li>
-          <li id="open" class="g-menu-item">
-            <input id="import_file" type="file" class="custom-file-input" style="width: 65px;" /></span>
-            <span class="g-menu-item-shortcut">Ctrl+O</span>
-          </li>
-          <li class="g-menu-item">
-            <span class="g-menu-item-caption">Export</span>
-            <span class="g-menu-item-shortcut">Ctrl+S</span>
-          </li>
-        </ul>
       </div>
     </div>
 

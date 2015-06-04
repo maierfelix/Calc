@@ -54,7 +54,11 @@
       delete usedCells[value.old];
     }
 
+    /** Refresh the grid */
     CORE.Grid.updateWidth("default");
+
+    /** Dont loose selection */
+    CORE.Selector.getSelection();
 
   };
 
