@@ -20,6 +20,8 @@
     var number = cellName.number;
     var cell = letter + number;
 
+		var hoverColor = "rgba(68, 138, 255, 0.75)";
+
     var masterColumns = CORE.Selector.masterSelected.Columns;
     var masterRows = CORE.Selector.masterSelected.Rows;
 
@@ -68,7 +70,7 @@
       /** Check if cell has font bold */
       if (CORE.Cells.Used[letter][cell].FontBold) {
         /** Update font bold menu color */
-        CORE.DOM.ChangeFontBold.style.background = "rgba(124, 59, 153, 0.2)";
+        CORE.DOM.ChangeFontBold.style.background = hoverColor;
       /** Reset font bold menu color to default */
       } else {
         CORE.DOM.ChangeFontBold.style.background = "rgba(50, 50, 50, 0.70)";
@@ -77,7 +79,7 @@
       /** Check if cell has font italic */
       if (CORE.Cells.Used[letter][cell].FontItalic) {
         /** Update font italic menu color */
-        CORE.DOM.ChangeFontItalic.style.background = "rgba(124, 59, 153, 0.2)";
+        CORE.DOM.ChangeFontItalic.style.background = hoverColor;
       /** Reset font italic menu color to default */
       } else {
         CORE.DOM.ChangeFontItalic.style.background = "rgba(50, 50, 50, 0.70)";
@@ -86,7 +88,7 @@
       /** Check if cell font is underlined */
       if (CORE.Cells.Used[letter][cell].FontUnderlined) {
         /** Update font italic menu color */
-        CORE.DOM.ChangeFontUnderline.style.background = "rgba(124, 59, 153, 0.2)";
+        CORE.DOM.ChangeFontUnderline.style.background = hoverColor;
       /** Reset cell font underlined menu color to default */
       } else {
         CORE.DOM.ChangeFontUnderline.style.background = "rgba(50, 50, 50, 0.70)";
@@ -126,21 +128,21 @@
 
       /** Column */
       if (masterColumns[letter].FontBold) {
-        CORE.DOM.ChangeFontBold.style.background = "rgba(124, 59, 153, 0.2)";
+        CORE.DOM.ChangeFontBold.style.background = hoverColor;
       } else {
         CORE.DOM.ChangeFontBold.style.background = "rgba(50, 50, 50, 0.70)";
       }
 
       /** Column */
       if (masterColumns[letter].FontItalic) {
-        CORE.DOM.ChangeFontBold.style.background = "rgba(124, 59, 153, 0.2)";
+        CORE.DOM.ChangeFontBold.style.background = hoverColor;
       } else {
         CORE.DOM.ChangeFontBold.style.background = "rgba(50, 50, 50, 0.70)";
       }
 
       /** Column */
       if (masterColumns[letter].FontUnderlined) {
-        CORE.DOM.ChangeFontBold.style.background = "rgba(124, 59, 153, 0.2)";
+        CORE.DOM.ChangeFontBold.style.background = hoverColor;
       } else {
         CORE.DOM.ChangeFontBold.style.background = "rgba(50, 50, 50, 0.70)";
       }
@@ -170,7 +172,7 @@
 
       /** Row */
       if (masterRows[number].FontBold) {
-        CORE.DOM.ChangeFontBoldPreview.parentNode.style.background = "rgba(124, 59, 153, 0.2)";
+        CORE.DOM.ChangeFontBoldPreview.parentNode.style.background = hoverColor;
         CORE.DOM.ChangeFontBoldPreview.style.color = "#7d7d7d";
       } else {
         CORE.DOM.ChangeFontBoldPreview.parentNode.style.background = "#fff";
@@ -179,7 +181,7 @@
 
       /** Row */
       if (masterRows[number].FontItalic) {
-        CORE.DOM.ChangeFontBoldPreview.parentNode.style.background = "rgba(124, 59, 153, 0.2)";
+        CORE.DOM.ChangeFontBoldPreview.parentNode.style.background = hoverColor;
         CORE.DOM.ChangeFontBoldPreview.style.color = "#7d7d7d";
       } else {
         CORE.DOM.ChangeFontBoldPreview.parentNode.style.background = "#fff";
@@ -188,7 +190,7 @@
 
       /** Row */
       if (masterRows[number].FontUnderlined) {
-        CORE.DOM.ChangeFontBoldPreview.parentNode.style.background = "rgba(124, 59, 153, 0.2)";
+        CORE.DOM.ChangeFontBoldPreview.parentNode.style.background = hoverColor;
         CORE.DOM.ChangeFontBoldPreview.style.color = "#7d7d7d";
       } else {
         CORE.DOM.ChangeFontBoldPreview.parentNode.style.background = "#fff";

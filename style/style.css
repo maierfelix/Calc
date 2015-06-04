@@ -46,7 +46,7 @@ body {
 .formula_input {
   height: 25px;
   width: 480px;
-  border: 1px solid #7c3b99;
+  border: 1px solid #448AFF;
   padding-left: 5px;
   color: #000;
 }
@@ -103,15 +103,15 @@ body {
 }
 
 .default_layer {
-  background: #7c3b99 !important;
+  background: #448AFF !important;
   cursor: default !important;
   color: #fff !important;
 }
 
 .cell_bright {
-  color: #502663 !important;
+  color: #0D47A1 !important;
   background: #dedede !important;
-  border: solid 1px #6e3488 !important;
+  border: solid 1px #3D5AFE !important;
   font-family: 'Roboto', sans-serif;
   font-weight: bold;
   padding: 4px !important;
@@ -138,7 +138,7 @@ body {
 }
 
 .cell_dark_alpha:hover {
-  color: #7c3b99 !important;
+  color: #448AFF !important;
   cursor: pointer;
 }
 
@@ -151,7 +151,7 @@ body {
 }
 
 .cell_dark_number:hover {
-  color: #7c3b99 !important;
+  color: #448AFF !important;
   cursor: pointer;
 }
 
@@ -191,7 +191,7 @@ body {
 }
 
 .single_row_hovered {
-  border: 2px solid #7c3b99;
+  border: 2px solid #448AFF;
   background: #fff;
   color: #000;
   padding-top: 2px;
@@ -200,7 +200,7 @@ body {
 }
 
 .cell_edit {
-  border: solid 2px #7c3b99 !important;
+  border: solid 2px #448AFF !important;
   background: #fff;
   -webkit-box-shadow: 0 3px 5px rgba(0,0,0,0.4);
   -moz-box-shadow: 0 3px 5px rgba(0,0,0,0.4);
@@ -402,7 +402,7 @@ body {
   -webkit-transform: translate(-50%,-50%);
   -ms-transform: translate(-50%,-50%);
   transform: translate(-50%,-50%);
-  border: 2px solid #7c3b99;
+  border: 2px solid #448AFF;
   padding: 10px;
 }
 
@@ -594,7 +594,7 @@ body {
   margin-left: -11px;
   margin-right: -10px;
   margin-top: -5px;
-  background-color: #7c3b99;
+  background-color: #448AFF;
   left: 0px;
   width: auto;
   overflow-x: scroll;
@@ -610,7 +610,7 @@ body {
 }
 
 .calculate-icon {
-  color: #7c3b99;
+  color: #448AFF;
   position:absolute;
   font-size:2em;
 }

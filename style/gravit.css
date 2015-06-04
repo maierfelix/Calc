@@ -843,7 +843,7 @@ input[type=submit] span:not(:last-child) {
 input:not([type=button]):not([type=submit]):not([type=checkbox]):not([type=radio]),
 select,
 textArea {
-  border: 1px solid #7c3b99;
+  border: 1px solid rgba(41, 98, 255, 0.7);
   border-radius: 1px;
   background: #fff;
 }
@@ -854,7 +854,7 @@ input:not([type=button]):not([type=submit]):not([type=checkbox]):not([type=radio
 select:focus,
 textArea:focus {
     outline: 0;
-    border: 1px solid #72368c
+    border: 1px solid rgba(41, 98, 255, 1);
 }
 select {
     text-indent: .01px;

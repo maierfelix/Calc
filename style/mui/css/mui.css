@@ -1830,13 +1830,13 @@ fieldset[disabled] .mui-btn-hiddenPurple.mui-btn-flat,
 fieldset[disabled] .mui-btn-hiddenPurple.mui-btn-flat:hover,
 fieldset[disabled] .mui-btn-hiddenPurple.mui-btn-flat:focus,
 fieldset[disabled] .mui-btn-hiddenPurple.mui-btn-flat:active {
-  color: rgba(0, 0, 0, 0.87);
+  color: rgba(68, 138, 255, 0.87);
   background-color: transparent;
 }
 
 .mui-btn-primary {
   color: #FFF;
-  background-color: rgba(124, 59, 153, 0.5);
+  background-color: rgba(68, 138, 255, 0.5);
 }
 
 .mui-btn-primary:hover,
@@ -1844,7 +1844,7 @@ fieldset[disabled] .mui-btn-hiddenPurple.mui-btn-flat:active {
 .mui-btn-primary:active,
 .mui-open > .mui-btn-primary.mui-dropdown-toggle {
   color: #FFF;
-  background-color: rgba(124, 59, 153, 0.85);
+  background-color: rgba(68, 138, 255, 0.85);
 }
 
 .mui-btn-primary[disabled],
@@ -1993,14 +1993,14 @@ fieldset[disabled] .mui-btn-accent.mui-btn-flat:active {
   padding: 0;
   border-radius: 50%;
   color: #FFF;
-  background-color: rgba(124, 59, 153, 0.5);
+  background-color: rgba(68, 138, 255, 0.5);
 }
 
 .mui-btn-floating:not(:disabled):hover,
 .mui-btn-floating:not(:disabled):focus,
 .mui-btn-floating:not(:disabled):active {
   color: #FFF;
-  background-color: rgba(124, 59, 153, 0.85);
+  background-color: rgba(68, 138, 255, 0.85);
 }
 
 .mui-btn-floating i {
