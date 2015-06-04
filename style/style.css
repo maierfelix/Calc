@@ -35,10 +35,6 @@ body {
   z-index: 9;
 }
 
-#change_background {
-  border: 1px solid #000;
-}
-
 .changeFontLabel {
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -119,7 +115,7 @@ body {
   font-family: 'Roboto', sans-serif;
   font-weight: bold;
   padding: 4px !important;
-	z-index: 1;
+  z-index: 1;
 }
 
 .cell_dark_alpha {
@@ -316,6 +312,25 @@ body {
   background-color: rgba(187, 222, 251, 0.8);
 }
 
+/** Scrollbar */
+
+::-webkit-scrollbar-track {
+  border-left: 1px solid #e9e9e9;
+}
+
+::-webkit-scrollbar {
+  width: 1px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+	border-radius: 1px;
+  background-color: rgba(0,0,0,.15);
+  background-clip: padding-box;
+  border: 1px solid transparent;
+  border-right-width: 1px;
+}
+
 /** Loading */
 
 .loader-background {
@@ -445,6 +460,126 @@ body {
 
 .caret {
   position:absolute;
-  margin-top: 12px;
-  margin-left: 3px;
+  margin-top: 7px;
+  margin-left: 2px;
+}
+
+.img-button {
+	image-rendering: optimizeSpeed;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -o-crisp-edges;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: pixelated;
+  image-rendering: optimize-contrast;
+  -ms-interpolation-mode: nearest-neighbor;
+}
+
+#change_bold {
+  width: 23px;
+  height: 23px;
+	background-color: rgba(50, 50, 50, 0.70);
+  display: inline-block;
+  -webkit-mask: url(../icon/bold.svg) no-repeat 50% 50%;
+  mask: url(../icon/bold.svg) no-repeat 50% 50%;
+  -webkit-mask-size: cover;
+  mask-size: cover;
+}
+
+#change_italic {
+  width: 23px;
+  height: 23px;
+	background-color: rgba(50, 50, 50, 0.70);
+  display: inline-block;
+  -webkit-mask: url(../icon/italic.svg) no-repeat 50% 50%;
+  mask: url(../icon/italic.svg) no-repeat 50% 50%;
+  -webkit-mask-size: cover;
+  mask-size: cover;
+}
+
+#change_underline {
+  width: 23px;
+  height: 23px;
+	background-color: rgba(50, 50, 50, 0.70);
+  display: inline-block;
+  -webkit-mask: url(../icon/underlined.svg) no-repeat 50% 50%;
+  mask: url(../icon/underlined.svg) no-repeat 50% 50%;
+  -webkit-mask-size: cover;
+  mask-size: cover;
+}
+
+#change_fontColor {
+  width: 23px;
+  height: 23px;
+	background-color: rgba(50, 50, 50, 0.70);
+  display: inline-block;
+  -webkit-mask: url(../icon/letter_color.svg) no-repeat 50% 50%;
+  mask: url(../icon/letter_color.svg) no-repeat 50% 50%;
+  -webkit-mask-size: cover;
+  mask-size: cover;
+}
+
+#change_background {
+  width: 23px;
+  height: 23px;
+	background-color: rgba(50, 50, 50, 0.70);
+  display: inline-block;
+  -webkit-mask: url(../icon/bucket.svg) no-repeat 50% 50%;
+  mask: url(../icon/bucket.svg) no-repeat 50% 50%;
+  -webkit-mask-size: cover;
+  mask-size: cover;
+}
+
+#change_border {
+  width: 23px;
+  height: 23px;
+	background-color: rgba(50, 50, 50, 0.70);
+  display: inline-block;
+  -webkit-mask: url(../icon/border.svg) no-repeat 50% 50%;
+  mask: url(../icon/border.svg) no-repeat 50% 50%;
+  -webkit-mask-size: cover;
+  mask-size: cover;
+}
+
+#insert_column {
+  width: 23px;
+  height: 23px;
+	background-color: rgba(50, 50, 50, 0.70);
+  display: inline-block;
+  -webkit-mask: url(../icon/insert_column.svg) no-repeat 50% 50%;
+  mask: url(../icon/insert_column.svg) no-repeat 50% 50%;
+  -webkit-mask-size: cover;
+  mask-size: cover;
+}
+
+#delete_column {
+  width: 23px;
+  height: 23px;
+	background-color: rgba(50, 50, 50, 0.70);
+  display: inline-block;
+  -webkit-mask: url(../icon/delete_column.svg) no-repeat 50% 50%;
+  mask: url(../icon/delete_column.svg) no-repeat 50% 50%;
+  -webkit-mask-size: cover;
+  mask-size: cover;
+}
+
+#insert_row {
+  width: 23px;
+  height: 23px;
+	background-color: rgba(50, 50, 50, 0.70);
+  display: inline-block;
+  -webkit-mask: url(../icon/insert_row.svg) no-repeat 50% 50%;
+  mask: url(../icon/insert_row.svg) no-repeat 50% 50%;
+  -webkit-mask-size: cover;
+  mask-size: cover;
+}
+
+#delete_row {
+  width: 23px;
+  height: 23px;
+	background-color: rgba(50, 50, 50, 0.70);
+  display: inline-block;
+  -webkit-mask: url(../icon/delete_row.svg) no-repeat 50% 50%;
+  mask: url(../icon/delete_row.svg) no-repeat 50% 50%;
+  -webkit-mask-size: cover;
+  mask-size: cover;
 }

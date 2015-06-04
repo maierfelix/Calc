@@ -62,7 +62,7 @@
         CORE.DOM.ChangeFontColor.style.color = CORE.Cells.Used[letter][cell].Color;
       /** Reset font color menu value to default */
       } else {
-        CORE.DOM.ChangeFontColor.style.color = "#c7c7c7";
+        CORE.DOM.ChangeFontColor.style.color = "rgba(50, 50, 50, 0.70)";
       }
 
       /** Check if cell has font bold */
@@ -71,7 +71,7 @@
         CORE.DOM.ChangeFontBold.style.background = "rgba(124, 59, 153, 0.2)";
       /** Reset font bold menu color to default */
       } else {
-        CORE.DOM.ChangeFontBold.style.background = "#fff";
+        CORE.DOM.ChangeFontBold.style.background = "rgba(50, 50, 50, 0.70)";
       }
 
       /** Check if cell has font italic */
@@ -80,7 +80,7 @@
         CORE.DOM.ChangeFontItalic.style.background = "rgba(124, 59, 153, 0.2)";
       /** Reset font italic menu color to default */
       } else {
-        CORE.DOM.ChangeFontItalic.style.background = "#fff";
+        CORE.DOM.ChangeFontItalic.style.background = "rgba(50, 50, 50, 0.70)";
       }
 
       /** Check if cell font is underlined */
@@ -89,7 +89,7 @@
         CORE.DOM.ChangeFontUnderline.style.background = "rgba(124, 59, 153, 0.2)";
       /** Reset cell font underlined menu color to default */
       } else {
-        CORE.DOM.ChangeFontUnderline.style.background = "#fff";
+        CORE.DOM.ChangeFontUnderline.style.background = "rgba(50, 50, 50, 0.70)";
       }
 
       /** Check if cell has a custom background */
@@ -98,7 +98,7 @@
         CORE.DOM.ChangeCellBackground.style.background = CORE.Cells.Used[letter][cell].BackgroundColor;
       /** Reset cell background color to default */
       } else {
-        CORE.DOM.ChangeCellBackground.style.background = "#fff";
+        CORE.DOM.ChangeCellBackground.style.background = "rgba(50, 50, 50, 0.70)";
       }
 
     /** Master column styling */
@@ -107,7 +107,7 @@
       /** Column */
       if (masterColumns[letter].BackgroundColor) {
         CORE.DOM.ChangeCellBackground.style.background = masterColumns[letter].BackgroundColor;
-      } else CORE.DOM.ChangeCellBackground.style.background = "#fff";
+      } else CORE.DOM.ChangeCellBackground.style.background = "rgba(50, 50, 50, 0.70)";
 
       /** Column */
       if (masterColumns[letter].Font) {
@@ -122,27 +122,27 @@
       /** Column */
       if (masterColumns[letter].Color) {
         CORE.DOM.ChangeFontColor.style.color = masterColumns[letter].Color;
-      } else CORE.DOM.ChangeFontColor.style.color = "#fff";
+      } else CORE.DOM.ChangeFontColor.style.color = "rgba(50, 50, 50, 0.70)";
 
       /** Column */
       if (masterColumns[letter].FontBold) {
         CORE.DOM.ChangeFontBold.style.background = "rgba(124, 59, 153, 0.2)";
       } else {
-        CORE.DOM.ChangeFontBold.style.background = "#fff";
+        CORE.DOM.ChangeFontBold.style.background = "rgba(50, 50, 50, 0.70)";
       }
 
       /** Column */
       if (masterColumns[letter].FontItalic) {
         CORE.DOM.ChangeFontBold.style.background = "rgba(124, 59, 153, 0.2)";
       } else {
-        CORE.DOM.ChangeFontBold.style.background = "#fff";
+        CORE.DOM.ChangeFontBold.style.background = "rgba(50, 50, 50, 0.70)";
       }
 
       /** Column */
       if (masterColumns[letter].FontUnderlined) {
         CORE.DOM.ChangeFontBold.style.background = "rgba(124, 59, 153, 0.2)";
       } else {
-        CORE.DOM.ChangeFontBold.style.background = "#fff";
+        CORE.DOM.ChangeFontBold.style.background = "rgba(50, 50, 50, 0.70)";
       }
 
       /** Master row styling */
@@ -151,7 +151,7 @@
       /** Row */
       if (masterRows[number].BackgroundColor) {
         CORE.DOM.ChangeCellBackground.children[0].style.background = masterRows[number].BackgroundColor;
-      } else CORE.DOM.ChangeCellBackground.children[0].style.background = "#fff";
+      } else CORE.DOM.ChangeCellBackground.children[0].style.background = "rgba(50, 50, 50, 0.70)";
 
       /** Row */
       if (masterRows[number].Font) {
@@ -204,15 +204,15 @@
       /** Reset font size menu */
       CORE.DOM.ChangeFontSize.value = 12;
       /** Reset font color menu */
-      CORE.DOM.ChangeFontColor.style.background = "#fff";
+      CORE.DOM.ChangeFontColor.style.background = "rgba(50, 50, 50, 0.70)";
       /** Reset font bold menu color to default */
-      CORE.DOM.ChangeFontBold.style.background = "#fff";
+      CORE.DOM.ChangeFontBold.style.background = "rgba(50, 50, 50, 0.70)";
       /** Reset font italic menu color to default */
-      CORE.DOM.ChangeFontItalic.style.background = "#fff";
+      CORE.DOM.ChangeFontItalic.style.background = "rgba(50, 50, 50, 0.70)";
       /** Reset font underline menu color to default */
-      CORE.DOM.ChangeFontUnderline.style.background = "#fff";
+      CORE.DOM.ChangeFontUnderline.style.background = "rgba(50, 50, 50, 0.70)";
       /** Reset cell background color to default */
-      CORE.DOM.ChangeCellBackground.style.background = "#fff";
+      CORE.DOM.ChangeCellBackground.style.background = "rgba(50, 50, 50, 0.70)";
     }
 
   };

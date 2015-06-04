@@ -1636,10 +1636,10 @@ hr {
   letter-spacing: 0.05em;
   color: rgba(0, 0, 0, 0.87);
   text-transform: uppercase;
-  height: 36px;
-  line-height: 36px;
+  height: 27px;
+  line-height: 27px;
   padding: 0 26px;
-  border-radius: 2px;
+  border-radius: 0px;
   margin-top: 6px;
   margin-bottom: 6px;
   position: relative;
@@ -1703,8 +1703,15 @@ fieldset[disabled] .mui-btn {
 }
 
 .mui-btn-lg {
-  height: 54px;
-  line-height: 54px;
+  height: 43px;
+  line-height: 43px;
+}
+
+.mui-btn-sm {
+	height: 27px;
+  line-height: 27px;
+  width: 28px;
+  padding: 0px;
 }
 
 .mui-btn-flat {
@@ -1720,7 +1727,7 @@ fieldset[disabled] .mui-btn {
 }
 
 .mui-btn-raised, .mui-btn-floating {
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  box-shadow: none;
   transition: all 0.2s ease-in-out;
 }
 
