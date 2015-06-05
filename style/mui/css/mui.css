@@ -1600,9 +1600,10 @@ hr {
 
 .mui-panel {
   padding: 10px;
-  padding-top: 5px;
+  padding-top: 0px;
   padding-left: 5px;
   margin-bottom: 0px;
+	margin-right: -10px;
   border-radius: 0;
   background-color: #FFF;
 }
@@ -2678,10 +2679,11 @@ th {
 
 .mui-tabs {
   list-style: none;
-  padding-left: 0;
+  padding-left: 10px;
   margin-bottom: 0;
   background-color: transparent;
   white-space: nowrap;
+	height: 52px;
 }
 
 .mui-tabs > li {
@@ -2694,7 +2696,7 @@ th {
   text-transform: uppercase;
   font-weight: 500;
   font-size: 14px;
-  color: rgba(0, 0, 0, 0.87);
+  color: #f8f8f8;
   cursor: default;
   height: 48px;
   line-height: 48px;
@@ -2706,12 +2708,8 @@ th {
   text-decoration: none;
 }
 
-.mui-tabs > li.mui-active {
-  border-bottom: 2px solid #2196F3;
-}
-
 .mui-tabs > li.mui-active > a {
-  color: #2196F3;
+  color: #fff;
 }
 
 .mui-tabs.mui-tabs-justified {

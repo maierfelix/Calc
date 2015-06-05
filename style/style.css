@@ -639,24 +639,75 @@ body {
 }
 
 .fa-file {
-	color: #fff;
+	color: rgba(50, 50, 50, 0.701961);
 }
 
 .fa-pencil {
-	color: #fff;
+	color: rgba(50, 50, 50, 0.701961);
 }
 
 .fa-cogs {
-	color: #fff;
+	color: rgba(50, 50, 50, 0.701961);
+}
+
+.fa-undo {
+	color: rgba(50, 50, 50, 0.701961);
+}
+
+.fa-save {
+	color: rgba(50, 50, 50, 0.701961);
+}
+
+.fa-folder-open {
+	color: rgba(50, 50, 50, 0.701961);
+}
+
+.flipped {
+	-webkit-transform: scale(-1, 1);
+	-moz-transform: scale(-1, 1);
+	-ms-transform: scale(-1, 1);
+	-o-transform: scale(-1, 1);
+	transform: scale(-1, 1);
 }
 
 .input-container {
 	width: 550px;
+	padding-top: 5px;
 }
 
 @media (min-width: 400px) and (max-width: 600px) {
   .input-container {
-		padding-top: 10px;
 		width: 100%;
 	}
- }
+}
+
+.bottom_layer {
+	position: absolute;
+  padding-left: 5px;
+  bottom: 0px;
+  right: 10px;
+  z-index: 1;
+}
+
+.top_layer {
+	position: absolute;
+  padding-left: 5px;
+  top: 0px;
+  right: 10px;
+  z-index: 1;
+}
+
+.top_layer>button {
+	background-color: #6ca3ff;
+}
+
+.white {
+	color: #fff !important;
+}
+
+.top-undo {
+  position: absolute;
+  margin-left: 14px;
+  margin-top: 19px;
+  z-index: 2;
+}

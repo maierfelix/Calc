@@ -19,16 +19,6 @@
   /** Create DOM Object */
   CORE_UI.MENU = {};
 
-  /** Select and prepare the file menu container */
-  CORE_UI.MENU.File = {
-    $: document.querySelector("#menu_file"),
-    active: false,
-    children: {
-      Open: document.querySelector("#open"),
-      Save: document.querySelector("#save")
-    }
-  };
-
   /** Select and prepare the edit menu container */
   CORE_UI.MENU.Edit = {
     $: document.querySelector("#menu_edit"),
@@ -43,67 +33,6 @@
 
   /** Initialize everything */
   CORE_UI.init = function() {
-
-    for (var ii in CORE_UI.MENU) {
-
-      /** Add functionality to the menu children */
-      if (CORE_UI.MENU[ii].children) {
-        for (var ll in CORE_UI.MENU[ii].children) {
-          CORE_UI.MENU[ii].children[ll].addEventListener('click', function(e) {
-
-            var actionName = null;
-
-            if (e.target.id) actionName = e.target.id;
-            else if (e.target.parentNode.id) actionName = e.target.parentNode.id;
-
-            if (typeof(CORE_UI.ACTION[actionName]) == "function") CORE_UI.ACTION[actionName]();
-
-          });
-        }
-      }
-
-      /** Menu node click listeners */
-      if (CORE_UI.MENU[ii].$.id) {
-        CORE_UI.MENU[ii].$.addEventListener('click', function(e) {
-          if (e.target.id || e.target.parentNode.id) {
-            var target = e.target || e.target.parentNode;
-            var menu = document.querySelector("#menu_dialogs");
-            for (var kk = 0; kk < menu.children.length; ++kk) {
-              if (menu.children[kk].getAttribute("name") === e.target.parentNode.getAttribute("name") ||
-                  menu.children[kk].getAttribute("name") ===  e.target.getAttribute("name")) {
-
-                var name = menu.children[kk].getAttribute("name");
-
-                if (CORE_UI.MENU[name]) {
-
-                  if (!CORE_UI.MENU[name].active) {
-
-                    CORE_UI.closeAllMenus();
-
-                    CORE_UI.MENU_DIALOG_CONTAINER.style.display = "block";
-
-                    CORE_UI.MENU[name].active = true;
-
-                    menu.children[kk].style.display = "block";
-
-                  } else {
-
-                    CORE_UI.MENU_DIALOG_CONTAINER.style.display = "none";
-
-                    CORE_UI.MENU[name].active = false;
-
-                    menu.children[kk].style.display = "none";
-
-                  }
-
-                }
-
-              }
-            }
-          }
-        });
-      }
-    }
 
     document.querySelector("#import_file").addEventListener('change', function(e) {
 
