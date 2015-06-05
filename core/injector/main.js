@@ -29,7 +29,7 @@
    * @method getUsedCells
    * @static
    */
-  CORE.Injector.prototype.getUsedCells = function() {
+  CORE.Injector.prototype.getUsedCells = function(mode) {
 
     var selectedCell = CORE.Cells.Selected.First;
 
@@ -48,7 +48,16 @@
 
         /** Go through each cell */
         for (var cell in usedCells[ii]) {
-          cellLetter = CORE.$.numberToAlpha(CORE.$.alphaToNumber(cell.match(CORE.REGEX.numbers).join("")) + 1);
+
+          switch (mode) {
+            case "insert":
+              cellLetter = CORE.$.numberToAlpha(CORE.$.alphaToNumber(cell.match(CORE.REGEX.numbers).join("")) + 1);
+              break;
+            case "delete":
+              cellLetter = CORE.$.numberToAlpha(CORE.$.alphaToNumber(cell.match(CORE.REGEX.numbers).join("")) - 1);
+              break;
+          }
+
           cellNumber = ~~(cell.match(CORE.REGEX.letters).join(""));
           usedCells[ii][cellLetter + cellNumber] = usedCells[ii][cell];
           delete usedCells[ii][cell];
@@ -70,7 +79,7 @@
    * @method getMasterColumns
    * @static
    */
-  CORE.Injector.prototype.getMasterColumns = function() {
+  CORE.Injector.prototype.getMasterColumns = function(mode) {
 
     var selectedCell = CORE.Cells.Selected.First;
 
@@ -83,7 +92,14 @@
 
       /** Get each letter behind */
       if (masterCells[ii] && CORE.$.alphaToNumber(ii) >= selectedCell.Letter) {
-        customArray.push({ old: ii, new: (CORE.$.numberToAlpha(CORE.$.alphaToNumber(ii) + 1)) });
+        switch (mode) {
+          case "insert":
+            customArray.push({ old: ii, new: (CORE.$.numberToAlpha(CORE.$.alphaToNumber(ii) + 1)) });
+            break;
+          case "delete":
+            customArray.push({ old: ii, new: (CORE.$.numberToAlpha(CORE.$.alphaToNumber(ii) - 1)) });
+            break;
+        }
       }
 
     }

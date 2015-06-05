@@ -21,6 +21,11 @@
       CORE.Injector.insertColumn();
     });
 
+    /** Initialize delete column button */
+    CORE.DOM.DeleteColumn.addEventListener('click', function() {
+      CORE.Injector.deleteColumn();
+    });
+
     /** Initialize insert row button */
     CORE.DOM.InsertRow.addEventListener('click', function() {
       CORE.Injector.insertRow();

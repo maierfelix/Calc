@@ -21,7 +21,49 @@
    */
   CORE.Injector.prototype.deleteColumn = function() {
 
-    
+    var usedCells = CORE.Cells.Used;
+
+    var masterCells = CORE.Selector.masterSelected.Columns;
+
+    /** Currently selected column */
+    var selectedCell = CORE.Cells.Selected.First;
+
+    /** Process master cells */
+    var customArray = this.getMasterColumns("delete");
+
+    /** Sort array alphabetically */
+    customArray = customArray.sortOn("old");
+
+    /** Not reversed! */
+    for (var ii = 0; ii < customArray.length; ++ii) {
+      var value = customArray[ii];
+      masterCells[value.new] = masterCells[value.old];
+      delete masterCells[value.old];
+    }
+
+    /** Process master cells */
+    customArray = this.getUsedCells("delete");
+
+    /** Sort array alphabetically */
+    customArray = customArray.sortOn("old");
+
+    /** Not reversed! */
+    for (var ii = 0; ii < customArray.length; ++ii) {
+      var value = customArray[ii];
+      /** Selection matches the cell, simply delete it */
+      if (CORE.$.alphaToNumber(value.new) < selectedCell.Letter) {
+        delete usedCells[value.old];
+      } else {
+        usedCells[value.new] = usedCells[value.old];
+        delete usedCells[value.old];
+      }
+    }
+
+    /** Refresh the grid */
+    CORE.Grid.updateWidth("default");
+
+    /** Dont loose selection */
+    CORE.Selector.getSelection();
 
   };
 

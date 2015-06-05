@@ -53,6 +53,8 @@
         e.which  === 2 || /** Middle click */
         CORE.Input.Mouse.Pressed) {
           e.preventDefault();
+          /** Dont loose selection */
+          CORE.Selector.getSelection();
           return void 0;
         }
 

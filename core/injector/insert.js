@@ -26,12 +26,12 @@
     var masterCells = CORE.Selector.masterSelected.Columns;
 
     /** Process master cells */
-    var customArray = this.getMasterColumns();
+    var customArray = this.getMasterColumns("insert");
 
     /** Sort array alphabetically */
     customArray = customArray.sortOn("old");
 
-    ii = customArray.length;
+    var ii = customArray.length;
 
     /** Reversed */
     while (ii--) {
@@ -40,12 +40,12 @@
       delete masterCells[value.old];
     }
 
-    customArray = this.getUsedCells();
+    customArray = this.getUsedCells("insert");
 
     /** Sort array alphabetically */
     customArray = customArray.sortOn("old");
 
-    var ii = customArray.length;
+    ii = customArray.length;
 
     /** Reversed */
     while (ii--) {

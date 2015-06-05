@@ -46,32 +46,17 @@
   /** Select and prepare font color container */
   CORE.DOM.ChangeFontColor = document.querySelector("#change_fontColor");
 
-  /** Select and prepare font color preview container */
-  CORE.DOM.ChangeFontColorPreview = document.querySelector("#font_color_preview");
-
   /** Select and prepare the font bold change container */
   CORE.DOM.ChangeFontBold = document.querySelector("#change_bold");
-
-  /** Select and prepare the font bold preview container */
-  CORE.DOM.ChangeFontBoldPreview = document.querySelector("#change_bold_preview");
 
   /** Select and prepare the font italic change container */
   CORE.DOM.ChangeFontItalic = document.querySelector("#change_italic");
 
-  /** Select and prepare the font italic change container */
-  CORE.DOM.ChangeFontItalicPreview = document.querySelector("#change_italic_preview");
-
   /** Select and prepare the font underline change container */
   CORE.DOM.ChangeFontUnderline = document.querySelector("#change_underline");
 
-  /** Select and prepare the font underline change container */
-  CORE.DOM.ChangeFontUnderlinePreview = document.querySelector("#change_underline_preview");
-
   /** Select and prepare the cell ilive cell container */
   CORE.DOM.ChangeLiveCell = document.querySelector("#change_livecell");
-
-  /** Select and prepare the live cell preview container */
-  CORE.DOM.ChangeLiveCellPreview = document.querySelector("#change_livecell_preview");
 
   /** Select and prepare the live cell output container */
   CORE.DOM.LiveCellOutput = document.querySelector("#livecell_current");
@@ -93,6 +78,9 @@
 
   /** Select and prepare the insert column button */
   CORE.DOM.InsertColumn = document.querySelector("#insert_column");
+
+  /** Select and prepare the delete column button */
+  CORE.DOM.DeleteColumn = document.querySelector("#delete_column");
 
   /** Select and prepare the insert row button */
   CORE.DOM.InsertRow = document.querySelector("#insert_row");
