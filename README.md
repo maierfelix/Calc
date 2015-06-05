@@ -18,13 +18,12 @@ NovaeCalc runs the best on Google Chrome.
    - [x] Custom cell styles
    - [ ] Mobile friendly
    - [x] Realtime cells
-   - [ ] Insert, delete columns and rows
+   - [x] Insert, delete columns
+   - [ ] Insert, delete rows
 
  - [ ] Functionalities
    - [x] Export projects
-   - [x] Export projects as image
    - [x] Import project
-   - [x] Import projects saved as image
    - [ ] Backup projects into LocalStorage
    - [ ] Undo, redo stack
    - [ ] Jump to (x, y)
@@ -56,6 +55,7 @@ NovaeCalc runs the best on Google Chrome.
 
 ## Notes:
 - [ ] Possibly include server-side cell calculation option
+- [ ] Pow higher priority than multiply
 
 ## Libraries
  * [ImportJS](https://github.com/felixmaier/ImportJS)
