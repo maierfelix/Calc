@@ -1,0 +1,24 @@
+{
+  "name": "NovaeCalc",
+  "version": "1.0.0",
+  "description": "Server for the NovaeCalc project",
+  "main": "main.js",
+  "dependencies": {
+    "socket.io": "~1.3.5",
+    "moment": "~2.10.3",
+    "crypto": ""
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/felixmaier/NovaeCalc"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/felixmaier/NovaeCalc/issues"
+  }
+}
