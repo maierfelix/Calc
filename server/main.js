@@ -95,8 +95,8 @@
 
     });
 
-		/** Everything went fine until here */
-		console.log('\x1b[32;1mStarting new server...\x1b[0m');
+    /** Everything went fine until here */
+    console.log('\x1b[32;1mStarting new server...\x1b[0m');
 
   });
 

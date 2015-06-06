@@ -55,12 +55,11 @@
 
       self.dbclient.createCollection('rooms', function(){
         self.rooms = new self.mongodb.Collection(self.dbclient, 'rooms');
-        self.rooms.ensureIndex({username: 1}, {unique:true}, function(){});
-        self.rooms.ensureIndex({lcusername: 1}, {unique:true}, function(){});
+        self.rooms.ensureIndex({name: 1}, {unique:true}, function(){});
 
-        /*self.rooms.count(function(err, count) {
+        self.rooms.count(function(err, count) {
           console.log('Registered rooms: '+count);
-        });*/
+        });
 
         resolve(1);
 
