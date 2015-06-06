@@ -81,7 +81,8 @@
 
       if (this.users[ii] && this.users[ii].hasOwnProperty("username")) {
         if (this.users[ii].username === username) {
-          this.users = this.users.slice(ii);
+          this.users = this.users.splice(ii, 1);
+          break;
         }
       }
 
@@ -93,14 +94,14 @@
 
   /**
    * Check if a room exists
-   * @param {string} id Id
+   * @param {string} name Name
    * @method roomExists
    * @return {boolean}
    */
-  Bucket.prototype.roomExists = function(id) {
+  Bucket.prototype.roomExists = function(name) {
 
     for (var ii = 0; ii < this.rooms.length; ++ii) {
-      if (this.rooms[ii].id === id) return (true);
+      if (this.rooms[ii].name === name) return (true);
     }
 
     return (false);
@@ -116,10 +117,10 @@
 
     /** Validate user object */
     if (!typeof room === "object") return (false);
-    if (!room.id) return (false);
+    if (!room.name) return (false);
 
     /** Check if room already exists, continue if not */
-    if (!this.roomExists(room.id)) {
+    if (!this.roomExists(room.name)) {
       this.rooms.push(room);
     }
 
@@ -129,16 +130,16 @@
 
   /**
    * Removes a room from the rooms array
-   * @param {String} id Id to remove
+   * @param {String} name Name to remove
    * @method removeRoom
    */
-  Bucket.prototype.removeRoom = function(id) {
+  Bucket.prototype.removeRoom = function(name) {
 
     for (var ii = 0; ii < this.rooms.length; ++ii) {
 
-      if (this.rooms[ii] && this.rooms[ii].hasOwnProperty("id")) {
-        if (this.rooms[ii].id === id) {
-          this.rooms = this.rooms.slice(ii);
+      if (this.rooms[ii] && this.rooms[ii].hasOwnProperty("name")) {
+        if (this.rooms[ii].name === name) {
+          this.rooms = this.rooms.splice(ii);
         }
       }
 

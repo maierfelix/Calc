@@ -25,12 +25,6 @@
      */
     this.name = name;
     /**
-     * Unique room id
-     *
-     * @member {number}
-     */
-    this.id = id;
-    /**
      * Name of the owner
      *
      * @member {string}
@@ -114,7 +108,7 @@
 
       if (this.users[ii] && this.users[ii].hasOwnProperty("username")) {
         if (this.users[ii].username === username) {
-          this.users = this.users.slice(ii);
+          this.users = this.users.splice(ii);
         }
       }
 

@@ -34,7 +34,16 @@
 
   var testUser = new User("Felix", 3);
 
+	var testUser2 = new User("Frank", 2);
+
   Bucket.addUser(testUser);
+	Bucket.addUser(testUser2);
+
+	if (Bucket.userExists(testUser2.username)) {
+		Bucket.removeUser(testUser2.username);
+	}
+
+	console.log(Bucket);
 
   process.stdin.resume();
   process.stdin.setEncoding('utf8');

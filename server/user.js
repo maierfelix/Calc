@@ -25,12 +25,6 @@
      */
     this.username = name;
     /**
-     * Unique user id
-     *
-     * @member {number}
-     */
-    this.id = 0;
-    /**
      * Admin level
      *
      * @member {number}
