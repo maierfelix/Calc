@@ -33,6 +33,9 @@
     /** Fastclick if we're on mobile */
     if (CORE.Settings.Mobile) FastClick.attach(document.body);
 
+    /** Initialize Connector Plugin */
+    CORE.Connector = new CORE.Connector();
+
     /** Initialize File Plugin */
     CORE.File = new CORE.File();
 
@@ -65,6 +68,9 @@
 
     /** Select major first cell in the grid */
     CORE.Selector.selectCell(1, 1);
+
+    /** Try to connect */
+    CORE.Connector.connect();
 
   };
 
