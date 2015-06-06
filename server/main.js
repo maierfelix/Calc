@@ -27,6 +27,9 @@
 
   var exec = require('child_process').exec;
 
+  var Security = require('./security.js');
+      Security = new Security();
+
   var Bucket = require('./bucket.js');
       Bucket = new Bucket();
 
@@ -34,16 +37,16 @@
 
   var testUser = new User("Felix", 3);
 
-	var testUser2 = new User("Frank", 2);
+  var testUser2 = new User("Frank", 2);
 
   Bucket.addUser(testUser);
-	Bucket.addUser(testUser2);
+  Bucket.addUser(testUser2);
 
-	if (Bucket.userExists(testUser2.username)) {
-		Bucket.removeUser(testUser2.username);
-	}
+  if (Bucket.userExists(testUser.username)) {
+    Bucket.removeUser(testUser.username);
+  }
 
-	console.log(Bucket);
+  console.log(Bucket);
 
   process.stdin.resume();
   process.stdin.setEncoding('utf8');
@@ -68,11 +71,28 @@
     });
 
     socket.on('data', function(data) {
-      //userData(socket, data);
+
+      /** Valid data? */
+      if (Security.isSecure(data)) {
+        userData(socket, data);
+      }
+
     });
 
     socket.on('disconnect', function(reason) {
      //userDisconnect(socket, reason);
     });
+
+  });
+
+  /** Console input */
+  process.openStdin().addListener('data', function (data) {
+
+    /** Input validation */
+    data = data.toString().substring(0, data.length - 2);
+    if (!data.length) return void 0;
+
+    /** Exit */
+    if (data[0] === '/exit') process.exit();
 
   });
