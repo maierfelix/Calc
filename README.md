@@ -62,3 +62,4 @@ NovaeCalc runs the best on Google Chrome.
  * [Eight Bit Color Picker](https://github.com/bilalq/eight-bit-color-picker)
  * [Fastclick](https://github.com/ftlabs/fastclick)
  * [Mui](https://github.com/muicss/mui)
+ * [Socket.io](https://github.com/Automattic/socket.io)
