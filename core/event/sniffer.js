@@ -177,6 +177,12 @@
       CORE.Selector.cellFocusSwitch = true;
       /** Focus the cell input field while typing */
       CORE.DOM.CellInput.focus();
+
+      /** Share cell changes */
+      if (CORE.Connector.connected) {
+        CORE.Connector.action("updateCell", { cell: CORE.Cells.Edit, value: CORE.DOM.CellInput.value });
+      }
+
     }, 1);
 
   };
