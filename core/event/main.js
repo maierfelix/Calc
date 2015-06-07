@@ -87,7 +87,7 @@
 
     CORE.Settings.Height = window.innerHeight;
 
-    CORE.Settings.Scroll.Vertical = CORE.$.calculateScrollAmount();
+    CORE.Settings.Scroll.OriginalVertical = CORE.Settings.Scroll.Vertical = CORE.$.calculateScrollAmount();
 
     CORE.Event.lastAction.scrollY = false;
 
