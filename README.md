@@ -19,13 +19,14 @@ NovaeCalc runs the best on Google Chrome.
    - [ ] Mobile friendly
    - [x] Realtime cells
    - [x] Insert, delete columns
-   - [x] Insert, delete rows
+   - [ ] Insert, delete rows
 
  - [ ] Functionalities
    - [x] Export projects
    - [x] Import project
    - [ ] Backup projects into LocalStorage
    - [ ] Undo, redo stack
+   - [ ] Multiple sheets
    - [ ] Jump to (x, y)
    - [ ] Debug
 
