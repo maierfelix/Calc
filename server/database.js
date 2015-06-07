@@ -30,6 +30,19 @@
 
     this.ready = false;
 
+    /**
+     * Precompile regex
+     *
+     * @member {object}
+     */
+    this.NUMBERS = /[^0-9]/g;
+    /**
+     * Precompile regex
+     *
+     * @member {object}
+     */
+    this.LETTERS = /[^a-zA-Z]/gi;
+
   };
 
   /**
@@ -56,6 +69,7 @@
 
       self.dbclient.createCollection('rooms', function(){
         self.rooms = new self.mongodb.Collection(self.dbclient, 'rooms');
+        self.rooms.ensureIndex({id: 1}, {unique:true}, function(){});
         self.rooms.ensureIndex({name: 1}, {unique:true}, function(){});
         self.rooms.ensureIndex({owner: 1}, {unique:false}, function(){});
         self.rooms.ensureIndex({token: 1}, {unique:false}, function(){});
@@ -151,8 +165,6 @@
           if (count > 0) {
             self[collection].findOne(data, function(error, object) {
               result = object;
-              /** Don't pass over the id */
-              if (result["_id"]) delete result["_id"];
               resolve({data: result});
             });
           } else resolve(0);
@@ -182,9 +194,18 @@
       if (this[collection] !== undefined && this[collection] !== null) {
 
         var node = {};
-				node["cells." + data.cells.cell] = data.cells.value;
 
-        self[collection].update({_id: id}, {$set: node });
+        for (var ii in data.cells) {
+
+          for (var cell in data.cells[ii]) {
+
+            node["cells." + ii + "." + cell] = data.cells[ii][cell];
+
+            self[collection].update({_id: id}, {$set: node }, function() {});
+
+          }
+
+        }
 
       }
 

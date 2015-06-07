@@ -192,6 +192,22 @@
   };
 
   /**
+   * Get a specific room
+   * @param {String} roomName
+   * @method getRoom
+   * @return {object} Room
+   */
+  Bucket.prototype.getRoom = function(name) {
+
+    for (var ii = 0; ii < this.rooms.length; ++ii) {
+      if (this.rooms[ii].name === name) return (this.rooms[ii]);
+    }
+
+    return void 0;
+
+  };
+
+  /**
    * Get the current room a user is in
    * @param {String} username Username
    * @method getCurrentUserRoom
@@ -208,6 +224,17 @@
     }
 
     return void 0;
+
+  };
+
+  /**
+   * Save current bucket cells
+   * @method saveBucketCells
+   * @return {string} name
+   */
+  Bucket.prototype.saveBucketCells = function(name) {
+
+    console.log("Save!");
 
   };
 

@@ -135,4 +135,30 @@
 
   };
 
+  /**
+   * Check if room is empty
+   * @param {string} name
+   * @method isEmpty
+   */
+  Room.prototype.isEmpty = function(name) {
+
+    if (this.users.length <= 0) return (true);
+
+    return (false);
+
+  };
+
+  /**
+   * Check if room is full
+   * @param {string} name
+   * @method isFull
+   */
+  Room.prototype.isFull = function(name) {
+
+    if (this.users.length >= this.userLimit) return (true);
+
+    return (false);
+
+  };
+
   module.exports = Room;

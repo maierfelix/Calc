@@ -50,7 +50,7 @@
     /** User logic */
     io.on('connection', function(socket) {
 
-      //console.log('New socket connected: ' + socket.id + '');
+      console.log('New socket connected: ' + socket.id + '');
 
       /** Register user into the bucket */
       if (!Bucket.userExists(socket.id)) Bucket.addUser(new User(socket.id, 1));
@@ -59,7 +59,7 @@
       socket.emit("connected");
 
       /** Create Room */
-      socket.on('createroom', function(name) {
+      socket.on('createroom', function(name, resolve) {
 
         var token = crypto.randomBytes(32).toString('hex');
 
@@ -85,14 +85,18 @@
                   Bucket.updateUser(socket.id, "level", 3);
                 }
                 socket.emit("message", {type: "room", value: "Room " + name + " was successfully created!", values: name, state: 1});
+                /** New room created */
+                resolve(1);
               /** Failed insertion */
               } else {
                 socket.emit("message", {type: "room", value: "Room " + name + " already exists!", values: name, state: 0});
-                if (Bucket.userExists(socket.id)) { console.log(name, Bucket.rooms);
+                if (Bucket.userExists(socket.id)) {
                   if (Bucket.roomExists(name)) {
-                    console.log(Bucket.rooms);
+                    //console.log(Bucket.rooms);
                   }
                 }
+                /** Room already exists */
+                resolve(0);
               }
             });
           }
@@ -110,6 +114,9 @@
               Database.getCollection("rooms", {name: data.room}, function(callback) {
                 /** Got a result */
                 if (callback.data) {
+                  /** Dont pass over private data */
+                  delete callback.data._id;
+                  delete callback.data.token;
                   socket.emit("message", {type: "roomdata", data: callback.data, state: 1});
                 }
               });
@@ -121,25 +128,105 @@
 
        /** Update a Cell */
       socket.on('updatecell', function(data) {
+        var userRoom = Bucket.getCurrentUserRoom(socket.id);
+        /** Only users with admin rights can change cells */
         if (Bucket.userIsAdmin(socket.id)) {
           /** Validate cell object */
-          if (Security.isSecure(data.cell) && Security.isSecure(data.value)) {
-            /** Update room cell data */
-            Database.updateCell("rooms", {cells: data}, Bucket.getCurrentUserRoom(socket.id).id, function(callback) {
-              /** Got a result */
-              if (callback) {
-                console.log(callback);
+          if (Security.isSecure(data.cell) && data.value.length && Security.isSecure(data.letter) && data.letter.length && (typeof data.value === "string")) {
+            /** User is in a room */
+            if (userRoom && userRoom.id) {
+              /** Dictionary lookup style */
+              if (!userRoom.cells[data.letter]) {
+                userRoom.cells[data.letter] = {};
               }
-            });
+              /** Update cell */
+              if (userRoom.cells[data.letter]) {
+                userRoom.cells[data.letter][data.cell] = data.value;
+              }
+            /** User isn't in a room */
+            } else {
+              console.log("!!!!!!!!!!!!!!!!!!!!!!!!!");
+              console.log(Bucket.users, Bucket.rooms);
+            }
+          }
+        }
+        /** Update cells of all client in the same room */
+        io.emit("message", {type: "global", action: "cellchange", data: "rofl"});
+      });
+
+      /** Socket disconnected */
+      socket.on('securitypassword', function(password, room, callback) {
+        var getRoom = null;
+        /** Validate received data */
+        if (Security.isSecure(password) && Security.isSecure(room)) {
+          /** Check if user exists in the bucket */
+          if (Bucket.userExists(socket.id)) {
+            /** Check if room exists in the bucket */
+            if (Bucket.roomExists(room)) {
+              getRoom = Bucket.getRoom(room);
+              /** Check if tokens matches */
+              if (getRoom.securityToken === password) {
+                /** Add user to the room */
+                getRoom.addUser(socket.id);
+                /** Give user admin rights */
+                Bucket.updateUser(socket.id, "level", 3);
+                callback(1);
+              }
+              /** Wrong security token */
+              else callback(0);
+            /** Move database room into bucket room array */
+            } else {
+              /** Get room data */
+              Database.getCollection("rooms", {name: room}, function(data) {
+                /** Got a result */
+                if (data) {
+                  data = data.data;
+                  /** Create room -> Room name, socket name, security token, callback = mongo id */
+                  var room = new Room(data.name, socket.id, data.token, data._id);
+                  /** Add user to the room */
+                  room.addUser(socket.id);
+                  /** Make this user to the owner, since he awake this room */
+                  room.owner = socket.id;
+                  /** Create room in bucket */
+                  Bucket.addRoom(room);
+                  /** Check if room exists */
+                  if (Bucket.roomExists(data.name)) {
+                    /** Check if security password is correct */
+                    if (Bucket.getRoom(data.name).securityToken === password) {
+                      /** Give user admin rights */
+                      Bucket.updateUser(socket.id, "level", 3);
+                      callback(1);
+                    }
+                  }
+                }
+              });
+            }
           }
         }
       });
 
       /** Socket disconnected */
       socket.on('disconnect', function(reason) {
-        /** Remove user from the bucket */
-        if (Bucket.userExists(socket.id)) {
-          Bucket.removeUser(socket.id);
+        var userRoom = Bucket.getCurrentUserRoom(socket.id);
+        /** User was in a room */
+        if (userRoom && userRoom.id) {
+          /** User had admin rights, seems like he made edits */
+          if (Bucket.userIsAdmin(socket.id)) {
+            /** Save the bucket cells into the database */
+            Database.updateCell("rooms", {cells: userRoom.cells}, userRoom.id, function(callback) {
+              /** Remove user from the bucket */
+              if (Bucket.userExists(socket.id)) {
+                Bucket.removeUser(socket.id);
+              }
+              console.log(userRoom);
+            });
+          }
+        /** Fake user? Or spectator */
+        } else {
+          /** Remove user from the bucket */
+          if (Bucket.userExists(socket.id)) {
+            Bucket.removeUser(socket.id);
+          }
         }
       });
 
@@ -168,7 +255,7 @@
 
     /** Print Bucket */
     if (data === '/bucket') console.log(Bucket);
-    if (data === '/bucketroomusers') console.log(Bucket.rooms);
+    if (data === '/bucketroomcells') console.log(Bucket.rooms[0].cells);
 
   });
 
