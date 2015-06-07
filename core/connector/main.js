@@ -27,11 +27,11 @@
     /** Default port */
     this.port = 3000;
 
-    /** Connected or not */
-    this.connected = false;
-
     /** Current connection state */
     this.state = null;
+
+    /** Connected or not */
+    this.connected = false;
 
     /** Count time, how long the connection is already stable */
     this.connectionStreak = 0;
@@ -42,6 +42,9 @@
       1: "Danger",
       2: "Lost"
     };
+
+    /** Current room */
+    this.room = null;
 
   };
 
@@ -82,12 +85,44 @@
       /** Stable state */
       self.state = 0;
       self.connectionStreak = new Date().getTime();
+      self.connected = true;
     });
 
     /** Listen for various messages */
     this.socket.on("message", function(data) {
-      console.log(data);
+      self.message(data);
     });
+
+  };
+
+  /**
+   * Handle specific messages from the server
+   *
+   * @method handleMessage
+   * @static
+   */
+  CORE.Connector.prototype.message = function(data) {
+
+    if (data && data.type) {
+
+      switch (data.type) {
+        /** Room */
+        case "room":
+          this.room = data.values;
+          /** Get room data */
+          this.getRoom();
+          break;
+        /** Room */
+        case "roomdata":
+          if (this.room) {
+            if (data.data) {
+              console.log(data.data);
+            }
+          }
+          break;
+      }
+
+    }
 
   };
 
@@ -104,13 +139,66 @@
   };
 
   /**
-   * How long the server is successfully connected
+   * Count how long the server is successfully connected
    *
    * @method connectionTime
    * @static
    */
   CORE.Connector.prototype.createRoom = function() {
 
-    this.socket.emit("createroom", "DerLimbus");
+    var name = this.getURL();
+
+    if (name && name.length) {
+      /** Delete question mark to validate the string */
+      name = name.slice(1, name.length);
+      this.socket.emit("createroom", name);
+    }
+
+  };
+
+  /**
+   * Get the room data from the server
+   *
+   * @method getRoom
+   * @static
+   */
+  CORE.Connector.prototype.getRoom = function() {
+
+    this.socket.emit("getroom", {room: this.room});
+
+  };
+
+  /**
+   * Login modal
+   *
+   * @method connectionTime
+   * @static
+   */
+  CORE.Connector.prototype.loginModal = function() {
+
+    if (!window.mui) return void 0;
+
+    var modalEl = document.createElement('div');
+        modalEl.style.width = '400px';
+        modalEl.style.height = '300px';
+        modalEl.style.margin = '100px auto';
+        modalEl.style.backgroundColor = '#fff';
+        modalEl.innerHTML = '<form> <legend>Title</legend> <div class="mui-form-group"> <input type="text" class="mui-form-control" required> <label class="mui-form-floating-label">Required Text Field</label> </div><div class="mui-form-group"> <input type="email" class="mui-form-control" required> <label class="mui-form-floating-label">Required Email Address</label> </div><div class="mui-form-group"> <textarea class="mui-form-control" required></textarea> <label class="mui-form-floating-label">Required Textarea</label> </div><div class="mui-form-group"> <input type="email" class="mui-form-control" value="Validation error"> <label class="mui-form-floating-label">Email Address</label> </div><button type="submit" class="mui-btn mui-btn-default mui-btn-raised">Submit</button></form>';
+
+    // show modal
+    mui.overlay('on', modalEl);
+
+  };
+
+  /**
+   * Read everything behind the current url
+   *
+   * @method getURL
+   * @static
+   */
+  CORE.Connector.prototype.getURL = function() {
+
+    if (window.location.search) return (window.location.search);
+    else return void 0;
 
   };
