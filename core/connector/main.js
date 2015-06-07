@@ -109,8 +109,8 @@
         /** Room */
         case "room":
           this.room = data.values;
-          /** Get room data */
-          this.getRoom();
+          /** Get room data from the server */
+          this.socket.emit("getroom", {room: this.room});
           break;
         /** Room */
         case "roomdata":
@@ -119,6 +119,10 @@
               console.log(data.data);
             }
           }
+          break;
+        /** Global message */
+        case "global":
+          console.log(data);
           break;
       }
 
@@ -146,25 +150,29 @@
    */
   CORE.Connector.prototype.createRoom = function() {
 
+    var self = this;
+
     var name = this.getURL();
+
+    var securityPassword = "";
 
     if (name && name.length) {
       /** Delete question mark to validate the string */
       name = name.slice(1, name.length);
-      this.socket.emit("createroom", name);
+      this.socket.emit("createroom", name, function(state) {
+        /** Room was successfully created */
+        if (state) {
+          
+        /** Room already exists, ask for password */
+        } else {
+          securityPassword = prompt("Please enter the room password: ");
+          /** Send the password to the server */
+          self.socket.emit("securitypassword", securityPassword, self.room, function(bool) {
+            console.log(bool);
+          });
+        }
+      });
     }
-
-  };
-
-  /**
-   * Get the room data from the server
-   *
-   * @method getRoom
-   * @static
-   */
-  CORE.Connector.prototype.getRoom = function() {
-
-    this.socket.emit("getroom", {room: this.room});
 
   };
 

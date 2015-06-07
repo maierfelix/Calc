@@ -40,6 +40,7 @@
 
     /** Validate data */
     if (object.cell && object.value && object.value.length) {
+      object.letter = object.cell.match(CORE.REGEX.numbers).join("");
       this.socket.emit("updatecell", object);
     }
 
