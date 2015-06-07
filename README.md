@@ -42,9 +42,10 @@ NovaeCalc runs the best on Google Chrome.
 
 - [ ] Server
    - [x] Rooms
+   - [x] Room passwords
    - [x] Users
    - [x] Roles
-   - [ ] Share project
+   - [x] Share rooms
    - [x] Multi-user live editing
    - [ ] Synchronization
    - [ ] Screen mirroring
