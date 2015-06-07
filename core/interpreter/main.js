@@ -49,10 +49,10 @@
 
     /** Lexical analysis */
     this.lexed = this.Lexer.lex(stream);
-//for (var ii = 0; ii < this.lexed.length; ++ii) console.log(this.lexed[ii]);
+    //for (var ii = 0; ii < this.lexed.length; ++ii) console.log(this.lexed[ii]);
     /** Generate AST */
     this.ast = this.Parser.parse(this.lexed);
-console.log(this.ast);
+    //console.log(this.ast);
     /** Evaluate the AST */
     this.Evaluator.evaluate(this.ast);
 

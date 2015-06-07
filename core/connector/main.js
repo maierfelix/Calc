@@ -116,13 +116,18 @@
         case "roomdata":
           if (this.room) {
             if (data.data) {
-              console.log(data.data);
+              this.processServerCells(data.data.cells);
             }
           }
           break;
         /** Global message */
         case "global":
-          console.log(data);
+          switch (data.action) {
+            /** Single cell change */
+            case "cellchange":
+              this.processServerCell(data.data);
+              break;
+          }
           break;
       }
 
@@ -159,6 +164,7 @@
     if (name && name.length) {
       /** Delete question mark to validate the string */
       name = name.slice(1, name.length);
+      /** Make use of acknowledge */
       this.socket.emit("createroom", name, function(state) {
         /** Room was successfully created */
         if (state) {
