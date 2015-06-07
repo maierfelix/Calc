@@ -86,13 +86,13 @@
                 }
                 socket.emit("message", {type: "room", value: "Room " + name + " was successfully created!", values: name, state: 1});
                 /** New room created */
-                resolve(1);
+                resolve(token);
               /** Failed insertion */
               } else {
                 socket.emit("message", {type: "room", value: "Room " + name + " already exists!", values: name, state: 0});
                 if (Bucket.userExists(socket.id)) {
                   if (Bucket.roomExists(name)) {
-                    //console.log(Bucket.rooms);
+                    /** TODO: What to do if password is wrong? */
                   }
                 }
                 /** Room already exists */
@@ -128,6 +128,7 @@
 
        /** Update a Cell */
       socket.on('updatecell', function(data) {
+
         var userRoom = Bucket.getCurrentUserRoom(socket.id);
         /** Only users with admin rights can change cells */
         if (Bucket.userIsAdmin(socket.id)) {
@@ -150,12 +151,15 @@
             }
           }
         }
+
         /** Update cells of all client in the same room */
         io.emit("message", {type: "global", action: "cellchange", data: "rofl"});
+
       });
 
       /** Socket disconnected */
       socket.on('securitypassword', function(password, room, callback) {
+
         var getRoom = null;
         /** Validate received data */
         if (Security.isSecure(password) && Security.isSecure(room)) {
@@ -203,10 +207,12 @@
             }
           }
         }
+
       });
 
       /** Socket disconnected */
       socket.on('disconnect', function(reason) {
+
         var userRoom = Bucket.getCurrentUserRoom(socket.id);
         /** User was in a room */
         if (userRoom && userRoom.id) {
@@ -218,7 +224,6 @@
               if (Bucket.userExists(socket.id)) {
                 Bucket.removeUser(socket.id);
               }
-              console.log(userRoom);
             });
           }
         /** Fake user? Or spectator */
@@ -228,6 +233,7 @@
             Bucket.removeUser(socket.id);
           }
         }
+
       });
 
     });

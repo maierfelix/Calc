@@ -69,7 +69,6 @@
 
       self.dbclient.createCollection('rooms', function(){
         self.rooms = new self.mongodb.Collection(self.dbclient, 'rooms');
-        self.rooms.ensureIndex({id: 1}, {unique:true}, function(){});
         self.rooms.ensureIndex({name: 1}, {unique:true}, function(){});
         self.rooms.ensureIndex({owner: 1}, {unique:false}, function(){});
         self.rooms.ensureIndex({token: 1}, {unique:false}, function(){});
@@ -122,7 +121,6 @@
             self[collection].insert(data, {safe: true}, function(error, objects) {
               /** Error */
               if (error) {
-                console.log(error.err);
                 resolve(0);
               }
               /** Success */
