@@ -162,7 +162,7 @@
       this.socket.emit("createroom", name, function(state) {
         /** Room was successfully created */
         if (state) {
-          
+          prompt("Please save the following master access key for this room!", state);
         /** Room already exists, ask for password */
         } else {
           securityPassword = prompt("Please enter the room password: ");
