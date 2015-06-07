@@ -41,12 +41,11 @@ NovaeCalc runs the best on Google Chrome.
    - [x] JSON processing
 
 - [ ] Server
-   - [ ] Groups
+   - [x] Rooms
    - [x] Users
    - [x] Roles
-   - [ ] Administrative area
    - [ ] Share project
-   - [ ] Multi-user live editing
+   - [x] Multi-user live editing
    - [ ] Synchronization
    - [ ] Screen mirroring
 
