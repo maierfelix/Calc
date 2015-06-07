@@ -41,13 +41,19 @@
   /** User class */
   var User = require('./user.js');
 
+  /** Room class */
+  var Room = require('./room.js');
+
   /** Initialize database */
   Database.init(server, function() {
 
     /** User logic */
     io.on('connection', function(socket) {
 
-      console.log('New socket connected: ' + socket.id + '');
+      //console.log('New socket connected: ' + socket.id + '');
+
+      /** Register user into the bucket */
+      if (!Bucket.userExists(socket.id)) Bucket.addUser(new User(socket.id, 1));
 
       /** Successfully connected back pong */
       socket.emit("connected");
@@ -55,17 +61,38 @@
       /** Create Room */
       socket.on('createroom', function(name) {
 
+        var token = crypto.randomBytes(32).toString('hex');
+
         /** Validate data */
         if (Security.isSecure(name)) {
           /** Valid type */
           if (typeof name === "string") {
-            Database.insertCollection("rooms", {name: name}, function(callback) {
+            Database.insertCollection("rooms", {name: name, token: token, owner: socket.id}, function(callback) {
               /** Successful insertion */
               if (callback) {
+                /** Give room creator admin rights */
+                if (Bucket.userExists(socket.id)) {
+                  /** Create room in bucket */
+                  if (!Bucket.roomExists(name)) {
+                    /** Create room -> Room name, socket name, security token, callback = mongo id */
+                    var room = new Room(name, socket.id, token, callback);
+                    /** Add owner to the room */
+                    room.addUser(socket.id);
+                    /** Create room in bucket */
+                    Bucket.addRoom(room);
+                  }
+                  /** Set user to admin */
+                  Bucket.updateUser(socket.id, "level", 3);
+                }
                 socket.emit("message", {type: "room", value: "Room " + name + " was successfully created!", values: name, state: 1});
               /** Failed insertion */
               } else {
                 socket.emit("message", {type: "room", value: "Room " + name + " already exists!", values: name, state: 0});
+                if (Bucket.userExists(socket.id)) { console.log(name, Bucket.rooms);
+                  if (Bucket.roomExists(name)) {
+                    console.log(Bucket.rooms);
+                  }
+                }
               }
             });
           }
@@ -77,8 +104,8 @@
       socket.on('getroom', function(data) {
 
         if (data) {
-          if (typeof data.room === "string") {
-            if (Security.isSecure(data.room)) {
+          if (Security.isSecure(data.room)) {
+            if (typeof data.room === "string") {
               /** Get room data */
               Database.getCollection("rooms", {name: data.room}, function(callback) {
                 /** Got a result */
@@ -92,25 +119,28 @@
 
       });
 
-      socket.on('login', function(username) {
-        //userLogin(username);
-      });
-
-      socket.on('logoff', function(username) {
-        //userLogout(username);
-      });
-
-      socket.on('data', function(data) {
-
-        /** Valid data? */
-        if (Security.isSecure(data)) {
-          userData(socket, data);
+       /** Update a Cell */
+      socket.on('updatecell', function(data) {
+        if (Bucket.userIsAdmin(socket.id)) {
+          /** Validate cell object */
+          if (Security.isSecure(data.cell) && Security.isSecure(data.value)) {
+            /** Update room cell data */
+            Database.updateCell("rooms", {cells: data}, Bucket.getCurrentUserRoom(socket.id).id, function(callback) {
+              /** Got a result */
+              if (callback) {
+                console.log(callback);
+              }
+            });
+          }
         }
-
       });
 
+      /** Socket disconnected */
       socket.on('disconnect', function(reason) {
-       //userDisconnect(socket, reason);
+        /** Remove user from the bucket */
+        if (Bucket.userExists(socket.id)) {
+          Bucket.removeUser(socket.id);
+        }
       });
 
     });
@@ -134,7 +164,11 @@
     if (!data.length) return void 0;
 
     /** Exit */
-    if (data[0] === '/exit') process.exit();
+    if (data === '/exit') process.exit();
+
+    /** Print Bucket */
+    if (data === '/bucket') console.log(Bucket);
+    if (data === '/bucketroomusers') console.log(Bucket.rooms);
 
   });
 

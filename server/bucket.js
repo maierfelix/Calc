@@ -51,6 +51,26 @@
   };
 
   /**
+   * Get a single user
+   * @param {String} username Username to be checked
+   * @method getUser
+   * @return {object}
+   */
+  Bucket.prototype.updateUser = function(username, property, value) {
+
+    for (var ii = 0; ii < this.users.length; ++ii) {
+      if (property && this.users[ii] && this.users[ii].hasOwnProperty("username") && this.users[ii].hasOwnProperty(property)) {
+        if (this.users[ii].username === username) {
+          this.users[ii][property] = value;
+        }
+      }
+    }
+
+    return void 0;
+
+  };
+
+  /**
    * Adds a new user to the user array
    * @param {Object} user User to be added
    * @method addUser
@@ -81,7 +101,7 @@
 
       if (this.users[ii] && this.users[ii].hasOwnProperty("username")) {
         if (this.users[ii].username === username) {
-          this.users = this.users.splice(ii, 1);
+          this.users.splice(ii, 1);
           break;
         }
       }
@@ -89,6 +109,28 @@
     }
 
     return void 0;
+
+  };
+
+  /**
+   * Check if user from user array is admin
+   * @param {string} username Username
+   * @method userIsAdmin
+   * @return {boolean}
+   */
+  Bucket.prototype.userIsAdmin = function(username) {
+
+    for (var ii = 0; ii < this.users.length; ++ii) {
+
+      if (this.users[ii] && this.users[ii].hasOwnProperty("username")) {
+        if (this.users[ii].username === username) {
+          if (this.users[ii].isAdmin()) return (true);
+        }
+      }
+
+    }
+
+    return (false);
 
   };
 
@@ -139,10 +181,30 @@
 
       if (this.rooms[ii] && this.rooms[ii].hasOwnProperty("name")) {
         if (this.rooms[ii].name === name) {
-          this.rooms = this.rooms.splice(ii);
+          this.rooms.splice(ii, 1);
         }
       }
 
+    }
+
+    return void 0;
+
+  };
+
+  /**
+   * Get the current room a user is in
+   * @param {String} username Username
+   * @method getCurrentUserRoom
+   * @return {object} Room
+   */
+  Bucket.prototype.getCurrentUserRoom = function(username) {
+
+    for (var ii = 0; ii < this.rooms.length; ++ii) {
+      if (this.rooms[ii] && this.rooms[ii].users) {
+        for (var kk = 0; kk < this.rooms[ii].users.length; ++kk) {
+          if (this.rooms[ii].users[kk] === username) return (this.rooms[ii]);
+        }
+      }
     }
 
     return void 0;

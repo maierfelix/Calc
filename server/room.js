@@ -17,7 +17,13 @@
    * Room class
    * Represents a user room
    */
-  function Room(name, owner) {
+  function Room(name, owner, token, id) {
+    /**
+     * Mongo room id
+     *
+     * @member {string}
+     */
+    this.id = id;
     /**
      * Room name
      *
@@ -43,6 +49,18 @@
      * @default 12
      */
     this.userLimit = 12;
+    /**
+     * Security access token
+     *
+     * @member {string}
+     */
+    this.securityToken = token;
+    /**
+     * Cells
+     *
+     * @member {object}
+     */
+    this.cells = {};
   };
 
   /**
@@ -82,15 +100,14 @@
    * @param {object} user User
    * @method addUser
    */
-  Room.prototype.addUser = function(user) {
+  Room.prototype.addUser = function(username) {
 
-    /** Validate user object */
-    if (!typeof user === "object") return (false);
-    if (!user.username) return (false);
+    /** Validate username */
+    if (!username || !typeof username === "string") return (false);
 
-    /** Check if room already exists, continue if not */
-    if (!this.userExists(user.username)) {
-      this.users.push(user);
+    /** Check if user already exists in this room, continue if not */
+    if (!this.userExists(username)) {
+      this.users.push(username);
     }
 
     return void 0;
@@ -108,7 +125,7 @@
 
       if (this.users[ii] && this.users[ii].hasOwnProperty("username")) {
         if (this.users[ii].username === username) {
-          this.users = this.users.splice(ii);
+          this.users.splice(ii, 1);
         }
       }
 

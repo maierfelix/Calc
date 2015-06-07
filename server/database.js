@@ -57,7 +57,8 @@
       self.dbclient.createCollection('rooms', function(){
         self.rooms = new self.mongodb.Collection(self.dbclient, 'rooms');
         self.rooms.ensureIndex({name: 1}, {unique:true}, function(){});
-        self.rooms.ensureIndex({cells: 1}, {unique:false}, function(){});
+        self.rooms.ensureIndex({owner: 1}, {unique:false}, function(){});
+        self.rooms.ensureIndex({token: 1}, {unique:false}, function(){});
 
         self.rooms.count(function(err, count) {
           console.log('Registered rooms: '+count);
@@ -91,7 +92,7 @@
 
       if (this[collection] !== undefined && this[collection] !== null) {
         /** Check if already exists */
-        this[collection].find(data, {limit: 1}).count(function(error, count) {
+        this[collection].find({name: data.name}, {limit: 1}).count(function(error, count) {
           if (error) {
             console.warn(err.message);
             resolve(0);
@@ -111,7 +112,7 @@
                 resolve(0);
               }
               /** Success */
-              else resolve(1);
+              else resolve(data._id);
             });
           }
         });
@@ -156,6 +157,34 @@
             });
           } else resolve(0);
         });
+
+      }
+
+    }
+
+  };
+
+  /**
+   * Update the database
+   * @param {string} collection name
+   * @param {object} data
+   * @param {number} callback
+   * @method updateCell
+   */
+  Database.prototype.updateCell = function(collection, data, id, resolve) {
+
+    /** Async visibility fix */
+    var self = this;
+
+    /** Database in ready state */
+    if (this.ready && this[collection] && data) {
+
+      if (this[collection] !== undefined && this[collection] !== null) {
+
+        var node = {};
+				node["cells." + data.cells.cell] = data.cells.value;
+
+        self[collection].update({_id: id}, {$set: node });
 
       }
 
