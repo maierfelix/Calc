@@ -39,6 +39,7 @@
    */
   Database.prototype.init = function(server, resolve) {
 
+    /** Async visibility fix */
     var self = this;
 
     /** Initialize database */
@@ -56,6 +57,7 @@
       self.dbclient.createCollection('rooms', function(){
         self.rooms = new self.mongodb.Collection(self.dbclient, 'rooms');
         self.rooms.ensureIndex({name: 1}, {unique:true}, function(){});
+        self.rooms.ensureIndex({cells: 1}, {unique:false}, function(){});
 
         self.rooms.count(function(err, count) {
           console.log('Registered rooms: '+count);
@@ -77,28 +79,87 @@
    * @param {string} collection name
    * @param {object} data
    * @param {number} callback
-   * @method insert
+   * @method insertCollection
    */
-  Database.prototype.insert = function(collection, data, resolve) {
+  Database.prototype.insertCollection = function(collection, data, resolve) {
 
+    /** Async visibility fix */
     var self = this;
 
     /** Database in ready state */
     if (this.ready && this[collection] && data) {
 
       if (this[collection] !== undefined && this[collection] !== null) {
-        this[collection].insert(data, {safe: true}, function(error, objects) {
-          /** Error */
+        /** Check if already exists */
+        this[collection].find(data, {limit: 1}).count(function(error, count) {
           if (error) {
-            console.log(error.err);
+            console.warn(err.message);
             resolve(0);
+            return void 0;
           }
-          /** Success */
-          else resolve(1);
+          /** Already exists */
+          if (count > 0) {
+            resolve(0);
+            return void 0;
+          } else {
+            /** Insert */
+            data.cells = {};
+            self[collection].insert(data, {safe: true}, function(error, objects) {
+              /** Error */
+              if (error) {
+                console.log(error.err);
+                resolve(0);
+              }
+              /** Success */
+              else resolve(1);
+            });
+          }
         });
       } else resolve(0);
 
     } else resolve(0);
+
+  };
+
+  /**
+   * Get from the database
+   * @param {string} collection name
+   * @param {object} data
+   * @param {number} callback
+   * @method getCollection
+   */
+  Database.prototype.getCollection = function(collection, data, resolve) {
+
+    /** Async visibility fix */
+    var self = this;
+
+    var result = null;
+
+    /** Database in ready state */
+    if (this.ready && this[collection] && data) {
+
+      if (this[collection] !== undefined && this[collection] !== null) {
+
+        this[collection].find(data, {limit: 1}).count(function(error, count) {
+          if (error) {
+            console.warn(err.message);
+            resolve(0);
+            return void 0;
+          }
+          /** Exists */
+          if (count > 0) {
+            self[collection].findOne(data, function(error, object) {
+              result = object;
+              /** Don't pass over the id */
+              if (result["_id"]) delete result["_id"];
+              resolve({data: result});
+            });
+          } else resolve(0);
+        });
+
+      }
+
+    }
 
   };
 

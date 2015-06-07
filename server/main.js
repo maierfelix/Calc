@@ -52,21 +52,41 @@
       /** Successfully connected back pong */
       socket.emit("connected");
 
+      /** Create Room */
       socket.on('createroom', function(name) {
 
         /** Validate data */
         if (Security.isSecure(name)) {
           /** Valid type */
           if (typeof name === "string") {
-            Database.insert("rooms", {name: name}, function(callback) {
+            Database.insertCollection("rooms", {name: name}, function(callback) {
               /** Successful insertion */
               if (callback) {
-                socket.emit("message", "Room " + name + " was successfully created!");
+                socket.emit("message", {type: "room", value: "Room " + name + " was successfully created!", values: name, state: 1});
               /** Failed insertion */
               } else {
-                socket.emit("message", "Room " + name + " already exists!");
+                socket.emit("message", {type: "room", value: "Room " + name + " already exists!", values: name, state: 0});
               }
             });
+          }
+        }
+
+      });
+
+      /** Get Room */
+      socket.on('getroom', function(data) {
+
+        if (data) {
+          if (typeof data.room === "string") {
+            if (Security.isSecure(data.room)) {
+              /** Get room data */
+              Database.getCollection("rooms", {name: data.room}, function(callback) {
+                /** Got a result */
+                if (callback.data) {
+                  socket.emit("message", {type: "roomdata", data: callback.data, state: 1});
+                }
+              });
+            }
           }
         }
 
