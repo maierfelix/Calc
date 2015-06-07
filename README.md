@@ -40,6 +40,8 @@ NovaeCalc runs the best on Google Chrome.
    - [ ] Information functions
    - [ ] Date / Time functions
    - [x] JSON processing
+   - [ ] Cell ranges
+   - [ ] Multi-sheet cell references
 
 - [ ] Server
    - [x] Rooms
