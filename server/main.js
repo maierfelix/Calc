@@ -144,6 +144,14 @@
               if (userRoom.cells[data.letter]) {
                 userRoom.cells[data.letter][data.cell] = data.value;
               }
+              /** Send cell update to all clients in the same room */
+              for (var ii = 0; ii < userRoom.users.length; ++ii) {
+                /** Dont send message to this myself */
+                if (userRoom.users[ii] !== socket.id) {
+                  /** Update cells of all client in the same room */
+                  io.to(userRoom.users[ii]).emit("message", {type: "global", action: "cellchange", data: {letter: data.letter, cell: data.cell, value: data.value}});
+                }
+              }
             /** User isn't in a room */
             } else {
               console.log("!!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -151,9 +159,6 @@
             }
           }
         }
-
-        /** Update cells of all client in the same room */
-        io.emit("message", {type: "global", action: "cellchange", data: "rofl"});
 
       });
 
@@ -226,7 +231,7 @@
               }
             });
           }
-        /** Fake user? Or spectator */
+        /** Fake user or spectator .. */
         } else {
           /** Remove user from the bucket */
           if (Bucket.userExists(socket.id)) {
@@ -240,6 +245,14 @@
 
     /** Everything went fine until here */
     console.log('\x1b[32;1mStarting new server...\x1b[0m');
+
+    /** Save bucket into database every 150s */
+    setInterval(function() {
+      /** Save each room */
+      for (var ii = 0; ii < Bucket.rooms.length; ++ii) {
+        Database.updateCell("rooms", {cells: Bucket.rooms[ii].cells}, Bucket.rooms[ii].id, function() {});
+      }
+    }, 150000);
 
   });
 
