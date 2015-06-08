@@ -132,31 +132,43 @@
         var userRoom = Bucket.getCurrentUserRoom(socket.id);
         /** Only users with admin rights can change cells */
         if (Bucket.userIsAdmin(socket.id)) {
-          /** Validate cell object */
-          if (Security.isSecure(data.cell) && data.value.length && Security.isSecure(data.letter) && data.letter.length && (typeof data.value === "string")) {
-            /** User is in a room */
-            if (userRoom && userRoom.id) {
-              /** Dictionary lookup style */
-              if (!userRoom.cells[data.letter]) {
-                userRoom.cells[data.letter] = {};
-              }
-              /** Update cell */
-              if (userRoom.cells[data.letter]) {
-                userRoom.cells[data.letter][data.cell] = data.value;
-              }
-              /** Send cell update to all clients in the same room */
-              for (var ii = 0; ii < userRoom.users.length; ++ii) {
-                /** Dont send message to this myself */
-                if (userRoom.users[ii] !== socket.id) {
-                  /** Update cells of all client in the same room */
-                  io.to(userRoom.users[ii]).emit("message", {type: "global", action: "cellchange", data: {letter: data.letter, cell: data.cell, value: data.value}});
+          /** User is in a room */
+          if (userRoom && userRoom.id) {
+            /** Validate cell object */
+            if (Security.isSecure(data.sheet) && data.sheet.length &&   /** Sheet  */
+                Security.isSecure(data.cell) && data.value.length &&    /** Cell   */
+                Security.isSecure(data.letter) && data.letter.length && /** Letter */
+                (typeof data.value === "string")) {                     /** Value  */
+                  /** Check if sheet is already registered */
+                  if (!userRoom.sheets[data.sheet]) {
+                    /** Register new sheet */
+                    userRoom.sheets[data.sheet] = {
+                      cells: {}
+                    };
+                  }
+                  /** Dictionary lookup style */
+                  if (!userRoom.sheets[data.sheet].cells[data.letter]) {
+                    /** Register cell dictionary */
+                    userRoom.sheets[data.sheet].cells[data.letter] = {};
+                  }
+                  /** Update cell */
+                  if (userRoom.sheets[data.sheet].cells[data.letter]) {
+                    /** Update cell */
+                    userRoom.sheets[data.sheet].cells[data.letter][data.cell] = data.value;
+                  }
+                  /** Send cell update to all clients in the same room */
+                  for (var ii = 0; ii < userRoom.users.length; ++ii) {
+                    /** Dont send message to this myself */
+                    if (userRoom.users[ii] !== socket.id) {
+                      /** Update cells of all client in the same room */
+                      io.to(userRoom.users[ii]).emit("message", {type: "global", action: "cellchange", data: {sheet: data.sheet, letter: data.letter, cell: data.cell, value: data.value}});
+                    }
+                  }
                 }
-              }
-            /** User isn't in a room */
-            } else {
-              console.log("!!!!!!!!!!!!!!!!!!!!!!!!!");
-              console.log(Bucket.users, Bucket.rooms);
-            }
+          /** User isn't in a room */
+          } else {
+            console.log("!!!!!!!!!!!!!!!!!!!!!!!!!");
+            console.log(Bucket.users, Bucket.rooms);
           }
         }
 
@@ -223,8 +235,8 @@
         if (userRoom && userRoom.id) {
           /** User had admin rights, seems like he made edits */
           if (Bucket.userIsAdmin(socket.id)) {
-            /** Save the bucket cells into the database */
-            Database.updateCell("rooms", {cells: userRoom.cells}, userRoom.id, function(callback) {
+            /** Save the bucket sheets and cells into the database */
+            Database.updateCell("rooms", {sheets: userRoom.sheets}, userRoom.id, function(callback) {
               /** Remove user from the bucket */
               if (Bucket.userExists(socket.id)) {
                 Bucket.removeUser(socket.id);
@@ -250,7 +262,7 @@
     setInterval(function() {
       /** Save each room */
       for (var ii = 0; ii < Bucket.rooms.length; ++ii) {
-        Database.updateCell("rooms", {cells: Bucket.rooms[ii].cells}, Bucket.rooms[ii].id, function() {});
+        Database.updateCell("rooms", {sheets: Bucket.rooms[ii].sheets}, Bucket.rooms[ii].id, function() {});
       }
     }, 150000);
 
@@ -274,7 +286,7 @@
 
     /** Print Bucket */
     if (data === '/bucket') console.log(Bucket);
-    if (data === '/bucketroomcells') console.log(Bucket.rooms[0].cells);
+    if (data === '/bucketroomcells') console.log(Bucket.rooms[0].sheets);
 
   });
 

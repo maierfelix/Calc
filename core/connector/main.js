@@ -117,7 +117,7 @@
         case "roomdata":
           if (this.room) {
             if (data.data) {
-              this.processServerCells(data.data.cells);
+              this.processServerCells(data.data.sheets);
             }
           }
           break;

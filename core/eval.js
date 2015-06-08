@@ -21,22 +21,31 @@
    */
   CORE.eval = function() {
 
-    var cells = CORE.Cells.Used[[CORE.CurrentSheet]];
+    var cells = null;
+    var usedCellSheet = null;
+
+    if (arguments[0]) {
+      cells = CORE.Cells.Used[arguments[0]];
+      usedCellSheet = CORE.Cells.Used[arguments[0]];
+    } else {
+      cells = CORE.Cells.Used[CORE.CurrentSheet];
+      usedCellSheet = CORE.Cells.Used[CORE.CurrentSheet];
+    }
 
     var formulas = [];
 
     var result = 0;
 
-    var usedCellSheet = CORE.Cells.Used[CORE.CurrentSheet];
-
     for (var ii in cells) {
       for (var kk in cells[ii]) {
         /** Cell has a formula */
         if (cells[ii][kk].Formula && cells[ii][kk].Formula.length) {
+          /** The formula behind the variable assignment */
           formulas.push({
             name: kk,
             /** Validate formula, add the parent cell value before the formula to emulate a variable assignment */
-            value: (cells[ii][kk].Formula.substr(0, 0) + kk + cells[ii][kk].Formula.substr(0))
+            value: cells[ii][kk].Formula.substr(0, 0) + kk + cells[ii][kk].Formula.substr(0),
+            variableReferences: CORE.$.getVariables(cells[ii][kk].Formula.substr(0))
           });
         }
       }
@@ -45,6 +54,14 @@
     if (formulas && formulas.length) {
       /** Process all formulas found */
       for (var ii = 0; ii < formulas.length; ++ii) {
+
+        if (formulas[ii].variableReferences && formulas[ii].variableReferences.length) {
+
+          var variables = formulas[ii].variableReferences;
+
+          /** TODO: Recursively pre-interpret variable references */
+
+        }
 
         var letter = formulas[ii].name.match(CORE.REGEX.numbers).join("");
 

@@ -51,7 +51,7 @@
     /** Switch to the first sheet */
     CORE.Sheets.changeSheet(CORE.CurrentSheet);
 
-		/** Initialize all event listeners */
+    /** Initialize all event listeners */
     CORE.Event.init();
 
     /** Initialize Selector Plugin for this sheet */
@@ -346,5 +346,17 @@
     }
 
     return (number);
+
+  };
+
+  /**
+   * Scan a string for variables, return them as an array
+   *
+   * @method getVariables
+   * @static
+   */
+  CORE.$.getVariables = function(string) {
+
+    return (string.match(CORE.REGEX.variable));
 
   };

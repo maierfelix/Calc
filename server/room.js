@@ -56,11 +56,12 @@
      */
     this.securityToken = token;
     /**
-     * Cells
+     * Sheets
+     * Structure: sheet[a-Z+0-9] -> cellAlphabet[a-Z] -> cell[a-Z+0-9]
      *
      * @member {object}
      */
-    this.cells = {};
+    this.sheets = {};
   };
 
   /**

@@ -38,7 +38,11 @@
     /** No sheets created yet */
     } else newSheetNumber = 1;
 
-    CORE.CurrentSheet = "Sheet" + newSheetNumber;
+    if (arguments[0] && arguments[0].length) {
+      CORE.CurrentSheet = arguments[0];
+    } else {
+      CORE.CurrentSheet = "Sheet" + newSheetNumber;
+    }
 
     if (!CORE.Cells.Used[CORE.CurrentSheet]) CORE.Cells.Used[CORE.CurrentSheet] = {};
 

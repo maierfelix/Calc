@@ -61,7 +61,8 @@
   /** Precompile regex operations */
   CORE.REGEX = {
     numbers: /[^0-9]/g,
-    letters: /[^a-zA-Z]/gi
+    letters: /[^a-zA-Z]/gi,
+    variable: /[a-zA-Z_][a-zA-Z0-9_]+/gi
   };
 
   /** Assign it global */

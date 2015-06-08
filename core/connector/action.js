@@ -41,6 +41,7 @@
     /** Validate data */
     if (object.cell && object.value && object.value.length) {
       object.letter = object.cell.match(CORE.REGEX.numbers).join("");
+      object.sheet = CORE.CurrentSheet;
       this.socket.emit("updatecell", object);
     }
 
@@ -54,16 +55,24 @@
    */
   CORE.Connector.prototype.processServerCells = function(object) {
 
-    for (var letter in object) {
-      for (var cell in object[letter]) {
-        if (!CORE.Cells.Used[CORE.CurrentSheet][letter]) CORE.Cells.Used[CORE.CurrentSheet][letter] = {};
-        if (!CORE.Cells.Used[CORE.CurrentSheet][letter][cell]) CORE.Cells.Used[CORE.CurrentSheet][letter][cell] = CORE.Sheets[CORE.CurrentSheet].Cell();
-        /** Formula? */
-        if (object[letter][cell][0] === "=") {
-          CORE.Cells.Used[CORE.CurrentSheet][letter][cell].Formula = object[letter][cell];
-        /** Default content */
-        } else {
-          CORE.Cells.Used[CORE.CurrentSheet][letter][cell].Content = object[letter][cell];
+    for (var sheet in object) {
+      /** Add new sheet if not existing yet */
+      if (!CORE.Sheets[sheet]) {
+        CORE.Sheets[sheet] = new CORE.Grid();
+        CORE.Sheets.addSheet(sheet);
+      }
+      for (var letter in object[sheet].cells) {
+        for (var cell in object[sheet].cells[letter]) {
+          if (!CORE.Cells.Used[sheet]) CORE.Cells.Used[sheet] = {};
+          if (!CORE.Cells.Used[sheet][letter]) CORE.Cells.Used[sheet][letter] = {};
+          if (!CORE.Cells.Used[sheet][letter][cell]) CORE.Cells.Used[sheet][letter][cell] = new CORE.Grid.Cell();
+          /** Formula? */
+          if (object[sheet].cells[letter][cell][0] === "=") {
+            CORE.Cells.Used[sheet][letter][cell].Formula = object[sheet].cells[letter][cell];
+          /** Default content */
+          } else {
+            CORE.Cells.Used[sheet][letter][cell].Content = object[sheet].cells[letter][cell];
+          }
         }
       }
     }
@@ -82,19 +91,19 @@
    */
   CORE.Connector.prototype.processServerCell = function(object) {
 
-    if (!CORE.Cells.Used[CORE.CurrentSheet][object.letter]) CORE.Cells.Used[CORE.CurrentSheet][object.letter] = {};
+    if (!CORE.Cells.Used[object.sheet][object.letter]) CORE.Cells.Used[object.sheet][object.letter] = {};
 
-    if (!CORE.Cells.Used[CORE.CurrentSheet][object.letter][object.cell]) {
-      CORE.Cells.Used[CORE.CurrentSheet][object.letter][object.cell] = new CORE.Sheets[CORE.CurrentSheet].Cell();
+    if (!CORE.Cells.Used[object.sheet][object.letter][object.cell]) {
+      CORE.Cells.Used[object.sheet][object.letter][object.cell] = new CORE.Sheets[CORE.CurrentSheet].Cell();
     }
 
     if (object.value[0] === "=") {
       /** Only attach cell if it ends with a semicolon */
       if (object.value[object.value.length - 1] === ";") {
-        CORE.Cells.Used[CORE.CurrentSheet][object.letter][object.cell].Formula = object.value;
+        CORE.Cells.Used[object.sheet][object.letter][object.cell].Formula = object.value;
       }
     } else {
-      CORE.Cells.Used[CORE.CurrentSheet][object.letter][object.cell].Content = object.value;
+      CORE.Cells.Used[object.sheet][object.letter][object.cell].Content = object.value;
     }
 
     /** Refresh the grid */

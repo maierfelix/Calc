@@ -117,7 +117,7 @@
             return void 0;
           } else {
             /** Insert */
-            data.cells = {};
+            data.sheets = {};
             self[collection].insert(data, {safe: true}, function(error, objects) {
               /** Error */
               if (error) {
@@ -193,13 +193,17 @@
 
         var node = {};
 
-        for (var ii in data.cells) {
+        for (var sheet in data.sheets) {
 
-          for (var cell in data.cells[ii]) {
+          for (var ii in data.sheets[sheet].cells) {
 
-            node["cells." + ii + "." + cell] = data.cells[ii][cell];
+            for (var cell in data.sheets[sheet].cells[ii]) {
 
-            self[collection].update({_id: id}, {$set: node }, function() {});
+              node["sheets." + sheet + ".cells." + ii + "." + cell] = data.sheets[sheet].cells[ii][cell];
+
+              self[collection].update({_id: id}, {$set: node }, function() {});
+
+            }
 
           }
 
