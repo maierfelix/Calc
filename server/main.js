@@ -17,9 +17,7 @@
   var port = config.port;
   var moment = require('moment');
   var crypto = require('crypto');
-  var exec = require('child_process').exec;
   var io = require('socket.io')(port);
-  var exec = require('child_process').exec;
   var mongodb = require('mongodb');
   var server = new mongodb.Server("127.0.0.1", 27017, {});
 
