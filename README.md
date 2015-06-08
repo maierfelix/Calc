@@ -26,7 +26,7 @@ NovaeCalc runs the best on Google Chrome.
    - [x] Import project
    - [ ] Backup projects into LocalStorage
    - [ ] Undo, redo stack
-   - [ ] Multiple sheets
+   - [x] Multiple sheets
    - [ ] Jump to (x, y)
    - [ ] Debug
 
