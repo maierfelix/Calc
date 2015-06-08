@@ -2,7 +2,7 @@
  * This file is part of the NovaeCalc project.
  *
  * It is permitted to use, redistribute and/or modify this software
- * under the terms of the MIT License
+ * under the terms of the BSD License
  *
  * @author Felix Maier <maier.felix96@gmail.com>
  * @copyright (c) 2015 Felix Maier, @felixmaier
@@ -64,7 +64,7 @@
       CORE.Sheets.setActiveSheet(name);
       setTimeout(function() {
         CORE.DOM.Output.classList.remove("fadeIn");
-      }, 760);
+      }, 275);
     });
 
     /** Insert into the dom */
@@ -83,7 +83,7 @@
 
     setTimeout(function() {
       CORE.DOM.Output.classList.remove("pullDown");
-    }, 760);
+    }, 275);
 
   };
 
