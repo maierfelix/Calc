@@ -14,20 +14,7 @@
 "use strict";
 
   /** Create Event Object */
-  CORE.Event = {
-    /** Save last mouse click to identify single and double clicks */
-    lastMoseDown: 0,
-    /** Save last clicked cell */
-    lastMouseDownCell: {
-      Letter: 0,
-      Number: 0
-    },
-    /** Save latest action to prevent unnecessary grid redrawing */
-    lastAction: {
-      scrollY: false,
-      scrollX: false
-    }
-  };
+  CORE.Event = {};
 
   /**
    * Initialize event listeners
@@ -89,7 +76,7 @@
 
     CORE.Settings.Scroll.OriginalVertical = CORE.Settings.Scroll.Vertical = CORE.$.calculateScrollAmount();
 
-    CORE.Event.lastAction.scrollY = false;
+    CORE.Sheets[CORE.CurrentSheet].Input.lastAction.scrollY = false;
 
     CORE.Sheets[CORE.CurrentSheet].calculateGrid();
 

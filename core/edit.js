@@ -30,7 +30,7 @@
         element = null;
 
     /** User edits something right now */
-    CORE.Input.Mouse.Edit = true;
+    CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Edit = true;
 
     jumps = CORE.$.getCell(object);
     if (jumps >= 0) element = CORE.DOM.Output.children[jumps];
@@ -84,10 +84,10 @@
     }
 
     /** Update old edited cell */
-    CORE.Cells.Edit = (newLetter + newNumber);
+    CORE.Sheets[CORE.CurrentSheet].Selector.Edit = (newLetter + newNumber);
 
     /** Update current selected cell */
-    CORE.DOM.CurrentCell.innerHTML = CORE.Cells.Edit;
+    CORE.DOM.CurrentCell.innerHTML = CORE.Sheets[CORE.CurrentSheet].Selector.Edit;
 
     /** Make sure all selections are deleted */
     CORE.Sheets[CORE.CurrentSheet].Selector.deleteCellHoverEffect();
@@ -105,10 +105,10 @@
    */
   CORE.Grid.prototype.cleanEditSelection = function() {
 
-    if (CORE.Cells.Edit) {
+    if (CORE.Sheets[CORE.CurrentSheet].Selector.Edit) {
 
-      var letter = CORE.Cells.Edit.match(CORE.REGEX.numbers).join(""),
-          number = ~~(CORE.Cells.Edit.match(CORE.REGEX.letters).join("")),
+      var letter = CORE.Sheets[CORE.CurrentSheet].Selector.Edit.match(CORE.REGEX.numbers).join(""),
+          number = ~~(CORE.Sheets[CORE.CurrentSheet].Selector.Edit.match(CORE.REGEX.letters).join("")),
           jumps = ((this.Settings.y * (CORE.$.alphaToNumber(letter) - 1) ) + number - 1 - this.Settings.scrolledY) - (this.Settings.y * this.Settings.scrolledX);
 
       if (CORE.DOM.Output.children[jumps]) {
@@ -138,7 +138,7 @@
     }
 
     /** User does not edit anything anymore */
-    CORE.Input.Mouse.Edit = false;
+    CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Edit = false;
 
   };
 

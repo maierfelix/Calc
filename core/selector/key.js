@@ -69,7 +69,7 @@
     }
 
     /** User presses the shift key */
-    if (CORE.Input.Keyboard.Shift) {
+    if (CORE.Sheets[CORE.CurrentSheet].Input.Keyboard.Shift) {
       this.getSelectionByKeyPress(letter, number);
     }
     /** Select the new cell */

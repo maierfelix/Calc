@@ -81,7 +81,7 @@
     };
 
     /** Currently edited cell */
-    this.Edit = {};
+    this.Edit = null;
 
   };
 

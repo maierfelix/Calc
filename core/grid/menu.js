@@ -179,13 +179,13 @@
             CORE.Sheets[CORE.CurrentSheet].Selector.masterSelect(e.target.innerHTML);
           } else this.setAttribute("timestamp", e.timeStamp);
           this.setAttribute("clicked", 1);
-          CORE.Input.Mouse.CellResize = true;
+          CORE.Sheets[CORE.CurrentSheet].Input.Mouse.CellResize = true;
         });
 
         element.addEventListener("mouseup", function(e) {
           this.setAttribute("clicked", 0);
           /** Re-render grid */
-          CORE.Event.lastAction.scrollY = false;
+          CORE.Sheets[CORE.CurrentSheet].Input.lastAction.scrollY = false;
           this.setAttribute("timestamp", e.timeStamp);
         });
 
@@ -284,7 +284,7 @@
             CORE.Sheets[CORE.CurrentSheet].Selector.masterSelect(parseInt(e.target.innerHTML));
           } else this.setAttribute("timestamp", e.timeStamp);
           this.setAttribute("clicked", 1);
-          CORE.Input.Mouse.CellResize = true;
+          CORE.Sheets[CORE.CurrentSheet].Input.Mouse.CellResize = true;
         });
 
         element.addEventListener("mouseup", function(e) {

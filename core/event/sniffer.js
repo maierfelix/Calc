@@ -22,12 +22,12 @@
   CORE.Event.inEditMode = function() {
 
     /** Check if user edits a cell, if yes, sniff for input stream */
-    if (CORE.Input.Mouse.Edit) {
+    if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Edit) {
       /** User edits a valid cell */
-      if (CORE.Cells.Edit) {
+      if (CORE.Sheets[CORE.CurrentSheet].Selector.Edit) {
         /** Check if edited cell got successfully registered inside the cell edit stack */
-        var letter = CORE.Cells.Edit.match(CORE.REGEX.numbers).join("");
-        if (CORE.Cells.Used[CORE.CurrentSheet][letter] && CORE.Cells.Used[CORE.CurrentSheet][letter][CORE.Cells.Edit]) return (true);
+        var letter = CORE.Sheets[CORE.CurrentSheet].Selector.Edit.match(CORE.REGEX.numbers).join("");
+        if (CORE.Cells.Used[CORE.CurrentSheet][letter] && CORE.Cells.Used[CORE.CurrentSheet][letter][CORE.Sheets[CORE.CurrentSheet].Selector.Edit]) return (true);
       }
     }
 
@@ -86,12 +86,12 @@
       /** Go to the end of a cell text if edit first time */
       CORE.Sheets[CORE.CurrentSheet].Selector.cellFocusSwitch = false;
 
-      var letter = CORE.$.alphaToNumber(CORE.Cells.Edit.match(CORE.REGEX.numbers).join(""));
-      var number = ~~(CORE.Cells.Edit.match(CORE.REGEX.letters).join(""));
+      var letter = CORE.$.alphaToNumber(CORE.Sheets[CORE.CurrentSheet].Selector.Edit.match(CORE.REGEX.numbers).join(""));
+      var number = ~~(CORE.Sheets[CORE.CurrentSheet].Selector.Edit.match(CORE.REGEX.letters).join(""));
 
       /** Get cell content and pass it into the cell edit cell stack */
       jumps = CORE.$.getCell({ letter: letter, number: number });
-      if (jumps >= 0) CORE.Cells.Used[CORE.CurrentSheet][CORE.$.numberToAlpha(letter)][CORE.Cells.Edit].Content = CORE.DOM.CellInput.value;
+      if (jumps >= 0) CORE.Cells.Used[CORE.CurrentSheet][CORE.$.numberToAlpha(letter)][CORE.Sheets[CORE.CurrentSheet].Selector.Edit].Content = CORE.DOM.CellInput.value;
     }
 
     /** Check if user pressed [ENTER] */
@@ -118,25 +118,27 @@
    */
   CORE.Event.isFormula = function() {
 
+    var editCell = CORE.Sheets[CORE.CurrentSheet].Selector.Edit;
+
     /** User is in edit mode? */
     if (CORE.Event.inEditMode()) {
-      var letter = CORE.Cells.Edit.match(CORE.REGEX.numbers).join("");
-      var cellEditContent = CORE.Cells.Used[CORE.CurrentSheet][letter] && CORE.Cells.Used[CORE.CurrentSheet][letter][CORE.Cells.Edit].Content ? CORE.Cells.Used[CORE.CurrentSheet][letter][CORE.Cells.Edit].Content : undefined;
+      var letter = editCell.match(CORE.REGEX.numbers).join("");
+      var cellEditContent = CORE.Cells.Used[CORE.CurrentSheet][letter] && CORE.Cells.Used[CORE.CurrentSheet][letter][editCell].Content ? CORE.Cells.Used[CORE.CurrentSheet][letter][editCell].Content : undefined;
       /** Check if cell is filled and valid */
       if (cellEditContent !== undefined && cellEditContent !== null && cellEditContent.length) {
         /** Cell starts with a "=" and will be interpreted as a formula */
         if (cellEditContent[0] === "=") {
-          CORE.Cells.Used[CORE.CurrentSheet][letter][CORE.Cells.Edit].Formula = cellEditContent;
+          CORE.Cells.Used[CORE.CurrentSheet][letter][editCell].Formula = cellEditContent;
         /** Cell has no formula anymore */
         } else {
           /** Clean the cell formula if it has content */
-          if (CORE.Cells.Used[CORE.CurrentSheet][letter][CORE.Cells.Edit].Formula && CORE.Cells.Used[CORE.CurrentSheet][letter][CORE.Cells.Edit].Formula.length) {
-            CORE.Cells.Used[CORE.CurrentSheet][letter][CORE.Cells.Edit].Formula = null;
+          if (CORE.Cells.Used[CORE.CurrentSheet][letter][editCell].Formula && CORE.Cells.Used[CORE.CurrentSheet][letter][editCell].Formula.length) {
+            CORE.Cells.Used[CORE.CurrentSheet][letter][editCell].Formula = null;
           }
           /** Check if cell has content, if yes pass it over to the interpreter stack */
-          if (CORE.Cells.Used[CORE.CurrentSheet][letter][CORE.Cells.Edit].Content && CORE.Cells.Used[CORE.CurrentSheet][letter][CORE.Cells.Edit].Content.length) {
+          if (CORE.Cells.Used[CORE.CurrentSheet][letter][editCell].Content && CORE.Cells.Used[CORE.CurrentSheet][letter][editCell].Content.length) {
             /** Update the cell stacks content */
-            CORE.updateCell(CORE.Cells.Edit, CORE.Cells.Used[CORE.CurrentSheet][letter][CORE.Cells.Edit].Content);
+            CORE.updateCell(editCell, CORE.Cells.Used[CORE.CurrentSheet][letter][editCell].Content);
           }
         }
       }
@@ -152,10 +154,11 @@
    */
   CORE.Event.processCellContent = function() {
 
+    var editCell = CORE.Sheets[CORE.CurrentSheet].Selector.Edit;
     var element = null;
     var jumps = 0;
-    var letter = CORE.Cells.Edit.match(CORE.REGEX.numbers).join("");
-    var number = CORE.Cells.Edit.match(CORE.REGEX.letters).join("");
+    var letter = editCell.match(CORE.REGEX.numbers).join("");
+    var number = editCell.match(CORE.REGEX.letters).join("");
 
     /** Focus the cell input field on start typing */
     CORE.DOM.CellInput.focus();
@@ -165,22 +168,22 @@
       jumps = CORE.$.getCell({ letter: CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First.Letter, number: CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First.Number });
       if (jumps >= 0) element = CORE.DOM.Output.children[jumps];
       /** Update cell used stack value with cell input fields value */
-      if (CORE.Cells.Used[CORE.CurrentSheet][letter][CORE.Cells.Edit]) CORE.Cells.Used[CORE.CurrentSheet][letter][CORE.Cells.Edit].Content = CORE.DOM.CellInput.value;
+      if (CORE.Cells.Used[CORE.CurrentSheet][letter][editCell]) CORE.Cells.Used[CORE.CurrentSheet][letter][editCell].Content = CORE.DOM.CellInput.value;
       /** Cell is not in view, register it anyway */
-      else CORE.registerCell(CORE.Cells.Edit);
+      else CORE.registerCell(editCell);
       /** Update cell content with cell used stack value */
-      if (element) element.innerHTML = CORE.Cells.Used[CORE.CurrentSheet][letter][CORE.Cells.Edit].Content;
+      if (element) element.innerHTML = CORE.Cells.Used[CORE.CurrentSheet][letter][editCell].Content;
       /** Check if cell is a formula */
       CORE.Event.isFormula();
       /** Move cursor to end of cell content text */
-      if (CORE.Cells.Used[CORE.CurrentSheet][letter][CORE.Cells.Edit] && CORE.Cells.Used[CORE.CurrentSheet][letter][CORE.Cells.Edit].Content && CORE.Sheets[CORE.CurrentSheet].Selector.cellFocusSwitch) CORE.Sheets[CORE.CurrentSheet].goToEndOfCellText();
+      if (CORE.Cells.Used[CORE.CurrentSheet][letter][editCell] && CORE.Cells.Used[CORE.CurrentSheet][letter][editCell].Content && CORE.Sheets[CORE.CurrentSheet].Selector.cellFocusSwitch) CORE.Sheets[CORE.CurrentSheet].goToEndOfCellText();
       CORE.Sheets[CORE.CurrentSheet].Selector.cellFocusSwitch = true;
       /** Focus the cell input field while typing */
       CORE.DOM.CellInput.focus();
 
       /** Share cell changes */
       if (CORE.Connector.connected) {
-        CORE.Connector.action("updateCell", { cell: CORE.Cells.Edit, value: CORE.DOM.CellInput.value });
+        CORE.Connector.action("updateCell", { cell: editCell, value: CORE.DOM.CellInput.value });
       }
 
     }, 1);

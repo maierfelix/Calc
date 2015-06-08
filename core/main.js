@@ -19,7 +19,7 @@
   var CORE = CORE || {};
 
   /** NovaeCalc Version */
-  CORE.Version = "0.3";
+  CORE.VERSION = "0.3";
 
   /** Create DOM Object */
   CORE.DOM = {};
@@ -62,33 +62,6 @@
   CORE.REGEX = {
     numbers: /[^0-9]/g,
     letters: /[^a-zA-Z]/gi
-  };
-
-  /** Input thingys */
-  CORE.Input = {
-    Mouse: {
-      /** Mouse pressed or not? Also prevent multiple execution of mousedown event */
-      Pressed: false,
-      /** Prevent multiple execution of mousemove event */
-      lastMousePosition: {
-        x: 0,
-        y: 0
-      },
-      /** User resizes a cell */
-      CellResize: false,
-      /** User edits a cell */
-      Edit: false,
-      /** User edits a live cell url */
-      LiveCellEdit: false
-    },
-    Keyboard: {
-      /** [SHIFT] key pressed */
-      Shift: false,
-      /** [STRG] key pressed */
-      Strg: false,
-      /** [TAB] key pressed */
-      Tab: false
-    }
   };
 
   /** Assign it global */

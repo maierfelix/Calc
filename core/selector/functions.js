@@ -126,6 +126,6 @@
     CORE.Sheets[CORE.CurrentSheet].updateMenu();
     this.getSelection();
     this.selectCellByKeyPress();
-    CORE.Event.lastAction.scrollY = true;
+    CORE.Sheets[CORE.CurrentSheet].Input.lastAction.scrollY = true;
 
   };

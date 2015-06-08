@@ -73,7 +73,7 @@
       }
 
       /** Only resize grid if necessary */
-      if (!CORE.Event.lastAction.scrollY) {
+      if (!CORE.Sheets[CORE.CurrentSheet].Input.lastAction.scrollY) {
         /** Horizontal cell row got resized */
         this.resizeHorizontal(Letter, ii);
       }

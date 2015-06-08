@@ -100,6 +100,50 @@
       }
     };
 
+    /** Input thingys */
+    this.Input = {
+      Mouse: {
+        /** Mouse pressed or not? Also prevent multiple execution of mousedown event */
+        Pressed: false,
+        /** Prevent multiple execution of mousemove event */
+        lastMousePosition: {
+          x: 0,
+          y: 0
+        },
+        /** User resizes a cell */
+        CellResize: false,
+        /** User edits a cell */
+        Edit: false,
+        /** User edits a live cell url */
+        LiveCellEdit: false,
+        /** Save last mouse click to identify single and double clicks */
+        lastMouseDown: 0,
+        /** Save last clicked cell */
+        lastMouseDownCell: {
+          Letter: 0,
+          Number: 0
+        },
+        /** Save last mouse scroll timestamp */
+        lastMouseScroll: 0
+      },
+      Keyboard: {
+        /** [SHIFT] key pressed */
+        Shift: false,
+        /** [STRG] key pressed */
+        Strg: false,
+        /** [TAB] key pressed */
+        Tab: false,
+        /** Save last key down timestamp */
+        lastKeyPress: 0
+      },
+      /** Save latest action to prevent unnecessary grid redrawing */
+      lastAction: {
+        scrollY: false,
+        scrollX: false
+      }
+    };
+
+    /** Auto calculate grid */
     this.calculateGrid();
 
   };
@@ -135,7 +179,7 @@
 
     for (var ii = 0; ii < CORE.DOM.Output.children.length; ++ii) {
       CORE.DOM.Output.children[ii].addEventListener(this.mouseMode, function(e) {
-        if (!CORE.Input.Mouse.Edit) CORE.DOM.CurrentCell.innerHTML = e.target.getAttribute("name");
+        if (!CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Edit) CORE.DOM.CurrentCell.innerHTML = e.target.getAttribute("name");
       });
     }
 
@@ -237,6 +281,6 @@
     CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
 
     /** User was in edit mode */
-    if (CORE.Input.Mouse.Edit) this.getEditSelection(CORE.Cells.Edit);
+    if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Edit) this.getEditSelection(CORE.Sheets[CORE.CurrentSheet].Selector.Edit);
 
   };

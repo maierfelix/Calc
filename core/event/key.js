@@ -22,13 +22,13 @@
   CORE.Event.keyPress = function(e) {
 
     /** Update empty timestamp */
-    if (!this.lastKeyPress) this.lastKeyPress = e.timeStamp;
+    if (!CORE.Sheets[CORE.CurrentSheet].Input.lastKeyPress) CORE.Sheets[CORE.CurrentSheet].Input.lastKeyPress = e.timeStamp;
 
     /** Handle timestamps */
-    if (this.lastKeyPress > 0) {
+    if (CORE.Sheets[CORE.CurrentSheet].Input.lastKeyPress > 0) {
 
        /** Calculate difference between this and last timestamp */
-      var difference = e.timeStamp - this.lastKeyPress;
+      var difference = e.timeStamp - CORE.Sheets[CORE.CurrentSheet].Input.lastKeyPress;
 
       /** Prevent too fast key scrolling */
       if (difference && difference <= 100) return void 0;
@@ -36,7 +36,7 @@
     }
 
     /** User edits a live cells url */
-    if (CORE.Input.Mouse.LiveCellEdit) return void 0;
+    if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.LiveCellEdit) return void 0;
 
     /** User opened console, don't touch anything here */
     if (e.keyCode === 123) return void 0;
@@ -52,21 +52,21 @@
     /** User pressed the [SHIFT] key */
     if (e.keyCode === 16) {
       e.preventDefault();
-      CORE.Input.Keyboard.Shift = true;
+      CORE.Sheets[CORE.CurrentSheet].Input.Keyboard.Shift = true;
       return void 0;
     }
 
     /** User pressed the [STRG] key */
     if (e.keyCode === 17) {
       e.preventDefault();
-      CORE.Input.Keyboard.Strg = true;
+      CORE.Sheets[CORE.CurrentSheet].Input.Keyboard.Strg = true;
       return void 0;
     }
 
     /** User pressed the [Tab] key */
     if (e.keyCode === 9) {
       e.preventDefault();
-      CORE.Input.Keyboard.Tab = true;
+      CORE.Sheets[CORE.CurrentSheet].Input.Keyboard.Tab = true;
       /** Disable master selection */
       CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Current = null;
       CORE.Event.navigateTo("right", 1);
@@ -103,7 +103,7 @@
         CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Current = null;
         CORE.Sheets[CORE.CurrentSheet].Selector.selectCellByKeyPress();
         /** Update last key press timestamp */
-        this.lastKeyPress = e.timeStamp - 100;
+        CORE.Sheets[CORE.CurrentSheet].Input.lastKeyPress = e.timeStamp - 100;
         return void 0;
       /** [DOWN] */
       case 40:
@@ -115,7 +115,7 @@
         CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Current = null;
         CORE.Sheets[CORE.CurrentSheet].Selector.selectCellByKeyPress();
         /** Update last key press timestamp */
-        this.lastKeyPress = e.timeStamp - 100;
+        CORE.Sheets[CORE.CurrentSheet].Input.lastKeyPress = e.timeStamp - 100;
         return void 0;
       /** [LEFT] */
       case 37:
@@ -127,8 +127,8 @@
         CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Current = null;
         CORE.Sheets[CORE.CurrentSheet].Selector.selectCellByKeyPress();
         /** Update last key press timestamp */
-        this.lastKeyPress = e.timeStamp - 100;
-        CORE.Event.lastAction.scrollY = false;
+        CORE.Sheets[CORE.CurrentSheet].Input.lastKeyPress = e.timeStamp - 100;
+        CORE.Sheets[CORE.CurrentSheet].Input.lastAction.scrollY = false;
         return void 0;
       /** [RIGHT] */
       case 39:
@@ -140,8 +140,8 @@
         CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Current = null;
         CORE.Sheets[CORE.CurrentSheet].Selector.selectCellByKeyPress();
         /** Update last key press timestamp */
-        this.lastKeyPress = e.timeStamp - 100;
-        CORE.Event.lastAction.scrollY = false;
+        CORE.Sheets[CORE.CurrentSheet].Input.lastKeyPress = e.timeStamp - 100;
+        CORE.Sheets[CORE.CurrentSheet].Input.lastAction.scrollY = false;
         return void 0;
     }
 
@@ -161,19 +161,19 @@
     /** User left the [SHIFT] key */
     if (e.keyCode === 16) {
       e.preventDefault();
-      CORE.Input.Keyboard.Shift = false;
+      CORE.Sheets[CORE.CurrentSheet].Input.Keyboard.Shift = false;
     }
 
     /** User left the [STRG] key */
     if (e.keyCode === 17) {
       e.preventDefault();
-      CORE.Input.Keyboard.Strg = false;
+      CORE.Sheets[CORE.CurrentSheet].Input.Keyboard.Strg = false;
     }
 
     /** User left the [TAB] key */
     if (e.keyCode === 9) {
       e.preventDefault();
-      CORE.Input.Keyboard.Tab = false;
+      CORE.Sheets[CORE.CurrentSheet].Input.Keyboard.Tab = false;
     }
 
   };

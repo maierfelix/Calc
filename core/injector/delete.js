@@ -37,8 +37,13 @@
     /** Not reversed! */
     for (var ii = 0; ii < customArray.length; ++ii) {
       var value = customArray[ii];
-      masterCells[value.new] = masterCells[value.old];
-      delete masterCells[value.old];
+      /** Selection matches the master cell, simply delete it */
+      if (CORE.$.alphaToNumber(value.new) < selectedCell.Letter) {
+        delete masterCells[value.old];
+      } else {
+        masterCells[value.new] = masterCells[value.old];
+        delete masterCells[value.old];
+      }
     }
 
     /** Process master cells */

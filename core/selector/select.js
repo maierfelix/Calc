@@ -181,7 +181,7 @@
     this.menuSelection( (lastCell.Letter - 1), (lastCell.Number - 1));
 
     /** Clean edited cells */
-    if (!CORE.Input.Mouse.Edit) CORE.Sheets[CORE.CurrentSheet].cleanEditSelection();
+    if (!CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Edit) CORE.Sheets[CORE.CurrentSheet].cleanEditSelection();
 
   };
 

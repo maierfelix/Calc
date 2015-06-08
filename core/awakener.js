@@ -64,7 +64,7 @@
       /** Attach timeout */
       this.currentlyRunning[name] = setInterval(function() {
         /** Dont refresh if user is in edit mode */
-        if (!CORE.Input.Mouse.Edit) self.get(name);
+        if (!CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Edit) self.get(name);
       }, CORE.Cells.Live[name].RefreshTime);
     }
 

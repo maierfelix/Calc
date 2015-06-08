@@ -51,7 +51,7 @@
         e.button === 2 || /** Right click */
         e.which  === 3 || /** Right click */
         e.which  === 2 || /** Middle click */
-        CORE.Input.Mouse.Pressed) {
+        CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Pressed) {
           e.preventDefault();
           /** Dont loose selection */
           CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
@@ -59,19 +59,19 @@
         }
 
     /** Update empty timestamp */
-    if (!this.lastMouseDown) this.lastMouseDown = e.timeStamp;
+    if (!CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMouseDown) CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMouseDown = e.timeStamp;
 
     /** Handle timestamps */
-    if (this.lastMouseDown > 0) {
+    if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMouseDown > 0) {
 
       /** Calculate difference between this and last timestamp */
-      var difference = e.timeStamp - this.lastMouseDown;
+      var difference = e.timeStamp - CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMouseDown;
 
       /** Max delay of 250 milliseconds */
       if (difference && difference <= 250) {
         if (e.target.parentNode.id === CORE.DOM.Output.id) {
           /** Prevent double mouse clicks between multiple cells */
-          if (e.target.getAttribute("name") === this.lastMouseDownCell) {
+          if (e.target.getAttribute("name") === CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMouseDownCell) {
             CORE.Event.mouseDoubleClick(e);
             return void 0;
           }
@@ -107,7 +107,7 @@
     if (e.target.parentNode.id === CORE.DOM.Output.id) {
 
       /** User aborted live cell edit */
-      CORE.Input.Mouse.LiveCellEdit = false;
+      CORE.Sheets[CORE.CurrentSheet].Input.Mouse.LiveCellEdit = false;
 
       /** User aborted master selection */
       CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Current = null;
@@ -121,10 +121,10 @@
 
       var cellName = (CORE.$.numberToAlpha(letter)) + number;
 
-      CORE.Event.lastMouseDownCell.Letter = letter;
-      CORE.Event.lastMouseDownCell.Number = number;
+      CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMouseDownCell.Letter = letter;
+      CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMouseDownCell.Number = number;
 
-      CORE.Sheets[CORE.CurrentSheet].Selector.Select = CORE.Event.lastMouseDownCell;
+      CORE.Sheets[CORE.CurrentSheet].Selector.Select = CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMouseDownCell;
 
         CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First = {
           Letter: letter,
@@ -147,7 +147,7 @@
         }
 
         /** User edits a cell and clicked on another cell which was also edited */
-        if ( CORE.Input.Mouse.Edit &&
+        if ( CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Edit &&
              CORE.Sheets[CORE.CurrentSheet].Selector.Edit !== CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First ||
              CORE.Sheets[CORE.CurrentSheet].Selector.Edit !== CORE.Sheets[CORE.CurrentSheet].Selector.Selected.Last  && 
              CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First === CORE.Sheets[CORE.CurrentSheet].Selector.Selected.Last) {
@@ -161,7 +161,7 @@
         }
 
     /** User selected another cell, delete edited cell */
-    } else if (CORE.Input.Mouse.Edit) {
+    } else if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Edit) {
       /** User clicked inside the cell grid */
       if (e.target.parentNode.id === CORE.DOM.Output.id) {
         CORE.Sheets[CORE.CurrentSheet].cleanEditSelection();
@@ -172,16 +172,16 @@
       }
     }
 
-    this.lastMouseDown = e.timeStamp;
+    CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMouseDown = e.timeStamp;
 
-    CORE.Input.Mouse.Pressed = true;
+    CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Pressed = true;
 
   };
 
   /** Listen for mouse release */
   CORE.Event.mouseUp = function (e) {
   
-    CORE.Input.Mouse.Pressed = false;
+    CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Pressed = false;
 
     /** Clean Selected Cells */
     CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First = {
@@ -190,11 +190,11 @@
     };
 
     /** User resized something */
-    if (CORE.Input.Mouse.CellResize) {
+    if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.CellResize) {
       CORE.Sheets[CORE.CurrentSheet].updateWidth();
       CORE.Sheets[CORE.CurrentSheet].generateMenu();
       CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
-      CORE.Input.Mouse.CellResize = false;
+      CORE.Sheets[CORE.CurrentSheet].Input.Mouse.CellResize = false;
     }
 
   };
@@ -208,11 +208,11 @@
   CORE.Event.mouseWipe = function (e) {
 
     /** Dont execute mousemove event multiple times if position did not changed */
-    if (CORE.Input.Mouse.lastMousePosition.x === e.pageX &&
-        CORE.Input.Mouse.lastMousePosition.y === e.pageY) return void 0;
+    if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMousePosition.x === e.pageX &&
+        CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMousePosition.y === e.pageY) return void 0;
 
     /** User is wiping? */
-    if (CORE.Input.Mouse.Pressed) {
+    if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Pressed) {
       /** Valid cell ? */
       if (e.target.parentNode.id === CORE.DOM.Output.id) {
 
@@ -264,8 +264,8 @@
     }
 
     /** Update mouse position */
-    CORE.Input.Mouse.lastMousePosition.x = e.pageX;
-    CORE.Input.Mouse.lastMousePosition.y = e.pageY;
+    CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMousePosition.x = e.pageX;
+    CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMousePosition.y = e.pageY;
 
   };
 
@@ -278,18 +278,18 @@
   CORE.Event.scroll = function(e) {
 
     /** Update empty timestamp */
-    if (!this.lastMouseScroll) this.lastMouseScroll = e.timeStamp;
+    if (!CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMouseScroll) CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMouseScroll = e.timeStamp;
 
     /** Abort if [STRG] key pressed */
-    if (CORE.Input.Keyboard.Strg) return void 0;
+    if (CORE.Sheets[CORE.CurrentSheet].Input.Keyboard.Strg) return void 0;
 
     var calcDifference = Math.floor(CORE.Sheets[CORE.CurrentSheet].Settings.y * 1.5);
 
     /** Handle timestamps */
-    if (this.lastMouseScroll > 0) {
+    if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMouseScroll > 0) {
 
        /** Calculate difference between this and last timestamp */
-      var difference = e.timeStamp - this.lastMouseScroll;
+      var difference = e.timeStamp - CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMouseScroll;
 
       /** Scroll increment, if user scrolls fast */
       if (difference <= calcDifference) {
@@ -325,7 +325,7 @@
       direction = direction ? "down" : "up";
 
       /** User scrolled up or down, dont redraw */
-      CORE.Event.lastAction.scrollY = true;
+      CORE.Sheets[CORE.CurrentSheet].Input.lastAction.scrollY = true;
 
       if (direction === "down") {
         CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY += CORE.Settings.Scroll.Vertical;
@@ -390,12 +390,12 @@
         CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
 
         /** Simulate mouse move to display the scrolled selection */
-        CORE.Input.Mouse.lastMousePosition.x = Math.random();
-        CORE.Input.Mouse.lastMousePosition.y = Math.random();
+        CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMousePosition.x = Math.random();
+        CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMousePosition.y = Math.random();
         CORE.Event.mouseWipe(e);
       }
 
-      this.lastMouseScroll = e.timeStamp;
+      CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMouseScroll = e.timeStamp;
 
     }
 
