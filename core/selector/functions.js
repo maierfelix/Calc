@@ -72,7 +72,7 @@
     /** Top */
     for (var ii = 0; ii < object.top.length; ++ii) {
       letter = CORE.$.numberToAlpha(object.top[ii].letter);
-      cacheTarget = CORE.Cells.Used[letter][letter + object.top[ii].number];
+      cacheTarget = CORE.Cells.Used[CORE.CurrentSheet][letter][letter + object.top[ii].number];
       cacheTarget.Border.used = true;
       cacheTarget.Border.top = true;
     }
@@ -80,7 +80,7 @@
     /** Bottom */
     for (var ii = 0; ii < object.bottom.length; ++ii) {
       letter = CORE.$.numberToAlpha(object.bottom[ii].letter);
-      cacheTarget = CORE.Cells.Used[letter][letter + object.bottom[ii].number];
+      cacheTarget = CORE.Cells.Used[CORE.CurrentSheet][letter][letter + object.bottom[ii].number];
       cacheTarget.Border.used = true;
       cacheTarget.Border.bottom = true;
     }
@@ -88,7 +88,7 @@
     /** Left */
     for (var ii = 0; ii < object.left.length; ++ii) {
       letter = CORE.$.numberToAlpha(object.left[ii].letter);
-      cacheTarget = CORE.Cells.Used[letter][letter + object.left[ii].number];
+      cacheTarget = CORE.Cells.Used[CORE.CurrentSheet][letter][letter + object.left[ii].number];
       cacheTarget.Border.used = true;
       cacheTarget.Border.left = true;
     }
@@ -96,12 +96,12 @@
     /** Right */
     for (var ii = 0; ii < object.right.length; ++ii) {
       letter = CORE.$.numberToAlpha(object.right[ii].letter);
-      cacheTarget = CORE.Cells.Used[letter][letter + object.right[ii].number];
+      cacheTarget = CORE.Cells.Used[CORE.CurrentSheet][letter][letter + object.right[ii].number];
       cacheTarget.Border.used = true;
       cacheTarget.Border.right = true;
     }
 
-    CORE.Grid.updateWidth("default");
+    CORE.Sheets[CORE.CurrentSheet].updateWidth("default");
 
   };
 
@@ -115,17 +115,17 @@
 
     switch (direction) {
       case "up":
-        CORE.Grid.Settings.scrolledY -= amount >= 0 ? (amount - 1) : 0;
+        CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY -= amount >= 0 ? (amount - 1) : 0;
         break;
       case "down":
-        CORE.Grid.Settings.scrolledY += (amount - 1);
+        CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY += (amount - 1);
         break;
     }
 
-    CORE.Grid.updateHeight(direction, amount);
-    CORE.Grid.updateMenu();
-    CORE.Selector.getSelection();
-    CORE.Selector.selectCellByKeyPress();
+    CORE.Sheets[CORE.CurrentSheet].updateHeight(direction, amount);
+    CORE.Sheets[CORE.CurrentSheet].updateMenu();
+    this.getSelection();
+    this.selectCellByKeyPress();
     CORE.Event.lastAction.scrollY = true;
 
   };

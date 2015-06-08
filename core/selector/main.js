@@ -64,3 +64,4 @@
   };
 
   CORE.Selector.prototype = CORE.Selector;
+  CORE.Selector.prototype.constructor = CORE.Selector;

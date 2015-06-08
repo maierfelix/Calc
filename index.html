@@ -30,10 +30,12 @@
   <div class="mui-container" style="margin-bottom: -19px;">
     <div class="mui-panel">
         <span class="bottom_layer">
-          <button class="mui-btn mui-btn-default mui-btn-mini" style="color:#fff;background-color:rgba(130, 177, 255, 0.8);">Untitled</button>
-          <button class="mui-btn mui-btn-floating mui-btn-floating-mini">+</button>
+          <!-- Container holding all active sheets -->
+          <span id="current_sheets"></span>
+          <button id="add_sheet" class="mui-btn mui-btn-floating mui-btn-floating-mini">+</button>
         </span>
         <span class="top_layer">
+          <span class="fa fa-cloud white top-undo" style="margin-left:12px;"></span><button class="mui-btn mui-btn-floating mui-btn-floating-mini" disabled></button>
           <span class="fa fa-undo white top-undo"></span><button class="mui-btn mui-btn-floating mui-btn-floating-mini"></button>
           <span class="fa fa-undo flipped white top-undo"></span><button class="mui-btn mui-btn-floating mui-btn-floating-mini"></button>
         </span>
@@ -57,6 +59,7 @@
             <button class="mui-btn mui-btn-default mui-btn-raised mui-btn-sm"><span class="fa fa-save"></span></button>
             <button id="menu_undo" class="mui-btn mui-btn-default mui-btn-raised mui-btn-sm"><span class="fa fa-undo"></span> Undo</button>
             <button id="menu_redo" class="mui-btn mui-btn-default mui-btn-raised mui-btn-sm"><span class="fa fa-undo flipped"></span> Redo</button>
+            <button id="menu_connect" class="mui-btn mui-btn-default mui-btn-raised mui-btn-sm"><span class="fa fa-group"></span></button>
           </div>
           <div class="mui-tab-pane mui-active" id="pane-justified-2">
             <div>

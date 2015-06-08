@@ -22,6 +22,7 @@
   CORE.Injector = function() {};
 
   CORE.Injector.prototype = CORE.Injector;
+  CORE.Injector.prototype.constructor = CORE.Injector;
 
   /**
    * Process used cells
@@ -33,7 +34,7 @@
 
     var selectedCell = CORE.Cells.Selected.First;
 
-    var usedCells = CORE.Cells.Used;
+    var usedCells = CORE.Cells.Used[CORE.CurrentSheet];
 
     var cellLetter;
     var cellNumber;
@@ -83,7 +84,7 @@
 
     var selectedCell = CORE.Cells.Selected.First;
 
-    var masterCells = CORE.Selector.masterSelected.Columns;
+    var masterCells = CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Columns;
 
     var customArray = [];
 

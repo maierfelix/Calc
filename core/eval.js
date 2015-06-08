@@ -21,11 +21,13 @@
    */
   CORE.eval = function() {
 
-    var cells = this.Cells.Used;
+    var cells = CORE.Cells.Used[[CORE.CurrentSheet]];
 
     var formulas = [];
 
     var result = 0;
+
+    var usedCellSheet = CORE.Cells.Used[CORE.CurrentSheet];
 
     for (var ii in cells) {
       for (var kk in cells[ii]) {
@@ -49,7 +51,7 @@
         /** Receive the result */
         result = ENGEL.interpret(formulas[ii].value).VAR[formulas[ii].name].value.value;
         /** Update used cell stack content */
-        CORE.Cells.Used[letter][formulas[ii].name].Content = result;
+        usedCellSheet[letter][formulas[ii].name].Content = result;
 
         var name = formulas[ii].name;
         var letter = CORE.$.alphaToNumber(name.match(CORE.REGEX.numbers).join(""));
@@ -144,5 +146,5 @@
    * @static
    */
   CORE.registerLiveCell = function() {
-    CORE.Cells.Live[arguments[0]] = new CORE.Grid.LiveCell();
+    CORE.Cells.Live[arguments[0]] = new CORE.Sheets[CORE.CurrentSheet].LiveCell();
   };

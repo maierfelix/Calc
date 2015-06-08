@@ -44,21 +44,21 @@
       element.classList.add("cell_edit");
 
       /** Register new cell */
-      if (!CORE.Cells.Used[newLetter]) {
+      if (!CORE.Cells.Used[CORE.CurrentSheet][newLetter]) {
         CORE.registerCell(newLetter + newNumber);
-      } else if (!CORE.Cells.Used[newLetter][newLetter + newNumber]) CORE.registerCell(newLetter + newNumber);
+      } else if (!CORE.Cells.Used[CORE.CurrentSheet][newLetter][newLetter + newNumber]) CORE.registerCell(newLetter + newNumber);
 
       /** Cell was successfully registered */
-      if (CORE.Cells.Used[newLetter] && CORE.Cells.Used[newLetter][newLetter + newNumber]) {
+      if (CORE.Cells.Used[CORE.CurrentSheet][newLetter] && CORE.Cells.Used[CORE.CurrentSheet][newLetter][newLetter + newNumber]) {
         /** Cell was successfully registered into the interpreter cell stack */
         if (CORE.validCell(newLetter + newNumber)) {
           /** Cell has a formula */
-          if (CORE.Cells.Used[newLetter][newLetter + newNumber].Formula && 
-              CORE.Cells.Used[newLetter][newLetter + newNumber].Formula.length) {
+          if (CORE.Cells.Used[CORE.CurrentSheet][newLetter][newLetter + newNumber].Formula && 
+              CORE.Cells.Used[CORE.CurrentSheet][newLetter][newLetter + newNumber].Formula.length) {
             /** Cell formula doesnt match with its content (seems like we got a calculation result) */
-            if (CORE.Cells.Used[newLetter][newLetter + newNumber].Formula !== CORE.Cells.Used[newLetter][newLetter + newNumber].Content) {
+            if (CORE.Cells.Used[CORE.CurrentSheet][newLetter][newLetter + newNumber].Formula !== CORE.Cells.Used[CORE.CurrentSheet][newLetter][newLetter + newNumber].Content) {
               /** Disgorge the formula */
-              element.innerHTML = CORE.Cells.Used[newLetter][newLetter + newNumber].Formula;
+              element.innerHTML = CORE.Cells.Used[CORE.CurrentSheet][newLetter][newLetter + newNumber].Formula;
               /** Move cursor to end of cell content text */
               this.goToEndOfCellText();
             }
@@ -68,12 +68,12 @@
           /** Register the cell into the interpreter variable stack */
           CORE.registerCellVariable(newLetter + newNumber);
           /** Cell has a formula */
-          if (CORE.Cells.Used[newLetter][newLetter + newNumber].Formula && 
-              CORE.Cells.Used[newLetter][newLetter + newNumber].Formula.length) {
+          if (CORE.Cells.Used[CORE.CurrentSheet][newLetter][newLetter + newNumber].Formula && 
+              CORE.Cells.Used[CORE.CurrentSheet][newLetter][newLetter + newNumber].Formula.length) {
             /** Cell formula doesnt match with its content (seems like we got a calculation result) */
-            if (CORE.Cells.Used[newLetter][newLetter + newNumber].Formula !== CORE.Cells.Used[newLetter][newLetter + newNumber].Content) {
+            if (CORE.Cells.Used[CORE.CurrentSheet][newLetter][newLetter + newNumber].Formula !== CORE.Cells.Used[CORE.CurrentSheet][newLetter][newLetter + newNumber].Content) {
               /** Disgorge the formula */
-              element.innerHTML = CORE.Cells.Used[newLetter][newLetter + newNumber].Formula;
+              element.innerHTML = CORE.Cells.Used[CORE.CurrentSheet][newLetter][newLetter + newNumber].Formula;
               /** Move cursor to end of cell content text */
               this.goToEndOfCellText();
             }
@@ -90,10 +90,10 @@
     CORE.DOM.CurrentCell.innerHTML = CORE.Cells.Edit;
 
     /** Make sure all selections are deleted */
-    CORE.Selector.deleteCellHoverEffect();
+    CORE.Sheets[CORE.CurrentSheet].Selector.deleteCellHoverEffect();
 
     /** Update selection menu */
-    CORE.Selector.menuSelection( (CORE.$.alphaToNumber(newLetter) - 1), (newNumber - 1));
+    CORE.Sheets[CORE.CurrentSheet].Selector.menuSelection( (CORE.$.alphaToNumber(newLetter) - 1), (newNumber - 1));
 
   };
 
@@ -114,23 +114,23 @@
       if (CORE.DOM.Output.children[jumps]) {
         CORE.DOM.Output.children[jumps].classList.remove("cell_edit");
       }
-      if (CORE.DOM.Output.children[jumps + CORE.Grid.Settings.lastScrollY]) {
-        CORE.DOM.Output.children[jumps + CORE.Grid.Settings.lastScrollY].classList.remove("cell_edit");
+      if (CORE.DOM.Output.children[jumps + CORE.Sheets[CORE.CurrentSheet].Settings.lastScrollY]) {
+        CORE.DOM.Output.children[jumps + CORE.Sheets[CORE.CurrentSheet].Settings.lastScrollY].classList.remove("cell_edit");
       }
-      if (CORE.DOM.Output.children[jumps - CORE.Grid.Settings.lastScrollY]) {
-        CORE.DOM.Output.children[jumps - CORE.Grid.Settings.lastScrollY].classList.remove("cell_edit");
+      if (CORE.DOM.Output.children[jumps - CORE.Sheets[CORE.CurrentSheet].Settings.lastScrollY]) {
+        CORE.DOM.Output.children[jumps - CORE.Sheets[CORE.CurrentSheet].Settings.lastScrollY].classList.remove("cell_edit");
       }
 
       /** Cell was successfully registered */
-      if (CORE.Cells.Used[letter] && CORE.Cells.Used[letter][letter + number]) {
+      if (CORE.Cells.Used[CORE.CurrentSheet][letter] && CORE.Cells.Used[CORE.CurrentSheet][letter][letter + number]) {
         /** Cell has a formula */
-        if (CORE.Cells.Used[letter][letter + number].Formula && 
-            CORE.Cells.Used[letter][letter + number].Formula.length) {
+        if (CORE.Cells.Used[CORE.CurrentSheet][letter][letter + number].Formula && 
+            CORE.Cells.Used[CORE.CurrentSheet][letter][letter + number].Formula.length) {
           /** Cell formula doesnt match with its content (seems like we got a calculation result) */
-          if (CORE.Cells.Used[letter][letter + number].Formula !== CORE.Cells.Used[letter][letter + number].Content) {
+          if (CORE.Cells.Used[CORE.CurrentSheet][letter][letter + number].Formula !== CORE.Cells.Used[CORE.CurrentSheet][letter][letter + number].Content) {
             /** Disgorge the formula */
             jumps = CORE.$.getCell({ letter: letter, number: number });
-            if (jumps >= 0) CORE.DOM.Output.children[jumps].innerHTML = CORE.Cells.Used[letter][letter + number].Content;
+            if (jumps >= 0) CORE.DOM.Output.children[jumps].innerHTML = CORE.Cells.Used[CORE.CurrentSheet][letter][letter + number].Content;
           }
         }
       }
@@ -150,9 +150,9 @@
    */
   CORE.Grid.prototype.goToEndOfCellText = function() {
 
-    if (CORE.Selector.Selected.First.Letter && CORE.Selector.Selected.First.Number) {
+    if (CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First.Letter && CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First.Number) {
 
-      var jumps = CORE.$.getCell({ letter: CORE.Selector.Selected.First.Letter, number: CORE.Selector.Selected.First.Number });
+      var jumps = CORE.$.getCell({ letter: CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First.Letter, number: CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First.Number });
 
       if (jumps >= 0) CORE.$.selectText(CORE.DOM.Output.children[jumps]);
 

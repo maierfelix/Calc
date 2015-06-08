@@ -42,14 +42,17 @@
     /** Initialize Awakener Plugin */
     CORE.Awakener = new CORE.Awakener();
 
-    /** Initialize Grid Plugin */
-    CORE.Grid = new CORE.Grid();
+    /** Initialize Sheet Plugin */
+    CORE.Sheets = new CORE.Sheets();
 
-    /** Calculate Grid sizes */
-    CORE.Grid.calculateGrid();
+    /** Add a new first sheet */
+    CORE.Sheets.addSheet();
 
-    /** Initialize Selector Plugin */
-    CORE.Selector = new CORE.Selector();
+    /** Switch to the first sheet */
+    CORE.Sheets.changeSheet(CORE.CurrentSheet);
+
+    /** Initialize Selector Plugin for this sheet */
+    CORE.Sheets[CORE.CurrentSheet].Selector = new CORE.Selector();
 
     /** Initialize Injector Plugin */
     CORE.Injector = new CORE.Injector();
@@ -61,16 +64,16 @@
     CORE.Event.resize();
 
     /** Define first cell in grid as parent cell */
-    CORE.Selector.parentSelectedCell = {
+    CORE.Sheets[CORE.CurrentSheet].Selector.parentSelectedCell = {
       Letter: 1,
       Number: 1
     };
 
     /** Select major first cell in the grid */
-    CORE.Selector.selectCell(1, 1);
+    CORE.Sheets[CORE.CurrentSheet].Selector.selectCell(1, 1);
 
     /** Try to connect */
-    CORE.Connector.connect();
+    if (CORE.Connector.getURL()) CORE.Connector.connect();
 
   };
 
@@ -178,7 +181,7 @@
 
     var letter = object.letter,
         number = object.number,
-        jumps = ((CORE.Grid.Settings.y * (letter - 1) ) + number - 1 - CORE.Grid.Settings.scrolledY) - (CORE.Grid.Settings.y * CORE.Grid.Settings.scrolledX);
+        jumps = ((CORE.Sheets[CORE.CurrentSheet].Settings.y * (letter - 1) ) + number - 1 - CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY) - (CORE.Sheets[CORE.CurrentSheet].Settings.y * CORE.Sheets[CORE.CurrentSheet].Settings.scrolledX);
 
     if (CORE.$.isInView(letter, jumps) && CORE.DOM.Output.children[jumps]) return (jumps);
 
@@ -197,8 +200,8 @@
     var row = letter;
         row = row <= 1 ? 1 : row;
 
-    if (jumps < ( (letter * CORE.Grid.Settings.y) - CORE.Grid.Settings.y) - (CORE.Grid.Settings.y * CORE.Grid.Settings.scrolledX) ) return (false);
-    else if (jumps >= (letter * CORE.Grid.Settings.y) - (CORE.Grid.Settings.y * CORE.Grid.Settings.scrolledX) ) return (false);
+    if (jumps < ( (letter * CORE.Sheets[CORE.CurrentSheet].Settings.y) - CORE.Sheets[CORE.CurrentSheet].Settings.y) - (CORE.Sheets[CORE.CurrentSheet].Settings.y * CORE.Sheets[CORE.CurrentSheet].Settings.scrolledX) ) return (false);
+    else if (jumps >= (letter * CORE.Sheets[CORE.CurrentSheet].Settings.y) - (CORE.Sheets[CORE.CurrentSheet].Settings.y * CORE.Sheets[CORE.CurrentSheet].Settings.scrolledX) ) return (false);
     return (true);
 
   };
@@ -213,17 +216,17 @@
   CORE.$.validCell = function() {
 
     /** Check if a cell is selected */
-    if (CORE.Selector.Selected.First.Letter && (CORE.Selector.Selected.First.Number >= 0) ) {
+    if (CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First.Letter && (CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First.Number >= 0) ) {
 
-      var letter = CORE.Selector.Selected.First.Letter,
-          number = CORE.Selector.Selected.First.Number;
+      var letter = CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First.Letter,
+          number = CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First.Number;
 
       /** Valid cell selection */
       if (letter && number > 0) {
         /** Cell is not used yet */
         CORE.$.registerCell({ letter: letter, number: number });
         /** Cell was successfully registered ? */
-        if (CORE.Cells.Used[letter][letter + number]) return (true);
+        if (CORE.Cells.Used[CORE.CurrentSheet][letter][letter + number]) return (true);
       }
 
     }
@@ -242,9 +245,9 @@
   CORE.$.validateCells = function() {
 
     /** Loop through all selected cells */
-    for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {
-      var letter = CORE.$.numberToAlpha(CORE.Selector.SelectedCells[ii].letter);
-      var number = CORE.Selector.SelectedCells[ii].number;
+    for (var ii = 0; ii < CORE.Sheets[CORE.CurrentSheet].Selector.SelectedCells.length; ++ii) {
+      var letter = CORE.$.numberToAlpha(CORE.Sheets[CORE.CurrentSheet].Selector.SelectedCells[ii].letter);
+      var number = CORE.Sheets[CORE.CurrentSheet].Selector.SelectedCells[ii].number;
       CORE.$.registerCell({ letter: letter, number: number });
     }
 
@@ -262,13 +265,13 @@
     var number = object.number;
     var name = letter + number;
 
-    if (CORE.Cells.Used[letter]) {
-      if (!CORE.Cells.Used[letter][name]) {
-        CORE.Cells.Used[letter][name] = new CORE.Grid.Cell();
+    if (CORE.Cells.Used[CORE.CurrentSheet][letter]) {
+      if (!CORE.Cells.Used[CORE.CurrentSheet][letter][name]) {
+        CORE.Cells.Used[CORE.CurrentSheet][letter][name] = new CORE.Sheets[CORE.CurrentSheet].Cell();
       }
     } else {
-      CORE.Cells.Used[letter] = {};
-      CORE.Cells.Used[letter][name] = new CORE.Grid.Cell();
+      CORE.Cells.Used[CORE.CurrentSheet][letter] = {};
+      CORE.Cells.Used[CORE.CurrentSheet][letter][name] = new CORE.Sheets[CORE.CurrentSheet].Cell();
     }
 
   };

@@ -21,9 +21,9 @@
    */
   CORE.Injector.prototype.insertColumn = function() {
 
-    var usedCells = CORE.Cells.Used;
+    var usedCells = CORE.Cells.Used[CORE.CurrentSheet];
 
-    var masterCells = CORE.Selector.masterSelected.Columns;
+    var masterCells = CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Columns;
 
     /** Process master cells */
     var customArray = this.getMasterColumns("insert");
@@ -55,10 +55,10 @@
     }
 
     /** Refresh the grid */
-    CORE.Grid.updateWidth("default");
+    CORE.Sheets[CORE.CurrentSheet].updateWidth("default");
 
     /** Dont loose selection */
-    CORE.Selector.getSelection();
+    CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
 
   };
 

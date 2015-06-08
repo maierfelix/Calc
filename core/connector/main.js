@@ -49,6 +49,7 @@
   };
 
   CORE.Connector.prototype = CORE.Connector;
+  CORE.Connector.prototype.constructor = CORE.Connector;
 
   /**
    * Connect to a server

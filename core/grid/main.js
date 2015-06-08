@@ -100,9 +100,12 @@
       }
     };
 
+    this.calculateGrid();
+
   };
 
   CORE.Grid.prototype = CORE.Grid;
+  CORE.Grid.prototype.constructor = CORE.Grid;
 
   /**
    * Calculate the new grid sizes
@@ -196,8 +199,8 @@
         /** !Evil DOM Content */
         output += '<' + this.Templates.Cell.element + ' name="' + Letter + Number + '" id="' + ii + '" class="' + this.Templates.Cell.class + '" style="' + style + '">';
         /** Check if cell contains custom content */
-        if (CORE.Cells.Used[Letter] && CORE.Cells.Used[Letter][Letter + Number]) {
-          output += CORE.Cells.Used[Letter][Letter + Number].Content;
+        if (CORE.Cells.Used[CORE.CurrentSheet][Letter] && CORE.Cells.Used[CORE.CurrentSheet][Letter][Letter + Number]) {
+          output += CORE.Cells.Used[CORE.CurrentSheet][Letter][Letter + Number].Content;
         }
         output += '</' + this.Templates.Cell.element + '>';
 
@@ -231,7 +234,7 @@
 
     this.addCellListeners();
 
-    CORE.Selector.getSelection();
+    CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
 
     /** User was in edit mode */
     if (CORE.Input.Mouse.Edit) this.getEditSelection(CORE.Cells.Edit);

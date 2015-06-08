@@ -91,11 +91,11 @@
 
     CORE.Event.lastAction.scrollY = false;
 
-    CORE.Grid.calculateGrid();
+    CORE.Sheets[CORE.CurrentSheet].calculateGrid();
 
-    CORE.Grid.generateCells();
+    CORE.Sheets[CORE.CurrentSheet].generateCells();
 
-    CORE.Grid.updateWidth("right");
+    CORE.Sheets[CORE.CurrentSheet].updateWidth("right");
 
     CORE.Awakener.reset();
 

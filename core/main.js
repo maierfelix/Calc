@@ -47,7 +47,7 @@
     },
     /** Cell currently edited */
     Edit: null,
-    /** Customized cells -> Dictionary lookup: Used[a-Z][a-Z+0-9] */
+    /** Customized cells -> Sheet -> Dictionary[a-Z] -> [a-Z][a-Z+0-9] */
     Used: {},
     /** Live cells */
     Live: {},
@@ -57,6 +57,9 @@
       Number: 0
     }
   };
+
+  /** Currently open sheet */
+  CORE.CurrentSheet = "Sheet1";
 
   /** Mobile detection */
   CORE.Settings.Mobile = false;

@@ -27,11 +27,12 @@
       var jumps = 0;
 
       /** Shorter syntax */
-      var masterCell = CORE.Selector.masterSelected;
+      var masterCell = CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected;
       var currentMaster = masterCell.Current;
+      var selectSheet = CORE.Sheets[CORE.CurrentSheet].Selector;
 
       /** Active master selection */
-      if (CORE.Selector.masterSelected.Current && CORE.Selector.masterSelected.Current !== null) {
+      if (CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Current && CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Current !== null) {
         masterCell = masterCell.Columns[masterCell.Current] || masterCell.Rows[masterCell.Current];
         /** Check if master cell exists */
         if (masterCell) masterCell.Font = e.target.value;
@@ -41,32 +42,32 @@
       CORE.$.validateCells();
 
       /** Overwrite used cells styling */
-      if (CORE.Cells.Used[currentMaster]) {
-        CORE.Selector.inheritMasterStyling(currentMaster, masterCell, "Font");
+      if (CORE.Cells.Used[CORE.CurrentSheet][currentMaster]) {
+        CORE.Sheets[CORE.CurrentSheet].Selector.inheritMasterStyling(currentMaster, masterCell, "Font");
       }
 
       /** Loop through all selected cells */
-      for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {
-        var letter = CORE.$.numberToAlpha(CORE.Selector.SelectedCells[ii].letter);
-        var cellName = letter + CORE.Selector.SelectedCells[ii].number;
+      for (var ii = 0; ii < selectSheet.SelectedCells.length; ++ii) {
+        var letter = CORE.$.numberToAlpha(selectSheet.SelectedCells[ii].letter);
+        var cellName = letter + selectSheet.SelectedCells[ii].number;
         /** Update the font */
-        if (CORE.Cells.Used[letter][cellName]) {
-          CORE.Cells.Used[letter][cellName].Font = e.target.value;
+        if (CORE.Cells.Used[CORE.CurrentSheet][letter][cellName]) {
+          CORE.Cells.Used[CORE.CurrentSheet][letter][cellName].Font = e.target.value;
           /** Immediately update cells font */
-          jumps = CORE.$.getCell({ letter: CORE.Selector.SelectedCells[ii].letter, number: CORE.Selector.SelectedCells[ii].number });
+          jumps = CORE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
           if (jumps >= 0) CORE.DOM.Output.children[jumps].style.fontFamily = e.target.children[e.target.selectedIndex].getAttribute("value");
         }
       }
 
       /** Dont loose the selection */
-      CORE.Selector.getSelection();
+      selectSheet.getSelection();
 
     });
 
     /** Fix selection loss on click */
     CORE.DOM.ChangeFont.addEventListener('click', function(e) {
       /** Dont loose the selection */
-      CORE.Selector.getSelection();
+      CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
     });
 
     /** Initialize font size menu */
@@ -75,11 +76,12 @@
       var jumps = 0;
 
       /** Shorter syntax */
-      var masterCell = CORE.Selector.masterSelected;
+      var masterCell = CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected;
       var currentMaster = masterCell.Current;
+      var selectSheet = CORE.Sheets[CORE.CurrentSheet].Selector;
 
       /** Active master selection */
-      if (CORE.Selector.masterSelected.Current && CORE.Selector.masterSelected.Current !== null) {
+      if (selectSheet.masterSelected.Current && selectSheet.masterSelected.Current !== null) {
         masterCell = masterCell.Columns[masterCell.Current] || masterCell.Rows[masterCell.Current];
         /** Check if master cell exists */
         if (masterCell) masterCell.FontSize = ~~(e.target.value);
@@ -89,30 +91,30 @@
       CORE.$.validateCells();
 
       /** Overwrite used cells styling */
-      if (CORE.Cells.Used[currentMaster]) {
-        CORE.Selector.inheritMasterStyling(currentMaster, masterCell, "FontSize");
+      if (CORE.Cells.Used[CORE.CurrentSheet][currentMaster]) {
+        selectSheet.inheritMasterStyling(currentMaster, masterCell, "FontSize");
       }
 
       /** Loop through all selected cells */
-      for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {
-        var letter = CORE.$.numberToAlpha(CORE.Selector.SelectedCells[ii].letter);
-        var cellName = letter + CORE.Selector.SelectedCells[ii].number;
+      for (var ii = 0; ii < selectSheet.SelectedCells.length; ++ii) {
+        var letter = CORE.$.numberToAlpha(selectSheet.SelectedCells[ii].letter);
+        var cellName = letter + selectSheet.SelectedCells[ii].number;
         /** Update the font size */
-        CORE.Cells.Used[letter][cellName].FontSize = ~~(e.target.value);
+        CORE.Cells.Used[CORE.CurrentSheet][letter][cellName].FontSize = ~~(e.target.value);
         /** Immediately update cells font size */
-        jumps = CORE.$.getCell({ letter: CORE.Selector.SelectedCells[ii].letter, number: CORE.Selector.SelectedCells[ii].number });
+        jumps = CORE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
         if (jumps >= 0) CORE.DOM.Output.children[jumps].style.fontSize = e.target.children[e.target.selectedIndex].getAttribute("value") + "px";
       }
 
       /** Dont loose the selection */
-      CORE.Selector.getSelection();
+      selectSheet.getSelection();
 
     });
 
     /** Fix selection loss on click */
     CORE.DOM.ChangeFontSize.addEventListener('click', function(e) {
       /** Dont loose the selection */
-      CORE.Selector.getSelection();
+      CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
     });
 
     /** Initialize font bold menu item */
@@ -121,11 +123,12 @@
       var jumps = 0;
 
       /** Shorter syntax */
-      var masterCell = CORE.Selector.masterSelected;
+      var masterCell = CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected;
       var currentMaster = masterCell.Current;
+      var selectSheet = CORE.Sheets[CORE.CurrentSheet].Selector;
 
       /** Active master selection */
-      if (CORE.Selector.masterSelected.Current && CORE.Selector.masterSelected.Current !== null) {
+      if (selectSheet.masterSelected.Current && selectSheet.masterSelected.Current !== null) {
         masterCell = masterCell.Columns[masterCell.Current] || masterCell.Rows[masterCell.Current];
         /** Check if master cell exists */
         if (masterCell) {
@@ -138,32 +141,32 @@
       CORE.$.validateCells();
 
       /** Overwrite used cells styling */
-      if (CORE.Cells.Used[currentMaster]) {
-        CORE.Selector.inheritMasterStyling(currentMaster, masterCell, "FontBold");
+      if (CORE.Cells.Used[CORE.CurrentSheet][currentMaster]) {
+        selectSheet.inheritMasterStyling(currentMaster, masterCell, "FontBold");
       }
 
       /** Loop through all selected cells */
-      for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {
-        var letter = CORE.$.numberToAlpha(CORE.Selector.SelectedCells[ii].letter);
-        var cellName = letter + CORE.Selector.SelectedCells[ii].number;
+      for (var ii = 0; ii < selectSheet.SelectedCells.length; ++ii) {
+        var letter = CORE.$.numberToAlpha(selectSheet.SelectedCells[ii].letter);
+        var cellName = letter + selectSheet.SelectedCells[ii].number;
         /** User wants to disable bold property by executing again */
-        if (CORE.Cells.Used[letter][cellName].FontBold) {
+        if (CORE.Cells.Used[CORE.CurrentSheet][letter][cellName].FontBold) {
           /** Update the font bold */
-          CORE.Cells.Used[letter][cellName].FontBold = false;
+          CORE.Cells.Used[CORE.CurrentSheet][letter][cellName].FontBold = false;
           /** Immediately update cells font bold */
-          jumps = CORE.$.getCell({ letter: CORE.Selector.SelectedCells[ii].letter, number: CORE.Selector.SelectedCells[ii].number });
+          jumps = CORE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
           if (jumps >= 0) CORE.DOM.Output.children[jumps].style.fontWeight = "normal";
         } else {
           /** Update the font bold */
-          CORE.Cells.Used[letter][cellName].FontBold = true;
+          CORE.Cells.Used[CORE.CurrentSheet][letter][cellName].FontBold = true;
           /** Immediately update cells font bold */
-          jumps = CORE.$.getCell({ letter: CORE.Selector.SelectedCells[ii].letter, number: CORE.Selector.SelectedCells[ii].number });
+          jumps = CORE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
           if (jumps >= 0) CORE.DOM.Output.children[jumps].style.fontWeight = "bold";
         }
       }
 
       /** Dont loose the selection */
-      CORE.Selector.getSelection();
+      selectSheet.getSelection();
 
     });
 
@@ -173,11 +176,12 @@
       var jumps = 0;
 
       /** Shorter syntax */
-      var masterCell = CORE.Selector.masterSelected;
+      var masterCell = CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected;
       var currentMaster = masterCell.Current;
+      var selectSheet = CORE.Sheets[CORE.CurrentSheet].Selector;
 
       /** Active master selection */
-      if (CORE.Selector.masterSelected.Current && CORE.Selector.masterSelected.Current !== null) {
+      if (selectSheet.masterSelected.Current && selectSheet.masterSelected.Current !== null) {
         masterCell = masterCell.Columns[masterCell.Current] || masterCell.Rows[masterCell.Current];
         /** Check if master cell exists */
         if (masterCell) {
@@ -190,32 +194,32 @@
       CORE.$.validateCells();
 
       /** Overwrite used cells styling */
-      if (CORE.Cells.Used[currentMaster]) {
-        CORE.Selector.inheritMasterStyling(currentMaster, masterCell, "FontItalic");
+      if (CORE.Cells.Used[CORE.CurrentSheet][currentMaster]) {
+        selectSheet.inheritMasterStyling(currentMaster, masterCell, "FontItalic");
       }
 
       /** Loop through all selected cells */
-      for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {
-        var letter = CORE.$.numberToAlpha(CORE.Selector.SelectedCells[ii].letter);
-        var cellName = letter + CORE.Selector.SelectedCells[ii].number;
+      for (var ii = 0; ii < selectSheet.SelectedCells.length; ++ii) {
+        var letter = CORE.$.numberToAlpha(selectSheet.SelectedCells[ii].letter);
+        var cellName = letter + selectSheet.SelectedCells[ii].number;
         /** User wants to disable italic property by executing again */
-        if (CORE.Cells.Used[letter][cellName].FontItalic) {
+        if (CORE.Cells.Used[CORE.CurrentSheet][letter][cellName].FontItalic) {
           /** Update the font italic */
-          CORE.Cells.Used[letter][cellName].FontItalic = false;
+          CORE.Cells.Used[CORE.CurrentSheet][letter][cellName].FontItalic = false;
           /** Immediately update cells font italic */
-          jumps = CORE.$.getCell({ letter: CORE.Selector.SelectedCells[ii].letter, number: CORE.Selector.SelectedCells[ii].number });
+          jumps = CORE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
           if (jumps >= 0) CORE.DOM.Output.children[jumps].style.fontStyle = "normal";
         } else {
           /** Update the font italic */
-          CORE.Cells.Used[letter][cellName].FontItalic = true;
+          CORE.Cells.Used[CORE.CurrentSheet][letter][cellName].FontItalic = true;
           /** Immediately update cells font italic */
-          jumps = CORE.$.getCell({ letter: CORE.Selector.SelectedCells[ii].letter, number: CORE.Selector.SelectedCells[ii].number });
+          jumps = CORE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
           if (jumps >= 0) CORE.DOM.Output.children[jumps].style.fontStyle = "italic";
         }
       }
 
       /** Dont loose the selection */
-      CORE.Selector.getSelection();
+      selectSheet.getSelection();
 
     });
 
@@ -225,11 +229,12 @@
       var jumps = 0;
 
       /** Shorter syntax */
-      var masterCell = CORE.Selector.masterSelected;
+      var masterCell = CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected;
       var currentMaster = masterCell.Current;
+      var selectSheet = CORE.Sheets[CORE.CurrentSheet].Selector;
 
       /** Active master selection */
-      if (CORE.Selector.masterSelected.Current && CORE.Selector.masterSelected.Current !== null) {
+      if (selectSheet.masterSelected.Current && selectSheet.masterSelected.Current !== null) {
         masterCell = masterCell.Columns[masterCell.Current] || masterCell.Rows[masterCell.Current];
         /** Check if master cell exists */
         if (masterCell) {
@@ -242,32 +247,32 @@
       CORE.$.validateCells();
 
       /** Overwrite used cells styling */
-      if (CORE.Cells.Used[currentMaster]) {
-        CORE.Selector.inheritMasterStyling(currentMaster, masterCell, "FontUnderlined");
+      if (CORE.Cells.Used[CORE.CurrentSheet][currentMaster]) {
+        selectSheet.inheritMasterStyling(currentMaster, masterCell, "FontUnderlined");
       }
 
       /** Loop through all selected cells */
-      for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {
-        var letter = CORE.$.numberToAlpha(CORE.Selector.SelectedCells[ii].letter);
-        var cellName = letter + CORE.Selector.SelectedCells[ii].number;
+      for (var ii = 0; ii < selectSheet.SelectedCells.length; ++ii) {
+        var letter = CORE.$.numberToAlpha(selectSheet.SelectedCells[ii].letter);
+        var cellName = letter + selectSheet.SelectedCells[ii].number;
         /** User wants to disable underlined property by executing again */
-        if (CORE.Cells.Used[letter][cellName].FontUnderlined) {
+        if (CORE.Cells.Used[CORE.CurrentSheet][letter][cellName].FontUnderlined) {
           /** Update the font underlined */
-          CORE.Cells.Used[letter][cellName].FontUnderlined = false;
+          CORE.Cells.Used[CORE.CurrentSheet][letter][cellName].FontUnderlined = false;
           /** Immediately update cells font underlined */
-          jumps = CORE.$.getCell({ letter: CORE.Selector.SelectedCells[ii].letter, number: CORE.Selector.SelectedCells[ii].number });
+          jumps = CORE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
           if (jumps >= 0) CORE.DOM.Output.children[jumps].style.textDecoration = "none";
         } else {
           /** Update the font underlined */
-          CORE.Cells.Used[letter][cellName].FontUnderlined = true;
+          CORE.Cells.Used[CORE.CurrentSheet][letter][cellName].FontUnderlined = true;
           /** Immediately update cells font underlined */
-          jumps = CORE.$.getCell({ letter: CORE.Selector.SelectedCells[ii].letter, number: CORE.Selector.SelectedCells[ii].number });
+          jumps = CORE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
           if (jumps >= 0) CORE.DOM.Output.children[jumps].style.textDecoration = "underline";
         }
       }
 
       /** Dont loose the selection */
-      CORE.Selector.getSelection();
+      selectSheet.getSelection();
 
     });
 
@@ -276,6 +281,7 @@
 
       var element = CORE.DOM.ChangeFontColor;
       var jumps = 0;
+      var selectSheet = CORE.Sheets[CORE.CurrentSheet].Selector;
 
       /** Display menu switch */
       if (element.parentNode.children[1]) {
@@ -292,11 +298,11 @@
       }
 
       /** Shorter syntax */
-      var masterCell = CORE.Selector.masterSelected;
+      var masterCell = selectSheet.masterSelected;
       var currentMaster = masterCell.Current;
 
       /** Active master selection */
-      if (CORE.Selector.masterSelected.Current && CORE.Selector.masterSelected.Current !== null) {
+      if (selectSheet.masterSelected.Current && selectSheet.masterSelected.Current !== null) {
         masterCell = masterCell.Columns[masterCell.Current] || masterCell.Rows[masterCell.Current];
         /** Check if master cell exists */
         if (masterCell) masterCell.Color = pickers.children[0].style.background;
@@ -306,23 +312,23 @@
       CORE.$.validateCells();
 
       /** Overwrite used cells styling */
-      if (CORE.Cells.Used[currentMaster]) {
-        CORE.Selector.inheritMasterStyling(currentMaster, masterCell, "Color");
+      if (CORE.Cells.Used[CORE.CurrentSheet][currentMaster]) {
+        selectSheet.inheritMasterStyling(currentMaster, masterCell, "Color");
       }
 
       /** Loop through all selected cells */
-      for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {
-        var letter = CORE.$.numberToAlpha(CORE.Selector.SelectedCells[ii].letter);
-        var cellName = letter + CORE.Selector.SelectedCells[ii].number;
+      for (var ii = 0; ii < selectSheet.SelectedCells.length; ++ii) {
+        var letter = CORE.$.numberToAlpha(selectSheet.SelectedCells[ii].letter);
+        var cellName = letter + selectSheet.SelectedCells[ii].number;
         /** Update the font color */
-        CORE.Cells.Used[letter][cellName].Color = pickers.children[0].style.background;
+        CORE.Cells.Used[CORE.CurrentSheet][letter][cellName].Color = pickers.children[0].style.background;
         /** Immediately update cells font color */
-        jumps = CORE.$.getCell({ letter: CORE.Selector.SelectedCells[ii].letter, number: CORE.Selector.SelectedCells[ii].number });
+        jumps = CORE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
         if (jumps >= 0) CORE.DOM.Output.children[jumps].style.color = pickers.children[0].style.background;
       }
 
       /** Dont loose the selection */
-      CORE.Selector.getSelection();
+      selectSheet.getSelection();
 
     });
 

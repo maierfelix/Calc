@@ -21,8 +21,8 @@
    */
   CORE.Selector.prototype.menuSelection = function(x, y) {
 
-    x -= CORE.Grid.Settings.scrolledX;
-    y -= CORE.Grid.Settings.scrolledY;
+    x -= CORE.Sheets[CORE.CurrentSheet].Settings.scrolledX;
+    y -= CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY;
 
     /** Clean the menu */
     if (this.MenuSelection.Horizontal >= 0 && this.MenuSelection.Vertical >= 0) {

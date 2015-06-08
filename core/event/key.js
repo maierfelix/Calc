@@ -42,7 +42,7 @@
     if (e.keyCode === 13) {
       e.preventDefault();
       /** Disable master selection */
-      CORE.Selector.masterSelected.Current = null;
+      CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Current = null;
       CORE.Event.pressedEnter(e.keyCode);
     }
 
@@ -65,7 +65,7 @@
       e.preventDefault();
       CORE.Input.Keyboard.Tab = true;
       /** Disable master selection */
-      CORE.Selector.masterSelected.Current = null;
+      CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Current = null;
       CORE.Event.navigateTo("right", 1);
       return void 0;
     }
@@ -74,8 +74,8 @@
     if (e.keyCode === 33) {
       e.preventDefault();
       /** Disable master selection */
-      CORE.Selector.masterSelected.Current = null;
-      CORE.Selector.jump("up", CORE.Grid.Settings.y);
+      CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Current = null;
+      CORE.Sheets[CORE.CurrentSheet].Selector.jump("up", CORE.Sheets[CORE.CurrentSheet].Settings.y);
       return void 0;
     }
 
@@ -83,8 +83,8 @@
     if (e.keyCode === 34) {
       e.preventDefault();
       /** Disable master selection */
-      CORE.Selector.masterSelected.Current = null;
-      CORE.Selector.jump("down", CORE.Grid.Settings.y);
+      CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Current = null;
+      CORE.Sheets[CORE.CurrentSheet].Selector.jump("down", CORE.Sheets[CORE.CurrentSheet].Settings.y);
       return void 0;
     }
 
@@ -94,11 +94,11 @@
       case 38:
         /** Dont allow scrolling if user edits a cell */
         if (CORE.Event.inEditMode()) return void 0;
-        CORE.Grid.Settings.keyScrolledY -= 1;
-        CORE.Grid.Settings.lastScrollY = 1;
+        CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledY -= 1;
+        CORE.Sheets[CORE.CurrentSheet].Settings.lastScrollY = 1;
         /** Disable master selection */
-        CORE.Selector.masterSelected.Current = null;
-        CORE.Selector.selectCellByKeyPress();
+        CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Current = null;
+        CORE.Sheets[CORE.CurrentSheet].Selector.selectCellByKeyPress();
         /** Update last key press timestamp */
         this.lastKeyPress = e.timeStamp - 100;
         return void 0;
@@ -106,11 +106,11 @@
       case 40:
         /** Dont allow scrolling if user edits a cell */
         if (CORE.Event.inEditMode()) return void 0;
-        CORE.Grid.Settings.keyScrolledY += 1;
-        CORE.Grid.Settings.lastScrollY = 1;
+        CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledY += 1;
+        CORE.Sheets[CORE.CurrentSheet].Settings.lastScrollY = 1;
         /** Disable master selection */
-        CORE.Selector.masterSelected.Current = null;
-        CORE.Selector.selectCellByKeyPress();
+        CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Current = null;
+        CORE.Sheets[CORE.CurrentSheet].Selector.selectCellByKeyPress();
         /** Update last key press timestamp */
         this.lastKeyPress = e.timeStamp - 100;
         return void 0;
@@ -118,11 +118,11 @@
       case 37:
         /** Dont allow scrolling if user edits a cell */
         if (CORE.Event.inEditMode()) return void 0;
-        CORE.Grid.Settings.keyScrolledX -= CORE.Settings.Scroll.Horizontal;
-        CORE.Grid.Settings.lastScrollX = CORE.Settings.Scroll.Horizontal;
+        CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledX -= CORE.Settings.Scroll.Horizontal;
+        CORE.Sheets[CORE.CurrentSheet].Settings.lastScrollX = CORE.Settings.Scroll.Horizontal;
         /** Disable master selection */
-        CORE.Selector.masterSelected.Current = null;
-        CORE.Selector.selectCellByKeyPress();
+        CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Current = null;
+        CORE.Sheets[CORE.CurrentSheet].Selector.selectCellByKeyPress();
         /** Update last key press timestamp */
         this.lastKeyPress = e.timeStamp - 100;
         CORE.Event.lastAction.scrollY = false;
@@ -131,11 +131,11 @@
       case 39:
         /** Dont allow scrolling if user edits a cell */
         if (CORE.Event.inEditMode()) return void 0;
-        CORE.Grid.Settings.keyScrolledX += CORE.Settings.Scroll.Horizontal;
-        CORE.Grid.Settings.lastScrollX = CORE.Settings.Scroll.Horizontal;
+        CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledX += CORE.Settings.Scroll.Horizontal;
+        CORE.Sheets[CORE.CurrentSheet].Settings.lastScrollX = CORE.Settings.Scroll.Horizontal;
         /** Disable master selection */
-        CORE.Selector.masterSelected.Current = null;
-        CORE.Selector.selectCellByKeyPress();
+        CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Current = null;
+        CORE.Sheets[CORE.CurrentSheet].Selector.selectCellByKeyPress();
         /** Update last key press timestamp */
         this.lastKeyPress = e.timeStamp - 100;
         CORE.Event.lastAction.scrollY = false;

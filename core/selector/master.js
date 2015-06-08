@@ -26,14 +26,14 @@
         /** Master selected column */
         if (!this.masterSelected.Columns[name]) {
           /** Owns similar properties as a grid cell */
-          this.masterSelected.Columns[name] = new CORE.Grid.Cell();
+          this.masterSelected.Columns[name] = new CORE.Sheets[CORE.CurrentSheet].Cell();
         }
         break;
       case "number":
         /** Master selected row */
         if (!this.masterSelected.Rows[name]) {
           /** Owns similar properties as a grid cell */
-          this.masterSelected.Rows[name] = new CORE.Grid.Cell();
+          this.masterSelected.Rows[name] = new CORE.Sheets[CORE.CurrentSheet].Cell();
         }
         break;
     }
@@ -51,8 +51,8 @@
    */
   CORE.Selector.prototype.inheritMasterStyling = function(name, masterCell, property) {
 
-    for (var ii in CORE.Cells.Used[name]) {
-      CORE.Cells.Used[name][ii][property] = masterCell[property];
+    for (var ii in CORE.Cells.Used[CORE.CurrentSheet][name]) {
+      CORE.Cells.Used[CORE.CurrentSheet][name][ii][property] = masterCell[property];
     }
 
   };

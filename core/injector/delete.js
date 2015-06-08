@@ -21,9 +21,9 @@
    */
   CORE.Injector.prototype.deleteColumn = function() {
 
-    var usedCells = CORE.Cells.Used;
+    var usedCells = CORE.Cells.Used[CORE.CurrentSheet];
 
-    var masterCells = CORE.Selector.masterSelected.Columns;
+    var masterCells = CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Columns;
 
     /** Currently selected column */
     var selectedCell = CORE.Cells.Selected.First;
@@ -60,10 +60,10 @@
     }
 
     /** Refresh the grid */
-    CORE.Grid.updateWidth("default");
+    CORE.Sheets[CORE.CurrentSheet].updateWidth("default");
 
     /** Dont loose selection */
-    CORE.Selector.getSelection();
+    CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
 
   };
 

@@ -25,47 +25,47 @@
     var number = this.parentSelectedCell.Number;
 
     /** Dont overscroll left axis start */
-    if ( (CORE.Grid.Settings.keyScrolledX + letter) <= 0) {
-      letter = letter + CORE.Grid.Settings.keyScrolledX + CORE.Grid.Settings.scrolledX;
+    if ( (CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledX + letter) <= 0) {
+      letter = letter + CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledX + CORE.Sheets[CORE.CurrentSheet].Settings.scrolledX;
       /** Dont scroll below zero */
-      if (CORE.Grid.Settings.scrolledX >= 1) CORE.Grid.Settings.scrolledX -= 1;
-      CORE.Grid.Settings.keyScrolledX += 1;
+      if (CORE.Sheets[CORE.CurrentSheet].Settings.scrolledX >= 1) CORE.Sheets[CORE.CurrentSheet].Settings.scrolledX -= 1;
+      CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledX += 1;
       /** Update grid and menu */
-      CORE.Grid.updateWidth("default");
-      CORE.Grid.updateMenu();
+      CORE.Sheets[CORE.CurrentSheet].updateWidth("default");
+      CORE.Sheets[CORE.CurrentSheet].updateMenu();
     /** Dont overscroll left axis end */
-    } else if ((CORE.Grid.Settings.keyScrolledX + letter) >= (CORE.Grid.Settings.x + 1)) {
-      CORE.Grid.Settings.scrolledX += 1;
-      letter = CORE.Grid.Settings.x + CORE.Grid.Settings.scrolledX;
-      CORE.Grid.Settings.keyScrolledX -= 1;
+    } else if ((CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledX + letter) >= (CORE.Sheets[CORE.CurrentSheet].Settings.x + 1)) {
+      CORE.Sheets[CORE.CurrentSheet].Settings.scrolledX += 1;
+      letter = CORE.Sheets[CORE.CurrentSheet].Settings.x + CORE.Sheets[CORE.CurrentSheet].Settings.scrolledX;
+      CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledX -= 1;
       /** Update grid and menu */
-      CORE.Grid.updateWidth("default");
-      CORE.Grid.updateMenu();
+      CORE.Sheets[CORE.CurrentSheet].updateWidth("default");
+      CORE.Sheets[CORE.CurrentSheet].updateMenu();
     /** Update the letter */
     } else {
-      letter = letter + (CORE.Grid.Settings.keyScrolledX + CORE.Grid.Settings.scrolledX);
+      letter = letter + (CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledX + CORE.Sheets[CORE.CurrentSheet].Settings.scrolledX);
     }
 
     /** Dont overscroll top axis start */
-    if ( (CORE.Grid.Settings.keyScrolledY + number) <= 0) {
+    if ( (CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledY + number) <= 0) {
       number = 1;
-      CORE.Grid.Settings.keyScrolledY += 1;
+      CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledY += 1;
       /** Dont scroll below zero */
-      if (CORE.Grid.Settings.scrolledY >= 1) CORE.Grid.Settings.scrolledY -= 1;
+      if (CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY >= 1) CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY -= 1;
       /** Update grid and menu */
-      CORE.Grid.updateHeight("up", 1);
-      CORE.Grid.updateMenu();
+      CORE.Sheets[CORE.CurrentSheet].updateHeight("up", 1);
+      CORE.Sheets[CORE.CurrentSheet].updateMenu();
     /** Dont overscroll top axis end */
-    } else if ((CORE.Grid.Settings.keyScrolledY + number) >= (CORE.Grid.Settings.y + 1) ) {
-      CORE.Grid.Settings.scrolledY += 1;
-      number = CORE.Grid.Settings.y + CORE.Grid.Settings.scrolledY;
-      CORE.Grid.Settings.keyScrolledY -= 1;
+    } else if ((CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledY + number) >= (CORE.Sheets[CORE.CurrentSheet].Settings.y + 1) ) {
+      CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY += 1;
+      number = CORE.Sheets[CORE.CurrentSheet].Settings.y + CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY;
+      CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledY -= 1;
       /** Update grid and menu */
-      CORE.Grid.updateHeight("up", 1);
-      CORE.Grid.updateMenu();
+      CORE.Sheets[CORE.CurrentSheet].updateHeight("up", 1);
+      CORE.Sheets[CORE.CurrentSheet].updateMenu();
     /** Update the number */
     } else {
-      number = number + (CORE.Grid.Settings.keyScrolledY + CORE.Grid.Settings.scrolledY);
+      number = number + (CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledY + CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY);
     }
 
     /** User presses the shift key */
@@ -95,6 +95,6 @@
     };
 
     /** Proccess the new selection */
-    CORE.Selector.getSelection();
+    this.getSelection();
 
   };

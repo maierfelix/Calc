@@ -22,53 +22,53 @@
 
 		var hoverColor = "rgba(68, 138, 255, 0.75)";
 
-    var masterColumns = CORE.Selector.masterSelected.Columns;
-    var masterRows = CORE.Selector.masterSelected.Rows;
+    var masterColumns = CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Columns;
+    var masterRows = CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Rows;
 
-    if (CORE.Cells.Used[letter] && CORE.Cells.Used[letter][cell]) {
+    if (CORE.Cells.Used[CORE.CurrentSheet][letter] && CORE.Cells.Used[CORE.CurrentSheet][letter][cell]) {
       /** Check if cell contains a formula - (higher priority than content!) */
-      if (CORE.Cells.Used[letter][cell].Formula) {
-        CORE.DOM.CellInput.value = CORE.Cells.Used[letter][cell].Formula;
+      if (CORE.Cells.Used[CORE.CurrentSheet][letter][cell].Formula) {
+        CORE.DOM.CellInput.value = CORE.Cells.Used[CORE.CurrentSheet][letter][cell].Formula;
       /** Check if cell has a custom content */
-      } else if (CORE.Cells.Used[letter][cell].Content !== undefined && CORE.Cells.Used[letter][cell].Content !== null) {
+      } else if (CORE.Cells.Used[CORE.CurrentSheet][letter][cell].Content !== undefined && CORE.Cells.Used[CORE.CurrentSheet][letter][cell].Content !== null) {
         /** Update cell input content */
-        CORE.DOM.CellInput.value = CORE.Cells.Used[letter][cell].Content;
+        CORE.DOM.CellInput.value = CORE.Cells.Used[CORE.CurrentSheet][letter][cell].Content;
       /** Reset cell input content */
       } else CORE.DOM.CellInput.value = "";
     } else CORE.DOM.CellInput.value = "";
 
     /** Check if cell was registered */
-    if (CORE.Cells.Used[letter] && CORE.Cells.Used[letter][cell]) {
+    if (CORE.Cells.Used[CORE.CurrentSheet][letter] && CORE.Cells.Used[CORE.CurrentSheet][letter][cell]) {
 
       /** Check if cell has a custom font */
-      if (CORE.Cells.Used[letter][cell].Font) {
+      if (CORE.Cells.Used[CORE.CurrentSheet][letter][cell].Font) {
         /** Update font menu value */
-        CORE.DOM.ChangeFont.value = CORE.Cells.Used[letter][cell].Font;
+        CORE.DOM.ChangeFont.value = CORE.Cells.Used[CORE.CurrentSheet][letter][cell].Font;
       /** Reset font menu value to default */
       } else {
         CORE.DOM.ChangeFont.value = "Arial";
       }
 
       /** Check if cell has a custom font size */
-      if (CORE.Cells.Used[letter][cell].FontSize) {
+      if (CORE.Cells.Used[CORE.CurrentSheet][letter][cell].FontSize) {
         /** Update font size menu value */
-        CORE.DOM.ChangeFontSize.value = CORE.Cells.Used[letter][cell].FontSize;
+        CORE.DOM.ChangeFontSize.value = CORE.Cells.Used[CORE.CurrentSheet][letter][cell].FontSize;
       /** Reset font size menu value to default */
       } else {
         CORE.DOM.ChangeFontSize.value = 12;
       }
 
       /** Check if cell has a custom font color */
-      if (CORE.Cells.Used[letter][cell].Color) {
+      if (CORE.Cells.Used[CORE.CurrentSheet][letter][cell].Color) {
         /** Update font color menu value */
-        CORE.DOM.ChangeFontColor.style.background = CORE.Cells.Used[letter][cell].Color;
+        CORE.DOM.ChangeFontColor.style.background = CORE.Cells.Used[CORE.CurrentSheet][letter][cell].Color;
       /** Reset font color menu value to default */
       } else {
         CORE.DOM.ChangeFontColor.style.background = "rgba(50, 50, 50, 0.70)";
       }
 
       /** Check if cell has font bold */
-      if (CORE.Cells.Used[letter][cell].FontBold) {
+      if (CORE.Cells.Used[CORE.CurrentSheet][letter][cell].FontBold) {
         /** Update font bold menu color */
         CORE.DOM.ChangeFontBold.style.background = hoverColor;
       /** Reset font bold menu color to default */
@@ -77,7 +77,7 @@
       }
 
       /** Check if cell has font italic */
-      if (CORE.Cells.Used[letter][cell].FontItalic) {
+      if (CORE.Cells.Used[CORE.CurrentSheet][letter][cell].FontItalic) {
         /** Update font italic menu color */
         CORE.DOM.ChangeFontItalic.style.background = hoverColor;
       /** Reset font italic menu color to default */
@@ -86,7 +86,7 @@
       }
 
       /** Check if cell font is underlined */
-      if (CORE.Cells.Used[letter][cell].FontUnderlined) {
+      if (CORE.Cells.Used[CORE.CurrentSheet][letter][cell].FontUnderlined) {
         /** Update font italic menu color */
         CORE.DOM.ChangeFontUnderline.style.background = hoverColor;
       /** Reset cell font underlined menu color to default */
@@ -95,9 +95,9 @@
       }
 
       /** Check if cell has a custom background */
-      if (CORE.Cells.Used[letter][cell].BackgroundColor) {
+      if (CORE.Cells.Used[CORE.CurrentSheet][letter][cell].BackgroundColor) {
         /** Update cell background color */
-        CORE.DOM.ChangeCellBackground.style.background = CORE.Cells.Used[letter][cell].BackgroundColor;
+        CORE.DOM.ChangeCellBackground.style.background = CORE.Cells.Used[CORE.CurrentSheet][letter][cell].BackgroundColor;
       /** Reset cell background color to default */
       } else {
         CORE.DOM.ChangeCellBackground.style.background = "rgba(50, 50, 50, 0.70)";

@@ -43,6 +43,8 @@ Import.scripts = [
   "core/event/mouse.js",
   "core/event/key.js",
   "core/event/sniffer.js",
+  /** Sheet */
+  "core/sheet/main.js",
   /** Grid */
   "core/grid/main.js",
   "core/grid/cache.js",

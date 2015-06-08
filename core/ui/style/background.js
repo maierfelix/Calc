@@ -24,10 +24,12 @@
     /** Initialize cell background change menu */
     CORE.DOM.ChangeCellBackground.addEventListener('click', function(e) {
 
+      var selectSheet = CORE.Sheets[CORE.CurrentSheet].Selector;
+
       var element = CORE.DOM.ChangeCellBackground.children[1];
 
       /** Shorter syntax */
-      var masterCell = CORE.Selector.masterSelected;
+      var masterCell = selectSheet.masterSelected;
       var currentMaster = masterCell.Current;
 
       /** Active master selection */
@@ -41,23 +43,23 @@
       CORE.$.validateCells();
 
       /** Overwrite used cells styling */
-      if (CORE.Cells.Used[currentMaster]) {
-        CORE.Selector.inheritMasterStyling(currentMaster, masterCell, "BackgroundColor");
+      if (CORE.Cells.Used[CORE.CurrentSheet][currentMaster]) {
+        selectSheet.inheritMasterStyling(currentMaster, masterCell, "BackgroundColor");
       }
 
       /** Loop through all selected cells */
-      for (var ii = 0; ii < CORE.Selector.SelectedCells.length; ++ii) {
-        var letter = CORE.$.numberToAlpha(CORE.Selector.SelectedCells[ii].letter);
-        var name = letter + CORE.Selector.SelectedCells[ii].number;
+      for (var ii = 0; ii < selectSheet.SelectedCells.length; ++ii) {
+        var letter = CORE.$.numberToAlpha(selectSheet.SelectedCells[ii].letter);
+        var name = letter + selectSheet.SelectedCells[ii].number;
         /** Update the cell background color */
-        CORE.Cells.Used[letter][name].BackgroundColor = pickers.children[0].style.background;
+        CORE.Cells.Used[CORE.CurrentSheet][letter][name].BackgroundColor = pickers.children[0].style.background;
         /** Immediately update cells background color */
-        var jumps = CORE.$.getCell({ letter: CORE.Selector.SelectedCells[ii].letter, number: CORE.Selector.SelectedCells[ii].number });
+        var jumps = CORE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
         if (jumps >= 0) CORE.DOM.Output.children[jumps].style.background = pickers.children[0].style.background;
       }
 
       /** Dont loose the selection */
-      CORE.Selector.getSelection();
+      selectSheet.getSelection();
 
     });
 

@@ -32,22 +32,22 @@
       if (typeof this.masterSelected.Current === "string") {
         CORE.Cells.Selected.First = {
           Letter: CORE.$.alphaToNumber(this.masterSelected.Current),
-          Number: CORE.Grid.Settings.scrolledY
+          Number: CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY
         };
         CORE.Cells.Selected.Last = {
           Letter: CORE.$.alphaToNumber(this.masterSelected.Current),
           /** + 1 to set last selection out of view */
-          Number: CORE.Grid.Settings.y + (CORE.Grid.Settings.scrolledY + 1)
+          Number: CORE.Sheets[CORE.CurrentSheet].Settings.y + (CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY + 1)
         };
       /** Row master selection */
       } else if (typeof this.masterSelected.Current === "number") {
         CORE.Cells.Selected.First = {
-          Letter: CORE.Grid.Settings.scrolledX,
+          Letter: CORE.Sheets[CORE.CurrentSheet].Settings.scrolledX,
           Number: this.masterSelected.Current
         };
         CORE.Cells.Selected.Last = {
           /** + 1 to set last selection out of view */
-          Letter: CORE.Grid.Settings.scrolledX + (CORE.Grid.Settings.x + 1),
+          Letter: CORE.Sheets[CORE.CurrentSheet].Settings.scrolledX + (CORE.Sheets[CORE.CurrentSheet].Settings.x + 1),
           Number: this.masterSelected.Current
         };
       }
@@ -181,7 +181,7 @@
     this.menuSelection( (lastCell.Letter - 1), (lastCell.Number - 1));
 
     /** Clean edited cells */
-    if (!CORE.Input.Mouse.Edit) CORE.Grid.cleanEditSelection();
+    if (!CORE.Input.Mouse.Edit) CORE.Sheets[CORE.CurrentSheet].cleanEditSelection();
 
   };
 
@@ -264,25 +264,25 @@
     }
 
     /** Reset all key scroll axis amount */
-    CORE.Grid.Settings.keyScrolledX = CORE.Grid.Settings.keyScrolledY = 0;
+    CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledX = CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledY = 0;
 
     /** Scroll one down, user edited cell at final bottom */
-    if (dir === "down" && (CORE.Grid.Settings.keyScrolledY + number) >= (CORE.Grid.Settings.y + CORE.Grid.Settings.scrolledY - 1)) {
-      CORE.Grid.Settings.scrolledY += 1;
-      CORE.Grid.Settings.keyScrolledY -= 1;
+    if (dir === "down" && (CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledY + number) >= (CORE.Sheets[CORE.CurrentSheet].Settings.y + CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY - 1)) {
+      CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY += 1;
+      CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledY -= 1;
     }
 
     /** Scroll one down, user edited cell at final bottom */
     if (dir === "up") {
-      if (CORE.Grid.Settings.keyScrolledY + number <= (CORE.Grid.Settings.scrolledY + 1)) {
-        CORE.Grid.Settings.scrolledY -= 1;
+      if (CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledY + number <= (CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY + 1)) {
+        CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY -= 1;
       }
-      CORE.Grid.Settings.keyScrolledY += 1;
+      CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledY += 1;
     }
 
     /** Update grid and menu */
-    CORE.Grid.updateHeight("up", 1);
-    CORE.Grid.generateMenu();
+    CORE.Sheets[CORE.CurrentSheet].updateHeight("up", 1);
+    CORE.Sheets[CORE.CurrentSheet].generateMenu();
 
     /** Select the new cell */
     this.selectCell(letterResult, (numberResult));

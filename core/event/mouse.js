@@ -28,11 +28,11 @@
       var attribute = e.target.getAttribute("name");
 
       /** Clean old double click selection */
-      CORE.Grid.cleanEditSelection();
+      CORE.Sheets[CORE.CurrentSheet].cleanEditSelection();
 
-      CORE.Selector.cellFocusSwitch = false;
+      CORE.Sheets[CORE.CurrentSheet].Selector.cellFocusSwitch = false;
 
-      CORE.Grid.getEditSelection(attribute);
+      CORE.Sheets[CORE.CurrentSheet].getEditSelection(attribute);
 
     }
 
@@ -54,7 +54,7 @@
         CORE.Input.Mouse.Pressed) {
           e.preventDefault();
           /** Dont loose selection */
-          CORE.Selector.getSelection();
+          CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
           return void 0;
         }
 
@@ -86,12 +86,12 @@
       /** User selected a cell */
       if (CORE.Cells.Select.Letter && CORE.Cells.Select.Number) {
         CORE.eval();
-        CORE.Grid.cleanEditSelection();
-        CORE.Grid.getEditSelection(CORE.Cells.Select);
+        CORE.Sheets[CORE.CurrentSheet].cleanEditSelection();
+        CORE.Sheets[CORE.CurrentSheet].getEditSelection(CORE.Cells.Select);
       }
 
       /** Dont loose selection */
-      CORE.Selector.getSelection();
+      CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
 
       return void 0;
 
@@ -110,7 +110,7 @@
       CORE.Input.Mouse.LiveCellEdit = false;
 
       /** User aborted master selection */
-      CORE.Selector.masterSelected.Current = null;
+      CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Current = null;
 
       /** Hide live cell container */
       CORE.DOM.LiveCellContainer.style.display = "none";
@@ -134,8 +134,8 @@
         CORE.Cells.Selected.Last = CORE.Cells.Selected.First;
 
         /** Update parent cell, so keypress only moving will work */
-        CORE.Selector.parentSelectedCell = CORE.Cells.Selected.First;
-        CORE.Grid.Settings.keyScrolledX = CORE.Grid.Settings.keyScrolledY = 0;
+        CORE.Sheets[CORE.CurrentSheet].Selector.parentSelectedCell = CORE.Cells.Selected.First;
+        CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledX = CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledY = 0;
 
         /** Two selected cell coordinates */
         if (CORE.Cells.Selected.First.Letter &&
@@ -143,7 +143,7 @@
             CORE.Cells.Selected.Last.Letter &&
             CORE.Cells.Selected.Last.Number) {
           /** Only execute selection if user doesnt edit a cell at the moment */
-          CORE.Selector.getSelection();
+          CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
         }
 
         /** User edits a cell and clicked on another cell which was also edited */
@@ -152,23 +152,23 @@
              CORE.Cells.Edit !== CORE.Cells.Selected.Last  && 
              CORE.Cells.Selected.First === CORE.Cells.Selected.Last) {
           CORE.eval();
-          CORE.Grid.cleanEditSelection();
+          CORE.Sheets[CORE.CurrentSheet].cleanEditSelection();
         }
 
         /** Clean edited cells only if the current selected cell isn't edited */
-        if (CORE.Cells.Used[CORE.$.numberToAlpha(letter)]) {
-          if (!CORE.Cells.Used[CORE.$.numberToAlpha(letter)][cellName]) CORE.Grid.cleanEditSelection();
+        if (CORE.Cells.Used[CORE.CurrentSheet][CORE.$.numberToAlpha(letter)]) {
+          if (!CORE.Cells.Used[CORE.CurrentSheet][CORE.$.numberToAlpha(letter)][cellName]) CORE.Sheets[CORE.CurrentSheet].cleanEditSelection();
         }
 
     /** User selected another cell, delete edited cell */
     } else if (CORE.Input.Mouse.Edit) {
       /** User clicked inside the cell grid */
       if (e.target.parentNode.id === CORE.DOM.Output.id) {
-        CORE.Grid.cleanEditSelection();
+        CORE.Sheets[CORE.CurrentSheet].cleanEditSelection();
       /** User chose the dark space */
       } else {
-        CORE.Selector.getSelection();
-        CORE.Grid.getEditSelection(CORE.Cells.Edit);
+        CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
+        CORE.Sheets[CORE.CurrentSheet].getEditSelection(CORE.Cells.Edit);
       }
     }
 
@@ -191,9 +191,9 @@
 
     /** User resized something */
     if (CORE.Input.Mouse.CellResize) {
-      CORE.Grid.updateWidth();
-      CORE.Grid.generateMenu();
-      CORE.Selector.getSelection();
+      CORE.Sheets[CORE.CurrentSheet].updateWidth();
+      CORE.Sheets[CORE.CurrentSheet].generateMenu();
+      CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
       CORE.Input.Mouse.CellResize = false;
     }
 
@@ -245,18 +245,18 @@
             CORE.Cells.Selected.Last.Letter &&
             CORE.Cells.Selected.Last.Number) {
           /** Cell was never edited */
-          if (!CORE.Cells.Used[CORE.$.numberToAlpha(letter)]) CORE.Selector.getSelection();
-          else if (!CORE.Cells.Used[CORE.$.numberToAlpha(letter)][cellName]) CORE.Selector.getSelection();
+          if (!CORE.Cells.Used[CORE.CurrentSheet][CORE.$.numberToAlpha(letter)]) CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
+          else if (!CORE.Cells.Used[CORE.CurrentSheet][CORE.$.numberToAlpha(letter)][cellName]) CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
           /** Cell is in edited state */
           else {
-            CORE.Grid.cleanEditSelection();
-            CORE.Selector.getSelection();
+            CORE.Sheets[CORE.CurrentSheet].cleanEditSelection();
+            CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
           }
         }
 
         /** Clean edited cells only if the current selected cell isn't edited */
-        if (CORE.Cells.Used[CORE.$.numberToAlpha(letter)]) {
-          if (CORE.Cells.Used[CORE.$.numberToAlpha(letter)][cellName]) CORE.Grid.cleanEditSelection();
+        if (CORE.Cells.Used[CORE.CurrentSheet][CORE.$.numberToAlpha(letter)]) {
+          if (CORE.Cells.Used[CORE.CurrentSheet][CORE.$.numberToAlpha(letter)][cellName]) CORE.Sheets[CORE.CurrentSheet].cleanEditSelection();
         }
 
       }
@@ -283,7 +283,7 @@
     /** Abort if [STRG] key pressed */
     if (CORE.Input.Keyboard.Strg) return void 0;
 
-    var calcDifference = Math.floor(CORE.Grid.Settings.y * 1.5);
+    var calcDifference = Math.floor(CORE.Sheets[CORE.CurrentSheet].Settings.y * 1.5);
 
     /** Handle timestamps */
     if (this.lastMouseScroll > 0) {
@@ -328,8 +328,8 @@
       CORE.Event.lastAction.scrollY = true;
 
       if (direction === "down") {
-        CORE.Grid.Settings.scrolledY += CORE.Settings.Scroll.Vertical;
-        CORE.Grid.Settings.lastScrollY = CORE.Settings.Scroll.Vertical;
+        CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY += CORE.Settings.Scroll.Vertical;
+        CORE.Sheets[CORE.CurrentSheet].Settings.lastScrollY = CORE.Settings.Scroll.Vertical;
 
         /** Animate */
         if (difference > calcDifference * 2) {
@@ -343,13 +343,13 @@
           }, 55);
         }
 
-        CORE.Grid.updateHeight("down", CORE.Settings.Scroll.Vertical);
+        CORE.Sheets[CORE.CurrentSheet].updateHeight("down", CORE.Settings.Scroll.Vertical);
       }
       else if (direction === "up") {
-        if (CORE.Grid.Settings.scrolledY - CORE.Settings.Scroll.Vertical <= 0) {
-          CORE.Grid.Settings.scrolledY = 0;
-          CORE.Grid.Settings.lastScrollY = 0;
-          CORE.Grid.updateHeight("default", CORE.Settings.Scroll.Vertical);
+        if (CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY - CORE.Settings.Scroll.Vertical <= 0) {
+          CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY = 0;
+          CORE.Sheets[CORE.CurrentSheet].Settings.lastScrollY = 0;
+          CORE.Sheets[CORE.CurrentSheet].updateHeight("default", CORE.Settings.Scroll.Vertical);
 
           /** Animate */
           CORE.DOM.Output.classList.remove("moveDown");
@@ -360,10 +360,10 @@
           CORE.DOM.VerticalMenu.style.top = "100px";
 
         }
-        else if (CORE.Grid.Settings.scrolledY - CORE.Settings.Scroll.Vertical >= 0) {
-          CORE.Grid.Settings.scrolledY -= CORE.Settings.Scroll.Vertical;
-          CORE.Grid.Settings.lastScrollY = CORE.Settings.Scroll.Vertical;
-          CORE.Grid.updateHeight("up", CORE.Settings.Scroll.Vertical);
+        else if (CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY - CORE.Settings.Scroll.Vertical >= 0) {
+          CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY -= CORE.Settings.Scroll.Vertical;
+          CORE.Sheets[CORE.CurrentSheet].Settings.lastScrollY = CORE.Settings.Scroll.Vertical;
+          CORE.Sheets[CORE.CurrentSheet].updateHeight("up", CORE.Settings.Scroll.Vertical);
 
           /** Animate */
           if (difference > calcDifference * 2) {
@@ -386,8 +386,8 @@
       /** Make sure user scrolled */
       if (direction) {
         /** Update menu, get new selection */
-        CORE.Grid.updateMenu();
-        CORE.Selector.getSelection();
+        CORE.Sheets[CORE.CurrentSheet].updateMenu();
+        CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
 
         /** Simulate mouse move to display the scrolled selection */
         CORE.Input.Mouse.lastMousePosition.x = Math.random();

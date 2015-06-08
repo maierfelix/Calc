@@ -176,7 +176,7 @@
           /** Double click */
           if (new Date().getTime() - parseInt(this.getAttribute("timestamp")) <= 150) {
             /** Do a master selection */
-            CORE.Selector.masterSelect(e.target.innerHTML);
+            CORE.Sheets[CORE.CurrentSheet].Selector.masterSelect(e.target.innerHTML);
           } else this.setAttribute("timestamp", e.timeStamp);
           this.setAttribute("clicked", 1);
           CORE.Input.Mouse.CellResize = true;
@@ -281,7 +281,7 @@
           /** Double click */
           if (new Date().getTime() - parseInt(this.getAttribute("timestamp")) <= 150) {
             /** Do a master selection */
-            CORE.Selector.masterSelect(parseInt(e.target.innerHTML));
+            CORE.Sheets[CORE.CurrentSheet].Selector.masterSelect(parseInt(e.target.innerHTML));
           } else this.setAttribute("timestamp", e.timeStamp);
           this.setAttribute("clicked", 1);
           CORE.Input.Mouse.CellResize = true;
@@ -372,7 +372,7 @@
   CORE.Grid.prototype.updateMenu = function() {
 
     /** User resized some cells */
-    if (CORE.Grid.Settings.cellResizedX || CORE.Grid.Settings.cellResizedY) {
+    if (this.Settings.cellResizedX || this.Settings.cellResizedY) {
       this.generateMenu();
     /** No resizes */
     } else this.updateMenuNoResizement();

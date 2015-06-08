@@ -625,64 +625,68 @@ body {
 }
 
 .cell_formula {
-	width: 23px !important;
+  width: 23px !important;
   height: 23px !important;
   display: inline-block !important;
   -webkit-mask: url(../icon/formula.svg) no-repeat 50% 50%;
   mask: url(../icon/formula.svg) no-repeat 50% 50%;
   -webkit-mask-size: cover;
   mask-size: cover;
-	background: rgba(50, 50, 50, 0.7) !important;
+  background: rgba(50, 50, 50, 0.7) !important;
   position: absolute !important;
   margin-left: 10px !important;
   margin-top: 4px !important;
 }
 
 .fa-file {
-	color: rgba(50, 50, 50, 0.701961);
+  color: rgba(50, 50, 50, 0.701961);
 }
 
 .fa-pencil {
-	color: rgba(50, 50, 50, 0.701961);
+  color: rgba(50, 50, 50, 0.701961);
 }
 
 .fa-cogs {
-	color: rgba(50, 50, 50, 0.701961);
+  color: rgba(50, 50, 50, 0.701961);
 }
 
 .fa-undo {
-	color: rgba(50, 50, 50, 0.701961);
+  color: rgba(50, 50, 50, 0.701961);
 }
 
 .fa-save {
-	color: rgba(50, 50, 50, 0.701961);
+  color: rgba(50, 50, 50, 0.701961);
 }
 
 .fa-folder-open {
-	color: rgba(50, 50, 50, 0.701961);
+  color: rgba(50, 50, 50, 0.701961);
+}
+
+.fa-group {
+  color: rgba(50, 50, 50, 0.701961);
 }
 
 .flipped {
-	-webkit-transform: scale(-1, 1);
-	-moz-transform: scale(-1, 1);
-	-ms-transform: scale(-1, 1);
-	-o-transform: scale(-1, 1);
-	transform: scale(-1, 1);
+  -webkit-transform: scale(-1, 1);
+  -moz-transform: scale(-1, 1);
+  -ms-transform: scale(-1, 1);
+  -o-transform: scale(-1, 1);
+  transform: scale(-1, 1);
 }
 
 .input-container {
-	width: 550px;
-	padding-top: 5px;
+  width: 550px;
+  padding-top: 5px;
 }
 
 @media (min-width: 400px) and (max-width: 600px) {
   .input-container {
-		width: 100%;
-	}
+    width: 100%;
+  }
 }
 
 .bottom_layer {
-	position: absolute;
+  position: absolute;
   padding-left: 5px;
   bottom: 0px;
   right: 10px;
@@ -690,7 +694,7 @@ body {
 }
 
 .top_layer {
-	position: absolute;
+  position: absolute;
   padding-left: 5px;
   top: 0px;
   right: 10px;
@@ -698,11 +702,11 @@ body {
 }
 
 .top_layer>button {
-	background-color: #6ca3ff;
+  background-color: #6ca3ff;
 }
 
 .white {
-	color: #fff !important;
+  color: #fff !important;
 }
 
 .top-undo {

@@ -56,20 +56,20 @@
 
     for (var letter in object) {
       for (var cell in object[letter]) {
-        if (!CORE.Cells.Used[letter]) CORE.Cells.Used[letter] = {};
-        if (!CORE.Cells.Used[letter][cell]) CORE.Cells.Used[letter][cell] = new CORE.Grid.Cell();
+        if (!CORE.Cells.Used[CORE.CurrentSheet][letter]) CORE.Cells.Used[CORE.CurrentSheet][letter] = {};
+        if (!CORE.Cells.Used[CORE.CurrentSheet][letter][cell]) CORE.Cells.Used[CORE.CurrentSheet][letter][cell] = CORE.Sheets[CORE.CurrentSheet].Cell();
         /** Formula? */
         if (object[letter][cell][0] === "=") {
-          CORE.Cells.Used[letter][cell].Formula = object[letter][cell];
+          CORE.Cells.Used[CORE.CurrentSheet][letter][cell].Formula = object[letter][cell];
         /** Default content */
         } else {
-          CORE.Cells.Used[letter][cell].Content = object[letter][cell];
+          CORE.Cells.Used[CORE.CurrentSheet][letter][cell].Content = object[letter][cell];
         }
       }
     }
 
     /** Refresh the grid */
-    CORE.Grid.updateWidth("default");
+    CORE.Sheets[CORE.CurrentSheet].updateWidth("default");
     CORE.eval();
 
   };
@@ -82,23 +82,23 @@
    */
   CORE.Connector.prototype.processServerCell = function(object) {
 
-    if (!CORE.Cells.Used[object.letter]) CORE.Cells.Used[object.letter] = {};
+    if (!CORE.Cells.Used[CORE.CurrentSheet][object.letter]) CORE.Cells.Used[CORE.CurrentSheet][object.letter] = {};
 
-    if (!CORE.Cells.Used[object.letter][object.cell]) {
-      CORE.Cells.Used[object.letter][object.cell] = new CORE.Grid.Cell();
+    if (!CORE.Cells.Used[CORE.CurrentSheet][object.letter][object.cell]) {
+      CORE.Cells.Used[CORE.CurrentSheet][object.letter][object.cell] = new CORE.Sheets[CORE.CurrentSheet].Cell();
     }
 
     if (object.value[0] === "=") {
       /** Only attach cell if it ends with a semicolon */
       if (object.value[object.value.length - 1] === ";") {
-        CORE.Cells.Used[object.letter][object.cell].Formula = object.value;
+        CORE.Cells.Used[CORE.CurrentSheet][object.letter][object.cell].Formula = object.value;
       }
     } else {
-      CORE.Cells.Used[object.letter][object.cell].Content = object.value;
+      CORE.Cells.Used[CORE.CurrentSheet][object.letter][object.cell].Content = object.value;
     }
 
     /** Refresh the grid */
-    CORE.Grid.updateWidth("default");
+    CORE.Sheets[CORE.CurrentSheet].updateWidth("default");
     CORE.eval();
 
   };

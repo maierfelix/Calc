@@ -85,5 +85,11 @@
   /** Select and prepare the insert row button */
   CORE.DOM.InsertRow = document.querySelector("#insert_row");
 
+  /** Select and prepare the add sheet button */
+  CORE.DOM.AddSheet = document.querySelector("#add_sheet");
+
+  /** Select and prepare the current sheets container */
+  CORE.DOM.Sheets = document.querySelector("#current_sheets");
+
   /** Select and prepare the cell input container */
   CORE.DOM.CellInput = document.querySelector("#cell_input");
