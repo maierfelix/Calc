@@ -49,16 +49,19 @@
     CORE.Sheets[CORE.CurrentSheet].Selector = new CORE.Selector();
 
     var button = document.createElement("button");
-        button.className = "mui-btn mui-btn-default mui-btn-mini slideUp lol";
+        button.className = "mui-btn mui-btn-default mui-btn-mini slideUp";
         button.setAttribute("style", "color:#fff;background-color:rgba(130, 177, 255, 0.8);");
         button.setAttribute("name", CORE.CurrentSheet);
         button.innerHTML = CORE.CurrentSheet;
 
     /** Change sheet on click */
     button.addEventListener('click', function(e) {
-      CORE.Sheets.changeSheet(e.target.getAttribute("name"));
+      var name = e.target.getAttribute("name");
+      CORE.Sheets.changeSheet(name);
       CORE.Event.resize();
       CORE.DOM.Output.classList.add("fadeIn");
+      /** Highlight active sheet */
+      CORE.Sheets.setActiveSheet(name);
       setTimeout(function() {
         CORE.DOM.Output.classList.remove("fadeIn");
       }, 760);
@@ -72,6 +75,9 @@
 
     /** Refresh everything */
     CORE.Event.resize();
+
+    /** Highlight active sheet */
+    CORE.Sheets.setActiveSheet(CORE.CurrentSheet);
 
     CORE.DOM.Output.classList.add("pullDown");
 
@@ -90,5 +96,22 @@
   CORE.Sheets.prototype.changeSheet = function(name) {
 
     CORE.CurrentSheet = name;
+
+  };
+
+  /**
+   * Visualize active sheet
+   *
+   * @method setActiveSheet
+   * @static
+   */
+  CORE.Sheets.prototype.setActiveSheet = function(name) {
+
+    for (var ii = 0; ii < CORE.DOM.Sheets.children.length; ++ii) {
+      CORE.DOM.Sheets.children[ii].classList.remove("activeSheet");
+      if (CORE.DOM.Sheets.children[ii].getAttribute("name") === name) {
+        CORE.DOM.Sheets.children[ii].classList.add("activeSheet");
+      }
+    }
 
   };
