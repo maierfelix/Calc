@@ -86,10 +86,10 @@
   CORE.Selector.prototype.getSelectionByKeyPress = function(letter, number) {
 
     /** Use first selected cell as parent cell selection */
-    CORE.Cells.Selected.First = CORE.Cells.Select;
+    this.Selected.First = this.Select;
 
     /** Update last selected cell */
-    CORE.Cells.Selected.Last = {
+    this.Selected.Last = {
       Letter: letter,
       Number: number
     };

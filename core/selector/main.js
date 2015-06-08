@@ -61,6 +61,28 @@
       Rows: {}
     };
 
+    /** Selected cells -> First: L:0, N:0 | Last: L:0, N:0 */
+    this.Selected = {
+      First: {
+        Letter: 0,
+        Number: 0
+      },
+      /** Last selected cell */
+      Last: {
+        Letter: 0,
+        Number: 0
+      }
+    };
+
+    /** Selection helper */
+    this.Select = {
+      Letter: 0,
+      Number: 0
+    };
+
+    /** Currently edited cell */
+    this.Edit = {};
+
   };
 
   CORE.Selector.prototype = CORE.Selector;

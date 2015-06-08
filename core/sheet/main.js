@@ -35,6 +35,7 @@
 
     if (CORE.Sheets) {
       newSheetNumber = Object.keys(CORE.Sheets).length + 1;
+    /** No sheets created yet */
     } else newSheetNumber = 1;
 
     CORE.CurrentSheet = "Sheet" + newSheetNumber;
@@ -44,8 +45,11 @@
     /** Create new cell used stack */
     CORE.Sheets[CORE.CurrentSheet] = new CORE.Grid();
 
+    /** Initialize Selector Plugin for the new sheet */
+    CORE.Sheets[CORE.CurrentSheet].Selector = new CORE.Selector();
+
     var button = document.createElement("button");
-        button.className = "mui-btn mui-btn-default mui-btn-mini";
+        button.className = "mui-btn mui-btn-default mui-btn-mini slideUp lol";
         button.setAttribute("style", "color:#fff;background-color:rgba(130, 177, 255, 0.8);");
         button.setAttribute("name", CORE.CurrentSheet);
         button.innerHTML = CORE.CurrentSheet;
@@ -54,10 +58,26 @@
     button.addEventListener('click', function(e) {
       CORE.Sheets.changeSheet(e.target.getAttribute("name"));
       CORE.Event.resize();
+      CORE.DOM.Output.classList.add("fadeIn");
+      setTimeout(function() {
+        CORE.DOM.Output.classList.remove("fadeIn");
+      }, 760);
     });
 
     /** Insert into the dom */
     CORE.DOM.Sheets.appendChild(button);
+
+    /** Auto change to the new sheet*/
+    CORE.Sheets.changeSheet(CORE.CurrentSheet);
+
+    /** Refresh everything */
+    CORE.Event.resize();
+
+    CORE.DOM.Output.classList.add("pullDown");
+
+    setTimeout(function() {
+      CORE.DOM.Output.classList.remove("pullDown");
+    }, 760);
 
   };
 
@@ -70,8 +90,5 @@
   CORE.Sheets.prototype.changeSheet = function(name) {
 
     CORE.CurrentSheet = name;
-
-    /** Initialize Selector Plugin for the new sheet */
-    CORE.Sheets[CORE.CurrentSheet].Selector = new CORE.Selector();
 
   };

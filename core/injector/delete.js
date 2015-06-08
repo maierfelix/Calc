@@ -26,7 +26,7 @@
     var masterCells = CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Columns;
 
     /** Currently selected column */
-    var selectedCell = CORE.Cells.Selected.First;
+    var selectedCell = CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First;
 
     /** Process master cells */
     var customArray = this.getMasterColumns("delete");

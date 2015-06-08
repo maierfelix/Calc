@@ -30,22 +30,22 @@
       this.masterSelect(this.masterSelected.Current);
       /** Column master selection */
       if (typeof this.masterSelected.Current === "string") {
-        CORE.Cells.Selected.First = {
+        this.Selected.First = {
           Letter: CORE.$.alphaToNumber(this.masterSelected.Current),
           Number: CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY
         };
-        CORE.Cells.Selected.Last = {
+        this.Selected.Last = {
           Letter: CORE.$.alphaToNumber(this.masterSelected.Current),
           /** + 1 to set last selection out of view */
           Number: CORE.Sheets[CORE.CurrentSheet].Settings.y + (CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY + 1)
         };
       /** Row master selection */
       } else if (typeof this.masterSelected.Current === "number") {
-        CORE.Cells.Selected.First = {
+        this.Selected.First = {
           Letter: CORE.Sheets[CORE.CurrentSheet].Settings.scrolledX,
           Number: this.masterSelected.Current
         };
-        CORE.Cells.Selected.Last = {
+        this.Selected.Last = {
           /** + 1 to set last selection out of view */
           Letter: CORE.Sheets[CORE.CurrentSheet].Settings.scrolledX + (CORE.Sheets[CORE.CurrentSheet].Settings.x + 1),
           Number: this.masterSelected.Current
@@ -53,11 +53,11 @@
       }
     }
 
-    var first = CORE.Cells.Selected.First,
-        last = CORE.Cells.Selected.Last;
+    var first = this.Selected.First,
+        last = this.Selected.Last;
 
     /** No cells selected */
-    if (!CORE.Cells.Selected.First || !CORE.Cells.Selected.Last) {
+    if (!this.Selected.First || !this.Selected.Last) {
       if (this.SelectedCells.length) {
         first = this.SelectedCells[0];
         last = this.SelectedCells.length > 1 ? this.SelectedCells[this.SelectedCells.length - 1] : this.SelectedCells[0];
@@ -196,16 +196,10 @@
     /** Delete hover effect of previous cell */
     this.deleteCellHoverEffect();
 
-    CORE.Cells.Select = {
+    this.Select = {
       Letter: letter,
       Number: number
     };
-
-    CORE.Cells.Selected.First.Letter = letter;
-    CORE.Cells.Selected.First.Number = number;
-
-    CORE.Cells.Selected.Last.Letter = letter;
-    CORE.Cells.Selected.Last.Number = number;
 
     this.Selected.First.Letter = letter;
     this.Selected.First.Number = number;

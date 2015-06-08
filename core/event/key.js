@@ -38,6 +38,9 @@
     /** User edits a live cells url */
     if (CORE.Input.Mouse.LiveCellEdit) return void 0;
 
+    /** User opened console, don't touch anything here */
+    if (e.keyCode === 123) return void 0;
+
     /** Prevent line breaks on user input */
     if (e.keyCode === 13) {
       e.preventDefault();

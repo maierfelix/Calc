@@ -51,17 +51,14 @@
     /** Switch to the first sheet */
     CORE.Sheets.changeSheet(CORE.CurrentSheet);
 
+		/** Initialize all event listeners */
+    CORE.Event.init();
+
     /** Initialize Selector Plugin for this sheet */
     CORE.Sheets[CORE.CurrentSheet].Selector = new CORE.Selector();
 
     /** Initialize Injector Plugin */
     CORE.Injector = new CORE.Injector();
-
-    /** Initialize all event listeners */
-    CORE.Event.init();
-
-    /** Begin the magic */
-    CORE.Event.resize();
 
     /** Define first cell in grid as parent cell */
     CORE.Sheets[CORE.CurrentSheet].Selector.parentSelectedCell = {

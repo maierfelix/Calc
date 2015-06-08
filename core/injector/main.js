@@ -32,7 +32,7 @@
    */
   CORE.Injector.prototype.getUsedCells = function(mode) {
 
-    var selectedCell = CORE.Cells.Selected.First;
+    var selectedCell = CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First;
 
     var usedCells = CORE.Cells.Used[CORE.CurrentSheet];
 
@@ -82,7 +82,7 @@
    */
   CORE.Injector.prototype.getMasterColumns = function(mode) {
 
-    var selectedCell = CORE.Cells.Selected.First;
+    var selectedCell = CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First;
 
     var masterCells = CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Columns;
 

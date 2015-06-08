@@ -32,30 +32,10 @@
 
   /** Cell thingys */
   CORE.Cells = {
-    /** Cell Selection Helper */
-    Selected: {
-      /** First selected cell */
-      First: {
-        Letter: 0,
-        Number: 0
-      },
-      /** Last selected cell */
-      Last: {
-        Letter: 0,
-        Number: 0
-      }
-    },
-    /** Cell currently edited */
-    Edit: null,
     /** Customized cells -> Sheet -> Dictionary[a-Z] -> [a-Z][a-Z+0-9] */
     Used: {},
     /** Live cells */
     Live: {},
-    /** Currently selected cell */
-    Select: {
-      Letter: 0,
-      Number: 0
-    }
   };
 
   /** Currently open sheet */

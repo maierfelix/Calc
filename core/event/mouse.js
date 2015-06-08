@@ -84,10 +84,10 @@
     if (e.target.id === "cell_input") {
 
       /** User selected a cell */
-      if (CORE.Cells.Select.Letter && CORE.Cells.Select.Number) {
+      if (CORE.Sheets[CORE.CurrentSheet].Selector.Select.Letter && CORE.Sheets[CORE.CurrentSheet].Selector.Select.Number) {
         CORE.eval();
         CORE.Sheets[CORE.CurrentSheet].cleanEditSelection();
-        CORE.Sheets[CORE.CurrentSheet].getEditSelection(CORE.Cells.Select);
+        CORE.Sheets[CORE.CurrentSheet].getEditSelection(CORE.Sheets[CORE.CurrentSheet].Selector.Select);
       }
 
       /** Dont loose selection */
@@ -124,33 +124,33 @@
       CORE.Event.lastMouseDownCell.Letter = letter;
       CORE.Event.lastMouseDownCell.Number = number;
 
-      CORE.Cells.Select = CORE.Event.lastMouseDownCell;
+      CORE.Sheets[CORE.CurrentSheet].Selector.Select = CORE.Event.lastMouseDownCell;
 
-        CORE.Cells.Selected.First = {
+        CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First = {
           Letter: letter,
           Number: number
         };
 
-        CORE.Cells.Selected.Last = CORE.Cells.Selected.First;
+        CORE.Sheets[CORE.CurrentSheet].Selector.Selected.Last = CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First;
 
         /** Update parent cell, so keypress only moving will work */
-        CORE.Sheets[CORE.CurrentSheet].Selector.parentSelectedCell = CORE.Cells.Selected.First;
+        CORE.Sheets[CORE.CurrentSheet].Selector.parentSelectedCell = CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First;
         CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledX = CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledY = 0;
 
         /** Two selected cell coordinates */
-        if (CORE.Cells.Selected.First.Letter &&
-            CORE.Cells.Selected.First.Number &&
-            CORE.Cells.Selected.Last.Letter &&
-            CORE.Cells.Selected.Last.Number) {
+        if (CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First.Letter &&
+            CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First.Number &&
+            CORE.Sheets[CORE.CurrentSheet].Selector.Selected.Last.Letter &&
+            CORE.Sheets[CORE.CurrentSheet].Selector.Selected.Last.Number) {
           /** Only execute selection if user doesnt edit a cell at the moment */
           CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
         }
 
         /** User edits a cell and clicked on another cell which was also edited */
         if ( CORE.Input.Mouse.Edit &&
-             CORE.Cells.Edit !== CORE.Cells.Selected.First ||
-             CORE.Cells.Edit !== CORE.Cells.Selected.Last  && 
-             CORE.Cells.Selected.First === CORE.Cells.Selected.Last) {
+             CORE.Sheets[CORE.CurrentSheet].Selector.Edit !== CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First ||
+             CORE.Sheets[CORE.CurrentSheet].Selector.Edit !== CORE.Sheets[CORE.CurrentSheet].Selector.Selected.Last  && 
+             CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First === CORE.Sheets[CORE.CurrentSheet].Selector.Selected.Last) {
           CORE.eval();
           CORE.Sheets[CORE.CurrentSheet].cleanEditSelection();
         }
@@ -168,7 +168,7 @@
       /** User chose the dark space */
       } else {
         CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
-        CORE.Sheets[CORE.CurrentSheet].getEditSelection(CORE.Cells.Edit);
+        CORE.Sheets[CORE.CurrentSheet].getEditSelection(CORE.Sheets[CORE.CurrentSheet].Selector.Edit);
       }
     }
 
@@ -184,9 +184,9 @@
     CORE.Input.Mouse.Pressed = false;
 
     /** Clean Selected Cells */
-    CORE.Cells.Selected.First = {
-      Letter: CORE.Cells.Select.Letter,
-      Number: CORE.Cells.Select.Number
+    CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First = {
+      Letter: CORE.Sheets[CORE.CurrentSheet].Selector.Select.Letter,
+      Number: CORE.Sheets[CORE.CurrentSheet].Selector.Select.Number
     };
 
     /** User resized something */
@@ -222,9 +222,9 @@
         var cellName = (CORE.$.numberToAlpha(letter)) + number;
 
         /** Make sure the first property gets updated a maximum of 1 time per wipe */
-        if (!CORE.Cells.Selected.First.Letter && !CORE.Cells.Selected.First.Number) {
+        if (!CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First.Letter && !CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First.Number) {
 
-          CORE.Cells.Selected.First = {
+          CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First = {
             Letter: letter,
             Number: number
           }
@@ -232,18 +232,18 @@
         }
 
         /** Calm Down, dont overwrite stack value with same value again */
-        if ( (CORE.$.numberToAlpha(CORE.Cells.Selected.Last.Letter) + CORE.Cells.Selected.Last.Number) === cellName) return void 0;
+        if ( (CORE.$.numberToAlpha(CORE.Sheets[CORE.CurrentSheet].Selector.Selected.Last.Letter) + CORE.Sheets[CORE.CurrentSheet].Selector.Selected.Last.Number) === cellName) return void 0;
 
-        CORE.Cells.Selected.Last = {
+        CORE.Sheets[CORE.CurrentSheet].Selector.Selected.Last = {
           Letter: letter,
           Number: number
         }
 
         /** Two selected cell coordinates */
-        if (CORE.Cells.Selected.First.Letter &&
-            CORE.Cells.Selected.First.Number &&
-            CORE.Cells.Selected.Last.Letter &&
-            CORE.Cells.Selected.Last.Number) {
+        if (CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First.Letter &&
+            CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First.Number &&
+            CORE.Sheets[CORE.CurrentSheet].Selector.Selected.Last.Letter &&
+            CORE.Sheets[CORE.CurrentSheet].Selector.Selected.Last.Number) {
           /** Cell was never edited */
           if (!CORE.Cells.Used[CORE.CurrentSheet][CORE.$.numberToAlpha(letter)]) CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
           else if (!CORE.Cells.Used[CORE.CurrentSheet][CORE.$.numberToAlpha(letter)][cellName]) CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
