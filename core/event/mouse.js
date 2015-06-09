@@ -366,7 +366,7 @@
 
         /** Share scrolling */
         if (CORE.Connector.connected) {
-          CORE.Connector.action("scrolling", {direction: direction, amount: CORE.Settings.Scroll.Vertical, sheet: CORE.CurrentSheet});
+          CORE.Connector.action("scrolling", {direction: direction, amount: CORE.Settings.Scroll.Vertical});
         }
 
         /** Update menu, get new selection */

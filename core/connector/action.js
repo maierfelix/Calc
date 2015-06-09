@@ -61,9 +61,9 @@
   CORE.Connector.prototype.updateScrolling = function(object) {
 
     /** Validate data */
-    if (object.direction && object.amount && object.sheet) {
-      if (typeof object.direction === "string" && typeof object.sheet === "string" && typeof object.amount === "number") {
-        this.socket.emit("scrolling", {direction: object.direction, amount: object.amount, sheet: object.sheet});
+    if (object.direction && object.amount) {
+      if (typeof object.direction === "string" && typeof object.amount === "number") {
+        this.socket.emit("scrolling", {direction: object.direction, amount: object.amount});
       }
     }
 
