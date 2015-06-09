@@ -17,7 +17,10 @@
   var port = config.port;
   var moment = require('moment');
   var crypto = require('crypto');
-  var io = require('socket.io')(port);
+
+  /** Global so we have access in sub files */
+  GLOBAL._io = require('socket.io')(port);
+
   var mongodb = require('mongodb');
   var server = new mongodb.Server("127.0.0.1", 27017, {});
 
@@ -46,7 +49,7 @@
   Database.init(server, function() {
 
     /** User logic */
-    io.on('connection', function(socket) {
+    _io.on('connection', function(socket) {
 
       console.log('New socket connected: ' + socket.id + '');
 
@@ -57,23 +60,26 @@
       socket.emit("connected");
 
       /** Create Room */
-      socket.on('createroom', function(name, resolve) {
+      socket.on('createroom', function(data, resolve) {
+
+        /** Abort if no data was received */
+        if (!data) return void 0;
 
         var token = crypto.randomBytes(32).toString('hex');
 
         /** Validate data */
-        if (Security.isSecure(name)) {
+        if (Security.isSecure(data.name) && Security.isSecure(data.sheet) && typeof data.name === "string" && typeof data.sheet === "string") {
           /** Valid type */
-          if (typeof name === "string") {
-            Database.insertCollection("rooms", {name: name, token: token, owner: socket.id}, function(callback) {
+          if (typeof data.name === "string") {
+            Database.insertCollection("rooms", {name: data.name, token: token, owner: socket.id, sheets: data.sheet}, function(callback) {
               /** Successful insertion */
               if (callback) {
                 /** Give room creator admin rights */
                 if (Bucket.userExists(socket.id)) {
                   /** Create room in bucket */
-                  if (!Bucket.roomExists(name)) {
+                  if (!Bucket.roomExists(data.name)) {
                     /** Create room -> Room name, socket name, security token, callback = mongo id */
-                    var room = new Room(name, socket.id, token, callback);
+                    var room = new Room(data.name, socket.id, token, callback);
                     /** Add owner to the room */
                     room.addUser(socket.id);
                     /** Create room in bucket */
@@ -81,16 +87,18 @@
                   }
                   /** Set user to admin */
                   Bucket.updateUser(socket.id, "level", 3);
+                  /** Update rooms user sheet */
+                  Bucket.updateUser(socket.id, "sheet", data.sheet);
                 }
-                socket.emit("message", {type: "room", value: "Room " + name + " was successfully created!", values: name, state: 1});
+                socket.emit("message", {type: "room", value: "Room " + data.name + " was successfully created!", values: data.name, state: 1});
                 /** New room created */
                 resolve(token);
               /** Failed insertion */
               } else {
-                socket.emit("message", {type: "room", value: "Room " + name + " already exists!", values: name, state: 0});
+                socket.emit("message", {type: "room", value: "Room " + data.name + " already exists!", values: data.name, state: 0});
                 if (Bucket.userExists(socket.id)) {
-                  if (Bucket.roomExists(name)) {
-                    /** TODO: What to do if password is wrong? */
+                  if (Bucket.roomExists(data.name)) {
+                    /** Wrong password ? */
                   }
                 }
                 /** Room already exists */
@@ -104,6 +112,9 @@
 
       /** Get Room */
       socket.on('getroom', function(data) {
+
+        /** Abort if no data was received */
+        if (!data) return void 0;
 
         if (data) {
           if (Security.isSecure(data.room)) {
@@ -127,93 +138,166 @@
        /** Update a Cell */
       socket.on('updatecell', function(data) {
 
+        /** Abort if no data was received */
+        if (!data) return void 0;
+
         var userRoom = Bucket.getCurrentUserRoom(socket.id);
-        /** Only users with admin rights can change cells */
-        if (Bucket.userIsAdmin(socket.id)) {
-          /** User is in a room */
-          if (userRoom && userRoom.id) {
-            /** Validate cell object */
-            if (Security.isSecure(data.sheet) && data.sheet.length &&   /** Sheet  */
-                Security.isSecure(data.cell) && data.value.length &&    /** Cell   */
-                Security.isSecure(data.letter) && data.letter.length && /** Letter */
-                (typeof data.value === "string")) {                     /** Value  */
-                  /** Check if sheet is already registered */
-                  if (!userRoom.sheets[data.sheet]) {
-                    /** Register new sheet */
-                    userRoom.sheets[data.sheet] = {
-                      cells: {}
-                    };
-                  }
-                  /** Dictionary lookup style */
-                  if (!userRoom.sheets[data.sheet].cells[data.letter]) {
-                    /** Register cell dictionary */
-                    userRoom.sheets[data.sheet].cells[data.letter] = {};
-                  }
-                  /** Update cell */
-                  if (userRoom.sheets[data.sheet].cells[data.letter]) {
-                    /** Update cell */
-                    userRoom.sheets[data.sheet].cells[data.letter][data.cell] = data.value;
-                  }
-                  /** Send cell update to all clients in the same room */
-                  for (var ii = 0; ii < userRoom.users.length; ++ii) {
-                    /** Dont send message to this myself */
-                    if (userRoom.users[ii] !== socket.id) {
-                      /** Update cells of all client in the same room */
-                      io.to(userRoom.users[ii]).emit("message", {type: "global", action: "cellchange", data: {sheet: data.sheet, letter: data.letter, cell: data.cell, value: data.value}});
-                    }
-                  }
+        /** Check user for admin rights and valid room */
+        if (Bucket.isValidUser(socket.id)) {
+          /** Validate cell object */
+          if (Security.isSecure(data.sheet) && data.sheet.length &&   /** Sheet  */
+              Security.isSecure(data.cell) && data.value.length &&    /** Cell   */
+              Security.isSecure(data.letter) && data.letter.length && /** Letter */
+              (typeof data.value === "string")) {                     /** Value  */
+                /** Check if sheet is already registered */
+                if (!userRoom.sheets[data.sheet] || !userRoom.sheets[data.sheet].cells) {
+                  /** Register new sheet */
+                  userRoom.sheets[data.sheet] = {
+                    cells: {}
+                  };
                 }
-          /** User isn't in a room */
-          } else {
-            console.log("!!!!!!!!!!!!!!!!!!!!!!!!!");
-            console.log(Bucket.users, Bucket.rooms);
+                /** Dictionary lookup style */
+                if (!userRoom.sheets[data.sheet].cells[data.letter]) {
+                  /** Register cell dictionary */
+                  userRoom.sheets[data.sheet].cells[data.letter] = {};
+                }
+                /** Update cell */
+                if (userRoom.sheets[data.sheet].cells[data.letter]) {
+                  /** Update cell */
+                  userRoom.sheets[data.sheet].cells[data.letter][data.cell] = data.value;
+                }
+                /** Send cell update to all clients in the same room */
+                Bucket.shareData({sheet: data.sheet, letter: data.letter, cell: data.cell, value: data.value}, socket.id, "cellchange", false);
+              }
+        /** User isn't in a room or entered wrong password */
+        } else {
+
+        }
+
+      });
+
+      /** Share scrolling to room clients */
+      socket.on('scrolling', function(data) {
+
+        /** Abort if no data was received */
+        if (!data) return void 0;
+
+        /** Check user for admin rights and valid room */
+        if (Bucket.isValidUser(socket.id)) {
+          /** Validate received data object */
+          if (Security.isSecure(data.direction) && Security.isSecure(data.amount) && Security.isSecure(data.sheet)) {
+            if (typeof data.direction === "string" && typeof data.amount === "number" && typeof data.sheet === "string") {
+
+              /** Check if sheet exists in the room */
+              if (Bucket.getCurrentUserRoom(socket.id).sheets[data.sheet]) {
+                /** Share scrolling with all clients in the room and on the same sheet */
+                Bucket.shareData({direction: data.direction, amount: data.amount, sheet: data.sheet}, socket.id, "scrolling", data.sheet);
+              /** Create sheet*/
+              } else {
+                Bucket.getCurrentUserRoom(socket.id).sheets[data.sheet] = {};
+                /** Share scrolling with all clients in the room and on the same sheet */
+                Bucket.shareData({direction: data.direction, amount: data.amount, sheet: data.sheet}, socket.id, "scrolling", data.sheet);
+              }
+
+            }
+          }
+        }
+
+      });
+
+      /** Socket changed sheet */
+      socket.on('changesheet', function(data, callback) {
+
+        /** Abort if no data was received */
+        if (!data) return void 0;
+
+        /** Validate received data */
+        if (Security.isSecure(data.sheet)) {
+          if (typeof data.sheet === "string") {
+            /** Check user for admin rights and valid room */
+            if (Bucket.isValidUser(socket.id)) {
+              /** Check if sheet exists in the room, if not create it */
+              if (!Bucket.getCurrentUserRoom(socket.id).sheets[data.sheet]) {
+                Bucket.getCurrentUserRoom(socket.id).sheets[data.sheet] = {};
+              }
+              /** Set user to admin */
+              Bucket.updateUser(socket.id, "sheet", data.sheet);
+            }
           }
         }
 
       });
 
       /** Socket disconnected */
-      socket.on('securitypassword', function(password, room, callback) {
+      socket.on('securitypassword', function(data, callback) {
+
+        /** Abort if no data was received */
+        if (!data) return void 0;
 
         var getRoom = null;
+        var currentUserRoom = null;
+
         /** Validate received data */
-        if (Security.isSecure(password) && Security.isSecure(room)) {
+        if (Security.isSecure(data.password) && Security.isSecure(data.room) && Security.isSecure(data.sheet)) {
           /** Check if user exists in the bucket */
           if (Bucket.userExists(socket.id)) {
             /** Check if room exists in the bucket */
-            if (Bucket.roomExists(room)) {
-              getRoom = Bucket.getRoom(room);
-              /** Check if tokens matches */
-              if (getRoom.securityToken === password) {
-                /** Add user to the room */
-                getRoom.addUser(socket.id);
-                /** Give user admin rights */
-                Bucket.updateUser(socket.id, "level", 3);
-                callback(1);
+            if (Bucket.roomExists(data.room)) {
+              getRoom = Bucket.getRoom(data.room);
+              /** If room isnt empty, update database, so new clients get latest sheets */
+              if (!getRoom.isEmpty()) {
+                Database.updateCell("rooms", {sheets: getRoom.sheets}, getRoom.id, function(finished) {
+                  /** Check if tokens matches */
+                  if (getRoom.securityToken === data.password) {
+                    /** Add user to the room */
+                    getRoom.addUser(socket.id);
+                    /** Give user admin rights */
+                    Bucket.updateUser(socket.id, "level", 3);
+                    /** Update sheet where user currently is */
+                    Bucket.updateUser(socket.id, "sheet", data.sheet);
+                    callback(1);
+                    /** Wrong security token */
+                  } else callback(0);
+                });
+              } else {
+                /** Check if tokens matches */
+                if (getRoom.securityToken === data.password) {
+                  /** Add user to the room */
+                  getRoom.addUser(socket.id);
+                  /** Give user admin rights */
+                  Bucket.updateUser(socket.id, "level", 3);
+                  /** Update sheet where user currently is */
+                  Bucket.updateUser(socket.id, "sheet", data.sheet);
+                  callback(1);
+                /** Wrong security token */
+                } else callback(0);
               }
-              /** Wrong security token */
-              else callback(0);
             /** Move database room into bucket room array */
             } else {
               /** Get room data */
-              Database.getCollection("rooms", {name: room}, function(data) {
+              Database.getCollection("rooms", {name: data.room}, function(result) {
                 /** Got a result */
-                if (data) {
-                  data = data.data;
+                if (result) {
+                  result = result.data;
                   /** Create room -> Room name, socket name, security token, callback = mongo id */
-                  var room = new Room(data.name, socket.id, data.token, data._id);
+                  var room = new Room(result.name, socket.id, result.token, result._id);
                   /** Add user to the room */
                   room.addUser(socket.id);
                   /** Make this user to the owner, since he awake this room */
                   room.owner = socket.id;
+                  /** Add sheets to the room */
+                  room.sheets = result.sheets;
                   /** Create room in bucket */
                   Bucket.addRoom(room);
                   /** Check if room exists */
-                  if (Bucket.roomExists(data.name)) {
+                  if (Bucket.roomExists(result.name)) {
+                    getRoom = Bucket.getRoom(result.name);
                     /** Check if security password is correct */
-                    if (Bucket.getRoom(data.name).securityToken === password) {
+                    if (getRoom.securityToken === data.password) {
                       /** Give user admin rights */
                       Bucket.updateUser(socket.id, "level", 3);
+                      /** Update sheet where user currently is */
+                      Bucket.updateUser(socket.id, "sheet", data.sheet);
                       callback(1);
                     }
                   }
@@ -228,6 +312,8 @@
       /** Socket disconnected */
       socket.on('disconnect', function(reason) {
 
+        console.log('Socket: ' + socket.id + ' disconnected!');
+
         var userRoom = Bucket.getCurrentUserRoom(socket.id);
         /** User was in a room */
         if (userRoom && userRoom.id) {
@@ -239,7 +325,16 @@
               if (Bucket.userExists(socket.id)) {
                 Bucket.removeUser(socket.id);
               }
+              /** Remove user from room */
+              userRoom.removeUser(socket.id);
             });
+          } else {
+            /** Remove user from the bucket */
+            if (Bucket.userExists(socket.id)) {
+              Bucket.removeUser(socket.id);
+            }
+            /** Remove user from room */
+            userRoom.removeUser(socket.id);
           }
         /** Fake user or spectator .. */
         } else {
@@ -268,7 +363,7 @@
 
   /** Listen for Server shutdown */
   process.on('SIGINT', function() {
-    io.sockets.emit('annouce', {message : 'Server shutting down!'});
+    _io.sockets.emit('annouce', {message : 'Server shutting down!'});
     process.exit();
   });
 
@@ -284,7 +379,7 @@
 
     /** Print Bucket */
     if (data === '/bucket') console.log(Bucket);
-    if (data === '/bucketroomcells') console.log(Bucket.rooms[0].sheets);
+    if (data === '/bucketroomusers') console.log(Bucket.rooms[0].users);
 
   });
 

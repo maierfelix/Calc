@@ -30,6 +30,12 @@
      * @member {number}
      */
     this.level = level;
+    /**
+     * Current sheet user is in
+     *
+     * @member {string}
+     */
+    this.sheet = null;
   };
 
   /**
@@ -43,6 +49,18 @@
     if (this.level >= 3) return (true);
 
     return (false);
+
+  };
+
+  /**
+   * Check if user is admin
+   * @param {string} username Username
+   * @method isAdmin
+   * @return {boolean}
+   */
+  User.prototype.currentSheet = function() {
+
+    return (this.sheet || void 0);
 
   };
 

@@ -34,7 +34,7 @@
 
   /**
    * Check if user already exists in the user array or not
-   * @param {String} username Username to be checked
+   * @param {string} username Username to be checked
    * @method userExists
    * @return {boolean}
    */
@@ -51,9 +51,9 @@
   };
 
   /**
-   * Get a single user
-   * @param {String} username Username to be checked
-   * @method getUser
+   * Update a single user
+   * @param {string} username Username to be checked
+   * @method updateUser
    * @return {object}
    */
   Bucket.prototype.updateUser = function(username, property, value) {
@@ -71,8 +71,28 @@
   };
 
   /**
+   * Get a single user
+   * @param {string} username Username
+   * @method getUser
+   * @return {object} User
+   */
+  Bucket.prototype.getUser = function(username) {
+
+    for (var ii = 0; ii < this.users.length; ++ii) {
+      if (this.users[ii].hasOwnProperty("username")) {
+        if (this.users[ii].username === username) {
+          return (this.users[ii]);
+        }
+      }
+    }
+
+    return void 0;
+
+  };
+
+  /**
    * Adds a new user to the user array
-   * @param {Object} user User to be added
+   * @param {object} user User to be added
    * @method addUser
    */
   Bucket.prototype.addUser = function(user) {
@@ -92,7 +112,7 @@
 
   /**
    * Removes user from the user array
-   * @param {String} username Username to remove
+   * @param {string} username Username to remove
    * @method removeUser
    */
   Bucket.prototype.removeUser = function(username) {
@@ -152,7 +172,7 @@
 
   /**
    * Adds a new room to the rooms array
-   * @param {Object} room Room to be added
+   * @param {object} room Room to be added
    * @method addRoom
    */
   Bucket.prototype.addRoom = function(room) {
@@ -172,19 +192,17 @@
 
   /**
    * Removes a room from the rooms array
-   * @param {String} name Name to remove
+   * @param {string} name Name to remove
    * @method removeRoom
    */
   Bucket.prototype.removeRoom = function(name) {
 
     for (var ii = 0; ii < this.rooms.length; ++ii) {
-
       if (this.rooms[ii] && this.rooms[ii].hasOwnProperty("name")) {
         if (this.rooms[ii].name === name) {
           this.rooms.splice(ii, 1);
         }
       }
-
     }
 
     return void 0;
@@ -192,8 +210,28 @@
   };
 
   /**
+   * Check if a room is empty
+   * @param {string} name Room name
+   * @method isEmptyRoom
+   * @return {boolean}
+   */
+  Bucket.prototype.isEmptyRoom = function(name) {
+
+    for (var ii = 0; ii < this.rooms.length; ++ii) {
+      if (this.rooms[ii] && this.rooms[ii].hasOwnProperty("name")) {
+        if (this.rooms[ii].name === name) {
+          if (this.rooms[ii].users.length <= 0) return (true);
+        }
+      }
+    }
+
+    return (false);
+
+  };
+
+  /**
    * Get a specific room
-   * @param {String} roomName
+   * @param {string} roomName
    * @method getRoom
    * @return {object} Room
    */
@@ -209,7 +247,7 @@
 
   /**
    * Get the current room a user is in
-   * @param {String} username Username
+   * @param {string} username Username
    * @method getCurrentUserRoom
    * @return {object} Room
    */
@@ -235,6 +273,66 @@
   Bucket.prototype.saveBucketCells = function(name) {
 
     console.log("Save!");
+
+  };
+
+  /**
+   * Validate user by check if he has admin rights and is in a room
+   * @param {string} id Socket ID
+   * @method isValidUser
+   * @return {boolean}
+   */
+  Bucket.prototype.isValidUser = function(id) {
+
+    var userRoom = this.getCurrentUserRoom(id);
+
+    /** Does have user admin rights */
+    if (this.userIsAdmin(id)) {
+      /** User is in a room */
+      if (userRoom && userRoom.id) {
+        /** Seems like he's valid to here */
+        return (true);
+      }
+    }
+
+    return (false);
+
+  };
+
+  /**
+   * Share data with all users in the room
+   * Don't share with the sender
+   * @param {object} data Data to share
+   * @param {string} id Socket id
+   * @param {string} action Action
+   * @param {string} sheet Sheet strict
+   * @method shareData
+   * @return {object} data
+   */
+  Bucket.prototype.shareData = function(object, id, action, sheet) {
+
+    var userRoom = this.getCurrentUserRoom(id);
+
+    var user = null;
+
+    /** Send update to all clients in the same room */
+    for (var ii = 0; ii < userRoom.users.length; ++ii) {
+      /** Dont send message to this myself */
+      if (userRoom.users[ii] !== id) {
+        /** Only share with users on the same sheet */
+        if (sheet) {
+          if (user = this.getUser(userRoom.users[ii])) {
+            if (user.sheet === sheet) {
+              /** Update data of all client in the same room */
+              _io.to(userRoom.users[ii]).emit("message", {type: "global", action: action, data: object});
+            }
+          }
+        } else {
+          /** Update data of all client in the same room */
+          _io.to(userRoom.users[ii]).emit("message", {type: "global", action: action, data: object});
+        }
+      }
+    }
 
   };
 

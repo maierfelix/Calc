@@ -123,13 +123,9 @@
   Room.prototype.removeUser = function(username) {
 
     for (var ii = 0; ii < this.users.length; ++ii) {
-
-      if (this.users[ii] && this.users[ii].hasOwnProperty("username")) {
-        if (this.users[ii].username === username) {
-          this.users.splice(ii, 1);
-        }
+      if (this.users[ii] === username) {
+        this.users.splice(ii, 1);
       }
-
     }
 
     return void 0;
