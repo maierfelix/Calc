@@ -182,21 +182,25 @@
         /** Abort if no data was received */
         if (!data) return void 0;
 
+        var userSheet = null;
+
         /** Check user for admin rights and valid room */
         if (Bucket.isValidUser(socket.id)) {
           /** Validate received data object */
-          if (Security.isSecure(data.direction) && Security.isSecure(data.amount) && Security.isSecure(data.sheet)) {
-            if (typeof data.direction === "string" && typeof data.amount === "number" && typeof data.sheet === "string") {
+          if (Security.isSecure(data.direction) && Security.isSecure(data.amount)) {
+            if (typeof data.direction === "string" && typeof data.amount === "number") {
+
+              userSheet = Bucket.getUser(socket.id).sheet;
 
               /** Check if sheet exists in the room */
-              if (Bucket.getCurrentUserRoom(socket.id).sheets[data.sheet]) {
+              if (Bucket.getCurrentUserRoom(socket.id).sheets[userSheet]) {
                 /** Share scrolling with all clients in the room and on the same sheet */
-                Bucket.shareData({direction: data.direction, amount: data.amount, sheet: data.sheet}, socket.id, "scrolling", data.sheet);
+                Bucket.shareData({direction: data.direction, amount: data.amount, sheet: userSheet}, socket.id, "scrolling", userSheet);
               /** Create sheet*/
               } else {
-                Bucket.getCurrentUserRoom(socket.id).sheets[data.sheet] = {};
+                Bucket.getCurrentUserRoom(socket.id).sheets[userSheet] = {};
                 /** Share scrolling with all clients in the room and on the same sheet */
-                Bucket.shareData({direction: data.direction, amount: data.amount, sheet: data.sheet}, socket.id, "scrolling", data.sheet);
+                Bucket.shareData({direction: data.direction, amount: data.amount, sheet: userSheet}, socket.id, "scrolling", userSheet);
               }
 
             }
@@ -335,6 +339,10 @@
             }
             /** Remove user from room */
             userRoom.removeUser(socket.id);
+          }
+          /** If user room is empty, remove it from the bucket */
+          if (userRoom.isEmpty()) {
+            Bucket.removeRoom(userRoom.name);
           }
         /** Fake user or spectator .. */
         } else {
