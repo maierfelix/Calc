@@ -101,6 +101,11 @@
 
     CORE.CurrentSheet = name;
 
+    /** Send sheet change to server */
+    if (CORE.Connector.connected) {
+      CORE.Connector.action("changeSheet", {sheet: name});
+    }
+
   };
 
   /**

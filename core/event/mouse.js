@@ -333,14 +333,7 @@
 
         /** Animate */
         if (difference > calcDifference * 2) {
-          CORE.DOM.Output.classList.remove("moveDown");
-          CORE.DOM.VerticalMenu.classList.remove("moveDown");
-          CORE.DOM.Output.classList.remove("moveUp");
-          CORE.DOM.VerticalMenu.classList.remove("moveUp");
-          setTimeout( function() {
-            CORE.DOM.Output.classList.add("moveUp");
-            CORE.DOM.VerticalMenu.classList.add("moveUp");
-          }, 55);
+          CORE.Event.animateMouseDown();
         }
 
         CORE.Sheets[CORE.CurrentSheet].updateHeight("down", CORE.Settings.Scroll.Vertical);
@@ -351,13 +344,7 @@
           CORE.Sheets[CORE.CurrentSheet].Settings.lastScrollY = 0;
           CORE.Sheets[CORE.CurrentSheet].updateHeight("default", CORE.Settings.Scroll.Vertical);
 
-          /** Animate */
-          CORE.DOM.Output.classList.remove("moveDown");
-          CORE.DOM.VerticalMenu.classList.remove("moveDown");
-          CORE.DOM.Output.classList.remove("moveUp");
-          CORE.DOM.VerticalMenu.classList.remove("moveUp");
-          CORE.DOM.Output.style.top = "0px";
-          CORE.DOM.VerticalMenu.style.top = "100px";
+          CORE.Event.animateMouseUpMaximum();
 
         }
         else if (CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY - CORE.Settings.Scroll.Vertical >= 0) {
@@ -367,16 +354,7 @@
 
           /** Animate */
           if (difference > calcDifference * 2) {
-            CORE.DOM.Output.classList.remove("moveDown");
-            CORE.DOM.VerticalMenu.classList.remove("moveDown");
-            CORE.DOM.Output.classList.remove("moveUp");
-            CORE.DOM.VerticalMenu.classList.remove("moveUp");
-            setTimeout( function() {
-              CORE.DOM.Output.classList.add("moveDown");
-              CORE.DOM.VerticalMenu.classList.add("moveDown");
-              CORE.DOM.Output.style.top = "-25px";
-              CORE.DOM.VerticalMenu.style.top = "75px";
-            }, 1);
+            CORE.Event.animateMouseUp();
           }
 
         }
@@ -385,6 +363,12 @@
 
       /** Make sure user scrolled */
       if (direction) {
+
+        /** Share scrolling */
+        if (CORE.Connector.connected) {
+          CORE.Connector.action("scrolling", {direction: direction, amount: CORE.Settings.Scroll.Vertical, sheet: CORE.CurrentSheet});
+        }
+
         /** Update menu, get new selection */
         CORE.Sheets[CORE.CurrentSheet].updateMenu();
         CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();

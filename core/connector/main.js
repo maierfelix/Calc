@@ -128,6 +128,10 @@
             case "cellchange":
               this.processServerCell(data.data);
               break;
+            /** Scroll change */
+            case "scrolling":
+              this.processServerScrolling(data.data);
+              break;
           }
           break;
       }
@@ -166,7 +170,7 @@
       /** Delete question mark to validate the string */
       name = name.slice(1, name.length);
       /** Make use of acknowledge */
-      this.socket.emit("createroom", name, function(state) {
+      this.socket.emit("createroom", {name: name, sheet: CORE.CurrentSheet}, function(state) {
         /** Room was successfully created */
         if (state) {
           prompt("Please save the following master access key for this room!", state);
@@ -174,7 +178,7 @@
         } else {
           securityPassword = prompt("Please enter the room password: ");
           /** Send the password to the server */
-          self.socket.emit("securitypassword", securityPassword, self.room, function(bool) {
+          self.socket.emit("securitypassword", {password: securityPassword, room: self.room, sheet: CORE.CurrentSheet}, function(bool) {
             console.log(bool);
           });
         }
