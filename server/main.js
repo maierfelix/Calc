@@ -51,7 +51,7 @@
     /** User logic */
     _io.on('connection', function(socket) {
 
-      console.log('New socket connected: ' + socket.id + '');
+      console.log('Socket: ' + socket.id + '\x1b[32;1m connected\x1b[0m!');
 
       /** Register user into the bucket */
       if (!Bucket.userExists(socket.id)) Bucket.addUser(new User(socket.id, 1));
@@ -208,23 +208,32 @@
         }
 
       });
-
+      
       /** Socket changed sheet */
       socket.on('changesheet', function(data, callback) {
 
         /** Abort if no data was received */
         if (!data) return void 0;
 
+        var userRoom = null;
+
         /** Validate received data */
         if (Security.isSecure(data.sheet)) {
           if (typeof data.sheet === "string") {
             /** Check user for admin rights and valid room */
             if (Bucket.isValidUser(socket.id)) {
+              userRoom = Bucket.getCurrentUserRoom(socket.id);
               /** Check if sheet exists in the room, if not create it */
-              if (!Bucket.getCurrentUserRoom(socket.id).sheets[data.sheet]) {
-                Bucket.getCurrentUserRoom(socket.id).sheets[data.sheet] = {};
+              if (!userRoom.sheets[data.sheet]) {
+                /** Create the sheet in the bucket room sheets */
+                userRoom.sheets[data.sheet] = {};
+                /** Save new sheet in the database */
+                Database.updateSheet("rooms", {sheets: userRoom.sheets}, userRoom.id, function(finished) {
+                  /** Share the new sheet update to all clients in the room */
+                  Bucket.shareData({direction: data.direction, amount: data.amount, sheet: data.sheet}, socket.id, "newsheet");
+                });
               }
-              /** Set user to admin */
+              /** Update users current sheet */
               Bucket.updateUser(socket.id, "sheet", data.sheet);
             }
           }
@@ -232,7 +241,7 @@
 
       });
 
-      /** Socket disconnected */
+      /** Socket tries to login */
       socket.on('securitypassword', function(data, callback) {
 
         /** Abort if no data was received */
@@ -248,9 +257,9 @@
             /** Check if room exists in the bucket */
             if (Bucket.roomExists(data.room)) {
               getRoom = Bucket.getRoom(data.room);
-              /** If room isnt empty, update database, so new clients get latest sheets */
+              /** If room isnt empty, update database, so new clients get latest sheet data */
               if (!getRoom.isEmpty()) {
-                Database.updateCell("rooms", {sheets: getRoom.sheets}, getRoom.id, function(finished) {
+                Database.updateSheet("rooms", {sheets: getRoom.sheets}, getRoom.id, function(result) {
                   /** Check if tokens matches */
                   if (getRoom.securityToken === data.password) {
                     /** Add user to the room */
@@ -259,7 +268,7 @@
                     Bucket.updateUser(socket.id, "level", 3);
                     /** Update sheet where user currently is */
                     Bucket.updateUser(socket.id, "sheet", data.sheet);
-                    callback(1);
+                    callback(result);
                     /** Wrong security token */
                   } else callback(0);
                 });
@@ -284,11 +293,9 @@
                 if (result) {
                   result = result.data;
                   /** Create room -> Room name, socket name, security token, callback = mongo id */
-                  var room = new Room(result.name, socket.id, result.token, result._id);
+                  var room = new Room(result.name, result.owner, result.token, result._id);
                   /** Add user to the room */
                   room.addUser(socket.id);
-                  /** Make this user to the owner, since he awake this room */
-                  room.owner = socket.id;
                   /** Add sheets to the room */
                   room.sheets = result.sheets;
                   /** Create room in bucket */
@@ -298,6 +305,8 @@
                     getRoom = Bucket.getRoom(result.name);
                     /** Check if security password is correct */
                     if (getRoom.securityToken === data.password) {
+                      /** Make this user to the owner, since he awake this room */
+                      room.owner = socket.id;
                       /** Give user admin rights */
                       Bucket.updateUser(socket.id, "level", 3);
                       /** Update sheet where user currently is */
@@ -316,7 +325,7 @@
       /** Socket disconnected */
       socket.on('disconnect', function(reason) {
 
-        console.log('Socket: ' + socket.id + ' disconnected!');
+        console.log('Socket: ' + socket.id + '\x1b[33;31m disconnected\x1b[0m!');
 
         var userRoom = Bucket.getCurrentUserRoom(socket.id);
         /** User was in a room */
@@ -324,7 +333,7 @@
           /** User had admin rights, seems like he made edits */
           if (Bucket.userIsAdmin(socket.id)) {
             /** Save the bucket sheets and cells into the database */
-            Database.updateCell("rooms", {sheets: userRoom.sheets}, userRoom.id, function(callback) {
+            Database.updateSheet("rooms", {sheets: userRoom.sheets}, userRoom.id, function(callback) {
               /** Remove user from the bucket */
               if (Bucket.userExists(socket.id)) {
                 Bucket.removeUser(socket.id);
@@ -363,7 +372,7 @@
     setInterval(function() {
       /** Save each room */
       for (var ii = 0; ii < Bucket.rooms.length; ++ii) {
-        Database.updateCell("rooms", {sheets: Bucket.rooms[ii].sheets}, Bucket.rooms[ii].id, function() {});
+        Database.updateSheet("rooms", {sheets: Bucket.rooms[ii].sheets}, Bucket.rooms[ii].id, function() {});
       }
     }, 150000);
 
@@ -388,6 +397,7 @@
     /** Print Bucket */
     if (data === '/bucket') console.log(Bucket);
     if (data === '/bucketroomusers') console.log(Bucket.rooms[0].users);
+    if (data === '/bucketroomsheets') console.log(Bucket.rooms[0].sheets);
 
   });
 

@@ -178,53 +178,26 @@
    * Update the database
    * @param {string} collection name
    * @param {object} data
+   * @param {string} id Room id
    * @param {number} callback
-   * @method updateCell
+   * @method updateSheet
    */
-  Database.prototype.updateCell = function(collection, data, id, resolve) {
+  Database.prototype.updateSheet = function(collection, data, id, resolve) {
 
     /** Async visibility fix */
     var self = this;
-
-    /** Async counter */
-    var length = 0;
 
     /** Database in ready state */
     if (this.ready && this[collection] && data) {
 
       if (this[collection] !== undefined && this[collection] !== null) {
 
-        /** Get amount of cells */
-        for (var sheet in data.sheets) {
-          for (var ii in data.sheets[sheet].cells) {
-            for (var cell in data.sheets[sheet].cells[ii]) {
-              length += 1;
-            }
-          }
-        }
-
         var node = {};
+        node["sheets"] = data.sheets;
 
-        for (var sheet in data.sheets) {
-
-          for (var ii in data.sheets[sheet].cells) {
-
-            for (var cell in data.sheets[sheet].cells[ii]) {
-
-              node["sheets." + sheet + ".cells." + ii + "." + cell] = data.sheets[sheet].cells[ii][cell];
-
-              self[collection].update({_id: id}, {$set: node }, function(error, object) {
-                length--;
-                if (length === 0) {
-                  resolve(1);
-                }
-              });
-
-            }
-
-          }
-
-        }
+        self[collection].update({_id: id}, {$set: node}, function(error, object) {
+          resolve(data.sheets);
+        });
 
       }
 

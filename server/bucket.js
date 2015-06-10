@@ -327,6 +327,7 @@
               _io.to(userRoom.users[ii]).emit("message", {type: "global", action: action, data: object});
             }
           }
+        /** Share with everyone in the room */
         } else {
           /** Update data of all client in the same room */
           _io.to(userRoom.users[ii]).emit("message", {type: "global", action: action, data: object});
