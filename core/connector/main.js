@@ -66,6 +66,7 @@
     /** Only execute once */
     this.initListeners();
 
+    /** Ask for a new or existing room */
     this.createRoom();
 
   };
@@ -132,6 +133,10 @@
             case "scrolling":
               this.processServerScrolling(data.data);
               break;
+            /** Sheet update, someone created a new sheet */
+            case "newsheet":
+              this.processNewSheet(data.data);
+              break;
           }
           break;
       }
@@ -178,8 +183,10 @@
         } else {
           securityPassword = prompt("Please enter the room password: ");
           /** Send the password to the server */
-          self.socket.emit("securitypassword", {password: securityPassword, room: self.room, sheet: CORE.CurrentSheet}, function(bool) {
-            console.log(bool);
+          self.socket.emit("securitypassword", {password: securityPassword, room: self.room, sheet: CORE.CurrentSheet}, function(roomData) {
+            /** Got latest room data */
+            self.processServerCells(roomData);
+            self.processNewSheet(CORE.CurrentSheet);
           });
         }
       });

@@ -133,7 +133,7 @@
     if (!CORE.Cells.Used[object.sheet][object.letter]) CORE.Cells.Used[object.sheet][object.letter] = {};
 
     if (!CORE.Cells.Used[object.sheet][object.letter][object.cell]) {
-      CORE.Cells.Used[object.sheet][object.letter][object.cell] = new CORE.Sheets[CORE.CurrentSheet].Cell();
+      CORE.Cells.Used[object.sheet][object.letter][object.cell] = new CORE.Grid.Cell();
     }
 
     if (object.value[0] === "=") {
@@ -205,6 +205,27 @@
             }
           }
         }
+      }
+    }
+
+  };
+
+  /**
+   * Process a new sheet
+   * A user created a new sheet in the room
+   *
+   * @method processServerCell
+   * @static
+   */
+  CORE.Connector.prototype.processNewSheet = function(object) {
+
+    /** Validate object */
+    if (object.sheet && typeof object.sheet === "string" && object.sheet.length) {
+      /** Sheet does not exist here yet */
+      if (!CORE.Sheets[object.sheet]) {
+        CORE.Sheets[object.sheet] = new CORE.Grid();
+        /** Make addition real */
+        CORE.Sheets.addSheet(object.sheet);
       }
     }
 
