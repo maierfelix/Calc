@@ -24,6 +24,9 @@
     /** Save socket */
     this.socket = null;
 
+    /** Default url */
+    this.url = "http://134.255.219.177";
+
     /** Default port */
     this.port = 3000;
 
@@ -61,7 +64,7 @@
 
     if (!window.io) throw new Error("NovaeCalc requires socket.io!");
 
-    this.socket = io.connect(window.location.host + ":" + 3000);
+    this.socket = io.connect(this.url + ":" + this.port);
 
     /** Only execute once */
     this.initListeners();
