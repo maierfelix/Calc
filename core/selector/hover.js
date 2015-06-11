@@ -24,6 +24,7 @@
     var letter = 0,
         number = 0,
         jumps = 0,
+        newLetter = "",
         style = this.SelectedCells.length <= 1 ? "single_row_hovered" : "row_hovered";
 
     /** Add hover effect for all selected cells */
@@ -31,6 +32,7 @@
 
       letter = this.SelectedCells[ii].letter;
       number = this.SelectedCells[ii].number;
+      newLetter = CORE.$.numberToAlpha(letter);
 
       /** Synchronize custom cells with the cell settings menu if 1 cell is selected */
       if (this.SelectedCells.length === 1) CORE_UI.updateCellStyleMenu(this.SelectedCells[ii]);
@@ -39,12 +41,21 @@
 
       /** Test if selection is in view */
       if (jumps >= 0) {
-        if (CORE.DOM.Output.children[jumps]) {
-          CORE.DOM.Output.children[jumps].classList.add(style);
+        if (CORE.DOM.CacheArray[jumps]) {
+          /** If cell has custom background, add transparence to it */
+          if (CORE.Cells.Used[CORE.CurrentSheet][newLetter] && CORE.Cells.Used[CORE.CurrentSheet][newLetter][newLetter + number]) {
+            /** Change background color and add transparency */
+            CORE.DOM.CacheArray[jumps].style.background = CORE.Cells.Used[CORE.CurrentSheet][newLetter][newLetter + number].BackgroundColor.replace(')', ', 0.45)').replace('rgb', 'rgba');
+          } else {
+            CORE.DOM.CacheArray[jumps].classList.add(style);
+          }
         }
       }
 
     }
+
+    /** Draw outer border around selection if selection area is above 1 */
+    if (this.SelectedCells.length > 1) this.drawSelectionOuterBorder();
 
   };
 
@@ -65,11 +76,20 @@
     var letter = 0,
         number = 0,
         jumps = 0,
+        cellName = "",
         style = this.SelectedCells.length <= 1 ? "single_row_hovered" : "row_hovered";
 
     /** Delete hover effect for all selected cells */
     for (var ii = 0; ii < CORE.DOM.CacheArray.length; ++ii) {
-      CORE.DOM.CacheArray[ii].classList.remove(style);
+      CORE.DOM.CacheArray[ii].classList.remove(style, "border_top", "border_bottom", "border_left", "border_right");
+      /** Reset background color if customized cell was in selection */
+      if (cellName = CORE.DOM.CacheArray[ii].getAttribute("name")) {
+        var letter = cellName.match(CORE.REGEX.numbers).join("");
+        var number = cellName.match(CORE.REGEX.letters).join("");
+        if (CORE.Cells.Used[CORE.CurrentSheet][letter] && CORE.Cells.Used[CORE.CurrentSheet][letter][letter + number]) {
+          CORE.DOM.CacheArray[ii].style.background = CORE.Cells.Used[CORE.CurrentSheet][letter][letter + number].BackgroundColor;
+        }
+      }
     }
 
   };

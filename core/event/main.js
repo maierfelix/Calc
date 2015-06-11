@@ -84,6 +84,8 @@
 
     CORE.Sheets[CORE.CurrentSheet].updateWidth("default");
 
+    CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
+
     CORE.Awakener.reset();
 
     CORE.Awakener.evalLive();

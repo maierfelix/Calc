@@ -106,6 +106,52 @@
   };
 
   /**
+   * Draw a border around the current selection
+   *
+   * @method drawSelectionOuterBorder
+   * @static
+   */
+  CORE.Selector.prototype.drawSelectionOuterBorder = function() {
+
+    var object = this.getOuterSelection();
+
+    var jumps = 0;
+
+    /** Top */
+    for (var ii = 0; ii < object.top.length; ++ii) {
+      jumps = CORE.$.getCell(object.top[ii]);
+      if (jumps) {
+        CORE.DOM.CacheArray[jumps].classList.add("border_top");
+      }
+    }
+
+    /** Bottom */
+    for (var ii = 0; ii < object.bottom.length; ++ii) {
+      jumps = CORE.$.getCell(object.bottom[ii]);
+      if (jumps) {
+        CORE.DOM.CacheArray[jumps].classList.add("border_bottom");
+      }
+    }
+
+    /** Left */
+    for (var ii = 0; ii < object.left.length; ++ii) {
+      jumps = CORE.$.getCell(object.left[ii]);
+      if (jumps) {
+        CORE.DOM.CacheArray[jumps].classList.add("border_left");
+      }
+    }
+
+    /** Right */
+    for (var ii = 0; ii < object.right.length; ++ii) {
+      jumps = CORE.$.getCell(object.right[ii]);
+      if (jumps) {
+        CORE.DOM.CacheArray[jumps].classList.add("border_right");
+      }
+    }
+
+  };
+
+  /**
    * Jump a specific amount into a specific axis
    *
    * @method jump

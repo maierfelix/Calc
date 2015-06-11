@@ -278,8 +278,6 @@
 
     this.addCellListeners();
 
-    CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
-
     /** User was in edit mode */
     if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Edit) this.getEditSelection(CORE.Sheets[CORE.CurrentSheet].Selector.Edit);
 
