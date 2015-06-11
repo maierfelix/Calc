@@ -55,6 +55,7 @@ NovaeCalc runs the best on Google Chrome.
 
 ## Todo:
 - [ ] Pow support: Math.pow => (2^2)^2, LX_POW
+- [ ] Bug: Reversed selection doesnt work
 
 ## Notes:
 - [ ] Possibly include server-side cell calculation option
