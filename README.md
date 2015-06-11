@@ -6,6 +6,11 @@ NovaeCalc is a lightning browserbased spreadsheet software.<br/>
 NovaeCalc is not stable yet.<br/>
 NovaeCalc runs the best on Google Chrome.
 
+# Multi-user test project
+If you want to test the latest multi-user functionality, go to:
+* [Link](http://felixmaier.info/NovaeCalc/?testroom1)<br/>
+Master key: *3b011508e1edb8a92daca0c72522b4449aa455c820009ce1b4a838c868d6c4b8*
+
 ## Current state:
 
  - [ ] Cell logic
@@ -27,6 +32,7 @@ NovaeCalc runs the best on Google Chrome.
    - [ ] Backup projects into LocalStorage
    - [ ] Undo, redo stack
    - [x] Multiple sheets
+   - [ ] Delete sheets
    - [ ] Jump to (x, y)
    - [ ] Debug
 
@@ -49,12 +55,16 @@ NovaeCalc runs the best on Google Chrome.
    - [x] Users
    - [x] Roles
    - [x] Share rooms
-   - [x] Multi-user live editing
+   - [x] Multi-user cell editing
+   - [ ] Multi-user cell styling
+   - [x] Multi-sheet support
+   - [ ] Count users in current sheet
    - [ ] Synchronization
    - [ ] Screen mirroring
 
 ## Todo:
 - [ ] Pow support: Math.pow => (2^2)^2, LX_POW
+- [ ] Bug: Reversed selection doesnt work
 
 ## Notes:
 - [ ] Possibly include server-side cell calculation option
