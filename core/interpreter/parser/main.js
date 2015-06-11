@@ -138,7 +138,7 @@
 
     ExpressionStatement = this.ruleExpression();
 
-    return ({ ExpressionStatement });
+    return {ExpressionStatement: ExpressionStatement};
 
   };
 
@@ -185,7 +185,7 @@
     this.shift();
     this.shift();
 
-    return ({ CallExpression });
+    return {CallExpression: CallExpression};
 
   };
 

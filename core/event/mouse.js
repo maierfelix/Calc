@@ -283,46 +283,54 @@
     /** Abort if [STRG] key pressed */
     if (CORE.Sheets[CORE.CurrentSheet].Input.Keyboard.Strg) return void 0;
 
-    var calcDifference = Math.floor(CORE.Sheets[CORE.CurrentSheet].Settings.y * 1.5);
-
-    /** Handle timestamps */
-    if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMouseScroll > 0) {
-
-       /** Calculate difference between this and last timestamp */
-      var difference = e.timeStamp - CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMouseScroll;
-
-      /** Scroll increment, if user scrolls fast */
-      if (difference <= calcDifference) {
-        CORE.Settings.Scroll.Vertical += Math.floor(CORE.Settings.Scroll.OriginalVertical * 1.5);
-      /** Otherwise, reset scroll amount */
-      } else {
-        CORE.Settings.Scroll.Vertical = CORE.Settings.Scroll.OriginalVertical;
-      }
-
-    }
-
     var direction = 0;
+
+    var amount = 0;
 
     /** Make sure the grid was scrolled */
     if (e.target.parentNode.id === CORE.DOM.Output.id) {
-      /** IE */
+      /** IE and Chrome */
       if (e.wheelDelta) {
         if (e.wheelDelta * ( -120 ) > 0) direction = 1;
+        amount = Math.floor(e.wheelDelta / 10);
+        amount = amount <= 0 ? amount * (-1) : amount;
       /** Chrome, Firefox */
       } else {
         /** Chrome */
         if (e.deltaY > 0) {
           direction = 1;
+          amount = Math.floor(e.deltaY);
+          amount = amount <= 0 ? amount * (-1) : amount;
         /** Firefox */
         } else if (e.detail * ( -120 ) > 0) {
           direction = 0;
+          amount = Math.floor(e.detail * 10);
+          amount = amount <= 0 ? amount * (-1) : amount;
         /** Firefox */
         } else if (e.detail * ( -120 ) < 0) {
           direction = 1;
+          amount = Math.floor(e.detail * 10);
+          amount = amount <= 0 ? amount * (-1) : amount;
         } else direction = 0;
       }
 
       direction = direction ? "down" : "up";
+
+      /** Handle timestamps */
+      if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMouseScroll > 0) {
+
+         /** Calculate difference between this and last timestamp */
+        var difference = e.timeStamp - CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMouseScroll;
+
+        /** Fast scrolling */
+        if (difference <= 75) {
+          CORE.Settings.Scroll.Vertical = Math.floor(amount);
+        /** Slow scrolling */
+        } else {
+          CORE.Settings.Scroll.Vertical = CORE.Settings.Scroll.OriginalVertical;
+        }
+
+      }
 
       /** User scrolled up or down, dont redraw */
       CORE.Sheets[CORE.CurrentSheet].Input.lastAction.scrollY = true;
@@ -331,8 +339,8 @@
         CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY += CORE.Settings.Scroll.Vertical;
         CORE.Sheets[CORE.CurrentSheet].Settings.lastScrollY = CORE.Settings.Scroll.Vertical;
 
-        /** Animate */
-        if (difference > calcDifference * 2) {
+        /** Animate, since slow scrolled */
+        if (difference > 75) {
           CORE.Event.animateMouseDown();
         }
 
@@ -352,8 +360,8 @@
           CORE.Sheets[CORE.CurrentSheet].Settings.lastScrollY = CORE.Settings.Scroll.Vertical;
           CORE.Sheets[CORE.CurrentSheet].updateHeight("up", CORE.Settings.Scroll.Vertical);
 
-          /** Animate */
-          if (difference > calcDifference * 2) {
+          /** Animate, since slow scrolled */
+          if (difference > 75) {
             CORE.Event.animateMouseUp();
           }
 

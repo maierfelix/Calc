@@ -124,7 +124,7 @@
           Number: 1
         },
         /** Save last mouse scroll timestamp */
-        lastMouseScroll: 0
+        lastMouseScroll: new Date().getTime()
       },
       Keyboard: {
         /** [SHIFT] key pressed */
