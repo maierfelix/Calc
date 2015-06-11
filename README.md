@@ -1,4 +1,3 @@
-# NovaeCalc
 ![NovaeCalc](http://i.imgur.com/hzawVc1.png)
 
 # Description
