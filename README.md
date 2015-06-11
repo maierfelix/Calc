@@ -12,7 +12,7 @@ Master key: *3b011508e1edb8a92daca0c72522b4449aa455c820009ce1b4a838c868d6c4b8*
 
 ## Current state:
 
- - [ ] Cell logic
+ - [ ] Cells
    - [x] Infinite vertical scrolling (~ 2^53 - 1)
    - [x] Infinite horizontal scrolling (~ 16.100)
    - [x] Select cell fields in all directions
@@ -23,7 +23,8 @@ Master key: *3b011508e1edb8a92daca0c72522b4449aa455c820009ce1b4a838c868d6c4b8*
    - [ ] Mobile friendly
    - [x] Realtime cells
    - [x] Insert, delete columns
-   - [ ] Insert, delete rows
+   - [x] Insert, delete rows
+   - [x] Glossy, outer border selection fields
 
  - [ ] Functionalities
    - [x] Export projects
