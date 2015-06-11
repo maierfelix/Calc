@@ -1,4 +1,4 @@
-![NovaeCalc](http://i.imgur.com/hzawVc1.png)
+![NovaeCalc](http://i.imgur.com/hYWetxs.png)
 
 # Description
 NovaeCalc is a lightning browserbased spreadsheet software.<br/>
