@@ -64,7 +64,10 @@ Master key: *3b011508e1edb8a92daca0c72522b4449aa455c820009ce1b4a838c868d6c4b8*
 
 ## Todo:
 - [ ] Pow support: Math.pow => (2^2)^2, LX_POW
-- [ ] Bug: Reversed selection doesnt work
+
+## Bugs:
+- [ ] Reversed selection doesnt work
+- [ ] Insert rows & columns does copy cell content and formula
 
 ## Notes:
 - [ ] Possibly include server-side cell calculation option
