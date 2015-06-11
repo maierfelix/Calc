@@ -192,11 +192,31 @@ body {
 
 .single_row_hovered {
   border: 2px solid #448AFF;
+  outline: 1px solid #448AFF;
   background: #fff;
   color: #000;
   padding-top: 2px;
   padding-right: 3px;
   z-index: 1;
+}
+
+.autofill_button {
+  background: url(../icon/autofill.svg) no-repeat top left;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: 30% 20%; 
+  opacity: 1.0;
+  animation-name: pulsate;
+  -webkit-animation-name: pulsate;  
+
+  animation-duration: 1s;  
+  -webkit-animation-duration: 1s;
+
+  animation-timing-function: ease;  
+  -webkit-animation-timing-function: ease;
+
+  -animation-iteration-count: 1s;
+  -webkit-animation-iteration-count: 1s;
 }
 
 .cell_edit {
@@ -721,4 +741,50 @@ body {
 	-webkit-box-shadow: 0px 0px 8px rgba(0,0,0,0.5);
   -moz-box-shadow: 0px 0px 8px rgba(0,0,0,0.5);
   box-shadow: 0px 0px 8px rgba(0,0,0,0.5);
+}
+
+@-webkit-keyframes pulsate {
+  0% {
+    -webkit-transform: scale(0.5, 0.5);
+    opacity: 0.0;
+  }
+  50% {
+    -webkit-transform: scale(1, 1);
+    opacity: 0.5;
+  }
+  100% {
+    -webkit-transform: scale(0.5, 0.5);
+    opacity: 1.0;
+  }
+}
+
+@keyframes pulsate {
+  0% {
+    -transform: scale(0.5, 0.5);
+    opacity: 0.0;
+  }
+  50% {
+    -transform: scale(1, 1);
+    opacity: 0.5;
+  }
+  100% {
+    -transform: scale(0.5, 0.5);
+    opacity: 1.0;
+  }
+}
+
+.border_top {
+  border-top: 1px solid #448AFF !important;
+}
+
+.border_bottom {
+  border-bottom: 1px solid #448AFF !important;
+}
+
+.border_left {
+  border-left: 1px solid #448AFF !important;
+}
+
+.border_right {
+  border-right: 1px solid #448AFF !important;
 }
