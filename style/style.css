@@ -331,11 +331,11 @@ body {
 
 .loader-background {
   background-color: background: rgb(107, 216, 97);
-  background-image: -webkit-gradient(linear,left top,left bottom,from(#502663),to(#0b4d7d));
-  background-image: -moz-gradient(linear,left top,left bottom,from(#502663),to(#0b4d7d));
-  background-image: gradient(linear,left top,left bottom,from(#502663),to(#0b4d7d));
+  background-image: -webkit-gradient(linear,left top,left bottom,from(#78a6f7),to(#fff));
+  background-image: -moz-gradient(linear,left top,left bottom,from(#78a6f7),to(#fff));
+  background-image: gradient(linear,left top,left bottom,from(#78a6f7),to(#fff));
   background-repeat: repeat-x;
-  background-color: #081218;
+  background-color: #fff;
   background-repeat: no-repeat;
   background-position: center center;
   position: relative;
@@ -360,7 +360,7 @@ body {
   -ms-transform: translate(-50%,-50%);
   transform: translate(-50%,-50%);
   margin-top: 70px;
-  color: #fff;
+  color: #878787;
 }
 
 #loader-comment {

@@ -40,6 +40,7 @@ Import.scripts = [
   "core/eval.js",
   /** Input */
   "core/event/main.js",
+  "core/event/animate.js",
   "core/event/mouse.js",
   "core/event/key.js",
   "core/event/sniffer.js",
