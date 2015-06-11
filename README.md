@@ -6,6 +6,11 @@ NovaeCalc is a lightning browserbased spreadsheet software.<br/>
 NovaeCalc is not stable yet.<br/>
 NovaeCalc runs the best on Google Chrome.
 
+# Multi-user test project
+If you want to test the latest multi-user functionality, go to:
+* [Link](http://felixmaier.info/NovaeCalc/?testroom1)<br/>
+Master key: *3b011508e1edb8a92daca0c72522b4449aa455c820009ce1b4a838c868d6c4b8*
+
 ## Current state:
 
  - [ ] Cell logic
