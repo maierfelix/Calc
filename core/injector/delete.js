@@ -29,7 +29,7 @@
     var selectedCell = CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First;
 
     /** Process master cells */
-    var customArray = this.getMasterColumns("delete");
+    var customArray = this.getAlphaMasterColumns("delete");
 
     /** Sort array alphabetically */
     customArray = customArray.sortOn("old");
@@ -47,7 +47,7 @@
     }
 
     /** Process master cells */
-    customArray = this.getUsedCells("delete");
+    customArray = this.getAlphaUsedCells("delete");
 
     /** Sort array alphabetically */
     customArray = customArray.sortOn("old");
@@ -80,6 +80,54 @@
    */
   CORE.Injector.prototype.deleteRow = function() {
 
-    
+    var usedCells = CORE.Cells.Used[CORE.CurrentSheet];
+
+    var masterCells = CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Rows;
+
+    /** Currently selected row */
+    var selectedCell = CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First.Number;
+
+    /** Process master cells */
+    var customArray = this.getNumericMasterRows("delete");
+
+    /** Sort array numeric ascending */
+    customArray = customArray.sortOn("old");
+
+    /** Not reversed! */
+    for (var ii = 0; ii < customArray.length; ++ii) {
+      var value = customArray[ii];
+      /** Selection matches the master cell, simply delete it */
+      if (value.new < selectedCell) {
+        delete masterCells[value.old];
+      } else {
+        masterCells[value.new] = masterCells[value.old];
+        delete masterCells[value.old];
+      }
+    }
+
+    /** ## Cell Section ## */
+    customArray = this.getNumericUsedCells("delete");
+
+    /** Sort array numeric ascending */
+    customArray = customArray.sortOn("old");
+
+    /** Not reversed! */
+    for (var ii = 0; ii < customArray.length; ++ii) {
+      var value = customArray[ii];
+      console.log(value);
+      /** Selection matches the cell, simply delete it */
+      if (value.new < selectedCell) {
+        delete usedCells[value.letter][value.letter + value.old];
+      } else {
+        usedCells[value.letter][value.letter + value.new] = usedCells[value.letter][value.letter + value.old];
+        delete usedCells[value.letter][value.letter + value.old];
+      }
+    }
+
+    /** Refresh the grid */
+    CORE.Sheets[CORE.CurrentSheet].updateWidth("default");
+
+    /** Dont loose selection */
+    CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
 
   };

@@ -31,4 +31,9 @@
       CORE.Injector.insertRow();
     });
 
+    /** Initialize delete row button */
+    CORE.DOM.DeleteRow.addEventListener('click', function() {
+      CORE.Injector.deleteRow();
+    });
+
   };

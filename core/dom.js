@@ -85,6 +85,9 @@
   /** Select and prepare the insert row button */
   CORE.DOM.InsertRow = document.querySelector("#insert_row");
 
+  /** Select and prepare the delete row button */
+  CORE.DOM.DeleteRow = document.querySelector("#delete_row");
+
   /** Select and prepare the add sheet button */
   CORE.DOM.AddSheet = document.querySelector("#add_sheet");
 

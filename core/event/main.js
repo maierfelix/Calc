@@ -82,7 +82,7 @@
 
     CORE.Sheets[CORE.CurrentSheet].generateCells();
 
-    CORE.Sheets[CORE.CurrentSheet].updateWidth("right");
+    CORE.Sheets[CORE.CurrentSheet].updateWidth("default");
 
     CORE.Awakener.reset();
 

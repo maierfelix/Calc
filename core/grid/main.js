@@ -120,8 +120,8 @@
         lastMouseDown: 0,
         /** Save last clicked cell */
         lastMouseDownCell: {
-          Letter: 0,
-          Number: 0
+          Letter: 1,
+          Number: 1
         },
         /** Save last mouse scroll timestamp */
         lastMouseScroll: 0
