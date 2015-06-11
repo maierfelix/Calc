@@ -124,7 +124,9 @@
           Number: 1
         },
         /** Save last mouse scroll timestamp */
-        lastMouseScroll: new Date().getTime()
+        lastMouseScroll: new Date().getTime(),
+        /** User started wiping */
+        startedMouseWipe: false
       },
       Keyboard: {
         /** [SHIFT] key pressed */

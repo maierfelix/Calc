@@ -43,9 +43,11 @@
       if (jumps >= 0) {
         if (CORE.DOM.CacheArray[jumps]) {
           /** If cell has custom background, add transparence to it */
-          if (CORE.Cells.Used[CORE.CurrentSheet][newLetter] && CORE.Cells.Used[CORE.CurrentSheet][newLetter][newLetter + number]) {
-            /** Change background color and add transparency */
-            CORE.DOM.CacheArray[jumps].style.background = CORE.Cells.Used[CORE.CurrentSheet][newLetter][newLetter + number].BackgroundColor.replace(')', ', 0.45)').replace('rgb', 'rgba');
+          if (CORE.Cells.Used[CORE.CurrentSheet][newLetter] &&
+              CORE.Cells.Used[CORE.CurrentSheet][newLetter][newLetter + number] &&
+              CORE.Cells.Used[CORE.CurrentSheet][newLetter][newLetter + number].BackgroundColor !== null) {
+              /** Change background color and add transparency */
+              CORE.DOM.CacheArray[jumps].style.background = CORE.Cells.Used[CORE.CurrentSheet][newLetter][newLetter + number].BackgroundColor.replace(')', ', 0.45)').replace('rgb', 'rgba');
           } else {
             CORE.DOM.CacheArray[jumps].classList.add(style);
           }

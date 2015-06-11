@@ -31,7 +31,7 @@
       right: []
     };
 
-    /** Minimum field size: 2x2 */
+    /** Loop through selected cells */
     for (var ii = 0; ii < this.SelectedCells.length; ++ii) {
       /** Get outer left */
       if (first.Letter === this.SelectedCells[ii].letter) {

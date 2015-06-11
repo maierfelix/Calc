@@ -115,6 +115,9 @@
       /** Hide live cell container */
       CORE.DOM.LiveCellContainer.style.display = "none";
 
+      /** User can start to mouse wipe now */
+      CORE.Sheets[CORE.CurrentSheet].Input.Mouse.startedMouseWipe = true;
+
       var name = e.target.getAttribute("name");
       var letter = CORE.$.alphaToNumber(name.match(CORE.REGEX.numbers).join(""));
       var number = ~~(name.match(CORE.REGEX.letters).join(""));
@@ -183,12 +186,6 @@
   
     CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Pressed = false;
 
-    /** Clean Selected Cells */
-    CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First = {
-      Letter: CORE.Sheets[CORE.CurrentSheet].Selector.Select.Letter,
-      Number: CORE.Sheets[CORE.CurrentSheet].Selector.Select.Number
-    };
-
     /** User resized something */
     if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.CellResize) {
       CORE.Sheets[CORE.CurrentSheet].updateWidth();
@@ -220,38 +217,40 @@
         var letter = CORE.$.alphaToNumber(name.match(CORE.REGEX.numbers).join(""));
         var number = ~~(name.match(CORE.REGEX.letters).join(""));
         var cellName = (CORE.$.numberToAlpha(letter)) + number;
-
-        /** Make sure the first property gets updated a maximum of 1 time per wipe */
-        if (!CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First.Letter && !CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First.Number) {
-
-          CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First = {
-            Letter: letter,
-            Number: number
-          }
-
-        }
+        var compiledLetter = CORE.$.numberToAlpha(letter);
 
         /** Calm Down, dont overwrite stack value with same value again */
         if ( (CORE.$.numberToAlpha(CORE.Sheets[CORE.CurrentSheet].Selector.Selected.Last.Letter) + CORE.Sheets[CORE.CurrentSheet].Selector.Selected.Last.Number) === cellName) return void 0;
 
+        /** Make sure the first property gets updated a maximum of 1 time per wipe */
+        if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.startedMouseWipe) {
+          CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First = {
+            Letter: CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMouseDownCell.Letter,
+            Number: CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMouseDownCell.Number
+          };
+        }
+
         CORE.Sheets[CORE.CurrentSheet].Selector.Selected.Last = {
           Letter: letter,
           Number: number
-        }
+        };
 
         /** Two selected cell coordinates */
         if (CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First.Letter &&
             CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First.Number &&
             CORE.Sheets[CORE.CurrentSheet].Selector.Selected.Last.Letter &&
             CORE.Sheets[CORE.CurrentSheet].Selector.Selected.Last.Number) {
-          /** Cell was never edited */
-          if (!CORE.Cells.Used[CORE.CurrentSheet][CORE.$.numberToAlpha(letter)]) CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
-          else if (!CORE.Cells.Used[CORE.CurrentSheet][CORE.$.numberToAlpha(letter)][cellName]) CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
-          /** Cell is in edited state */
-          else {
-            CORE.Sheets[CORE.CurrentSheet].cleanEditSelection();
-            CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
-          }
+            /** Cell was never edited */
+            if (!CORE.Cells.Used[CORE.CurrentSheet][compiledLetter] || 
+                 CORE.Cells.Used[CORE.CurrentSheet][compiledLetter][compiledLetter + number] ||
+                !CORE.Cells.Used[CORE.CurrentSheet][compiledLetter][cellName]) {
+                  CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
+                }
+                /** Cell is in edited state */
+                else {
+                  CORE.Sheets[CORE.CurrentSheet].cleanEditSelection();
+                  CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
+                }
         }
 
         /** Clean edited cells only if the current selected cell isn't edited */
@@ -266,6 +265,8 @@
     /** Update mouse position */
     CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMousePosition.x = e.pageX;
     CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMousePosition.y = e.pageY;
+
+    CORE.Sheets[CORE.CurrentSheet].Input.Mouse.startedMouseWipe = true;
 
   };
 

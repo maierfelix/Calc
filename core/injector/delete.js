@@ -114,7 +114,6 @@
     /** Not reversed! */
     for (var ii = 0; ii < customArray.length; ++ii) {
       var value = customArray[ii];
-      console.log(value);
       /** Selection matches the cell, simply delete it */
       if (value.new < selectedCell) {
         delete usedCells[value.letter][value.letter + value.old];
