@@ -152,8 +152,8 @@
 
       /** Row */
       if (masterRows[number].BackgroundColor) {
-        CORE.DOM.ChangeCellBackground.children[0].style.background = masterRows[number].BackgroundColor;
-      } else CORE.DOM.ChangeCellBackground.children[0].style.background = "rgba(50, 50, 50, 0.70)";
+        CORE.DOM.ChangeCellBackground.style.background = masterRows[number].BackgroundColor;
+      } else CORE.DOM.ChangeCellBackground.style.background = "rgba(50, 50, 50, 0.70)";
 
       /** Row */
       if (masterRows[number].Font) {
