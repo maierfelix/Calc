@@ -32,6 +32,7 @@ Master key: *3b011508e1edb8a92daca0c72522b4449aa455c820009ce1b4a838c868d6c4b8*
    - [ ] Backup projects into LocalStorage
    - [ ] Undo, redo stack
    - [x] Multiple sheets
+   - [ ] Delete sheets
    - [ ] Jump to (x, y)
    - [ ] Debug
 
@@ -54,7 +55,10 @@ Master key: *3b011508e1edb8a92daca0c72522b4449aa455c820009ce1b4a838c868d6c4b8*
    - [x] Users
    - [x] Roles
    - [x] Share rooms
-   - [x] Multi-user live editing
+   - [x] Multi-user cell editing
+   - [ ] Multi-user cell styling
+   - [x] Multi-sheet support
+   - [ ] Count users in current sheet
    - [ ] Synchronization
    - [ ] Screen mirroring
 
