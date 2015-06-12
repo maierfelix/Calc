@@ -22,8 +22,7 @@ Master key: *3b011508e1edb8a92daca0c72522b4449aa455c820009ce1b4a838c868d6c4b8*
    - [x] Custom cell styles
    - [ ] Mobile friendly
    - [x] Realtime cells
-   - [x] Insert, delete columns
-   - [x] Insert, delete rows
+   - [x] Insert, delete columns and rows
    - [x] Glossy, outer border selection fields
 
  - [ ] Functionalities
@@ -57,7 +56,9 @@ Master key: *3b011508e1edb8a92daca0c72522b4449aa455c820009ce1b4a838c868d6c4b8*
    - [x] Share rooms
    - [x] Multi-user cell editing
    - [ ] Multi-user cell styling
+   - [ ] Multi-user cell resizing
    - [x] Multi-sheet support
+   - [ ] Delete sheets
    - [ ] Count users in current sheet
    - [ ] Synchronization
    - [ ] Screen mirroring
