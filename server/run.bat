@@ -1,6 +1,6 @@
 @echo off
 
 cd %cd%
-(echo.) & node main.js
+(echo.) & node index.js
 
 pause
