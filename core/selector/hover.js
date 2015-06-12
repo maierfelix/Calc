@@ -42,15 +42,30 @@
       /** Test if selection is in view */
       if (jumps >= 0) {
         if (CORE.DOM.CacheArray[jumps]) {
-          /** If cell has custom background, add transparence to it */
+
+          /** Priority 1: If cell has custom background, add transparence to it */
           if (CORE.Cells.Used[CORE.CurrentSheet][newLetter] &&
               CORE.Cells.Used[CORE.CurrentSheet][newLetter][newLetter + number] &&
               CORE.Cells.Used[CORE.CurrentSheet][newLetter][newLetter + number].BackgroundColor !== null) {
               /** Change background color and add transparency */
-              CORE.DOM.CacheArray[jumps].style.background = CORE.Cells.Used[CORE.CurrentSheet][newLetter][newLetter + number].BackgroundColor.replace(')', ', 0.45)').replace('rgb', 'rgba');
+              CORE.DOM.CacheArray[jumps].style.background = CORE.Cells.Used[CORE.CurrentSheet][newLetter][newLetter + number].BackgroundColor.replace(')', ', 0.55)').replace('rgb', 'rgba');
+
+          /** Priority 2: Column master selection */
+          } else if (CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Columns[newLetter] &&
+                     CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Columns[newLetter].BackgroundColor !== null) {
+            /** Change background color and add transparency */
+            CORE.DOM.CacheArray[jumps].style.background = CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Columns[newLetter].BackgroundColor.replace(')', ', 0.55)').replace('rgb', 'rgba');
+
+          /** Priority 3: Row master selection */
+          } else if (CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Rows[number] &&
+                     CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Rows[number].BackgroundColor !== null) {
+            /** Change background color and add transparency */
+            CORE.DOM.CacheArray[jumps].style.background = CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Rows[number].BackgroundColor.replace(')', ', 0.55)').replace('rgb', 'rgba');
+
           } else {
             CORE.DOM.CacheArray[jumps].classList.add(style);
           }
+
         }
       }
 
@@ -88,9 +103,21 @@
       if (cellName = CORE.DOM.CacheArray[ii].getAttribute("name")) {
         var letter = cellName.match(CORE.REGEX.numbers).join("");
         var number = cellName.match(CORE.REGEX.letters).join("");
-        if (CORE.Cells.Used[CORE.CurrentSheet][letter] && CORE.Cells.Used[CORE.CurrentSheet][letter][letter + number]) {
+
+        /** Priority 1: Cells */
+        if (CORE.Cells.Used[CORE.CurrentSheet][letter] &&
+            CORE.Cells.Used[CORE.CurrentSheet][letter][letter + number]) {
           CORE.DOM.CacheArray[ii].style.background = CORE.Cells.Used[CORE.CurrentSheet][letter][letter + number].BackgroundColor;
+
+        /** Priority 2: Columns */
+        } else if (CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Columns[letter]) {
+          CORE.DOM.CacheArray[ii].style.background = CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Columns[letter].BackgroundColor;
+
+        /** Priority 3: Rows */
+        } else if (CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Rows[number]) {
+          CORE.DOM.CacheArray[ii].style.background = CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Rows[number].BackgroundColor;
         }
+
       }
     }
 

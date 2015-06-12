@@ -108,8 +108,6 @@
           switch (mode) {
             case "insert":
               cellNumber = match + 1;
-              /** Move cells */
-              usedCells[ii][cellLetter + cellNumber] = usedCells[ii][cell];
               break;
             case "delete":
               cellNumber = match - 1;
