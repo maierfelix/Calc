@@ -76,7 +76,7 @@
       { name: "LX_MINUS", rx: /^\-(?!-)/  },
       { name: "LX_MULT",  rx: /^[*]+/     },
       { name: "LX_DIV",   rx: /^[/]+/     },
-      { name: "LX_POW",   rx: /^[^]/      },
+      { name: "LX_POW",   rx: /^[^]/      }
 
     ];
 

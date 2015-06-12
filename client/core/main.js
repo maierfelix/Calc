@@ -35,7 +35,7 @@
     /** Customized cells -> Sheet -> Dictionary[a-Z] -> [a-Z][a-Z+0-9] */
     Used: {},
     /** Live cells */
-    Live: {},
+    Live: {}
   };
 
   /** Currently open sheet */
