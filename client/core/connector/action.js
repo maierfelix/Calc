@@ -61,9 +61,9 @@
   CORE.Connector.prototype.updateScrolling = function(object) {
 
     /** Validate data */
-    if (object.direction && object.amount) {
-      if (typeof object.direction === "string" && typeof object.amount === "number") {
-        this.socket.emit("scrolling", {direction: object.direction, amount: object.amount});
+    if (object.direction && object.amount && object.position >= 0) {
+      if (typeof object.direction === "string" && typeof object.amount === "number" && typeof object.position === "number") {
+        this.socket.emit("scrolling", {direction: object.direction, amount: object.amount, position: object.position});
       }
     }
 
@@ -162,13 +162,13 @@
     if (object && object.sheet === CORE.CurrentSheet) {
       if (object.direction && typeof object.direction === "string") {
         if (["up", "down", "left", "right"].indexOf(object.direction) >= 0) {
-          if (object.amount && typeof object.amount === "number") {
+          if (object.amount && typeof object.amount === "number" && object.position && typeof object.position === "number") {
             /** UP or DOWN */
             if (["up", "down"].indexOf(object.direction) >= 0) {
               /** Up */
               if (object.direction === "up") {
                 /** Dont overscroll top */
-                if (CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY - CORE.Settings.Scroll.Vertical <= 0) {
+                if ((object.position - 1) - CORE.Settings.Scroll.Vertical <= 0) {
                   CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY = 0;
                   CORE.Sheets[CORE.CurrentSheet].Settings.lastScrollY = 0;
                   CORE.Sheets[CORE.CurrentSheet].updateHeight("default", CORE.Settings.Scroll.Vertical);
@@ -178,7 +178,7 @@
 
                 /** Default up scroll */
                 } else {
-                  CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY -= object.amount;
+                  CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY = object.position;
                   CORE.Sheets[CORE.CurrentSheet].Settings.lastScrollY = object.amount;
                   CORE.Sheets[CORE.CurrentSheet].updateHeight(object.direction, object.amount);
 
@@ -189,7 +189,8 @@
               }
               /** Down */
               else if (object.direction === "down") {
-                CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY += object.amount;
+
+                CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY = object.position;
                 CORE.Sheets[CORE.CurrentSheet].Settings.lastScrollY = object.amount;
                 CORE.Sheets[CORE.CurrentSheet].updateHeight(object.direction, object.amount);
 
@@ -220,13 +221,14 @@
   CORE.Connector.prototype.processNewSheet = function(object) {
 
     /** Validate object */
-    if (object.sheet && typeof object.sheet === "string" && object.sheet.length) {
+    if (object.sheet && typeof object.sheet === "string") {
       /** Sheet does not exist here yet */
       if (!CORE.Sheets[object.sheet]) {
         CORE.Sheets[object.sheet] = new CORE.Grid();
         /** Make addition real */
         CORE.Sheets.addSheet(object.sheet);
       }
+      CORE.Sheets.changeSheet(object.sheet);
     }
 
   };

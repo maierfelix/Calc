@@ -1,0 +1,5 @@
+Thumbs.db
+Desktop.ini
+*.bat
+.DS_Store
+server/node_modules

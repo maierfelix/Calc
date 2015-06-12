@@ -230,6 +230,27 @@
   };
 
   /**
+   * Count users in a bucket room
+   * @param {string} name Room name
+   * @method countRoomUsers
+   * @return {number} User count
+   */
+  Bucket.prototype.countRoomUsers = function(name) {
+
+    for (var ii = 0; ii < this.rooms.length; ++ii) {
+      if (this.rooms[ii] && this.rooms[ii].hasOwnProperty("name")) {
+        if (this.rooms[ii].name === name) {
+          if (this.rooms[ii].users.length) return (this.rooms[ii].users.length);
+          return (0);
+        }
+      }
+    }
+
+    return (false);
+
+  };
+
+  /**
    * Get a specific room
    * @param {string} roomName
    * @method getRoom

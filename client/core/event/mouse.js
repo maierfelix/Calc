@@ -375,7 +375,7 @@
 
         /** Share scrolling */
         if (CORE.Connector.connected) {
-          CORE.Connector.action("scrolling", {direction: direction, amount: CORE.Settings.Scroll.Vertical});
+          CORE.Connector.action("scrolling", {direction: direction, amount: CORE.Settings.Scroll.Vertical, position: CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY});
         }
 
         /** Update menu, get new selection */

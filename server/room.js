@@ -134,10 +134,10 @@
 
   /**
    * Check if room is empty
-   * @param {string} name
    * @method isEmpty
+   * @return {boolean}
    */
-  Room.prototype.isEmpty = function(name) {
+  Room.prototype.isEmpty = function() {
 
     if (this.users.length <= 0) return (true);
 
@@ -147,14 +147,26 @@
 
   /**
    * Check if room is full
-   * @param {string} name
    * @method isFull
+   * @return {boolean}
    */
-  Room.prototype.isFull = function(name) {
+  Room.prototype.isFull = function() {
 
     if (this.users.length >= this.userLimit) return (true);
 
     return (false);
+
+  };
+
+  /**
+   * Count users in this room
+   * @method countUsers
+   * @return {number} User count
+   */
+  Room.prototype.countUsers = function() {
+
+    if (this.users.length) return (this.users.length);
+    return (0);
 
   };
 
