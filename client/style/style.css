@@ -4,6 +4,66 @@
 
 body {
   font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
+  -moz-user-select: -moz-none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: default;
+}
+
+body *,
+html * {
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: none
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  -ms-content-zooming: none;
+}
+
+body:not(input):not(select):not(textArea), html:not(input):not(select):not(textArea) {
+  -moz-user-select: -moz-none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: default;
+}
+
+input:not([type=button]):not([type=submit]):not([type=checkbox]):not([type=radio]), select, textArea {
+  border: 1px solid rgba(41, 98, 255, 0.7);
+  border-radius: 1px;
+  background: #fff;
+}
+
+button, input, select, textArea {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0 3px;
+  vertical-align: middle;
+  background: #fff;
+  color: #c7c7c7;
+  height: 20px;
+  line-height: 18px;
+  display: inline-block;
+}
+
+#workspace {
+  overflow: hidden;
+  font: 12px 'Roboto', sans-serif;
+  background: #fff;
+  color: #000;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin-top: 12px;
 }
 
 #container {
@@ -30,7 +90,7 @@ body {
   height: 25px;
   width: 51px;
   left: -1px;
-  top: 100px;
+  top: 0px;
   border-right: none !important;
   z-index: 9;
 }
@@ -77,12 +137,12 @@ body {
   width: 100%;
   height: 100%;
   left: 50px;
-  top: 125px;
+  top: 25px;
 }
 
 .menu_hor {
   position: absolute;
-  top: 100px;
+  top: 0px;
   left: -50px;
   width: 100%;
   height: 25px;
@@ -91,7 +151,7 @@ body {
 
 .menu_ver {
   position: absolute;
-  top: 100px;
+  top: 0px;
   left: 0px;
   width: 50px;
   height: 100%;

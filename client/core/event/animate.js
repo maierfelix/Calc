@@ -29,7 +29,7 @@
       CORE.DOM.Output.classList.add("moveDown");
       CORE.DOM.VerticalMenu.classList.add("moveDown");
       CORE.DOM.Output.style.top = "-25px";
-      CORE.DOM.VerticalMenu.style.top = "75px";
+      CORE.DOM.VerticalMenu.style.top = "-25px";
     }, 1);
 
   };
@@ -48,7 +48,7 @@
     CORE.DOM.Output.classList.remove("moveUp");
     CORE.DOM.VerticalMenu.classList.remove("moveUp");
     CORE.DOM.Output.style.top = "0px";
-    CORE.DOM.VerticalMenu.style.top = "100px";
+    CORE.DOM.VerticalMenu.style.top = "0px";
 
   };
 

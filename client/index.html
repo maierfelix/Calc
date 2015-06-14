@@ -20,14 +20,11 @@
   <link rel="stylesheet" type="text/css" href="style/normalize.css"></link>
   <link rel="stylesheet" type="text/css" href="style/font-awesome.min.css"></link>
   <link rel="stylesheet" type="text/css" href="style/style.css"></link>
-  <link rel="stylesheet" type="text/css" href="style/gravit.css"></link>
-  <link rel="stylesheet" type="text/css" href="style/dialog.css"></link>
-  <link rel="stylesheet" type="text/css" href="style/dialog-dean.css"></link>
   <link rel="stylesheet" type="text/css" href="style/eight-bit-color-picker.css"></link>
   <link rel="stylesheet" type="text/css" href="style/mui/css/mui.css"/>
 	<link rel="stylesheet" type="text/css" href="style/animations.css">
 </head>
-<body class="g-desktop">
+<body>
   <div class="mui-container" style="margin-bottom: -19px;">
     <div class="mui-panel">
         <span class="bottom_layer">
@@ -120,7 +117,7 @@
           </div>
         </div>
 
-      <div class="mui-row input-container" style="padding-left:5px;padding-bottom:15px;">
+      <div class="mui-row input-container" style="padding-left:5px;padding-bottom:0px;">
         <div class="mui-form-group">
           <button class="mui-btn mui-btn-default mui-btn-raised mui-btn-sm cell_formula"></button>
           <input id="cell_input" type="text" class="mui-form-control">
@@ -154,25 +151,23 @@
 
   <div id="workspace">
 
-    <div id="windows" style="margin-top: -100px;">
-      <div>
-        <div id="container" tabindex="0" class="g-cursor-select">
+    <div id="windows">
+      <div id="container" tabindex="0" class="g-cursor-select">
 
-          <!-- Current hovered cell -->
-          <div id="current_cell" class="row default_layer"></div>
+        <!-- Current hovered cell -->
+        <div id="current_cell" class="row default_layer"></div>
 
-          <!-- Horizontal alphabetical menu -->
-          <div id="letter_menu" class="menu_hor"></div>
+        <!-- Horizontal alphabetical menu -->
+        <div id="letter_menu" class="menu_hor"></div>
 
-          <!-- Vertical numeric menu -->
-          <div id="number_menu" class="menu_ver"></div>
+        <!-- Vertical numeric menu -->
+        <div id="number_menu" class="menu_ver"></div>
 
-          <div class="body_container">
-            <!-- Cell Grid -->
-            <div id="output" class="viewport" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></div>
-          </div>
-
+        <div class="body_container">
+          <!-- Cell Grid -->
+          <div id="output" class="viewport" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></div>
         </div>
+
       </div>
     </div>
 
