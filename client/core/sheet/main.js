@@ -151,6 +151,8 @@
               }
               lastSheet = ii;
             }
+            /** Refresh everything */
+            CORE.Event.resize();
           /** Sheet to be deleted isnt active */
           } else {
             delete CORE.Sheets[name];
