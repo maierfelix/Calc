@@ -32,7 +32,8 @@ Master key: *3b011508e1edb8a92daca0c72522b4449aa455c820009ce1b4a838c868d6c4b8*
    - [ ] Undo, redo stack
    - [x] Multiple sheets
    - [x] Delete sheets
-   - [ ] System speed optimization
+   - [x] System speed optimization
+   - [ ] Formula / Cell content extending
    - [ ] Jump to (x, y)
    - [ ] Debug
 
