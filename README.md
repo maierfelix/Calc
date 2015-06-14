@@ -31,7 +31,8 @@ Master key: *3b011508e1edb8a92daca0c72522b4449aa455c820009ce1b4a838c868d6c4b8*
    - [ ] Backup projects into LocalStorage
    - [ ] Undo, redo stack
    - [x] Multiple sheets
-   - [ ] Delete sheets
+   - [x] Delete sheets
+   - [ ] System speed optimization
    - [ ] Jump to (x, y)
    - [ ] Debug
 
@@ -67,7 +68,6 @@ Master key: *3b011508e1edb8a92daca0c72522b4449aa455c820009ce1b4a838c868d6c4b8*
 - [ ] Pow support: Math.pow => (2^2)^2, LX_POW
 
 ## Bugs:
-- [ ] Reversed selection doesnt work properly
 - [ ] Deep formula variable reference execution
 - [ ] Key scrolling
 
