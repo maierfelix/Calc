@@ -73,7 +73,28 @@
       this.getSelectionByKeyPress(letter, number);
     }
     /** Select the new cell */
-    else this.selectCell(letter, number);
+    else {
+
+      this.select = {
+        Letter: letter,
+        Number: number
+      };
+
+      /** Use first selected cell as parent cell selection */
+      this.Selected.First = {
+        Letter: letter,
+        Number: number
+      };
+
+      /** Update last selected cell */
+      this.Selected.Last = {
+        Letter: letter,
+        Number: number
+      };
+
+      this.getSelection();
+
+    }
 
   };
 

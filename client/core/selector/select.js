@@ -56,14 +56,6 @@
     var first = this.Selected.First,
         last = this.Selected.Last;
 
-    /** No cells selected */
-    if (!this.Selected.First || !this.Selected.Last) {
-      if (this.SelectedCells.length) {
-        first = this.SelectedCells[0];
-        last = this.SelectedCells.length > 1 ? this.SelectedCells[this.SelectedCells.length - 1] : this.SelectedCells[0];
-      }
-    }
-
     /** Convert first selected cell into usable format */
     this.Selected.First.Letter = first.Letter;
     this.Selected.First.Number = first.Number || 1;
@@ -81,9 +73,19 @@
     /** Backup variable to do object inversion */
     var backup = null;
 
+    /** Detect selection modes */
+    var mode = null;
+
     /** Shorter object access */
-    var firstCell = this.Selected.First,
-        lastCell = this.Selected.Last;
+    var firstCell = {
+      Letter: this.Selected.First.Letter,
+      Number: this.Selected.First.Number
+    };
+
+    var lastCell = {
+      Letter: this.Selected.Last.Letter,
+      Number: this.Selected.Last.Number
+    };
 
     /** If width is negative, convert into positive */
     if (width < 0) width = ( ~ width + 1 );
@@ -105,6 +107,18 @@
 
     /** Vertical selection */
     if (width === 0 && height >= 0) {
+
+      mode = "verticalPositive";
+
+      /** Negative vertical selection */
+      if (this.Selected.First.Number > this.Selected.Last.Number) {
+        backup = this.Selected.First.Number;
+        /** Switch real selection */
+        this.Selected.First.Number = this.Selected.Last.Number;
+        this.Selected.Last.Number = backup;
+        mode = "verticalNegative";
+      }
+
       for (var yy = 0; yy < height; ++yy) {
         /** Positive vertical selection */
         if ( ( yy + 1 ) >= firstCell.Number) {
@@ -115,10 +129,12 @@
           this.SelectedCells.push({ letter: firstCell.Letter, number: (yy + 1) });
         }
       }
+
     /** Horizontal selection */
     } else if (width > 0) {
       /** Positive Diagonal horizontal and vertical selection */
       if (firstCell.Number <= lastCell.Number) {
+        mode = "horizontalPositive";
         for (var xx = 0; xx <= width; ++xx) {
           for (var yy = 0; yy < height; ++yy) {
             if ((yy + 1) >= firstCell.Number) {
@@ -131,6 +147,11 @@
 
         /** Inversion START */
         backup = firstCell.Number;
+
+        /** Switch real selection */
+        this.Selected.First.Number = this.Selected.Last.Number;
+        this.Selected.Last.Number = backup;
+
         firstCell.Number = lastCell.Number;
         lastCell.Number = backup;
         /** Inversion END */
@@ -142,12 +163,33 @@
             }
           }
         }
+
+        mode = "horizontalNegative";
+
       }
+
     /** Horizontal negative selection */
     } else if (width < 0) {
-      /** Fix negative y-axis selection */
-      if (firstCell.Number > lastCell.Number) {
-        firstCell.Number = (lastCell.Number - firstCell.Number) + firstCell.Number;
+
+      /** Negative width */
+      if (this.Selected.First.Letter > this.Selected.Last.Letter) {
+        backup = this.Selected.First.Letter;
+
+        /** Switch real selection */
+        this.Selected.First.Letter = this.Selected.Last.Letter;
+        this.Selected.Last.Letter = backup;
+        mode = "horizontalNegativePositive";
+      }
+
+      /** Negative height */
+      if (this.Selected.First.Number > this.Selected.Last.Number) {
+        firstCell.Number = lastCell.Number;
+        backup = this.Selected.First.Number;
+
+        /** Switch real selection */
+        this.Selected.First.Number = this.Selected.Last.Number;
+        this.Selected.Last.Number = backup;
+        mode = "horizontalNegativeNegative";
       }
 
       /** Convert negative width into positive */
@@ -177,8 +219,14 @@
     /** Add selection effect to all selected cells */
     this.addCellHoverEffect();
 
-    /** Update menu items selection */
-    this.menuSelection( (lastCell.Letter - 1), (lastCell.Number - 1));
+    /** Menu selection depends on the mode */
+    if (["verticalPositive", "horizontalPositive", "horizontalNegativePositive"].indexOf(mode) >= 0) {
+      /** Update menu items selection */
+      this.menuSelection( (this.Selected.Last.Letter - 1), (this.Selected.Last.Number - 1));
+    } else if (["verticalNegative", "horizontalNegative", "horizontalNegativeNegative"].indexOf(mode) >= 0) {
+      /** Update menu items selection */
+      this.menuSelection( (this.Selected.First.Letter - 1), (this.Selected.First.Number - 1));
+    }
 
     /** Clean edited cells */
     if (!CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Edit) CORE.Sheets[CORE.CurrentSheet].cleanEditSelection();

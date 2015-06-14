@@ -79,9 +79,6 @@
   /**
    * Delete hover effect for last selected cells
    *
-   * TODO: Only delete hover effect of last seleected cells
-   * But really necessary? Since seems like no performance loss on the current way
-   *
    * @method deleteCellHoverEffect
    * @static
    */
