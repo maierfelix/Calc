@@ -73,9 +73,6 @@
     /** Backup variable to do object inversion */
     var backup = null;
 
-    /** Detect selection modes */
-    var mode = null;
-
     /** Shorter object access */
     var firstCell = {
       Letter: this.Selected.First.Letter,
@@ -108,7 +105,7 @@
     /** Vertical selection */
     if (width === 0 && height >= 0) {
 
-      mode = "verticalPositive";
+      this.selectionMode = "verticalPositive";
 
       /** Negative vertical selection */
       if (this.Selected.First.Number > this.Selected.Last.Number) {
@@ -116,7 +113,7 @@
         /** Switch real selection */
         this.Selected.First.Number = this.Selected.Last.Number;
         this.Selected.Last.Number = backup;
-        mode = "verticalNegative";
+        this.selectionMode = "verticalNegative";
       }
 
       for (var yy = 0; yy < height; ++yy) {
@@ -134,7 +131,7 @@
     } else if (width > 0) {
       /** Positive Diagonal horizontal and vertical selection */
       if (firstCell.Number <= lastCell.Number) {
-        mode = "horizontalPositive";
+        this.selectionMode = "horizontalPositive";
         for (var xx = 0; xx <= width; ++xx) {
           for (var yy = 0; yy < height; ++yy) {
             if ((yy + 1) >= firstCell.Number) {
@@ -164,7 +161,7 @@
           }
         }
 
-        mode = "horizontalNegative";
+        this.selectionMode = "horizontalNegative";
 
       }
 
@@ -178,7 +175,7 @@
         /** Switch real selection */
         this.Selected.First.Letter = this.Selected.Last.Letter;
         this.Selected.Last.Letter = backup;
-        mode = "horizontalNegativePositive";
+        this.selectionMode = "horizontalNegativePositive";
       }
 
       /** Negative height */
@@ -189,7 +186,7 @@
         /** Switch real selection */
         this.Selected.First.Number = this.Selected.Last.Number;
         this.Selected.Last.Number = backup;
-        mode = "horizontalNegativeNegative";
+        this.selectionMode = "horizontalNegativeNegative";
       }
 
       /** Convert negative width into positive */
@@ -219,14 +216,8 @@
     /** Add selection effect to all selected cells */
     this.addCellHoverEffect();
 
-    /** Menu selection depends on the mode */
-    if (["verticalPositive", "horizontalPositive", "horizontalNegativePositive"].indexOf(mode) >= 0) {
-      /** Update menu items selection */
-      this.menuSelection( (this.Selected.Last.Letter - 1), (this.Selected.Last.Number - 1));
-    } else if (["verticalNegative", "horizontalNegative", "horizontalNegativeNegative"].indexOf(mode) >= 0) {
-      /** Update menu items selection */
-      this.menuSelection( (this.Selected.First.Letter - 1), (this.Selected.First.Number - 1));
-    }
+    /** Update menu items selection */
+    this.menuSelection();
 
     /** Clean edited cells */
     if (!CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Edit) CORE.Sheets[CORE.CurrentSheet].cleanEditSelection();

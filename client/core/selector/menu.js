@@ -19,7 +19,20 @@
    * @method updateMenu
    * @static
    */
-  CORE.Selector.prototype.menuSelection = function(x, y) {
+  CORE.Selector.prototype.menuSelection = function() {
+
+    var x = 0;
+    var y = 0;
+
+    if (["verticalPositive", "horizontalPositive", "horizontalNegativePositive"].indexOf(this.selectionMode) >= 0) {
+      /** Update menu items selection */
+      x = this.Selected.Last.Letter - 1;
+      y = this.Selected.Last.Number - 1;
+    } else if (["verticalNegative", "horizontalNegative", "horizontalNegativeNegative"].indexOf(this.selectionMode) >= 0) {
+      /** Update menu items selection */
+      x = this.Selected.First.Letter - 1;
+      y = this.Selected.First.Number - 1;
+    }
 
     x -= CORE.Sheets[CORE.CurrentSheet].Settings.scrolledX;
     y -= CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY;

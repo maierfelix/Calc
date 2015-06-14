@@ -284,6 +284,8 @@
     /** Abort if [STRG] key pressed */
     if (CORE.Sheets[CORE.CurrentSheet].Input.Keyboard.Strg) return void 0;
 
+    var calcDifference = Math.floor(CORE.Sheets[CORE.CurrentSheet].Settings.y * (CORE.SystemSpeed - 0.5));
+
     var direction = 0;
 
     var amount = 0;
@@ -323,8 +325,28 @@
          /** Calculate difference between this and last timestamp */
         var difference = e.timeStamp - CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMouseScroll;
 
+        var selectedCellsLength = CORE.Sheets[CORE.CurrentSheet].Selector.SelectedCells.length;
+
+        /** Large selection slows scrolling, below code fixes that */
+        if (CORE.Sheets[CORE.CurrentSheet].Selector.SelectedCells.length >= 1e3) {
+          /** Only do large scrolling if user presses the mouse */
+          if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Pressed) {
+            CORE.Settings.Scroll.Vertical = calcDifference + (Math.ceil(Math.log(selectedCellsLength + 1) / Math.LN10) * 100);
+          /** Go back to default mouse scroll amount */
+          } else {
+            /** Fast scroll depending on selection length, the larger the selection the greater the fast scroll chance */
+            if (difference / CORE.SystemSpeed <= calcDifference * Math.ceil(Math.log(selectedCellsLength + 1) / Math.LN10) / CORE.SystemSpeed) {
+              CORE.Settings.Scroll.Vertical = Math.floor(amount);
+            /** Large selection, dont care just scroll fast */
+            } else if (selectedCellsLength >= 1e4) {
+              CORE.Settings.Scroll.Vertical = Math.floor(amount);
+            /** Slow scroll */
+            } else {
+              CORE.Settings.Scroll.Vertical = CORE.Settings.Scroll.OriginalVertical;
+            }
+          }
         /** Fast scrolling */
-        if (difference <= 75) {
+        } else if (difference <= 75) {
           CORE.Settings.Scroll.Vertical = Math.floor(amount);
         /** Slow scrolling */
         } else {
@@ -341,7 +363,7 @@
         CORE.Sheets[CORE.CurrentSheet].Settings.lastScrollY = CORE.Settings.Scroll.Vertical;
 
         /** Animate, since slow scrolled */
-        if (difference > 75) {
+        if (difference > 75 || difference > calcDifference * 2) {
           CORE.Event.animateMouseDown();
         }
 
@@ -362,7 +384,7 @@
           CORE.Sheets[CORE.CurrentSheet].updateHeight("up", CORE.Settings.Scroll.Vertical);
 
           /** Animate, since slow scrolled */
-          if (difference > 75) {
+          if (difference > 75 || difference > calcDifference * 2) {
             CORE.Event.animateMouseUp();
           }
 

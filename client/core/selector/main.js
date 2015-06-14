@@ -50,8 +50,11 @@
       Number: 0
     };
 
-    /** Helper variable, to detect if user starts to edit a cell*/
+    /** Helper variable, to detect if user starts to edit a cell */
     this.cellFocusSwitch = false;
+
+    /** Helper to difference between selection modes */
+    this.selectionMode = null;
 
     /** Master selected columns and rows */
     this.masterSelected = {

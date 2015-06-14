@@ -72,6 +72,9 @@
     /** Try to connect */
     if (CORE.Connector.getURL()) CORE.Connector.connect();
 
+    /** Initialize Speed test Plugin */
+    CORE.Speedy = new CORE.Speedy();
+
   };
 
   /**

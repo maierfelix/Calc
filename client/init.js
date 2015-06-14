@@ -44,6 +44,8 @@ Import.scripts = [
   "core/event/mouse.js",
   "core/event/key.js",
   "core/event/sniffer.js",
+  /** Speed tester */
+  "core/speedy/main.js",
   /** Sheet */
   "core/sheet/main.js",
   /** Grid */
@@ -89,16 +91,20 @@ Import.scripts = [
 Import.after = function() {
   ENGEL.init();
   CORE_UI.init();
-  /** Add fade out animation, hide element */
-  document.querySelector("#loader").classList.add("fadeOut");
-  setTimeout( function() { CORE.$.init(); }, 250);
-  setTimeout( function() { document.querySelector("#loader").style.display = "none"; }, 750);
+  CORE.$.init();
+  setTimeout( function() {
+    CORE.Speedy.runTest(function () {
+      /** Add fade out animation, hide element */
+      document.querySelector("#loader").classList.add("fadeOut");
+      setTimeout( function() { document.querySelector("#loader").style.display = "none"; }, 750);
+    });
+  }, 250);
 };
 
 Import.each = function(percent) {
   /** Update percentage in document */
   document.querySelector(".loader-title").innerHTML = percent + "%";
-  if (percent >= 99) document.querySelector(".loader-wrapper").classList.add("fadeOut");
+  //if (percent >= 99) document.querySelector(".loader-wrapper").classList.add("fadeOut");
 };
 
 Import.me();
