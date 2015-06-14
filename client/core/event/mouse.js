@@ -338,7 +338,7 @@
             if (difference / CORE.SystemSpeed <= calcDifference * Math.ceil(Math.log(selectedCellsLength + 1) / Math.LN10) / CORE.SystemSpeed) {
               CORE.Settings.Scroll.Vertical = Math.floor(amount);
             /** Large selection, dont care just scroll fast */
-            } else if (selectedCellsLength >= 1e4) {
+            } else if (selectedCellsLength >= 1e5) {
               CORE.Settings.Scroll.Vertical = Math.floor(amount);
             /** Slow scroll */
             } else {
