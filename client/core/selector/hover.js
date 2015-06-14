@@ -21,11 +21,12 @@
    */
   CORE.Selector.prototype.addCellHoverEffect = function() {
 
-    var letter = 0,
-        number = 0,
-        jumps = 0,
-        newLetter = "",
-        style = this.SelectedCells.length <= 1 ? "single_row_hovered" : "row_hovered";
+    var letter = 0;
+    var number = 0;
+    var jumps = 0;
+    var newLetter = "";
+    var singleCell = this.SelectedCells.length <= 1 ? true : false;
+    var style = singleCell ? "single_row_hovered" : "row_hovered";
 
     /** Add hover effect for all selected cells */
     for (var ii = 0; ii < this.SelectedCells.length; ++ii) {
@@ -66,6 +67,15 @@
             CORE.DOM.CacheArray[jumps].classList.add(style);
           }
 
+          if (singleCell) {
+            CORE.DOM.CacheArray[jumps].appendChild(CORE.Extender.extendButton());
+          } else {
+            /** Add extender button to last selected cell */
+            if (ii + 1 === this.SelectedCells.length) {
+              CORE.DOM.CacheArray[jumps].appendChild(CORE.Extender.extendButton());
+            }
+          }
+
         }
       }
 
@@ -87,15 +97,30 @@
     /** No cells found */
     if (!this.SelectedCells.length) return void 0;
 
-    var letter = 0,
-        number = 0,
-        jumps = 0,
-        cellName = "",
-        style = this.SelectedCells.length <= 1 ? "single_row_hovered" : "row_hovered";
+    var letter = 0;
+    var number = 0;
+    var jumps = 0;
+    var cellName = "";
+    var singleCell = this.SelectedCells.length <= 1 ? true : false;
+    var style = singleCell ? "single_row_hovered" : "row_hovered";
 
     /** Delete hover effect for all selected cells */
     for (var ii = 0; ii < CORE.DOM.CacheArray.length; ++ii) {
+
+      /** Remove outer selection borders */
       CORE.DOM.CacheArray[ii].classList.remove(style, "border_top", "border_bottom", "border_left", "border_right");
+
+      if (singleCell) {
+        if (CORE.DOM.CacheArray[ii].children[0]) {
+          CORE.DOM.CacheArray[ii].removeChild(CORE.DOM.CacheArray[ii].children[0]);
+        }
+      }
+
+      /** Remove extender button */
+      if (CORE.DOM.CacheArray[ii].children[0]) {
+        CORE.DOM.CacheArray[ii].removeChild(CORE.DOM.CacheArray[ii].children[0]);
+      }
+
       /** Reset background color if customized cell was in selection */
       if (cellName = CORE.DOM.CacheArray[ii].getAttribute("name")) {
         var letter = cellName.match(CORE.REGEX.numbers).join("");

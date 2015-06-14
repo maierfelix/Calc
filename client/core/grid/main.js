@@ -114,6 +114,8 @@
         CellResize: false,
         /** User edits a cell */
         Edit: false,
+        /** User extends a selection */
+        Extend: false,
         /** User edits a live cell url */
         LiveCellEdit: false,
         /** Save last mouse click to identify single and double clicks */

@@ -186,6 +186,14 @@
   
     CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Pressed = false;
 
+    /** Abort extending */
+    if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Extend) {
+      CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Extend = false;
+      /** Redraw the grid, since edits were made */
+      CORE.Sheets[CORE.CurrentSheet].updateWidth("default");
+      CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
+    }
+
     /** User resized something */
     if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.CellResize) {
       CORE.Sheets[CORE.CurrentSheet].updateWidth();
@@ -259,6 +267,8 @@
         }
 
       }
+
+      if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Extend) CORE.Extender.extend();
 
     }
 

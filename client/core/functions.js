@@ -45,6 +45,9 @@
     /** Initialize Sheet Plugin */
     CORE.Sheets = new CORE.Sheets();
 
+    /** Initialize Extender Plugin */
+    CORE.Extender = new CORE.Extender();
+
     /** Add a new first sheet */
     CORE.Sheets.addSheet();
 
