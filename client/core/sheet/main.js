@@ -31,10 +31,18 @@
    */
   CORE.Sheets.prototype.addSheet = function() {
 
-    var newSheetNumber = 0;
+    /** Increase sheet count */
+    CORE.SheetCount++;
 
-    if (CORE.Sheets) {
-      newSheetNumber = Object.keys(CORE.Sheets).length + 1;
+    var newSheetNumber = CORE.SheetCount;
+
+    if (Object.keys(CORE.Sheets).length) {
+      /** Already exists */
+      if (CORE.Sheets["Sheet" + newSheetNumber]) {
+        while (newSheetNumber++) {
+          if (!CORE.Sheets["Sheet" + newSheetNumber] && newSheetNumber > CORE.SheetCount) break;
+        }
+      }
     /** No sheets created yet */
     } else newSheetNumber = 1;
 
@@ -58,17 +66,32 @@
         button.setAttribute("name", CORE.CurrentSheet);
         button.innerHTML = CORE.CurrentSheet;
 
+    var closeButton = document.createElement("button");
+        closeButton.className = "mui-btn mui-btn-floating mui-btn-floating-mini";
+        closeButton.innerHTML = "-";
+        closeButton.className = "closeButton";
+
+    button.appendChild(closeButton);
+
     /** Change sheet on click */
     button.addEventListener('click', function(e) {
       var name = e.target.getAttribute("name");
-      CORE.Sheets.changeSheet(name);
-      CORE.Event.resize();
-      CORE.DOM.Output.classList.add("fadeIn");
-      /** Highlight active sheet */
-      CORE.Sheets.setActiveSheet(name);
-      setTimeout(function() {
-        CORE.DOM.Output.classList.remove("fadeIn");
-      }, 275);
+      if (name && name.length) {
+        CORE.Sheets.changeSheet(name);
+        CORE.Event.resize();
+        CORE.DOM.Output.classList.add("fadeIn");
+        /** Highlight active sheet */
+        CORE.Sheets.setActiveSheet(name);
+        setTimeout(function() {
+          CORE.DOM.Output.classList.remove("fadeIn");
+        }, 275);
+      /** Close button pressed ? */
+      } else {
+        /** Delete button pressed, try to delete the sheet */
+        if (name = e.target.parentNode.getAttribute("name")) {
+          CORE.Sheets.deleteSheet(name);
+        }
+      }
     });
 
     /** Insert into the dom */
@@ -88,6 +111,58 @@
     setTimeout(function() {
       CORE.DOM.Output.classList.remove("pullDown");
     }, 275);
+
+  };
+
+  /**
+   * Delete a sheet
+   *
+   * @method deleteSheet
+   * @static
+   */
+  CORE.Sheets.prototype.deleteSheet = function(name) {
+
+    /** Sheet exists? */
+    if (CORE.Sheets[name]) {
+      /** Are there other sheets, since we need at least 1 open and active sheet */
+      if (Object.keys(CORE.Sheets).length > 1) {
+        /** User has to submit */
+        var submit = confirm("Do you really want to delete " + name + "?");
+        if (submit) {
+          /** Delete the current opened sheet */
+          if (name === CORE.CurrentSheet) {
+            var lastSheet = undefined;
+            /** First switch to another sheet */
+            for (var ii in CORE.Sheets) {
+              /** Found the current sheet */
+              if (ii === name) {
+                /** Not the first sheet deleted */
+                if (lastSheet) {
+                  this.changeSheet(lastSheet);
+                  delete CORE.Sheets[name];
+                  this.setActiveSheet(lastSheet);
+                /** First sheet has to be deleted */
+                } else {
+                  delete CORE.Sheets[ii];
+                  var newSheet = Object.keys(CORE.Sheets)[0];
+                  this.changeSheet(newSheet);
+                  this.setActiveSheet(ii);
+                }
+              }
+              lastSheet = ii;
+            }
+          /** Sheet to be deleted isnt active */
+          } else {
+            delete CORE.Sheets[name];
+            this.setActiveSheet(CORE.CurrentSheet);
+          }
+          /** Send sheet deletion to server */
+          if (CORE.Connector.connected) {
+            CORE.Connector.action("deleteSheet", {sheet: name});
+          }
+        }
+      }
+    }
 
   };
 
@@ -116,9 +191,16 @@
    */
   CORE.Sheets.prototype.setActiveSheet = function(name) {
 
+    var attribute = null;
+
     for (var ii = 0; ii < CORE.DOM.Sheets.children.length; ++ii) {
       CORE.DOM.Sheets.children[ii].classList.remove("activeSheet");
-      if (CORE.DOM.Sheets.children[ii].getAttribute("name") === name) {
+      attribute = CORE.DOM.Sheets.children[ii].getAttribute("name");
+      /** Clean old sheet buttons */
+      if (!CORE.Sheets[attribute]) {
+        CORE.DOM.Sheets.children[ii].parentNode.removeChild(CORE.DOM.Sheets.children[ii]);
+      }
+      if (attribute === name) {
         CORE.DOM.Sheets.children[ii].classList.add("activeSheet");
       }
     }

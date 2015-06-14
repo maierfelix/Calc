@@ -41,6 +41,9 @@
   /** Currently open sheet */
   CORE.CurrentSheet = "Sheet1";
 
+  /** Amount of created sheets */
+  CORE.SheetCount = 0;
+
   /** Mobile detection */
   CORE.Settings.Mobile = false;
 
