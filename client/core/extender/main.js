@@ -41,35 +41,54 @@
     var Cells = [];
 
     /** Save values of cells here */
-    var extendStack = [];
+    var extendStack = {};
 
     /** Extend mode */
     var mode = null;
 
+    var Columns = {};
+
     /** Go through all selected cells */
     for (var ii = 0; ii < SelectedCells.length; ++ii) {
+
       var letter = CORE.$.numberToAlpha(SelectedCells[ii].letter);
       var number = SelectedCells[ii].number;
+
+      /** Direct cell pointer */
       var cell = CORE.Cells.Used[CORE.CurrentSheet][letter];
+
+      /** Column doesnt exist yet */
+      if (!Columns[letter]) Columns[letter] = {
+        array: [],
+        mode: null
+      };
+
+      /** Extend stack column doesnt exist yet */
+      if (!extendStack[letter]) extendStack[letter] = [];
+
+      /** Cell has content */
       if (cell && cell[letter + number]) {
         cell = cell[letter + number];
         if (cell.Content !== undefined && cell.Content !== null) {
-          if (mode === null) {
+          if (Columns[letter].mode === null) {
             /** Its a number */
-            if (!isNaN(cell.Content)) mode = "numeric";
-            else mode = "alphabetical";
+            if (!isNaN(cell.Content)) Columns[letter].mode = "numeric";
+            else Columns[letter].mode = "string";
           }
-          extendStack.push(cell.Content);
+          /** Only push 2 values */
+          if (extendStack[letter].length < 2) {
+            extendStack[letter].push(cell.Content);
+          }
         }
         /** Get the cells content */
-        Cells.push({
+        Columns[letter].array.push({
           letter: SelectedCells[ii].letter,
           number: SelectedCells[ii].number,
           value: cell.Content
         });
       /** Empty cell */
       } else {
-        Cells.push({
+        Columns[letter].array.push({
           letter: SelectedCells[ii].letter,
           number: SelectedCells[ii].number,
           value: null
@@ -78,9 +97,16 @@
     }
 
     /** Abort if nothing to extend */
-    if (!Cells.length) return void 0;
+    if (!Object.keys(Columns).length) return void 0;
 
-    if (mode === "numeric") this.extendNumbers(Cells, extendStack);
+    /** Extend numbers */
+    for (var ii in Columns) {
+      if (extendStack[ii]) {
+        if (Columns[ii].mode === "numeric") {
+          this.extendNumbers(Columns[ii].array, extendStack[ii]);
+        }
+      }
+    }
 
   };
 
@@ -104,35 +130,6 @@
       });
 
     return (extendButton);
-
-  };
-
-  /**
-   * Extend numbers
-   *
-   * @method extendNumbers
-   * @static
-   */
-  CORE.Extender.prototype.extendNumbers = function(Cells, extendStack) {
-
-    /** Short syntax */
-    var SelectedCells = CORE.Sheets[CORE.CurrentSheet].Selector.SelectedCells;
-
-    var startNumber = 0;
-
-    for (var ii = 0; ii < SelectedCells.length; ++ii) {
-      if (extendStack[ii] !== undefined && extendStack[ii] !== null) startNumber = parseInt(extendStack[ii]);
-      else if (extendStack[ii] === undefined || extendStack[ii] === null) {
-        startNumber++;
-        extendStack[ii] = startNumber;
-      }
-    }
-
-    for (var ii = 0; ii < Cells.length; ++ii) {
-      Cells[ii].value = parseInt(extendStack[ii]);
-    }
-
-    this.updateCells(Cells);
 
   };
 
