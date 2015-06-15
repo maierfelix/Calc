@@ -41,6 +41,9 @@
   /** Currently open sheet */
   CORE.CurrentSheet = "Sheet1";
 
+  /** System speed grade */
+  CORE.SystemSpeed = 1;
+
   /** Amount of created sheets */
   CORE.SheetCount = 0;
 

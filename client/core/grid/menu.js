@@ -206,7 +206,7 @@
           self.mouseScrollDirection.oldX = e.pageX;
 
           if ((x + y) >= - 35) {
-            e.target.style.cursor = "e-resize";
+            e.target.style.cursor = "col-resize";
             if (e.target.getAttribute("clicked") === "1") {
 
               var name = e.target.innerHTML;
@@ -309,7 +309,7 @@
           self.mouseScrollDirection.oldY = e.pageY;
 
           if ((x + y) >= - 35) {
-            e.target.style.cursor = "n-resize";
+            e.target.style.cursor = "row-resize";
             if (e.target.getAttribute("clicked") === "1") {
 
               var name = e.target.innerHTML;

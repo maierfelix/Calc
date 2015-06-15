@@ -31,10 +31,16 @@
    */
   CORE.Speedy.prototype.runTest = function(callback) {
 
+    /** Dont performe test on mobile devices */
+    if (CORE.Settings.Mobile) {
+      callback(1);
+      return void 0;
+    }
+
     /** Performance test already performed */
     if (localStorage.SystemSpeed) {
       CORE.SystemSpeed = ~~(localStorage.SystemSpeed);
-      callback();
+      callback(1);
       return void 0;
     }
 
@@ -87,6 +93,6 @@
 
     CORE.SystemSpeed = result;
 
-    callback();
+    callback(1);
 
   };

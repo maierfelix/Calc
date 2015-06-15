@@ -207,15 +207,16 @@
 
     if (!window.mui) return void 0;
 
-    var modalEl = document.createElement('div');
-        modalEl.style.width = '400px';
-        modalEl.style.height = '300px';
-        modalEl.style.margin = '100px auto';
-        modalEl.style.backgroundColor = '#fff';
-        modalEl.innerHTML = '<form> <legend>Title</legend> <div class="mui-form-group"> <input type="text" class="mui-form-control" required> <label class="mui-form-floating-label">Required Text Field</label> </div><div class="mui-form-group"> <input type="email" class="mui-form-control" required> <label class="mui-form-floating-label">Required Email Address</label> </div><div class="mui-form-group"> <textarea class="mui-form-control" required></textarea> <label class="mui-form-floating-label">Required Textarea</label> </div><div class="mui-form-group"> <input type="email" class="mui-form-control" value="Validation error"> <label class="mui-form-floating-label">Email Address</label> </div><button type="submit" class="mui-btn mui-btn-default mui-btn-raised">Submit</button></form>';
+    /** Css class helper */
+    var muiButton = "mui-btn mui-btn-primary mui-btn-lg alertButton";
 
-    // show modal
-    mui.overlay('on', modalEl);
+    /** The modal content */
+    var title = "<h3 class='modalTitle'>Initialize Connection</h3>";
+    var buttons = "<button class='"+muiButton+" alertOk' name='ok'>Ok</button><button class='"+muiButton+" alertAbort' name='abort'>Abort</button>";
+
+    CORE_UI.Modal(title, buttons, function(submit) {
+      console.log(submit);
+    });
 
   };
 

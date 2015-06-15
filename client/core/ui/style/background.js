@@ -18,11 +18,9 @@
 
     /** Initialize color picker */
     var pickers = document.querySelector("#background_colorpicker");
+    var picker = new EightBitColorPicker({el: pickers});
 
-    var colorpicker = new EightBitColorPicker({ el: pickers });
-
-    /** Initialize cell background change menu */
-    CORE.DOM.ChangeCellBackground.addEventListener('click', function(e) {
+    var _changeBackgroundColor = function(color) {
 
       var selectSheet = CORE.Sheets[CORE.CurrentSheet].Selector;
 
@@ -36,7 +34,7 @@
       if (masterCell.Current && masterCell.Current !== null) {
         masterCell = masterCell.Columns[masterCell.Current] || masterCell.Rows[masterCell.Current];
         /** Check if master cell exists */
-        if (masterCell) masterCell.BackgroundColor = pickers.children[0].style.background;
+        if (masterCell) masterCell.BackgroundColor = color;
       }
 
       /** Validate all selected cells */
@@ -52,14 +50,28 @@
         var letter = CORE.$.numberToAlpha(selectSheet.SelectedCells[ii].letter);
         var name = letter + selectSheet.SelectedCells[ii].number;
         /** Update the cell background color */
-        CORE.Cells.Used[CORE.CurrentSheet][letter][name].BackgroundColor = pickers.children[0].style.background;
+        CORE.Cells.Used[CORE.CurrentSheet][letter][name].BackgroundColor = color;
         /** Immediately update cells background color */
         var jumps = CORE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
-        if (jumps >= 0) CORE.DOM.Output.children[jumps].style.background = pickers.children[0].style.background;
+        if (jumps >= 0) CORE.DOM.Output.children[jumps].style.background = color;
       }
 
       /** Dont loose the selection */
       selectSheet.getSelection();
+
+    };
+
+    /** Apply color change */
+    picker.addEventListener('colorChange', function(e) {
+      _changeBackgroundColor(CORE.$.hexToRgba(e.detail.picker.getHexColor()));
+    });
+
+    /** Initialize cell background change menu */
+    CORE.DOM.ChangeCellBackground.addEventListener('click', function(e) {
+
+      /** Display the color picker */
+      pickers.style.display = "block";
+      picker.show();
 
     });
 

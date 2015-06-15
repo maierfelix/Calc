@@ -366,3 +366,27 @@
     return (string.match(CORE.REGEX.variable));
 
   };
+
+  /**
+   * Convert hex to rgba
+   *
+   * Taken from: http://stackoverflow.com/a/12342275
+   *
+   * @method hexToRgba
+   * @static
+   */
+  CORE.$.hexToRgba = function(hex) {
+
+    var h = hex.replace('#', '');
+
+    h = h.match(new RegExp('(.{'+h.length/3+'})', 'g'));
+
+    for (var ii = 0; ii < h.length; ii++) {
+      h[ii] = parseInt(h[ii].length==1? h[ii]+h[ii]:h[ii], 16);
+    }
+
+    if (typeof opacity != 'undefined')  h.push(opacity);
+
+    return ('rgb('+h.join(',')+')');
+
+  };

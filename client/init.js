@@ -27,6 +27,7 @@ Import.scripts = [
   "core/ui/menu.js",
   "core/ui/action.js",
   "core/ui/settings.js",
+  "core/ui/modal.js",
   /** Menu cell styling */
   "core/ui/style/border.js",
   "core/ui/style/font.js",
@@ -94,19 +95,17 @@ Import.after = function() {
   ENGEL.init();
   CORE_UI.init();
   CORE.$.init();
-  setTimeout( function() {
-    CORE.Speedy.runTest(function () {
-      /** Add fade out animation, hide element */
-      document.querySelector("#loader").classList.add("fadeOut");
-      setTimeout( function() { document.querySelector("#loader").style.display = "none"; }, 750);
-    });
-  }, 250);
+  CORE.Speedy.runTest(function () {
+    /** Add fade out animation, hide element */
+    document.querySelector("#loader").classList.add("fadeOut");
+    setTimeout( function() { document.querySelector("#loader").style.display = "none"; }, 750);
+  });
 };
 
 Import.each = function(percent) {
   /** Update percentage in document */
   document.querySelector(".loader-title").innerHTML = percent + "%";
-  //if (percent >= 99) document.querySelector(".loader-wrapper").classList.add("fadeOut");
+  if (percent >= 99) document.querySelector(".loader-wrapper").classList.add("fadeOut");
 };
 
 Import.me();

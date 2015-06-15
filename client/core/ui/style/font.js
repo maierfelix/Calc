@@ -19,7 +19,12 @@
     /** Initialize color picker */
     var pickers = document.querySelector("#font_colorpicker");
 
-    var colorpicker = new EightBitColorPicker({ el: pickers });
+    var picker = new EightBitColorPicker({ el: pickers });
+
+    /** Apply color change */
+    picker.addEventListener('colorChange', function(e) {
+      _changeFontColor(CORE.$.hexToRgba(e.detail.picker.getHexColor()));
+    });
 
     /** Initialize font change menu */
     CORE.DOM.ChangeFont.addEventListener('change', function(e) {
@@ -276,26 +281,14 @@
 
     });
 
-    /** Initialize font color menu */
-    CORE.DOM.ChangeFontColor.addEventListener('click', function(e) {
+    var _changeFontColor = function(color) {
 
       var element = CORE.DOM.ChangeFontColor;
       var jumps = 0;
       var selectSheet = CORE.Sheets[CORE.CurrentSheet].Selector;
 
-      /** Display menu switch */
-      if (element.parentNode.children[1]) {
-
-        if (element.parentNode.children[1].getAttribute("hide") === "true") {
-          element.parentNode.children[1].setAttribute("hide", "false");
-          colorpicker.show();
-        }
-        else if (element.parentNode.children[1].getAttribute("hide") === "false") {
-          element.parentNode.children[1].setAttribute("hide", "true");
-          colorpicker.hide();
-        }
-
-      }
+      pickers.style.display = "block";
+      picker.show();
 
       /** Shorter syntax */
       var masterCell = selectSheet.masterSelected;
@@ -329,6 +322,20 @@
 
       /** Dont loose the selection */
       selectSheet.getSelection();
+
+    };
+
+    /** Apply color change */
+    picker.addEventListener('colorChange', function(e) {
+      _changeFontColor(CORE.$.hexToRgba(e.detail.picker.getHexColor()));
+    });
+
+    /** Initialize font color menu */
+    CORE.DOM.ChangeFontColor.addEventListener('click', function(e) {
+
+      /** Display the color picker */
+      pickers.style.display = "block";
+      picker.show();
 
     });
 

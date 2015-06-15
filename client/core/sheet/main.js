@@ -122,47 +122,59 @@
    */
   CORE.Sheets.prototype.deleteSheet = function(name) {
 
+    var self = this;
+
     /** Sheet exists? */
     if (CORE.Sheets[name]) {
       /** Are there other sheets, since we need at least 1 open and active sheet */
       if (Object.keys(CORE.Sheets).length > 1) {
-        /** User has to submit */
-        var submit = confirm("Do you really want to delete " + name + "?");
-        if (submit) {
-          /** Delete the current opened sheet */
-          if (name === CORE.CurrentSheet) {
-            var lastSheet = undefined;
-            /** First switch to another sheet */
-            for (var ii in CORE.Sheets) {
-              /** Found the current sheet */
-              if (ii === name) {
-                /** Not the first sheet deleted */
-                if (lastSheet) {
-                  this.changeSheet(lastSheet);
-                  delete CORE.Sheets[name];
-                  this.setActiveSheet(lastSheet);
-                /** First sheet has to be deleted */
-                } else {
-                  delete CORE.Sheets[ii];
-                  var newSheet = Object.keys(CORE.Sheets)[0];
-                  this.changeSheet(newSheet);
-                  this.setActiveSheet(ii);
+
+        /** Css class helper */
+        var muiButton = "mui-btn mui-btn-primary mui-btn-lg alertButton";
+
+        /** The modal content */
+        var title = "<h3 class='modalTitle'>Do you really want to delete " + name + "?</h3>";
+        var buttons = "<button class='"+muiButton+" alertOk' name='ok'>Ok</button><button class='"+muiButton+" alertAbort' name='abort'>Abort</button>";
+
+        CORE_UI.Modal(title, buttons, function(submit) {
+          /** User has to submit */
+          if (submit === "ok") {
+            /** Delete the current opened sheet */
+            if (name === CORE.CurrentSheet) {
+              var lastSheet = undefined;
+              /** First switch to another sheet */
+              for (var ii in CORE.Sheets) {
+                /** Found the current sheet */
+                if (ii === name) {
+                  /** Not the first sheet deleted */
+                  if (lastSheet) {
+                    self.changeSheet(lastSheet);
+                    delete CORE.Sheets[name];
+                    self.setActiveSheet(lastSheet);
+                  /** First sheet has to be deleted */
+                  } else {
+                    delete CORE.Sheets[ii];
+                    var newSheet = Object.keys(CORE.Sheets)[0];
+                    self.changeSheet(newSheet);
+                    self.setActiveSheet(ii);
+                  }
                 }
+                lastSheet = ii;
               }
-              lastSheet = ii;
+              /** Refresh everything */
+              CORE.Event.resize();
+            /** Sheet to be deleted isnt active */
+            } else {
+              delete CORE.Sheets[name];
+              self.setActiveSheet(CORE.CurrentSheet);
             }
-            /** Refresh everything */
-            CORE.Event.resize();
-          /** Sheet to be deleted isnt active */
-          } else {
-            delete CORE.Sheets[name];
-            this.setActiveSheet(CORE.CurrentSheet);
+            /** Send sheet deletion to server */
+            if (CORE.Connector.connected) {
+              CORE.Connector.action("deleteSheet", {sheet: name});
+            }
           }
-          /** Send sheet deletion to server */
-          if (CORE.Connector.connected) {
-            CORE.Connector.action("deleteSheet", {sheet: name});
-          }
-        }
+        });
+
       }
     }
 

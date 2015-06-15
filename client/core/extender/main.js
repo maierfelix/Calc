@@ -99,6 +99,9 @@
       extendButton.addEventListener('mousedown', function() {
         self.extend();
       });
+      extendButton.addEventListener('mousemove', function(e) {
+        e.target.style.cursor = "crosshair";
+      });
 
     return (extendButton);
 

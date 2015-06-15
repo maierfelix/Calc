@@ -803,6 +803,13 @@ button, input, select, textArea {
   box-shadow: 0px 0px 8px rgba(0,0,0,0.5);
 }
 
+.activeSheet:hover {
+  background-color: rgba(33, 150, 243, 1) !important;
+  -webkit-box-shadow: 0px 0px 8px rgba(0,0,0,0.65) !important;
+  -moz-box-shadow: 0px 0px 8px rgba(0,0,0,0.65) !important;
+  box-shadow: 0px 0px 8px rgba(0,0,0,0.65) !important;
+}
+
 @-webkit-keyframes pulsate {
   0% {
     -webkit-transform: scale(0.5, 0.5);
@@ -874,4 +881,110 @@ button, input, select, textArea {
   height: 6px;
   background-color: rgba(41, 121, 255, 1);
   color: #fff !important;
+}
+
+.modal {
+  background-color: rgb(255, 255, 255);
+  width: 75%;
+  min-height: 50%;
+  position: absolute;
+  top: -webkit-calc(50% - 35%);
+  left: -webkit-calc(50% - 37%);
+  top: -moz-calc(50% - 35%);
+  left: -moz-calc(50% - 37%);
+  top: calc(50% - 35%);
+  left: calc(50% - 37%);
+  transition: 0.5s left,0.5s top, 0.5s width, 0.5s height, 0.5s opacity;
+  overflow: hidden;
+  outline: 0;
+  z-index: 40;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  box-shadow: 0 1px 30px rgba(0,0,0,.5);
+  height: 50px;
+}
+
+.modal>p {
+  padding-left: 10px;
+  margin: 24px 0;
+  font-size: 18px;
+  line-height: 25px;
+  color: inherit;
+  font-family: Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;
+  font-weight: 500;
+}
+
+.modal>h3 {
+  font-family: "RobotoDraft","Roboto",sans-serif !important;
+  font-size: 22px !important;
+  font-weight: 600 !important;
+  padding-left: 10px;
+  margin: 24px 0;
+  background-color: rgba(68, 138, 255, 1);
+  color: #fff;
+}
+
+.alertButton {
+  position: absolute !important;
+  margin: 11px 11px;
+}
+
+.alertOk {
+  bottom: 5px;
+  left: 0px;
+}
+
+.alertAbort {
+  bottom: 5px;
+  right: 0px;
+}
+
+.modalTitle {
+  height: 75px;
+  width: 75%;
+  margin-top: -1px !important;
+  position: absolute;
+  z-index: 999;
+  font-family: "RobotoDraft","Roboto",sans-serif !important;
+  font-size: 22px !important;
+  font-weight: 600 !important;
+  padding-left: 10px;
+  padding-top: 20px;
+  text-align: center;
+  margin: 24px 0;
+  background-color: rgba(68, 138, 255, 1);
+  color: #fff;
+  top: -webkit-calc(50% - 35%);
+  left: -webkit-calc(50% - 37%);
+  top: -moz-calc(50% - 35%);
+  left: -moz-calc(50% - 37%);
+  top: calc(50% - 35%);
+  left: calc(50% - 37%);
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+#background_colorpicker, #font_colorpicker {
+  position: fixed;
+  top: 25%;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 99999999;
+  overflow: auto;
+  background-color: rgba(0,0,0,0);
+  width: 100%;
+  min-width: 205px;
+  position: fixed;
+  margin-left: auto;
+  margin-right: auto;
+  transition: 0.5s left,0.5s top, 0.5s width, 0.5s height, 0.5s opacity;
+  overflow: hidden;
+  outline: 0;
+  z-index: 40;
+  height: 210px;
+}
+
+.ebcp-text-container, .ebcp-preview-values {
+  display: none !important;
 }
