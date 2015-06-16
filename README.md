@@ -25,6 +25,7 @@ Master key: *3b011508e1edb8a92daca0c72522b4449aa455c820009ce1b4a838c868d6c4b8*
    - [x] Insert, delete columns and rows
    - [x] Glossy, outer border selection fields
    - [ ] Formula / Cell content extending (horizontal, vertical)
+   - [ ] Copy / Paste / Delete cells
 
  - [ ] Functionalities
    - [x] Export projects
@@ -71,6 +72,8 @@ Master key: *3b011508e1edb8a92daca0c72522b4449aa455c820009ce1b4a838c868d6c4b8*
 ## Bugs:
 - [ ] Deep formula variable reference execution
 - [ ] Key scrolling
+- [ ] Reversed selection extetending doesnt work
+- [ ] Reversed selection resize ghost switch bug
 
 ## Notes:
 - [ ] Possibly include server-side cell calculation option
