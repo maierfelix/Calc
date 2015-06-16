@@ -150,10 +150,12 @@
                   if (lastSheet) {
                     self.changeSheet(lastSheet);
                     delete CORE.Sheets[name];
+                    delete CORE.Cells.Used[name];
                     self.setActiveSheet(lastSheet);
                   /** First sheet has to be deleted */
                   } else {
                     delete CORE.Sheets[ii];
+                    delete CORE.Cells.Used[ii];
                     var newSheet = Object.keys(CORE.Sheets)[0];
                     self.changeSheet(newSheet);
                     self.setActiveSheet(ii);
@@ -166,6 +168,7 @@
             /** Sheet to be deleted isnt active */
             } else {
               delete CORE.Sheets[name];
+              delete CORE.Cells.Used[name];
               self.setActiveSheet(CORE.CurrentSheet);
             }
             /** Send sheet deletion to server */
