@@ -50,6 +50,7 @@
               CORE.Cells.Used[CORE.CurrentSheet][newLetter][newLetter + number].BackgroundColor !== null) {
               /** Change background color and add transparency */
               CORE.DOM.CacheArray[jumps].style.background = CORE.Cells.Used[CORE.CurrentSheet][newLetter][newLetter + number].BackgroundColor.replace(')', ', 0.55)').replace('rgb', 'rgba');
+              if (this.SelectedCells.length === 1) CORE.DOM.CacheArray[jumps].classList.add(style);
 
           /** Priority 2: Column master selection */
           } else if (CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Columns[newLetter] &&
