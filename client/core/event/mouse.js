@@ -212,9 +212,27 @@
    */
   CORE.Event.mouseWipe = function (e) {
 
+    var currentSheet = CORE.Sheets[CORE.CurrentSheet];
+
     /** Dont execute mousemove event multiple times if position did not changed */
     if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMousePosition.x === e.pageX &&
         CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMousePosition.y === e.pageY) return void 0;
+
+    /** Detect mouse move direction */
+    if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Pressed) {
+
+      if (e.pageX < currentSheet.mouseMoveDirection.oldX) currentSheet.mouseMoveDirection.directionX = "left";
+      else if (e.pageX > currentSheet.mouseMoveDirection.oldX) currentSheet.mouseMoveDirection.directionX = "right";
+      else currentSheet.mouseMoveDirection.directionX = null;
+
+      if (e.pageY < currentSheet.mouseMoveDirection.oldY) currentSheet.mouseMoveDirection.directionY = "up";
+      else if (e.pageY > currentSheet.mouseMoveDirection.oldY) currentSheet.mouseMoveDirection.directionY = "down";
+      else currentSheet.mouseMoveDirection.directionY = null;
+
+      currentSheet.mouseMoveDirection.oldY = e.pageY;
+
+      currentSheet.mouseMoveDirection.oldX = e.pageX;
+    }
 
     /** User is wiping? */
     if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Pressed) {

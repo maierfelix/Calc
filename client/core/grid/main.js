@@ -46,11 +46,12 @@
     };
 
     /** Helper to detect mouse scroll direction */
-    this.mouseScrollDirection = {
+    this.mouseMoveDirection = {
       oldX: 0,
       oldY: 0,
       directionX: null,
-      directionY: null
+      directionY: null,
+      lastAction: null
     };
 
     /** Save cells which got a custom width or height */

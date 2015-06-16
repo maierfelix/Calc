@@ -104,6 +104,8 @@
       if (extendStack[ii]) {
         if (Columns[ii].mode === "numeric") {
           this.extendNumbers(Columns[ii].array, extendStack[ii]);
+        } else if (Columns[ii].mode === "string") {
+          this.extendStrings(Columns[ii].array, extendStack[ii]);
         }
       }
     }
@@ -122,9 +124,10 @@
 
     var extendButton = document.createElement("button");
       extendButton.className = "extendButton";
-      extendButton.addEventListener('mousedown', function() {
+      extendButton.addEventListener('mousedown', function(e) {
         self.extend();
       });
+
       extendButton.addEventListener('mousemove', function(e) {
         e.target.style.cursor = "crosshair";
       });

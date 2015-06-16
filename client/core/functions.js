@@ -368,7 +368,7 @@
   };
 
   /**
-   * Convert hex to rgba
+   * Convert hex to rgb
    *
    * Taken from: http://stackoverflow.com/a/12342275
    *
@@ -388,5 +388,42 @@
     if (typeof opacity != 'undefined')  h.push(opacity);
 
     return ('rgb('+h.join(',')+')');
+
+  };
+
+  /**
+   * Replace a number of a string
+   *
+   * @method replaceNumbers
+   * @static
+   */
+  CORE.$.replaceNumbers = function(text, replace) {
+
+    var inputLength = text.length;
+
+    var letters = {
+      string: /[a-zA-Z\s]+/g.exec(text)
+    };
+    letters.start = letters.string.index;
+
+    var numbers = {
+      string: /[0-9]+/g.exec(text)
+    };
+    numbers.start = numbers.string.index;
+    numbers.end = inputLength - numbers.string[0].length;
+
+    /** Calculate letter start and end, so we know where to inject the string */
+    letters.end = inputLength - numbers.start;
+
+    /** String template */
+    var string = letters.string[0];
+
+    /** Create empty string */
+    var result = new Array((inputLength) + 1).join(" ");
+
+    result = result.substring(0, numbers.start) + replace + result.substring(numbers.end - 1);
+    result = result.substring(0, letters.start) + string + result.substring(letters.end - 1);
+
+    return (result);
 
   };

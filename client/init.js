@@ -64,6 +64,7 @@ Import.scripts = [
   /** Extender */
   "core/extender/main.js",
   "core/extender/numeric.js",
+  "core/extender/string.js",
   /** Selector */
   "core/selector/main.js",
   "core/selector/hover.js",

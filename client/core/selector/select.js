@@ -68,7 +68,7 @@
     var width = CORE.$.alphaToNumber(this.Selected.Last.Letter) - CORE.$.alphaToNumber(this.Selected.First.Letter);
 
     /** Calculate the height between the 2 selected cells */
-    var height = ( this.Selected.Last.Number - this.Selected.First.Number ) + this.Selected.First.Number;
+    var height = this.Selected.Last.Number + this.Selected.First.Number;
 
     /** Backup variable to do object inversion */
     var backup = null;

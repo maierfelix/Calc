@@ -199,11 +199,11 @@
           var x = e.pageX - this.offsetLeft,
               y = e.pageY - this.offsetTop;
 
-          if (e.pageX < self.mouseScrollDirection.oldX) self.mouseScrollDirection.directionX = "left";
-          else if (e.pageX > self.mouseScrollDirection.oldX) self.mouseScrollDirection.directionX = "right";
-          else self.mouseScrollDirection.directionX = null;
+          if (e.pageX < self.mouseMoveDirection.oldX) self.mouseMoveDirection.directionX = "left";
+          else if (e.pageX > self.mouseMoveDirection.oldX) self.mouseMoveDirection.directionX = "right";
+          else self.mouseMoveDirection.directionX = null;
 
-          self.mouseScrollDirection.oldX = e.pageX;
+          self.mouseMoveDirection.oldX = e.pageX;
 
           if ((x + y) >= - 35) {
             e.target.style.cursor = "col-resize";
@@ -220,7 +220,7 @@
               }
 
               /** User scrolls cell to right */
-              if (self.mouseScrollDirection.directionX === "right") {
+              if (self.mouseMoveDirection.directionX === "right") {
                 e.target.style.width = (parseInt(e.target.style.width) + 2) + "px";
 
                 /** Update customized cell object */
@@ -231,7 +231,7 @@
 
               }
               /** User scrolls cell to left */
-              else if (self.mouseScrollDirection.directionX === "left") {
+              else if (self.mouseMoveDirection.directionX === "left") {
                 if (parseInt(e.target.style.width) > self.CellTemplate.Width) {
                   e.target.style.width = (parseInt(e.target.style.width) - 2) + "px";
                   /** Update customized cell object */
@@ -302,11 +302,11 @@
           var x = e.pageX - this.offsetLeft,
               y = e.pageY - this.offsetTop;
 
-          if (e.pageY < self.mouseScrollDirection.oldY) self.mouseScrollDirection.directionY = "up";
-          else if (e.pageY > self.mouseScrollDirection.oldY) self.mouseScrollDirection.directionY = "down";
-          else self.mouseScrollDirection.directionY = null;
+          if (e.pageY < self.mouseMoveDirection.oldY) self.mouseMoveDirection.directionY = "up";
+          else if (e.pageY > self.mouseMoveDirection.oldY) self.mouseMoveDirection.directionY = "down";
+          else self.mouseMoveDirection.directionY = null;
 
-          self.mouseScrollDirection.oldY = e.pageY;
+          self.mouseMoveDirection.oldY = e.pageY;
 
           if ((x + y) >= - 35) {
             e.target.style.cursor = "row-resize";
@@ -324,7 +324,7 @@
               }
 
               /** User scrolls cell up */
-              if (self.mouseScrollDirection.directionY === "down") {
+              if (self.mouseMoveDirection.directionY === "down") {
                 e.target.style.height = (parseInt(e.target.style.height) + 2) + "px";
 
                 /** Update customized cell object */
@@ -335,7 +335,7 @@
 
               }
               /** User scrolls cell down */
-              else if (self.mouseScrollDirection.directionY === "up") {
+              else if (self.mouseMoveDirection.directionY === "up") {
                 if (parseInt(e.target.style.height) > self.CellTemplate.Height) {
                   e.target.style.height = (parseInt(e.target.style.height) - 2) + "px";
                   /** Update customized cell object */
