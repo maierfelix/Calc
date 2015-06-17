@@ -78,6 +78,7 @@ Import.scripts = [
   "core/edit.js",
   "core/file.js",
   "core/awakener.js",
+  "core/clipboard.js",
   /** Connector */
   "core/connector/main.js",
   "core/connector/action.js",

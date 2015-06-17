@@ -35,6 +35,36 @@
 
     }
 
+    /** User pressed the [DEL] */
+    if (e.keyCode === 46) {
+      e.preventDefault();
+      /** Delete all cells in the clipboard */
+      CORE.ClipBoard.deleteCellSelection();
+      return void 0;
+    }
+
+    /** COPY: [STRG] + [C] */
+    if (e.keyCode === 67) {
+      /** [STRG] key pressed ? */
+      if (CORE.Sheets[CORE.CurrentSheet].Input.Keyboard.Strg) {
+        e.preventDefault();
+        /** Make copy real */
+        CORE.ClipBoard.copyCellsToClipBoard();
+        return void 0;
+      }
+    }
+
+    /** PASTE: [STRG] + [V] */
+    if (e.keyCode === 86) {
+      /** [STRG] key pressed ? */
+      if (CORE.Sheets[CORE.CurrentSheet].Input.Keyboard.Strg) {
+        e.preventDefault();
+        /** Make paste real */
+        CORE.ClipBoard.pasteCellsIntoSheet(CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First);
+        return void 0;
+      }
+    }
+
     /** User edits a live cells url */
     if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.LiveCellEdit) return void 0;
 

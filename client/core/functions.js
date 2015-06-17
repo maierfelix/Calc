@@ -27,6 +27,9 @@
     /** Mobile device check */
     CORE.$.isMobile();
 
+    /** Detect used browser */
+    CORE.$.detectBrowser();
+
     /** Calculate scroll amount */
     CORE.Settings.Scroll.OriginalVertical = CORE.Settings.Scroll.Vertical = CORE.$.calculateScrollAmount();
 
@@ -78,6 +81,9 @@
     /** Initialize Speed test Plugin */
     CORE.Speedy = new CORE.Speedy();
 
+    /** Initialize ClipBoard Plugin */
+    CORE.ClipBoard = new CORE.ClipBoard();
+
   };
 
   /**
@@ -88,6 +94,21 @@
    */
   CORE.$.isMobile = function() {
     if (/iPhone|iPad|iPod|Android|Mobile/i.test(navigator.userAgent)) CORE.Settings.Mobile = true;
+  };
+
+  /**
+   * Detect browser
+   *
+   * @method detectBrowser
+   * @static
+   */
+  CORE.$.detectBrowser = function() {
+
+    CORE.Settings.isFirefox = typeof InstallTrigger !== 'undefined' ? true : false;
+    CORE.Settings.isSafari  = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0 ? true : false;
+    CORE.Settings.isChrome  = !!window.chrome ? true : false;
+    CORE.Settings.isIE      = /*@cc_on!@*/false || !!document.documentMode ? true : false;
+
   };
 
   /**

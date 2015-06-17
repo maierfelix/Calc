@@ -56,6 +56,18 @@
   /** Android detection */
   CORE.Settings.isAndroid = false;
 
+  /** Firefox Browser detection */
+  CORE.Settings.isFirefox = false;
+
+  /** Chrome Browser detection */
+  CORE.Settings.isChrome = false;
+
+  /** Safari Browser detection */
+  CORE.Settings.isSafari = false;
+
+  /** IE Browser detection */
+  CORE.Settings.isIE = false;
+
   /** Cells to scroll per scroll */
   CORE.Settings.Scroll = {
     Vertical: 1,
