@@ -34,8 +34,8 @@
     /** Simulate selected cells */
     if (arguments[0] && arguments[1]) {
       this.SelectedCells = [];
-      for (var xx = 0; xx < arguments[1].Letter; ++xx) {
-        for (var yy = 0; yy < arguments[1].Number; ++yy) {
+      for (var xx = arguments[0].Letter; xx < arguments[1].Letter; ++xx) {
+        for (var yy = arguments[0].Number; yy < arguments[1].Number; ++yy) {
           this.SelectedCells.push({
             letter: xx,
             number: yy
@@ -251,22 +251,16 @@
 
     /** Simulate selection */
     var first = {
-      Letter: 1,
-      Number: 1
+      Letter: CORE.Sheets[CORE.CurrentSheet].Settings.scrolledX,
+      Number: CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY
     };
     var last = {
       Letter: CORE.Sheets[CORE.CurrentSheet].Settings.scrolledX + CORE.Sheets[CORE.CurrentSheet].Settings.x,
       Number: CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY + CORE.Sheets[CORE.CurrentSheet].Settings.y
     };
 
-    /** Save old selection */
-    var selectedCellsBackup = this.SelectedCells.slice(0);
-
     var object = this.getOuterSelection(first, last);
 
     this.drawSelectionOuterBorder(object);
-
-    /** Restore real selection */
-    this.SelectedCells = selectedCellsBackup;
 
   };

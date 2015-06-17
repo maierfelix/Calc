@@ -37,19 +37,16 @@
     x -= CORE.Sheets[CORE.CurrentSheet].Settings.scrolledX;
     y -= CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY;
 
-    /** Clean the menu */
-    if (this.MenuSelection.Horizontal >= 0 && this.MenuSelection.Vertical >= 0) {
+    /** Clean the horizontal menu */
+    for (var ii = 0; ii < CORE.DOM.HorizontalMenu.children.length; ++ii) {
+      CORE.DOM.HorizontalMenu.children[ii].classList.remove("cell_dark");
+      CORE.DOM.HorizontalMenu.children[ii].classList.remove("cell_bright");
+    }
 
-      if (CORE.DOM.HorizontalMenu.children[this.MenuSelection.Horizontal]) {
-        CORE.DOM.HorizontalMenu.children[this.MenuSelection.Horizontal].classList.add("cell_dark");
-        CORE.DOM.HorizontalMenu.children[this.MenuSelection.Horizontal].classList.remove("cell_bright");
-      }
-
-      if (CORE.DOM.VerticalMenu.children[this.MenuSelection.Vertical]) {
-        CORE.DOM.VerticalMenu.children[this.MenuSelection.Vertical].classList.add("cell_dark");
-        CORE.DOM.VerticalMenu.children[this.MenuSelection.Vertical].classList.remove("cell_bright");
-      }
-
+    /** Clean the vertical menu */
+    for (var ii = 0; ii < CORE.DOM.VerticalMenu.children.length; ++ii) {
+      CORE.DOM.VerticalMenu.children[ii].classList.remove("cell_dark");
+      CORE.DOM.VerticalMenu.children[ii].classList.remove("cell_bright");
     }
 
     /** Dont select anything if all selected */

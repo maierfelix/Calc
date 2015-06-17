@@ -44,29 +44,7 @@
       if (jumps >= 0) {
         if (CORE.DOM.CacheArray[jumps]) {
 
-          /** Priority 1: If cell has custom background, add transparence to it */
-          if (CORE.Cells.Used[CORE.CurrentSheet][newLetter] &&
-              CORE.Cells.Used[CORE.CurrentSheet][newLetter][newLetter + number] &&
-              CORE.Cells.Used[CORE.CurrentSheet][newLetter][newLetter + number].BackgroundColor !== null) {
-              /** Change background color and add transparency */
-              CORE.DOM.CacheArray[jumps].style.background = CORE.Cells.Used[CORE.CurrentSheet][newLetter][newLetter + number].BackgroundColor.replace(')', ', 0.55)').replace('rgb', 'rgba');
-              if (this.SelectedCells.length === 1) CORE.DOM.CacheArray[jumps].classList.add(style);
-
-          /** Priority 2: Column master selection */
-          } else if (CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Columns[newLetter] &&
-                     CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Columns[newLetter].BackgroundColor !== null) {
-            /** Change background color and add transparency */
-            CORE.DOM.CacheArray[jumps].style.background = CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Columns[newLetter].BackgroundColor.replace(')', ', 0.55)').replace('rgb', 'rgba');
-
-          /** Priority 3: Row master selection */
-          } else if (CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Rows[number] &&
-                     CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Rows[number].BackgroundColor !== null) {
-            /** Change background color and add transparency */
-            CORE.DOM.CacheArray[jumps].style.background = CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Rows[number].BackgroundColor.replace(')', ', 0.55)').replace('rgb', 'rgba');
-
-          } else {
-            CORE.DOM.CacheArray[jumps].classList.add(style);
-          }
+          this.appendSelectionStyling(newLetter, number, jumps, style);
 
           if (singleCell) {
             CORE.DOM.CacheArray[jumps].appendChild(CORE.Extender.extendButton());
@@ -88,6 +66,40 @@
   };
 
   /**
+   * Append styling for a cell
+   *
+   * @method appendSelectionStyling
+   * @static
+   */
+  CORE.Selector.prototype.appendSelectionStyling = function(letter, number, jumps, style) {
+
+    /** Priority 1: If cell has custom background, add transparence to it */
+    if (CORE.Cells.Used[CORE.CurrentSheet][letter] &&
+        CORE.Cells.Used[CORE.CurrentSheet][letter][letter + number] &&
+        CORE.Cells.Used[CORE.CurrentSheet][letter][letter + number].BackgroundColor !== null) {
+      /** Change background color and add transparency */
+      CORE.DOM.CacheArray[jumps].style.background = CORE.Cells.Used[CORE.CurrentSheet][letter][letter + number].BackgroundColor.replace(')', ', 0.55)').replace('rgb', 'rgba');
+      if (this.SelectedCells.length === 1) CORE.DOM.CacheArray[jumps].classList.add(style);
+
+    /** Priority 2: Column master selection */
+    } else if (CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Columns[letter] &&
+               CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Columns[letter].BackgroundColor !== null) {
+      /** Change background color and add transparency */
+      CORE.DOM.CacheArray[jumps].style.background = CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Columns[letter].BackgroundColor.replace(')', ', 0.55)').replace('rgb', 'rgba');
+
+    /** Priority 3: Row master selection */
+    } else if (CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Rows[number] &&
+        CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Rows[number].BackgroundColor !== null) {
+      /** Change background color and add transparency */
+      CORE.DOM.CacheArray[jumps].style.background = CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Rows[number].BackgroundColor.replace(')', ', 0.55)').replace('rgb', 'rgba');
+
+    } else {
+      CORE.DOM.CacheArray[jumps].classList.add(style);
+    }
+
+  };
+
+  /**
    * Hover effect for all cells
    *
    * @method allCellHoverEffect
@@ -95,14 +107,28 @@
    */
   CORE.Selector.prototype.allCellHoverEffect = function() {
 
-    /** Add hover effect for all cells */
-    for (var ii = 0; ii < CORE.DOM.CacheArray.length; ++ii) {
-      CORE.DOM.CacheArray[ii].classList.remove("single_row_hovered");
-      CORE.DOM.CacheArray[ii].classList.add("row_hovered");
-    }
-
     /** Draw outer border */
     this.allSelectOuterBorder();
+
+    /** Add hover effect for all selected cells */
+    for (var ii = 0; ii < this.SelectedCells.length; ++ii) {
+
+      var letter = this.SelectedCells[ii].letter;
+      var number = this.SelectedCells[ii].number;
+      var newLetter = CORE.$.numberToAlpha(letter);
+
+      var jumps = CORE.$.getCell({ letter: letter, number: number });
+
+      /** Test if selection is in view */
+      if (jumps >= 0) {
+        if (CORE.DOM.CacheArray[jumps]) {
+          this.appendSelectionStyling(newLetter, number, jumps, "row_hovered");
+        }
+      }
+
+    }
+
+    this.SelectedCells = [];
 
   };
 
