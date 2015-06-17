@@ -193,9 +193,10 @@
   
     CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Pressed = false;
 
-    /** Abort extending */
+    /** Finish and abort extending */
     if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Extend) {
       CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Extend = false;
+      CORE.Extender.extend();
       /** Redraw the grid, since edits were made */
       CORE.Sheets[CORE.CurrentSheet].updateWidth("default");
       CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
@@ -292,8 +293,6 @@
         }
 
       }
-
-      if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Extend) CORE.Extender.extend();
 
     }
 
