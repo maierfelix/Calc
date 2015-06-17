@@ -65,6 +65,7 @@ Master key: *3b011508e1edb8a92daca0c72522b4449aa455c820009ce1b4a838c868d6c4b8*
    - [ ] Count users in current sheet
    - [ ] Synchronization
    - [ ] Screen mirroring
+   - [ ] Save styling as ranges
 
 ## Todo:
 - [ ] Pow support: Math.pow => (2^2)^2, LX_POW
