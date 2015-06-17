@@ -52,6 +52,9 @@
 
     }
 
+    /** Dont select anything if all selected */
+    if (this.allSelected) return void 0;
+
     /** Update the menu */
     this.MenuSelection.Horizontal = x;
     this.MenuSelection.Vertical = y;

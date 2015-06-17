@@ -28,6 +28,8 @@
     if (this.allSelected) {
       this.allCellHoverEffect();
       if (!CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Edit) CORE.Sheets[CORE.CurrentSheet].cleanEditSelection();
+      /** Clean menu selection */
+      this.menuSelection();
       return void 0;
     }
 
