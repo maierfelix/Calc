@@ -65,6 +65,19 @@
       }
     }
 
+    /** COUT OUT: [STRG] + [X] */
+    if (e.keyCode === 88) {
+      /** [STRG] key pressed ? */
+      if (CORE.Sheets[CORE.CurrentSheet].Input.Keyboard.Strg) {
+        e.preventDefault();
+        /** Copy selection */
+        CORE.ClipBoard.copyCellsToClipBoard();
+        /** Delete selection */
+        CORE.Sheets[CORE.CurrentSheet].Selector.deleteCellSelection();
+        return void 0;
+      }
+    }
+
     /** SELECTALL: [STRG] + [A] */
     if (e.keyCode === 65) {
       /** [STRG] key pressed ? */
