@@ -22,6 +22,7 @@
   CORE.Speedy = function() {};
 
   CORE.Speedy.prototype = CORE.Speedy;
+  CORE.Speedy.prototype.constructor = CORE.Speedy;
 
   /**
    * Test the performance of the system

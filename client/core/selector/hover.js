@@ -25,7 +25,7 @@
     var number = 0;
     var jumps = 0;
     var newLetter = "";
-    var singleCell = this.SelectedCells.length <= 1 ? true : false;
+    var singleCell = this.SelectedCells.length === 1 ? true : false;
     var style = singleCell ? "single_row_hovered" : "row_hovered";
 
     /** Add hover effect for all selected cells */
@@ -88,6 +88,25 @@
   };
 
   /**
+   * Hover effect for all cells
+   *
+   * @method allCellHoverEffect
+   * @static
+   */
+  CORE.Selector.prototype.allCellHoverEffect = function() {
+
+    /** Add hover effect for all cells */
+    for (var ii = 0; ii < CORE.DOM.CacheArray.length; ++ii) {
+      CORE.DOM.CacheArray[ii].classList.remove("single_row_hovered");
+      CORE.DOM.CacheArray[ii].classList.add("row_hovered");
+    }
+
+    /** Draw outer border */
+    this.allSelectOuterBorder();
+
+  };
+
+  /**
    * Delete hover effect for last selected cells
    *
    * @method deleteCellHoverEffect
@@ -95,17 +114,16 @@
    */
   CORE.Selector.prototype.deleteCellHoverEffect = function() {
 
-    /** No cells found */
-    if (!this.SelectedCells.length) return void 0;
-
     var letter = 0;
     var number = 0;
     var jumps = 0;
     var cellName = "";
-    var singleCell = this.SelectedCells.length <= 1 ? true : false;
+    var singleCell = this.SelectedCells.length === 1 ? true : false;
     var style = singleCell ? "single_row_hovered" : "row_hovered";
 
-    /** Delete hover effect for all selected cells */
+    if (this.allSelected) style = "row_hovered";
+
+    /** Delete hover effect for all cells */
     for (var ii = 0; ii < CORE.DOM.CacheArray.length; ++ii) {
 
       /** Remove outer selection borders */

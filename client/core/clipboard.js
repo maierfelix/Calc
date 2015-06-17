@@ -30,6 +30,7 @@
   };
 
   CORE.ClipBoard.prototype = CORE.ClipBoard;
+  CORE.ClipBoard.prototype.constructor = CORE.ClipBoard;
 
   /**
    * Insert text into virtual clipBoard
@@ -140,35 +141,6 @@
       var number = data[ii].number;
       CORE.$.registerCell({letter: letter, number: number});
       CORE.Cells.Used[CORE.CurrentSheet][letter][letter + number].Content = data[ii].value;
-    }
-
-    CORE.Sheets[CORE.CurrentSheet].updateWidth("default");
-
-  };
-
-  /**
-   * Remove selected cells
-   *
-   * @method deleteCellSelection
-   * @static
-   */
-  CORE.ClipBoard.prototype.deleteCellSelection = function() {
-
-    var selectedCells = CORE.Sheets[CORE.CurrentSheet].Selector.SelectedCells;
-
-    var cell = null;
-
-    for (var ii = 0; ii < selectedCells.length; ++ii) {
-
-      var letter = CORE.$.numberToAlpha(selectedCells[ii].letter);
-      var number = selectedCells[ii].number;
-
-      if (CORE.Cells.Used[CORE.CurrentSheet][letter]) {
-        if (cell = CORE.Cells.Used[CORE.CurrentSheet][letter][letter + number]) {
-          CORE.Cells.Used[CORE.CurrentSheet][letter][letter + number].Content = "";
-        }
-      }
-
     }
 
     CORE.Sheets[CORE.CurrentSheet].updateWidth("default");

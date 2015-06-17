@@ -21,8 +21,8 @@
    */
   CORE.Selector.prototype.getOuterSelection = function() {
 
-    var first = this.Selected.First;
-    var last = this.Selected.Last;
+    var first = arguments[0] || this.Selected.First;
+    var last  = arguments[1] || this.Selected.Last;
 
     var object = {
       top: [],
@@ -30,6 +30,19 @@
       left: [],
       right: []
     };
+
+    /** Simulate selected cells */
+    if (arguments[0] && arguments[1]) {
+      this.SelectedCells = [];
+      for (var xx = 0; xx < arguments[1].Letter; ++xx) {
+        for (var yy = 0; yy < arguments[1].Number; ++yy) {
+          this.SelectedCells.push({
+            letter: xx,
+            number: yy
+          });
+        }
+      }
+    }
 
     /** Loop through selected cells */
     for (var ii = 0; ii < this.SelectedCells.length; ++ii) {
@@ -113,7 +126,7 @@
    */
   CORE.Selector.prototype.drawSelectionOuterBorder = function() {
 
-    var object = this.getOuterSelection();
+    var object = arguments[0] || this.getOuterSelection();
 
     var jumps = 0;
 
@@ -173,5 +186,87 @@
     this.getSelection();
     this.selectCellByKeyPress();
     CORE.Sheets[CORE.CurrentSheet].Input.lastAction.scrollY = true;
+
+  };
+
+  /**
+   * Remove selected cells
+   *
+   * @method deleteCellSelection
+   * @static
+   */
+  CORE.Selector.prototype.deleteCellSelection = function() {
+
+    /** User selected all cells, delete all content */
+    if (this.allSelected) {
+      this.deleteAllCellsContent();
+    }
+
+    var selectedCells = this.SelectedCells;
+
+    var cell = null;
+
+    for (var ii = 0; ii < selectedCells.length; ++ii) {
+
+      var letter = CORE.$.numberToAlpha(selectedCells[ii].letter);
+      var number = selectedCells[ii].number;
+
+      if (CORE.Cells.Used[CORE.CurrentSheet][letter]) {
+        if (cell = CORE.Cells.Used[CORE.CurrentSheet][letter][letter + number]) {
+          CORE.Cells.Used[CORE.CurrentSheet][letter][letter + number].Content = "";
+        }
+      }
+
+    }
+
+    CORE.Sheets[CORE.CurrentSheet].updateWidth("default");
+
+  };
+
+  /**
+   * Delete content of all cells
+   *
+   * @method deleteAllCellsContent
+   * @static
+   */
+  CORE.Selector.prototype.deleteAllCellsContent = function() {
+
+    var cells = CORE.Cells.Used[CORE.CurrentSheet];
+
+    for (var ii in cells) {
+      for (var cell in cells[ii]) {
+        cells[ii][cell].Content = "";
+      }
+    }
+
+  };
+
+  /**
+   * Draw outer border around the whole sheet
+   *
+   * @method allSelectOuterBorder
+   * @static
+   */
+  CORE.Selector.prototype.allSelectOuterBorder = function() {
+
+    /** Simulate selection */
+    var first = {
+      Letter: 1,
+      Number: 1
+    };
+    var last = {
+      Letter: CORE.Sheets[CORE.CurrentSheet].Settings.scrolledX + CORE.Sheets[CORE.CurrentSheet].Settings.x,
+      Number: CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY + CORE.Sheets[CORE.CurrentSheet].Settings.y
+    };
+
+    /** Save old selection */
+    var selectedCellsBackup = this.SelectedCells.slice(0);
+
+    var object = this.getOuterSelection(first, last);
+
+    this.drawSelectionOuterBorder(object);
+
+    /** Restore real selection */
+    this.SelectedCells = selectedCellsBackup;
 
   };

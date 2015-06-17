@@ -39,7 +39,7 @@
     if (e.keyCode === 46) {
       e.preventDefault();
       /** Delete all cells in the clipboard */
-      CORE.ClipBoard.deleteCellSelection();
+      CORE.Sheets[CORE.CurrentSheet].Selector.deleteCellSelection();
       return void 0;
     }
 
@@ -61,6 +61,18 @@
         e.preventDefault();
         /** Make paste real */
         CORE.ClipBoard.pasteCellsIntoSheet(CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First);
+        return void 0;
+      }
+    }
+
+    /** SELECTALL: [STRG] + [A] */
+    if (e.keyCode === 65) {
+      /** [STRG] key pressed ? */
+      if (CORE.Sheets[CORE.CurrentSheet].Input.Keyboard.Strg) {
+        e.preventDefault();
+        /** Set selection to all */
+        CORE.Sheets[CORE.CurrentSheet].Selector.allSelected = true;
+        CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
         return void 0;
       }
     }
@@ -119,6 +131,15 @@
       CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Current = null;
       CORE.Sheets[CORE.CurrentSheet].Selector.jump("down", CORE.Sheets[CORE.CurrentSheet].Settings.y);
       return void 0;
+    }
+
+    /** If user pressed arrow key, abort a all cell selection */
+    if (CORE.Event.pressedArrowKey(e.keyCode)) {
+      if (CORE.Sheets[CORE.CurrentSheet].Selector.allSelected) {
+        CORE.Sheets[CORE.CurrentSheet].Selector.deleteCellHoverEffect();
+        CORE.Sheets[CORE.CurrentSheet].Selector.allSelected = false;
+        CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
+      }
     }
 
     /** Handle arrow keys */

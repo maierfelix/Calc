@@ -35,6 +35,9 @@
       }
     };
 
+    /** All cells are selected */
+    this.allSelected = false;
+
     /** Last selected menu position */
     this.MenuSelection = {
       Horizontal: 0,

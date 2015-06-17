@@ -22,6 +22,7 @@
   CORE.Sheets = function() {};
 
   CORE.Sheets.prototype = CORE.Sheets;
+  CORE.Sheets.prototype.constructor = CORE.Sheets;
 
   /**
    * Add a sheet

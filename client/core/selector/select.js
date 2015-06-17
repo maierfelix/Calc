@@ -24,6 +24,13 @@
     /** Delete selection effect of all last selected cells */ 
     this.deleteCellHoverEffect();
 
+    /** Abort below operatons if all is selected */
+    if (this.allSelected) {
+      this.allCellHoverEffect();
+      if (!CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Edit) CORE.Sheets[CORE.CurrentSheet].cleanEditSelection();
+      return void 0;
+    }
+
     /** Active master selection */
     if (this.masterSelected.Current && this.masterSelected.Current !== null) {
       /** Dont loose master selection */

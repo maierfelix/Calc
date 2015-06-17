@@ -106,6 +106,13 @@
     /** Valid cell ? */
     if (e.target.parentNode.id === CORE.DOM.Output.id) {
 
+      /** Abort all selection */
+      if (CORE.Sheets[CORE.CurrentSheet].Selector.allSelected) {
+        CORE.Sheets[CORE.CurrentSheet].Selector.deleteCellHoverEffect();
+        CORE.Sheets[CORE.CurrentSheet].Selector.allSelected = false;
+        CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
+      }
+
       /** User aborted live cell edit */
       CORE.Sheets[CORE.CurrentSheet].Input.Mouse.LiveCellEdit = false;
 
