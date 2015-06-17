@@ -73,7 +73,7 @@ Master key: *3b011508e1edb8a92daca0c72522b4449aa455c820009ce1b4a838c868d6c4b8*
 ## Bugs:
 - [ ] Deep formula variable reference execution
 - [ ] Key scrolling
-- [ ] Reversed selection extetending doesnt work
+- [ ] Reversed selection extending doesnt work
 - [ ] Reversed selection resize ghost switch bug
 
 ## Notes:
