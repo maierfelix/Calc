@@ -25,7 +25,7 @@ Master key: *3b011508e1edb8a92daca0c72522b4449aa455c820009ce1b4a838c868d6c4b8*
    - [x] Insert, delete columns and rows
    - [x] Glossy, outer border selection fields
    - [ ] Formula / Cell content extending (horizontal, vertical, numbers, strings)
-   - [ ] Copy / Paste / Delete cells
+   - [ ] Copy / Paste / Delete /Cut Out cells
 
  - [ ] Functionalities
    - [x] Export projects
@@ -36,6 +36,7 @@ Master key: *3b011508e1edb8a92daca0c72522b4449aa455c820009ce1b4a838c868d6c4b8*
    - [x] Delete sheets
    - [x] System speed optimization
    - [ ] Jump to (x, y)
+   - [ ] Select From X To X
    - [ ] Debug
 
 - [ ] Formula logic
