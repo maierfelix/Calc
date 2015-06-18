@@ -80,12 +80,8 @@
       if (name && name.length) {
         CORE.Sheets.changeSheet(name);
         CORE.Event.resize();
-        CORE.DOM.Output.classList.add("fadeIn");
         /** Highlight active sheet */
         CORE.Sheets.setActiveSheet(name);
-        setTimeout(function() {
-          CORE.DOM.Output.classList.remove("fadeIn");
-        }, 275);
       /** Close button pressed ? */
       } else {
         /** Delete button pressed, try to delete the sheet */
@@ -99,19 +95,19 @@
     CORE.DOM.Sheets.appendChild(button);
 
     /** Auto change to the new sheet*/
-    CORE.Sheets.changeSheet(CORE.CurrentSheet);
-
-    /** Refresh everything */
-    CORE.Event.resize();
-
-    /** Highlight active sheet */
-    CORE.Sheets.setActiveSheet(CORE.CurrentSheet);
+    CORE.Sheets.changeSheet(CORE.CurrentSheet, 1);
 
     CORE.DOM.Output.classList.add("pullDown");
 
     setTimeout(function() {
       CORE.DOM.Output.classList.remove("pullDown");
     }, 275);
+
+    /** Refresh everything */
+    CORE.Event.resize();
+
+    /** Highlight active sheet */
+    CORE.Sheets.setActiveSheet(CORE.CurrentSheet);
 
   };
 
@@ -150,15 +146,11 @@
                   /** Not the first sheet deleted */
                   if (lastSheet) {
                     self.changeSheet(lastSheet);
-                    delete CORE.Sheets[name];
-                    delete CORE.Cells.Used[name];
-                    delete CORE.ClipBoard.copiedCells[name];
+                    CORE.$.killSheet(name);
                     self.setActiveSheet(lastSheet);
                   /** First sheet has to be deleted */
                   } else {
-                    delete CORE.Sheets[ii];
-                    delete CORE.Cells.Used[ii];
-                    delete CORE.ClipBoard.copiedCells[ii];
+                    CORE.$.killSheet(name);
                     var newSheet = Object.keys(CORE.Sheets)[0];
                     self.changeSheet(newSheet);
                     self.setActiveSheet(ii);
@@ -170,9 +162,7 @@
               CORE.Event.resize();
             /** Sheet to be deleted isnt active */
             } else {
-              delete CORE.Sheets[name];
-              delete CORE.Cells.Used[name];
-              delete CORE.ClipBoard.copiedCells[name];
+              CORE.$.killSheet(name);
               self.setActiveSheet(CORE.CurrentSheet);
             }
             /** Send sheet deletion to server */
@@ -196,6 +186,14 @@
   CORE.Sheets.prototype.changeSheet = function(name) {
 
     CORE.CurrentSheet = name;
+
+    if (!arguments[1]) {
+      CORE.DOM.Output.classList.add("fadeIn");
+
+      setTimeout(function() {
+        CORE.DOM.Output.classList.remove("fadeIn");
+      }, 275);
+    }
 
     /** Send sheet change to server */
     if (CORE.Connector.connected) {

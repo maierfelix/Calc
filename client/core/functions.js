@@ -466,3 +466,21 @@
     return (result);
 
   };
+
+  /**
+   * Secure kill a sheet
+   *
+   * @method killSheet
+   * @static
+   */
+  CORE.$.killSheet = function(name) {
+
+    CORE.Sheets[name] = null;
+    CORE.Cells.Used[name] = null;
+    CORE.ClipBoard.copiedCells[name] = null;
+
+    delete CORE.Sheets[name];
+    delete CORE.Cells.Used[name];
+    delete CORE.ClipBoard.copiedCells[name];
+
+  };

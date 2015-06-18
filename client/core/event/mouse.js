@@ -366,6 +366,7 @@
           /** Only do large scrolling if user presses the mouse */
           if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Pressed) {
             CORE.Settings.Scroll.Vertical = calcDifference + (Math.ceil(Math.log(selectedCellsLength + 1) / Math.LN10) * 100);
+            /** TODO: Slow scrolling on pressed mouse */
           /** Go back to default mouse scroll amount */
           } else {
             /** Fast scroll depending on selection length, the larger the selection the greater the fast scroll chance */
