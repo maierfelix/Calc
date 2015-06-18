@@ -45,8 +45,8 @@
 
     /** COPY: [STRG] + [C] */
     if (e.keyCode === 67) {
-      /** [STRG] key pressed ? */
-      if (CORE.Sheets[CORE.CurrentSheet].Input.Keyboard.Strg) {
+      /** [STRG] key pressed ? User is not in edit mode ? */
+      if (CORE.Sheets[CORE.CurrentSheet].Input.Keyboard.Strg && !CORE.Event.inEditMode()) {
         e.preventDefault();
         /** Make copy real */
         CORE.ClipBoard.copyCellsToClipBoard();
@@ -56,8 +56,8 @@
 
     /** PASTE: [STRG] + [V] */
     if (e.keyCode === 86) {
-      /** [STRG] key pressed ? */
-      if (CORE.Sheets[CORE.CurrentSheet].Input.Keyboard.Strg) {
+      /** [STRG] key pressed ? User is not in edit mode ? */
+      if (CORE.Sheets[CORE.CurrentSheet].Input.Keyboard.Strg && !CORE.Event.inEditMode()) {
         e.preventDefault();
         /** Make paste real */
         CORE.ClipBoard.pasteCellsIntoSheet(CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First);
@@ -67,8 +67,8 @@
 
     /** COUT OUT: [STRG] + [X] */
     if (e.keyCode === 88) {
-      /** [STRG] key pressed ? */
-      if (CORE.Sheets[CORE.CurrentSheet].Input.Keyboard.Strg) {
+      /** [STRG] key pressed ? User is not in edit mode ? */
+      if (CORE.Sheets[CORE.CurrentSheet].Input.Keyboard.Strg && !CORE.Event.inEditMode()) {
         e.preventDefault();
         /** Copy selection */
         CORE.ClipBoard.copyCellsToClipBoard();
@@ -78,10 +78,10 @@
       }
     }
 
-    /** SELECTALL: [STRG] + [A] */
+    /** SELECT ALL: [STRG] + [A] */
     if (e.keyCode === 65) {
-      /** [STRG] key pressed ? */
-      if (CORE.Sheets[CORE.CurrentSheet].Input.Keyboard.Strg) {
+      /** [STRG] key pressed ? User is not in edit mode ? */
+      if (CORE.Sheets[CORE.CurrentSheet].Input.Keyboard.Strg && !CORE.Event.inEditMode()) {
         e.preventDefault();
         /** Set selection to all */
         CORE.Sheets[CORE.CurrentSheet].Selector.allSelected = true;

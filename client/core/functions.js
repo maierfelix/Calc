@@ -57,6 +57,9 @@
     /** Switch to the first sheet */
     CORE.Sheets.changeSheet(CORE.CurrentSheet);
 
+    /** Add select all functionalitity to current cell button */
+    CORE.$.initCurrentCellButton();
+
     /** Initialize all event listeners */
     CORE.Event.init();
 
@@ -89,11 +92,26 @@
   /**
    * Check if we're on a mobile device
    *
-   * @method mobileDeviceCheck
+   * @method isMobile
    * @static
    */
   CORE.$.isMobile = function() {
     if (/iPhone|iPad|iPod|Android|Mobile/i.test(navigator.userAgent)) CORE.Settings.Mobile = true;
+  };
+
+  /**
+   * Initialize current cell button
+   *
+   * @method initCurrentCellButton
+   * @static
+   */
+  CORE.$.initCurrentCellButton = function() {
+
+    CORE.DOM.CurrentCell.addEventListener('click', function() {
+      CORE.Sheets[CORE.CurrentSheet].Selector.allSelected = true;
+      CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
+    });
+
   };
 
   /**
@@ -423,7 +441,7 @@
     var inputLength = text.length;
 
     var letters = {
-      string: /[a-zA-Z\s]+/g.exec(text)
+      string: /[a-zA-Z_!@#$%^&*()+\-=\[\]{};':"\\|,.<>\s]+/g.exec(text)
     };
     letters.start = letters.string.index;
 

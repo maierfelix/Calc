@@ -78,9 +78,10 @@
 
   /** Precompile regex operations */
   CORE.REGEX = {
-    numbers: /[^0-9]/g,
-    letters: /[^a-zA-Z]/gi,
-    variable: /[a-zA-Z_][a-zA-Z0-9_]+/gi
+    numbers:  /[^0-9]/g,
+    letters:  /[^a-zA-Z]/g,
+    variable: /[a-zA-Z_][a-zA-Z0-9_]+/g,
+    strings:  /[a-zA-Z_!@#$%^&*()+\-=\[\]{};':"\\|,.<>\s]+/g
   };
 
   /** Assign it global */

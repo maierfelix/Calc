@@ -34,10 +34,25 @@
 
     validateIteration = extendStack[1] + extendStack[0];
 
+    /** The original (main) first cell to extend */
     var string = extendStack[0];
 
-    extendStack[0] = parseInt(extendStack[0].match(CORE.REGEX.letters).join(""));
-    extendStack[1] = extendStack[1] ? parseInt(extendStack[1].match(CORE.REGEX.letters).join("")) : undefined;
+    /** Helper to prevent unnecessary re-calculations */
+    var letters = null;
+
+    if (letters = extendStack[0].match(CORE.REGEX.strings)) {
+      extendStack[0] = parseInt(letters.join(""));
+    }
+
+    if (extendStack[1]) {
+      if (letters = extendStack[1].match(CORE.REGEX.strings)) {
+        extendStack[1] = parseInt(letters.join(""));
+      } else {
+        extendStack[1] = undefined;
+      }
+    } else {
+      extendStack[1] = undefined;
+    }
 
     validateIteration = extendStack[1] + extendStack[0];
 
@@ -61,7 +76,7 @@
     /** Copy */
     if (copy) {
       for (var ii = 0; ii < Cells.length; ++ii) {
-        Cells[ii].value = extendStack[0];
+        Cells[ii].value = string;
       }
     /** Append iteration */
     } else {

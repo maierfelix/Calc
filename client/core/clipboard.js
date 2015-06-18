@@ -67,6 +67,9 @@
     /** Sheet isnt registered in clipBoard yet */
     if (!this.copiedCells[CORE.CurrentSheet]) this.copiedCells[CORE.CurrentSheet] = {};
 
+    /** Clean old copied cells */
+    this.copiedCells[CORE.CurrentSheet] = [];
+
     /** Update clipBoard sheet cells */
     this.copiedCells[CORE.CurrentSheet] = CORE.Sheets[CORE.CurrentSheet].Selector.SelectedCells;
 
@@ -113,10 +116,12 @@
    */
   CORE.ClipBoard.prototype.pasteCellsIntoSheet = function(position) {
 
-    var data = this.copiedCells[CORE.CurrentSheet].slice(0);
+    var data = this.copiedCells[CORE.CurrentSheet];
 
     /** Abort if nothing to paste or no specific inject position */
     if (!data || !data.length || !position) return void 0;
+
+    data = data.slice(0);
 
     var startColumn = position.Letter;
     var startNumber = position.Number;

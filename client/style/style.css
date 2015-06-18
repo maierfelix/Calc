@@ -164,7 +164,7 @@ button, input, select, textArea {
 
 .default_layer {
   background: #448AFF !important;
-  cursor: default !important;
+  cursor: pointer !important;
   color: #fff !important;
 }
 
@@ -279,6 +279,7 @@ button, input, select, textArea {
 }
 
 .cell_edit {
+  text-align: left;
   border: solid 2px #448AFF !important;
   background: #fff;
   -webkit-box-shadow: 0 3px 5px rgba(0,0,0,0.4);
