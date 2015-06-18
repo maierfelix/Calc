@@ -16,7 +16,7 @@ Master key: *3b011508e1edb8a92daca0c72522b4449aa455c820009ce1b4a838c868d6c4b8*
    - [x] Infinite vertical scrolling (~ 2^53 - 1)
    - [x] Infinite horizontal scrolling (~ 16.100)
    - [x] Select cell fields in all directions
-   - [x] Resize cell rows
+   - [x] Resize cell rows and columns
    - [x] Edit cell content
    - [ ] Adjust cell size to its content 
    - [x] Custom cell styles
