@@ -209,7 +209,7 @@
       });
       
       /** Socket changed sheet */
-      socket.on('changesheet', function(data, callback) {
+      socket.on('changesheet', function(data) {
 
         /** Abort if no data was received */
         if (!data) return void 0;
@@ -229,11 +229,41 @@
                 /** Save new sheet in the database */
                 Database.updateSheet("rooms", {sheets: userRoom.sheets}, userRoom.id, function(finished) {
                   /** Share the new sheet update to all clients in the room */
-                  Bucket.shareData({direction: data.direction, amount: data.amount, sheet: data.sheet}, socket.id, "newsheet");
+                  Bucket.shareData({sheet: data.sheet}, socket.id, "newsheet");
                 });
               }
               /** Update users current sheet */
               Bucket.updateUser(socket.id, "sheet", data.sheet);
+            }
+          }
+        }
+
+      });
+
+      /** Socket deleted a sheet */
+      socket.on('deletesheet', function(data) {
+
+        /** Abort if no data was received */
+        if (!data) return void 0;
+
+        var userRoom = null;
+
+        /** Validate received data */
+        if (Security.isSecure(data.sheet)) {
+          if (typeof data.sheet === "string") {
+            /** Check user for admin rights and valid room */
+            if (Bucket.isValidUser(socket.id)) {
+              userRoom = Bucket.getCurrentUserRoom(socket.id);
+              /** Check if sheet exists in the room, if yes continue */
+              if (userRoom.sheets[data.sheet]) {
+                /** Clear the sheet in the bucket room sheets */
+                delete userRoom.sheets[data.sheet];
+                /** Save new sheet in the database */
+                Database.updateSheet("rooms", {sheets: userRoom.sheets}, userRoom.id, function(finished) {
+                  /** Share the new sheet update to all clients in the room */
+                  Bucket.shareData({sheet: data.sheet}, socket.id, "deletesheet");
+                });
+              }
             }
           }
         }

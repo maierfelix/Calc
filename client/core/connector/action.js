@@ -32,6 +32,9 @@
       case "changeSheet":
         this.changeSheet(object);
         break;
+      case "deleteSheet":
+        this.deleteSheet(object);
+        break;
     }
 
   };
@@ -47,6 +50,22 @@
     if (object && object.sheet) {
       if (typeof object.sheet === "string") {
         this.socket.emit("changesheet", {sheet: object.sheet});
+      }
+    }
+
+  };
+
+  /**
+   * Delete the sheet on the server
+   *
+   * @method deleteSheet
+   * @static
+   */
+  CORE.Connector.prototype.deleteSheet = function(object) {
+
+    if (object && object.sheet) {
+      if (typeof object.sheet === "string") {
+        this.socket.emit("deletesheet", {sheet: object.sheet});
       }
     }
 
@@ -229,6 +248,25 @@
         CORE.Sheets.addSheet(object.sheet);
       }
       CORE.Sheets.changeSheet(object.sheet);
+    }
+
+  };
+
+  /**
+   * Process a sheet deletion
+   * A user deleted a sheet from the room
+   *
+   * @method processSheetDeletion
+   * @static
+   */
+  CORE.Connector.prototype.processSheetDeletion = function(object) {
+
+    /** Validate object */
+    if (object.sheet && typeof object.sheet === "string") {
+      /** Sheet exists */
+      if (CORE.Sheets[object.sheet]) {
+        CORE.Sheets.killSwitchSheet(object.sheet);
+      }
     }
 
   };

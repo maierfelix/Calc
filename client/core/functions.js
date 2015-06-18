@@ -498,4 +498,9 @@
     CORE.Sheets[name] = null;
     delete CORE.Sheets[name];
 
+    /** Send sheet change to server */
+    if (CORE.Connector.connected) {
+      CORE.Connector.action("deleteSheet", {sheet: name});
+    }
+
   };

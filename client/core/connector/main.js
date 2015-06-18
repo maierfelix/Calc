@@ -140,6 +140,10 @@
             case "newsheet":
               this.processNewSheet(data.data);
               break;
+            /** Sheet update, someone deleted a sheet */
+            case "deletesheet":
+              this.processSheetDeletion(data.data);
+              break;
           }
           break;
       }

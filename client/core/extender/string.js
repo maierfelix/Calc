@@ -40,12 +40,12 @@
     /** Helper to prevent unnecessary re-calculations */
     var letters = null;
 
-    if (letters = extendStack[0].match(CORE.REGEX.strings)) {
+    if (letters = extendStack[0].match(CORE.REGEX.letters)) {
       extendStack[0] = parseInt(letters.join(""));
     }
 
     if (extendStack[1]) {
-      if (letters = extendStack[1].match(CORE.REGEX.strings)) {
+      if (letters = extendStack[1].match(CORE.REGEX.letters)) {
         extendStack[1] = parseInt(letters.join(""));
       } else {
         extendStack[1] = undefined;

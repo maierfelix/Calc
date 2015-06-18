@@ -141,43 +141,53 @@
         CORE_UI.Modal(title, buttons, function(submit) {
           /** User has to submit */
           if (submit === "ok") {
-            /** Delete the current opened sheet */
-            if (name === CORE.CurrentSheet) {
-              var lastSheet = undefined;
-              /** First switch to another sheet */
-              for (var ii in CORE.Sheets) {
-                /** Found the current sheet */
-                if (ii === name) {
-                  /** Not the first sheet deleted */
-                  if (lastSheet) {
-                    self.changeSheet(lastSheet);
-                    CORE.$.killSheet(name);
-                    self.setActiveSheet(lastSheet);
-                  /** First sheet has to be deleted */
-                  } else {
-                    CORE.$.killSheet(name);
-                    var newSheet = Object.keys(CORE.Sheets)[0];
-                    self.changeSheet(newSheet);
-                    self.setActiveSheet(ii);
-                  }
-                }
-                lastSheet = ii;
-              }
-              /** Refresh everything */
-              CORE.Event.resize();
-            /** Sheet to be deleted isnt active */
-            } else {
-              CORE.$.killSheet(name);
-              self.setActiveSheet(CORE.CurrentSheet);
-            }
-            /** Send sheet deletion to server */
-            if (CORE.Connector.connected) {
-              CORE.Connector.action("deleteSheet", {sheet: name});
-            }
+            /** Delete sheet and directly switch to another if necessary */
+            self.killSwitchSheet(name);
           }
         });
 
       }
+    }
+
+  };
+
+  /**
+   * Delete a sheet and switch to another
+   *
+   * @method killSwitchSheet
+   * @static
+   */
+  CORE.Sheets.prototype.killSwitchSheet = function(name) {
+
+    /** Delete the current opened sheet */
+    if (name === CORE.CurrentSheet) {
+      var lastSheet = undefined;
+      /** First switch to another sheet */
+      for (var ii in CORE.Sheets) {
+        /** Found the current sheet */
+        if (ii === name) {
+          /** Not the first sheet deleted */
+          if (lastSheet) {
+            this.changeSheet(lastSheet);
+            CORE.$.killSheet(name);
+            this.setActiveSheet(lastSheet);
+          /** First sheet has to be deleted */
+          } else {
+            CORE.$.killSheet(name);
+            var newSheet = Object.keys(CORE.Sheets)[0];
+            this.changeSheet(newSheet);
+            this.setActiveSheet(ii);
+          }
+        }
+        lastSheet = ii;
+      }
+    /** Refresh everything */
+    CORE.Event.resize();
+    /** Sheet to be deleted isnt active */
+    } else {
+      CORE.$.killSheet(name);
+      this.changeSheet(CORE.CurrentSheet);
+      this.setActiveSheet(CORE.CurrentSheet);
     }
 
   };
