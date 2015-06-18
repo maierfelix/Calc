@@ -177,15 +177,25 @@
   /**
    * Debugging..
    *
+   * @method cellHover
+   * @static
+   */
+  CORE.Grid.prototype.cellHover = function(e) {
+
+    if (!CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Edit) CORE.DOM.CurrentCell.innerHTML = e.target.getAttribute("name");
+
+  };
+
+  /**
+   * Show the currently hovered cell
+   *
    * @method addCellListeners
    * @static
    */
   CORE.Grid.prototype.addCellListeners = function() {
 
     for (var ii = 0; ii < CORE.DOM.Output.children.length; ++ii) {
-      CORE.DOM.Output.children[ii].addEventListener(this.mouseMode, function(e) {
-        if (!CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Edit) CORE.DOM.CurrentCell.innerHTML = e.target.getAttribute("name");
-      });
+      CORE.DOM.Output.children[ii].addEventListener(this.mouseMode, this.cellHover, false);
     }
 
   };

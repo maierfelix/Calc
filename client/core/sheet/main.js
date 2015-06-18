@@ -68,11 +68,14 @@
         button.innerHTML = CORE.CurrentSheet;
 
     var closeButton = document.createElement("button");
-        closeButton.className = "mui-btn mui-btn-floating mui-btn-floating-mini";
         closeButton.innerHTML = "-";
         closeButton.className = "closeButton";
 
+    var usersInRoom = document.createElement("p");
+        usersInRoom.className = "usersInRoom";
+
     button.appendChild(closeButton);
+    button.appendChild(usersInRoom);
 
     /** Change sheet on click */
     button.addEventListener('click', function(e) {
@@ -84,9 +87,11 @@
         CORE.Sheets.setActiveSheet(name);
       /** Close button pressed ? */
       } else {
-        /** Delete button pressed, try to delete the sheet */
-        if (name = e.target.parentNode.getAttribute("name")) {
-          CORE.Sheets.deleteSheet(name);
+        if (e.target.nodeName === "BUTTON") {
+          /** Delete button pressed, try to delete the sheet */
+          if (name = e.target.parentNode.getAttribute("name")) {
+            CORE.Sheets.deleteSheet(name);
+          }
         }
       }
     });

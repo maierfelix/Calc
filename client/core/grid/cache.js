@@ -24,6 +24,9 @@
     var children = CORE.DOM.Output.children;
     var childLength = CORE.DOM.Output.children.length;
 
+    CORE.DOM.Cache = null;
+    delete CORE.DOM.Cache;
+
     CORE.DOM.Cache = {};
 
     /** Used for faster iteration, also preallocate required memory */

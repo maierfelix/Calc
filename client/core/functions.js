@@ -475,12 +475,27 @@
    */
   CORE.$.killSheet = function(name) {
 
-    CORE.Sheets[name] = null;
-    CORE.Cells.Used[name] = null;
-    CORE.ClipBoard.copiedCells[name] = null;
+    for (var ii in CORE.Cells.Used[name]) {
+      for (var cell in CORE.Cells.Used[name][ii]) {
+        CORE.Cells.Used[name][ii][cell] = null;
+        delete CORE.Cells.Used[name][ii][cell];
+      }
+      CORE.Cells.Used[name][ii] = null;
+      delete CORE.Cells.Used[name][ii];
+    }
 
-    delete CORE.Sheets[name];
-    delete CORE.Cells.Used[name];
+    CORE.ClipBoard.copiedCells[name] = [];
+    CORE.ClipBoard.copiedCells[name] = null;
     delete CORE.ClipBoard.copiedCells[name];
+
+    CORE.Sheets[name].Selector.SelectedCells = [];
+    CORE.Sheets[name].Selector.SelectedCells = null;
+    delete CORE.Sheets[name].Selector.SelectedCells;
+
+    CORE.Sheets[name].Selector = null;
+    delete CORE.Sheets[name].Selector;
+
+    CORE.Sheets[name] = null;
+    delete CORE.Sheets[name];
 
   };

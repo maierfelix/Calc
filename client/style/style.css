@@ -869,6 +869,25 @@ button, input, select, textArea {
   color: #fff !important;
 }
 
+.usersInRoom {
+  position: absolute;
+  z-index: 9;
+  top: 0px;
+  left: -2px !important;
+  margin-top: -7px;
+  padding-top: 0px;
+  border-radius: 0px;
+  border: none;
+  width: 22px;
+  background-color: rgba(0,0,0,0);
+  font-size: 10px;
+  color: #fff !important;
+}
+
+.usersInRoomButton:focus {
+  outline: 0;
+}
+
 .extendButton {
   position: absolute !important;
   z-index: 9;
