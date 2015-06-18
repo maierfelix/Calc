@@ -251,8 +251,8 @@
 
     /** Simulate selection */
     var first = {
-      Letter: CORE.Sheets[CORE.CurrentSheet].Settings.scrolledX,
-      Number: CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY
+      Letter: CORE.Sheets[CORE.CurrentSheet].Settings.scrolledX || 1,
+      Number: CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY || 1
     };
     var last = {
       Letter: CORE.Sheets[CORE.CurrentSheet].Settings.scrolledX + CORE.Sheets[CORE.CurrentSheet].Settings.x,
