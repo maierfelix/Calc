@@ -172,7 +172,12 @@
         element.setAttribute("timestamp", new Date().getTime());
         element.innerHTML = Letter;
 
-        element.addEventListener("mousedown", function(e) {
+    var mouseDownEvent = CORE.Settings.Mobile ? "touchstart" : "mousedown";
+    var mouseUpEvent = CORE.Settings.Mobile ? "touchend" : "mouseup";
+    var mouseOutEvent = CORE.Settings.Mobile ? "touchleave" : "mouseout";
+    var mouseMoveEvent = CORE.Settings.Mobile ? "touchmove" : "mousemove";
+
+        element.addEventListener(mouseDownEvent, function(e) {
           /** Double click */
           if (new Date().getTime() - parseInt(this.getAttribute("timestamp")) <= 150) {
             /** Do a master selection */
@@ -182,30 +187,50 @@
           CORE.Sheets[CORE.CurrentSheet].Input.Mouse.CellResize = true;
         });
 
-        element.addEventListener("mouseup", function(e) {
+        element.addEventListener(mouseUpEvent, function(e) {
           this.setAttribute("clicked", 0);
           /** Re-render grid */
           CORE.Sheets[CORE.CurrentSheet].Input.lastAction.scrollY = false;
           this.setAttribute("timestamp", e.timeStamp);
         });
 
-        element.addEventListener("mouseout", function(e) {
+        element.addEventListener(mouseOutEvent, function(e) {
           this.setAttribute("clicked", 0);
         });
 
         /** User wants to change row size ? */
-        element.addEventListener("mousemove", function(e) {
+        element.addEventListener(mouseMoveEvent, function(e) {
 
-          var x = e.pageX - this.offsetLeft,
-              y = e.pageY - this.offsetTop;
+          var x = 0;
+          var y = 0;
 
-          if (e.pageX < self.mouseMoveDirection.oldX) self.mouseMoveDirection.directionX = "left";
-          else if (e.pageX > self.mouseMoveDirection.oldX) self.mouseMoveDirection.directionX = "right";
-          else self.mouseMoveDirection.directionX = null;
+          /** Desktop */
+          if (!CORE.Settings.Mobile) {
 
-          self.mouseMoveDirection.oldX = e.pageX;
+            x = e.pageX - this.offsetLeft,
+            y = e.pageY - this.offsetTop;
 
-          if ((x + y) >= - 35) {
+            if (e.pageX < self.mouseMoveDirection.oldX) self.mouseMoveDirection.directionX = "left";
+            else if (e.pageX > self.mouseMoveDirection.oldX) self.mouseMoveDirection.directionX = "right";
+            else self.mouseMoveDirection.directionX = null;
+
+            self.mouseMoveDirection.oldX = e.pageX;
+
+          /** Mobile */
+          } else {
+
+            x = e.touches[0].pageX - this.offsetLeft,
+            y = e.touches[0].pageY - this.offsetTop;
+
+            if (e.touches[0].pageX < self.mouseMoveDirection.oldX) self.mouseMoveDirection.directionX = "left";
+            else if (e.touches[0].pageX > self.mouseMoveDirection.oldX) self.mouseMoveDirection.directionX = "right";
+            else self.mouseMoveDirection.directionX = null;
+
+            self.mouseMoveDirection.oldX = e.touches[0].pageX;
+
+          }
+
+          if ((x + y) >= -35) {
             e.target.style.cursor = "col-resize";
             if (e.target.getAttribute("clicked") === "1") {
 
@@ -277,7 +302,12 @@
         element.setAttribute("timestamp", new Date().getTime());
         element.innerHTML = Letter;
 
-        element.addEventListener("mousedown", function(e) {
+    var mouseDownEvent = CORE.Settings.Mobile ? "touchstart" : "mousedown";
+    var mouseUpEvent = CORE.Settings.Mobile ? "touchend" : "mouseup";
+    var mouseOutEvent = CORE.Settings.Mobile ? "touchleave" : "mouseout";
+    var mouseMoveEvent = CORE.Settings.Mobile ? "touchmove" : "mousemove";
+
+        element.addEventListener(mouseDownEvent, function(e) {
           /** Double click */
           if (new Date().getTime() - parseInt(this.getAttribute("timestamp")) <= 150) {
             /** Do a master selection */
@@ -287,26 +317,46 @@
           CORE.Sheets[CORE.CurrentSheet].Input.Mouse.CellResize = true;
         });
 
-        element.addEventListener("mouseup", function(e) {
+        element.addEventListener(mouseUpEvent, function(e) {
           this.setAttribute("clicked", 0);
         });
 
-        element.addEventListener("mouseout", function(e) {
+        element.addEventListener(mouseOutEvent, function(e) {
           this.setAttribute("clicked", 0);
         });
 
         
         /** User wants to change row size ? */
-        element.addEventListener("mousemove", function(e) {
+        element.addEventListener(mouseMoveEvent, function(e) {
 
-          var x = e.pageX - this.offsetLeft,
-              y = e.pageY - this.offsetTop;
+          var x = 0;
+          var y = 0;
 
-          if (e.pageY < self.mouseMoveDirection.oldY) self.mouseMoveDirection.directionY = "up";
-          else if (e.pageY > self.mouseMoveDirection.oldY) self.mouseMoveDirection.directionY = "down";
-          else self.mouseMoveDirection.directionY = null;
+          /** Desktop */
+          if (!CORE.Settings.Mobile) {
 
-          self.mouseMoveDirection.oldY = e.pageY;
+            x = e.pageX - this.offsetLeft,
+            y = e.pageY - this.offsetTop;
+
+            if (e.pageY < self.mouseMoveDirection.oldY) self.mouseMoveDirection.directionY = "up";
+            else if (e.pageY > self.mouseMoveDirection.oldY) self.mouseMoveDirection.directionY = "down";
+            else self.mouseMoveDirection.directionY = null;
+
+            self.mouseMoveDirection.oldY = e.pageY;
+
+          /** Mobile */
+          } else {
+
+            x = e.touches[0].pageX - this.offsetLeft,
+            y = e.touches[0].pageY - this.offsetTop;
+
+            if (e.touches[0].pageY < self.mouseMoveDirection.oldY) self.mouseMoveDirection.directionY = "up";
+            else if (e.touches[0].pageY > self.mouseMoveDirection.oldY) self.mouseMoveDirection.directionY = "down";
+            else self.mouseMoveDirection.directionY = null;
+
+            self.mouseMoveDirection.oldY = e.touches[0].pageY;
+
+          }
 
           if ((x + y) >= - 35) {
             e.target.style.cursor = "row-resize";

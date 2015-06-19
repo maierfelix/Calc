@@ -312,6 +312,28 @@
    */
   CORE.Event.scroll = function(e) {
 
+    var direction = 0;
+
+    /** We're on a mobile device */
+    if (CORE.Settings.Mobile) {
+
+      var currentY = e.touches[0].clientY;
+      var currentX = e.touches[0].clientX;
+
+      var lastY = CORE.Sheets[CORE.CurrentSheet].Input.Touch.lastY;
+      var lastX = CORE.Sheets[CORE.CurrentSheet].Input.Touch.lastX;
+
+      if (currentY > lastY) {
+        direction = 0;
+      } else if (currentY < lastY) {
+        direction = 1;
+      }
+
+      CORE.Sheets[CORE.CurrentSheet].Input.Touch.lastY = currentY;
+      CORE.Sheets[CORE.CurrentSheet].Input.Touch.lastX = currentX;
+
+    }
+
     /** Update empty timestamp */
     if (!CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMouseScroll) CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMouseScroll = e.timeStamp;
 
@@ -320,35 +342,37 @@
 
     var calcDifference = Math.floor(CORE.Sheets[CORE.CurrentSheet].Settings.y * (CORE.SystemSpeed - 0.5));
 
-    var direction = 0;
-
     var amount = 0;
 
     /** Make sure the grid was scrolled */
     if (e.target.parentNode.id === CORE.DOM.Output.id) {
-      /** IE and Chrome */
-      if (e.wheelDelta) {
-        if (e.wheelDelta * ( -120 ) > 0) direction = 1;
-        amount = Math.floor(e.wheelDelta / 10);
-        amount = amount <= 0 ? amount * (-1) : amount;
-      /** Chrome, Firefox */
-      } else {
-        /** Chrome */
-        if (e.deltaY > 0) {
-          direction = 1;
-          amount = Math.floor(e.deltaY);
+
+      /** Only calculate that way, if not on mobile */
+      if (!CORE.Settings.Mobile) {
+        /** IE and Chrome */
+        if (e.wheelDelta) {
+          if (e.wheelDelta * ( -120 ) > 0) direction = 1;
+          amount = Math.floor(e.wheelDelta / 10);
           amount = amount <= 0 ? amount * (-1) : amount;
-        /** Firefox */
-        } else if (e.detail * ( -120 ) > 0) {
-          direction = 0;
-          amount = Math.floor(e.detail * 10);
-          amount = amount <= 0 ? amount * (-1) : amount;
-        /** Firefox */
-        } else if (e.detail * ( -120 ) < 0) {
-          direction = 1;
-          amount = Math.floor(e.detail * 10);
-          amount = amount <= 0 ? amount * (-1) : amount;
-        } else direction = 0;
+        /** Chrome, Firefox */
+        } else {
+          /** Chrome */
+          if (e.deltaY > 0) {
+            direction = 1;
+            amount = Math.floor(e.deltaY);
+            amount = amount <= 0 ? amount * (-1) : amount;
+          /** Firefox */
+          } else if (e.detail * ( -120 ) > 0) {
+            direction = 0;
+            amount = Math.floor(e.detail * 10);
+            amount = amount <= 0 ? amount * (-1) : amount;
+          /** Firefox */
+          } else if (e.detail * ( -120 ) < 0) {
+            direction = 1;
+            amount = Math.floor(e.detail * 10);
+            amount = amount <= 0 ? amount * (-1) : amount;
+          } else direction = 0;
+        }
       }
 
       direction = direction ? "down" : "up";
@@ -361,31 +385,37 @@
 
         var selectedCellsLength = CORE.Sheets[CORE.CurrentSheet].Selector.SelectedCells.length;
 
-        /** Large selection slows scrolling, below code fixes that */
-        if (CORE.Sheets[CORE.CurrentSheet].Selector.SelectedCells.length >= 1e3) {
-          /** Only do large scrolling if user presses the mouse */
-          if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Pressed) {
-            CORE.Settings.Scroll.Vertical = calcDifference + (Math.ceil(Math.log(selectedCellsLength + 1) / Math.LN10) * 100);
-            /** TODO: Slow scrolling on pressed mouse */
-          /** Go back to default mouse scroll amount */
-          } else {
-            /** Fast scroll depending on selection length, the larger the selection the greater the fast scroll chance */
-            if (difference / CORE.SystemSpeed <= calcDifference * Math.ceil(Math.log(selectedCellsLength + 1) / Math.LN10) / CORE.SystemSpeed) {
-              CORE.Settings.Scroll.Vertical = Math.floor(amount);
-            /** Large selection, dont care just scroll fast */
-            } else if (difference <= 75 && selectedCellsLength >= 1e4) {
-              CORE.Settings.Scroll.Vertical = Math.floor(amount);
-            /** Slow scroll */
+        /** Mobile device */
+        if (!CORE.Settings.Mobile) {
+          /** Large selection slows scrolling, below code fixes that */
+          if (CORE.Sheets[CORE.CurrentSheet].Selector.SelectedCells.length >= 1e3) {
+            /** Only do large scrolling if user presses the mouse */
+            if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Pressed) {
+              CORE.Settings.Scroll.Vertical = calcDifference + (Math.ceil(Math.log(selectedCellsLength + 1) / Math.LN10) * 100);
+              /** TODO: Slow scrolling on pressed mouse */
+            /** Go back to default mouse scroll amount */
             } else {
-              CORE.Settings.Scroll.Vertical = CORE.Settings.Scroll.OriginalVertical;
+              /** Fast scroll depending on selection length, the larger the selection the greater the fast scroll chance */
+              if (difference / CORE.SystemSpeed <= calcDifference * Math.ceil(Math.log(selectedCellsLength + 1) / Math.LN10) / CORE.SystemSpeed) {
+                CORE.Settings.Scroll.Vertical = Math.floor(amount);
+              /** Large selection, dont care just scroll fast */
+              } else if (difference <= 75 && selectedCellsLength >= 1e4) {
+                CORE.Settings.Scroll.Vertical = Math.floor(amount);
+              /** Slow scroll */
+              } else {
+                CORE.Settings.Scroll.Vertical = CORE.Settings.Scroll.OriginalVertical;
+              }
             }
+          /** Fast scrolling */
+          } else if (difference <= 75) {
+            CORE.Settings.Scroll.Vertical = Math.floor(amount);
+          /** Slow scrolling */
+          } else {
+            CORE.Settings.Scroll.Vertical = CORE.Settings.Scroll.OriginalVertical;
           }
-        /** Fast scrolling */
-        } else if (difference <= 75) {
-          CORE.Settings.Scroll.Vertical = Math.floor(amount);
-        /** Slow scrolling */
+        /** Mobile device scroll amount */
         } else {
-          CORE.Settings.Scroll.Vertical = CORE.Settings.Scroll.OriginalVertical;
+          CORE.Settings.Scroll.Vertical = CORE.Settings.Scroll.OriginalVertical + 2;
         }
 
       }
@@ -442,7 +472,8 @@
         /** Simulate mouse move to display the scrolled selection */
         CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMousePosition.x = Math.random();
         CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMousePosition.y = Math.random();
-        CORE.Event.mouseWipe(e);
+        /** Only simulate if we're on desktop */
+        if (!CORE.Settings.Mobile) CORE.Event.mouseWipe(e);
       }
 
       CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMouseScroll = e.timeStamp;

@@ -68,7 +68,7 @@
     this.cellArray = []
 
     /** Different action on desktop and mobile */
-    this.mouseMode = !CORE.Settings.Mobile ? "mouseover" : "click";
+    this.mouseMode = !CORE.Settings.Mobile ? "mouseover" : "touchmove";
 
     /** Template Object */
     this.Templates = {
@@ -103,6 +103,12 @@
 
     /** Input thingys */
     this.Input = {
+      Touch :{
+        /** Detect vertical scroll direction */
+        lastY: 0,
+        /** Detect horizontal scroll direction */
+        lastX: 0
+      },
       Mouse: {
         /** Mouse pressed or not? Also prevent multiple execution of mousedown event */
         Pressed: false,

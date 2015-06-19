@@ -32,11 +32,9 @@
       window.addEventListener("touchstart", CORE.Event.mouseDown, false);
 
       window.addEventListener("touchend", CORE.Event.mouseUp, false);
+      window.addEventListener("touchcancel", CORE.Event.mouseUp, false);
 
-      window.addEventListener("touchmove", CORE.Event.mouseWipe, false);
-
-      window.addEventListener("mousewheel", CORE.Event.scroll, false);
-      window.addEventListener("scroll", CORE.Event.scroll, false);
+      window.addEventListener("touchmove", CORE.Event.scroll, false);
 
       window.addEventListener("keydown", CORE.Event.keyPress, false);
 
@@ -91,5 +89,7 @@
     CORE.Awakener.evalLive();
 
     CORE.eval();
+
+    CORE.Sheets[CORE.CurrentSheet].Input.Keyboard.Strg = false;
 
   };
