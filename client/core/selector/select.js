@@ -330,3 +330,18 @@
     this.selectCell(letterResult, (numberResult));
 
   };
+
+  /**
+   * Select a cell range
+   *
+   * @method select
+   * @static
+   */
+  CORE.Selector.prototype.select = function(object) {
+
+    this.Selected.First = object.first;
+    this.Selected.Last = object.last;
+
+    this.getSelection();
+
+  };

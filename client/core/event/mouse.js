@@ -190,24 +190,49 @@
 
   /** Listen for mouse release */
   CORE.Event.mouseUp = function (e) {
+
+    var currentSheet = CORE.Sheets[CORE.CurrentSheet];
   
-    CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Pressed = false;
+    currentSheet.Input.Mouse.Pressed = false;
 
     /** Finish and abort extending */
-    if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Extend) {
-      CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Extend = false;
+    if (currentSheet.Input.Mouse.Extend) {
+      currentSheet.Input.Mouse.Extend = false;
       CORE.Extender.extend();
       /** Redraw the grid, since edits were made */
-      CORE.Sheets[CORE.CurrentSheet].updateWidth("default");
-      CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
+      currentSheet.updateWidth("default");
+      currentSheet.Selector.getSelection();
     }
 
     /** User resized something */
     if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.CellResize) {
-      CORE.Sheets[CORE.CurrentSheet].updateWidth();
-      CORE.Sheets[CORE.CurrentSheet].generateMenu();
-      CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
-      CORE.Sheets[CORE.CurrentSheet].Input.Mouse.CellResize = false;
+      currentSheet.updateWidth();
+      currentSheet.generateMenu();
+      currentSheet.Selector.getSelection();
+      currentSheet.Input.Mouse.CellResize = false;
+    }
+
+    /** Seems like user selected something */
+    if (e.target.parentNode.id === CORE.DOM.Output.id) {
+
+      if (currentSheet.Selector.Selected.First.Letter &&
+          currentSheet.Selector.Selected.First.Number &&
+          currentSheet.Selector.Selected.Last.Letter  &&
+          currentSheet.Selector.Selected.Last.Number) {
+
+      /** Create a new command */
+      var command = CORE.newCommand();
+          command.caller = "Selector";
+          command.action = "select";
+          command.data = {
+            first: currentSheet.Selector.Selected.First,
+            last: currentSheet.Selector.Selected.Last
+          };
+          /** Push current selection state into the commander stack */
+          currentSheet.Commander.pushUndoCommand(command);
+
+      }
+
     }
 
   };

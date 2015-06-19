@@ -201,6 +201,10 @@
     if (this.allSelected) {
       this.deleteAllCellsContent();
     }
+    /** A master cell selection is active */
+    else if (this.masterSelected.Current !== undefined && this.masterSelected.Current !== null) {
+      this.deleteMasterSelectionContent();
+    }
 
     var selectedCells = this.SelectedCells;
 
@@ -236,6 +240,26 @@
     for (var ii in cells) {
       for (var cell in cells[ii]) {
         cells[ii][cell].Content = "";
+      }
+    }
+
+  };
+
+  /**
+   * Delete content of all cells inside a master selection
+   *
+   * @method deleteMasterSelectionContent
+   * @static
+   */
+  CORE.Selector.prototype.deleteMasterSelectionContent = function() {
+
+    var masterSelected = this.masterSelected.Current;
+
+    var cells = CORE.Cells.Used[CORE.CurrentSheet];
+
+    if (cells[masterSelected]) {
+      for (var cell in cells[masterSelected]) {
+        cells[masterSelected][cell].Content = "";
       }
     }
 

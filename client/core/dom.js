@@ -94,5 +94,11 @@
   /** Select and prepare the current sheets container */
   CORE.DOM.Sheets = document.querySelector("#current_sheets");
 
+  /** Select and prepare the redo button */
+  CORE.DOM.RedoButton = document.querySelector("#button_redo");
+
+  /** Select and prepare the undo button */
+  CORE.DOM.UndoButton = document.querySelector("#button_undo");
+
   /** Select and prepare the cell input container */
   CORE.DOM.CellInput = document.querySelector("#cell_input");

@@ -73,6 +73,10 @@ Import.scripts = [
   "core/selector/select.js",
   "core/selector/functions.js",
   "core/selector/master.js",
+  /** Commander */
+  "core/commander/main.js",
+  "core/commander/command.js",
+  "core/commander/reverse.js",
   /** Helpers */
   "core/functions.js",
   "core/edit.js",

@@ -66,6 +66,9 @@
     /** Initialize Selector Plugin for this sheet */
     CORE.Sheets[CORE.CurrentSheet].Selector = new CORE.Selector();
 
+    /** Initialize Commander Plugin for this sheet */
+    CORE.Sheets[CORE.CurrentSheet].Commander = new CORE.Commander();
+
     /** Initialize Injector Plugin */
     CORE.Injector = new CORE.Injector();
 
@@ -86,6 +89,13 @@
 
     /** Initialize ClipBoard Plugin */
     CORE.ClipBoard = new CORE.ClipBoard();
+
+    /** A direct command creation helper function */
+    CORE.newCommand = function() {
+
+      return (new CORE.Sheets[CORE.CurrentSheet].Commander.Command());
+
+    };
 
   };
 

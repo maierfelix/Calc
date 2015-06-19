@@ -42,6 +42,16 @@
 			CORE.Sheets.addSheet();
     });
 
+    /** Redo button */
+    CORE.DOM.RedoButton.addEventListener('click', function() {
+      CORE.Sheets[CORE.CurrentSheet].Commander.redo();
+    });
+
+    /** Undo button */
+    CORE.DOM.UndoButton.addEventListener('click', function() {
+      CORE.Sheets[CORE.CurrentSheet].Commander.undo();
+    });
+
     document.querySelector("#import_file").addEventListener('change', function(e) {
 
       var input = e.target;

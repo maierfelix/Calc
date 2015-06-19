@@ -119,3 +119,5 @@
     };
 
   };
+
+  CORE.Grid.prototype.Cell = CORE.Grid.Cell;
