@@ -478,6 +478,31 @@
   };
 
   /**
+   * Create a new sheet
+   *
+   * @method createSheet
+   * @static
+   */
+  CORE.$.createSheet = function(name) {
+
+    /** Initialize cell used stack for the new sheet */
+    if (!CORE.Cells.Used[CORE.CurrentSheet]) CORE.Cells.Used[CORE.CurrentSheet] = {};
+
+    /** Warn if sheet already exists, overwrite nevertheless */
+    if (CORE.Sheets[name]) console.warning("Seems like sheet " + name + "already exists");
+
+    /** Create new cell used stack */
+    CORE.Sheets[name] = new CORE.Grid();
+
+    /** Initialize Selector Plugin for the new sheet */
+    CORE.Sheets[name].Selector = new CORE.Selector();
+
+    /** Initialize Commander Plugin for the new sheet */
+    CORE.Sheets[name].Commander = new CORE.Commander();
+
+  };
+
+  /**
    * Secure kill a sheet
    *
    * @method killSheet

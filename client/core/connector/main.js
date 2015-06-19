@@ -165,9 +165,9 @@
   };
 
   /**
-   * Count how long the server is successfully connected
+   * Receive room data
    *
-   * @method connectionTime
+   * @method createRoom
    * @static
    */
   CORE.Connector.prototype.createRoom = function() {
@@ -204,7 +204,7 @@
   /**
    * Login modal
    *
-   * @method connectionTime
+   * @method loginModal
    * @static
    */
   CORE.Connector.prototype.loginModal = function() {

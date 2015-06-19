@@ -113,7 +113,10 @@
    */
   CORE.Connector.prototype.processServerCells = function(object) {
 
+    var sheets = [];
+
     for (var sheet in object) {
+      sheets.push(sheet);
       /** Add new sheet if not existing yet */
       if (!CORE.Sheets[sheet]) {
         CORE.Sheets[sheet] = new CORE.Grid();
@@ -130,6 +133,21 @@
           /** Default content */
           } else {
             CORE.Cells.Used[sheet][letter][cell].Content = object[sheet].cells[letter][cell];
+          }
+        }
+      }
+    }
+
+    /** Received new sheets from the server */
+    if (sheets.length) {
+      /** Synchronize server sheets with client sheets, delete sheets which doesn't exist on the server */
+      for (var sheet in CORE.Sheets) {
+        if (CORE.Sheets.hasOwnProperty(sheet)) {
+          if (sheets.indexOf(sheet) >= 0) {
+            //
+          /** Delete non-server received sheets, and switch to another */
+          } else {
+            CORE.Sheets.killSwitchSheet(sheet);
           }
         }
       }

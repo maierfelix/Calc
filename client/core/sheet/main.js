@@ -53,13 +53,7 @@
       CORE.CurrentSheet = "Sheet" + newSheetNumber;
     }
 
-    if (!CORE.Cells.Used[CORE.CurrentSheet]) CORE.Cells.Used[CORE.CurrentSheet] = {};
-
-    /** Create new cell used stack */
-    CORE.Sheets[CORE.CurrentSheet] = new CORE.Grid();
-
-    /** Initialize Selector Plugin for the new sheet */
-    CORE.Sheets[CORE.CurrentSheet].Selector = new CORE.Selector();
+    CORE.$.createSheet(CORE.CurrentSheet);
 
     var button = document.createElement("button");
         button.className = "mui-btn mui-btn-default mui-btn-mini slideUp";
