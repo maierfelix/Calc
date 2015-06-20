@@ -77,6 +77,7 @@ Master key: *3b011508e1edb8a92daca0c72522b4449aa455c820009ce1b4a838c868d6c4b8*
 - [ ] Key scrolling
 - [ ] Reversed selection extending doesnt work
 - [ ] Reversed selection resize ghost switch bug
+- [ ] Styling bug on master column and row background styling (scrolledXY > Settings.xy)
 
 ## Notes:
 - [ ] Possibly include server-side cell calculation option
