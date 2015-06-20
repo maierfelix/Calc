@@ -1,6 +1,7 @@
 ![NovaeCalc](http://i.imgur.com/hYWetxs.png)
 
 # Description
+[![Join the chat at https://gitter.im/felixmaier/NovaeCalc](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/felixmaier/NovaeCalc?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)<br>
 NovaeCalc is a lightning browserbased spreadsheet software.<br/>
 NovaeCalc is not stable yet.<br/>
 NovaeCalc runs the best on Google Chrome.
