@@ -21,12 +21,16 @@
    */
   CORE.Injector.prototype.insertColumn = function() {
 
-    var usedCells = CORE.Cells.Used[CORE.CurrentSheet];
+    var sheet = arguments[0] || CORE.CurrentSheet;
 
-    var masterCells = CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Columns;
+    var firstSelectedCell = arguments[1] || CORE.Sheets[sheet].Selector.Selected.First;
+
+    var usedCells = CORE.Cells.Used[sheet];
+
+    var masterCells = CORE.Sheets[sheet].Selector.masterSelected.Columns;
 
     /** Process master cells */
-    var customArray = this.getAlphaMasterColumns("insert");
+    var customArray = this.getAlphaMasterColumns("insert", sheet, firstSelectedCell);
 
     /** Sort array alphabetically */
     customArray = customArray.sortOn("old");
@@ -40,7 +44,7 @@
       delete masterCells[value.old];
     }
 
-    customArray = this.getAlphaUsedCells("insert");
+    customArray = this.getAlphaUsedCells("insert", sheet, firstSelectedCell);
 
     /** Sort array alphabetically */
     customArray = customArray.sortOn("old");
@@ -54,11 +58,15 @@
       delete usedCells[value.old];
     }
 
+    if (!arguments.length && CORE.Sheets[CORE.CurrentSheet].isMasterSheet()) {
+      CORE.Styler.inheritInjection(CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First, "insertColumn");
+    }
+
     /** Refresh the grid */
-    CORE.Sheets[CORE.CurrentSheet].updateWidth("default");
+    CORE.Sheets[sheet].updateWidth("default");
 
     /** Dont loose selection */
-    CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
+    CORE.Sheets[sheet].Selector.getSelection();
 
   };
 
@@ -70,14 +78,18 @@
    */
   CORE.Injector.prototype.insertRow = function() {
 
-    var usedCells = CORE.Cells.Used[CORE.CurrentSheet];
+    var sheet = arguments[0] || CORE.CurrentSheet;
 
-    var masterCells = CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Rows;
+    var firstSelectedCell = arguments[1] || CORE.Sheets[sheet].Selector.Selected.First;
+
+    var usedCells = CORE.Cells.Used[sheet];
+
+    var masterCells = CORE.Sheets[sheet].Selector.masterSelected.Rows;
 
     var ii = 0;
 
     /** Process master cells */
-    var customArray = this.getNumericMasterRows("insert");
+    var customArray = this.getNumericMasterRows("insert", sheet, firstSelectedCell);
 
     /** Sort array by numbers ascending */
     customArray = customArray.sortOn("old");
@@ -92,7 +104,7 @@
     }
 
     /** ## Cell Section ## */
-    customArray = this.getNumericUsedCells("insert");
+    customArray = this.getNumericUsedCells("insert", sheet, firstSelectedCell);
 
     /** Sort array by numbers ascending */
     customArray = customArray.sortOn("old");
@@ -107,10 +119,14 @@
       delete usedCells[value.letter][oldCell];
     }
 
+    if (!arguments.length && CORE.Sheets[CORE.CurrentSheet].isMasterSheet()) {
+      CORE.Styler.inheritInjection(CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First, "insertRow");
+    }
+
     /** Refresh the grid */
-    CORE.Sheets[CORE.CurrentSheet].updateWidth("default");
+    CORE.Sheets[sheet].updateWidth("default");
 
     /** Dont loose selection */
-    CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
+    CORE.Sheets[sheet].Selector.getSelection();
 
   };

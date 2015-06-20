@@ -71,9 +71,6 @@
    */
   CORE.Styler.prototype.inheritCellValue = function(object) {
 
-    var currentSheet = CORE.Sheets[CORE.CurrentSheet];
-    var selectedCells = currentSheet.Selector.SelectedCells;
-
     /** Sheets to inherit */
     var inheritSheets = [];
 
@@ -98,6 +95,36 @@
       CORE.$.registerCell({ letter: letter, number: number, sheet: inheritSheets[ii] });
       /** Update slave sheets cells */
       CORE.Cells.Used[inheritSheets[ii]][letter][letter + number][object.type] = object.value;
+    }
+
+  };
+
+  /**
+   * Inherit injections
+   *
+   * @method inheritInjection
+   * @static
+   */
+  CORE.Styler.prototype.inheritInjection = function(select, type) {
+
+    var currentSheet = CORE.Sheets[CORE.CurrentSheet];
+
+    /** Sheets to inherit */
+    var inheritSheets = [];
+
+    var selectionBackup = {};
+
+    /** Collect all slave sheets */
+    for (var sheet in CORE.Sheets) {
+      if (CORE.Sheets.hasOwnProperty(sheet)) {
+        if (!CORE.Sheets[sheet].isMasterSheet()) {
+          inheritSheets.push(sheet);
+        }
+      }
+    }
+
+    for (var ii = 0; ii < inheritSheets.length; ++ii) {
+      CORE.Injector[type](inheritSheets[ii], currentSheet.Selector.Selected.First);
     }
 
   };

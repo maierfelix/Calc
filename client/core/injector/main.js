@@ -30,11 +30,15 @@
    * @method getAlphaUsedCells
    * @static
    */
-  CORE.Injector.prototype.getAlphaUsedCells = function(mode) {
+  CORE.Injector.prototype.getAlphaUsedCells = function(mode, sheet, selected) {
 
-    var selectedCell = CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First;
+    var selectedCell = null;
 
-    var usedCells = CORE.Cells.Used[CORE.CurrentSheet];
+    if (selected && typeof selected === "object") {
+      selectedCell = selected;
+    } else selectedCell = CORE.Sheets[sheet].Selector.Selected.First;
+
+    var usedCells = CORE.Cells.Used[sheet];
 
     var cellLetter;
     var cellNumber;
@@ -80,11 +84,15 @@
    * @method getNumericUsedCells
    * @static
    */
-  CORE.Injector.prototype.getNumericUsedCells = function(mode) {
+  CORE.Injector.prototype.getNumericUsedCells = function(mode, sheet, selected) {
 
-    var selectedCell = CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First;
+    var selectedCell = null;
 
-    var usedCells = CORE.Cells.Used[CORE.CurrentSheet];
+    if (selected && typeof selected === "object") {
+      selectedCell = selected;
+    } else selectedCell = CORE.Sheets[sheet].Selector.Selected.First;
+
+    var usedCells = CORE.Cells.Used[sheet];
 
     var cellLetter;
     var cellNumber;
@@ -132,11 +140,15 @@
    * @method getAlphaMasterColumns
    * @static
    */
-  CORE.Injector.prototype.getAlphaMasterColumns = function(mode) {
+  CORE.Injector.prototype.getAlphaMasterColumns = function(mode, sheet, selected) {
 
-    var selectedCell = CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First;
+    var selectedCell = null;
 
-    var masterCells = CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Columns;
+    if (selected && typeof selected === "object") {
+      selectedCell = selected;
+    } else selectedCell = CORE.Sheets[sheet].Selector.Selected.First;
+
+    var masterCells = CORE.Sheets[sheet].Selector.masterSelected.Columns;
 
     var customArray = [];
 
@@ -167,11 +179,15 @@
    * @method getNumericMasterRows
    * @static
    */
-  CORE.Injector.prototype.getNumericMasterRows = function(mode) {
+  CORE.Injector.prototype.getNumericMasterRows = function(mode, sheet, selected) {
 
-    var selectedCell = CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First;
+    var selectedCell = null;
 
-    var masterCells = CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Rows;
+    if (selected && typeof selected === "object") {
+      selectedCell = selected;
+    } else selectedCell = CORE.Sheets[sheet].Selector.Selected.First;
+
+    var masterCells = CORE.Sheets[sheet].Selector.masterSelected.Rows;
 
     var customArray = [];
 
