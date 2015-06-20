@@ -278,7 +278,7 @@
         masterSheets = true;
       }
       /** Active master sheet found, display all slaves sheetType */
-      if (masterSheets && !CORE.Sheets[attribute]) {
+      if (masterSheets && CORE.Sheets[attribute] && !CORE.Sheets[attribute].Settings.master) {
         for (var kk = 0; kk < CORE.DOM.Sheets.children[ii].children.length; ++kk) {
           if (CORE.DOM.Sheets.children[ii].children[kk].className === "sheetType") {
             CORE.DOM.Sheets.children[ii].children[kk].style.display = "block";
