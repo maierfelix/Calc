@@ -7,6 +7,7 @@ This is the included documentation for the NovaeCalc project.
 * [User interface](#User interface)
 * [Formulas](#Formulas)
 * [Projects](#Projects)
+* [Sheets](#Sheets)
 * [Live Cells](#Live Cells)
 
 ## User interface
@@ -68,6 +69,18 @@ Click on "*File*" on the left top and choose "*Open..*".
 
 ### Save
 Click on "*File*" on the left top and click on "*Export..*".
+
+## Sheets
+NovaeCalc starts with Sheet1 by default.
+To add a new sheet, press the *+* button on the right bottom.
+To navigate to a sheet, simply click on it's name.
+To delete a sheet, click on the small *-* button on the right top of the sheet button.
+
+### Master and slave sheets
+NovaeCalc supports master and slave sheets. If you create a master sheet, all style changes, formula and content changes, column and row resizement etc. will be inherited to each slave sheet.
+A maximum of 1 master sheets can exist at the same time.
+Master sheets are green colored by default.
+To delete a master sheet, click on the small *-* button on the right top of it.
 
 ## Live Cells
 
