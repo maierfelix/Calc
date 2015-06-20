@@ -64,6 +64,57 @@
   };
 
   /**
+   * Inherit a master styling to other sheets
+   *
+   * @method inheritSheetMasterStyling
+   * @static
+   */
+  CORE.Styler.prototype.inheritSheetMasterStyling = function(type, data, current) {
+
+    var dataType = typeof data;
+
+    var selectedCells = CORE.Sheets[CORE.CurrentSheet].Selector.SelectedCells;
+
+    /** Sheets to inherit */
+    var inheritSheets = [];
+
+    /** Collect all slave sheets */
+    for (var sheet in CORE.Sheets) {
+      if (CORE.Sheets.hasOwnProperty(sheet)) {
+        if (!CORE.Sheets[sheet].isMasterSheet()) {
+          inheritSheets.push(sheet);
+        }
+      }
+    }
+
+    var masterStyleType = isNaN(parseInt(current)) ? "Columns" : "Rows";
+
+    for (var ii = 0; ii < inheritSheets.length; ++ii) {
+
+      /** Short syntax */
+      var masterSelected = CORE.Sheets[inheritSheets[ii]].Selector.masterSelected;
+
+      if (!masterSelected[masterStyleType][current]) {
+        masterSelected[masterStyleType][current] = new CORE.Grid.Cell();
+      }
+
+      /** Reverse if data is a boolean */
+      if (dataType === "boolean") {
+        /** Reverse boolean */
+        if (masterSelected[masterStyleType][current][type]) {
+          masterSelected[masterStyleType][current][type] = false;
+        } else {
+          masterSelected[masterStyleType][current][type] = true;
+        }
+      } else {
+        /** Update slave sheets cells */
+        masterSelected[masterStyleType][current][type] = data;
+      }
+    }
+
+  };
+
+  /**
    * Inherit a cells content to other sheets
    *
    * @method inheritCellValue

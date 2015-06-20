@@ -31,9 +31,14 @@
 
     /** Active master selection */
     if (masterCell.Current && masterCell.Current !== null) {
+      if (CORE.Sheets[CORE.CurrentSheet].isMasterSheet()) {
+        this.inheritSheetMasterStyling("BackgroundColor", color, masterCell.Current);
+      }
       masterCell = masterCell.Columns[masterCell.Current] || masterCell.Rows[masterCell.Current];
       /** Check if master cell exists */
-      if (masterCell) masterCell.BackgroundColor = color;
+      if (masterCell) {
+        masterCell.BackgroundColor = color;
+      }
     }
 
     /** Validate all selected cells */

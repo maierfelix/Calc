@@ -31,6 +31,9 @@
 
     /** Active master selection */
     if (selectSheet.masterSelected.Current && selectSheet.masterSelected.Current !== null) {
+      if (CORE.Sheets[CORE.CurrentSheet].isMasterSheet()) {
+        this.inheritSheetMasterStyling("Color", color, masterCell.Current);
+      }
       masterCell = masterCell.Columns[masterCell.Current] || masterCell.Rows[masterCell.Current];
       /** Check if master cell exists */
       if (masterCell) masterCell.Color = color;
@@ -53,6 +56,11 @@
       /** Immediately update cells font color */
       jumps = CORE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
       if (jumps >= 0) CORE.DOM.Output.children[jumps].style.color = color;
+    }
+
+    /** Inherit style changes to slave sheets */
+    if (CORE.Sheets[CORE.CurrentSheet].isMasterSheet()) {
+      this.inheritSheetStyling("Color", color);
     }
 
     /** Dont loose the selection */

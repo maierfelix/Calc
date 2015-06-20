@@ -30,6 +30,9 @@
 
     /** Active master selection */
     if (selectSheet.masterSelected.Current && selectSheet.masterSelected.Current !== null) {
+      if (CORE.Sheets[CORE.CurrentSheet].isMasterSheet()) {
+        this.inheritSheetMasterStyling("FontBold", true, masterCell.Current);
+      }
       masterCell = masterCell.Columns[masterCell.Current] || masterCell.Rows[masterCell.Current];
       /** Check if master cell exists */
       if (masterCell) {
