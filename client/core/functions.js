@@ -72,6 +72,9 @@
     /** Initialize Injector Plugin */
     CORE.Injector = new CORE.Injector();
 
+    /** Initialize Styler Plugin */
+    CORE.Styler = new CORE.Styler();
+
     /** Select first cell in the grid */
     CORE.Sheets[CORE.CurrentSheet].Selector.selectCell(1, 1);
 
@@ -290,11 +293,13 @@
    */
   CORE.$.validateCells = function() {
 
+    var name = arguments[0] || CORE.CurrentSheet;
+
     /** Loop through all selected cells */
-    for (var ii = 0; ii < CORE.Sheets[CORE.CurrentSheet].Selector.SelectedCells.length; ++ii) {
-      var letter = CORE.$.numberToAlpha(CORE.Sheets[CORE.CurrentSheet].Selector.SelectedCells[ii].letter);
-      var number = CORE.Sheets[CORE.CurrentSheet].Selector.SelectedCells[ii].number;
-      CORE.$.registerCell({ letter: letter, number: number });
+    for (var ii = 0; ii < CORE.Sheets[name].Selector.SelectedCells.length; ++ii) {
+      var letter = CORE.$.numberToAlpha(CORE.Sheets[name].Selector.SelectedCells[ii].letter);
+      var number = CORE.Sheets[name].Selector.SelectedCells[ii].number;
+      CORE.$.registerCell({ letter: letter, number: number, sheet: name });
     }
 
   };
@@ -307,17 +312,18 @@
    */
   CORE.$.registerCell = function(object) {
 
+    var sheet = object.sheet || CORE.CurrentSheet;
     var letter = object.letter;
     var number = object.number;
     var name = letter + number;
 
-    if (CORE.Cells.Used[CORE.CurrentSheet][letter]) {
-      if (!CORE.Cells.Used[CORE.CurrentSheet][letter][name]) {
-        CORE.Cells.Used[CORE.CurrentSheet][letter][name] = new CORE.Sheets[CORE.CurrentSheet].Cell();
+    if (CORE.Cells.Used[sheet][letter]) {
+      if (!CORE.Cells.Used[sheet][letter][name]) {
+        CORE.Cells.Used[sheet][letter][name] = new CORE.Sheets[sheet].Cell();
       }
     } else {
-      CORE.Cells.Used[CORE.CurrentSheet][letter] = {};
-      CORE.Cells.Used[CORE.CurrentSheet][letter][name] = new CORE.Sheets[CORE.CurrentSheet].Cell();
+      CORE.Cells.Used[sheet][letter] = {};
+      CORE.Cells.Used[sheet][letter][name] = new CORE.Sheets[sheet].Cell();
     }
 
   };

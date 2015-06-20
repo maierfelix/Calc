@@ -78,6 +78,14 @@ Import.scripts = [
   "core/commander/command.js",
   "core/commander/reverse.js",
   "core/commander/sheet.js",
+  /** Styler */
+  "core/styler/main.js",
+  "core/styler/inherit.js",
+  "core/styler/background.js",
+  "core/styler/font/color.js",
+  "core/styler/font/bold.js",
+  "core/styler/font/italic.js",
+  "core/styler/font/underline.js",
   /** Helpers */
   "core/functions.js",
   "core/edit.js",

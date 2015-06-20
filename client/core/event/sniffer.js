@@ -123,12 +123,19 @@
     /** User is in edit mode? */
     if (CORE.Event.inEditMode()) {
       var letter = editCell.match(CORE.REGEX.numbers).join("");
+      var number = editCell.match(CORE.REGEX.letters).join("");
       var cellEditContent = CORE.Cells.Used[CORE.CurrentSheet][letter] && CORE.Cells.Used[CORE.CurrentSheet][letter][editCell].Content ? CORE.Cells.Used[CORE.CurrentSheet][letter][editCell].Content : undefined;
       /** Check if cell is filled and valid */
       if (cellEditContent !== undefined && cellEditContent !== null && cellEditContent.length) {
         /** Cell starts with a "=" and will be interpreted as a formula */
         if (cellEditContent[0] === "=") {
           CORE.Cells.Used[CORE.CurrentSheet][letter][editCell].Formula = cellEditContent;
+
+          /** Inherit cell formula to slave sheets */
+          if (CORE.Sheets[CORE.CurrentSheet].isMasterSheet()) {
+            CORE.Styler.inheritCellValue({letter: letter, number: number, value: CORE.DOM.CellInput.value, type: "Formula"});
+          }
+
         /** Cell has no formula anymore */
         } else {
           /** Clean the cell formula if it has content */
@@ -140,6 +147,12 @@
             /** Update the cell stacks content */
             CORE.updateCell(editCell, CORE.Cells.Used[CORE.CurrentSheet][letter][editCell].Content);
           }
+
+          /** Inherit cell content to slave sheets */
+          if (CORE.Sheets[CORE.CurrentSheet].isMasterSheet()) {
+            CORE.Styler.inheritCellValue({letter: letter, number: number, value: CORE.DOM.CellInput.value, type: "Content"});
+          }
+
         }
       }
     }

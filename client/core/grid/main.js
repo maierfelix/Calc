@@ -305,3 +305,16 @@
     if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Edit) this.getEditSelection(CORE.Sheets[CORE.CurrentSheet].Selector.Edit);
 
   };
+
+  /**
+   * Check if myself is a master sheet
+   *
+   * @method isMasterSheet
+   * @static
+   */
+  CORE.Grid.prototype.isMasterSheet = function(e) {
+
+    if (this.Settings.master) return (true);
+    return (false);
+
+  };

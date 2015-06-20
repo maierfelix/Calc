@@ -94,16 +94,22 @@
         usersInRoom.className = "usersInRoom";
 
     var sheetType = document.createElement("p");
-        sheetType.innerHTML = "M";
         sheetType.className = "sheetType";
-
-    button.appendChild(closeButton);
-    button.appendChild(usersInRoom);
+        sheetType.style.display = "none";
 
     /** User wants to add a master sheet */
     if (masterSheet) {
+      sheetType.innerHTML = "M";
+      sheetType.style.display = "block";
+      button.appendChild(sheetType);
+    } else {
+      sheetType.innerHTML = "S";
+      sheetType.style.display = "none";
       button.appendChild(sheetType);
     }
+
+    button.appendChild(closeButton);
+    button.appendChild(usersInRoom);
 
     /** Change sheet on click */
     button.addEventListener('click', function(e) {
@@ -259,6 +265,8 @@
 
     var attribute = null;
 
+    var masterSheets = false;
+
     for (var ii = 0; ii < CORE.DOM.Sheets.children.length; ++ii) {
       CORE.DOM.Sheets.children[ii].classList.remove("activeSheet", "activeMasterSheet");
       attribute = CORE.DOM.Sheets.children[ii].getAttribute("name");
@@ -266,9 +274,28 @@
       if (!CORE.Sheets[attribute]) {
         CORE.DOM.Sheets.children[ii].parentNode.removeChild(CORE.DOM.Sheets.children[ii]);
       }
+      if (CORE.Sheets[attribute] && CORE.Sheets[attribute].Settings.master) {
+        masterSheets = true;
+      }
+      /** Active master sheet found, display all slaves sheetType */
+      if (masterSheets && !CORE.Sheets[attribute]) {
+        for (var kk = 0; kk < CORE.DOM.Sheets.children[ii].children.length; ++kk) {
+          if (CORE.DOM.Sheets.children[ii].children[kk].className === "sheetType") {
+            CORE.DOM.Sheets.children[ii].children[kk].style.display = "block";
+          }
+        }
+      /** Remove sheetType for all slaves */
+      } else if (!masterSheets) {
+        for (var kk = 0; kk < CORE.DOM.Sheets.children[ii].children.length; ++kk) {
+          if (CORE.DOM.Sheets.children[ii].children[kk].className === "sheetType") {
+            CORE.DOM.Sheets.children[ii].children[kk].style.display = "none";
+          }
+        }
+      }
       if (attribute === name) {
         /** Detect master sheets */
         if (CORE.Sheets[attribute] && CORE.Sheets[attribute].Settings.master) {
+          masterSheets = true;
           /** Special styling for master sheets */
           CORE.DOM.Sheets.children[ii].classList.add("activeMasterSheet");
         } else {
