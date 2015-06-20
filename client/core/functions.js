@@ -72,13 +72,7 @@
     /** Initialize Injector Plugin */
     CORE.Injector = new CORE.Injector();
 
-    /** Define first cell in grid as parent cell */
-    CORE.Sheets[CORE.CurrentSheet].Selector.parentSelectedCell = {
-      Letter: 1,
-      Number: 1
-    };
-
-    /** Select major first cell in the grid */
+    /** Select first cell in the grid */
     CORE.Sheets[CORE.CurrentSheet].Selector.selectCell(1, 1);
 
     /** Try to connect */
@@ -480,10 +474,12 @@
   /**
    * Create a new sheet
    *
+   * @param {boolean} master Master Sheet
+   *
    * @method createSheet
    * @static
    */
-  CORE.$.createSheet = function(name) {
+  CORE.$.createSheet = function(name, master) {
 
     /** Initialize cell used stack for the new sheet */
     if (!CORE.Cells.Used[CORE.CurrentSheet]) CORE.Cells.Used[CORE.CurrentSheet] = {};
@@ -497,6 +493,10 @@
     /** Initialize Commander Plugin for the new sheet */
     CORE.Sheets[name].Commander = new CORE.Commander();
 
+    if (master) {
+      CORE.Sheets[name].Settings.master = true;
+    }
+
   };
 
   /**
@@ -506,6 +506,11 @@
    * @static
    */
   CORE.$.killSheet = function(name) {
+
+    /** If sheet was a master sheet, decrease master sheet count */
+    if (CORE.Sheets[name].Settings.master) {
+      if (CORE.MasterSheetCount > 0) CORE.MasterSheetCount--;
+    }
 
     for (var ii in CORE.Cells.Used[name]) {
       for (var cell in CORE.Cells.Used[name][ii]) {

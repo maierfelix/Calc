@@ -77,6 +77,7 @@ Import.scripts = [
   "core/commander/main.js",
   "core/commander/command.js",
   "core/commander/reverse.js",
+  "core/commander/sheet.js",
   /** Helpers */
   "core/functions.js",
   "core/edit.js",

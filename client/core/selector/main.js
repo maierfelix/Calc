@@ -25,13 +25,13 @@
     this.Selected = {
       /** First selected cell */
       First: {
-        Letter: null,
-        Number: 0
+        Letter: 1,
+        Number: 1
       },
       /** Last selected cell */
       Last: {
-        Letter: null,
-        Number: 0
+        Letter: 1,
+        Number: 1
       }
     };
 
@@ -49,8 +49,8 @@
 
     /** Parent cell, can only be changed by mouse or selectCell function */
     this.parentSelectedCell = {
-      Letter: 0,
-      Number: 0
+      Letter: 1,
+      Number: 1
     };
 
     /** Helper variable, to detect if user starts to edit a cell */

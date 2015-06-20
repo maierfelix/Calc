@@ -32,20 +32,26 @@
 
   /** Cell thingys */
   CORE.Cells = {
-    /** Customized cells -> Sheet -> Dictionary[a-Z] -> [a-Z][a-Z+0-9] */
+    /** Customized cells -> Sheet -> Dictionary[a-Z] -> ColumnRow[a-Z] -> Cell[a-Z+0-9] */
     Used: {},
     /** Live cells */
     Live: {}
   };
 
-  /** Currently open sheet */
-  CORE.CurrentSheet = "Sheet1";
-
   /** System speed grade */
   CORE.SystemSpeed = 1;
 
-  /** Amount of created sheets */
+  /** Language */
+  CORE.Language = "en";
+
+  /** Currently open sheet */
+  CORE.CurrentSheet = "Sheet1";
+
+  /** Amount of created slave sheets */
   CORE.SheetCount = 0;
+
+  /** Amount of created master sheets, shall not be over 1 */
+  CORE.MasterSheetCount = 0;
 
   /** Mobile detection */
   CORE.Settings.Mobile = false;

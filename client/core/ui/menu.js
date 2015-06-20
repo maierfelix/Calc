@@ -38,8 +38,31 @@
       CORE.Connector.loginModal();
     });
 
-    CORE.DOM.AddSheet.addEventListener('click', function() {
-			CORE.Sheets.addSheet();
+    CORE.DOM.AddSheet.addEventListener('mousedown', function() {
+
+      this.setAttribute("timestamp", new Date().getTime());
+
+    });
+
+    CORE.DOM.AddSheet.addEventListener('mouseup', function() {
+
+      /** Don't confuse this as a mouse wipe */
+      CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Pressed = false;
+
+      /** Get last time the button was pressed */
+      var lastPress = parseInt(this.getAttribute("timestamp"));
+
+      /** Calculate mouse press duration */
+      var time = (new Date().getTime() - lastPress);
+
+      if (time >= 750) {
+        /** Add a master sheet */
+        CORE.Sheets.addSheet(false, true);
+      } else {
+        /** Add a slave sheet */
+        CORE.Sheets.addSheet();
+      }
+
     });
 
     /** Redo button */

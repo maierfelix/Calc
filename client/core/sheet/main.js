@@ -37,6 +37,25 @@
 
     var newSheetNumber = CORE.SheetCount;
 
+    /** Detect if user wants to create a master sheet */
+    var masterSheet = arguments[1] || false;
+
+    /** More than 1 master sheets are not allowed */
+    if (masterSheet && (CORE.MasterSheetCount + 1) > 1) {
+
+      /** Css class helper */
+      var muiButton = "mui-btn mui-btn-primary mui-btn-lg alertButton";
+
+      /** The modal content */
+      var title = "<h3 class='modalTitle'>More than one master sheet isn't allowed!</h3>";
+      var buttons = "<button class='"+muiButton+" alertOk' name='ok'>Ok</button>";
+
+      /** Alert the user, that more than one master sheets are not allowed */
+      CORE_UI.Modal(title, buttons, function(submit) {});
+
+      return void 0;
+    }
+
     if (Object.keys(CORE.Sheets).length) {
       /** Already exists */
       if (CORE.Sheets["Sheet" + newSheetNumber]) {
@@ -49,15 +68,21 @@
 
     if (arguments[0] && arguments[0].length) {
       CORE.CurrentSheet = arguments[0];
+    } else if (masterSheet) {
+      CORE.MasterSheetCount++;
+      CORE.CurrentSheet = "MasterSheet" + newSheetNumber;
     } else {
       CORE.CurrentSheet = "Sheet" + newSheetNumber;
     }
 
-    CORE.$.createSheet(CORE.CurrentSheet);
+    CORE.$.createSheet(CORE.CurrentSheet, masterSheet);
 
     var button = document.createElement("button");
         button.className = "mui-btn mui-btn-default mui-btn-mini slideUp";
-        button.setAttribute("style", "color:#fff;background-color:rgba(130, 177, 255, 0.8);");
+        /** Special background color for master sheets */
+        if (masterSheet) button.setAttribute("style", "color:#fff;background-color:rgba(129, 199, 132, 0.8);");
+        /** Default background for slave sheets */
+        else button.setAttribute("style", "color:#fff;background-color:rgba(130, 177, 255, 0.8);");
         button.setAttribute("name", CORE.CurrentSheet);
         button.innerHTML = CORE.CurrentSheet;
 
@@ -68,8 +93,17 @@
     var usersInRoom = document.createElement("p");
         usersInRoom.className = "usersInRoom";
 
+    var sheetType = document.createElement("p");
+        sheetType.innerHTML = "M";
+        sheetType.className = "sheetType";
+
     button.appendChild(closeButton);
     button.appendChild(usersInRoom);
+
+    /** User wants to add a master sheet */
+    if (masterSheet) {
+      button.appendChild(sheetType);
+    }
 
     /** Change sheet on click */
     button.addEventListener('click', function(e) {
@@ -90,8 +124,9 @@
       }
     });
 
-    /** Insert into the dom */
-    CORE.DOM.Sheets.appendChild(button);
+    /** Insert sheet button into the dom */
+    if (masterSheet) CORE.DOM.Sheets.insertBefore(button, CORE.DOM.Sheets.children[0]);
+    else CORE.DOM.Sheets.appendChild(button);
 
     /** Auto change to the new sheet*/
     CORE.Sheets.changeSheet(CORE.CurrentSheet, 1);
@@ -104,6 +139,9 @@
 
     /** Refresh everything */
     CORE.Event.resize();
+
+    /** Select first cell in the grid */
+    CORE.Sheets[CORE.CurrentSheet].Selector.selectCell(1, 1);
 
     /** Highlight active sheet */
     CORE.Sheets.setActiveSheet(CORE.CurrentSheet);
@@ -222,14 +260,20 @@
     var attribute = null;
 
     for (var ii = 0; ii < CORE.DOM.Sheets.children.length; ++ii) {
-      CORE.DOM.Sheets.children[ii].classList.remove("activeSheet");
+      CORE.DOM.Sheets.children[ii].classList.remove("activeSheet", "activeMasterSheet");
       attribute = CORE.DOM.Sheets.children[ii].getAttribute("name");
       /** Clean old sheet buttons */
       if (!CORE.Sheets[attribute]) {
         CORE.DOM.Sheets.children[ii].parentNode.removeChild(CORE.DOM.Sheets.children[ii]);
       }
       if (attribute === name) {
-        CORE.DOM.Sheets.children[ii].classList.add("activeSheet");
+        /** Detect master sheets */
+        if (CORE.Sheets[attribute] && CORE.Sheets[attribute].Settings.master) {
+          /** Special styling for master sheets */
+          CORE.DOM.Sheets.children[ii].classList.add("activeMasterSheet");
+        } else {
+          CORE.DOM.Sheets.children[ii].classList.add("activeSheet");
+        }
       }
     }
 

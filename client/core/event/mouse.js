@@ -213,7 +213,7 @@
     }
 
     /** Seems like user selected something */
-    if (e.target.parentNode.id === CORE.DOM.Output.id) {
+    if (e.target.parentNode && e.target.parentNode.id === CORE.DOM.Output.id) {
 
       if (currentSheet.Selector.Selected.First.Letter &&
           currentSheet.Selector.Selected.First.Number &&

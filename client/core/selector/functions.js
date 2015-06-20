@@ -279,8 +279,8 @@
       Number: CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY || 1
     };
     var last = {
-      Letter: CORE.Sheets[CORE.CurrentSheet].Settings.scrolledX + CORE.Sheets[CORE.CurrentSheet].Settings.x,
-      Number: CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY + CORE.Sheets[CORE.CurrentSheet].Settings.y
+      Letter: CORE.Sheets[CORE.CurrentSheet].Settings.scrolledX + CORE.Sheets[CORE.CurrentSheet].Settings.x + 1,
+      Number: CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY + CORE.Sheets[CORE.CurrentSheet].Settings.y + 1
     };
 
     var object = this.getOuterSelection(first, last);
