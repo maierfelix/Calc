@@ -79,6 +79,84 @@
   };
 
   /**
+   * Process master cells (alphabetical)
+   *
+   * @method getAlphaMasterColumns
+   * @static
+   */
+  CORE.Injector.prototype.getAlphaMasterColumns = function(mode, sheet, selected) {
+
+    var selectedCell = null;
+
+    if (selected && typeof selected === "object") {
+      selectedCell = selected;
+    } else selectedCell = CORE.Sheets[sheet].Selector.Selected.First;
+
+    var masterCells = CORE.Sheets[sheet].Selector.masterSelected.Columns;
+
+    var customArray = [];
+
+    /** Move everything behind this letter 1 right */
+    for (var ii in masterCells) {
+
+      /** Get each letter behind */
+      if (masterCells[ii] && CORE.$.alphaToNumber(ii) >= selectedCell.Letter) {
+        switch (mode) {
+          case "insert":
+            customArray.push({ old: ii, new: (CORE.$.numberToAlpha(CORE.$.alphaToNumber(ii) + 1)) });
+            break;
+          case "delete":
+            customArray.push({ old: ii, new: (CORE.$.numberToAlpha(CORE.$.alphaToNumber(ii) - 1)) });
+            break;
+        }
+      }
+
+    }
+
+    return(customArray);
+
+  };
+
+  /**
+   * Process customized cells (alphabetical)
+   *
+   * @method getAlphaCustomizedCells
+   * @static
+   */
+  CORE.Injector.prototype.getAlphaCustomizedCells = function(mode, sheet, selected) {
+
+    var selectedCell = null;
+
+    if (selected && typeof selected === "object") {
+      selectedCell = selected;
+    } else selectedCell = CORE.Sheets[sheet].Selector.Selected.First;
+
+    var Cells = CORE.Sheets[sheet].customCellSizes.alphabetical;
+
+    var customArray = [];
+
+    /** Move everything behind this letter 1 right */
+    for (var ii in Cells) {
+
+      /** Get each letter behind */
+      if (Cells[ii] && CORE.$.alphaToNumber(ii) >= selectedCell.Letter) {
+        switch (mode) {
+          case "insert":
+            customArray.push({ old: ii, new: (CORE.$.numberToAlpha(CORE.$.alphaToNumber(ii) + 1)) });
+            break;
+          case "delete":
+            customArray.push({ old: ii, new: (CORE.$.numberToAlpha(CORE.$.alphaToNumber(ii) - 1)) });
+            break;
+        }
+      }
+
+    }
+
+    return(customArray);
+
+  };
+
+  /**
    * Process used cells (numeric)
    *
    * @method getNumericUsedCells
@@ -135,12 +213,12 @@
   };
 
   /**
-   * Process master cells (alphabetical)
+   * Process customized cells (numeric)
    *
-   * @method getAlphaMasterColumns
+   * @method getNumericCustomizedCells
    * @static
    */
-  CORE.Injector.prototype.getAlphaMasterColumns = function(mode, sheet, selected) {
+  CORE.Injector.prototype.getNumericCustomizedCells = function(mode, sheet, selected) {
 
     var selectedCell = null;
 
@@ -148,21 +226,26 @@
       selectedCell = selected;
     } else selectedCell = CORE.Sheets[sheet].Selector.Selected.First;
 
-    var masterCells = CORE.Sheets[sheet].Selector.masterSelected.Columns;
+    var customCells = CORE.Sheets[sheet].customCellSizes.numeric;
 
     var customArray = [];
 
-    /** Move everything behind this letter 1 right */
-    for (var ii in masterCells) {
+    var cellLetter = null;
 
-      /** Get each letter behind */
-      if (masterCells[ii] && CORE.$.alphaToNumber(ii) >= selectedCell.Letter) {
+    var match = 0;
+
+    for (var ii in customCells) {
+
+      match = parseInt(ii);
+
+      /** Get everything behind */
+      if (match >= selectedCell.Number) {
         switch (mode) {
-          case "insert":
-            customArray.push({ old: ii, new: (CORE.$.numberToAlpha(CORE.$.alphaToNumber(ii) + 1)) });
+         case "insert":
+            customArray.push({ old: match, new: match + 1 });
             break;
           case "delete":
-            customArray.push({ old: ii, new: (CORE.$.numberToAlpha(CORE.$.alphaToNumber(ii) - 1)) });
+            customArray.push({ old: match, new: match - 1 });
             break;
         }
       }

@@ -102,16 +102,18 @@
    */
   CORE.Event.redraw = function() {
 
-    CORE.Sheets[CORE.CurrentSheet].Settings.redrawOnZero = false;
+    var sheet = arguments[0] || CORE.CurrentSheet;
 
-    CORE.Sheets[CORE.CurrentSheet].Input.lastAction.scrollY = false;
+    CORE.Sheets[sheet].Settings.redrawOnZero = false;
 
-    CORE.Sheets[CORE.CurrentSheet].calculateGrid();
+    CORE.Sheets[sheet].Input.lastAction.scrollY = false;
 
-    CORE.Sheets[CORE.CurrentSheet].generateCells();
+    CORE.Sheets[sheet].calculateGrid();
 
-    CORE.Sheets[CORE.CurrentSheet].updateWidth("default");
+    CORE.Sheets[sheet].generateCells();
 
-    CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
+    CORE.Sheets[sheet].updateWidth("default");
+
+    CORE.Sheets[sheet].Selector.getSelection();
 
   };

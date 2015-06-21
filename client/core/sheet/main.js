@@ -286,9 +286,11 @@
         }
       /** Remove sheetType for all slaves */
       } else if (!masterSheets) {
-        for (var kk = 0; kk < CORE.DOM.Sheets.children[ii].children.length; ++kk) {
-          if (CORE.DOM.Sheets.children[ii].children[kk].className === "sheetType") {
-            CORE.DOM.Sheets.children[ii].children[kk].style.display = "none";
+        if (CORE.DOM.Sheets.children[ii] && CORE.DOM.Sheets.children[ii].children) {
+          for (var kk = 0; kk < CORE.DOM.Sheets.children[ii].children.length; ++kk) {
+            if (CORE.DOM.Sheets.children[ii].children[kk].className === "sheetType") {
+              CORE.DOM.Sheets.children[ii].children[kk].style.display = "none";
+            }
           }
         }
       }

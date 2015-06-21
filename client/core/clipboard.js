@@ -132,6 +132,11 @@
     var letterPadding = 0;
     var numberPadding = 0;
 
+    /** Inherit paste */
+    if (CORE.Sheets[CORE.CurrentSheet].isMasterSheet()) {
+      CORE.Styler.inheritPasteCells(position, data);
+    }
+
     for (var ii = 0; ii < data.length; ++ii) {
       if (data[ii].number !== lastRow) numberPadding++;
       if (data[ii].letter !== lastColumn) {

@@ -25,12 +25,40 @@
 
     var firstSelectedCell = arguments[1] || CORE.Sheets[sheet].Selector.Selected.First;
 
-    var usedCells = CORE.Cells.Used[sheet];
+    /** Process master columns */
+    this.insertColumn_MasterColumns(sheet, firstSelectedCell);
 
+    /** Process columns */
+    this.insertColumn_Columns(sheet, firstSelectedCell);
+
+    /** Process cells */
+    this.insertColumn_Cells(sheet, firstSelectedCell);
+
+    if (!arguments.length && CORE.Sheets[CORE.CurrentSheet].isMasterSheet()) {
+      CORE.Styler.inheritInjection(CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First, "insertColumn");
+    }
+
+    /** Refresh the grid */
+    CORE.Event.redraw(sheet);
+
+    /** Dont loose selection */
+    CORE.Sheets[sheet].Selector.getSelection();
+
+  };
+
+  /**
+   * Process master columns
+   *
+   * @method insertColumn_MasterColumns
+   * @static
+   */
+  CORE.Injector.prototype.insertColumn_MasterColumns = function(sheet, firstSelected) {
+
+    /** ### Master columns ### */
     var masterCells = CORE.Sheets[sheet].Selector.masterSelected.Columns;
 
     /** Process master cells */
-    var customArray = this.getAlphaMasterColumns("insert", sheet, firstSelectedCell);
+    var customArray = this.getAlphaMasterColumns("insert", sheet, firstSelected);
 
     /** Sort array alphabetically */
     customArray = customArray.sortOn("old");
@@ -44,12 +72,52 @@
       delete masterCells[value.old];
     }
 
-    customArray = this.getAlphaUsedCells("insert", sheet, firstSelectedCell);
+  };
+
+  /**
+   * Process columns
+   *
+   * @method insertColumn_Columns
+   * @static
+   */
+  CORE.Injector.prototype.insertColumn_Columns = function(sheet, firstSelected) {
+
+    /** ### Resized Columns ### */
+    var customizedCells = CORE.Sheets[sheet].customCellSizes.alphabetical;
+
+    var customArray = this.getAlphaCustomizedCells("insert", sheet, firstSelected);
 
     /** Sort array alphabetically */
     customArray = customArray.sortOn("old");
 
-    ii = customArray.length;
+    var ii = customArray.length;
+
+    /** Reversed */
+    while (ii--) {
+      var value = customArray[ii];
+      customizedCells[value.new] = customizedCells[value.old];
+      delete customizedCells[value.old];
+    }
+
+  };
+
+  /**
+   * Process column cells
+   *
+   * @method insertColumn_Cells
+   * @static
+   */
+  CORE.Injector.prototype.insertColumn_Cells = function(sheet, firstSelected) {
+
+    var usedCells = CORE.Cells.Used[sheet];
+
+    /** ### Cells ### */
+    var customArray = this.getAlphaUsedCells("insert", sheet, firstSelected);
+
+    /** Sort array alphabetically */
+    customArray = customArray.sortOn("old");
+
+    var ii = customArray.length;
 
     /** Reversed */
     while (ii--) {
@@ -57,16 +125,6 @@
       usedCells[value.new] = usedCells[value.old];
       delete usedCells[value.old];
     }
-
-    if (!arguments.length && CORE.Sheets[CORE.CurrentSheet].isMasterSheet()) {
-      CORE.Styler.inheritInjection(CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First, "insertColumn");
-    }
-
-    /** Refresh the grid */
-    CORE.Sheets[sheet].updateWidth("default");
-
-    /** Dont loose selection */
-    CORE.Sheets[sheet].Selector.getSelection();
 
   };
 
@@ -82,42 +140,14 @@
 
     var firstSelectedCell = arguments[1] || CORE.Sheets[sheet].Selector.Selected.First;
 
-    var usedCells = CORE.Cells.Used[sheet];
+    /** Process master rows */
+    this.insertRow_MasterRows(sheet, firstSelectedCell);
 
-    var masterCells = CORE.Sheets[sheet].Selector.masterSelected.Rows;
+    /** Process rows */
+    this.insertRow_Rows(sheet, firstSelectedCell);
 
-    var ii = 0;
-
-    /** Process master cells */
-    var customArray = this.getNumericMasterRows("insert", sheet, firstSelectedCell);
-
-    /** Sort array by numbers ascending */
-    customArray = customArray.sortOn("old");
-
-    ii = customArray.length;
-
-    /** Reversed */
-    while (ii--) {
-      var value = customArray[ii];
-      masterCells[value.new] = masterCells[value.old];
-      delete masterCells[value.old];
-    }
-
-    /** ## Cell Section ## */
-    customArray = this.getNumericUsedCells("insert", sheet, firstSelectedCell);
-
-    /** Sort array by numbers ascending */
-    customArray = customArray.sortOn("old");
-
-    ii = customArray.length;
-
-    /** Reversed */
-    while (ii--) {
-      var value = customArray[ii];
-      var oldCell = value.letter + value.old;
-      usedCells[value.letter][value.letter + value.new] = usedCells[value.letter][oldCell];
-      delete usedCells[value.letter][oldCell];
-    }
+    /** Process cells */
+    this.insertRow_Cells(sheet, firstSelectedCell);
 
     if (!arguments.length && CORE.Sheets[CORE.CurrentSheet].isMasterSheet()) {
       CORE.Styler.inheritInjection(CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First, "insertRow");
@@ -128,5 +158,87 @@
 
     /** Dont loose selection */
     CORE.Sheets[sheet].Selector.getSelection();
+
+  };
+
+  /**
+   * Process master rows
+   *
+   * @method insertRow_MasterRows
+   * @static
+   */
+  CORE.Injector.prototype.insertRow_MasterRows = function(sheet, firstSelected) {
+
+    /** Process master cells */
+    var customArray = this.getNumericMasterRows("insert", sheet, firstSelected);
+
+    var masterCells = CORE.Sheets[sheet].Selector.masterSelected.Rows;
+
+    /** Sort array by numbers ascending */
+    customArray = customArray.sortOn("old");
+
+    var ii = customArray.length;
+
+    /** Reversed */
+    while (ii--) {
+      var value = customArray[ii];
+      masterCells[value.new] = masterCells[value.old];
+      delete masterCells[value.old];
+    }
+
+  };
+
+  /**
+   * Process rows
+   *
+   * @method insertRow_Rows
+   * @static
+   */
+  CORE.Injector.prototype.insertRow_Rows = function(sheet, firstSelected) {
+
+    var Cells = CORE.Sheets[sheet].customCellSizes.numeric;
+
+    /** ## Cell Section ## */
+    var customArray = this.getNumericCustomizedCells("insert", sheet, firstSelected);
+
+    /** Sort array by numbers ascending */
+    customArray = customArray.sortOn("old");
+
+    var ii = customArray.length;
+
+    /** Reversed */
+    while (ii--) {
+      var value = customArray[ii];
+      Cells[value.new] = Cells[value.old];
+      delete Cells[value.old];
+    }
+
+  };
+
+  /**
+   * Process row cells
+   *
+   * @method insertRow_Cells
+   * @static
+   */
+  CORE.Injector.prototype.insertRow_Cells = function(sheet, firstSelected) {
+
+    var usedCells = CORE.Cells.Used[sheet];
+
+    /** ## Cell Section ## */
+    var customArray = this.getNumericUsedCells("insert", sheet, firstSelected);
+
+    /** Sort array by numbers ascending */
+    customArray = customArray.sortOn("old");
+
+    var ii = customArray.length;
+
+    /** Reversed */
+    while (ii--) {
+      var value = customArray[ii];
+      var oldCell = value.letter + value.old;
+      usedCells[value.letter][value.letter + value.new] = usedCells[value.letter][oldCell];
+      delete usedCells[value.letter][oldCell];
+    }
 
   };

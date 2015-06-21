@@ -14,6 +14,29 @@
 "use strict";
 
   /**
+   * Get all slave sheets
+   *
+   * @method getInheritSheets
+   * @static
+   */
+  CORE.Styler.prototype.getSlaveSheets = function() {
+
+    var inheritSheets = [];
+
+    /** Collect all slave sheets */
+    for (var sheet in CORE.Sheets) {
+      if (CORE.Sheets.hasOwnProperty(sheet)) {
+        if (!CORE.Sheets[sheet].isMasterSheet()) {
+          inheritSheets.push(sheet);
+        }
+      }
+    }
+
+    return (inheritSheets);
+
+  };
+
+  /**
    * Inherit a styling to other sheets
    *
    * @method inheritSheetStyling
@@ -26,16 +49,7 @@
     var selectedCells = CORE.Sheets[CORE.CurrentSheet].Selector.SelectedCells;
 
     /** Sheets to inherit */
-    var inheritSheets = [];
-
-    /** Collect all slave sheets */
-    for (var sheet in CORE.Sheets) {
-      if (CORE.Sheets.hasOwnProperty(sheet)) {
-        if (!CORE.Sheets[sheet].isMasterSheet()) {
-          inheritSheets.push(sheet);
-        }
-      }
-    }
+    var inheritSheets = this.getSlaveSheets();
 
     for (var ii = 0; ii < inheritSheets.length; ++ii) {
       if (!CORE.Cells.Used[inheritSheets[ii]]) {
@@ -76,16 +90,7 @@
     var selectedCells = CORE.Sheets[CORE.CurrentSheet].Selector.SelectedCells;
 
     /** Sheets to inherit */
-    var inheritSheets = [];
-
-    /** Collect all slave sheets */
-    for (var sheet in CORE.Sheets) {
-      if (CORE.Sheets.hasOwnProperty(sheet)) {
-        if (!CORE.Sheets[sheet].isMasterSheet()) {
-          inheritSheets.push(sheet);
-        }
-      }
-    }
+    var inheritSheets = this.getSlaveSheets();
 
     var masterStyleType = isNaN(parseInt(current)) ? "Columns" : "Rows";
 
@@ -123,16 +128,7 @@
   CORE.Styler.prototype.inheritCellValue = function(object) {
 
     /** Sheets to inherit */
-    var inheritSheets = [];
-
-    /** Collect all slave sheets */
-    for (var sheet in CORE.Sheets) {
-      if (CORE.Sheets.hasOwnProperty(sheet)) {
-        if (!CORE.Sheets[sheet].isMasterSheet()) {
-          inheritSheets.push(sheet);
-        }
-      }
-    }
+    var inheritSheets = this.getSlaveSheets();
 
     var letter = object.letter;
     var number = object.number;
@@ -161,16 +157,7 @@
     var currentSheet = CORE.Sheets[CORE.CurrentSheet];
 
     /** Sheets to inherit */
-    var inheritSheets = [];
-
-    /** Collect all slave sheets */
-    for (var sheet in CORE.Sheets) {
-      if (CORE.Sheets.hasOwnProperty(sheet)) {
-        if (!CORE.Sheets[sheet].isMasterSheet()) {
-          inheritSheets.push(sheet);
-        }
-      }
-    }
+    var inheritSheets = this.getSlaveSheets();
 
     for (var ii = 0; ii < inheritSheets.length; ++ii) {
       CORE.Injector[type](inheritSheets[ii], currentSheet.Selector.Selected.First);
@@ -188,19 +175,8 @@
 
     var resizeType = isNaN(parseInt(cell)) ? "alphabetical" : "numeric";
 
-    var currentSheet = CORE.Sheets[CORE.CurrentSheet];
-
     /** Sheets to inherit */
-    var inheritSheets = [];
-
-    /** Collect all slave sheets */
-    for (var sheet in CORE.Sheets) {
-      if (CORE.Sheets.hasOwnProperty(sheet)) {
-        if (!CORE.Sheets[sheet].isMasterSheet()) {
-          inheritSheets.push(sheet);
-        }
-      }
-    }
+    var inheritSheets = this.getSlaveSheets();
 
     /** Column resize */
     if (resizeType === "alphabetical") {
@@ -230,6 +206,48 @@
         CORE.Sheets[inheritSheets[ii]].customCellSizes.array.push(parseInt(cell));
         CORE.Sheets[inheritSheets[ii]].Input.Mouse.CellResize = true;
       }
+    }
+
+  };
+
+  /**
+   * Inherit cell paste
+   *
+   * @method inheritPasteCells
+   * @static
+   */
+  CORE.Styler.prototype.inheritPasteCells = function(position, cells) {
+
+    /** Sheets to inherit */
+    var inheritSheets = this.getSlaveSheets();
+
+    var startColumn = position.Letter;
+    var startNumber = position.Number;
+
+    for (var sheet = 0; sheet < inheritSheets.length; ++sheet) {
+
+      var letterPadding = 0;
+      var numberPadding = 0;
+
+      var lastColumn = startColumn;
+      var lastRow = startNumber;
+
+      for (var ii = 0; ii < cells.length; ++ii) {
+        if (cells[ii].number !== lastRow) numberPadding++;
+        if (cells[ii].letter !== lastColumn) {
+          letterPadding++;
+          numberPadding = 0;
+        }
+        lastColumn = cells[ii].letter;
+        lastRow = cells[ii].number;
+        cells[ii].letter = cells[ii].letter + startColumn - cells[ii].letter + letterPadding;
+        cells[ii].number = cells[ii].number + startNumber - cells[ii].number + numberPadding;
+        var letter = CORE.$.numberToAlpha(cells[ii].letter);
+        var number = cells[ii].number;
+        CORE.$.registerCell({letter: letter, number: number, sheet: inheritSheets[sheet]});
+        CORE.Cells.Used[inheritSheets[sheet]][letter][letter + number].Content = cells[ii].value;
+      }
+
     }
 
   };
