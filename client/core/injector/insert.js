@@ -154,7 +154,7 @@
     }
 
     /** Refresh the grid */
-    CORE.Sheets[sheet].updateWidth("default");
+    CORE.Event.redraw(sheet);
 
     /** Dont loose selection */
     CORE.Sheets[sheet].Selector.getSelection();
