@@ -109,8 +109,8 @@ Import.scripts = [
 
 Import.after = function() {
   ENGEL.init();
-  CORE_UI.init();
   CORE.$.init();
+  CORE_UI.init();
   CORE.Speedy.runTest(function () {
     /** Add fade out animation, hide element */
     document.querySelector("#loader").classList.add("fadeOut");

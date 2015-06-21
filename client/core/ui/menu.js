@@ -38,13 +38,13 @@
       CORE.Connector.loginModal();
     });
 
-    CORE.DOM.AddSheet.addEventListener('mousedown', function() {
+    CORE.DOM.AddSheet.addEventListener(CORE.Events.mouseDown, function() {
 
       this.setAttribute("timestamp", new Date().getTime());
 
     });
 
-    CORE.DOM.AddSheet.addEventListener('mouseup', function() {
+    CORE.DOM.AddSheet.addEventListener(CORE.Events.mouseUp, function() {
 
       /** Don't confuse this as a mouse wipe */
       CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Pressed = false;

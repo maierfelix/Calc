@@ -121,12 +121,12 @@
 
     var extendButton = document.createElement("button");
       extendButton.className = "extendButton";
-      extendButton.addEventListener('mousedown', function(e) {
+      extendButton.addEventListener(CORE.Events.mouseDown, function(e) {
         /** User started to extend */
         CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Extend = true;
       });
 
-      extendButton.addEventListener('mousemove', function(e) {
+      extendButton.addEventListener(CORE.Events.mouseMove, function(e) {
         e.target.style.cursor = "crosshair";
       });
 
