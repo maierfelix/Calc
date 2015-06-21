@@ -270,7 +270,7 @@
     /** User is wiping? */
     if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Pressed) {
       /** Valid cell ? */
-      if (e.target.parentNode.id === CORE.DOM.Output.id) {
+      if (e.target.parentNode && e.target.parentNode.id === CORE.DOM.Output.id) {
 
         var name = e.target.getAttribute("name");
         var letter = CORE.$.alphaToNumber(name.match(CORE.REGEX.numbers).join(""));

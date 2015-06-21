@@ -188,8 +188,6 @@
 
     var resizeType = isNaN(parseInt(cell)) ? "alphabetical" : "numeric";
 
-    console.log(cell, amount, resizeType);
-
     var currentSheet = CORE.Sheets[CORE.CurrentSheet];
 
     /** Sheets to inherit */
