@@ -21,15 +21,17 @@
    */
   CORE.Injector.prototype.deleteColumn = function() {
 
-    var usedCells = CORE.Cells.Used[CORE.CurrentSheet];
-
-    var masterCells = CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Columns;
+    var sheet = arguments[0] || CORE.CurrentSheet;
 
     /** Currently selected column */
-    var selectedCell = CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First;
+    var selectedCell = arguments[1] || CORE.Sheets[sheet].Selector.Selected.First;
+
+    var usedCells = CORE.Cells.Used[sheet];
+
+    var masterCells = CORE.Sheets[sheet].Selector.masterSelected.Columns;
 
     /** Process master cells */
-    var customArray = this.getAlphaMasterColumns("delete");
+    var customArray = this.getAlphaMasterColumns("delete", sheet, selectedCell);
 
     /** Sort array alphabetically */
     customArray = customArray.sortOn("old");
@@ -47,7 +49,7 @@
     }
 
     /** Process master cells */
-    customArray = this.getAlphaUsedCells("delete");
+    customArray = this.getAlphaUsedCells("delete", sheet, selectedCell);
 
     /** Sort array alphabetically */
     customArray = customArray.sortOn("old");
@@ -64,11 +66,15 @@
       }
     }
 
+    if (!arguments.length && CORE.Sheets[CORE.CurrentSheet].isMasterSheet()) {
+      CORE.Styler.inheritInjection(CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First, "deleteColumn");
+    }
+
     /** Refresh the grid */
-    CORE.Sheets[CORE.CurrentSheet].updateWidth("default");
+    CORE.Sheets[sheet].updateWidth("default");
 
     /** Dont loose selection */
-    CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
+    CORE.Sheets[sheet].Selector.getSelection();
 
   };
 
@@ -80,15 +86,17 @@
    */
   CORE.Injector.prototype.deleteRow = function() {
 
-    var usedCells = CORE.Cells.Used[CORE.CurrentSheet];
-
-    var masterCells = CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Rows;
+    var sheet = arguments[0] || CORE.CurrentSheet;
 
     /** Currently selected row */
-    var selectedCell = CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First.Number;
+    var selectedCell = arguments[1] || CORE.Sheets[sheet].Selector.Selected.First;
+
+    var usedCells = CORE.Cells.Used[sheet];
+
+    var masterCells = CORE.Sheets[sheet].Selector.masterSelected.Rows;
 
     /** Process master cells */
-    var customArray = this.getNumericMasterRows("delete");
+    var customArray = this.getNumericMasterRows("delete", sheet, selectedCell);
 
     /** Sort array numeric ascending */
     customArray = customArray.sortOn("old");
@@ -106,7 +114,7 @@
     }
 
     /** ## Cell Section ## */
-    customArray = this.getNumericUsedCells("delete");
+    customArray = this.getNumericUsedCells("delete", sheet, selectedCell);
 
     /** Sort array numeric ascending */
     customArray = customArray.sortOn("old");
@@ -123,10 +131,14 @@
       }
     }
 
+    if (!arguments.length && CORE.Sheets[CORE.CurrentSheet].isMasterSheet()) {
+      CORE.Styler.inheritInjection(CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First, "deleteRow");
+    }
+
     /** Refresh the grid */
-    CORE.Sheets[CORE.CurrentSheet].updateWidth("default");
+    CORE.Sheets[sheet].updateWidth("default");
 
     /** Dont loose selection */
-    CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
+    CORE.Sheets[sheet].Selector.getSelection();
 
   };
