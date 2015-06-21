@@ -38,7 +38,9 @@
       cellResizedY: 0,
       /** Last scroll amount */
       lastScrollX: 0,
-      lastScrollY: 0
+      lastScrollY: 0,
+      /** Redraw the grid 1 time, if scrolledY amount is <= 1 */
+      redrawOnZero: false
     };
 
     /** Define Cell sizes */

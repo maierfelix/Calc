@@ -82,6 +82,9 @@
     OriginalHorizontal: 1
   };
 
+  /** Event helper for mobile and desktop events */
+  CORE.Events = {};
+
   /** Precompile regex operations */
   CORE.REGEX = {
     numbers:  /[^0-9]/g,

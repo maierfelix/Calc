@@ -30,6 +30,9 @@
     /** Detect used browser */
     CORE.$.detectBrowser();
 
+    /** Prepare platform dependent events */
+    CORE.$.prepareEvents();
+
     /** Calculate scroll amount */
     CORE.Settings.Scroll.OriginalVertical = CORE.Settings.Scroll.Vertical = CORE.$.calculateScrollAmount();
 
@@ -104,6 +107,23 @@
    */
   CORE.$.isMobile = function() {
     if (/iPhone|iPad|iPod|Android|Mobile/i.test(navigator.userAgent)) CORE.Settings.Mobile = true;
+  };
+
+  /**
+   * Prepare platform dependent events
+   *
+   * @method prepareEvents
+   * @static
+   */
+  CORE.$.prepareEvents = function() {
+
+    CORE.Events = {
+      mouseDown: CORE.Settings.Mobile ? "touchstart" : "mousedown",
+      mouseUp:   CORE.Settings.Mobile ? "touchend"   : "mouseup",
+      mouseMove: CORE.Settings.Mobile ? "touchmove"  : "mousemove",
+      mouseOut:  CORE.Settings.Mobile ? "touchleave" : "mouseout"
+    };
+
   };
 
   /**

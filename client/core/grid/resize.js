@@ -102,6 +102,8 @@
 
     if (!this.verticalInView(Number)) return void 0;
 
+    CORE.Sheets[CORE.CurrentSheet].Settings.redrawOnZero = true;
+
     /** Search for custom cell rows */
     for (var kk in customCell) {
 

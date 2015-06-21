@@ -163,8 +163,6 @@
     /** Sheets to inherit */
     var inheritSheets = [];
 
-    var selectionBackup = {};
-
     /** Collect all slave sheets */
     for (var sheet in CORE.Sheets) {
       if (CORE.Sheets.hasOwnProperty(sheet)) {
@@ -176,6 +174,64 @@
 
     for (var ii = 0; ii < inheritSheets.length; ++ii) {
       CORE.Injector[type](inheritSheets[ii], currentSheet.Selector.Selected.First);
+    }
+
+  };
+
+  /**
+   * Inherit resizing
+   *
+   * @method inheritResize
+   * @static
+   */
+  CORE.Styler.prototype.inheritResize = function(cell, amount) {
+
+    var resizeType = isNaN(parseInt(cell)) ? "alphabetical" : "numeric";
+
+    console.log(cell, amount, resizeType);
+
+    var currentSheet = CORE.Sheets[CORE.CurrentSheet];
+
+    /** Sheets to inherit */
+    var inheritSheets = [];
+
+    /** Collect all slave sheets */
+    for (var sheet in CORE.Sheets) {
+      if (CORE.Sheets.hasOwnProperty(sheet)) {
+        if (!CORE.Sheets[sheet].isMasterSheet()) {
+          inheritSheets.push(sheet);
+        }
+      }
+    }
+
+    /** Column resize */
+    if (resizeType === "alphabetical") {
+      for (var ii = 0; ii < inheritSheets.length; ++ii) {
+        if (!CORE.Sheets[inheritSheets[ii]].customCellSizes[resizeType][cell]) {
+          CORE.Sheets[inheritSheets[ii]].customCellSizes[resizeType][cell] = {
+            Width: 0,
+            Height: 0
+          };
+        }
+        CORE.Sheets[inheritSheets[ii]].customCellSizes[resizeType][cell].Width = amount;
+        CORE.Sheets[inheritSheets[ii]].Settings.cellResizedX = amount;
+        CORE.Sheets[inheritSheets[ii]].Input.lastAction.scrollY = false;
+        CORE.Sheets[inheritSheets[ii]].Input.Mouse.CellResize = true;
+      }
+    /** Row resize */
+    } else {
+      for (var ii = 0; ii < inheritSheets.length; ++ii) {
+        if (!CORE.Sheets[inheritSheets[ii]].customCellSizes[resizeType][cell]) {
+          CORE.Sheets[inheritSheets[ii]].customCellSizes[resizeType][cell] = {
+            Width: 0,
+            Height: 0
+          };
+        }
+        CORE.Sheets[inheritSheets[ii]].customCellSizes[resizeType][cell].Height = amount;
+        CORE.Sheets[inheritSheets[ii]].Settings.cellResizedY = amount;
+        CORE.Sheets[inheritSheets[ii]].customCellSizes.array.push(parseInt(cell));
+        CORE.Sheets[inheritSheets[ii]].Input.Mouse.CellResize = true;
+      }
     }
 
   };

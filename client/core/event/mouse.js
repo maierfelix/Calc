@@ -467,6 +467,13 @@
 
           CORE.Event.animateMouseUpMaximum();
 
+          /** Only redraw, if something is resized */
+          if (CORE.Sheets[CORE.CurrentSheet].Settings.cellResizedX + CORE.Sheets[CORE.CurrentSheet].Settings.cellResizedY) {
+            if (CORE.Sheets[CORE.CurrentSheet].Settings.redrawOnZero) {
+              CORE.Event.redraw();
+            }
+          }
+
         }
         else if (CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY - CORE.Settings.Scroll.Vertical >= 0) {
           CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY -= CORE.Settings.Scroll.Vertical;

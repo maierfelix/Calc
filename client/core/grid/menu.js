@@ -172,12 +172,7 @@
         element.setAttribute("timestamp", new Date().getTime());
         element.innerHTML = Letter;
 
-    var mouseDownEvent = CORE.Settings.Mobile ? "touchstart" : "mousedown";
-    var mouseUpEvent = CORE.Settings.Mobile ? "touchend" : "mouseup";
-    var mouseOutEvent = CORE.Settings.Mobile ? "touchleave" : "mouseout";
-    var mouseMoveEvent = CORE.Settings.Mobile ? "touchmove" : "mousemove";
-
-        element.addEventListener(mouseDownEvent, function(e) {
+        element.addEventListener(CORE.Events.mouseDown, function(e) {
           /** Double click */
           if (new Date().getTime() - parseInt(this.getAttribute("timestamp")) <= 150) {
             /** Do a master selection */
@@ -187,19 +182,23 @@
           CORE.Sheets[CORE.CurrentSheet].Input.Mouse.CellResize = true;
         });
 
-        element.addEventListener(mouseUpEvent, function(e) {
+        element.addEventListener(CORE.Events.mouseUp, function(e) {
           this.setAttribute("clicked", 0);
           /** Re-render grid */
           CORE.Sheets[CORE.CurrentSheet].Input.lastAction.scrollY = false;
           this.setAttribute("timestamp", e.timeStamp);
+          /** Inherit resize if myself is a master sheet */
+          if (self.isMasterSheet()) {
+            CORE.Styler.inheritResize(e.target.innerHTML, self.customCellSizes.alphabetical[e.target.innerHTML].Width);
+          }
         });
 
-        element.addEventListener(mouseOutEvent, function(e) {
+        element.addEventListener(CORE.Events.mouseOut, function(e) {
           this.setAttribute("clicked", 0);
         });
 
         /** User wants to change row size ? */
-        element.addEventListener(mouseMoveEvent, function(e) {
+        element.addEventListener(CORE.Events.mouseMove, function(e) {
 
           var x = 0;
           var y = 0;
@@ -273,7 +272,6 @@
 
                 }
               }
-
             }
           }
           else e.target.style.cursor = "pointer";
@@ -302,12 +300,7 @@
         element.setAttribute("timestamp", new Date().getTime());
         element.innerHTML = Letter;
 
-    var mouseDownEvent = CORE.Settings.Mobile ? "touchstart" : "mousedown";
-    var mouseUpEvent = CORE.Settings.Mobile ? "touchend" : "mouseup";
-    var mouseOutEvent = CORE.Settings.Mobile ? "touchleave" : "mouseout";
-    var mouseMoveEvent = CORE.Settings.Mobile ? "touchmove" : "mousemove";
-
-        element.addEventListener(mouseDownEvent, function(e) {
+        element.addEventListener(CORE.Events.mouseDown, function(e) {
           /** Double click */
           if (new Date().getTime() - parseInt(this.getAttribute("timestamp")) <= 150) {
             /** Do a master selection */
@@ -317,17 +310,21 @@
           CORE.Sheets[CORE.CurrentSheet].Input.Mouse.CellResize = true;
         });
 
-        element.addEventListener(mouseUpEvent, function(e) {
+        element.addEventListener(CORE.Events.mouseUp, function(e) {
           this.setAttribute("clicked", 0);
+          /** Inherit resize if myself is a master sheet */
+          if (self.isMasterSheet()) {
+            CORE.Styler.inheritResize(e.target.innerHTML, self.customCellSizes.numeric[e.target.innerHTML].Height);
+          }
         });
 
-        element.addEventListener(mouseOutEvent, function(e) {
+        element.addEventListener(CORE.Events.mouseOut, function(e) {
           this.setAttribute("clicked", 0);
         });
 
         
         /** User wants to change row size ? */
-        element.addEventListener(mouseMoveEvent, function(e) {
+        element.addEventListener(CORE.Events.mouseMove, function(e) {
 
           var x = 0;
           var y = 0;
@@ -370,7 +367,7 @@
                   Width: 0,
                   Height: 0
                 };
-                self.customCellSizes.array.push(~~(name));
+                self.customCellSizes.array.push(parseInt(name));
               }
 
               /** User scrolls cell up */

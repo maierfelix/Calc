@@ -93,3 +93,25 @@
     CORE.Sheets[CORE.CurrentSheet].Input.Keyboard.Strg = false;
 
   };
+
+  /**
+   * Only redraw the grid
+   *
+   * @method redraw
+   * @static
+   */
+  CORE.Event.redraw = function() {
+
+    CORE.Sheets[CORE.CurrentSheet].Settings.redrawOnZero = false;
+
+    CORE.Sheets[CORE.CurrentSheet].Input.lastAction.scrollY = false;
+
+    CORE.Sheets[CORE.CurrentSheet].calculateGrid();
+
+    CORE.Sheets[CORE.CurrentSheet].generateCells();
+
+    CORE.Sheets[CORE.CurrentSheet].updateWidth("default");
+
+    CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
+
+  };
