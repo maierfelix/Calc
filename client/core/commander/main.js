@@ -52,8 +52,6 @@
    */
   CORE.Commander.prototype.redo = function() {
 
-    console.log("Redo!");
-
     /** Limited undo stack size.. */
     if ( (this.Stack.redoCommands.length + 1) >= this.Settings.maxRedo ) {
       /** Remove oldest redo command */
@@ -64,7 +62,7 @@
 
     if (redoCommand) {
 
-      this.executeCommand(redoCommand);
+      this.executeCommand(redoCommand, 1);
 
       this.pushUndoCommand(redoCommand);
 
@@ -80,8 +78,6 @@
    */
   CORE.Commander.prototype.undo = function() {
 
-    console.log("Undo!");
-
     /** Limited undo stack size.. */
     if ( (this.Stack.undoCommands.length + 1) >= this.Settings.maxUndo ) {
       /** Remove oldest undo command */
@@ -92,7 +88,7 @@
 
     if (undoCommand) {
 
-      this.executeCommand(undoCommand);
+      this.executeCommand(undoCommand, 0);
 
       this.pushRedoCommand(undoCommand);
 
@@ -209,10 +205,12 @@
   /**
    * Execute command
    *
+   * @param {object} [cmd] Command
+   * @param {number} [mode] Reversed or not
    * @method executeCommand
    * @static
    */
-  CORE.Commander.prototype.executeCommand = function(cmd) {
+  CORE.Commander.prototype.executeCommand = function(cmd, mode) {
 
     /** Nothing to undo */
     if (!cmd) return void 0;
@@ -222,6 +220,13 @@
         switch (cmd.action) {
           case "select":
             this.reverseSelection(cmd.data);
+            break;
+        }
+        break;
+      case "Styler":
+        switch (cmd.action) {
+          case "BackgroundColor":
+            this.reverseBackgroundStyling(cmd.data, mode);
             break;
         }
         break;

@@ -567,3 +567,26 @@
     }
 
   };
+
+  /**
+   * Convert to coordinates into a selection array
+   *
+   * @method coordToSelection
+   * @static
+   */
+  CORE.$.coordToSelection = function(first, last) {
+
+    var array = [];
+
+    for (var xx = first.Letter; xx <= last.Letter; ++xx) {
+      for (var yy = first.Number; yy <= last.Number; ++yy) {
+        array.push({
+          letter: xx,
+          number: yy
+        });
+      }
+    }
+
+    return (array);
+
+  };

@@ -49,6 +49,21 @@
       selectSheet.inheritMasterStyling(currentMaster, masterCell, "BackgroundColor");
     }
 
+    /** Get the old color */
+    var getColor = selectSheet.SelectedCells[0];
+    var getColorLetter = CORE.$.numberToAlpha(getColor.letter);
+    var getColorNumber = getColor.number;
+    getColor = CORE.Cells.Used[CORE.CurrentSheet][getColorLetter][getColorLetter + getColorNumber].BackgroundColor;
+
+    /** Push change into undo stack */
+    var command = CORE.newCommand();
+        command.caller = "Styler";
+        command.action = "BackgroundColor";
+        command.data = {
+          newColor: color,
+          oldColor: getColor
+        };
+
     /** Loop through all selected cells */
     for (var ii = 0; ii < selectSheet.SelectedCells.length; ++ii) {
       var letter = CORE.$.numberToAlpha(selectSheet.SelectedCells[ii].letter);
@@ -64,6 +79,9 @@
     if (CORE.Sheets[CORE.CurrentSheet].isMasterSheet()) {
       this.inheritSheetStyling("BackgroundColor", color);
     }
+
+    /** Push current selection state into the commander stack */
+    CORE.Sheets[CORE.CurrentSheet].Commander.pushUndoCommand(command, true);
 
     /** Dont loose the selection */
     selectSheet.getSelection();
