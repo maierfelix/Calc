@@ -211,9 +211,11 @@
                         /** Update sheet where user currently is */
                         Bucket.updateUser(socket.id, "sheet", data.sheet);
                         callback(1);
-                      }
+                      /** Wrong security token */
+                      } else callback(0);
                     }
-                  }
+                  /** Wrong security token */
+                  } else callback(0);
                 }
               });
             }
