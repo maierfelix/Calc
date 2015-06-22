@@ -82,6 +82,7 @@ Master key: *3b011508e1edb8a92daca0c72522b4449aa455c820009ce1b4a838c868d6c4b8*
 ## Notes:
 - [ ] Possibly include server-side cell calculation option
 - [ ] Pow higher priority than multiply
+- [ ] Possibly blocking formula interpretation, outsource into web worker
 
 ## Libraries
  * [ImportJS](https://github.com/felixmaier/ImportJS)
