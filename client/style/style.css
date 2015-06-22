@@ -955,14 +955,27 @@ button, input, select, textArea {
   height: 50px;
 }
 
-.modal>p {
-  padding-left: 10px;
-  margin: 24px 0;
+.modal>h4 {
+  position: absolute;
   font-size: 18px;
   line-height: 25px;
-  color: inherit;
   font-family: Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;
   font-weight: 500;
+  color: #757575;
+  height: 75px;
+  width: 75%;
+  margin-top: -1px !important;
+  position: absolute;
+  padding-left: 10px;
+  padding-top: 32px;
+  text-align: center;
+  margin: 24px 0;
+  top: -webkit-calc(50% - 35%);
+  left: -webkit-calc(50% - 37%);
+  top: -moz-calc(50% - 35%);
+  left: -moz-calc(50% - 37%);
+  top: calc(50% - 35%);
+  left: calc(50% - 37%);
 }
 
 .modal>h3 {

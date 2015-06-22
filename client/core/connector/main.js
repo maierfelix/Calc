@@ -174,23 +174,27 @@
 
     var self = this;
 
-    var name = this.getURL();
+    var roomName = this.getRoomName();
 
-    var securityPassword = "";
+    var securityPassword = this.getAccessKey(this.getURL());
 
-    if (name && name.length) {
-      /** Delete question mark to validate the string */
-      name = name.slice(1, name.length);
+    if (roomName && roomName.length) {
       /** Make use of acknowledge */
-      this.socket.emit("createroom", {name: name, sheet: CORE.CurrentSheet}, function(state) {
+      this.socket.emit("createroom", {name: roomName, sheet: CORE.CurrentSheet}, function(state) {
         /** Room was successfully created */
         if (state) {
           prompt("Please save the following master access key for this room!", state);
         /** Room already exists, ask for password */
         } else {
-          securityPassword = prompt("Please enter the room password: ");
+          if (!securityPassword) {
+            securityPassword = prompt("Please enter the room password: ");
+          }
           /** Send the password to the server */
           self.socket.emit("securitypassword", {password: securityPassword, room: self.room, sheet: CORE.CurrentSheet}, function(roomData) {
+            /** Wrong password */
+            if (!roomData) {
+              self.wrongPasswordModal();
+            }
             /** Got latest room data */
             self.processServerCells(roomData);
             self.processNewSheet({sheet: CORE.CurrentSheet});
@@ -224,6 +228,29 @@
 
   };
 
+
+  /**
+   * Wrong password modal
+   *
+   * @method wrongPasswordModal
+   * @static
+   */
+  CORE.Connector.prototype.wrongPasswordModal = function() {
+
+    if (!window.mui) return void 0;
+
+    /** Css class helper */
+    var muiButton = "mui-btn mui-btn-primary mui-btn-lg alertButton";
+
+    /** The modal content */
+    var title = "<h3 class='modalTitle'>The entered room security token is wrong!</h3>";
+    var content = "<h4>You don't have any write access to the document.</h4>";
+    var buttons = content + "<button class='"+muiButton+" alertOk' name='ok'>Ok</button>";
+
+    CORE_UI.Modal(title, buttons, function(submit) {});
+
+  };
+
   /**
    * Read everything behind the current url
    *
@@ -234,5 +261,51 @@
 
     if (window.location.search) return (window.location.search);
     else return void 0;
+
+  };
+
+  /**
+   * Extract room name out of a url
+   *
+   * @method getRoomName
+   * @static
+   */
+  CORE.Connector.prototype.getRoomName = function() {
+
+    var keyWord = "&";
+
+    var match = "";
+
+    if (window.location.search) match = window.location.search;
+    else return void 0;
+
+    /** Delete question mark to validate the room name */
+    match = match.slice(1, match.length);
+
+    var name = match.match(keyWord);
+
+    if (name && name.input && name.input.length) {
+      return (name.input.substr(0, name.index));
+    } else {
+      return (match);
+    }
+
+  };
+
+  /**
+   * Check if a access key is in the url
+   *
+   * @method getAccessKey
+   * @static
+   */
+  CORE.Connector.prototype.getAccessKey = function(url) {
+
+    var keyWord = "key";
+
+    var match = url.match(keyWord);
+
+    if (match && match.input && match.input.length) {
+      return (url.substr(match.index + keyWord.length + 1, url.length));
+    } else return void 0;
 
   };
