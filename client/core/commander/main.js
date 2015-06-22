@@ -54,6 +54,22 @@
 
     console.log("Redo!");
 
+    /** Limited undo stack size.. */
+    if ( (this.Stack.redoCommands.length + 1) >= this.Settings.maxRedo ) {
+      /** Remove oldest redo command */
+      this.Stack.redoCommands.shift();
+    }
+
+    var redoCommand = this.lastRedoCommand();
+
+    if (redoCommand) {
+
+      this.executeCommand(redoCommand);
+
+      this.pushUndoCommand(redoCommand);
+
+    }
+
   };
 
   /**
@@ -69,46 +85,69 @@
     /** Limited undo stack size.. */
     if ( (this.Stack.undoCommands.length + 1) >= this.Settings.maxUndo ) {
       /** Remove oldest undo command */
-      this.Stack.undoCommand.shift();
+      this.Stack.undoCommands.shift();
     }
 
-    this.executeUndo(this.lastUndoCommand());
+    var undoCommand = this.lastUndoCommand();
+
+    if (undoCommand) {
+
+      this.executeCommand(undoCommand);
+
+      this.pushRedoCommand(undoCommand);
+
+    }
 
   };
 
   /**
    * Push a REDO command into the stack
    *
+   * @param {object} [cmd] Command
+   * @param {boolean} [strict] Break undo pipeline if command from the grid
    * @method pushRedoCommand
    * @static
    */
-  CORE.Commander.prototype.pushRedoCommand = function(cmd) {
+  CORE.Commander.prototype.pushRedoCommand = function(cmd, strict) {
+
+    /** Clean redo stack if user was in redo pipeline */
+    if (strict) this.breakUndoPipeline();
 
     this.Stack.redoCommands.push(cmd);
 
   };
 
   /**
-   * Shift the REDO command stack
+   * Push a UNDO command into the stack
    *
-   * @method shiftRedoCommand
+   * @param {object} [cmd] Command
+   * @param {boolean} [strict] Break redo pipeline if command from the grid
+   * @method pushUndoCommand
    * @static
    */
-  CORE.Commander.prototype.shiftRedoCommand = function() {
+  CORE.Commander.prototype.pushUndoCommand = function(cmd, strict) {
 
-    return (this.Stack.redoCommands.pop());
+    /** Clean redo stack if user was in undo pipeline */
+    if (strict) this.breakRedoPipeline();
+
+    this.Stack.undoCommands.push(cmd);
 
   };
 
   /**
-   * Push a UNDO command into the stack
+   * Shift the REDO command stack
    *
-   * @method pushUndoCommand
+   * @method lastRedoCommand
+   * @return {object} [Command]
    * @static
    */
-  CORE.Commander.prototype.pushUndoCommand = function(cmd) {
+  CORE.Commander.prototype.lastRedoCommand = function() {
 
-    this.Stack.undoCommands.push(cmd);
+    if (this.Stack.redoCommands.length) {
+      return (this.Stack.redoCommands.pop());
+    }
+
+    return void 0;
 
   };
 
@@ -116,21 +155,64 @@
    * Shift the UNDO command stack
    *
    * @method lastUndoCommand
+   * @return {object} [Command]
    * @static
    */
   CORE.Commander.prototype.lastUndoCommand = function() {
 
-    return (this.Stack.undoCommands.pop());
+    if (this.Stack.undoCommands.length) {
+      return (this.Stack.undoCommands.pop());
+    }
+
+    return void 0;
 
   };
 
   /**
-   * Execute a undo command
+   * Clear redo pipeline if commands inside
    *
-   * @method executeUndo
+   * @method breakRedoPipeline
+   * @return {boolean}
    * @static
    */
-  CORE.Commander.prototype.executeUndo = function(cmd) {
+  CORE.Commander.prototype.breakRedoPipeline = function() {
+
+    /** Clean redo stack */
+    if (this.Stack.redoCommands.length) {
+      this.Stack.redoCommands = [];
+      return (true);
+    }
+
+    return (false);
+
+  };
+
+  /**
+   * Clear undo pipeline if commands inside
+   *
+   * @method breakUndoPipeline
+   * @return {boolean}
+   * @static
+   */
+  CORE.Commander.prototype.breakUndoPipeline = function() {
+
+    /** Clean undo stack */
+    if (this.Stack.undoCommands.length) {
+      this.Stack.undoCommands = [];
+      return (true);
+    }
+
+    return (false);
+
+  };
+
+  /**
+   * Execute command
+   *
+   * @method executeCommand
+   * @static
+   */
+  CORE.Commander.prototype.executeCommand = function(cmd) {
 
     /** Nothing to undo */
     if (!cmd) return void 0;

@@ -17,6 +17,9 @@
    * Command Class
    *
    * @class Command
+   * @param {string} [caller] Caller Class
+   * @param {string} [action] Class action
+   * @param {object} [data] Command data to process
    * @static
    */
   CORE.Commander.prototype.Command = function(caller, action, data) {

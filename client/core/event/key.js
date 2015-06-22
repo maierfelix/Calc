@@ -43,6 +43,28 @@
       return void 0;
     }
 
+    /** REDO: [STRG] + [Y] */
+    if (e.keyCode === 89) {
+      /** [STRG] key pressed ? User is not in edit mode ? */
+      if (CORE.Sheets[CORE.CurrentSheet].Input.Keyboard.Strg && !CORE.Event.inEditMode()) {
+        e.preventDefault();
+        /** Execute undo */
+        CORE.Sheets[CORE.CurrentSheet].Commander.redo();
+        return void 0;
+      }
+    }
+
+    /** UNDO: [STRG] + [Z] */
+    if (e.keyCode === 90) {
+      /** [STRG] key pressed ? User is not in edit mode ? */
+      if (CORE.Sheets[CORE.CurrentSheet].Input.Keyboard.Strg && !CORE.Event.inEditMode()) {
+        e.preventDefault();
+        /** Execute undo */
+        CORE.Sheets[CORE.CurrentSheet].Commander.undo();
+        return void 0;
+      }
+    }
+
     /** COPY: [STRG] + [C] */
     if (e.keyCode === 67) {
       /** [STRG] key pressed ? User is not in edit mode ? */

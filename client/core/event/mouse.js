@@ -229,7 +229,7 @@
             last: currentSheet.Selector.Selected.Last
           };
           /** Push current selection state into the commander stack */
-          currentSheet.Commander.pushUndoCommand(command);
+          currentSheet.Commander.pushUndoCommand(command, true);
 
       }
 
