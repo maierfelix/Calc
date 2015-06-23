@@ -85,6 +85,7 @@ Master key: *3b011508e1edb8a92daca0c72522b4449aa455c820009ce1b4a838c868d6c4b8*
 - [ ] Possibly blocking formula interpretation, outsource into web worker
 
 ## Libraries
+ * [JS-Interpreter](https://github.com/NeilFraser/JS-Interpreter)
  * [ImportJS](https://github.com/felixmaier/ImportJS)
  * [Eight Bit Color Picker](https://github.com/bilalq/eight-bit-color-picker)
  * [Fastclick](https://github.com/ftlabs/fastclick)
