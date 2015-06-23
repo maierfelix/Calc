@@ -593,3 +593,35 @@
     return (array);
 
   };
+
+  /**
+   * Get cell used property from a selection array
+   *
+   * @method getSelectionCellProperty
+   * @static
+   */
+  NOVAE.$.getSelectionCellProperty = function(array, property) {
+
+    var sheet = arguments[2] || NOVAE.CurrentSheet;
+
+    var resultArray = [];
+
+    for (var ii = 0; ii < array.length; ++ii) {
+      var letter = NOVAE.$.numberToAlpha(array[ii].letter);
+      var number = array[ii].number;
+      var value = null;
+      if (NOVAE.Cells.Used[sheet][letter]) {
+        if (NOVAE.Cells.Used[sheet][letter][letter + number]) {
+          if (value = NOVAE.Cells.Used[sheet][letter][letter + number][property]) {
+            resultArray.push({
+              name: letter + number,
+              value: value
+            });
+          }
+        }
+      }
+    }
+
+    return (resultArray);
+
+  };

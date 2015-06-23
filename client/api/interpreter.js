@@ -1067,12 +1067,13 @@ Interpreter.prototype.initSpreadsheet = function(scope) {
 
   wrapper = (function(nativeFunc) {
     return function() {
-      var nativeObj = nativeFunc.call(Spreadsheet);
+      var range = arguments[0] ? arguments[0].data : undefined;
+      var nativeObj = nativeFunc.call(Spreadsheet, range);
       return (nativeObj);
     };
-  })(Spreadsheet.getSelectionRange);
+  })(Spreadsheet.getRange);
 
-  this.setProperty(mySpreadsheet, 'getSelectionRange', this.createNativeFunction(wrapper));
+  this.setProperty(mySpreadsheet, 'getRange', this.createNativeFunction(wrapper));
 
   wrapper = (function(nativeFunc) {
     return function() {

@@ -73,25 +73,31 @@
   };
 
   /**
-   * Get the current selection of a sheet
+   * Get a range
    *
-   * @method getSelectionRange
-   * @return {string} selection range
+   * @method getRange
+   * @return {object}
    * @static
    */
-  Spreadsheet.prototype.getSelectionRange = function() {
+  Spreadsheet.prototype.getRange = function(range) {
 
-    var selector = this.CurrentSheet.Selector;
+    range = range.split(":");
 
-    var first = selector.Selected.First;
+    var first = range[0];
 
-    var last = selector.Selected.Last;
+    var last = range[1];
 
-    first = NOVAE.$.numberToAlpha(first.Letter) + first.Number;
+    var firstCoordinates = {
+      letter: NOVAE.$.alphaToNumber(first.match(NOVAE.REGEX.numbers).join("")),
+      number: parseInt(first.match(NOVAE.REGEX.letters).join(""))
+    };
 
-    last = NOVAE.$.numberToAlpha(last.Letter) + last.Number;
+    var lastCoordinates = {
+      letter: NOVAE.$.alphaToNumber(last.match(NOVAE.REGEX.numbers).join("")),
+      number: parseInt(last.match(NOVAE.REGEX.letters).join(""))
+    };
 
-    return (first + ":" + last);
+    return (new Range({first: firstCoordinates, last: lastCoordinates}));
 
   };
 
@@ -109,6 +115,36 @@
     var functionCall = arguments[1];
 
     console.log(type, functionCall);
+
+  };
+
+  /**
+   * Range Class
+   *
+   * @class Range
+   * @param {string} [range] Range
+   * @static
+   */
+  Spreadsheet.prototype.Range = function(range) {
+
+    this.range = range;
+
+    this.selection = NOVAE.$.coordToSelection(this.range.first, this.range.last);
+
+  };
+
+  Spreadsheet.prototype.Range = Spreadsheet.Range;
+
+  /**
+   * Get values of a range
+   *
+   * @param {string} [property] Property to get
+   * @method get
+   * @static
+   */
+  Spreadsheet.prototype.get = function(property) {
+
+    return(NOVAE.$.getSelectionCellProperty(selection, property, this.CurrentSheetName));
 
   };
 

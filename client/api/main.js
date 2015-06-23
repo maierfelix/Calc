@@ -25,8 +25,19 @@ var NOVAE_Interpreter = function() {
 
   };
 
-  var code = "var sheet = Spreadsheet.getActiveSheet(); log(sheet.getSelectionRange()); sheet.addListener('click', 1);";
+  var code = "var sheet = Spreadsheet.getActiveSheet();";
 
-  var myInterpreter = new Interpreter(code, init).run();
+  code += "var values = sheet.getRange('A1:B10');";
+  code += "values.get('Content');";
+
+  code += "var newBackgroundColor = sheet.getRange('A1:B10').set('BackgroundColor', '#000');";
+
+  code += "log(selection); log(sheet);";
+
+  code += "sheet.addListener('click', 1);";
+
+  setTimeout(function() {
+    var myInterpreter = new Interpreter(code, init).run();
+  }, 5000);
 
 };
