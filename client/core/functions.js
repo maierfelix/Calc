@@ -558,6 +558,9 @@
     CORE.Sheets[name].Selector = null;
     delete CORE.Sheets[name].Selector;
 
+    CORE.Sheets[name].Commander = null;
+    delete CORE.Sheets[name].Commander;
+
     CORE.Sheets[name] = null;
     delete CORE.Sheets[name];
 

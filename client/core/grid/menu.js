@@ -183,14 +183,29 @@
         });
 
         element.addEventListener(CORE.Events.mouseUp, function(e) {
+
+          var width = self.customCellSizes.alphabetical[e.target.innerHTML].Width;
+
           this.setAttribute("clicked", 0);
           /** Re-render grid */
           CORE.Sheets[CORE.CurrentSheet].Input.lastAction.scrollY = false;
           this.setAttribute("timestamp", e.timeStamp);
           /** Inherit resize if myself is a master sheet */
           if (self.isMasterSheet()) {
-            CORE.Styler.inheritResize(e.target.innerHTML, self.customCellSizes.alphabetical[e.target.innerHTML].Width);
+            CORE.Styler.inheritResize(e.target.innerHTML, width);
           }
+
+          /** Push change into undo stack */
+          var command = CORE.newCommand();
+              command.caller = "Resize";
+              command.data = {
+                name: e.target.innerHTML,
+                width: width
+              };
+
+          /** Push command into the commander stack */
+          CORE.Sheets[CORE.CurrentSheet].Commander.pushUndoCommand(command, true);
+
         });
 
         element.addEventListener(CORE.Events.mouseOut, function(e) {
@@ -241,6 +256,18 @@
                   Width: 0,
                   Height: 0
                 };
+
+                /** Push change into undo stack */
+                var command = CORE.newCommand();
+                    command.caller = "Resize";
+                    command.data = {
+                      name: name,
+                      width: 0
+                    };
+
+                /** Push command into the commander stack */
+                CORE.Sheets[CORE.CurrentSheet].Commander.pushUndoCommand(command, true);
+
               }
 
               /** User scrolls cell to right */
@@ -311,11 +338,26 @@
         });
 
         element.addEventListener(CORE.Events.mouseUp, function(e) {
+
+          var height = self.customCellSizes.numeric[e.target.innerHTML].Height;
+
           this.setAttribute("clicked", 0);
           /** Inherit resize if myself is a master sheet */
           if (self.isMasterSheet()) {
             CORE.Styler.inheritResize(e.target.innerHTML, self.customCellSizes.numeric[e.target.innerHTML].Height);
           }
+
+          /** Push change into undo stack */
+          var command = CORE.newCommand();
+              command.caller = "Resize";
+              command.data = {
+                name: e.target.innerHTML,
+                height: height
+              };
+
+          /** Push command into the commander stack */
+          CORE.Sheets[CORE.CurrentSheet].Commander.pushUndoCommand(command, true);
+
         });
 
         element.addEventListener(CORE.Events.mouseOut, function(e) {
@@ -363,11 +405,24 @@
 
               /** Create custom cell scroll object */
               if (!self.customCellSizes.numeric[name]) {
+
                 self.customCellSizes.numeric[name] = {
                   Width: 0,
                   Height: 0
                 };
                 self.customCellSizes.array.push(parseInt(name));
+
+                /** Push change into undo stack */
+                var command = CORE.newCommand();
+                    command.caller = "Resize";
+                    command.data = {
+                      name: name,
+                      height: 0
+                    };
+
+                /** Push command into the commander stack */
+                CORE.Sheets[CORE.CurrentSheet].Commander.pushUndoCommand(command, true);
+
               }
 
               /** User scrolls cell up */

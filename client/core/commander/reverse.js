@@ -26,6 +26,31 @@
   };
 
   /**
+   * Reverse a resize
+   *
+   * @method reverseResize
+   * @static
+   */
+  CORE.Commander.prototype.reverseResize = function(data) {
+
+    var cellSizes = CORE.Sheets[CORE.CurrentSheet].customCellSizes;
+
+    var resizeType = isNaN(parseInt(data.name)) ? "alphabetical" : "numeric";
+
+    if (cellSizes[resizeType][data.name]) {
+      if (resizeType === "alphabetical") {
+        cellSizes[resizeType][data.name].Width = data.width; 
+      } else if (resizeType === "numeric") {
+        cellSizes[resizeType][data.name].Height = data.height; 
+      }
+    }
+
+    CORE.Sheets[CORE.CurrentSheet].updateMenu();
+    CORE.Sheets[CORE.CurrentSheet].updateWidth("default");
+
+  };
+
+  /**
    * Reverse a background styling
    *
    * @param {object} [data] Data
@@ -37,8 +62,8 @@
 
     var color = null;
 
-    if (mode) color = data.newColor || "rgb(255,255,255)";
-    else color = data.oldColor || "rgb(255,255,255)";
+    if (mode) color = data.newColor || null;
+    else color = data.oldColor || null;
 
     var selectedCells = CORE.$.coordToSelection(data.range.first, data.range.last);
 

@@ -30,9 +30,9 @@
 
     this.Settings = {
       /** Maximum redo amount */
-      maxRedo: 250,
+      maxRedo: 100,
       /** Maximum undo amount */
-      maxUndo: 250,
+      maxUndo: 100,
       /** Current redo stack position */
       redoPosition: 0,
       /** Current undo stack position */
@@ -223,6 +223,9 @@
             break;
         }
         break;
+      case "Resize":
+        this.reverseResize(cmd.data);
+        break;
       case "Styler":
         switch (cmd.action) {
           case "BackgroundColor":
@@ -231,5 +234,41 @@
         }
         break;
     }
+
+  };
+
+  /**
+   * Get a earlier command
+   *
+   * @param {number} [jump] How many times to ignore found commands until return them
+   * @param {string} [caller] Caller to search
+   * @param {string} [action] Action to search
+   * @method getEarlierCommand
+   * @return {object} Undo stack command
+   * @static
+   */
+  CORE.Commander.prototype.getEarlierCommand = function(jump, caller, action) {
+
+    var jumps = jump;
+
+    var command = null;
+
+    var counter = this.Stack.undoCommands.length;
+
+    while (true) {
+      if (this.Stack.undoCommands[counter] &&
+          this.Stack.undoCommands[counter].caller === caller &&
+          this.Stack.undoCommands[counter].action === action) {
+        command = this.Stack.undoCommands[counter];
+        if (jump <= 0) break;
+        jump--;
+      }
+      if (counter < 0) break;
+      counter--;
+    }
+
+    if (command) {
+      return (command);
+    } else return void 0;
 
   };
