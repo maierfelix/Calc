@@ -578,8 +578,8 @@
 
     var array = [];
 
-    for (var xx = first.Letter; xx <= last.Letter; ++xx) {
-      for (var yy = first.Number; yy <= last.Number; ++yy) {
+    for (var xx = first.letter; xx <= last.letter; ++xx) {
+      for (var yy = first.number; yy <= last.number; ++yy) {
         array.push({
           letter: xx,
           number: yy

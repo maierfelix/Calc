@@ -49,8 +49,57 @@
       selectSheet.inheritMasterStyling(currentMaster, masterCell, "BackgroundColor");
     }
 
+    /** Create background style command */
+    this.backgroundStyleCommand(color);
+
+    /** Append the background style */
+    this.appendBackgroundStyle(color);
+
+    /** Inherit style changes to slave sheets */
+    if (CORE.Sheets[CORE.CurrentSheet].isMasterSheet()) {
+      this.inheritSheetStyling("BackgroundColor", color);
+    }
+
+    /** Dont loose the selection */
+    selectSheet.getSelection();
+
+  };
+
+  /**
+   * Append the background style
+   *
+   * @method appendBackgroundStyle
+   * @static
+   */
+  CORE.Styler.prototype.appendBackgroundStyle = function(color) {
+
+    var selectedCells = arguments[1] || CORE.Sheets[CORE.CurrentSheet].Selector.SelectedCells;
+
+    /** Loop through all selected cells */
+    for (var ii = 0; ii < selectedCells.length; ++ii) {
+      var letter = CORE.$.numberToAlpha(selectedCells[ii].letter);
+      var name = letter + selectedCells[ii].number;
+      /** Update the cell background color */
+      CORE.Cells.Used[CORE.CurrentSheet][letter][name].BackgroundColor = color;
+      /** Immediately update cells background color */
+      var jumps = CORE.$.getCell({ letter: selectedCells[ii].letter, number: selectedCells[ii].number });
+      if (jumps >= 0) CORE.DOM.Output.children[jumps].style.background = color;
+    }
+
+  };
+
+  /**
+   * Convert background style action into command
+   *
+   * @method backgroundStyleCommand
+   * @static
+   */
+  CORE.Styler.prototype.backgroundStyleCommand = function(color) {
+
+    var selector = CORE.Sheets[CORE.CurrentSheet].Selector;
+
     /** Get the old color */
-    var getColor = selectSheet.SelectedCells[0];
+    var getColor = selector.SelectedCells[0];
     var getColorLetter = CORE.$.numberToAlpha(getColor.letter);
     var getColorNumber = getColor.number;
     getColor = CORE.Cells.Used[CORE.CurrentSheet][getColorLetter][getColorLetter + getColorNumber].BackgroundColor;
@@ -61,29 +110,14 @@
         command.action = "BackgroundColor";
         command.data = {
           newColor: color,
-          oldColor: getColor
+          oldColor: getColor,
+          range: {
+            first: selector.SelectedCells[0],
+            last: selector.SelectedCells[selector.SelectedCells.length - 1]
+          }
         };
 
-    /** Loop through all selected cells */
-    for (var ii = 0; ii < selectSheet.SelectedCells.length; ++ii) {
-      var letter = CORE.$.numberToAlpha(selectSheet.SelectedCells[ii].letter);
-      var name = letter + selectSheet.SelectedCells[ii].number;
-      /** Update the cell background color */
-      CORE.Cells.Used[CORE.CurrentSheet][letter][name].BackgroundColor = color;
-      /** Immediately update cells background color */
-      var jumps = CORE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
-      if (jumps >= 0) CORE.DOM.Output.children[jumps].style.background = color;
-    }
-
-    /** Inherit style changes to slave sheets */
-    if (CORE.Sheets[CORE.CurrentSheet].isMasterSheet()) {
-      this.inheritSheetStyling("BackgroundColor", color);
-    }
-
-    /** Push current selection state into the commander stack */
+    /** Push command into the commander stack */
     CORE.Sheets[CORE.CurrentSheet].Commander.pushUndoCommand(command, true);
-
-    /** Dont loose the selection */
-    selectSheet.getSelection();
 
   };
