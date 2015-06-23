@@ -19,14 +19,14 @@
    * @method extendStrings
    * @static
    */
-  CORE.Extender.prototype.extendStrings = function(Cells, extendStack) {
+  NOVAE.Extender.prototype.extendStrings = function(Cells, extendStack) {
 
     var iterationRate = 0;
 
     var copy = false;
 
     /** Short syntax */
-    var SelectedCells = CORE.Sheets[CORE.CurrentSheet].Selector.SelectedCells;
+    var SelectedCells = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.SelectedCells;
 
     var startNumber = 0;
 
@@ -40,12 +40,12 @@
     /** Helper to prevent unnecessary re-calculations */
     var letters = null;
 
-    if (letters = extendStack[0].match(CORE.REGEX.letters)) {
+    if (letters = extendStack[0].match(NOVAE.REGEX.letters)) {
       extendStack[0] = parseInt(letters.join(""));
     }
 
     if (extendStack[1]) {
-      if (letters = extendStack[1].match(CORE.REGEX.letters)) {
+      if (letters = extendStack[1].match(NOVAE.REGEX.letters)) {
         extendStack[1] = parseInt(letters.join(""));
       } else {
         extendStack[1] = undefined;
@@ -81,7 +81,7 @@
     /** Append iteration */
     } else {
       for (var ii = 0; ii < Cells.length; ++ii) {
-        Cells[ii].value = CORE.$.replaceNumbers(string, String(extendStack[ii]));
+        Cells[ii].value = NOVAE.$.replaceNumbers(string, String(extendStack[ii]));
       }
     }
 

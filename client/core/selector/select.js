@@ -19,7 +19,7 @@
    * @method getSelection
    * @static
    */
-  CORE.Selector.prototype.getSelection = function() {
+  NOVAE.Selector.prototype.getSelection = function() {
 
     /** Delete selection effect of all last selected cells */ 
     this.deleteCellHoverEffect();
@@ -27,7 +27,7 @@
     /** Abort below operatons if all is selected */
     if (this.allSelected) {
       this.allCellHoverEffect();
-      if (!CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Edit) CORE.Sheets[CORE.CurrentSheet].cleanEditSelection();
+      if (!NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.Edit) NOVAE.Sheets[NOVAE.CurrentSheet].cleanEditSelection();
       /** Clean menu selection */
       this.menuSelection();
       return void 0;
@@ -40,23 +40,23 @@
       /** Column master selection */
       if (typeof this.masterSelected.Current === "string") {
         this.Selected.First = {
-          Letter: CORE.$.alphaToNumber(this.masterSelected.Current),
-          Number: CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY
+          Letter: NOVAE.$.alphaToNumber(this.masterSelected.Current),
+          Number: NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY
         };
         this.Selected.Last = {
-          Letter: CORE.$.alphaToNumber(this.masterSelected.Current),
+          Letter: NOVAE.$.alphaToNumber(this.masterSelected.Current),
           /** + 1 to set last selection out of view */
-          Number: CORE.Sheets[CORE.CurrentSheet].Settings.y + (CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY + 1)
+          Number: NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y + (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY + 1)
         };
       /** Row master selection */
       } else if (typeof this.masterSelected.Current === "number") {
         this.Selected.First = {
-          Letter: CORE.Sheets[CORE.CurrentSheet].Settings.scrolledX,
+          Letter: NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX,
           Number: this.masterSelected.Current
         };
         this.Selected.Last = {
           /** + 1 to set last selection out of view */
-          Letter: CORE.Sheets[CORE.CurrentSheet].Settings.scrolledX + (CORE.Sheets[CORE.CurrentSheet].Settings.x + 1),
+          Letter: NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX + (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.x + 1),
           Number: this.masterSelected.Current
         };
       }
@@ -74,7 +74,7 @@
     this.Selected.Last.Number = last.Number || 1;
 
     /** Calculate space between the 2 selected cells */
-    var width = CORE.$.alphaToNumber(this.Selected.Last.Letter) - CORE.$.alphaToNumber(this.Selected.First.Letter);
+    var width = NOVAE.$.alphaToNumber(this.Selected.Last.Letter) - NOVAE.$.alphaToNumber(this.Selected.First.Letter);
 
     /** Calculate the height between the 2 selected cells */
     var height = this.Selected.Last.Number + this.Selected.First.Number;
@@ -229,7 +229,7 @@
     this.menuSelection();
 
     /** Clean edited cells */
-    if (!CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Edit) CORE.Sheets[CORE.CurrentSheet].cleanEditSelection();
+    if (!NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.Edit) NOVAE.Sheets[NOVAE.CurrentSheet].cleanEditSelection();
 
   };
 
@@ -239,7 +239,7 @@
    * @method selectCell
    * @static
    */
-  CORE.Selector.prototype.selectCell = function(letter, number) {
+  NOVAE.Selector.prototype.selectCell = function(letter, number) {
 
     /** Delete hover effect of previous cell */
     this.deleteCellHoverEffect();
@@ -270,7 +270,7 @@
    * @method moveSelection
    * @static
    */
-  CORE.Selector.prototype.moveSelection = function(dir, amount) {
+  NOVAE.Selector.prototype.moveSelection = function(dir, amount) {
 
     var letter = this.Selected.First.Letter,
         number = this.Selected.First.Number;
@@ -306,25 +306,25 @@
     }
 
     /** Reset all key scroll axis amount */
-    CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledX = CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledY = 0;
+    NOVAE.Sheets[NOVAE.CurrentSheet].Settings.keyScrolledX = NOVAE.Sheets[NOVAE.CurrentSheet].Settings.keyScrolledY = 0;
 
     /** Scroll one down, user edited cell at final bottom */
-    if (dir === "down" && (CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledY + number) >= (CORE.Sheets[CORE.CurrentSheet].Settings.y + CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY - 1)) {
-      CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY += 1;
-      CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledY -= 1;
+    if (dir === "down" && (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.keyScrolledY + number) >= (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY - 1)) {
+      NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY += 1;
+      NOVAE.Sheets[NOVAE.CurrentSheet].Settings.keyScrolledY -= 1;
     }
 
     /** Scroll one down, user edited cell at final bottom */
     if (dir === "up") {
-      if (CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledY + number <= (CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY + 1)) {
-        CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY -= 1;
+      if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.keyScrolledY + number <= (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY + 1)) {
+        NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY -= 1;
       }
-      CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledY += 1;
+      NOVAE.Sheets[NOVAE.CurrentSheet].Settings.keyScrolledY += 1;
     }
 
     /** Update grid and menu */
-    CORE.Sheets[CORE.CurrentSheet].updateHeight("up", 1);
-    CORE.Sheets[CORE.CurrentSheet].generateMenu();
+    NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("up", 1);
+    NOVAE.Sheets[NOVAE.CurrentSheet].generateMenu();
 
     /** Select the new cell */
     this.selectCell(letterResult, (numberResult));
@@ -337,7 +337,7 @@
    * @method select
    * @static
    */
-  CORE.Selector.prototype.select = function(object) {
+  NOVAE.Selector.prototype.select = function(object) {
 
     this.Selected.First = object.first;
     this.Selected.Last = object.last;

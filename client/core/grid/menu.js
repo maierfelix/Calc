@@ -19,7 +19,7 @@
    * @method generateMenu
    * @static
    */
-  CORE.Grid.prototype.generateMenu = function() {
+  NOVAE.Grid.prototype.generateMenu = function() {
 
     var lastX = 0,
         lastY = 0;
@@ -34,7 +34,7 @@
     height += 1;
 
     /** Clean the whole menu */
-    CORE.DOM.HorizontalMenu.innerHTML = CORE.DOM.VerticalMenu.innerHTML = "";
+    NOVAE.DOM.HorizontalMenu.innerHTML = NOVAE.DOM.VerticalMenu.innerHTML = "";
 
     for (var xx = 0; xx < width; ++xx) {
 
@@ -44,7 +44,7 @@
         if (xx > 0 ) {
           if (xx !== lastX) {
             lastX = xx;
-            this.generateMenuNode(CORE.$.numberToAlpha(lastX + this.Settings.scrolledX), CORE.DOM.HorizontalMenu, xx, yy, "alpha");
+            this.generateMenuNode(NOVAE.$.numberToAlpha(lastX + this.Settings.scrolledX), NOVAE.DOM.HorizontalMenu, xx, yy, "alpha");
           }
         }
 
@@ -52,7 +52,7 @@
         if (yy > 0) {
           if (yy > lastY) {
             lastY = yy;
-            this.generateMenuNode( (lastY + this.Settings.scrolledY), CORE.DOM.VerticalMenu, xx, yy, "numeric");
+            this.generateMenuNode( (lastY + this.Settings.scrolledY), NOVAE.DOM.VerticalMenu, xx, yy, "numeric");
           }
         }
 
@@ -68,7 +68,7 @@
    * @method generateMenuNode
    * @static
    */
-  CORE.Grid.prototype.generateMenuNode = function(Letter, target, pos_x, pos_y, type) {
+  NOVAE.Grid.prototype.generateMenuNode = function(Letter, target, pos_x, pos_y, type) {
 
     var x, y = 0;
 
@@ -92,13 +92,13 @@
     if (type === "alpha") {
       for (var customCell in this.customCellSizes.alphabetical) {
         /** Update x position of all menu cells behind a cell with a custom width */
-        if (CORE.$.alphaToNumber(Letter) > CORE.$.alphaToNumber(customCell)) {
+        if (NOVAE.$.alphaToNumber(Letter) > NOVAE.$.alphaToNumber(customCell)) {
           x += this.customCellSizes.alphabetical[customCell].Width;
         }
         /** X-View was scrolled */
         if (this.Settings.scrolledX) {
           /** If custom cell is not in view anymore, adjust all cells behind the custom cells with its custom width */
-          if (this.Settings.scrolledX >= CORE.$.alphaToNumber(customCell)) {
+          if (this.Settings.scrolledX >= NOVAE.$.alphaToNumber(customCell)) {
             x -= this.customCellSizes.alphabetical[customCell].Width;
           }
         }
@@ -160,7 +160,7 @@
    * @method createAlphabeticalMenuCell
    * @static
    */
-  CORE.Grid.prototype.createAlphabeticalMenuCell = function(Letter, style, template) {
+  NOVAE.Grid.prototype.createAlphabeticalMenuCell = function(Letter, style, template) {
 
     var self = this;
 
@@ -172,31 +172,31 @@
         element.setAttribute("timestamp", new Date().getTime());
         element.innerHTML = Letter;
 
-        element.addEventListener(CORE.Events.mouseDown, function(e) {
+        element.addEventListener(NOVAE.Events.mouseDown, function(e) {
           /** Double click */
           if (new Date().getTime() - parseInt(this.getAttribute("timestamp")) <= 150) {
             /** Do a master selection */
-            CORE.Sheets[CORE.CurrentSheet].Selector.masterSelect(e.target.innerHTML);
+            NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelect(e.target.innerHTML);
           } else this.setAttribute("timestamp", e.timeStamp);
           this.setAttribute("clicked", 1);
-          CORE.Sheets[CORE.CurrentSheet].Input.Mouse.CellResize = true;
+          NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.CellResize = true;
         });
 
-        element.addEventListener(CORE.Events.mouseUp, function(e) {
+        element.addEventListener(NOVAE.Events.mouseUp, function(e) {
 
           var width = self.customCellSizes.alphabetical[e.target.innerHTML].Width;
 
           this.setAttribute("clicked", 0);
           /** Re-render grid */
-          CORE.Sheets[CORE.CurrentSheet].Input.lastAction.scrollY = false;
+          NOVAE.Sheets[NOVAE.CurrentSheet].Input.lastAction.scrollY = false;
           this.setAttribute("timestamp", e.timeStamp);
           /** Inherit resize if myself is a master sheet */
           if (self.isMasterSheet()) {
-            CORE.Styler.inheritResize(e.target.innerHTML, width);
+            NOVAE.Styler.inheritResize(e.target.innerHTML, width);
           }
 
           /** Push change into undo stack */
-          var command = CORE.newCommand();
+          var command = NOVAE.newCommand();
               command.caller = "Resize";
               command.data = {
                 name: e.target.innerHTML,
@@ -204,22 +204,22 @@
               };
 
           /** Push command into the commander stack */
-          CORE.Sheets[CORE.CurrentSheet].Commander.pushUndoCommand(command, true);
+          NOVAE.Sheets[NOVAE.CurrentSheet].Commander.pushUndoCommand(command, true);
 
         });
 
-        element.addEventListener(CORE.Events.mouseOut, function(e) {
+        element.addEventListener(NOVAE.Events.mouseOut, function(e) {
           this.setAttribute("clicked", 0);
         });
 
         /** User wants to change row size ? */
-        element.addEventListener(CORE.Events.mouseMove, function(e) {
+        element.addEventListener(NOVAE.Events.mouseMove, function(e) {
 
           var x = 0;
           var y = 0;
 
           /** Desktop */
-          if (!CORE.Settings.Mobile) {
+          if (!NOVAE.Settings.Mobile) {
 
             x = e.pageX - this.offsetLeft,
             y = e.pageY - this.offsetTop;
@@ -258,7 +258,7 @@
                 };
 
                 /** Push change into undo stack */
-                var command = CORE.newCommand();
+                var command = NOVAE.newCommand();
                     command.caller = "Resize";
                     command.data = {
                       name: name,
@@ -266,7 +266,7 @@
                     };
 
                 /** Push command into the commander stack */
-                CORE.Sheets[CORE.CurrentSheet].Commander.pushUndoCommand(command, true);
+                NOVAE.Sheets[NOVAE.CurrentSheet].Commander.pushUndoCommand(command, true);
 
               }
 
@@ -315,7 +315,7 @@
    * @method createNumericMenuCell
    * @static
    */
-  CORE.Grid.prototype.createNumericMenuCell = function(Letter, style, template) {
+  NOVAE.Grid.prototype.createNumericMenuCell = function(Letter, style, template) {
 
     var self = this;
 
@@ -327,28 +327,28 @@
         element.setAttribute("timestamp", new Date().getTime());
         element.innerHTML = Letter;
 
-        element.addEventListener(CORE.Events.mouseDown, function(e) {
+        element.addEventListener(NOVAE.Events.mouseDown, function(e) {
           /** Double click */
           if (new Date().getTime() - parseInt(this.getAttribute("timestamp")) <= 150) {
             /** Do a master selection */
-            CORE.Sheets[CORE.CurrentSheet].Selector.masterSelect(parseInt(e.target.innerHTML));
+            NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelect(parseInt(e.target.innerHTML));
           } else this.setAttribute("timestamp", e.timeStamp);
           this.setAttribute("clicked", 1);
-          CORE.Sheets[CORE.CurrentSheet].Input.Mouse.CellResize = true;
+          NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.CellResize = true;
         });
 
-        element.addEventListener(CORE.Events.mouseUp, function(e) {
+        element.addEventListener(NOVAE.Events.mouseUp, function(e) {
 
           var height = self.customCellSizes.numeric[e.target.innerHTML].Height;
 
           this.setAttribute("clicked", 0);
           /** Inherit resize if myself is a master sheet */
           if (self.isMasterSheet()) {
-            CORE.Styler.inheritResize(e.target.innerHTML, self.customCellSizes.numeric[e.target.innerHTML].Height);
+            NOVAE.Styler.inheritResize(e.target.innerHTML, self.customCellSizes.numeric[e.target.innerHTML].Height);
           }
 
           /** Push change into undo stack */
-          var command = CORE.newCommand();
+          var command = NOVAE.newCommand();
               command.caller = "Resize";
               command.data = {
                 name: e.target.innerHTML,
@@ -356,23 +356,23 @@
               };
 
           /** Push command into the commander stack */
-          CORE.Sheets[CORE.CurrentSheet].Commander.pushUndoCommand(command, true);
+          NOVAE.Sheets[NOVAE.CurrentSheet].Commander.pushUndoCommand(command, true);
 
         });
 
-        element.addEventListener(CORE.Events.mouseOut, function(e) {
+        element.addEventListener(NOVAE.Events.mouseOut, function(e) {
           this.setAttribute("clicked", 0);
         });
 
         
         /** User wants to change row size ? */
-        element.addEventListener(CORE.Events.mouseMove, function(e) {
+        element.addEventListener(NOVAE.Events.mouseMove, function(e) {
 
           var x = 0;
           var y = 0;
 
           /** Desktop */
-          if (!CORE.Settings.Mobile) {
+          if (!NOVAE.Settings.Mobile) {
 
             x = e.pageX - this.offsetLeft,
             y = e.pageY - this.offsetTop;
@@ -413,7 +413,7 @@
                 self.customCellSizes.array.push(parseInt(name));
 
                 /** Push change into undo stack */
-                var command = CORE.newCommand();
+                var command = NOVAE.newCommand();
                     command.caller = "Resize";
                     command.data = {
                       name: name,
@@ -421,7 +421,7 @@
                     };
 
                 /** Push command into the commander stack */
-                CORE.Sheets[CORE.CurrentSheet].Commander.pushUndoCommand(command, true);
+                NOVAE.Sheets[NOVAE.CurrentSheet].Commander.pushUndoCommand(command, true);
 
               }
 
@@ -471,7 +471,7 @@
    * @method updateMenu
    * @static
    */
-  CORE.Grid.prototype.updateMenu = function() {
+  NOVAE.Grid.prototype.updateMenu = function() {
 
     /** User resized some cells */
     if (this.Settings.cellResizedX || this.Settings.cellResizedY) {
@@ -487,16 +487,16 @@
    * @method updateMenuNoResizement
    * @static
    */
-  CORE.Grid.prototype.updateMenuNoResizement = function() {
+  NOVAE.Grid.prototype.updateMenuNoResizement = function() {
 
     /** Update vertical numeric menu */
     for (var yy = 0; yy < this.Settings.y; ++yy) {
-      CORE.DOM.VerticalMenu.children[yy].innerHTML = (yy + this.Settings.scrolledY) + 1;
+      NOVAE.DOM.VerticalMenu.children[yy].innerHTML = (yy + this.Settings.scrolledY) + 1;
     }
 
     /** Update horizontal alphabetical menu */
     for (var xx = 0; xx < this.Settings.x; ++xx) {
-      CORE.DOM.HorizontalMenu.children[xx].innerHTML = CORE.$.numberToAlpha( (xx + this.Settings.scrolledX) + 1);
+      NOVAE.DOM.HorizontalMenu.children[xx].innerHTML = NOVAE.$.numberToAlpha( (xx + this.Settings.scrolledX) + 1);
     }
 
   };

@@ -19,12 +19,12 @@
    * @method deleteColumn
    * @static
    */
-  CORE.Injector.prototype.deleteColumn = function() {
+  NOVAE.Injector.prototype.deleteColumn = function() {
 
-    var sheet = arguments[0] || CORE.CurrentSheet;
+    var sheet = arguments[0] || NOVAE.CurrentSheet;
 
     /** Currently selected column */
-    var firstSelectedCell = arguments[1] || CORE.Sheets[sheet].Selector.Selected.First;
+    var firstSelectedCell = arguments[1] || NOVAE.Sheets[sheet].Selector.Selected.First;
 
     /** Process master columns */
     this.deleteColumn_MasterColumns(sheet, firstSelectedCell);
@@ -35,12 +35,12 @@
     /** Process cells */
     this.deleteColumn_Cells(sheet, firstSelectedCell);
 
-    if (!arguments.length && CORE.Sheets[CORE.CurrentSheet].isMasterSheet()) {
-      CORE.Styler.inheritInjection(CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First, "deleteColumn");
+    if (!arguments.length && NOVAE.Sheets[NOVAE.CurrentSheet].isMasterSheet()) {
+      NOVAE.Styler.inheritInjection(NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First, "deleteColumn");
     }
 
     /** Push change into undo stack */
-    var command = CORE.newCommand();
+    var command = NOVAE.newCommand();
         command.caller = "Injector";
         command.action = "deleteColumn";
         command.data = {
@@ -49,13 +49,13 @@
         };
 
     /** Push command into the commander stack only if arguments[2] isnt true */
-    if (!arguments[2]) CORE.Sheets[sheet].Commander.pushUndoCommand(command, true);
+    if (!arguments[2]) NOVAE.Sheets[sheet].Commander.pushUndoCommand(command, true);
 
     /** Refresh the grid */
-    CORE.Event.redraw(sheet);
+    NOVAE.Event.redraw(sheet);
 
     /** Dont loose selection */
-    CORE.Sheets[sheet].Selector.getSelection();
+    NOVAE.Sheets[sheet].Selector.getSelection();
 
   };
 
@@ -65,9 +65,9 @@
    * @method deleteColumn_MasterColumns
    * @static
    */
-  CORE.Injector.prototype.deleteColumn_MasterColumns = function(sheet, firstSelected) {
+  NOVAE.Injector.prototype.deleteColumn_MasterColumns = function(sheet, firstSelected) {
 
-    var masterCells = CORE.Sheets[sheet].Selector.masterSelected.Columns;
+    var masterCells = NOVAE.Sheets[sheet].Selector.masterSelected.Columns;
 
     /** Process master cells */
     var customArray = this.getAlphaMasterColumns("delete", sheet, firstSelected);
@@ -79,7 +79,7 @@
     for (var ii = 0; ii < customArray.length; ++ii) {
       var value = customArray[ii];
       /** Selection matches the master cell, simply delete it */
-      if (CORE.$.alphaToNumber(value.new) < firstSelected.Letter) {
+      if (NOVAE.$.alphaToNumber(value.new) < firstSelected.Letter) {
         delete masterCells[value.old];
       } else {
         masterCells[value.new] = masterCells[value.old];
@@ -95,9 +95,9 @@
    * @method deleteColumn_Columns
    * @static
    */
-  CORE.Injector.prototype.deleteColumn_Columns = function(sheet, firstSelected) {
+  NOVAE.Injector.prototype.deleteColumn_Columns = function(sheet, firstSelected) {
 
-    var customizedCells = CORE.Sheets[sheet].customCellSizes.alphabetical;
+    var customizedCells = NOVAE.Sheets[sheet].customCellSizes.alphabetical;
 
     /** Process master cells */
     var customArray = this.getAlphaCustomizedCells("delete", sheet, firstSelected);
@@ -109,7 +109,7 @@
     for (var ii = 0; ii < customArray.length; ++ii) {
       var value = customArray[ii];
       /** Selection matches the master cell, simply delete it */
-      if (CORE.$.alphaToNumber(value.new) < firstSelected.Letter) {
+      if (NOVAE.$.alphaToNumber(value.new) < firstSelected.Letter) {
         delete customizedCells[value.old];
       } else {
         customizedCells[value.new] = customizedCells[value.old];
@@ -125,9 +125,9 @@
    * @method deleteColumn_Cells
    * @static
    */
-  CORE.Injector.prototype.deleteColumn_Cells = function(sheet, firstSelected) {
+  NOVAE.Injector.prototype.deleteColumn_Cells = function(sheet, firstSelected) {
 
-    var usedCells = CORE.Cells.Used[sheet];
+    var usedCells = NOVAE.Cells.Used[sheet];
 
     /** Process master cells */
     var customArray = this.getAlphaUsedCells("delete", sheet, firstSelected);
@@ -139,7 +139,7 @@
     for (var ii = 0; ii < customArray.length; ++ii) {
       var value = customArray[ii];
       /** Selection matches the cell, simply delete it */
-      if (CORE.$.alphaToNumber(value.new) < firstSelected.Letter) {
+      if (NOVAE.$.alphaToNumber(value.new) < firstSelected.Letter) {
         delete usedCells[value.old];
       } else {
         usedCells[value.new] = usedCells[value.old];
@@ -155,12 +155,12 @@
    * @method deleteRow
    * @static
    */
-  CORE.Injector.prototype.deleteRow = function() {
+  NOVAE.Injector.prototype.deleteRow = function() {
 
-    var sheet = arguments[0] || CORE.CurrentSheet;
+    var sheet = arguments[0] || NOVAE.CurrentSheet;
 
     /** Currently selected row */
-    var firstSelectedCell = arguments[1] || CORE.Sheets[sheet].Selector.Selected.First;
+    var firstSelectedCell = arguments[1] || NOVAE.Sheets[sheet].Selector.Selected.First;
 
     /** Process master columns */
     this.deleteRow_MasterRows(sheet, firstSelectedCell);
@@ -171,12 +171,12 @@
     /** Process cells */
     this.deleteRow_Cells(sheet, firstSelectedCell);
 
-    if (!arguments.length && CORE.Sheets[CORE.CurrentSheet].isMasterSheet()) {
-      CORE.Styler.inheritInjection(CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First, "deleteRow");
+    if (!arguments.length && NOVAE.Sheets[NOVAE.CurrentSheet].isMasterSheet()) {
+      NOVAE.Styler.inheritInjection(NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First, "deleteRow");
     }
 
     /** Push change into undo stack */
-    var command = CORE.newCommand();
+    var command = NOVAE.newCommand();
         command.caller = "Injector";
         command.action = "deleteRow";
         command.data = {
@@ -185,13 +185,13 @@
         };
 
     /** Push command into the commander stack only if arguments[2] isnt true */
-    if (!arguments[2]) CORE.Sheets[sheet].Commander.pushUndoCommand(command, true);
+    if (!arguments[2]) NOVAE.Sheets[sheet].Commander.pushUndoCommand(command, true);
 
     /** Refresh the grid */
-    CORE.Event.redraw(sheet);
+    NOVAE.Event.redraw(sheet);
 
     /** Dont loose selection */
-    CORE.Sheets[sheet].Selector.getSelection();
+    NOVAE.Sheets[sheet].Selector.getSelection();
 
   };
 
@@ -201,9 +201,9 @@
    * @method deleteRow_MasterRows
    * @static
    */
-  CORE.Injector.prototype.deleteRow_MasterRows = function(sheet, firstSelected) {
+  NOVAE.Injector.prototype.deleteRow_MasterRows = function(sheet, firstSelected) {
 
-    var masterCells = CORE.Sheets[sheet].Selector.masterSelected.Rows;
+    var masterCells = NOVAE.Sheets[sheet].Selector.masterSelected.Rows;
 
     /** Process master cells */
     var customArray = this.getNumericMasterRows("delete", sheet, firstSelected);
@@ -231,9 +231,9 @@
    * @method deleteRow_Rows
    * @static
    */
-  CORE.Injector.prototype.deleteRow_Rows = function(sheet, firstSelected) {
+  NOVAE.Injector.prototype.deleteRow_Rows = function(sheet, firstSelected) {
 
-    var customizedCells = CORE.Sheets[sheet].customCellSizes.numeric;
+    var customizedCells = NOVAE.Sheets[sheet].customCellSizes.numeric;
 
     /** Process master cells */
     var customArray = this.getNumericCustomizedCells("delete", sheet, firstSelected);
@@ -261,9 +261,9 @@
    * @method deleteRow_Cells
    * @static
    */
-  CORE.Injector.prototype.deleteRow_Cells = function(sheet, firstSelected) {
+  NOVAE.Injector.prototype.deleteRow_Cells = function(sheet, firstSelected) {
 
-    var usedCells = CORE.Cells.Used[sheet];
+    var usedCells = NOVAE.Cells.Used[sheet];
 
     /** ## Cell Section ## */
     var customArray = this.getNumericUsedCells("delete", sheet, firstSelected);

@@ -19,14 +19,14 @@
    * @class Awakener
    * @static
    */
-  CORE.Awakener = function() {
+  NOVAE.Awakener = function() {
 
     /** Save all running live cells here */
     this.currentlyRunning = {};
 
   };
 
-  CORE.Awakener.prototype = CORE.Awakener;
+  NOVAE.Awakener.prototype = NOVAE.Awakener;
 
   /**
    * Process live cells
@@ -34,11 +34,11 @@
    * @method evalLive
    * @static
    */
-  CORE.Awakener.prototype.evalLive = function() {
+  NOVAE.Awakener.prototype.evalLive = function() {
 
-    for (var ii in CORE.Cells.Live) {
+    for (var ii in NOVAE.Cells.Live) {
       /** Check for valid url */
-      if (CORE.Cells.Live[ii].Url) {
+      if (NOVAE.Cells.Live[ii].Url) {
         this.asleep(ii);
         this.awake(ii);
       }
@@ -52,20 +52,20 @@
    * @method awake
    * @static
    */
-  CORE.Awakener.prototype.awake = function(name) {
+  NOVAE.Awakener.prototype.awake = function(name) {
 
     /** Async this fix */
     var self = this;
 
     /** Live cell exists and is active */
-    if (CORE.Cells.Live[name] && !CORE.Cells.Live[name].Active) {
+    if (NOVAE.Cells.Live[name] && !NOVAE.Cells.Live[name].Active) {
       /** Set live cell to active */
-      CORE.Cells.Live[name].Active = true;
+      NOVAE.Cells.Live[name].Active = true;
       /** Attach timeout */
       this.currentlyRunning[name] = setInterval(function() {
         /** Dont refresh if user is in edit mode */
-        if (!CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Edit) self.get(name);
-      }, CORE.Cells.Live[name].RefreshTime);
+        if (!NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.Edit) self.get(name);
+      }, NOVAE.Cells.Live[name].RefreshTime);
     }
 
   };
@@ -76,12 +76,12 @@
    * @method asleep
    * @static
    */
-  CORE.Awakener.prototype.asleep = function(name) {
+  NOVAE.Awakener.prototype.asleep = function(name) {
     if (this.currentlyRunning[name]) {
       /** Stop fetching data */
       window.clearInterval(this.currentlyRunning[name]);
       /** Deactivate it to allow reuse */
-      CORE.Cells.Live[name].Active = false;
+      NOVAE.Cells.Live[name].Active = false;
     }
   };
 
@@ -91,13 +91,13 @@
    * @method get
    * @static
    */
-  CORE.Awakener.prototype.get = function(name) {
+  NOVAE.Awakener.prototype.get = function(name) {
 
     /** Async this fix */
     var self = this;
 
-    AJAX.GET(CORE.Cells.Live[name].Url, function(data) {
-      CORE.Cells.Live[name].Data = data;
+    AJAX.GET(NOVAE.Cells.Live[name].Url, function(data) {
+      NOVAE.Cells.Live[name].Data = data;
       /** Go on */
       self.processData(name);
     });
@@ -110,19 +110,19 @@
    * @method processData
    * @static
    */
-  CORE.Awakener.prototype.processData = function(name) {
+  NOVAE.Awakener.prototype.processData = function(name) {
 
-    var letter = name.match(CORE.REGEX.numbers).join("");
+    var letter = name.match(NOVAE.REGEX.numbers).join("");
 
     /** Check if we go some data */
-    if (CORE.Cells.Live[name].Data && CORE.Cells.Live[name].Data.length) {
+    if (NOVAE.Cells.Live[name].Data && NOVAE.Cells.Live[name].Data.length) {
       /** Try to attach it to its attendant cell */
-      if (!CORE.Cells.Used[letter][name]) CORE.registerCell(name);
+      if (!NOVAE.Cells.Used[letter][name]) NOVAE.registerCell(name);
       /** If data is JSON, parse and attach it */
-      if (CORE.$.isJSON(CORE.Cells.Live[name].Data)) {
-        CORE.Cells.Live[name].Data = JSON.parse(CORE.Cells.Live[name].Data);
+      if (NOVAE.$.isJSON(NOVAE.Cells.Live[name].Data)) {
+        NOVAE.Cells.Live[name].Data = JSON.parse(NOVAE.Cells.Live[name].Data);
       }
-      CORE.eval();
+      NOVAE.eval();
     }
 
   };
@@ -133,10 +133,10 @@
    * @method reset
    * @static
    */
-  CORE.Awakener.prototype.reset = function() {
+  NOVAE.Awakener.prototype.reset = function() {
 
-    for (var ii in CORE.Cells.Live) {
-      CORE.Cells.Live[ii].Active = false;
+    for (var ii in NOVAE.Cells.Live) {
+      NOVAE.Cells.Live[ii].Active = false;
     }
 
   };

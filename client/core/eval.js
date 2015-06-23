@@ -19,17 +19,17 @@
    * @method eval
    * @static
    */
-  CORE.eval = function() {
+  NOVAE.eval = function() {
 
     var cells = null;
     var usedCellSheet = null;
 
     if (arguments[0]) {
-      cells = CORE.Cells.Used[arguments[0]];
-      usedCellSheet = CORE.Cells.Used[arguments[0]];
+      cells = NOVAE.Cells.Used[arguments[0]];
+      usedCellSheet = NOVAE.Cells.Used[arguments[0]];
     } else {
-      cells = CORE.Cells.Used[CORE.CurrentSheet];
-      usedCellSheet = CORE.Cells.Used[CORE.CurrentSheet];
+      cells = NOVAE.Cells.Used[NOVAE.CurrentSheet];
+      usedCellSheet = NOVAE.Cells.Used[NOVAE.CurrentSheet];
     }
 
     var formulas = [];
@@ -45,7 +45,7 @@
             name: kk,
             /** Validate formula, add the parent cell value before the formula to emulate a variable assignment */
             value: cells[ii][kk].Formula.substr(0, 0) + kk + cells[ii][kk].Formula.substr(0),
-            variableReferences: CORE.$.getVariables(cells[ii][kk].Formula.substr(0))
+            variableReferences: NOVAE.$.getVariables(cells[ii][kk].Formula.substr(0))
           });
         }
       }
@@ -63,7 +63,7 @@
 
         }
 
-        var letter = formulas[ii].name.match(CORE.REGEX.numbers).join("");
+        var letter = formulas[ii].name.match(NOVAE.REGEX.numbers).join("");
 
         /** Receive the result */
         result = ENGEL.interpret(formulas[ii].value).VAR[formulas[ii].name].value.value;
@@ -71,12 +71,12 @@
         usedCellSheet[letter][formulas[ii].name].Content = result;
 
         var name = formulas[ii].name;
-        var letter = CORE.$.alphaToNumber(name.match(CORE.REGEX.numbers).join(""));
-        var number = ~~(name.match(CORE.REGEX.letters).join(""));
+        var letter = NOVAE.$.alphaToNumber(name.match(NOVAE.REGEX.numbers).join(""));
+        var number = ~~(name.match(NOVAE.REGEX.letters).join(""));
 
         /** Display the result, if cell is in view */
-        var jumps = CORE.$.getCell({ letter: letter, number: number });
-        if (jumps >= 0) CORE.DOM.Output.children[jumps].innerHTML = result;
+        var jumps = NOVAE.$.getCell({ letter: letter, number: number });
+        if (jumps >= 0) NOVAE.DOM.Output.children[jumps].innerHTML = result;
       }
     }
 
@@ -88,7 +88,7 @@
    * @method registerCellVariable
    * @static
    */
-  CORE.registerCellVariable = function() {
+  NOVAE.registerCellVariable = function() {
 
     /** Cell is not registered yet */
     if (!ENGEL.STACK.get(arguments[0])) {
@@ -109,7 +109,7 @@
    * @method validCell
    * @static
    */
-  CORE.validCell = function() {
+  NOVAE.validCell = function() {
 
     /** Cell is registered */
     if (ENGEL.STACK.get(arguments[0])) return (true);
@@ -124,7 +124,7 @@
    * @method updateCell
    * @static
    */
-  CORE.updateCell = function(name) {
+  NOVAE.updateCell = function(name) {
 
     /** Cell was registered successfully */
     if (ENGEL.STACK.get(name)) {
@@ -145,15 +145,15 @@
    * @method registerCell
    * @static
    */
-  CORE.registerCell = function() {
+  NOVAE.registerCell = function() {
 
-    var letter = arguments[0].match(CORE.REGEX.numbers).join("");
-    var number = arguments[0].match(CORE.REGEX.letters).join("");
+    var letter = arguments[0].match(NOVAE.REGEX.numbers).join("");
+    var number = arguments[0].match(NOVAE.REGEX.letters).join("");
 
-    CORE.$.registerCell({ letter: letter, number: number });
+    NOVAE.$.registerCell({ letter: letter, number: number });
 
     /** Register the cell into the interpreter variable stack */
-    CORE.registerCellVariable(arguments[0]);
+    NOVAE.registerCellVariable(arguments[0]);
   };
 
   /**
@@ -162,6 +162,6 @@
    * @method registerLiveCell
    * @static
    */
-  CORE.registerLiveCell = function() {
-    CORE.Cells.Live[arguments[0]] = new CORE.Sheets[CORE.CurrentSheet].LiveCell();
+  NOVAE.registerLiveCell = function() {
+    NOVAE.Cells.Live[arguments[0]] = new NOVAE.Sheets[NOVAE.CurrentSheet].LiveCell();
   };

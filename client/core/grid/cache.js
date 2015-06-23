@@ -19,22 +19,22 @@
    * @method cacheDOM
    * @static
    */
-  CORE.Grid.prototype.cacheDOM = function() {
+  NOVAE.Grid.prototype.cacheDOM = function() {
 
-    var children = CORE.DOM.Output.children;
-    var childLength = CORE.DOM.Output.children.length;
+    var children = NOVAE.DOM.Output.children;
+    var childLength = NOVAE.DOM.Output.children.length;
 
-    CORE.DOM.Cache = null;
-    delete CORE.DOM.Cache;
+    NOVAE.DOM.Cache = null;
+    delete NOVAE.DOM.Cache;
 
-    CORE.DOM.Cache = {};
+    NOVAE.DOM.Cache = {};
 
     /** Used for faster iteration, also preallocate required memory */
-    CORE.DOM.CacheArray = new Array(childLength);
+    NOVAE.DOM.CacheArray = new Array(childLength);
 
     for (var ii = 0; ii < childLength; ++ii) {
-      CORE.DOM.Cache[ii] = children[ii];
-      CORE.DOM.CacheArray[ii] = children[ii];
+      NOVAE.DOM.Cache[ii] = children[ii];
+      NOVAE.DOM.CacheArray[ii] = children[ii];
     }
 
   };

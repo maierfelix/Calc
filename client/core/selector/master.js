@@ -19,21 +19,21 @@
    * @method masterSelect
    * @static
    */
-  CORE.Selector.prototype.masterSelect = function(name) {
+  NOVAE.Selector.prototype.masterSelect = function(name) {
 
     switch (typeof name) {
       case "string":
         /** Master selected column */
         if (!this.masterSelected.Columns[name]) {
           /** Owns similar properties as a grid cell */
-          this.masterSelected.Columns[name] = new CORE.Sheets[CORE.CurrentSheet].Cell();
+          this.masterSelected.Columns[name] = new NOVAE.Sheets[NOVAE.CurrentSheet].Cell();
         }
         break;
       case "number":
         /** Master selected row */
         if (!this.masterSelected.Rows[name]) {
           /** Owns similar properties as a grid cell */
-          this.masterSelected.Rows[name] = new CORE.Sheets[CORE.CurrentSheet].Cell();
+          this.masterSelected.Rows[name] = new NOVAE.Sheets[NOVAE.CurrentSheet].Cell();
         }
         break;
     }
@@ -49,10 +49,10 @@
    * @method inheritMasterStyling
    * @static
    */
-  CORE.Selector.prototype.inheritMasterStyling = function(name, masterCell, property) {
+  NOVAE.Selector.prototype.inheritMasterStyling = function(name, masterCell, property) {
 
-    for (var ii in CORE.Cells.Used[CORE.CurrentSheet][name]) {
-      CORE.Cells.Used[CORE.CurrentSheet][name][ii][property] = masterCell[property];
+    for (var ii in NOVAE.Cells.Used[NOVAE.CurrentSheet][name]) {
+      NOVAE.Cells.Used[NOVAE.CurrentSheet][name][ii][property] = masterCell[property];
     }
 
   };

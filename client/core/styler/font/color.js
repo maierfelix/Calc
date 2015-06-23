@@ -19,11 +19,11 @@
    * @method fontColor
    * @static
    */
-  CORE.Styler.prototype.fontColor = function(color) {
+  NOVAE.Styler.prototype.fontColor = function(color) {
 
-    var element = CORE.DOM.ChangeFontColor;
+    var element = NOVAE.DOM.ChangeFontColor;
     var jumps = 0;
-    var selectSheet = CORE.Sheets[CORE.CurrentSheet].Selector;
+    var selectSheet = NOVAE.Sheets[NOVAE.CurrentSheet].Selector;
 
     /** Shorter syntax */
     var masterCell = selectSheet.masterSelected;
@@ -31,7 +31,7 @@
 
     /** Active master selection */
     if (selectSheet.masterSelected.Current && selectSheet.masterSelected.Current !== null) {
-      if (CORE.Sheets[CORE.CurrentSheet].isMasterSheet()) {
+      if (NOVAE.Sheets[NOVAE.CurrentSheet].isMasterSheet()) {
         this.inheritSheetMasterStyling("Color", color, masterCell.Current);
       }
       masterCell = masterCell.Columns[masterCell.Current] || masterCell.Rows[masterCell.Current];
@@ -40,26 +40,26 @@
     }
 
     /** Validate all selected cells */
-    CORE.$.validateCells();
+    NOVAE.$.validateCells();
 
     /** Overwrite used cells styling */
-    if (CORE.Cells.Used[CORE.CurrentSheet][currentMaster]) {
+    if (NOVAE.Cells.Used[NOVAE.CurrentSheet][currentMaster]) {
       selectSheet.inheritMasterStyling(currentMaster, masterCell, "Color");
     }
 
     /** Loop through all selected cells */
     for (var ii = 0; ii < selectSheet.SelectedCells.length; ++ii) {
-      var letter = CORE.$.numberToAlpha(selectSheet.SelectedCells[ii].letter);
+      var letter = NOVAE.$.numberToAlpha(selectSheet.SelectedCells[ii].letter);
       var cellName = letter + selectSheet.SelectedCells[ii].number;
       /** Update the font color */
-      CORE.Cells.Used[CORE.CurrentSheet][letter][cellName].Color = color;
+      NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].Color = color;
       /** Immediately update cells font color */
-      jumps = CORE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
-      if (jumps >= 0) CORE.DOM.Output.children[jumps].style.color = color;
+      jumps = NOVAE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
+      if (jumps >= 0) NOVAE.DOM.Output.children[jumps].style.color = color;
     }
 
     /** Inherit style changes to slave sheets */
-    if (CORE.Sheets[CORE.CurrentSheet].isMasterSheet()) {
+    if (NOVAE.Sheets[NOVAE.CurrentSheet].isMasterSheet()) {
       this.inheritSheetStyling("Color", color);
     }
 

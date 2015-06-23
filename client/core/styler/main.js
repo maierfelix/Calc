@@ -19,7 +19,7 @@
    * @class Styler
    * @static
    */
-  CORE.Styler = function() {};
+  NOVAE.Styler = function() {};
 
-  CORE.Styler.prototype = CORE.Styler;
-  CORE.Styler.prototype.constructor = CORE.Styler;
+  NOVAE.Styler.prototype = NOVAE.Styler;
+  NOVAE.Styler.prototype.constructor = NOVAE.Styler;

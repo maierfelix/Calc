@@ -19,15 +19,15 @@
    * @method inEditMode
    * @static
    */
-  CORE.Event.inEditMode = function() {
+  NOVAE.Event.inEditMode = function() {
 
     /** Check if user edits a cell, if yes, sniff for input stream */
-    if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Edit) {
+    if (NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.Edit) {
       /** User edits a valid cell */
-      if (CORE.Sheets[CORE.CurrentSheet].Selector.Edit) {
+      if (NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Edit) {
         /** Check if edited cell got successfully registered inside the cell edit stack */
-        var letter = CORE.Sheets[CORE.CurrentSheet].Selector.Edit.match(CORE.REGEX.numbers).join("");
-        if (CORE.Cells.Used[CORE.CurrentSheet][letter] && CORE.Cells.Used[CORE.CurrentSheet][letter][CORE.Sheets[CORE.CurrentSheet].Selector.Edit]) return (true);
+        var letter = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Edit.match(NOVAE.REGEX.numbers).join("");
+        if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter] && NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Edit]) return (true);
       }
     }
 
@@ -41,7 +41,7 @@
    * @method pressedArrowKey
    * @static
    */
-  CORE.Event.pressedArrowKey = function(keyCode) {
+  NOVAE.Event.pressedArrowKey = function(keyCode) {
 
     /** Check if user pressed an arrow key */
     if ([37, 38, 39, 40].indexOf(keyCode) >= 0) return (true);
@@ -55,14 +55,14 @@
    * @method pressedEnter
    * @static
    */
-  CORE.Event.pressedEnter = function(keyCode) {
+  NOVAE.Event.pressedEnter = function(keyCode) {
 
     /** User finished cell edit and pressed [ENTER] */
     if (keyCode === 13) {
       /** User is in edit mode? */
-      if (CORE.Event.inEditMode()) {
-        CORE.Sheets[CORE.CurrentSheet].cleanEditSelection();
-        CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
+      if (NOVAE.Event.inEditMode()) {
+        NOVAE.Sheets[NOVAE.CurrentSheet].cleanEditSelection();
+        NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
       }
       return (true);
     }
@@ -77,36 +77,36 @@
    * @method sniffCellInput
    * @static
    */
-  CORE.Event.sniffCellInput = function(keyCode) {
+  NOVAE.Event.sniffCellInput = function(keyCode) {
 
     var jumps = 0;
 
     /** User is in edit mode? */
-    if (CORE.Event.inEditMode()) {
+    if (NOVAE.Event.inEditMode()) {
       /** Go to the end of a cell text if edit first time */
-      CORE.Sheets[CORE.CurrentSheet].Selector.cellFocusSwitch = false;
+      NOVAE.Sheets[NOVAE.CurrentSheet].Selector.cellFocusSwitch = false;
 
-      var letter = CORE.$.alphaToNumber(CORE.Sheets[CORE.CurrentSheet].Selector.Edit.match(CORE.REGEX.numbers).join(""));
-      var number = ~~(CORE.Sheets[CORE.CurrentSheet].Selector.Edit.match(CORE.REGEX.letters).join(""));
+      var letter = NOVAE.$.alphaToNumber(NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Edit.match(NOVAE.REGEX.numbers).join(""));
+      var number = ~~(NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Edit.match(NOVAE.REGEX.letters).join(""));
 
       /** Get cell content and pass it into the cell edit cell stack */
-      jumps = CORE.$.getCell({ letter: letter, number: number });
-      if (jumps >= 0) CORE.Cells.Used[CORE.CurrentSheet][CORE.$.numberToAlpha(letter)][CORE.Sheets[CORE.CurrentSheet].Selector.Edit].Content = CORE.DOM.CellInput.value;
+      jumps = NOVAE.$.getCell({ letter: letter, number: number });
+      if (jumps >= 0) NOVAE.Cells.Used[NOVAE.CurrentSheet][NOVAE.$.numberToAlpha(letter)][NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Edit].Content = NOVAE.DOM.CellInput.value;
     }
 
     /** Check if user pressed [ENTER] */
-    if (!CORE.Event.pressedEnter(keyCode)) {
+    if (!NOVAE.Event.pressedEnter(keyCode)) {
       /** User pressed another key then [ENTER] */
 
       /** Fetch the current selected cell */
-      CORE.Sheets[CORE.CurrentSheet].cleanEditSelection();
-      CORE.Sheets[CORE.CurrentSheet].getEditSelection({ letter: CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First.Letter, number: CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First.Number });
+      NOVAE.Sheets[NOVAE.CurrentSheet].cleanEditSelection();
+      NOVAE.Sheets[NOVAE.CurrentSheet].getEditSelection({ letter: NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First.Letter, number: NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First.Number });
 
       /** Async input processing */
       this.processCellContent();
 
     /** User pressed enter */
-    } else CORE.Event.navigateTo("down", 1);
+    } else NOVAE.Event.navigateTo("down", 1);
 
   };
 
@@ -116,41 +116,41 @@
    * @method isFormula
    * @static
    */
-  CORE.Event.isFormula = function() {
+  NOVAE.Event.isFormula = function() {
 
-    var editCell = CORE.Sheets[CORE.CurrentSheet].Selector.Edit;
+    var editCell = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Edit;
 
     /** User is in edit mode? */
-    if (CORE.Event.inEditMode()) {
-      var letter = editCell.match(CORE.REGEX.numbers).join("");
-      var number = editCell.match(CORE.REGEX.letters).join("");
-      var cellEditContent = CORE.Cells.Used[CORE.CurrentSheet][letter] && CORE.Cells.Used[CORE.CurrentSheet][letter][editCell].Content ? CORE.Cells.Used[CORE.CurrentSheet][letter][editCell].Content : undefined;
+    if (NOVAE.Event.inEditMode()) {
+      var letter = editCell.match(NOVAE.REGEX.numbers).join("");
+      var number = editCell.match(NOVAE.REGEX.letters).join("");
+      var cellEditContent = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter] && NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Content ? NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Content : undefined;
       /** Check if cell is filled and valid */
       if (cellEditContent !== undefined && cellEditContent !== null && cellEditContent.length) {
         /** Cell starts with a "=" and will be interpreted as a formula */
         if (cellEditContent[0] === "=") {
-          CORE.Cells.Used[CORE.CurrentSheet][letter][editCell].Formula = cellEditContent;
+          NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Formula = cellEditContent;
 
           /** Inherit cell formula to slave sheets */
-          if (CORE.Sheets[CORE.CurrentSheet].isMasterSheet()) {
-            CORE.Styler.inheritCellValue({letter: letter, number: number, value: CORE.DOM.CellInput.value, type: "Formula"});
+          if (NOVAE.Sheets[NOVAE.CurrentSheet].isMasterSheet()) {
+            NOVAE.Styler.inheritCellValue({letter: letter, number: number, value: NOVAE.DOM.CellInput.value, type: "Formula"});
           }
 
         /** Cell has no formula anymore */
         } else {
           /** Clean the cell formula if it has content */
-          if (CORE.Cells.Used[CORE.CurrentSheet][letter][editCell].Formula && CORE.Cells.Used[CORE.CurrentSheet][letter][editCell].Formula.length) {
-            CORE.Cells.Used[CORE.CurrentSheet][letter][editCell].Formula = null;
+          if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Formula && NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Formula.length) {
+            NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Formula = null;
           }
           /** Check if cell has content, if yes pass it over to the interpreter stack */
-          if (CORE.Cells.Used[CORE.CurrentSheet][letter][editCell].Content && CORE.Cells.Used[CORE.CurrentSheet][letter][editCell].Content.length) {
+          if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Content && NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Content.length) {
             /** Update the cell stacks content */
-            CORE.updateCell(editCell, CORE.Cells.Used[CORE.CurrentSheet][letter][editCell].Content);
+            NOVAE.updateCell(editCell, NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Content);
           }
 
           /** Inherit cell content to slave sheets */
-          if (CORE.Sheets[CORE.CurrentSheet].isMasterSheet()) {
-            CORE.Styler.inheritCellValue({letter: letter, number: number, value: CORE.DOM.CellInput.value, type: "Content"});
+          if (NOVAE.Sheets[NOVAE.CurrentSheet].isMasterSheet()) {
+            NOVAE.Styler.inheritCellValue({letter: letter, number: number, value: NOVAE.DOM.CellInput.value, type: "Content"});
           }
 
         }
@@ -165,38 +165,38 @@
    * @method processCellContent
    * @static
    */
-  CORE.Event.processCellContent = function() {
+  NOVAE.Event.processCellContent = function() {
 
-    var editCell = CORE.Sheets[CORE.CurrentSheet].Selector.Edit;
+    var editCell = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Edit;
     var element = null;
     var jumps = 0;
-    var letter = editCell.match(CORE.REGEX.numbers).join("");
-    var number = editCell.match(CORE.REGEX.letters).join("");
+    var letter = editCell.match(NOVAE.REGEX.numbers).join("");
+    var number = editCell.match(NOVAE.REGEX.letters).join("");
 
     /** Focus the cell input field on start typing */
-    CORE.DOM.CellInput.focus();
+    NOVAE.DOM.CellInput.focus();
 
     setTimeout(function() {
-      CORE.$.registerCell({ letter: letter, number: number });
-      jumps = CORE.$.getCell({ letter: CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First.Letter, number: CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First.Number });
-      if (jumps >= 0) element = CORE.DOM.Output.children[jumps];
+      NOVAE.$.registerCell({ letter: letter, number: number });
+      jumps = NOVAE.$.getCell({ letter: NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First.Letter, number: NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First.Number });
+      if (jumps >= 0) element = NOVAE.DOM.Output.children[jumps];
       /** Update cell used stack value with cell input fields value */
-      if (CORE.Cells.Used[CORE.CurrentSheet][letter][editCell]) CORE.Cells.Used[CORE.CurrentSheet][letter][editCell].Content = CORE.DOM.CellInput.value;
+      if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell]) NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Content = NOVAE.DOM.CellInput.value;
       /** Cell is not in view, register it anyway */
-      else CORE.registerCell(editCell);
+      else NOVAE.registerCell(editCell);
       /** Update cell content with cell used stack value */
-      if (element) element.innerHTML = CORE.Cells.Used[CORE.CurrentSheet][letter][editCell].Content;
+      if (element) element.innerHTML = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Content;
       /** Check if cell is a formula */
-      CORE.Event.isFormula();
+      NOVAE.Event.isFormula();
       /** Move cursor to end of cell content text */
-      if (CORE.Cells.Used[CORE.CurrentSheet][letter][editCell] && CORE.Cells.Used[CORE.CurrentSheet][letter][editCell].Content && CORE.Sheets[CORE.CurrentSheet].Selector.cellFocusSwitch) CORE.Sheets[CORE.CurrentSheet].goToEndOfCellText();
-      CORE.Sheets[CORE.CurrentSheet].Selector.cellFocusSwitch = true;
+      if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell] && NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Content && NOVAE.Sheets[NOVAE.CurrentSheet].Selector.cellFocusSwitch) NOVAE.Sheets[NOVAE.CurrentSheet].goToEndOfCellText();
+      NOVAE.Sheets[NOVAE.CurrentSheet].Selector.cellFocusSwitch = true;
       /** Focus the cell input field while typing */
-      CORE.DOM.CellInput.focus();
+      NOVAE.DOM.CellInput.focus();
 
       /** Share cell changes */
-      if (CORE.Connector.connected) {
-        CORE.Connector.action("updateCell", { cell: editCell, value: CORE.DOM.CellInput.value });
+      if (NOVAE.Connector.connected) {
+        NOVAE.Connector.action("updateCell", { cell: editCell, value: NOVAE.DOM.CellInput.value });
       }
 
     }, 1);
@@ -209,19 +209,19 @@
    * @method navigateTo
    * @static
    */
-  CORE.Event.navigateTo = function(direction, amount) {
+  NOVAE.Event.navigateTo = function(direction, amount) {
 
     /** Run the interpreter */
-    CORE.eval();
+    NOVAE.eval();
 
-    CORE.Sheets[CORE.CurrentSheet].getEditSelection({ letter: CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First.Letter, number: CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First.Number });
+    NOVAE.Sheets[NOVAE.CurrentSheet].getEditSelection({ letter: NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First.Letter, number: NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First.Number });
 
-    CORE.Sheets[CORE.CurrentSheet].cleanEditSelection();
+    NOVAE.Sheets[NOVAE.CurrentSheet].cleanEditSelection();
 
     /** Take selection and move it */
-    CORE.Sheets[CORE.CurrentSheet].Selector.moveSelection(direction, amount);
+    NOVAE.Sheets[NOVAE.CurrentSheet].Selector.moveSelection(direction, amount);
 
     /** Leave the input */
-    CORE.DOM.CellInput.blur();
+    NOVAE.DOM.CellInput.blur();
 
   };

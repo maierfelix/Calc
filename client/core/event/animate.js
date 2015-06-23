@@ -19,17 +19,17 @@
    * @method animateMouseUp
    * @static
    */
-  CORE.Event.animateMouseUp = function() {
+  NOVAE.Event.animateMouseUp = function() {
 
-    CORE.DOM.Output.classList.remove("moveDown");
-    CORE.DOM.VerticalMenu.classList.remove("moveDown");
-    CORE.DOM.Output.classList.remove("moveUp");
-    CORE.DOM.VerticalMenu.classList.remove("moveUp");
+    NOVAE.DOM.Output.classList.remove("moveDown");
+    NOVAE.DOM.VerticalMenu.classList.remove("moveDown");
+    NOVAE.DOM.Output.classList.remove("moveUp");
+    NOVAE.DOM.VerticalMenu.classList.remove("moveUp");
     setTimeout( function() {
-      CORE.DOM.Output.classList.add("moveDown");
-      CORE.DOM.VerticalMenu.classList.add("moveDown");
-      CORE.DOM.Output.style.top = "-25px";
-      CORE.DOM.VerticalMenu.style.top = "-25px";
+      NOVAE.DOM.Output.classList.add("moveDown");
+      NOVAE.DOM.VerticalMenu.classList.add("moveDown");
+      NOVAE.DOM.Output.style.top = "-25px";
+      NOVAE.DOM.VerticalMenu.style.top = "-25px";
     }, 1);
 
   };
@@ -40,15 +40,15 @@
    * @method animateMouseUpMaximum
    * @static
    */
-  CORE.Event.animateMouseUpMaximum = function() {
+  NOVAE.Event.animateMouseUpMaximum = function() {
 
     /** Animate */
-    CORE.DOM.Output.classList.remove("moveDown");
-    CORE.DOM.VerticalMenu.classList.remove("moveDown");
-    CORE.DOM.Output.classList.remove("moveUp");
-    CORE.DOM.VerticalMenu.classList.remove("moveUp");
-    CORE.DOM.Output.style.top = "0px";
-    CORE.DOM.VerticalMenu.style.top = "0px";
+    NOVAE.DOM.Output.classList.remove("moveDown");
+    NOVAE.DOM.VerticalMenu.classList.remove("moveDown");
+    NOVAE.DOM.Output.classList.remove("moveUp");
+    NOVAE.DOM.VerticalMenu.classList.remove("moveUp");
+    NOVAE.DOM.Output.style.top = "0px";
+    NOVAE.DOM.VerticalMenu.style.top = "0px";
 
   };
 
@@ -58,15 +58,15 @@
    * @method animateMouseDown
    * @static
    */
-  CORE.Event.animateMouseDown = function() {
+  NOVAE.Event.animateMouseDown = function() {
 
-    CORE.DOM.Output.classList.remove("moveDown");
-    CORE.DOM.VerticalMenu.classList.remove("moveDown");
-    CORE.DOM.Output.classList.remove("moveUp");
-    CORE.DOM.VerticalMenu.classList.remove("moveUp");
+    NOVAE.DOM.Output.classList.remove("moveDown");
+    NOVAE.DOM.VerticalMenu.classList.remove("moveDown");
+    NOVAE.DOM.Output.classList.remove("moveUp");
+    NOVAE.DOM.VerticalMenu.classList.remove("moveUp");
     setTimeout( function() {
-      CORE.DOM.Output.classList.add("moveUp");
-      CORE.DOM.VerticalMenu.classList.add("moveUp");
+      NOVAE.DOM.Output.classList.add("moveUp");
+      NOVAE.DOM.VerticalMenu.classList.add("moveUp");
     }, 55);
 
   };

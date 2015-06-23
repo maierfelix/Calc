@@ -14,40 +14,40 @@
 "use strict";
 
   /** Select and prepare the menu dialog container */
-  CORE_UI.MENU_DIALOG_CONTAINER = document.querySelector("#menu_dialogs");
+  NOVAE_UI.MENU_DIALOG_CONTAINER = document.querySelector("#menu_dialogs");
 
   /** Create DOM Object */
-  CORE_UI.MENU = {};
+  NOVAE_UI.MENU = {};
 
   /** Select and prepare the edit menu container */
-  CORE_UI.MENU.Edit = {
+  NOVAE_UI.MENU.Edit = {
     $: document.querySelector("#menu_edit"),
     active: false
   };
 
   /** Select and prepare the modify menu container */
-  CORE_UI.MENU.Modify = {
+  NOVAE_UI.MENU.Modify = {
     $: document.querySelector("#menu_modify"),
     active: false
   };
 
   /** Initialize everything */
-  CORE_UI.init = function() {
+  NOVAE_UI.init = function() {
 
     document.querySelector("#menu_connect").addEventListener('click', function(e) {
-      CORE.Connector.loginModal();
+      NOVAE.Connector.loginModal();
     });
 
-    CORE.DOM.AddSheet.addEventListener(CORE.Events.mouseDown, function() {
+    NOVAE.DOM.AddSheet.addEventListener(NOVAE.Events.mouseDown, function() {
 
       this.setAttribute("timestamp", new Date().getTime());
 
     });
 
-    CORE.DOM.AddSheet.addEventListener(CORE.Events.mouseUp, function() {
+    NOVAE.DOM.AddSheet.addEventListener(NOVAE.Events.mouseUp, function() {
 
       /** Don't confuse this as a mouse wipe */
-      CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Pressed = false;
+      NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.Pressed = false;
 
       /** Get last time the button was pressed */
       var lastPress = parseInt(this.getAttribute("timestamp"));
@@ -57,22 +57,22 @@
 
       if (time >= 750) {
         /** Add a master sheet */
-        CORE.Sheets.addSheet(false, true);
+        NOVAE.Sheets.addSheet(false, true);
       } else {
         /** Add a slave sheet */
-        CORE.Sheets.addSheet();
+        NOVAE.Sheets.addSheet();
       }
 
     });
 
     /** Redo button */
-    CORE.DOM.RedoButton.addEventListener('click', function() {
-      CORE.Sheets[CORE.CurrentSheet].Commander.redo();
+    NOVAE.DOM.RedoButton.addEventListener('click', function() {
+      NOVAE.Sheets[NOVAE.CurrentSheet].Commander.redo();
     });
 
     /** Undo button */
-    CORE.DOM.UndoButton.addEventListener('click', function() {
-      CORE.Sheets[CORE.CurrentSheet].Commander.undo();
+    NOVAE.DOM.UndoButton.addEventListener('click', function() {
+      NOVAE.Sheets[NOVAE.CurrentSheet].Commander.undo();
     });
 
     document.querySelector("#import_file").addEventListener('change', function(e) {
@@ -95,14 +95,14 @@
             img.src = "server/uploads/" + response;
 
             JS2PNG.Decode(img, function(data) {
-              CORE.File.import(data);
+              NOVAE.File.import(data);
             });
 
           });
 
         /** Data save file */
         } else {
-          CORE.File.import(reader.result);
+          NOVAE.File.import(reader.result);
         }
 
       };
@@ -112,12 +112,12 @@
     });
 
     /** Initialize cell style menu */
-    CORE_UI.initCellStyleMenu();
+    NOVAE_UI.initCellStyleMenu();
 
   };
 
   /** Close all menus */
-  CORE_UI.closeAllMenus = function() {
+  NOVAE_UI.closeAllMenus = function() {
 
     var menu = document.querySelector("#menu_dialogs");
 
@@ -127,8 +127,8 @@
     }
 
     /** Set all menu nodes inactive */
-    for (var ii in CORE_UI.MENU) {
-      CORE_UI.MENU[ii].active = false;
+    for (var ii in NOVAE_UI.MENU) {
+      NOVAE_UI.MENU[ii].active = false;
     }
 
   };

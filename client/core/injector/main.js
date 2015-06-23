@@ -19,10 +19,10 @@
    * @class Injector
    * @static
    */
-  CORE.Injector = function() {};
+  NOVAE.Injector = function() {};
 
-  CORE.Injector.prototype = CORE.Injector;
-  CORE.Injector.prototype.constructor = CORE.Injector;
+  NOVAE.Injector.prototype = NOVAE.Injector;
+  NOVAE.Injector.prototype.constructor = NOVAE.Injector;
 
   /**
    * Process used cells (alphabetical)
@@ -30,15 +30,15 @@
    * @method getAlphaUsedCells
    * @static
    */
-  CORE.Injector.prototype.getAlphaUsedCells = function(mode, sheet, selected) {
+  NOVAE.Injector.prototype.getAlphaUsedCells = function(mode, sheet, selected) {
 
     var selectedCell = null;
 
     if (selected && typeof selected === "object") {
       selectedCell = selected;
-    } else selectedCell = CORE.Sheets[sheet].Selector.Selected.First;
+    } else selectedCell = NOVAE.Sheets[sheet].Selector.Selected.First;
 
-    var usedCells = CORE.Cells.Used[sheet];
+    var usedCells = NOVAE.Cells.Used[sheet];
 
     var cellLetter;
     var cellNumber;
@@ -49,21 +49,21 @@
     for (var ii in usedCells) {
 
       /** Get each letter behind */
-      if (usedCells[ii] && CORE.$.alphaToNumber(ii) >= selectedCell.Letter) {
+      if (usedCells[ii] && NOVAE.$.alphaToNumber(ii) >= selectedCell.Letter) {
 
         /** Go through each cell */
         for (var cell in usedCells[ii]) {
 
           switch (mode) {
             case "insert":
-              cellLetter = CORE.$.numberToAlpha(CORE.$.alphaToNumber(cell.match(CORE.REGEX.numbers).join("")) + 1);
+              cellLetter = NOVAE.$.numberToAlpha(NOVAE.$.alphaToNumber(cell.match(NOVAE.REGEX.numbers).join("")) + 1);
               break;
             case "delete":
-              cellLetter = CORE.$.numberToAlpha(CORE.$.alphaToNumber(cell.match(CORE.REGEX.numbers).join("")) - 1);
+              cellLetter = NOVAE.$.numberToAlpha(NOVAE.$.alphaToNumber(cell.match(NOVAE.REGEX.numbers).join("")) - 1);
               break;
           }
 
-          cellNumber = ~~(cell.match(CORE.REGEX.letters).join(""));
+          cellNumber = ~~(cell.match(NOVAE.REGEX.letters).join(""));
           usedCells[ii][cellLetter + cellNumber] = usedCells[ii][cell];
           delete usedCells[ii][cell];
         }
@@ -84,15 +84,15 @@
    * @method getAlphaMasterColumns
    * @static
    */
-  CORE.Injector.prototype.getAlphaMasterColumns = function(mode, sheet, selected) {
+  NOVAE.Injector.prototype.getAlphaMasterColumns = function(mode, sheet, selected) {
 
     var selectedCell = null;
 
     if (selected && typeof selected === "object") {
       selectedCell = selected;
-    } else selectedCell = CORE.Sheets[sheet].Selector.Selected.First;
+    } else selectedCell = NOVAE.Sheets[sheet].Selector.Selected.First;
 
-    var masterCells = CORE.Sheets[sheet].Selector.masterSelected.Columns;
+    var masterCells = NOVAE.Sheets[sheet].Selector.masterSelected.Columns;
 
     var customArray = [];
 
@@ -100,13 +100,13 @@
     for (var ii in masterCells) {
 
       /** Get each letter behind */
-      if (masterCells[ii] && CORE.$.alphaToNumber(ii) >= selectedCell.Letter) {
+      if (masterCells[ii] && NOVAE.$.alphaToNumber(ii) >= selectedCell.Letter) {
         switch (mode) {
           case "insert":
-            customArray.push({ old: ii, new: (CORE.$.numberToAlpha(CORE.$.alphaToNumber(ii) + 1)) });
+            customArray.push({ old: ii, new: (NOVAE.$.numberToAlpha(NOVAE.$.alphaToNumber(ii) + 1)) });
             break;
           case "delete":
-            customArray.push({ old: ii, new: (CORE.$.numberToAlpha(CORE.$.alphaToNumber(ii) - 1)) });
+            customArray.push({ old: ii, new: (NOVAE.$.numberToAlpha(NOVAE.$.alphaToNumber(ii) - 1)) });
             break;
         }
       }
@@ -123,15 +123,15 @@
    * @method getAlphaCustomizedCells
    * @static
    */
-  CORE.Injector.prototype.getAlphaCustomizedCells = function(mode, sheet, selected) {
+  NOVAE.Injector.prototype.getAlphaCustomizedCells = function(mode, sheet, selected) {
 
     var selectedCell = null;
 
     if (selected && typeof selected === "object") {
       selectedCell = selected;
-    } else selectedCell = CORE.Sheets[sheet].Selector.Selected.First;
+    } else selectedCell = NOVAE.Sheets[sheet].Selector.Selected.First;
 
-    var Cells = CORE.Sheets[sheet].customCellSizes.alphabetical;
+    var Cells = NOVAE.Sheets[sheet].customCellSizes.alphabetical;
 
     var customArray = [];
 
@@ -139,13 +139,13 @@
     for (var ii in Cells) {
 
       /** Get each letter behind */
-      if (Cells[ii] && CORE.$.alphaToNumber(ii) >= selectedCell.Letter) {
+      if (Cells[ii] && NOVAE.$.alphaToNumber(ii) >= selectedCell.Letter) {
         switch (mode) {
           case "insert":
-            customArray.push({ old: ii, new: (CORE.$.numberToAlpha(CORE.$.alphaToNumber(ii) + 1)) });
+            customArray.push({ old: ii, new: (NOVAE.$.numberToAlpha(NOVAE.$.alphaToNumber(ii) + 1)) });
             break;
           case "delete":
-            customArray.push({ old: ii, new: (CORE.$.numberToAlpha(CORE.$.alphaToNumber(ii) - 1)) });
+            customArray.push({ old: ii, new: (NOVAE.$.numberToAlpha(NOVAE.$.alphaToNumber(ii) - 1)) });
             break;
         }
       }
@@ -162,15 +162,15 @@
    * @method getNumericUsedCells
    * @static
    */
-  CORE.Injector.prototype.getNumericUsedCells = function(mode, sheet, selected) {
+  NOVAE.Injector.prototype.getNumericUsedCells = function(mode, sheet, selected) {
 
     var selectedCell = null;
 
     if (selected && typeof selected === "object") {
       selectedCell = selected;
-    } else selectedCell = CORE.Sheets[sheet].Selector.Selected.First;
+    } else selectedCell = NOVAE.Sheets[sheet].Selector.Selected.First;
 
-    var usedCells = CORE.Cells.Used[sheet];
+    var usedCells = NOVAE.Cells.Used[sheet];
 
     var cellLetter;
     var cellNumber;
@@ -185,8 +185,8 @@
       /** Go through each cell */
       for (var cell in usedCells[ii]) {
 
-        match = parseInt(cell.match(CORE.REGEX.letters).join(""));
-        cellLetter = cell.match(CORE.REGEX.numbers).join("");
+        match = parseInt(cell.match(NOVAE.REGEX.letters).join(""));
+        cellLetter = cell.match(NOVAE.REGEX.numbers).join("");
 
         /** Get all cell rows behind */
         if (match >= selectedCell.Number) {
@@ -218,15 +218,15 @@
    * @method getNumericCustomizedCells
    * @static
    */
-  CORE.Injector.prototype.getNumericCustomizedCells = function(mode, sheet, selected) {
+  NOVAE.Injector.prototype.getNumericCustomizedCells = function(mode, sheet, selected) {
 
     var selectedCell = null;
 
     if (selected && typeof selected === "object") {
       selectedCell = selected;
-    } else selectedCell = CORE.Sheets[sheet].Selector.Selected.First;
+    } else selectedCell = NOVAE.Sheets[sheet].Selector.Selected.First;
 
-    var customCells = CORE.Sheets[sheet].customCellSizes.numeric;
+    var customCells = NOVAE.Sheets[sheet].customCellSizes.numeric;
 
     var customArray = [];
 
@@ -262,15 +262,15 @@
    * @method getNumericMasterRows
    * @static
    */
-  CORE.Injector.prototype.getNumericMasterRows = function(mode, sheet, selected) {
+  NOVAE.Injector.prototype.getNumericMasterRows = function(mode, sheet, selected) {
 
     var selectedCell = null;
 
     if (selected && typeof selected === "object") {
       selectedCell = selected;
-    } else selectedCell = CORE.Sheets[sheet].Selector.Selected.First;
+    } else selectedCell = NOVAE.Sheets[sheet].Selector.Selected.First;
 
-    var masterCells = CORE.Sheets[sheet].Selector.masterSelected.Rows;
+    var masterCells = NOVAE.Sheets[sheet].Selector.masterSelected.Rows;
 
     var customArray = [];
 

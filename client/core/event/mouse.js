@@ -19,20 +19,20 @@
    * @method mouseDoubleClick
    * @static
    */
-  CORE.Event.mouseDoubleClick = function (e) {
+  NOVAE.Event.mouseDoubleClick = function (e) {
 
     /** Valid cell ? */
-    if (e.target.parentNode.id === CORE.DOM.Output.id) {
+    if (e.target.parentNode.id === NOVAE.DOM.Output.id) {
 
       /** Get grid number and fix it */
       var attribute = e.target.getAttribute("name");
 
       /** Clean old double click selection */
-      CORE.Sheets[CORE.CurrentSheet].cleanEditSelection();
+      NOVAE.Sheets[NOVAE.CurrentSheet].cleanEditSelection();
 
-      CORE.Sheets[CORE.CurrentSheet].Selector.cellFocusSwitch = false;
+      NOVAE.Sheets[NOVAE.CurrentSheet].Selector.cellFocusSwitch = false;
 
-      CORE.Sheets[CORE.CurrentSheet].getEditSelection(attribute);
+      NOVAE.Sheets[NOVAE.CurrentSheet].getEditSelection(attribute);
 
     }
 
@@ -44,35 +44,35 @@
    * @method mouseDown
    * @static
    */
-  CORE.Event.mouseDown = function (e) {
+  NOVAE.Event.mouseDown = function (e) {
 
     /** Only accept left click, prevent multiple mousedown event */
     if (e.button === 1 || /** Middle click */
         e.button === 2 || /** Right click */
         e.which  === 3 || /** Right click */
         e.which  === 2 || /** Middle click */
-        CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Pressed) {
+        NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.Pressed) {
           e.preventDefault();
           /** Dont loose selection */
-          CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
+          NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
           return void 0;
         }
 
     /** Update empty timestamp */
-    if (!CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMouseDown) CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMouseDown = e.timeStamp;
+    if (!NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.lastMouseDown) NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.lastMouseDown = e.timeStamp;
 
     /** Handle timestamps */
-    if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMouseDown > 0) {
+    if (NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.lastMouseDown > 0) {
 
       /** Calculate difference between this and last timestamp */
-      var difference = e.timeStamp - CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMouseDown;
+      var difference = e.timeStamp - NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.lastMouseDown;
 
       /** Max delay of 250 milliseconds */
       if (difference && difference <= 250) {
-        if (e.target.parentNode.id === CORE.DOM.Output.id) {
+        if (e.target.parentNode.id === NOVAE.DOM.Output.id) {
           /** Prevent double mouse clicks between multiple cells */
-          if (e.target.getAttribute("name") === CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMouseDownCell) {
-            CORE.Event.mouseDoubleClick(e);
+          if (e.target.getAttribute("name") === NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.lastMouseDownCell) {
+            NOVAE.Event.mouseDoubleClick(e);
             return void 0;
           }
         }
@@ -84,128 +84,128 @@
     if (e.target.id === "cell_input") {
 
       /** User selected a cell */
-      if (CORE.Sheets[CORE.CurrentSheet].Selector.Select.Letter && CORE.Sheets[CORE.CurrentSheet].Selector.Select.Number) {
-        CORE.eval();
-        CORE.Sheets[CORE.CurrentSheet].cleanEditSelection();
-        CORE.Sheets[CORE.CurrentSheet].getEditSelection(CORE.Sheets[CORE.CurrentSheet].Selector.Select);
+      if (NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Select.Letter && NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Select.Number) {
+        NOVAE.eval();
+        NOVAE.Sheets[NOVAE.CurrentSheet].cleanEditSelection();
+        NOVAE.Sheets[NOVAE.CurrentSheet].getEditSelection(NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Select);
       }
 
       /** Dont loose selection */
-      CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
+      NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
 
       return void 0;
 
     }
 
     /** Vertical menu clicked */
-    if (e.target.parentNode.id === CORE.DOM.VerticalMenu.id) return void 0;
+    if (e.target.parentNode.id === NOVAE.DOM.VerticalMenu.id) return void 0;
 
     /** Horizontal menu clicked */
-    if (e.target.parentNode.id === CORE.DOM.HorizontalMenu.id) return void 0;
+    if (e.target.parentNode.id === NOVAE.DOM.HorizontalMenu.id) return void 0;
 
     /** Valid cell ? */
-    if (e.target.parentNode.id === CORE.DOM.Output.id) {
+    if (e.target.parentNode.id === NOVAE.DOM.Output.id) {
 
       /** Abort all selection */
-      if (CORE.Sheets[CORE.CurrentSheet].Selector.allSelected) {
-        CORE.Sheets[CORE.CurrentSheet].Selector.deleteCellHoverEffect();
-        CORE.Sheets[CORE.CurrentSheet].Selector.allSelected = false;
-        CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
+      if (NOVAE.Sheets[NOVAE.CurrentSheet].Selector.allSelected) {
+        NOVAE.Sheets[NOVAE.CurrentSheet].Selector.deleteCellHoverEffect();
+        NOVAE.Sheets[NOVAE.CurrentSheet].Selector.allSelected = false;
+        NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
       }
 
       /** User aborted live cell edit */
-      CORE.Sheets[CORE.CurrentSheet].Input.Mouse.LiveCellEdit = false;
+      NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.LiveCellEdit = false;
 
       /** User aborted master selection */
-      CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Current = null;
+      NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Current = null;
 
       /** Hide live cell container */
-      CORE.DOM.LiveCellContainer.style.display = "none";
+      NOVAE.DOM.LiveCellContainer.style.display = "none";
 
       /** User can start to mouse wipe now */
-      CORE.Sheets[CORE.CurrentSheet].Input.Mouse.startedMouseWipe = true;
+      NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.startedMouseWipe = true;
 
       var name = e.target.getAttribute("name");
-      var letter = CORE.$.alphaToNumber(name.match(CORE.REGEX.numbers).join(""));
-      var number = ~~(name.match(CORE.REGEX.letters).join(""));
+      var letter = NOVAE.$.alphaToNumber(name.match(NOVAE.REGEX.numbers).join(""));
+      var number = ~~(name.match(NOVAE.REGEX.letters).join(""));
 
-      var cellName = (CORE.$.numberToAlpha(letter)) + number;
+      var cellName = (NOVAE.$.numberToAlpha(letter)) + number;
 
-      CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMouseDownCell.Letter = letter;
-      CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMouseDownCell.Number = number;
+      NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.lastMouseDownCell.Letter = letter;
+      NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.lastMouseDownCell.Number = number;
 
-      CORE.Sheets[CORE.CurrentSheet].Selector.Select = CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMouseDownCell;
+      NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Select = NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.lastMouseDownCell;
 
-        CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First = {
+        NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First = {
           Letter: letter,
           Number: number
         };
 
-        CORE.Sheets[CORE.CurrentSheet].Selector.Selected.Last = CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First;
+        NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.Last = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First;
 
         /** Update parent cell, so keypress only moving will work */
-        CORE.Sheets[CORE.CurrentSheet].Selector.parentSelectedCell = CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First;
-        CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledX = CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledY = 0;
+        NOVAE.Sheets[NOVAE.CurrentSheet].Selector.parentSelectedCell = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First;
+        NOVAE.Sheets[NOVAE.CurrentSheet].Settings.keyScrolledX = NOVAE.Sheets[NOVAE.CurrentSheet].Settings.keyScrolledY = 0;
 
         /** Two selected cell coordinates */
-        if (CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First.Letter &&
-            CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First.Number &&
-            CORE.Sheets[CORE.CurrentSheet].Selector.Selected.Last.Letter &&
-            CORE.Sheets[CORE.CurrentSheet].Selector.Selected.Last.Number) {
+        if (NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First.Letter &&
+            NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First.Number &&
+            NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.Last.Letter &&
+            NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.Last.Number) {
           /** Only execute selection if user doesnt edit a cell at the moment */
-          CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
+          NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
         }
 
         /** User edits a cell and clicked on another cell which was also edited */
-        if ( CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Edit &&
-             CORE.Sheets[CORE.CurrentSheet].Selector.Edit !== CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First ||
-             CORE.Sheets[CORE.CurrentSheet].Selector.Edit !== CORE.Sheets[CORE.CurrentSheet].Selector.Selected.Last  && 
-             CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First === CORE.Sheets[CORE.CurrentSheet].Selector.Selected.Last) {
-          CORE.eval();
-          CORE.Sheets[CORE.CurrentSheet].cleanEditSelection();
+        if ( NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.Edit &&
+             NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Edit !== NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First ||
+             NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Edit !== NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.Last  && 
+             NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First === NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.Last) {
+          NOVAE.eval();
+          NOVAE.Sheets[NOVAE.CurrentSheet].cleanEditSelection();
         }
 
         /** Clean edited cells only if the current selected cell isn't edited */
-        if (CORE.Cells.Used[CORE.CurrentSheet][CORE.$.numberToAlpha(letter)]) {
-          if (!CORE.Cells.Used[CORE.CurrentSheet][CORE.$.numberToAlpha(letter)][cellName]) CORE.Sheets[CORE.CurrentSheet].cleanEditSelection();
+        if (NOVAE.Cells.Used[NOVAE.CurrentSheet][NOVAE.$.numberToAlpha(letter)]) {
+          if (!NOVAE.Cells.Used[NOVAE.CurrentSheet][NOVAE.$.numberToAlpha(letter)][cellName]) NOVAE.Sheets[NOVAE.CurrentSheet].cleanEditSelection();
         }
 
     /** User selected another cell, delete edited cell */
-    } else if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Edit) {
+    } else if (NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.Edit) {
       /** User clicked inside the cell grid */
-      if (e.target.parentNode.id === CORE.DOM.Output.id) {
-        CORE.Sheets[CORE.CurrentSheet].cleanEditSelection();
+      if (e.target.parentNode.id === NOVAE.DOM.Output.id) {
+        NOVAE.Sheets[NOVAE.CurrentSheet].cleanEditSelection();
       /** User chose the dark space */
       } else {
-        CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
-        CORE.Sheets[CORE.CurrentSheet].getEditSelection(CORE.Sheets[CORE.CurrentSheet].Selector.Edit);
+        NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
+        NOVAE.Sheets[NOVAE.CurrentSheet].getEditSelection(NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Edit);
       }
     }
 
-    CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMouseDown = e.timeStamp;
+    NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.lastMouseDown = e.timeStamp;
 
-    CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Pressed = true;
+    NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.Pressed = true;
 
   };
 
   /** Listen for mouse release */
-  CORE.Event.mouseUp = function (e) {
+  NOVAE.Event.mouseUp = function (e) {
 
-    var currentSheet = CORE.Sheets[CORE.CurrentSheet];
+    var currentSheet = NOVAE.Sheets[NOVAE.CurrentSheet];
   
     currentSheet.Input.Mouse.Pressed = false;
 
     /** Finish and abort extending */
     if (currentSheet.Input.Mouse.Extend) {
       currentSheet.Input.Mouse.Extend = false;
-      CORE.Extender.extend();
+      NOVAE.Extender.extend();
       /** Redraw the grid, since edits were made */
       currentSheet.updateWidth("default");
       currentSheet.Selector.getSelection();
     }
 
     /** User resized something */
-    if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.CellResize) {
+    if (NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.CellResize) {
       currentSheet.updateWidth();
       currentSheet.generateMenu();
       currentSheet.Selector.getSelection();
@@ -213,7 +213,7 @@
     }
 
     /** Seems like user selected something */
-    if (e.target.parentNode && e.target.parentNode.id === CORE.DOM.Output.id) {
+    if (e.target.parentNode && e.target.parentNode.id === NOVAE.DOM.Output.id) {
 
       if (currentSheet.Selector.Selected.First.Letter &&
           currentSheet.Selector.Selected.First.Number &&
@@ -221,7 +221,7 @@
           currentSheet.Selector.Selected.Last.Number) {
 
       /** Create a new command */
-      var command = CORE.newCommand();
+      var command = NOVAE.newCommand();
           command.caller = "Selector";
           command.action = "select";
           command.data = {
@@ -243,16 +243,16 @@
    * @method mouseWipe
    * @static
    */
-  CORE.Event.mouseWipe = function (e) {
+  NOVAE.Event.mouseWipe = function (e) {
 
-    var currentSheet = CORE.Sheets[CORE.CurrentSheet];
+    var currentSheet = NOVAE.Sheets[NOVAE.CurrentSheet];
 
     /** Dont execute mousemove event multiple times if position did not changed */
-    if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMousePosition.x === e.pageX &&
-        CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMousePosition.y === e.pageY) return void 0;
+    if (NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.lastMousePosition.x === e.pageX &&
+        NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.lastMousePosition.y === e.pageY) return void 0;
 
     /** Detect mouse move direction */
-    if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Pressed) {
+    if (NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.Pressed) {
 
       if (e.pageX < currentSheet.mouseMoveDirection.oldX) currentSheet.mouseMoveDirection.directionX = "left";
       else if (e.pageX > currentSheet.mouseMoveDirection.oldX) currentSheet.mouseMoveDirection.directionX = "right";
@@ -268,53 +268,53 @@
     }
 
     /** User is wiping? */
-    if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Pressed) {
+    if (NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.Pressed) {
       /** Valid cell ? */
-      if (e.target.parentNode && e.target.parentNode.id === CORE.DOM.Output.id) {
+      if (e.target.parentNode && e.target.parentNode.id === NOVAE.DOM.Output.id) {
 
         var name = e.target.getAttribute("name");
-        var letter = CORE.$.alphaToNumber(name.match(CORE.REGEX.numbers).join(""));
-        var number = ~~(name.match(CORE.REGEX.letters).join(""));
-        var cellName = (CORE.$.numberToAlpha(letter)) + number;
-        var compiledLetter = CORE.$.numberToAlpha(letter);
+        var letter = NOVAE.$.alphaToNumber(name.match(NOVAE.REGEX.numbers).join(""));
+        var number = ~~(name.match(NOVAE.REGEX.letters).join(""));
+        var cellName = (NOVAE.$.numberToAlpha(letter)) + number;
+        var compiledLetter = NOVAE.$.numberToAlpha(letter);
 
         /** Calm Down, dont overwrite stack value with same value again */
-        if ( (CORE.$.numberToAlpha(CORE.Sheets[CORE.CurrentSheet].Selector.Selected.Last.Letter) + CORE.Sheets[CORE.CurrentSheet].Selector.Selected.Last.Number) === cellName) return void 0;
+        if ( (NOVAE.$.numberToAlpha(NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.Last.Letter) + NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.Last.Number) === cellName) return void 0;
 
         /** Make sure the first property gets updated a maximum of 1 time per wipe */
-        if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.startedMouseWipe) {
-          CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First = {
-            Letter: CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMouseDownCell.Letter,
-            Number: CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMouseDownCell.Number
+        if (NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.startedMouseWipe) {
+          NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First = {
+            Letter: NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.lastMouseDownCell.Letter,
+            Number: NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.lastMouseDownCell.Number
           };
         }
 
-        CORE.Sheets[CORE.CurrentSheet].Selector.Selected.Last = {
+        NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.Last = {
           Letter: letter,
           Number: number
         };
 
         /** Two selected cell coordinates */
-        if (CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First.Letter &&
-            CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First.Number &&
-            CORE.Sheets[CORE.CurrentSheet].Selector.Selected.Last.Letter &&
-            CORE.Sheets[CORE.CurrentSheet].Selector.Selected.Last.Number) {
+        if (NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First.Letter &&
+            NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First.Number &&
+            NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.Last.Letter &&
+            NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.Last.Number) {
             /** Cell was never edited */
-            if (!CORE.Cells.Used[CORE.CurrentSheet][compiledLetter] || 
-                 CORE.Cells.Used[CORE.CurrentSheet][compiledLetter][compiledLetter + number] ||
-                !CORE.Cells.Used[CORE.CurrentSheet][compiledLetter][cellName]) {
-                  CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
+            if (!NOVAE.Cells.Used[NOVAE.CurrentSheet][compiledLetter] || 
+                 NOVAE.Cells.Used[NOVAE.CurrentSheet][compiledLetter][compiledLetter + number] ||
+                !NOVAE.Cells.Used[NOVAE.CurrentSheet][compiledLetter][cellName]) {
+                  NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
                 }
                 /** Cell is in edited state */
                 else {
-                  CORE.Sheets[CORE.CurrentSheet].cleanEditSelection();
-                  CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
+                  NOVAE.Sheets[NOVAE.CurrentSheet].cleanEditSelection();
+                  NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
                 }
         }
 
         /** Clean edited cells only if the current selected cell isn't edited */
-        if (CORE.Cells.Used[CORE.CurrentSheet][CORE.$.numberToAlpha(letter)]) {
-          if (CORE.Cells.Used[CORE.CurrentSheet][CORE.$.numberToAlpha(letter)][cellName]) CORE.Sheets[CORE.CurrentSheet].cleanEditSelection();
+        if (NOVAE.Cells.Used[NOVAE.CurrentSheet][NOVAE.$.numberToAlpha(letter)]) {
+          if (NOVAE.Cells.Used[NOVAE.CurrentSheet][NOVAE.$.numberToAlpha(letter)][cellName]) NOVAE.Sheets[NOVAE.CurrentSheet].cleanEditSelection();
         }
 
       }
@@ -322,10 +322,10 @@
     }
 
     /** Update mouse position */
-    CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMousePosition.x = e.pageX;
-    CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMousePosition.y = e.pageY;
+    NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.lastMousePosition.x = e.pageX;
+    NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.lastMousePosition.y = e.pageY;
 
-    CORE.Sheets[CORE.CurrentSheet].Input.Mouse.startedMouseWipe = true;
+    NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.startedMouseWipe = true;
 
   };
 
@@ -335,18 +335,18 @@
    * @method scroll
    * @static
    */
-  CORE.Event.scroll = function(e) {
+  NOVAE.Event.scroll = function(e) {
 
     var direction = 0;
 
     /** We're on a mobile device */
-    if (CORE.Settings.Mobile) {
+    if (NOVAE.Settings.Mobile) {
 
       var currentY = e.touches[0].clientY;
       var currentX = e.touches[0].clientX;
 
-      var lastY = CORE.Sheets[CORE.CurrentSheet].Input.Touch.lastY;
-      var lastX = CORE.Sheets[CORE.CurrentSheet].Input.Touch.lastX;
+      var lastY = NOVAE.Sheets[NOVAE.CurrentSheet].Input.Touch.lastY;
+      var lastX = NOVAE.Sheets[NOVAE.CurrentSheet].Input.Touch.lastX;
 
       if (currentY > lastY) {
         direction = 0;
@@ -354,26 +354,26 @@
         direction = 1;
       }
 
-      CORE.Sheets[CORE.CurrentSheet].Input.Touch.lastY = currentY;
-      CORE.Sheets[CORE.CurrentSheet].Input.Touch.lastX = currentX;
+      NOVAE.Sheets[NOVAE.CurrentSheet].Input.Touch.lastY = currentY;
+      NOVAE.Sheets[NOVAE.CurrentSheet].Input.Touch.lastX = currentX;
 
     }
 
     /** Update empty timestamp */
-    if (!CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMouseScroll) CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMouseScroll = e.timeStamp;
+    if (!NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.lastMouseScroll) NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.lastMouseScroll = e.timeStamp;
 
     /** Abort if [STRG] key pressed */
-    if (CORE.Sheets[CORE.CurrentSheet].Input.Keyboard.Strg) return void 0;
+    if (NOVAE.Sheets[NOVAE.CurrentSheet].Input.Keyboard.Strg) return void 0;
 
-    var calcDifference = Math.floor(CORE.Sheets[CORE.CurrentSheet].Settings.y * (CORE.SystemSpeed - 0.5));
+    var calcDifference = Math.floor(NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y * (NOVAE.SystemSpeed - 0.5));
 
     var amount = 0;
 
     /** Make sure the grid was scrolled */
-    if (e.target.parentNode.id === CORE.DOM.Output.id) {
+    if (e.target.parentNode.id === NOVAE.DOM.Output.id) {
 
       /** Only calculate that way, if not on mobile */
-      if (!CORE.Settings.Mobile) {
+      if (!NOVAE.Settings.Mobile) {
         /** IE and Chrome */
         if (e.wheelDelta) {
           if (e.wheelDelta * ( -120 ) > 0) direction = 1;
@@ -403,86 +403,86 @@
       direction = direction ? "down" : "up";
 
       /** Handle timestamps */
-      if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMouseScroll > 0) {
+      if (NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.lastMouseScroll > 0) {
 
          /** Calculate difference between this and last timestamp */
-        var difference = e.timeStamp - CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMouseScroll;
+        var difference = e.timeStamp - NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.lastMouseScroll;
 
-        var selectedCellsLength = CORE.Sheets[CORE.CurrentSheet].Selector.SelectedCells.length;
+        var selectedCellsLength = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.SelectedCells.length;
 
         /** Mobile device */
-        if (!CORE.Settings.Mobile) {
+        if (!NOVAE.Settings.Mobile) {
           /** Large selection slows scrolling, below code fixes that */
-          if (CORE.Sheets[CORE.CurrentSheet].Selector.SelectedCells.length >= 1e3) {
+          if (NOVAE.Sheets[NOVAE.CurrentSheet].Selector.SelectedCells.length >= 1e3) {
             /** Only do large scrolling if user presses the mouse */
-            if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Pressed) {
-              CORE.Settings.Scroll.Vertical = calcDifference + (Math.ceil(Math.log(selectedCellsLength + 1) / Math.LN10) * 100);
+            if (NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.Pressed) {
+              NOVAE.Settings.Scroll.Vertical = calcDifference + (Math.ceil(Math.log(selectedCellsLength + 1) / Math.LN10) * 100);
               /** TODO: Slow scrolling on pressed mouse */
             /** Go back to default mouse scroll amount */
             } else {
               /** Fast scroll depending on selection length, the larger the selection the greater the fast scroll chance */
-              if (difference / CORE.SystemSpeed <= calcDifference * Math.ceil(Math.log(selectedCellsLength + 1) / Math.LN10) / CORE.SystemSpeed) {
-                CORE.Settings.Scroll.Vertical = Math.floor(amount);
+              if (difference / NOVAE.SystemSpeed <= calcDifference * Math.ceil(Math.log(selectedCellsLength + 1) / Math.LN10) / NOVAE.SystemSpeed) {
+                NOVAE.Settings.Scroll.Vertical = Math.floor(amount);
               /** Large selection, dont care just scroll fast */
               } else if (difference <= 75 && selectedCellsLength >= 1e4) {
-                CORE.Settings.Scroll.Vertical = Math.floor(amount);
+                NOVAE.Settings.Scroll.Vertical = Math.floor(amount);
               /** Slow scroll */
               } else {
-                CORE.Settings.Scroll.Vertical = CORE.Settings.Scroll.OriginalVertical;
+                NOVAE.Settings.Scroll.Vertical = NOVAE.Settings.Scroll.OriginalVertical;
               }
             }
           /** Fast scrolling */
           } else if (difference <= 75) {
-            CORE.Settings.Scroll.Vertical = Math.floor(amount);
+            NOVAE.Settings.Scroll.Vertical = Math.floor(amount);
           /** Slow scrolling */
           } else {
-            CORE.Settings.Scroll.Vertical = CORE.Settings.Scroll.OriginalVertical;
+            NOVAE.Settings.Scroll.Vertical = NOVAE.Settings.Scroll.OriginalVertical;
           }
         /** Mobile device scroll amount */
         } else {
-          CORE.Settings.Scroll.Vertical = CORE.Settings.Scroll.OriginalVertical + 2;
+          NOVAE.Settings.Scroll.Vertical = NOVAE.Settings.Scroll.OriginalVertical + 2;
         }
 
       }
 
       /** User scrolled up or down, dont redraw */
-      CORE.Sheets[CORE.CurrentSheet].Input.lastAction.scrollY = true;
+      NOVAE.Sheets[NOVAE.CurrentSheet].Input.lastAction.scrollY = true;
 
       if (direction === "down") {
-        CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY += CORE.Settings.Scroll.Vertical;
-        CORE.Sheets[CORE.CurrentSheet].Settings.lastScrollY = CORE.Settings.Scroll.Vertical;
+        NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY += NOVAE.Settings.Scroll.Vertical;
+        NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = NOVAE.Settings.Scroll.Vertical;
 
         /** Animate, since slow scrolled */
         if (difference > 75 || difference > calcDifference * 2) {
-          CORE.Event.animateMouseDown();
+          NOVAE.Event.animateMouseDown();
         }
 
-        CORE.Sheets[CORE.CurrentSheet].updateHeight("down", CORE.Settings.Scroll.Vertical);
+        NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Vertical);
       }
       else if (direction === "up") {
-        if (CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY - CORE.Settings.Scroll.Vertical <= 0) {
-          CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY = 0;
-          CORE.Sheets[CORE.CurrentSheet].Settings.lastScrollY = 0;
-          CORE.Sheets[CORE.CurrentSheet].updateHeight("default", CORE.Settings.Scroll.Vertical);
+        if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY - NOVAE.Settings.Scroll.Vertical <= 0) {
+          NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY = 0;
+          NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = 0;
+          NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("default", NOVAE.Settings.Scroll.Vertical);
 
-          CORE.Event.animateMouseUpMaximum();
+          NOVAE.Event.animateMouseUpMaximum();
 
           /** Only redraw, if something is resized */
-          if (CORE.Sheets[CORE.CurrentSheet].Settings.cellResizedX + CORE.Sheets[CORE.CurrentSheet].Settings.cellResizedY) {
-            if (CORE.Sheets[CORE.CurrentSheet].Settings.redrawOnZero) {
-              CORE.Event.redraw();
+          if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.cellResizedX + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.cellResizedY) {
+            if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.redrawOnZero) {
+              NOVAE.Event.redraw();
             }
           }
 
         }
-        else if (CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY - CORE.Settings.Scroll.Vertical >= 0) {
-          CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY -= CORE.Settings.Scroll.Vertical;
-          CORE.Sheets[CORE.CurrentSheet].Settings.lastScrollY = CORE.Settings.Scroll.Vertical;
-          CORE.Sheets[CORE.CurrentSheet].updateHeight("up", CORE.Settings.Scroll.Vertical);
+        else if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY - NOVAE.Settings.Scroll.Vertical >= 0) {
+          NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY -= NOVAE.Settings.Scroll.Vertical;
+          NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = NOVAE.Settings.Scroll.Vertical;
+          NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("up", NOVAE.Settings.Scroll.Vertical);
 
           /** Animate, since slow scrolled */
           if (difference > 75 || difference > calcDifference * 2) {
-            CORE.Event.animateMouseUp();
+            NOVAE.Event.animateMouseUp();
           }
 
         }
@@ -493,22 +493,22 @@
       if (direction) {
 
         /** Share scrolling */
-        if (CORE.Connector.connected) {
-          CORE.Connector.action("scrolling", {direction: direction, amount: CORE.Settings.Scroll.Vertical, position: CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY});
+        if (NOVAE.Connector.connected) {
+          NOVAE.Connector.action("scrolling", {direction: direction, amount: NOVAE.Settings.Scroll.Vertical, position: NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY});
         }
 
         /** Update menu, get new selection */
-        CORE.Sheets[CORE.CurrentSheet].updateMenu();
-        CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
+        NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
+        NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
 
         /** Simulate mouse move to display the scrolled selection */
-        CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMousePosition.x = Math.random();
-        CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMousePosition.y = Math.random();
+        NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.lastMousePosition.x = Math.random();
+        NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.lastMousePosition.y = Math.random();
         /** Only simulate if we're on desktop */
-        if (!CORE.Settings.Mobile) CORE.Event.mouseWipe(e);
+        if (!NOVAE.Settings.Mobile) NOVAE.Event.mouseWipe(e);
       }
 
-      CORE.Sheets[CORE.CurrentSheet].Input.Mouse.lastMouseScroll = e.timeStamp;
+      NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.lastMouseScroll = e.timeStamp;
 
     }
 

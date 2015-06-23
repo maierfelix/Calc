@@ -19,10 +19,10 @@
    * @class Sheets
    * @static
    */
-  CORE.Sheets = function() {};
+  NOVAE.Sheets = function() {};
 
-  CORE.Sheets.prototype = CORE.Sheets;
-  CORE.Sheets.prototype.constructor = CORE.Sheets;
+  NOVAE.Sheets.prototype = NOVAE.Sheets;
+  NOVAE.Sheets.prototype.constructor = NOVAE.Sheets;
 
   /**
    * Add a sheet
@@ -30,18 +30,18 @@
    * @method addSheet
    * @static
    */
-  CORE.Sheets.prototype.addSheet = function() {
+  NOVAE.Sheets.prototype.addSheet = function() {
 
     /** Increase sheet count */
-    CORE.SheetCount++;
+    NOVAE.SheetCount++;
 
-    var newSheetNumber = CORE.SheetCount;
+    var newSheetNumber = NOVAE.SheetCount;
 
     /** Detect if user wants to create a master sheet */
     var masterSheet = arguments[1] || false;
 
     /** More than 1 master sheets are not allowed */
-    if (masterSheet && (CORE.MasterSheetCount + 1) > 1) {
+    if (masterSheet && (NOVAE.MasterSheetCount + 1) > 1) {
 
       /** Css class helper */
       var muiButton = "mui-btn mui-btn-primary mui-btn-lg alertButton";
@@ -51,31 +51,31 @@
       var buttons = "<button class='"+muiButton+" alertOk' name='ok'>Ok</button>";
 
       /** Alert the user, that more than one master sheets are not allowed */
-      CORE_UI.Modal(title, buttons, function(submit) {});
+      NOVAE_UI.Modal(title, buttons, function(submit) {});
 
       return void 0;
     }
 
-    if (Object.keys(CORE.Sheets).length) {
+    if (Object.keys(NOVAE.Sheets).length) {
       /** Already exists */
-      if (CORE.Sheets["Sheet" + newSheetNumber]) {
+      if (NOVAE.Sheets["Sheet" + newSheetNumber]) {
         while (newSheetNumber++) {
-          if (!CORE.Sheets["Sheet" + newSheetNumber] && newSheetNumber > CORE.SheetCount) break;
+          if (!NOVAE.Sheets["Sheet" + newSheetNumber] && newSheetNumber > NOVAE.SheetCount) break;
         }
       }
     /** No sheets created yet */
     } else newSheetNumber = 1;
 
     if (arguments[0] && arguments[0].length) {
-      CORE.CurrentSheet = arguments[0];
+      NOVAE.CurrentSheet = arguments[0];
     } else if (masterSheet) {
-      CORE.MasterSheetCount++;
-      CORE.CurrentSheet = "MasterSheet" + newSheetNumber;
+      NOVAE.MasterSheetCount++;
+      NOVAE.CurrentSheet = "MasterSheet" + newSheetNumber;
     } else {
-      CORE.CurrentSheet = "Sheet" + newSheetNumber;
+      NOVAE.CurrentSheet = "Sheet" + newSheetNumber;
     }
 
-    CORE.$.createSheet(CORE.CurrentSheet, masterSheet);
+    NOVAE.$.createSheet(NOVAE.CurrentSheet, masterSheet);
 
     var button = document.createElement("button");
         button.className = "mui-btn mui-btn-default mui-btn-mini slideUp";
@@ -83,8 +83,8 @@
         if (masterSheet) button.setAttribute("style", "color:#fff;background-color:rgba(129, 199, 132, 0.8);");
         /** Default background for slave sheets */
         else button.setAttribute("style", "color:#fff;background-color:rgba(130, 177, 255, 0.8);");
-        button.setAttribute("name", CORE.CurrentSheet);
-        button.innerHTML = CORE.CurrentSheet;
+        button.setAttribute("name", NOVAE.CurrentSheet);
+        button.innerHTML = NOVAE.CurrentSheet;
 
     var closeButton = document.createElement("button");
         closeButton.innerHTML = "-";
@@ -115,42 +115,42 @@
     button.addEventListener('click', function(e) {
       var name = e.target.getAttribute("name");
       if (name && name.length) {
-        CORE.Sheets.changeSheet(name);
-        CORE.Event.resize();
+        NOVAE.Sheets.changeSheet(name);
+        NOVAE.Event.resize();
         /** Highlight active sheet */
-        CORE.Sheets.setActiveSheet(name);
+        NOVAE.Sheets.setActiveSheet(name);
       /** Close button pressed ? */
       } else {
         if (e.target.nodeName === "BUTTON") {
           /** Delete button pressed, try to delete the sheet */
           if (name = e.target.parentNode.getAttribute("name")) {
-            CORE.Sheets.deleteSheet(name);
+            NOVAE.Sheets.deleteSheet(name);
           }
         }
       }
     });
 
     /** Insert sheet button into the dom */
-    if (masterSheet) CORE.DOM.Sheets.insertBefore(button, CORE.DOM.Sheets.children[0]);
-    else CORE.DOM.Sheets.appendChild(button);
+    if (masterSheet) NOVAE.DOM.Sheets.insertBefore(button, NOVAE.DOM.Sheets.children[0]);
+    else NOVAE.DOM.Sheets.appendChild(button);
 
     /** Auto change to the new sheet*/
-    CORE.Sheets.changeSheet(CORE.CurrentSheet, 1);
+    NOVAE.Sheets.changeSheet(NOVAE.CurrentSheet, 1);
 
-    CORE.DOM.Output.classList.add("pullDown");
+    NOVAE.DOM.Output.classList.add("pullDown");
 
     setTimeout(function() {
-      CORE.DOM.Output.classList.remove("pullDown");
+      NOVAE.DOM.Output.classList.remove("pullDown");
     }, 275);
 
     /** Refresh everything */
-    CORE.Event.resize();
+    NOVAE.Event.resize();
 
     /** Select first cell in the grid */
-    CORE.Sheets[CORE.CurrentSheet].Selector.selectCell(1, 1);
+    NOVAE.Sheets[NOVAE.CurrentSheet].Selector.selectCell(1, 1);
 
     /** Highlight active sheet */
-    CORE.Sheets.setActiveSheet(CORE.CurrentSheet);
+    NOVAE.Sheets.setActiveSheet(NOVAE.CurrentSheet);
 
   };
 
@@ -160,14 +160,14 @@
    * @method deleteSheet
    * @static
    */
-  CORE.Sheets.prototype.deleteSheet = function(name) {
+  NOVAE.Sheets.prototype.deleteSheet = function(name) {
 
     var self = this;
 
     /** Sheet exists? */
-    if (CORE.Sheets[name]) {
+    if (NOVAE.Sheets[name]) {
       /** Are there other sheets, since we need at least 1 open and active sheet */
-      if (Object.keys(CORE.Sheets).length > 1) {
+      if (Object.keys(NOVAE.Sheets).length > 1) {
 
         /** Css class helper */
         var muiButton = "mui-btn mui-btn-primary mui-btn-lg alertButton";
@@ -176,7 +176,7 @@
         var title = "<h3 class='modalTitle'>Do you really want to delete " + name + "?</h3>";
         var buttons = "<button class='"+muiButton+" alertOk' name='ok'>Ok</button><button class='"+muiButton+" alertAbort' name='abort'>Abort</button>";
 
-        CORE_UI.Modal(title, buttons, function(submit) {
+        NOVAE_UI.Modal(title, buttons, function(submit) {
           /** User has to submit */
           if (submit === "ok") {
             /** Delete sheet and directly switch to another if necessary */
@@ -195,24 +195,24 @@
    * @method killSwitchSheet
    * @static
    */
-  CORE.Sheets.prototype.killSwitchSheet = function(name) {
+  NOVAE.Sheets.prototype.killSwitchSheet = function(name) {
 
     /** Delete the current opened sheet */
-    if (name === CORE.CurrentSheet) {
+    if (name === NOVAE.CurrentSheet) {
       var lastSheet = undefined;
       /** First switch to another sheet */
-      for (var ii in CORE.Sheets) {
+      for (var ii in NOVAE.Sheets) {
         /** Found the current sheet */
         if (ii === name) {
           /** Not the first sheet deleted */
           if (lastSheet) {
             this.changeSheet(lastSheet);
-            CORE.$.killSheet(name);
+            NOVAE.$.killSheet(name);
             this.setActiveSheet(lastSheet);
           /** First sheet has to be deleted */
           } else {
-            CORE.$.killSheet(name);
-            var newSheet = Object.keys(CORE.Sheets)[0];
+            NOVAE.$.killSheet(name);
+            var newSheet = Object.keys(NOVAE.Sheets)[0];
             this.changeSheet(newSheet);
             this.setActiveSheet(ii);
           }
@@ -220,12 +220,12 @@
         lastSheet = ii;
       }
     /** Refresh everything */
-    CORE.Event.resize();
+    NOVAE.Event.resize();
     /** Sheet to be deleted isnt active */
     } else {
-      CORE.$.killSheet(name);
-      this.changeSheet(CORE.CurrentSheet);
-      this.setActiveSheet(CORE.CurrentSheet);
+      NOVAE.$.killSheet(name);
+      this.changeSheet(NOVAE.CurrentSheet);
+      this.setActiveSheet(NOVAE.CurrentSheet);
     }
 
   };
@@ -236,21 +236,21 @@
    * @method changeSheet
    * @static
    */
-  CORE.Sheets.prototype.changeSheet = function(name) {
+  NOVAE.Sheets.prototype.changeSheet = function(name) {
 
-    CORE.CurrentSheet = name;
+    NOVAE.CurrentSheet = name;
 
     if (!arguments[1]) {
-      CORE.DOM.Output.classList.add("fadeIn");
+      NOVAE.DOM.Output.classList.add("fadeIn");
 
       setTimeout(function() {
-        CORE.DOM.Output.classList.remove("fadeIn");
+        NOVAE.DOM.Output.classList.remove("fadeIn");
       }, 275);
     }
 
     /** Send sheet change to server */
-    if (CORE.Connector.connected) {
-      CORE.Connector.action("changeSheet", {sheet: name});
+    if (NOVAE.Connector.connected) {
+      NOVAE.Connector.action("changeSheet", {sheet: name});
     }
 
   };
@@ -261,47 +261,47 @@
    * @method setActiveSheet
    * @static
    */
-  CORE.Sheets.prototype.setActiveSheet = function(name) {
+  NOVAE.Sheets.prototype.setActiveSheet = function(name) {
 
     var attribute = null;
 
     var masterSheets = false;
 
-    for (var ii = 0; ii < CORE.DOM.Sheets.children.length; ++ii) {
-      CORE.DOM.Sheets.children[ii].classList.remove("activeSheet", "activeMasterSheet");
-      attribute = CORE.DOM.Sheets.children[ii].getAttribute("name");
+    for (var ii = 0; ii < NOVAE.DOM.Sheets.children.length; ++ii) {
+      NOVAE.DOM.Sheets.children[ii].classList.remove("activeSheet", "activeMasterSheet");
+      attribute = NOVAE.DOM.Sheets.children[ii].getAttribute("name");
       /** Clean old sheet buttons */
-      if (!CORE.Sheets[attribute]) {
-        CORE.DOM.Sheets.children[ii].parentNode.removeChild(CORE.DOM.Sheets.children[ii]);
+      if (!NOVAE.Sheets[attribute]) {
+        NOVAE.DOM.Sheets.children[ii].parentNode.removeChild(NOVAE.DOM.Sheets.children[ii]);
       }
-      if (CORE.Sheets[attribute] && CORE.Sheets[attribute].Settings.master) {
+      if (NOVAE.Sheets[attribute] && NOVAE.Sheets[attribute].Settings.master) {
         masterSheets = true;
       }
       /** Active master sheet found, display all slaves sheetType */
-      if (masterSheets && CORE.Sheets[attribute] && !CORE.Sheets[attribute].Settings.master) {
-        for (var kk = 0; kk < CORE.DOM.Sheets.children[ii].children.length; ++kk) {
-          if (CORE.DOM.Sheets.children[ii].children[kk].className === "sheetType") {
-            CORE.DOM.Sheets.children[ii].children[kk].style.display = "block";
+      if (masterSheets && NOVAE.Sheets[attribute] && !NOVAE.Sheets[attribute].Settings.master) {
+        for (var kk = 0; kk < NOVAE.DOM.Sheets.children[ii].children.length; ++kk) {
+          if (NOVAE.DOM.Sheets.children[ii].children[kk].className === "sheetType") {
+            NOVAE.DOM.Sheets.children[ii].children[kk].style.display = "block";
           }
         }
       /** Remove sheetType for all slaves */
       } else if (!masterSheets) {
-        if (CORE.DOM.Sheets.children[ii] && CORE.DOM.Sheets.children[ii].children) {
-          for (var kk = 0; kk < CORE.DOM.Sheets.children[ii].children.length; ++kk) {
-            if (CORE.DOM.Sheets.children[ii].children[kk].className === "sheetType") {
-              CORE.DOM.Sheets.children[ii].children[kk].style.display = "none";
+        if (NOVAE.DOM.Sheets.children[ii] && NOVAE.DOM.Sheets.children[ii].children) {
+          for (var kk = 0; kk < NOVAE.DOM.Sheets.children[ii].children.length; ++kk) {
+            if (NOVAE.DOM.Sheets.children[ii].children[kk].className === "sheetType") {
+              NOVAE.DOM.Sheets.children[ii].children[kk].style.display = "none";
             }
           }
         }
       }
       if (attribute === name) {
         /** Detect master sheets */
-        if (CORE.Sheets[attribute] && CORE.Sheets[attribute].Settings.master) {
+        if (NOVAE.Sheets[attribute] && NOVAE.Sheets[attribute].Settings.master) {
           masterSheets = true;
           /** Special styling for master sheets */
-          CORE.DOM.Sheets.children[ii].classList.add("activeMasterSheet");
+          NOVAE.DOM.Sheets.children[ii].classList.add("activeMasterSheet");
         } else {
-          CORE.DOM.Sheets.children[ii].classList.add("activeSheet");
+          NOVAE.DOM.Sheets.children[ii].classList.add("activeSheet");
         }
       }
     }

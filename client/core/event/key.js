@@ -19,16 +19,16 @@
    * @method keyPress
    * @static
    */
-  CORE.Event.keyPress = function(e) {
+  NOVAE.Event.keyPress = function(e) {
 
     /** Update empty timestamp */
-    if (!CORE.Sheets[CORE.CurrentSheet].Input.lastKeyPress) CORE.Sheets[CORE.CurrentSheet].Input.lastKeyPress = e.timeStamp;
+    if (!NOVAE.Sheets[NOVAE.CurrentSheet].Input.lastKeyPress) NOVAE.Sheets[NOVAE.CurrentSheet].Input.lastKeyPress = e.timeStamp;
 
     /** Handle timestamps */
-    if (CORE.Sheets[CORE.CurrentSheet].Input.lastKeyPress > 0) {
+    if (NOVAE.Sheets[NOVAE.CurrentSheet].Input.lastKeyPress > 0) {
 
        /** Calculate difference between this and last timestamp */
-      var difference = e.timeStamp - CORE.Sheets[CORE.CurrentSheet].Input.lastKeyPress;
+      var difference = e.timeStamp - NOVAE.Sheets[NOVAE.CurrentSheet].Input.lastKeyPress;
 
       /** Prevent too fast key scrolling */
       if (difference && difference <= 100) return void 0;
@@ -39,17 +39,17 @@
     if (e.keyCode === 46) {
       e.preventDefault();
       /** Delete all cells in the clipboard */
-      CORE.Sheets[CORE.CurrentSheet].Selector.deleteCellSelection();
+      NOVAE.Sheets[NOVAE.CurrentSheet].Selector.deleteCellSelection();
       return void 0;
     }
 
     /** REDO: [STRG] + [Y] */
     if (e.keyCode === 89) {
       /** [STRG] key pressed ? User is not in edit mode ? */
-      if (CORE.Sheets[CORE.CurrentSheet].Input.Keyboard.Strg && !CORE.Event.inEditMode()) {
+      if (NOVAE.Sheets[NOVAE.CurrentSheet].Input.Keyboard.Strg && !NOVAE.Event.inEditMode()) {
         e.preventDefault();
         /** Execute undo */
-        CORE.Sheets[CORE.CurrentSheet].Commander.redo();
+        NOVAE.Sheets[NOVAE.CurrentSheet].Commander.redo();
         return void 0;
       }
     }
@@ -57,10 +57,10 @@
     /** UNDO: [STRG] + [Z] */
     if (e.keyCode === 90) {
       /** [STRG] key pressed ? User is not in edit mode ? */
-      if (CORE.Sheets[CORE.CurrentSheet].Input.Keyboard.Strg && !CORE.Event.inEditMode()) {
+      if (NOVAE.Sheets[NOVAE.CurrentSheet].Input.Keyboard.Strg && !NOVAE.Event.inEditMode()) {
         e.preventDefault();
         /** Execute undo */
-        CORE.Sheets[CORE.CurrentSheet].Commander.undo();
+        NOVAE.Sheets[NOVAE.CurrentSheet].Commander.undo();
         return void 0;
       }
     }
@@ -68,10 +68,10 @@
     /** COPY: [STRG] + [C] */
     if (e.keyCode === 67) {
       /** [STRG] key pressed ? User is not in edit mode ? */
-      if (CORE.Sheets[CORE.CurrentSheet].Input.Keyboard.Strg && !CORE.Event.inEditMode()) {
+      if (NOVAE.Sheets[NOVAE.CurrentSheet].Input.Keyboard.Strg && !NOVAE.Event.inEditMode()) {
         e.preventDefault();
         /** Make copy real */
-        CORE.ClipBoard.copyCellsToClipBoard();
+        NOVAE.ClipBoard.copyCellsToClipBoard();
         return void 0;
       }
     }
@@ -79,10 +79,10 @@
     /** PASTE: [STRG] + [V] */
     if (e.keyCode === 86) {
       /** [STRG] key pressed ? User is not in edit mode ? */
-      if (CORE.Sheets[CORE.CurrentSheet].Input.Keyboard.Strg && !CORE.Event.inEditMode()) {
+      if (NOVAE.Sheets[NOVAE.CurrentSheet].Input.Keyboard.Strg && !NOVAE.Event.inEditMode()) {
         e.preventDefault();
         /** Make paste real */
-        CORE.ClipBoard.pasteCellsIntoSheet(CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First);
+        NOVAE.ClipBoard.pasteCellsIntoSheet(NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First);
         return void 0;
       }
     }
@@ -90,12 +90,12 @@
     /** COUT OUT: [STRG] + [X] */
     if (e.keyCode === 88) {
       /** [STRG] key pressed ? User is not in edit mode ? */
-      if (CORE.Sheets[CORE.CurrentSheet].Input.Keyboard.Strg && !CORE.Event.inEditMode()) {
+      if (NOVAE.Sheets[NOVAE.CurrentSheet].Input.Keyboard.Strg && !NOVAE.Event.inEditMode()) {
         e.preventDefault();
         /** Copy selection */
-        CORE.ClipBoard.copyCellsToClipBoard();
+        NOVAE.ClipBoard.copyCellsToClipBoard();
         /** Delete selection */
-        CORE.Sheets[CORE.CurrentSheet].Selector.deleteCellSelection();
+        NOVAE.Sheets[NOVAE.CurrentSheet].Selector.deleteCellSelection();
         return void 0;
       }
     }
@@ -103,17 +103,17 @@
     /** SELECT ALL: [STRG] + [A] */
     if (e.keyCode === 65) {
       /** [STRG] key pressed ? User is not in edit mode ? */
-      if (CORE.Sheets[CORE.CurrentSheet].Input.Keyboard.Strg && !CORE.Event.inEditMode()) {
+      if (NOVAE.Sheets[NOVAE.CurrentSheet].Input.Keyboard.Strg && !NOVAE.Event.inEditMode()) {
         e.preventDefault();
         /** Set selection to all */
-        CORE.Sheets[CORE.CurrentSheet].Selector.allSelected = true;
-        CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
+        NOVAE.Sheets[NOVAE.CurrentSheet].Selector.allSelected = true;
+        NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
         return void 0;
       }
     }
 
     /** User edits a live cells url */
-    if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.LiveCellEdit) return void 0;
+    if (NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.LiveCellEdit) return void 0;
 
     /** User opened console, don't touch anything here */
     if (e.keyCode === 123) return void 0;
@@ -122,31 +122,31 @@
     if (e.keyCode === 13) {
       e.preventDefault();
       /** Disable master selection */
-      CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Current = null;
-      CORE.Event.pressedEnter(e.keyCode);
+      NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Current = null;
+      NOVAE.Event.pressedEnter(e.keyCode);
     }
 
     /** User pressed the [SHIFT] key */
     if (e.keyCode === 16) {
       e.preventDefault();
-      CORE.Sheets[CORE.CurrentSheet].Input.Keyboard.Shift = true;
+      NOVAE.Sheets[NOVAE.CurrentSheet].Input.Keyboard.Shift = true;
       return void 0;
     }
 
     /** User pressed the [STRG] key */
     if (e.keyCode === 17) {
       e.preventDefault();
-      CORE.Sheets[CORE.CurrentSheet].Input.Keyboard.Strg = true;
+      NOVAE.Sheets[NOVAE.CurrentSheet].Input.Keyboard.Strg = true;
       return void 0;
     }
 
     /** User pressed the [Tab] key */
     if (e.keyCode === 9) {
       e.preventDefault();
-      CORE.Sheets[CORE.CurrentSheet].Input.Keyboard.Tab = true;
+      NOVAE.Sheets[NOVAE.CurrentSheet].Input.Keyboard.Tab = true;
       /** Disable master selection */
-      CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Current = null;
-      CORE.Event.navigateTo("right", 1);
+      NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Current = null;
+      NOVAE.Event.navigateTo("right", 1);
       return void 0;
     }
 
@@ -154,8 +154,8 @@
     if (e.keyCode === 33) {
       e.preventDefault();
       /** Disable master selection */
-      CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Current = null;
-      CORE.Sheets[CORE.CurrentSheet].Selector.jump("up", CORE.Sheets[CORE.CurrentSheet].Settings.y);
+      NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Current = null;
+      NOVAE.Sheets[NOVAE.CurrentSheet].Selector.jump("up", NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y);
       return void 0;
     }
 
@@ -163,17 +163,17 @@
     if (e.keyCode === 34) {
       e.preventDefault();
       /** Disable master selection */
-      CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Current = null;
-      CORE.Sheets[CORE.CurrentSheet].Selector.jump("down", CORE.Sheets[CORE.CurrentSheet].Settings.y);
+      NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Current = null;
+      NOVAE.Sheets[NOVAE.CurrentSheet].Selector.jump("down", NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y);
       return void 0;
     }
 
     /** If user pressed arrow key, abort a all cell selection */
-    if (CORE.Event.pressedArrowKey(e.keyCode)) {
-      if (CORE.Sheets[CORE.CurrentSheet].Selector.allSelected) {
-        CORE.Sheets[CORE.CurrentSheet].Selector.deleteCellHoverEffect();
-        CORE.Sheets[CORE.CurrentSheet].Selector.allSelected = false;
-        CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
+    if (NOVAE.Event.pressedArrowKey(e.keyCode)) {
+      if (NOVAE.Sheets[NOVAE.CurrentSheet].Selector.allSelected) {
+        NOVAE.Sheets[NOVAE.CurrentSheet].Selector.deleteCellHoverEffect();
+        NOVAE.Sheets[NOVAE.CurrentSheet].Selector.allSelected = false;
+        NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
       }
     }
 
@@ -182,57 +182,57 @@
       /** [UP] */
       case 38:
         /** Dont allow scrolling if user edits a cell */
-        if (CORE.Event.inEditMode()) return void 0;
-        CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledY -= 1;
-        CORE.Sheets[CORE.CurrentSheet].Settings.lastScrollY = 1;
+        if (NOVAE.Event.inEditMode()) return void 0;
+        NOVAE.Sheets[NOVAE.CurrentSheet].Settings.keyScrolledY -= 1;
+        NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = 1;
         /** Disable master selection */
-        CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Current = null;
-        CORE.Sheets[CORE.CurrentSheet].Selector.selectCellByKeyPress();
+        NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Current = null;
+        NOVAE.Sheets[NOVAE.CurrentSheet].Selector.selectCellByKeyPress();
         /** Update last key press timestamp */
-        CORE.Sheets[CORE.CurrentSheet].Input.lastKeyPress = e.timeStamp - 100;
+        NOVAE.Sheets[NOVAE.CurrentSheet].Input.lastKeyPress = e.timeStamp - 100;
         return void 0;
       /** [DOWN] */
       case 40:
         /** Dont allow scrolling if user edits a cell */
-        if (CORE.Event.inEditMode()) return void 0;
-        CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledY += 1;
-        CORE.Sheets[CORE.CurrentSheet].Settings.lastScrollY = 1;
+        if (NOVAE.Event.inEditMode()) return void 0;
+        NOVAE.Sheets[NOVAE.CurrentSheet].Settings.keyScrolledY += 1;
+        NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = 1;
         /** Disable master selection */
-        CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Current = null;
-        CORE.Sheets[CORE.CurrentSheet].Selector.selectCellByKeyPress();
+        NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Current = null;
+        NOVAE.Sheets[NOVAE.CurrentSheet].Selector.selectCellByKeyPress();
         /** Update last key press timestamp */
-        CORE.Sheets[CORE.CurrentSheet].Input.lastKeyPress = e.timeStamp - 100;
+        NOVAE.Sheets[NOVAE.CurrentSheet].Input.lastKeyPress = e.timeStamp - 100;
         return void 0;
       /** [LEFT] */
       case 37:
         /** Dont allow scrolling if user edits a cell */
-        if (CORE.Event.inEditMode()) return void 0;
-        CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledX -= CORE.Settings.Scroll.Horizontal;
-        CORE.Sheets[CORE.CurrentSheet].Settings.lastScrollX = CORE.Settings.Scroll.Horizontal;
+        if (NOVAE.Event.inEditMode()) return void 0;
+        NOVAE.Sheets[NOVAE.CurrentSheet].Settings.keyScrolledX -= NOVAE.Settings.Scroll.Horizontal;
+        NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollX = NOVAE.Settings.Scroll.Horizontal;
         /** Disable master selection */
-        CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Current = null;
-        CORE.Sheets[CORE.CurrentSheet].Selector.selectCellByKeyPress();
+        NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Current = null;
+        NOVAE.Sheets[NOVAE.CurrentSheet].Selector.selectCellByKeyPress();
         /** Update last key press timestamp */
-        CORE.Sheets[CORE.CurrentSheet].Input.lastKeyPress = e.timeStamp - 100;
-        CORE.Sheets[CORE.CurrentSheet].Input.lastAction.scrollY = false;
+        NOVAE.Sheets[NOVAE.CurrentSheet].Input.lastKeyPress = e.timeStamp - 100;
+        NOVAE.Sheets[NOVAE.CurrentSheet].Input.lastAction.scrollY = false;
         return void 0;
       /** [RIGHT] */
       case 39:
         /** Dont allow scrolling if user edits a cell */
-        if (CORE.Event.inEditMode()) return void 0;
-        CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledX += CORE.Settings.Scroll.Horizontal;
-        CORE.Sheets[CORE.CurrentSheet].Settings.lastScrollX = CORE.Settings.Scroll.Horizontal;
+        if (NOVAE.Event.inEditMode()) return void 0;
+        NOVAE.Sheets[NOVAE.CurrentSheet].Settings.keyScrolledX += NOVAE.Settings.Scroll.Horizontal;
+        NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollX = NOVAE.Settings.Scroll.Horizontal;
         /** Disable master selection */
-        CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Current = null;
-        CORE.Sheets[CORE.CurrentSheet].Selector.selectCellByKeyPress();
+        NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Current = null;
+        NOVAE.Sheets[NOVAE.CurrentSheet].Selector.selectCellByKeyPress();
         /** Update last key press timestamp */
-        CORE.Sheets[CORE.CurrentSheet].Input.lastKeyPress = e.timeStamp - 100;
-        CORE.Sheets[CORE.CurrentSheet].Input.lastAction.scrollY = false;
+        NOVAE.Sheets[NOVAE.CurrentSheet].Input.lastKeyPress = e.timeStamp - 100;
+        NOVAE.Sheets[NOVAE.CurrentSheet].Input.lastAction.scrollY = false;
         return void 0;
     }
 
     /** Check if user edits a cell */
-    CORE.Event.sniffCellInput(e.keyCode);
+    NOVAE.Event.sniffCellInput(e.keyCode);
 
   };
 
@@ -242,24 +242,24 @@
    * @method keyUp
    * @static
    */
-  CORE.Event.keyUp = function(e) {
+  NOVAE.Event.keyUp = function(e) {
 
     /** User left the [SHIFT] key */
     if (e.keyCode === 16) {
       e.preventDefault();
-      CORE.Sheets[CORE.CurrentSheet].Input.Keyboard.Shift = false;
+      NOVAE.Sheets[NOVAE.CurrentSheet].Input.Keyboard.Shift = false;
     }
 
     /** User left the [STRG] key */
     if (e.keyCode === 17) {
       e.preventDefault();
-      CORE.Sheets[CORE.CurrentSheet].Input.Keyboard.Strg = false;
+      NOVAE.Sheets[NOVAE.CurrentSheet].Input.Keyboard.Strg = false;
     }
 
     /** User left the [TAB] key */
     if (e.keyCode === 9) {
       e.preventDefault();
-      CORE.Sheets[CORE.CurrentSheet].Input.Keyboard.Tab = false;
+      NOVAE.Sheets[NOVAE.CurrentSheet].Input.Keyboard.Tab = false;
     }
 
   };

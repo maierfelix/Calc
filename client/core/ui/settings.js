@@ -14,18 +14,18 @@
 "use strict";
 
   /** Initialize the cell style menu */
-  CORE_UI.initCellStyleMenu = function() {
+  NOVAE_UI.initCellStyleMenu = function() {
 
     /** Font styling menu */
-    CORE_UI.initFontChangeMenu();
+    NOVAE_UI.initFontChangeMenu();
 
     /** Border styling menu */
-    CORE_UI.initBorderChangeMenu();
+    NOVAE_UI.initBorderChangeMenu();
 
     /** Background styling menu */
-    CORE_UI.initBackgroundChangeMenu();
+    NOVAE_UI.initBackgroundChangeMenu();
 
     /** Insert columns and rows menu */
-    CORE_UI.initInjectionButtons();
+    NOVAE_UI.initInjectionButtons();
 
   };

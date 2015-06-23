@@ -19,13 +19,13 @@
    * @method resizeHorizontal
    * @static
    */
-  CORE.Grid.prototype.resizeHorizontal = function(Letter, ii) {
+  NOVAE.Grid.prototype.resizeHorizontal = function(Letter, ii) {
 
     var customCell = this.customCellSizes.alphabetical;
     /** Total amount of shifting cell rows to left */
     var totalLeftShift = 0;
     /** DOM caching */
-    var cellRow = CORE.DOM.Cache[ii].style;
+    var cellRow = NOVAE.DOM.Cache[ii].style;
 
     /** The current cell column has a custom width */
     if (customCell[Letter]) {
@@ -37,12 +37,12 @@
     /** Reset width of all cells without a custom width */
     else cellRow.width = this.cellArray[ii].origWidth + "px";
 
-    var letterToNumber = CORE.$.alphaToNumber(Letter);
+    var letterToNumber = NOVAE.$.alphaToNumber(Letter);
 
     /** Search for custom cell rows */
     for (var kk in customCell) {
 
-      var kkToNumber = CORE.$.alphaToNumber(kk);
+      var kkToNumber = NOVAE.$.alphaToNumber(kk);
 
       /** Update all cell rows left position behind the customized cell column with its new width */
       if (letterToNumber > kkToNumber) {
@@ -78,13 +78,13 @@
    * @method resizeVertical
    * @static
    */
-  CORE.Grid.prototype.resizeVertical = function(Number, ii) {
+  NOVAE.Grid.prototype.resizeVertical = function(Number, ii) {
 
     var customCell = this.customCellSizes.numeric;
     /** Total amount of shifting cell rows to top */
     var totalTopShift = 0;
     /** DOM caching */
-    var cellRow = CORE.DOM.Cache[ii].style;
+    var cellRow = NOVAE.DOM.Cache[ii].style;
     /** Cache cell object height */
     var cellHeight = this.cellArray[ii].origHeight;
     /** Cache cell object top position */
@@ -102,7 +102,7 @@
 
     if (!this.verticalInView(Number)) return void 0;
 
-    CORE.Sheets[CORE.CurrentSheet].Settings.redrawOnZero = true;
+    NOVAE.Sheets[NOVAE.CurrentSheet].Settings.redrawOnZero = true;
 
     /** Search for custom cell rows */
     for (var kk in customCell) {
@@ -138,7 +138,7 @@
    * @method verticalInView
    * @static
    */
-  CORE.Grid.prototype.verticalInView = function(number) {
+  NOVAE.Grid.prototype.verticalInView = function(number) {
 
     var length = this.customCellSizes.array.length;
 

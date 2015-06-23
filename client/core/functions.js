@@ -14,7 +14,7 @@
 "use strict";
 
   /** Create Functions Object */
-  CORE.$ = {};
+  NOVAE.$ = {};
 
   /**
    * Initialise everything
@@ -22,78 +22,78 @@
    * @method init
    * @static
    */
-  CORE.$.init = function() {
+  NOVAE.$.init = function() {
 
     /** Mobile device check */
-    CORE.$.isMobile();
+    NOVAE.$.isMobile();
 
     /** Detect used browser */
-    CORE.$.detectBrowser();
+    NOVAE.$.detectBrowser();
 
     /** Prepare platform dependent events */
-    CORE.$.prepareEvents();
+    NOVAE.$.prepareEvents();
 
     /** Calculate scroll amount */
-    CORE.Settings.Scroll.OriginalVertical = CORE.Settings.Scroll.Vertical = CORE.$.calculateScrollAmount();
+    NOVAE.Settings.Scroll.OriginalVertical = NOVAE.Settings.Scroll.Vertical = NOVAE.$.calculateScrollAmount();
 
     /** Fastclick if we're on mobile */
-    if (CORE.Settings.Mobile) FastClick.attach(document.body);
+    if (NOVAE.Settings.Mobile) FastClick.attach(document.body);
 
     /** Initialize Connector Plugin */
-    CORE.Connector = new CORE.Connector();
+    NOVAE.Connector = new NOVAE.Connector();
 
     /** Initialize File Plugin */
-    CORE.File = new CORE.File();
+    NOVAE.File = new NOVAE.File();
 
     /** Initialize Awakener Plugin */
-    CORE.Awakener = new CORE.Awakener();
+    NOVAE.Awakener = new NOVAE.Awakener();
 
     /** Initialize Sheet Plugin */
-    CORE.Sheets = new CORE.Sheets();
+    NOVAE.Sheets = new NOVAE.Sheets();
 
     /** Initialize Extender Plugin */
-    CORE.Extender = new CORE.Extender();
+    NOVAE.Extender = new NOVAE.Extender();
 
     /** Add a new first sheet */
-    CORE.Sheets.addSheet();
+    NOVAE.Sheets.addSheet();
 
     /** Switch to the first sheet */
-    CORE.Sheets.changeSheet(CORE.CurrentSheet);
+    NOVAE.Sheets.changeSheet(NOVAE.CurrentSheet);
 
     /** Add select all functionalitity to current cell button */
-    CORE.$.initCurrentCellButton();
+    NOVAE.$.initCurrentCellButton();
 
     /** Initialize all event listeners */
-    CORE.Event.init();
+    NOVAE.Event.init();
 
     /** Initialize Selector Plugin for this sheet */
-    CORE.Sheets[CORE.CurrentSheet].Selector = new CORE.Selector();
+    NOVAE.Sheets[NOVAE.CurrentSheet].Selector = new NOVAE.Selector();
 
     /** Initialize Commander Plugin for this sheet */
-    CORE.Sheets[CORE.CurrentSheet].Commander = new CORE.Commander();
+    NOVAE.Sheets[NOVAE.CurrentSheet].Commander = new NOVAE.Commander();
 
     /** Initialize Injector Plugin */
-    CORE.Injector = new CORE.Injector();
+    NOVAE.Injector = new NOVAE.Injector();
 
     /** Initialize Styler Plugin */
-    CORE.Styler = new CORE.Styler();
+    NOVAE.Styler = new NOVAE.Styler();
 
     /** Select first cell in the grid */
-    CORE.Sheets[CORE.CurrentSheet].Selector.selectCell(1, 1);
+    NOVAE.Sheets[NOVAE.CurrentSheet].Selector.selectCell(1, 1);
 
     /** Try to connect */
-    if (CORE.Connector.getURL()) CORE.Connector.connect();
+    if (NOVAE.Connector.getURL()) NOVAE.Connector.connect();
 
     /** Initialize Speed test Plugin */
-    CORE.Speedy = new CORE.Speedy();
+    NOVAE.Speedy = new NOVAE.Speedy();
 
     /** Initialize ClipBoard Plugin */
-    CORE.ClipBoard = new CORE.ClipBoard();
+    NOVAE.ClipBoard = new NOVAE.ClipBoard();
 
     /** A direct command creation helper function */
-    CORE.newCommand = function() {
+    NOVAE.newCommand = function() {
 
-      return (new CORE.Sheets[CORE.CurrentSheet].Commander.Command());
+      return (new NOVAE.Sheets[NOVAE.CurrentSheet].Commander.Command());
 
     };
 
@@ -105,8 +105,8 @@
    * @method isMobile
    * @static
    */
-  CORE.$.isMobile = function() {
-    if (/iPhone|iPad|iPod|Android|Mobile/i.test(navigator.userAgent)) CORE.Settings.Mobile = true;
+  NOVAE.$.isMobile = function() {
+    if (/iPhone|iPad|iPod|Android|Mobile/i.test(navigator.userAgent)) NOVAE.Settings.Mobile = true;
   };
 
   /**
@@ -115,13 +115,13 @@
    * @method prepareEvents
    * @static
    */
-  CORE.$.prepareEvents = function() {
+  NOVAE.$.prepareEvents = function() {
 
-    CORE.Events = {
-      mouseDown: CORE.Settings.Mobile ? "touchstart" : "mousedown",
-      mouseUp:   CORE.Settings.Mobile ? "touchend"   : "mouseup",
-      mouseMove: CORE.Settings.Mobile ? "touchmove"  : "mousemove",
-      mouseOut:  CORE.Settings.Mobile ? "touchleave" : "mouseout"
+    NOVAE.Events = {
+      mouseDown: NOVAE.Settings.Mobile ? "touchstart" : "mousedown",
+      mouseUp:   NOVAE.Settings.Mobile ? "touchend"   : "mouseup",
+      mouseMove: NOVAE.Settings.Mobile ? "touchmove"  : "mousemove",
+      mouseOut:  NOVAE.Settings.Mobile ? "touchleave" : "mouseout"
     };
 
   };
@@ -132,11 +132,11 @@
    * @method initCurrentCellButton
    * @static
    */
-  CORE.$.initCurrentCellButton = function() {
+  NOVAE.$.initCurrentCellButton = function() {
 
-    CORE.DOM.CurrentCell.addEventListener('click', function() {
-      CORE.Sheets[CORE.CurrentSheet].Selector.allSelected = true;
-      CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
+    NOVAE.DOM.CurrentCell.addEventListener('click', function() {
+      NOVAE.Sheets[NOVAE.CurrentSheet].Selector.allSelected = true;
+      NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
     });
 
   };
@@ -147,12 +147,12 @@
    * @method detectBrowser
    * @static
    */
-  CORE.$.detectBrowser = function() {
+  NOVAE.$.detectBrowser = function() {
 
-    CORE.Settings.isFirefox = typeof InstallTrigger !== 'undefined' ? true : false;
-    CORE.Settings.isSafari  = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0 ? true : false;
-    CORE.Settings.isChrome  = !!window.chrome ? true : false;
-    CORE.Settings.isIE      = /*@cc_on!@*/false || !!document.documentMode ? true : false;
+    NOVAE.Settings.isFirefox = typeof InstallTrigger !== 'undefined' ? true : false;
+    NOVAE.Settings.isSafari  = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0 ? true : false;
+    NOVAE.Settings.isChrome  = !!window.chrome ? true : false;
+    NOVAE.Settings.isIE      = /*@cc_on!@*/false || !!document.documentMode ? true : false;
 
   };
 
@@ -162,8 +162,8 @@
    * @method calculateScrollAmount
    * @static
    */
-  CORE.$.calculateScrollAmount = function() { 
-    return (Math.floor((Math.pow(CORE.Settings.Height, Math.floor(Math.log(CORE.Settings.Height) / Math.log(CORE.Settings.Height))) / 100) / 4));
+  NOVAE.$.calculateScrollAmount = function() { 
+    return (Math.floor((Math.pow(NOVAE.Settings.Height, Math.floor(Math.log(NOVAE.Settings.Height) / Math.log(NOVAE.Settings.Height))) / 100) / 4));
   };
 
   /**
@@ -172,7 +172,7 @@
    * @method numberToAlpha
    * @static
    */
-  CORE.$.numberToAlpha = function(number) {
+  NOVAE.$.numberToAlpha = function(number) {
 
     /** Charcode for a */
     var a = 65;
@@ -196,7 +196,7 @@
     newNumber = parseInt((number - 1) / length);
 
     /** Recurse to get the following letters */
-    if (newNumber > 0) return (CORE.$.numberToAlpha(newNumber) + letter);
+    if (newNumber > 0) return (NOVAE.$.numberToAlpha(newNumber) + letter);
 
     return (letter);
 
@@ -210,7 +210,7 @@
    * @method alphaToNumber
    * @static
    */
-  CORE.$.alphaToNumber = function(letter) {
+  NOVAE.$.alphaToNumber = function(letter) {
 
     if (!isNaN(letter)) return void 0;
 
@@ -234,7 +234,7 @@
 
     newNumber += (length);
 
-    if (letter = letter.substr(1, letter.length)) return (CORE.$.alphaToNumber(letter) + newNumber);
+    if (letter = letter.substr(1, letter.length)) return (NOVAE.$.alphaToNumber(letter) + newNumber);
 
     return (number);
 
@@ -246,13 +246,13 @@
    * @method getCell
    * @static
    */
-  CORE.$.getCell = function(object) {
+  NOVAE.$.getCell = function(object) {
 
     var letter = object.letter,
         number = object.number,
-        jumps = ((CORE.Sheets[CORE.CurrentSheet].Settings.y * (letter - 1) ) + number - 1 - CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY) - (CORE.Sheets[CORE.CurrentSheet].Settings.y * CORE.Sheets[CORE.CurrentSheet].Settings.scrolledX);
+        jumps = ((NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y * (letter - 1) ) + number - 1 - NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY) - (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y * NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX);
 
-    if (CORE.$.isInView(letter, jumps) && CORE.DOM.Output.children[jumps]) return (jumps);
+    if (NOVAE.$.isInView(letter, jumps) && NOVAE.DOM.Output.children[jumps]) return (jumps);
 
     return void 0;
 
@@ -264,13 +264,13 @@
    * @method isInView
    * @static
    */
-  CORE.$.isInView = function(letter, jumps) {
+  NOVAE.$.isInView = function(letter, jumps) {
 
     var row = letter;
         row = row <= 1 ? 1 : row;
 
-    if (jumps < ( (letter * CORE.Sheets[CORE.CurrentSheet].Settings.y) - CORE.Sheets[CORE.CurrentSheet].Settings.y) - (CORE.Sheets[CORE.CurrentSheet].Settings.y * CORE.Sheets[CORE.CurrentSheet].Settings.scrolledX) ) return (false);
-    else if (jumps >= (letter * CORE.Sheets[CORE.CurrentSheet].Settings.y) - (CORE.Sheets[CORE.CurrentSheet].Settings.y * CORE.Sheets[CORE.CurrentSheet].Settings.scrolledX) ) return (false);
+    if (jumps < ( (letter * NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y) - NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y) - (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y * NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX) ) return (false);
+    else if (jumps >= (letter * NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y) - (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y * NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX) ) return (false);
     return (true);
 
   };
@@ -282,20 +282,20 @@
    * @method validCell
    * @static
    */
-  CORE.$.validCell = function() {
+  NOVAE.$.validCell = function() {
 
     /** Check if a cell is selected */
-    if (CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First.Letter && (CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First.Number >= 0) ) {
+    if (NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First.Letter && (NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First.Number >= 0) ) {
 
-      var letter = CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First.Letter,
-          number = CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First.Number;
+      var letter = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First.Letter,
+          number = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First.Number;
 
       /** Valid cell selection */
       if (letter && number > 0) {
         /** Cell is not used yet */
-        CORE.$.registerCell({ letter: letter, number: number });
+        NOVAE.$.registerCell({ letter: letter, number: number });
         /** Cell was successfully registered ? */
-        if (CORE.Cells.Used[CORE.CurrentSheet][letter][letter + number]) return (true);
+        if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number]) return (true);
       }
 
     }
@@ -311,15 +311,15 @@
    * @method validateCells
    * @static
    */
-  CORE.$.validateCells = function() {
+  NOVAE.$.validateCells = function() {
 
-    var name = arguments[0] || CORE.CurrentSheet;
+    var name = arguments[0] || NOVAE.CurrentSheet;
 
     /** Loop through all selected cells */
-    for (var ii = 0; ii < CORE.Sheets[name].Selector.SelectedCells.length; ++ii) {
-      var letter = CORE.$.numberToAlpha(CORE.Sheets[name].Selector.SelectedCells[ii].letter);
-      var number = CORE.Sheets[name].Selector.SelectedCells[ii].number;
-      CORE.$.registerCell({ letter: letter, number: number, sheet: name });
+    for (var ii = 0; ii < NOVAE.Sheets[name].Selector.SelectedCells.length; ++ii) {
+      var letter = NOVAE.$.numberToAlpha(NOVAE.Sheets[name].Selector.SelectedCells[ii].letter);
+      var number = NOVAE.Sheets[name].Selector.SelectedCells[ii].number;
+      NOVAE.$.registerCell({ letter: letter, number: number, sheet: name });
     }
 
   };
@@ -330,20 +330,20 @@
    * @method registerCell
    * @static
    */
-  CORE.$.registerCell = function(object) {
+  NOVAE.$.registerCell = function(object) {
 
-    var sheet = object.sheet || CORE.CurrentSheet;
+    var sheet = object.sheet || NOVAE.CurrentSheet;
     var letter = object.letter;
     var number = object.number;
     var name = letter + number;
 
-    if (CORE.Cells.Used[sheet][letter]) {
-      if (!CORE.Cells.Used[sheet][letter][name]) {
-        CORE.Cells.Used[sheet][letter][name] = new CORE.Sheets[sheet].Cell();
+    if (NOVAE.Cells.Used[sheet][letter]) {
+      if (!NOVAE.Cells.Used[sheet][letter][name]) {
+        NOVAE.Cells.Used[sheet][letter][name] = new NOVAE.Sheets[sheet].Cell();
       }
     } else {
-      CORE.Cells.Used[sheet][letter] = {};
-      CORE.Cells.Used[sheet][letter][name] = new CORE.Sheets[sheet].Cell();
+      NOVAE.Cells.Used[sheet][letter] = {};
+      NOVAE.Cells.Used[sheet][letter][name] = new NOVAE.Sheets[sheet].Cell();
     }
 
   };
@@ -354,7 +354,7 @@
    * @method looseSelection
    * @static
    */
-  CORE.$.looseSelection = function() {
+  NOVAE.$.looseSelection = function() {
 
     if (window.getSelection) {
       if (window.getSelection().empty) {  // Chrome
@@ -374,7 +374,7 @@
    * @method selectText
    * @static
    */
-  CORE.$.selectText = function(element) {
+  NOVAE.$.selectText = function(element) {
 
     var character = element.textContent.length, 
         select;
@@ -396,7 +396,7 @@
    * @method isJSON
    * @static
    */
-  CORE.$.isJSON = function(string) {
+  NOVAE.$.isJSON = function(string) {
 
     try {
       JSON.parse(string);
@@ -414,7 +414,7 @@
    * @method isSafeInteger
    * @static
    */
-  CORE.$.isSafeInteger = function(number) {
+  NOVAE.$.isSafeInteger = function(number) {
 
     if (number >= 9E15) {
       if (number >= window.Number.MAX_SAFE_INTEGER) return (Number.MAX_SAFE_INTEGER - 1);
@@ -430,9 +430,9 @@
    * @method getVariables
    * @static
    */
-  CORE.$.getVariables = function(string) {
+  NOVAE.$.getVariables = function(string) {
 
-    return (string.match(CORE.REGEX.variable));
+    return (string.match(NOVAE.REGEX.variable));
 
   };
 
@@ -444,7 +444,7 @@
    * @method hexToRgba
    * @static
    */
-  CORE.$.hexToRgba = function(hex) {
+  NOVAE.$.hexToRgba = function(hex) {
 
     var h = hex.replace('#', '');
 
@@ -466,7 +466,7 @@
    * @method replaceNumbers
    * @static
    */
-  CORE.$.replaceNumbers = function(text, replace) {
+  NOVAE.$.replaceNumbers = function(text, replace) {
 
     var inputLength = text.length;
 
@@ -505,22 +505,22 @@
    * @method createSheet
    * @static
    */
-  CORE.$.createSheet = function(name, master) {
+  NOVAE.$.createSheet = function(name, master) {
 
     /** Initialize cell used stack for the new sheet */
-    if (!CORE.Cells.Used[CORE.CurrentSheet]) CORE.Cells.Used[CORE.CurrentSheet] = {};
+    if (!NOVAE.Cells.Used[NOVAE.CurrentSheet]) NOVAE.Cells.Used[NOVAE.CurrentSheet] = {};
 
     /** Create new cell used stack */
-    CORE.Sheets[name] = new CORE.Grid();
+    NOVAE.Sheets[name] = new NOVAE.Grid();
 
     /** Initialize Selector Plugin for the new sheet */
-    CORE.Sheets[name].Selector = new CORE.Selector();
+    NOVAE.Sheets[name].Selector = new NOVAE.Selector();
 
     /** Initialize Commander Plugin for the new sheet */
-    CORE.Sheets[name].Commander = new CORE.Commander();
+    NOVAE.Sheets[name].Commander = new NOVAE.Commander();
 
     if (master) {
-      CORE.Sheets[name].Settings.master = true;
+      NOVAE.Sheets[name].Settings.master = true;
     }
 
   };
@@ -531,42 +531,42 @@
    * @method killSheet
    * @static
    */
-  CORE.$.killSheet = function(name) {
+  NOVAE.$.killSheet = function(name) {
 
     /** If sheet was a master sheet, decrease master sheet count */
-    if (CORE.Sheets[name].Settings.master) {
-      if (CORE.MasterSheetCount > 0) CORE.MasterSheetCount--;
+    if (NOVAE.Sheets[name].Settings.master) {
+      if (NOVAE.MasterSheetCount > 0) NOVAE.MasterSheetCount--;
     }
 
-    for (var ii in CORE.Cells.Used[name]) {
-      for (var cell in CORE.Cells.Used[name][ii]) {
-        CORE.Cells.Used[name][ii][cell] = null;
-        delete CORE.Cells.Used[name][ii][cell];
+    for (var ii in NOVAE.Cells.Used[name]) {
+      for (var cell in NOVAE.Cells.Used[name][ii]) {
+        NOVAE.Cells.Used[name][ii][cell] = null;
+        delete NOVAE.Cells.Used[name][ii][cell];
       }
-      CORE.Cells.Used[name][ii] = null;
-      delete CORE.Cells.Used[name][ii];
+      NOVAE.Cells.Used[name][ii] = null;
+      delete NOVAE.Cells.Used[name][ii];
     }
 
-    CORE.ClipBoard.copiedCells[name] = [];
-    CORE.ClipBoard.copiedCells[name] = null;
-    delete CORE.ClipBoard.copiedCells[name];
+    NOVAE.ClipBoard.copiedCells[name] = [];
+    NOVAE.ClipBoard.copiedCells[name] = null;
+    delete NOVAE.ClipBoard.copiedCells[name];
 
-    CORE.Sheets[name].Selector.SelectedCells = [];
-    CORE.Sheets[name].Selector.SelectedCells = null;
-    delete CORE.Sheets[name].Selector.SelectedCells;
+    NOVAE.Sheets[name].Selector.SelectedCells = [];
+    NOVAE.Sheets[name].Selector.SelectedCells = null;
+    delete NOVAE.Sheets[name].Selector.SelectedCells;
 
-    CORE.Sheets[name].Selector = null;
-    delete CORE.Sheets[name].Selector;
+    NOVAE.Sheets[name].Selector = null;
+    delete NOVAE.Sheets[name].Selector;
 
-    CORE.Sheets[name].Commander = null;
-    delete CORE.Sheets[name].Commander;
+    NOVAE.Sheets[name].Commander = null;
+    delete NOVAE.Sheets[name].Commander;
 
-    CORE.Sheets[name] = null;
-    delete CORE.Sheets[name];
+    NOVAE.Sheets[name] = null;
+    delete NOVAE.Sheets[name];
 
     /** Send sheet change to server */
-    if (CORE.Connector.connected) {
-      CORE.Connector.action("deleteSheet", {sheet: name});
+    if (NOVAE.Connector.connected) {
+      NOVAE.Connector.action("deleteSheet", {sheet: name});
     }
 
   };
@@ -577,7 +577,7 @@
    * @method coordToSelection
    * @static
    */
-  CORE.$.coordToSelection = function(first, last) {
+  NOVAE.$.coordToSelection = function(first, last) {
 
     var array = [];
 

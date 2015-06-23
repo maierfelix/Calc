@@ -19,7 +19,7 @@
    * @class Connector
    * @static
    */
-  CORE.Connector = function() {
+  NOVAE.Connector = function() {
 
     /** Save socket */
     this.socket = null;
@@ -51,8 +51,8 @@
 
   };
 
-  CORE.Connector.prototype = CORE.Connector;
-  CORE.Connector.prototype.constructor = CORE.Connector;
+  NOVAE.Connector.prototype = NOVAE.Connector;
+  NOVAE.Connector.prototype.constructor = NOVAE.Connector;
 
   /**
    * Connect to a server
@@ -60,7 +60,7 @@
    * @method connect
    * @static
    */
-  CORE.Connector.prototype.connect = function() {
+  NOVAE.Connector.prototype.connect = function() {
 
     if (!window.io) throw new Error("NovaeCalc requires socket.io!");
 
@@ -80,7 +80,7 @@
    * @method initListeners
    * @static
    */
-  CORE.Connector.prototype.initListeners = function() {
+  NOVAE.Connector.prototype.initListeners = function() {
 
     /** Async visibility fix */
     var self = this;
@@ -106,7 +106,7 @@
    * @method handleMessage
    * @static
    */
-  CORE.Connector.prototype.message = function(data) {
+  NOVAE.Connector.prototype.message = function(data) {
 
     if (data && data.type) {
 
@@ -158,7 +158,7 @@
    * @method connectionTime
    * @static
    */
-  CORE.Connector.prototype.connectionTime = function() {
+  NOVAE.Connector.prototype.connectionTime = function() {
 
     return (Math.floor((new Date().getTime() / 1000) - (this.connectionStreak / 1000)));
 
@@ -170,7 +170,7 @@
    * @method createRoom
    * @static
    */
-  CORE.Connector.prototype.createRoom = function() {
+  NOVAE.Connector.prototype.createRoom = function() {
 
     var self = this;
 
@@ -180,7 +180,7 @@
 
     if (roomName && roomName.length) {
       /** Make use of acknowledge */
-      this.socket.emit("createroom", {name: roomName, sheet: CORE.CurrentSheet}, function(state) {
+      this.socket.emit("createroom", {name: roomName, sheet: NOVAE.CurrentSheet}, function(state) {
         /** Room was successfully created */
         if (state) {
           prompt("Please save the following master access key for this room!", state);
@@ -190,14 +190,14 @@
             securityPassword = prompt("Please enter the room password: ");
           }
           /** Send the password to the server */
-          self.socket.emit("securitypassword", {password: securityPassword, room: self.room, sheet: CORE.CurrentSheet}, function(roomData) {
+          self.socket.emit("securitypassword", {password: securityPassword, room: self.room, sheet: NOVAE.CurrentSheet}, function(roomData) {
             /** Wrong password */
             if (!roomData) {
               self.wrongPasswordModal();
             }
             /** Got latest room data */
             self.processServerCells(roomData);
-            self.processNewSheet({sheet: CORE.CurrentSheet});
+            self.processNewSheet({sheet: NOVAE.CurrentSheet});
           });
         }
       });
@@ -211,7 +211,7 @@
    * @method loginModal
    * @static
    */
-  CORE.Connector.prototype.loginModal = function() {
+  NOVAE.Connector.prototype.loginModal = function() {
 
     if (!window.mui) return void 0;
 
@@ -222,7 +222,7 @@
     var title = "<h3 class='modalTitle'>Initialize Connection</h3>";
     var buttons = "<button class='"+muiButton+" alertOk' name='ok'>Ok</button><button class='"+muiButton+" alertAbort' name='abort'>Abort</button>";
 
-    CORE_UI.Modal(title, buttons, function(submit) {
+    NOVAE_UI.Modal(title, buttons, function(submit) {
       console.log(submit);
     });
 
@@ -235,7 +235,7 @@
    * @method wrongPasswordModal
    * @static
    */
-  CORE.Connector.prototype.wrongPasswordModal = function() {
+  NOVAE.Connector.prototype.wrongPasswordModal = function() {
 
     if (!window.mui) return void 0;
 
@@ -247,7 +247,7 @@
     var content = "<h4>You don't have any write access to the document.</h4>";
     var buttons = content + "<button class='"+muiButton+" alertOk' name='ok'>Ok</button>";
 
-    CORE_UI.Modal(title, buttons, function(submit) {});
+    NOVAE_UI.Modal(title, buttons, function(submit) {});
 
   };
 
@@ -257,7 +257,7 @@
    * @method getURL
    * @static
    */
-  CORE.Connector.prototype.getURL = function() {
+  NOVAE.Connector.prototype.getURL = function() {
 
     if (window.location.search) return (window.location.search);
     else return void 0;
@@ -270,7 +270,7 @@
    * @method getRoomName
    * @static
    */
-  CORE.Connector.prototype.getRoomName = function() {
+  NOVAE.Connector.prototype.getRoomName = function() {
 
     var keyWord = "&";
 
@@ -298,7 +298,7 @@
    * @method getAccessKey
    * @static
    */
-  CORE.Connector.prototype.getAccessKey = function(url) {
+  NOVAE.Connector.prototype.getAccessKey = function(url) {
 
     var keyWord = "key";
 

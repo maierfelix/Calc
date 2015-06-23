@@ -19,7 +19,7 @@
    * @class Selector
    * @static
    */
-  CORE.Selector = function() {
+  NOVAE.Selector = function() {
 
     /** Selected cells converted into usable format */
     this.Selected = {
@@ -91,5 +91,5 @@
 
   };
 
-  CORE.Selector.prototype = CORE.Selector;
-  CORE.Selector.prototype.constructor = CORE.Selector;
+  NOVAE.Selector.prototype = NOVAE.Selector;
+  NOVAE.Selector.prototype.constructor = NOVAE.Selector;

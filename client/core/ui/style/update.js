@@ -14,93 +14,93 @@
 "use strict";
 
   /** Update the cell style menu */
-  CORE_UI.updateCellStyleMenu = function(cellName) {
+  NOVAE_UI.updateCellStyleMenu = function(cellName) {
 
-    var letter = CORE.$.numberToAlpha(cellName.letter);
+    var letter = NOVAE.$.numberToAlpha(cellName.letter);
     var number = cellName.number;
     var cell = letter + number;
 
 		var hoverColor = "rgba(68, 138, 255, 0.75)";
 
-    var masterColumns = CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Columns;
-    var masterRows = CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected.Rows;
+    var masterColumns = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Columns;
+    var masterRows = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Rows;
 
-    if (CORE.Cells.Used[CORE.CurrentSheet][letter] && CORE.Cells.Used[CORE.CurrentSheet][letter][cell]) {
+    if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter] && NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell]) {
       /** Check if cell contains a formula - (higher priority than content!) */
-      if (CORE.Cells.Used[CORE.CurrentSheet][letter][cell].Formula) {
-        CORE.DOM.CellInput.value = CORE.Cells.Used[CORE.CurrentSheet][letter][cell].Formula;
+      if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell].Formula) {
+        NOVAE.DOM.CellInput.value = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell].Formula;
       /** Check if cell has a custom content */
-      } else if (CORE.Cells.Used[CORE.CurrentSheet][letter][cell].Content !== undefined && CORE.Cells.Used[CORE.CurrentSheet][letter][cell].Content !== null) {
+      } else if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell].Content !== undefined && NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell].Content !== null) {
         /** Update cell input content */
-        CORE.DOM.CellInput.value = CORE.Cells.Used[CORE.CurrentSheet][letter][cell].Content;
+        NOVAE.DOM.CellInput.value = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell].Content;
       /** Reset cell input content */
-      } else CORE.DOM.CellInput.value = "";
-    } else CORE.DOM.CellInput.value = "";
+      } else NOVAE.DOM.CellInput.value = "";
+    } else NOVAE.DOM.CellInput.value = "";
 
     /** Check if cell was registered */
-    if (CORE.Cells.Used[CORE.CurrentSheet][letter] && CORE.Cells.Used[CORE.CurrentSheet][letter][cell]) {
+    if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter] && NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell]) {
 
       /** Check if cell has a custom font */
-      if (CORE.Cells.Used[CORE.CurrentSheet][letter][cell].Font) {
+      if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell].Font) {
         /** Update font menu value */
-        CORE.DOM.ChangeFont.value = CORE.Cells.Used[CORE.CurrentSheet][letter][cell].Font;
+        NOVAE.DOM.ChangeFont.value = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell].Font;
       /** Reset font menu value to default */
       } else {
-        CORE.DOM.ChangeFont.value = "Arial";
+        NOVAE.DOM.ChangeFont.value = "Arial";
       }
 
       /** Check if cell has a custom font size */
-      if (CORE.Cells.Used[CORE.CurrentSheet][letter][cell].FontSize) {
+      if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell].FontSize) {
         /** Update font size menu value */
-        CORE.DOM.ChangeFontSize.value = CORE.Cells.Used[CORE.CurrentSheet][letter][cell].FontSize;
+        NOVAE.DOM.ChangeFontSize.value = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell].FontSize;
       /** Reset font size menu value to default */
       } else {
-        CORE.DOM.ChangeFontSize.value = 12;
+        NOVAE.DOM.ChangeFontSize.value = 12;
       }
 
       /** Check if cell has a custom font color */
-      if (CORE.Cells.Used[CORE.CurrentSheet][letter][cell].Color) {
+      if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell].Color) {
         /** Update font color menu value */
-        CORE.DOM.ChangeFontColor.style.background = CORE.Cells.Used[CORE.CurrentSheet][letter][cell].Color;
+        NOVAE.DOM.ChangeFontColor.style.background = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell].Color;
       /** Reset font color menu value to default */
       } else {
-        CORE.DOM.ChangeFontColor.style.background = "rgba(50, 50, 50, 0.70)";
+        NOVAE.DOM.ChangeFontColor.style.background = "rgba(50, 50, 50, 0.70)";
       }
 
       /** Check if cell has font bold */
-      if (CORE.Cells.Used[CORE.CurrentSheet][letter][cell].FontBold) {
+      if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell].FontBold) {
         /** Update font bold menu color */
-        CORE.DOM.ChangeFontBold.style.background = hoverColor;
+        NOVAE.DOM.ChangeFontBold.style.background = hoverColor;
       /** Reset font bold menu color to default */
       } else {
-        CORE.DOM.ChangeFontBold.style.background = "rgba(50, 50, 50, 0.70)";
+        NOVAE.DOM.ChangeFontBold.style.background = "rgba(50, 50, 50, 0.70)";
       }
 
       /** Check if cell has font italic */
-      if (CORE.Cells.Used[CORE.CurrentSheet][letter][cell].FontItalic) {
+      if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell].FontItalic) {
         /** Update font italic menu color */
-        CORE.DOM.ChangeFontItalic.style.background = hoverColor;
+        NOVAE.DOM.ChangeFontItalic.style.background = hoverColor;
       /** Reset font italic menu color to default */
       } else {
-        CORE.DOM.ChangeFontItalic.style.background = "rgba(50, 50, 50, 0.70)";
+        NOVAE.DOM.ChangeFontItalic.style.background = "rgba(50, 50, 50, 0.70)";
       }
 
       /** Check if cell font is underlined */
-      if (CORE.Cells.Used[CORE.CurrentSheet][letter][cell].FontUnderlined) {
+      if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell].FontUnderlined) {
         /** Update font italic menu color */
-        CORE.DOM.ChangeFontUnderline.style.background = hoverColor;
+        NOVAE.DOM.ChangeFontUnderline.style.background = hoverColor;
       /** Reset cell font underlined menu color to default */
       } else {
-        CORE.DOM.ChangeFontUnderline.style.background = "rgba(50, 50, 50, 0.70)";
+        NOVAE.DOM.ChangeFontUnderline.style.background = "rgba(50, 50, 50, 0.70)";
       }
 
       /** Check if cell has a custom background */
-      if (CORE.Cells.Used[CORE.CurrentSheet][letter][cell].BackgroundColor) {
+      if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell].BackgroundColor) {
         /** Update cell background color */
-        CORE.DOM.ChangeCellBackground.style.background = CORE.Cells.Used[CORE.CurrentSheet][letter][cell].BackgroundColor;
+        NOVAE.DOM.ChangeCellBackground.style.background = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell].BackgroundColor;
       /** Reset cell background color to default */
       } else {
-        CORE.DOM.ChangeCellBackground.style.background = "rgba(50, 50, 50, 0.70)";
+        NOVAE.DOM.ChangeCellBackground.style.background = "rgba(50, 50, 50, 0.70)";
       }
 
     /** Master column styling */
@@ -108,43 +108,43 @@
 
       /** Column */
       if (masterColumns[letter].BackgroundColor) {
-        CORE.DOM.ChangeCellBackground.style.background = masterColumns[letter].BackgroundColor;
-      } else CORE.DOM.ChangeCellBackground.style.background = "rgba(50, 50, 50, 0.70)";
+        NOVAE.DOM.ChangeCellBackground.style.background = masterColumns[letter].BackgroundColor;
+      } else NOVAE.DOM.ChangeCellBackground.style.background = "rgba(50, 50, 50, 0.70)";
 
       /** Column */
       if (masterColumns[letter].Font) {
-        CORE.DOM.ChangeFont.value = masterColumns[letter].Font;
-      } else CORE.DOM.ChangeFont.value = "Arial";
+        NOVAE.DOM.ChangeFont.value = masterColumns[letter].Font;
+      } else NOVAE.DOM.ChangeFont.value = "Arial";
 
       /** Column */
       if (masterColumns[letter].FontSize) {
-        CORE.DOM.ChangeFont.value = masterColumns[letter].FontSize;
-      } else CORE.DOM.ChangeFontSize.value = 12;
+        NOVAE.DOM.ChangeFont.value = masterColumns[letter].FontSize;
+      } else NOVAE.DOM.ChangeFontSize.value = 12;
 
       /** Column */
       if (masterColumns[letter].Color) {
-        CORE.DOM.ChangeFontColor.style.background = masterColumns[letter].Color;
-      } else CORE.DOM.ChangeFontColor.style.background = "rgba(50, 50, 50, 0.70)";
+        NOVAE.DOM.ChangeFontColor.style.background = masterColumns[letter].Color;
+      } else NOVAE.DOM.ChangeFontColor.style.background = "rgba(50, 50, 50, 0.70)";
 
       /** Column */
       if (masterColumns[letter].FontBold) {
-        CORE.DOM.ChangeFontBold.style.background = hoverColor;
+        NOVAE.DOM.ChangeFontBold.style.background = hoverColor;
       } else {
-        CORE.DOM.ChangeFontBold.style.background = "rgba(50, 50, 50, 0.70)";
+        NOVAE.DOM.ChangeFontBold.style.background = "rgba(50, 50, 50, 0.70)";
       }
 
       /** Column */
       if (masterColumns[letter].FontItalic) {
-        CORE.DOM.ChangeFontBold.style.background = hoverColor;
+        NOVAE.DOM.ChangeFontBold.style.background = hoverColor;
       } else {
-        CORE.DOM.ChangeFontBold.style.background = "rgba(50, 50, 50, 0.70)";
+        NOVAE.DOM.ChangeFontBold.style.background = "rgba(50, 50, 50, 0.70)";
       }
 
       /** Column */
       if (masterColumns[letter].FontUnderlined) {
-        CORE.DOM.ChangeFontBold.style.background = hoverColor;
+        NOVAE.DOM.ChangeFontBold.style.background = hoverColor;
       } else {
-        CORE.DOM.ChangeFontBold.style.background = "rgba(50, 50, 50, 0.70)";
+        NOVAE.DOM.ChangeFontBold.style.background = "rgba(50, 50, 50, 0.70)";
       }
 
       /** Master row styling */
@@ -152,69 +152,69 @@
 
       /** Row */
       if (masterRows[number].BackgroundColor) {
-        CORE.DOM.ChangeCellBackground.style.background = masterRows[number].BackgroundColor;
-      } else CORE.DOM.ChangeCellBackground.style.background = "rgba(50, 50, 50, 0.70)";
+        NOVAE.DOM.ChangeCellBackground.style.background = masterRows[number].BackgroundColor;
+      } else NOVAE.DOM.ChangeCellBackground.style.background = "rgba(50, 50, 50, 0.70)";
 
       /** Row */
       if (masterRows[number].Font) {
-        CORE.DOM.ChangeFont.value = masterRows[number].Font;
-      } else CORE.DOM.ChangeFont.value = CORE.DOM.ChangeFont.children[0].getAttribute("value");
+        NOVAE.DOM.ChangeFont.value = masterRows[number].Font;
+      } else NOVAE.DOM.ChangeFont.value = NOVAE.DOM.ChangeFont.children[0].getAttribute("value");
 
       /** Row */
       if (masterRows[number].FontSize) {
-        CORE.DOM.ChangeFont.value = masterRows[number].FontSize;
-      } else CORE.DOM.ChangeFontSize.value = CORE.DOM.ChangeFontSize.children[6].getAttribute("value");
+        NOVAE.DOM.ChangeFont.value = masterRows[number].FontSize;
+      } else NOVAE.DOM.ChangeFontSize.value = NOVAE.DOM.ChangeFontSize.children[6].getAttribute("value");
 
       /** Row */
       if (masterRows[number].Color) {
-        CORE.DOM.ChangeFont.value = masterRows[number].Color;
-      } else CORE.DOM.ChangeFontColorPreview.style.color = "#c7c7c7";
+        NOVAE.DOM.ChangeFont.value = masterRows[number].Color;
+      } else NOVAE.DOM.ChangeFontColorPreview.style.color = "#c7c7c7";
 
       /** Row */
       if (masterRows[number].FontBold) {
-        CORE.DOM.ChangeFontBoldPreview.parentNode.style.background = hoverColor;
-        CORE.DOM.ChangeFontBoldPreview.style.color = "#7d7d7d";
+        NOVAE.DOM.ChangeFontBoldPreview.parentNode.style.background = hoverColor;
+        NOVAE.DOM.ChangeFontBoldPreview.style.color = "#7d7d7d";
       } else {
-        CORE.DOM.ChangeFontBoldPreview.parentNode.style.background = "#fff";
-        CORE.DOM.ChangeFontBoldPreview.style.color = "#c7c7c7";
+        NOVAE.DOM.ChangeFontBoldPreview.parentNode.style.background = "#fff";
+        NOVAE.DOM.ChangeFontBoldPreview.style.color = "#c7c7c7";
       }
 
       /** Row */
       if (masterRows[number].FontItalic) {
-        CORE.DOM.ChangeFontBoldPreview.parentNode.style.background = hoverColor;
-        CORE.DOM.ChangeFontBoldPreview.style.color = "#7d7d7d";
+        NOVAE.DOM.ChangeFontBoldPreview.parentNode.style.background = hoverColor;
+        NOVAE.DOM.ChangeFontBoldPreview.style.color = "#7d7d7d";
       } else {
-        CORE.DOM.ChangeFontBoldPreview.parentNode.style.background = "#fff";
-        CORE.DOM.ChangeFontBoldPreview.style.color = "#c7c7c7";
+        NOVAE.DOM.ChangeFontBoldPreview.parentNode.style.background = "#fff";
+        NOVAE.DOM.ChangeFontBoldPreview.style.color = "#c7c7c7";
       }
 
       /** Row */
       if (masterRows[number].FontUnderlined) {
-        CORE.DOM.ChangeFontBoldPreview.parentNode.style.background = hoverColor;
-        CORE.DOM.ChangeFontBoldPreview.style.color = "#7d7d7d";
+        NOVAE.DOM.ChangeFontBoldPreview.parentNode.style.background = hoverColor;
+        NOVAE.DOM.ChangeFontBoldPreview.style.color = "#7d7d7d";
       } else {
-        CORE.DOM.ChangeFontBoldPreview.parentNode.style.background = "#fff";
-        CORE.DOM.ChangeFontBoldPreview.style.color = "#c7c7c7";
+        NOVAE.DOM.ChangeFontBoldPreview.parentNode.style.background = "#fff";
+        NOVAE.DOM.ChangeFontBoldPreview.style.color = "#c7c7c7";
       }
 
     /** Reset the whole menu */
     } else {
       /** Reset cell input */
-      CORE.DOM.CellInput.textContent = "";
+      NOVAE.DOM.CellInput.textContent = "";
       /** Reset font menu */
-      CORE.DOM.ChangeFont.value = "Arial";
+      NOVAE.DOM.ChangeFont.value = "Arial";
       /** Reset font size menu */
-      CORE.DOM.ChangeFontSize.value = 12;
+      NOVAE.DOM.ChangeFontSize.value = 12;
       /** Reset font color menu */
-      CORE.DOM.ChangeFontColor.style.background = "rgba(50, 50, 50, 0.70)";
+      NOVAE.DOM.ChangeFontColor.style.background = "rgba(50, 50, 50, 0.70)";
       /** Reset font bold menu color to default */
-      CORE.DOM.ChangeFontBold.style.background = "rgba(50, 50, 50, 0.70)";
+      NOVAE.DOM.ChangeFontBold.style.background = "rgba(50, 50, 50, 0.70)";
       /** Reset font italic menu color to default */
-      CORE.DOM.ChangeFontItalic.style.background = "rgba(50, 50, 50, 0.70)";
+      NOVAE.DOM.ChangeFontItalic.style.background = "rgba(50, 50, 50, 0.70)";
       /** Reset font underline menu color to default */
-      CORE.DOM.ChangeFontUnderline.style.background = "rgba(50, 50, 50, 0.70)";
+      NOVAE.DOM.ChangeFontUnderline.style.background = "rgba(50, 50, 50, 0.70)";
       /** Reset cell background color to default */
-      CORE.DOM.ChangeCellBackground.style.background = "rgba(50, 50, 50, 0.70)";
+      NOVAE.DOM.ChangeCellBackground.style.background = "rgba(50, 50, 50, 0.70)";
     }
 
   };

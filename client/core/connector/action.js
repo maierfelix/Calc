@@ -20,7 +20,7 @@
    * @method action
    * @static
    */
-  CORE.Connector.prototype.action = function(type, object) {
+  NOVAE.Connector.prototype.action = function(type, object) {
 
     switch (type) {
       case "updateCell":
@@ -45,7 +45,7 @@
    * @method changeSheet
    * @static
    */
-  CORE.Connector.prototype.changeSheet = function(object) {
+  NOVAE.Connector.prototype.changeSheet = function(object) {
 
     if (object && object.sheet) {
       if (typeof object.sheet === "string") {
@@ -61,7 +61,7 @@
    * @method deleteSheet
    * @static
    */
-  CORE.Connector.prototype.deleteSheet = function(object) {
+  NOVAE.Connector.prototype.deleteSheet = function(object) {
 
     if (object && object.sheet) {
       if (typeof object.sheet === "string") {
@@ -77,7 +77,7 @@
    * @method updateCell
    * @static
    */
-  CORE.Connector.prototype.updateScrolling = function(object) {
+  NOVAE.Connector.prototype.updateScrolling = function(object) {
 
     /** Validate data */
     if (object.direction && object.amount && object.position >= 0) {
@@ -94,12 +94,12 @@
    * @method updateCell
    * @static
    */
-  CORE.Connector.prototype.updateCell = function(object) {
+  NOVAE.Connector.prototype.updateCell = function(object) {
 
     /** Validate data */
     if (object.cell && object.value && object.value.length) {
-      object.letter = object.cell.match(CORE.REGEX.numbers).join("");
-      object.sheet = CORE.CurrentSheet;
+      object.letter = object.cell.match(NOVAE.REGEX.numbers).join("");
+      object.sheet = NOVAE.CurrentSheet;
       this.socket.emit("updatecell", object);
     }
 
@@ -111,28 +111,28 @@
    * @method processServerCells
    * @static
    */
-  CORE.Connector.prototype.processServerCells = function(object) {
+  NOVAE.Connector.prototype.processServerCells = function(object) {
 
     var sheets = [];
 
     for (var sheet in object) {
       sheets.push(sheet);
       /** Add new sheet if not existing yet */
-      if (!CORE.Sheets[sheet]) {
-        CORE.Sheets[sheet] = new CORE.Grid();
-        CORE.Sheets.addSheet(sheet);
+      if (!NOVAE.Sheets[sheet]) {
+        NOVAE.Sheets[sheet] = new NOVAE.Grid();
+        NOVAE.Sheets.addSheet(sheet);
       }
       for (var letter in object[sheet].cells) {
         for (var cell in object[sheet].cells[letter]) {
-          if (!CORE.Cells.Used[sheet]) CORE.Cells.Used[sheet] = {};
-          if (!CORE.Cells.Used[sheet][letter]) CORE.Cells.Used[sheet][letter] = {};
-          if (!CORE.Cells.Used[sheet][letter][cell]) CORE.Cells.Used[sheet][letter][cell] = new CORE.Grid.Cell();
+          if (!NOVAE.Cells.Used[sheet]) NOVAE.Cells.Used[sheet] = {};
+          if (!NOVAE.Cells.Used[sheet][letter]) NOVAE.Cells.Used[sheet][letter] = {};
+          if (!NOVAE.Cells.Used[sheet][letter][cell]) NOVAE.Cells.Used[sheet][letter][cell] = new NOVAE.Grid.Cell();
           /** Formula? */
           if (object[sheet].cells[letter][cell][0] === "=") {
-            CORE.Cells.Used[sheet][letter][cell].Formula = object[sheet].cells[letter][cell];
+            NOVAE.Cells.Used[sheet][letter][cell].Formula = object[sheet].cells[letter][cell];
           /** Default content */
           } else {
-            CORE.Cells.Used[sheet][letter][cell].Content = object[sheet].cells[letter][cell];
+            NOVAE.Cells.Used[sheet][letter][cell].Content = object[sheet].cells[letter][cell];
           }
         }
       }
@@ -141,21 +141,21 @@
     /** Received new sheets from the server */
     if (sheets.length) {
       /** Synchronize server sheets with client sheets, delete sheets which doesn't exist on the server */
-      for (var sheet in CORE.Sheets) {
-        if (CORE.Sheets.hasOwnProperty(sheet)) {
+      for (var sheet in NOVAE.Sheets) {
+        if (NOVAE.Sheets.hasOwnProperty(sheet)) {
           if (sheets.indexOf(sheet) >= 0) {
             //
           /** Delete non-server received sheets, and switch to another */
           } else {
-            CORE.Sheets.killSwitchSheet(sheet);
+            NOVAE.Sheets.killSwitchSheet(sheet);
           }
         }
       }
     }
 
     /** Refresh the grid */
-    CORE.Sheets[CORE.CurrentSheet].updateWidth("default");
-    CORE.eval();
+    NOVAE.Sheets[NOVAE.CurrentSheet].updateWidth("default");
+    NOVAE.eval();
 
   };
 
@@ -165,26 +165,26 @@
    * @method processServerCell
    * @static
    */
-  CORE.Connector.prototype.processServerCell = function(object) {
+  NOVAE.Connector.prototype.processServerCell = function(object) {
 
-    if (!CORE.Cells.Used[object.sheet][object.letter]) CORE.Cells.Used[object.sheet][object.letter] = {};
+    if (!NOVAE.Cells.Used[object.sheet][object.letter]) NOVAE.Cells.Used[object.sheet][object.letter] = {};
 
-    if (!CORE.Cells.Used[object.sheet][object.letter][object.cell]) {
-      CORE.Cells.Used[object.sheet][object.letter][object.cell] = new CORE.Grid.Cell();
+    if (!NOVAE.Cells.Used[object.sheet][object.letter][object.cell]) {
+      NOVAE.Cells.Used[object.sheet][object.letter][object.cell] = new NOVAE.Grid.Cell();
     }
 
     if (object.value[0] === "=") {
       /** Only attach cell if it ends with a semicolon */
       if (object.value[object.value.length - 1] === ";") {
-        CORE.Cells.Used[object.sheet][object.letter][object.cell].Formula = object.value;
+        NOVAE.Cells.Used[object.sheet][object.letter][object.cell].Formula = object.value;
       }
     } else {
-      CORE.Cells.Used[object.sheet][object.letter][object.cell].Content = object.value;
+      NOVAE.Cells.Used[object.sheet][object.letter][object.cell].Content = object.value;
     }
 
     /** Refresh the grid */
-    CORE.Sheets[CORE.CurrentSheet].updateWidth("default");
-    CORE.eval();
+    NOVAE.Sheets[NOVAE.CurrentSheet].updateWidth("default");
+    NOVAE.eval();
 
   };
 
@@ -194,9 +194,9 @@
    * @method processServerCell
    * @static
    */
-  CORE.Connector.prototype.processServerScrolling = function(object) {
+  NOVAE.Connector.prototype.processServerScrolling = function(object) {
 
-    if (object && object.sheet === CORE.CurrentSheet) {
+    if (object && object.sheet === NOVAE.CurrentSheet) {
       if (object.direction && typeof object.direction === "string") {
         if (["up", "down", "left", "right"].indexOf(object.direction) >= 0) {
           if (object.amount && typeof object.amount === "number" && object.position && typeof object.position === "number") {
@@ -205,41 +205,41 @@
               /** Up */
               if (object.direction === "up") {
                 /** Dont overscroll top */
-                if ((object.position - 1) - CORE.Settings.Scroll.Vertical <= 0) {
-                  CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY = 0;
-                  CORE.Sheets[CORE.CurrentSheet].Settings.lastScrollY = 0;
-                  CORE.Sheets[CORE.CurrentSheet].updateHeight("default", CORE.Settings.Scroll.Vertical);
+                if ((object.position - 1) - NOVAE.Settings.Scroll.Vertical <= 0) {
+                  NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY = 0;
+                  NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = 0;
+                  NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("default", NOVAE.Settings.Scroll.Vertical);
 
                   /** Animate */
-                  CORE.Event.animateMouseUpMaximum();
+                  NOVAE.Event.animateMouseUpMaximum();
 
                 /** Default up scroll */
                 } else {
-                  CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY = object.position;
-                  CORE.Sheets[CORE.CurrentSheet].Settings.lastScrollY = object.amount;
-                  CORE.Sheets[CORE.CurrentSheet].updateHeight(object.direction, object.amount);
+                  NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY = object.position;
+                  NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = object.amount;
+                  NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight(object.direction, object.amount);
 
                   /** Animate */
-                  CORE.Event.animateMouseUp();
+                  NOVAE.Event.animateMouseUp();
 
                 }
               }
               /** Down */
               else if (object.direction === "down") {
 
-                CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY = object.position;
-                CORE.Sheets[CORE.CurrentSheet].Settings.lastScrollY = object.amount;
-                CORE.Sheets[CORE.CurrentSheet].updateHeight(object.direction, object.amount);
+                NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY = object.position;
+                NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = object.amount;
+                NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight(object.direction, object.amount);
 
                 /** Animate */
-                CORE.Event.animateMouseDown();
+                NOVAE.Event.animateMouseDown();
 
               }
               /** User scrolled up or down, dont redraw */
-              CORE.Sheets[CORE.CurrentSheet].Input.lastAction.scrollY = true;
+              NOVAE.Sheets[NOVAE.CurrentSheet].Input.lastAction.scrollY = true;
               /** Also update the menu and the selection */
-              CORE.Sheets[CORE.CurrentSheet].updateMenu();
-              CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
+              NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
+              NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
             }
           }
         }
@@ -255,17 +255,17 @@
    * @method processServerCell
    * @static
    */
-  CORE.Connector.prototype.processNewSheet = function(object) {
+  NOVAE.Connector.prototype.processNewSheet = function(object) {
 
     /** Validate object */
     if (object.sheet && typeof object.sheet === "string") {
       /** Sheet does not exist here yet */
-      if (!CORE.Sheets[object.sheet]) {
-        CORE.Sheets[object.sheet] = new CORE.Grid();
+      if (!NOVAE.Sheets[object.sheet]) {
+        NOVAE.Sheets[object.sheet] = new NOVAE.Grid();
         /** Make addition real */
-        CORE.Sheets.addSheet(object.sheet);
+        NOVAE.Sheets.addSheet(object.sheet);
       }
-      CORE.Sheets.changeSheet(object.sheet);
+      NOVAE.Sheets.changeSheet(object.sheet);
     }
 
   };
@@ -277,13 +277,13 @@
    * @method processSheetDeletion
    * @static
    */
-  CORE.Connector.prototype.processSheetDeletion = function(object) {
+  NOVAE.Connector.prototype.processSheetDeletion = function(object) {
 
     /** Validate object */
     if (object.sheet && typeof object.sheet === "string") {
       /** Sheet exists */
-      if (CORE.Sheets[object.sheet]) {
-        CORE.Sheets.killSwitchSheet(object.sheet);
+      if (NOVAE.Sheets[object.sheet]) {
+        NOVAE.Sheets.killSwitchSheet(object.sheet);
       }
     }
 

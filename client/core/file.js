@@ -19,9 +19,9 @@
    * @class File
    * @static
    */
-  CORE.File = function() {};
+  NOVAE.File = function() {};
 
-  CORE.File.prototype = CORE.File;
+  NOVAE.File.prototype = NOVAE.File;
 
   /**
    * Collect data
@@ -29,13 +29,13 @@
    * @method getData
    * @static
    */
-  CORE.File.prototype.getData = function() {
+  NOVAE.File.prototype.getData = function() {
 
-    var cellData = '"Cells":' + JSON.stringify(CORE.Cells) + ",";
-    var cellSizes = '"CellSizes":' + JSON.stringify(CORE.Grid.customCellSizes) + ",";
+    var cellData = '"Cells":' + JSON.stringify(NOVAE.Cells) + ",";
+    var cellSizes = '"CellSizes":' + JSON.stringify(NOVAE.Grid.customCellSizes) + ",";
     var cellStack = '"CellStack":' + JSON.stringify(ENGEL.STACK.VAR) + ",";
-    var coreSettings = '"CoreSettings":' + JSON.stringify(CORE.Settings) + ",";
-    var gridSettings = '"GridSettings":' + JSON.stringify(CORE.Grid.Settings);
+    var coreSettings = '"CoreSettings":' + JSON.stringify(NOVAE.Settings) + ",";
+    var gridSettings = '"GridSettings":' + JSON.stringify(NOVAE.Grid.Settings);
 
     return ("{" + cellData + cellSizes + cellStack + coreSettings + gridSettings + "}");
 
@@ -47,24 +47,24 @@
    * @method import
    * @static
    */
-  CORE.File.prototype.import = function() {
+  NOVAE.File.prototype.import = function() {
 
     var data = JSON.parse(JSON.parse(arguments[0]));
 
     /** Update resized cells */
-    CORE.Grid.customCellSizes = data.CellSizes;
+    NOVAE.Grid.customCellSizes = data.CellSizes;
 
     /** Update grid settings */
-    CORE.Grid.Settings = data.GridSettings;
+    NOVAE.Grid.Settings = data.GridSettings;
 
     /** Update used cells */
-    CORE.Cells = data.Cells;
+    NOVAE.Cells = data.Cells;
 
     /** Update variable stack */
     ENGEL.STACK.VAR = data.CellStack;
 
     /** Update everything */
-    CORE.Event.resize();
+    NOVAE.Event.resize();
 
   };
 
@@ -74,7 +74,7 @@
    * @method export
    * @static
    */
-  CORE.File.prototype.export = function() {
+  NOVAE.File.prototype.export = function() {
 
     var a = document.createElement("a");
         document.body.appendChild(a);
@@ -95,16 +95,16 @@
    * @method exportImage
    * @static
    */
-  CORE.File.prototype.exportImage = function() {
+  NOVAE.File.prototype.exportImage = function() {
 
     AJAX.POST(this.getData(), "server/base64ToImage.php", function(response) {
 
       var img = new Image();
           img.src = "server/uploads/" + response;
 
-      CORE.DOM.FileOutput.innerHTML = "";
-      CORE.DOM.FileOutput.appendChild(img);
-      CORE_UI.MODAL.FileImageOutput.$.style.display = "block";
+      NOVAE.DOM.FileOutput.innerHTML = "";
+      NOVAE.DOM.FileOutput.appendChild(img);
+      NOVAE_UI.MODAL.FileImageOutput.$.style.display = "block";
 
     });
 

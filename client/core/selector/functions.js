@@ -19,7 +19,7 @@
    * @method getOuterSelection
    * @static
    */
-  CORE.Selector.prototype.getOuterSelection = function() {
+  NOVAE.Selector.prototype.getOuterSelection = function() {
 
     var first = arguments[0] || this.Selected.First;
     var last  = arguments[1] || this.Selected.Last;
@@ -74,7 +74,7 @@
    * @method drawOuterBorder
    * @static
    */
-  CORE.Selector.prototype.drawOuterBorder = function() {
+  NOVAE.Selector.prototype.drawOuterBorder = function() {
 
     var object = this.getOuterSelection();
 
@@ -84,37 +84,37 @@
 
     /** Top */
     for (var ii = 0; ii < object.top.length; ++ii) {
-      letter = CORE.$.numberToAlpha(object.top[ii].letter);
-      cacheTarget = CORE.Cells.Used[CORE.CurrentSheet][letter][letter + object.top[ii].number];
+      letter = NOVAE.$.numberToAlpha(object.top[ii].letter);
+      cacheTarget = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + object.top[ii].number];
       cacheTarget.Border.used = true;
       cacheTarget.Border.top = true;
     }
 
     /** Bottom */
     for (var ii = 0; ii < object.bottom.length; ++ii) {
-      letter = CORE.$.numberToAlpha(object.bottom[ii].letter);
-      cacheTarget = CORE.Cells.Used[CORE.CurrentSheet][letter][letter + object.bottom[ii].number];
+      letter = NOVAE.$.numberToAlpha(object.bottom[ii].letter);
+      cacheTarget = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + object.bottom[ii].number];
       cacheTarget.Border.used = true;
       cacheTarget.Border.bottom = true;
     }
 
     /** Left */
     for (var ii = 0; ii < object.left.length; ++ii) {
-      letter = CORE.$.numberToAlpha(object.left[ii].letter);
-      cacheTarget = CORE.Cells.Used[CORE.CurrentSheet][letter][letter + object.left[ii].number];
+      letter = NOVAE.$.numberToAlpha(object.left[ii].letter);
+      cacheTarget = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + object.left[ii].number];
       cacheTarget.Border.used = true;
       cacheTarget.Border.left = true;
     }
 
     /** Right */
     for (var ii = 0; ii < object.right.length; ++ii) {
-      letter = CORE.$.numberToAlpha(object.right[ii].letter);
-      cacheTarget = CORE.Cells.Used[CORE.CurrentSheet][letter][letter + object.right[ii].number];
+      letter = NOVAE.$.numberToAlpha(object.right[ii].letter);
+      cacheTarget = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + object.right[ii].number];
       cacheTarget.Border.used = true;
       cacheTarget.Border.right = true;
     }
 
-    CORE.Sheets[CORE.CurrentSheet].updateWidth("default");
+    NOVAE.Sheets[NOVAE.CurrentSheet].updateWidth("default");
 
   };
 
@@ -124,7 +124,7 @@
    * @method drawSelectionOuterBorder
    * @static
    */
-  CORE.Selector.prototype.drawSelectionOuterBorder = function() {
+  NOVAE.Selector.prototype.drawSelectionOuterBorder = function() {
 
     var object = arguments[0] || this.getOuterSelection();
 
@@ -132,33 +132,33 @@
 
     /** Top */
     for (var ii = 0; ii < object.top.length; ++ii) {
-      jumps = CORE.$.getCell(object.top[ii]);
+      jumps = NOVAE.$.getCell(object.top[ii]);
       if (jumps >= 0) {
-        CORE.DOM.CacheArray[jumps].classList.add("border_top");
+        NOVAE.DOM.CacheArray[jumps].classList.add("border_top");
       }
     }
 
     /** Bottom */
     for (var ii = 0; ii < object.bottom.length; ++ii) {
-      jumps = CORE.$.getCell(object.bottom[ii]);
+      jumps = NOVAE.$.getCell(object.bottom[ii]);
       if (jumps >= 0) {
-        CORE.DOM.CacheArray[jumps].classList.add("border_bottom");
+        NOVAE.DOM.CacheArray[jumps].classList.add("border_bottom");
       }
     }
 
     /** Left */
     for (var ii = 0; ii < object.left.length; ++ii) {
-      jumps = CORE.$.getCell(object.left[ii]);
+      jumps = NOVAE.$.getCell(object.left[ii]);
       if (jumps >= 0) {
-        CORE.DOM.CacheArray[jumps].classList.add("border_left");
+        NOVAE.DOM.CacheArray[jumps].classList.add("border_left");
       }
     }
 
     /** Right */
     for (var ii = 0; ii < object.right.length; ++ii) {
-      jumps = CORE.$.getCell(object.right[ii]);
+      jumps = NOVAE.$.getCell(object.right[ii]);
       if (jumps >= 0) {
-        CORE.DOM.CacheArray[jumps].classList.add("border_right");
+        NOVAE.DOM.CacheArray[jumps].classList.add("border_right");
       }
     }
 
@@ -170,22 +170,22 @@
    * @method jump
    * @static
    */
-  CORE.Selector.prototype.jump = function(direction, amount) {
+  NOVAE.Selector.prototype.jump = function(direction, amount) {
 
     switch (direction) {
       case "up":
-        CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY -= amount >= 0 ? (amount - 1) : 0;
+        NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY -= amount >= 0 ? (amount - 1) : 0;
         break;
       case "down":
-        CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY += (amount - 1);
+        NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY += (amount - 1);
         break;
     }
 
-    CORE.Sheets[CORE.CurrentSheet].updateHeight(direction, amount);
-    CORE.Sheets[CORE.CurrentSheet].updateMenu();
+    NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight(direction, amount);
+    NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
     this.getSelection();
     this.selectCellByKeyPress();
-    CORE.Sheets[CORE.CurrentSheet].Input.lastAction.scrollY = true;
+    NOVAE.Sheets[NOVAE.CurrentSheet].Input.lastAction.scrollY = true;
 
   };
 
@@ -195,7 +195,7 @@
    * @method deleteCellSelection
    * @static
    */
-  CORE.Selector.prototype.deleteCellSelection = function() {
+  NOVAE.Selector.prototype.deleteCellSelection = function() {
 
     /** User selected all cells, delete all content */
     if (this.allSelected) {
@@ -212,18 +212,18 @@
 
     for (var ii = 0; ii < selectedCells.length; ++ii) {
 
-      var letter = CORE.$.numberToAlpha(selectedCells[ii].letter);
+      var letter = NOVAE.$.numberToAlpha(selectedCells[ii].letter);
       var number = selectedCells[ii].number;
 
-      if (CORE.Cells.Used[CORE.CurrentSheet][letter]) {
-        if (cell = CORE.Cells.Used[CORE.CurrentSheet][letter][letter + number]) {
-          CORE.Cells.Used[CORE.CurrentSheet][letter][letter + number].Content = "";
+      if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter]) {
+        if (cell = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number]) {
+          NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].Content = "";
         }
       }
 
     }
 
-    CORE.Sheets[CORE.CurrentSheet].updateWidth("default");
+    NOVAE.Sheets[NOVAE.CurrentSheet].updateWidth("default");
 
   };
 
@@ -233,9 +233,9 @@
    * @method deleteAllCellsContent
    * @static
    */
-  CORE.Selector.prototype.deleteAllCellsContent = function() {
+  NOVAE.Selector.prototype.deleteAllCellsContent = function() {
 
-    var cells = CORE.Cells.Used[CORE.CurrentSheet];
+    var cells = NOVAE.Cells.Used[NOVAE.CurrentSheet];
 
     for (var ii in cells) {
       for (var cell in cells[ii]) {
@@ -251,11 +251,11 @@
    * @method deleteMasterSelectionContent
    * @static
    */
-  CORE.Selector.prototype.deleteMasterSelectionContent = function() {
+  NOVAE.Selector.prototype.deleteMasterSelectionContent = function() {
 
     var masterSelected = this.masterSelected.Current;
 
-    var cells = CORE.Cells.Used[CORE.CurrentSheet];
+    var cells = NOVAE.Cells.Used[NOVAE.CurrentSheet];
 
     if (cells[masterSelected]) {
       for (var cell in cells[masterSelected]) {
@@ -271,16 +271,16 @@
    * @method allSelectOuterBorder
    * @static
    */
-  CORE.Selector.prototype.allSelectOuterBorder = function() {
+  NOVAE.Selector.prototype.allSelectOuterBorder = function() {
 
     /** Simulate selection */
     var first = {
-      Letter: CORE.Sheets[CORE.CurrentSheet].Settings.scrolledX || 1,
-      Number: CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY || 1
+      Letter: NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX || 1,
+      Number: NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY || 1
     };
     var last = {
-      Letter: CORE.Sheets[CORE.CurrentSheet].Settings.scrolledX + CORE.Sheets[CORE.CurrentSheet].Settings.x + 1,
-      Number: CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY + CORE.Sheets[CORE.CurrentSheet].Settings.y + 1
+      Letter: NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.x + 1,
+      Number: NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y + 1
     };
 
     var object = this.getOuterSelection(first, last);

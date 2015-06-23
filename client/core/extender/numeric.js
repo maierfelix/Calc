@@ -19,7 +19,7 @@
    * @method extendNumbers
    * @static
    */
-  CORE.Extender.prototype.extendNumbers = function(Cells, extendStack) {
+  NOVAE.Extender.prototype.extendNumbers = function(Cells, extendStack) {
 
     var iterationRate = 0;
 
@@ -37,7 +37,7 @@
     } else if (validateIteration === undefined || validateIteration === null || isNaN(validateIteration)) copy = true;
 
     /** Short syntax */
-    var SelectedCells = CORE.Sheets[CORE.CurrentSheet].Selector.SelectedCells;
+    var SelectedCells = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.SelectedCells;
 
     var startNumber = 0;
 

@@ -19,11 +19,11 @@
    * @method insertColumn
    * @static
    */
-  CORE.Injector.prototype.insertColumn = function() {
+  NOVAE.Injector.prototype.insertColumn = function() {
 
-    var sheet = arguments[0] || CORE.CurrentSheet;
+    var sheet = arguments[0] || NOVAE.CurrentSheet;
 
-    var firstSelectedCell = arguments[1] || CORE.Sheets[sheet].Selector.Selected.First;
+    var firstSelectedCell = arguments[1] || NOVAE.Sheets[sheet].Selector.Selected.First;
 
     /** Process master columns */
     this.insertColumn_MasterColumns(sheet, firstSelectedCell);
@@ -34,12 +34,12 @@
     /** Process cells */
     this.insertColumn_Cells(sheet, firstSelectedCell);
 
-    if (!arguments.length && CORE.Sheets[CORE.CurrentSheet].isMasterSheet()) {
-      CORE.Styler.inheritInjection(CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First, "insertColumn");
+    if (!arguments.length && NOVAE.Sheets[NOVAE.CurrentSheet].isMasterSheet()) {
+      NOVAE.Styler.inheritInjection(NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First, "insertColumn");
     }
 
     /** Push change into undo stack */
-    var command = CORE.newCommand();
+    var command = NOVAE.newCommand();
         command.caller = "Injector";
         command.action = "insertColumn";
         command.data = {
@@ -48,13 +48,13 @@
         };
 
     /** Push command into the commander stack only if arguments[2] isnt true */
-    if (!arguments[2]) CORE.Sheets[sheet].Commander.pushUndoCommand(command, true);
+    if (!arguments[2]) NOVAE.Sheets[sheet].Commander.pushUndoCommand(command, true);
 
     /** Refresh the grid */
-    CORE.Event.redraw(sheet);
+    NOVAE.Event.redraw(sheet);
 
     /** Dont loose selection */
-    CORE.Sheets[sheet].Selector.getSelection();
+    NOVAE.Sheets[sheet].Selector.getSelection();
 
   };
 
@@ -64,10 +64,10 @@
    * @method insertColumn_MasterColumns
    * @static
    */
-  CORE.Injector.prototype.insertColumn_MasterColumns = function(sheet, firstSelected) {
+  NOVAE.Injector.prototype.insertColumn_MasterColumns = function(sheet, firstSelected) {
 
     /** ### Master columns ### */
-    var masterCells = CORE.Sheets[sheet].Selector.masterSelected.Columns;
+    var masterCells = NOVAE.Sheets[sheet].Selector.masterSelected.Columns;
 
     /** Process master cells */
     var customArray = this.getAlphaMasterColumns("insert", sheet, firstSelected);
@@ -92,10 +92,10 @@
    * @method insertColumn_Columns
    * @static
    */
-  CORE.Injector.prototype.insertColumn_Columns = function(sheet, firstSelected) {
+  NOVAE.Injector.prototype.insertColumn_Columns = function(sheet, firstSelected) {
 
     /** ### Resized Columns ### */
-    var customizedCells = CORE.Sheets[sheet].customCellSizes.alphabetical;
+    var customizedCells = NOVAE.Sheets[sheet].customCellSizes.alphabetical;
 
     var customArray = this.getAlphaCustomizedCells("insert", sheet, firstSelected);
 
@@ -119,9 +119,9 @@
    * @method insertColumn_Cells
    * @static
    */
-  CORE.Injector.prototype.insertColumn_Cells = function(sheet, firstSelected) {
+  NOVAE.Injector.prototype.insertColumn_Cells = function(sheet, firstSelected) {
 
-    var usedCells = CORE.Cells.Used[sheet];
+    var usedCells = NOVAE.Cells.Used[sheet];
 
     /** ### Cells ### */
     var customArray = this.getAlphaUsedCells("insert", sheet, firstSelected);
@@ -146,11 +146,11 @@
    * @method insertRow
    * @static
    */
-  CORE.Injector.prototype.insertRow = function() {
+  NOVAE.Injector.prototype.insertRow = function() {
 
-    var sheet = arguments[0] || CORE.CurrentSheet;
+    var sheet = arguments[0] || NOVAE.CurrentSheet;
 
-    var firstSelectedCell = arguments[1] || CORE.Sheets[sheet].Selector.Selected.First;
+    var firstSelectedCell = arguments[1] || NOVAE.Sheets[sheet].Selector.Selected.First;
 
     /** Process master rows */
     this.insertRow_MasterRows(sheet, firstSelectedCell);
@@ -161,12 +161,12 @@
     /** Process cells */
     this.insertRow_Cells(sheet, firstSelectedCell);
 
-    if (!arguments.length && CORE.Sheets[CORE.CurrentSheet].isMasterSheet()) {
-      CORE.Styler.inheritInjection(CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First, "insertRow");
+    if (!arguments.length && NOVAE.Sheets[NOVAE.CurrentSheet].isMasterSheet()) {
+      NOVAE.Styler.inheritInjection(NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First, "insertRow");
     }
 
     /** Push change into undo stack */
-    var command = CORE.newCommand();
+    var command = NOVAE.newCommand();
         command.caller = "Injector";
         command.action = "insertRow";
         command.data = {
@@ -175,13 +175,13 @@
         };
 
     /** Push command into the commander stack only if arguments[2] isnt true */
-    if (!arguments[2]) CORE.Sheets[sheet].Commander.pushUndoCommand(command, true);
+    if (!arguments[2]) NOVAE.Sheets[sheet].Commander.pushUndoCommand(command, true);
 
     /** Refresh the grid */
-    CORE.Event.redraw(sheet);
+    NOVAE.Event.redraw(sheet);
 
     /** Dont loose selection */
-    CORE.Sheets[sheet].Selector.getSelection();
+    NOVAE.Sheets[sheet].Selector.getSelection();
 
   };
 
@@ -191,12 +191,12 @@
    * @method insertRow_MasterRows
    * @static
    */
-  CORE.Injector.prototype.insertRow_MasterRows = function(sheet, firstSelected) {
+  NOVAE.Injector.prototype.insertRow_MasterRows = function(sheet, firstSelected) {
 
     /** Process master cells */
     var customArray = this.getNumericMasterRows("insert", sheet, firstSelected);
 
-    var masterCells = CORE.Sheets[sheet].Selector.masterSelected.Rows;
+    var masterCells = NOVAE.Sheets[sheet].Selector.masterSelected.Rows;
 
     /** Sort array by numbers ascending */
     customArray = customArray.sortOn("old");
@@ -218,9 +218,9 @@
    * @method insertRow_Rows
    * @static
    */
-  CORE.Injector.prototype.insertRow_Rows = function(sheet, firstSelected) {
+  NOVAE.Injector.prototype.insertRow_Rows = function(sheet, firstSelected) {
 
-    var Cells = CORE.Sheets[sheet].customCellSizes.numeric;
+    var Cells = NOVAE.Sheets[sheet].customCellSizes.numeric;
 
     /** ## Cell Section ## */
     var customArray = this.getNumericCustomizedCells("insert", sheet, firstSelected);
@@ -245,9 +245,9 @@
    * @method insertRow_Cells
    * @static
    */
-  CORE.Injector.prototype.insertRow_Cells = function(sheet, firstSelected) {
+  NOVAE.Injector.prototype.insertRow_Cells = function(sheet, firstSelected) {
 
-    var usedCells = CORE.Cells.Used[sheet];
+    var usedCells = NOVAE.Cells.Used[sheet];
 
     /** ## Cell Section ## */
     var customArray = this.getNumericUsedCells("insert", sheet, firstSelected);

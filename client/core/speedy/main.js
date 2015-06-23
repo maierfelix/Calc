@@ -19,10 +19,10 @@
    * @class Speedy
    * @static
    */
-  CORE.Speedy = function() {};
+  NOVAE.Speedy = function() {};
 
-  CORE.Speedy.prototype = CORE.Speedy;
-  CORE.Speedy.prototype.constructor = CORE.Speedy;
+  NOVAE.Speedy.prototype = NOVAE.Speedy;
+  NOVAE.Speedy.prototype.constructor = NOVAE.Speedy;
 
   /**
    * Test the performance of the system
@@ -30,17 +30,17 @@
    * @method runTest
    * @static
    */
-  CORE.Speedy.prototype.runTest = function(callback) {
+  NOVAE.Speedy.prototype.runTest = function(callback) {
 
     /** Dont performe test on mobile devices */
-    if (CORE.Settings.Mobile) {
+    if (NOVAE.Settings.Mobile) {
       callback(1);
       return void 0;
     }
 
     /** Performance test already performed */
     if (localStorage.SystemSpeed) {
-      CORE.SystemSpeed = ~~(localStorage.SystemSpeed);
+      NOVAE.SystemSpeed = ~~(localStorage.SystemSpeed);
       callback(1);
       return void 0;
     }
@@ -49,7 +49,7 @@
 
     var start = performance.now();
 
-    var selectedCells = CORE.Sheets[CORE.CurrentSheet].Selector.SelectedCells;
+    var selectedCells = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.SelectedCells;
 
     /** Calculate speed based on huge array handle time */
     for (var xx = 0; xx < 1e4; ++xx) {
@@ -61,11 +61,11 @@
 
     /** Simulate scrolling */
     for (var ii = 1; ii <= 50; ++ii) {
-      CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY = ii;
-      CORE.Sheets[CORE.CurrentSheet].Settings.lastScrollY = ii;
-      CORE.Sheets[CORE.CurrentSheet].updateHeight("down", 1);
-      CORE.Sheets[CORE.CurrentSheet].updateMenu();
-      CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
+      NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY = ii;
+      NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = ii;
+      NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", 1);
+      NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
+      NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
     }
 
     var end = performance.now();
@@ -92,7 +92,7 @@
     /** Save into localstorage to prevent unnecessary re-executions */
     localStorage.setItem("SystemSpeed", result);
 
-    CORE.SystemSpeed = result;
+    NOVAE.SystemSpeed = result;
 
     callback(1);
 

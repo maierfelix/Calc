@@ -20,6 +20,7 @@ Import.scripts = [
   "lib/eight-bit-color-picker.min.js",
   "lib/socket.io.min.js",
   "style/mui/js/mui.min.js",
+  "lib/acorn.min.js",
   /** Polyfills */
   "core/polyfill.js",
   /** Menu */
@@ -104,14 +105,19 @@ Import.scripts = [
   "core/interpreter/evaluator/main.js",
   "core/interpreter/evaluator/expression.js",
   "core/interpreter/evaluator/function.js",
-  "core/interpreter/type.js"
+  "core/interpreter/type.js",
+  /** Javascript interpreter */
+  "api/spreadsheet.js",
+  "api/interpreter.js",
+  "api/main.js"
 ];
 
 Import.after = function() {
   ENGEL.init();
-  CORE.$.init();
-  CORE_UI.init();
-  CORE.Speedy.runTest(function () {
+  NOVAE.$.init();
+  NOVAE_UI.init();
+  NOVAE_Interpreter();
+  NOVAE.Speedy.runTest(function () {
     /** Add fade out animation, hide element */
     document.querySelector("#loader").classList.add("fadeOut");
     setTimeout( function() { document.querySelector("#loader").style.display = "none"; }, 750);

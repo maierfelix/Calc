@@ -19,7 +19,7 @@
    * @class LiveCell
    * @static
    */
-  CORE.Grid.prototype.LiveCell = function() {
+  NOVAE.Grid.prototype.LiveCell = function() {
 
     /**
      * The url to fetch data from

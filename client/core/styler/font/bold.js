@@ -19,18 +19,18 @@
    * @method fontBold
    * @static
    */
-  CORE.Styler.prototype.fontBold = function() {
+  NOVAE.Styler.prototype.fontBold = function() {
 
     var jumps = 0;
 
     /** Shorter syntax */
-    var masterCell = CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected;
+    var masterCell = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected;
     var currentMaster = masterCell.Current;
-    var selectSheet = CORE.Sheets[CORE.CurrentSheet].Selector;
+    var selectSheet = NOVAE.Sheets[NOVAE.CurrentSheet].Selector;
 
     /** Active master selection */
     if (selectSheet.masterSelected.Current && selectSheet.masterSelected.Current !== null) {
-      if (CORE.Sheets[CORE.CurrentSheet].isMasterSheet()) {
+      if (NOVAE.Sheets[NOVAE.CurrentSheet].isMasterSheet()) {
         this.inheritSheetMasterStyling("FontBold", true, masterCell.Current);
       }
       masterCell = masterCell.Columns[masterCell.Current] || masterCell.Rows[masterCell.Current];
@@ -42,35 +42,35 @@
     }
 
     /** Validate all selected cells */
-    CORE.$.validateCells();
+    NOVAE.$.validateCells();
 
     /** Overwrite used cells styling, if active master selection */
-    if (CORE.Cells.Used[CORE.CurrentSheet][currentMaster]) {
+    if (NOVAE.Cells.Used[NOVAE.CurrentSheet][currentMaster]) {
       selectSheet.inheritMasterStyling(currentMaster, masterCell, "FontBold");
     }
 
     /** Loop through all selected cells */
     for (var ii = 0; ii < selectSheet.SelectedCells.length; ++ii) {
-      var letter = CORE.$.numberToAlpha(selectSheet.SelectedCells[ii].letter);
+      var letter = NOVAE.$.numberToAlpha(selectSheet.SelectedCells[ii].letter);
       var cellName = letter + selectSheet.SelectedCells[ii].number;
       /** User wants to disable bold property by executing again */
-      if (CORE.Cells.Used[CORE.CurrentSheet][letter][cellName].FontBold) {
+      if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].FontBold) {
         /** Update the font bold */
-        CORE.Cells.Used[CORE.CurrentSheet][letter][cellName].FontBold = false;
+        NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].FontBold = false;
         /** Immediately update cells font bold */
-        jumps = CORE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
-        if (jumps >= 0) CORE.DOM.Output.children[jumps].style.fontWeight = "normal";
+        jumps = NOVAE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
+        if (jumps >= 0) NOVAE.DOM.Output.children[jumps].style.fontWeight = "normal";
       } else {
         /** Update the font bold */
-        CORE.Cells.Used[CORE.CurrentSheet][letter][cellName].FontBold = true;
+        NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].FontBold = true;
         /** Immediately update cells font bold */
-        jumps = CORE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
-        if (jumps >= 0) CORE.DOM.Output.children[jumps].style.fontWeight = "bold";
+        jumps = NOVAE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
+        if (jumps >= 0) NOVAE.DOM.Output.children[jumps].style.fontWeight = "bold";
       }
     }
 
     /** Inherit style changes to slave sheets */
-    if (CORE.Sheets[CORE.CurrentSheet].isMasterSheet()) {
+    if (NOVAE.Sheets[NOVAE.CurrentSheet].isMasterSheet()) {
       this.inheritSheetStyling("FontBold", true);
     }
 

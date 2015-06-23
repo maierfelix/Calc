@@ -20,9 +20,9 @@
    * @method reverseSelection
    * @static
    */
-  CORE.Commander.prototype.reverseSelection = function(data) {
+  NOVAE.Commander.prototype.reverseSelection = function(data) {
 
-    CORE.Sheets[CORE.CurrentSheet].Selector.select(data);
+    NOVAE.Sheets[NOVAE.CurrentSheet].Selector.select(data);
 
   };
 
@@ -34,7 +34,7 @@
    * @method reverseInsertion
    * @static
    */
-  CORE.Commander.prototype.reverseInsertion = function(data, mode) {
+  NOVAE.Commander.prototype.reverseInsertion = function(data, mode) {
 
     var sheet = data.data.sheet;
 
@@ -46,21 +46,21 @@
     if (!mode) {
       switch (action) {
         case "insertColumn":
-          CORE.Injector["deleteColumn"](sheet, selection, true);
+          NOVAE.Injector["deleteColumn"](sheet, selection, true);
           break;
         case "deleteColumn":
-          CORE.Injector["insertColumn"](sheet, selection, true);
+          NOVAE.Injector["insertColumn"](sheet, selection, true);
           break;
         case "insertRow":
-          CORE.Injector["deleteRow"](sheet, selection, true);
+          NOVAE.Injector["deleteRow"](sheet, selection, true);
           break;
         case "deleteRow":
-          CORE.Injector["insertRow"](sheet, selection, true);
+          NOVAE.Injector["insertRow"](sheet, selection, true);
           break;
       }
     /** Not reversed */
     } else {
-      if (CORE.Injector[action]) CORE.Injector[action](sheet, selection, true);
+      if (NOVAE.Injector[action]) NOVAE.Injector[action](sheet, selection, true);
     }
 
   };
@@ -72,9 +72,9 @@
    * @method reverseResize
    * @static
    */
-  CORE.Commander.prototype.reverseResize = function(data) {
+  NOVAE.Commander.prototype.reverseResize = function(data) {
 
-    var cellSizes = CORE.Sheets[CORE.CurrentSheet].customCellSizes;
+    var cellSizes = NOVAE.Sheets[NOVAE.CurrentSheet].customCellSizes;
 
     var resizeType = isNaN(parseInt(data.name)) ? "alphabetical" : "numeric";
 
@@ -86,8 +86,8 @@
       }
     }
 
-    CORE.Sheets[CORE.CurrentSheet].updateMenu();
-    CORE.Sheets[CORE.CurrentSheet].updateWidth("default");
+    NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
+    NOVAE.Sheets[NOVAE.CurrentSheet].updateWidth("default");
 
   };
 
@@ -99,16 +99,16 @@
    * @method reverseBackgroundStyling
    * @static
    */
-  CORE.Commander.prototype.reverseBackgroundStyling = function(data, mode) {
+  NOVAE.Commander.prototype.reverseBackgroundStyling = function(data, mode) {
 
     var color = null;
 
     if (mode) color = data.newColor || null;
     else color = data.oldColor || null;
 
-    var selectedCells = CORE.$.coordToSelection(data.range.first, data.range.last);
+    var selectedCells = NOVAE.$.coordToSelection(data.range.first, data.range.last);
 
-    CORE.Styler.appendBackgroundStyle(color, selectedCells);
+    NOVAE.Styler.appendBackgroundStyle(color, selectedCells);
 
     this.executeCommand(data, mode);
 

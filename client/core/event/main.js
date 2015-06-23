@@ -14,7 +14,7 @@
 "use strict";
 
   /** Create Event Object */
-  CORE.Event = {};
+  NOVAE.Event = {};
 
   /**
    * Initialize event listeners
@@ -22,39 +22,39 @@
    * @method init
    * @static
    */
-  CORE.Event.init = function() {
+  NOVAE.Event.init = function() {
 
     /** Mobile platform */
-    if (CORE.Settings.Mobile) {
+    if (NOVAE.Settings.Mobile) {
 
-      window.addEventListener("resize", CORE.Event.resize, false);
+      window.addEventListener("resize", NOVAE.Event.resize, false);
 
-      window.addEventListener("touchstart", CORE.Event.mouseDown, false);
+      window.addEventListener("touchstart", NOVAE.Event.mouseDown, false);
 
-      window.addEventListener("touchend", CORE.Event.mouseUp, false);
-      window.addEventListener("touchcancel", CORE.Event.mouseUp, false);
+      window.addEventListener("touchend", NOVAE.Event.mouseUp, false);
+      window.addEventListener("touchcancel", NOVAE.Event.mouseUp, false);
 
-      window.addEventListener("touchmove", CORE.Event.scroll, false);
+      window.addEventListener("touchmove", NOVAE.Event.scroll, false);
 
-      window.addEventListener("keydown", CORE.Event.keyPress, false);
+      window.addEventListener("keydown", NOVAE.Event.keyPress, false);
 
     /** Desktop */
     } else {
 
-      window.addEventListener("resize", CORE.Event.resize, false);
+      window.addEventListener("resize", NOVAE.Event.resize, false);
 
-      window.addEventListener("mousedown", CORE.Event.mouseDown, false);
+      window.addEventListener("mousedown", NOVAE.Event.mouseDown, false);
 
-      window.addEventListener("mouseup", CORE.Event.mouseUp, false);
+      window.addEventListener("mouseup", NOVAE.Event.mouseUp, false);
 
-      window.addEventListener("mousemove", CORE.Event.mouseWipe, false);
+      window.addEventListener("mousemove", NOVAE.Event.mouseWipe, false);
 
-      window.addEventListener("mousewheel", CORE.Event.scroll, false);
-      window.addEventListener("DOMMouseScroll", CORE.Event.scroll, false);
+      window.addEventListener("mousewheel", NOVAE.Event.scroll, false);
+      window.addEventListener("DOMMouseScroll", NOVAE.Event.scroll, false);
 
-      window.addEventListener("keydown", CORE.Event.keyPress, false);
+      window.addEventListener("keydown", NOVAE.Event.keyPress, false);
 
-      window.addEventListener("keyup", CORE.Event.keyUp, false);
+      window.addEventListener("keyup", NOVAE.Event.keyUp, false);
 
     }
 
@@ -66,31 +66,31 @@
    * @method resize
    * @static
    */
-  CORE.Event.resize = function () {
+  NOVAE.Event.resize = function () {
 
-    CORE.Settings.Width = window.innerWidth;
+    NOVAE.Settings.Width = window.innerWidth;
 
-    CORE.Settings.Height = window.innerHeight;
+    NOVAE.Settings.Height = window.innerHeight;
 
-    CORE.Settings.Scroll.OriginalVertical = CORE.Settings.Scroll.Vertical = CORE.$.calculateScrollAmount();
+    NOVAE.Settings.Scroll.OriginalVertical = NOVAE.Settings.Scroll.Vertical = NOVAE.$.calculateScrollAmount();
 
-    CORE.Sheets[CORE.CurrentSheet].Input.lastAction.scrollY = false;
+    NOVAE.Sheets[NOVAE.CurrentSheet].Input.lastAction.scrollY = false;
 
-    CORE.Sheets[CORE.CurrentSheet].calculateGrid();
+    NOVAE.Sheets[NOVAE.CurrentSheet].calculateGrid();
 
-    CORE.Sheets[CORE.CurrentSheet].generateCells();
+    NOVAE.Sheets[NOVAE.CurrentSheet].generateCells();
 
-    CORE.Sheets[CORE.CurrentSheet].updateWidth("default");
+    NOVAE.Sheets[NOVAE.CurrentSheet].updateWidth("default");
 
-    CORE.Sheets[CORE.CurrentSheet].Selector.getSelection();
+    NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
 
-    CORE.Awakener.reset();
+    NOVAE.Awakener.reset();
 
-    CORE.Awakener.evalLive();
+    NOVAE.Awakener.evalLive();
 
-    CORE.eval();
+    NOVAE.eval();
 
-    CORE.Sheets[CORE.CurrentSheet].Input.Keyboard.Strg = false;
+    NOVAE.Sheets[NOVAE.CurrentSheet].Input.Keyboard.Strg = false;
 
   };
 
@@ -100,20 +100,20 @@
    * @method redraw
    * @static
    */
-  CORE.Event.redraw = function() {
+  NOVAE.Event.redraw = function() {
 
-    var sheet = arguments[0] || CORE.CurrentSheet;
+    var sheet = arguments[0] || NOVAE.CurrentSheet;
 
-    CORE.Sheets[sheet].Settings.redrawOnZero = false;
+    NOVAE.Sheets[sheet].Settings.redrawOnZero = false;
 
-    CORE.Sheets[sheet].Input.lastAction.scrollY = false;
+    NOVAE.Sheets[sheet].Input.lastAction.scrollY = false;
 
-    CORE.Sheets[sheet].calculateGrid();
+    NOVAE.Sheets[sheet].calculateGrid();
 
-    CORE.Sheets[sheet].generateCells();
+    NOVAE.Sheets[sheet].generateCells();
 
-    CORE.Sheets[sheet].updateWidth("default");
+    NOVAE.Sheets[sheet].updateWidth("default");
 
-    CORE.Sheets[sheet].Selector.getSelection();
+    NOVAE.Sheets[sheet].Selector.getSelection();
 
   };

@@ -19,14 +19,14 @@
    * @method getInheritSheets
    * @static
    */
-  CORE.Styler.prototype.getSlaveSheets = function() {
+  NOVAE.Styler.prototype.getSlaveSheets = function() {
 
     var inheritSheets = [];
 
     /** Collect all slave sheets */
-    for (var sheet in CORE.Sheets) {
-      if (CORE.Sheets.hasOwnProperty(sheet)) {
-        if (!CORE.Sheets[sheet].isMasterSheet()) {
+    for (var sheet in NOVAE.Sheets) {
+      if (NOVAE.Sheets.hasOwnProperty(sheet)) {
+        if (!NOVAE.Sheets[sheet].isMasterSheet()) {
           inheritSheets.push(sheet);
         }
       }
@@ -42,35 +42,35 @@
    * @method inheritSheetStyling
    * @static
    */
-  CORE.Styler.prototype.inheritSheetStyling = function(type, data) {
+  NOVAE.Styler.prototype.inheritSheetStyling = function(type, data) {
 
     var dataType = typeof data;
 
-    var selectedCells = CORE.Sheets[CORE.CurrentSheet].Selector.SelectedCells;
+    var selectedCells = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.SelectedCells;
 
     /** Sheets to inherit */
     var inheritSheets = this.getSlaveSheets();
 
     for (var ii = 0; ii < inheritSheets.length; ++ii) {
-      if (!CORE.Cells.Used[inheritSheets[ii]]) {
-        CORE.Cells.Used[inheritSheets[ii]] = {};
+      if (!NOVAE.Cells.Used[inheritSheets[ii]]) {
+        NOVAE.Cells.Used[inheritSheets[ii]] = {};
       }
       for (var kk = 0; kk < selectedCells.length; ++kk) {
-        var letter = CORE.$.numberToAlpha(selectedCells[kk].letter);
+        var letter = NOVAE.$.numberToAlpha(selectedCells[kk].letter);
         var number = selectedCells[kk].number;
         /** Register the styled cells from the master sheet to all slave sheets */
-        CORE.$.registerCell({ letter: letter, number: number, sheet: inheritSheets[ii] });
+        NOVAE.$.registerCell({ letter: letter, number: number, sheet: inheritSheets[ii] });
         /** Reverse if data is a boolean */
         if (dataType === "boolean") {
           /** Reverse boolean */
-          if (CORE.Cells.Used[inheritSheets[ii]][letter][letter + number][type]) {
-            CORE.Cells.Used[inheritSheets[ii]][letter][letter + number][type] = false;
+          if (NOVAE.Cells.Used[inheritSheets[ii]][letter][letter + number][type]) {
+            NOVAE.Cells.Used[inheritSheets[ii]][letter][letter + number][type] = false;
           } else {
-            CORE.Cells.Used[inheritSheets[ii]][letter][letter + number][type] = true;
+            NOVAE.Cells.Used[inheritSheets[ii]][letter][letter + number][type] = true;
           }
         } else {
           /** Update slave sheets cells */
-          CORE.Cells.Used[inheritSheets[ii]][letter][letter + number][type] = data;
+          NOVAE.Cells.Used[inheritSheets[ii]][letter][letter + number][type] = data;
         }
       }
     }
@@ -83,11 +83,11 @@
    * @method inheritSheetMasterStyling
    * @static
    */
-  CORE.Styler.prototype.inheritSheetMasterStyling = function(type, data, current) {
+  NOVAE.Styler.prototype.inheritSheetMasterStyling = function(type, data, current) {
 
     var dataType = typeof data;
 
-    var selectedCells = CORE.Sheets[CORE.CurrentSheet].Selector.SelectedCells;
+    var selectedCells = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.SelectedCells;
 
     /** Sheets to inherit */
     var inheritSheets = this.getSlaveSheets();
@@ -97,10 +97,10 @@
     for (var ii = 0; ii < inheritSheets.length; ++ii) {
 
       /** Short syntax */
-      var masterSelected = CORE.Sheets[inheritSheets[ii]].Selector.masterSelected;
+      var masterSelected = NOVAE.Sheets[inheritSheets[ii]].Selector.masterSelected;
 
       if (!masterSelected[masterStyleType][current]) {
-        masterSelected[masterStyleType][current] = new CORE.Grid.Cell();
+        masterSelected[masterStyleType][current] = new NOVAE.Grid.Cell();
       }
 
       /** Reverse if data is a boolean */
@@ -125,7 +125,7 @@
    * @method inheritCellValue
    * @static
    */
-  CORE.Styler.prototype.inheritCellValue = function(object) {
+  NOVAE.Styler.prototype.inheritCellValue = function(object) {
 
     /** Sheets to inherit */
     var inheritSheets = this.getSlaveSheets();
@@ -135,13 +135,13 @@
     var property = object.type;
 
     for (var ii = 0; ii < inheritSheets.length; ++ii) {
-      if (!CORE.Cells.Used[inheritSheets[ii]]) {
-        CORE.Cells.Used[inheritSheets[ii]] = {};
+      if (!NOVAE.Cells.Used[inheritSheets[ii]]) {
+        NOVAE.Cells.Used[inheritSheets[ii]] = {};
       }
       /** Register the styled cells from the master sheet to all slave sheets */
-      CORE.$.registerCell({ letter: letter, number: number, sheet: inheritSheets[ii] });
+      NOVAE.$.registerCell({ letter: letter, number: number, sheet: inheritSheets[ii] });
       /** Update slave sheets cells */
-      CORE.Cells.Used[inheritSheets[ii]][letter][letter + number][object.type] = object.value;
+      NOVAE.Cells.Used[inheritSheets[ii]][letter][letter + number][object.type] = object.value;
     }
 
   };
@@ -152,15 +152,15 @@
    * @method inheritInjection
    * @static
    */
-  CORE.Styler.prototype.inheritInjection = function(select, type) {
+  NOVAE.Styler.prototype.inheritInjection = function(select, type) {
 
-    var currentSheet = CORE.Sheets[CORE.CurrentSheet];
+    var currentSheet = NOVAE.Sheets[NOVAE.CurrentSheet];
 
     /** Sheets to inherit */
     var inheritSheets = this.getSlaveSheets();
 
     for (var ii = 0; ii < inheritSheets.length; ++ii) {
-      CORE.Injector[type](inheritSheets[ii], currentSheet.Selector.Selected.First);
+      NOVAE.Injector[type](inheritSheets[ii], currentSheet.Selector.Selected.First);
     }
 
   };
@@ -171,7 +171,7 @@
    * @method inheritResize
    * @static
    */
-  CORE.Styler.prototype.inheritResize = function(cell, amount) {
+  NOVAE.Styler.prototype.inheritResize = function(cell, amount) {
 
     var resizeType = isNaN(parseInt(cell)) ? "alphabetical" : "numeric";
 
@@ -181,30 +181,30 @@
     /** Column resize */
     if (resizeType === "alphabetical") {
       for (var ii = 0; ii < inheritSheets.length; ++ii) {
-        if (!CORE.Sheets[inheritSheets[ii]].customCellSizes[resizeType][cell]) {
-          CORE.Sheets[inheritSheets[ii]].customCellSizes[resizeType][cell] = {
+        if (!NOVAE.Sheets[inheritSheets[ii]].customCellSizes[resizeType][cell]) {
+          NOVAE.Sheets[inheritSheets[ii]].customCellSizes[resizeType][cell] = {
             Width: 0,
             Height: 0
           };
         }
-        CORE.Sheets[inheritSheets[ii]].customCellSizes[resizeType][cell].Width = amount;
-        CORE.Sheets[inheritSheets[ii]].Settings.cellResizedX = amount;
-        CORE.Sheets[inheritSheets[ii]].Input.lastAction.scrollY = false;
-        CORE.Sheets[inheritSheets[ii]].Input.Mouse.CellResize = true;
+        NOVAE.Sheets[inheritSheets[ii]].customCellSizes[resizeType][cell].Width = amount;
+        NOVAE.Sheets[inheritSheets[ii]].Settings.cellResizedX = amount;
+        NOVAE.Sheets[inheritSheets[ii]].Input.lastAction.scrollY = false;
+        NOVAE.Sheets[inheritSheets[ii]].Input.Mouse.CellResize = true;
       }
     /** Row resize */
     } else {
       for (var ii = 0; ii < inheritSheets.length; ++ii) {
-        if (!CORE.Sheets[inheritSheets[ii]].customCellSizes[resizeType][cell]) {
-          CORE.Sheets[inheritSheets[ii]].customCellSizes[resizeType][cell] = {
+        if (!NOVAE.Sheets[inheritSheets[ii]].customCellSizes[resizeType][cell]) {
+          NOVAE.Sheets[inheritSheets[ii]].customCellSizes[resizeType][cell] = {
             Width: 0,
             Height: 0
           };
         }
-        CORE.Sheets[inheritSheets[ii]].customCellSizes[resizeType][cell].Height = amount;
-        CORE.Sheets[inheritSheets[ii]].Settings.cellResizedY = amount;
-        CORE.Sheets[inheritSheets[ii]].customCellSizes.array.push(parseInt(cell));
-        CORE.Sheets[inheritSheets[ii]].Input.Mouse.CellResize = true;
+        NOVAE.Sheets[inheritSheets[ii]].customCellSizes[resizeType][cell].Height = amount;
+        NOVAE.Sheets[inheritSheets[ii]].Settings.cellResizedY = amount;
+        NOVAE.Sheets[inheritSheets[ii]].customCellSizes.array.push(parseInt(cell));
+        NOVAE.Sheets[inheritSheets[ii]].Input.Mouse.CellResize = true;
       }
     }
 
@@ -216,7 +216,7 @@
    * @method inheritPasteCells
    * @static
    */
-  CORE.Styler.prototype.inheritPasteCells = function(position, cells) {
+  NOVAE.Styler.prototype.inheritPasteCells = function(position, cells) {
 
     /** Sheets to inherit */
     var inheritSheets = this.getSlaveSheets();
@@ -242,10 +242,10 @@
         lastRow = cells[ii].number;
         cells[ii].letter = cells[ii].letter + startColumn - cells[ii].letter + letterPadding;
         cells[ii].number = cells[ii].number + startNumber - cells[ii].number + numberPadding;
-        var letter = CORE.$.numberToAlpha(cells[ii].letter);
+        var letter = NOVAE.$.numberToAlpha(cells[ii].letter);
         var number = cells[ii].number;
-        CORE.$.registerCell({letter: letter, number: number, sheet: inheritSheets[sheet]});
-        CORE.Cells.Used[inheritSheets[sheet]][letter][letter + number].Content = cells[ii].value;
+        NOVAE.$.registerCell({letter: letter, number: number, sheet: inheritSheets[sheet]});
+        NOVAE.Cells.Used[inheritSheets[sheet]][letter][letter + number].Content = cells[ii].value;
       }
 
     }

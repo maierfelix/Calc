@@ -19,18 +19,18 @@
    * @method fontUnderline
    * @static
    */
-  CORE.Styler.prototype.fontUnderline = function() {
+  NOVAE.Styler.prototype.fontUnderline = function() {
 
     var jumps = 0;
 
     /** Shorter syntax */
-    var masterCell = CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected;
+    var masterCell = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected;
     var currentMaster = masterCell.Current;
-    var selectSheet = CORE.Sheets[CORE.CurrentSheet].Selector;
+    var selectSheet = NOVAE.Sheets[NOVAE.CurrentSheet].Selector;
 
     /** Active master selection */
     if (selectSheet.masterSelected.Current && selectSheet.masterSelected.Current !== null) {
-      if (CORE.Sheets[CORE.CurrentSheet].isMasterSheet()) {
+      if (NOVAE.Sheets[NOVAE.CurrentSheet].isMasterSheet()) {
         this.inheritSheetMasterStyling("FontUnderlined", true, masterCell.Current);
       }
       masterCell = masterCell.Columns[masterCell.Current] || masterCell.Rows[masterCell.Current];
@@ -42,35 +42,35 @@
     }
 
     /** Validate all selected cells */
-    CORE.$.validateCells();
+    NOVAE.$.validateCells();
 
     /** Overwrite used cells styling, if active master selection */
-    if (CORE.Cells.Used[CORE.CurrentSheet][currentMaster]) {
+    if (NOVAE.Cells.Used[NOVAE.CurrentSheet][currentMaster]) {
       selectSheet.inheritMasterStyling(currentMaster, masterCell, "FontUnderlined");
     }
 
     /** Loop through all selected cells */
     for (var ii = 0; ii < selectSheet.SelectedCells.length; ++ii) {
-      var letter = CORE.$.numberToAlpha(selectSheet.SelectedCells[ii].letter);
+      var letter = NOVAE.$.numberToAlpha(selectSheet.SelectedCells[ii].letter);
       var cellName = letter + selectSheet.SelectedCells[ii].number;
       /** User wants to disable underlined property by executing again */
-      if (CORE.Cells.Used[CORE.CurrentSheet][letter][cellName].FontUnderlined) {
+      if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].FontUnderlined) {
         /** Update the font underlined */
-        CORE.Cells.Used[CORE.CurrentSheet][letter][cellName].FontUnderlined = false;
+        NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].FontUnderlined = false;
         /** Immediately update cells font underlined */
-        jumps = CORE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
-        if (jumps >= 0) CORE.DOM.Output.children[jumps].style.textDecoration = "none";
+        jumps = NOVAE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
+        if (jumps >= 0) NOVAE.DOM.Output.children[jumps].style.textDecoration = "none";
       } else {
         /** Update the font underlined */
-        CORE.Cells.Used[CORE.CurrentSheet][letter][cellName].FontUnderlined = true;
+        NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].FontUnderlined = true;
         /** Immediately update cells font underlined */
-        jumps = CORE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
-        if (jumps >= 0) CORE.DOM.Output.children[jumps].style.textDecoration = "underline";
+        jumps = NOVAE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
+        if (jumps >= 0) NOVAE.DOM.Output.children[jumps].style.textDecoration = "underline";
       }
     }
 
     /** Inherit style changes to slave sheets */
-    if (CORE.Sheets[CORE.CurrentSheet].isMasterSheet()) {
+    if (NOVAE.Sheets[NOVAE.CurrentSheet].isMasterSheet()) {
       this.inheritSheetStyling("FontUnderlined", true);
     }
 

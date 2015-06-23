@@ -19,10 +19,10 @@
    * @class Extender
    * @static
    */
-  CORE.Extender = function() {};
+  NOVAE.Extender = function() {};
 
-  CORE.Extender.prototype = CORE.Extender;
-  CORE.Extender.prototype.constructor = CORE.Extender;
+  NOVAE.Extender.prototype = NOVAE.Extender;
+  NOVAE.Extender.prototype.constructor = NOVAE.Extender;
 
   /**
    * Extend selected cells
@@ -30,10 +30,10 @@
    * @method extend
    * @static
    */
-  CORE.Extender.prototype.extend = function() {
+  NOVAE.Extender.prototype.extend = function() {
 
     /** Short syntax */
-    var SelectedCells = CORE.Sheets[CORE.CurrentSheet].Selector.SelectedCells;
+    var SelectedCells = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.SelectedCells;
 
     var Cells = [];
 
@@ -48,11 +48,11 @@
     /** Go through all selected cells */
     for (var ii = 0; ii < SelectedCells.length; ++ii) {
 
-      var letter = CORE.$.numberToAlpha(SelectedCells[ii].letter);
+      var letter = NOVAE.$.numberToAlpha(SelectedCells[ii].letter);
       var number = SelectedCells[ii].number;
 
       /** Direct cell pointer */
-      var cell = CORE.Cells.Used[CORE.CurrentSheet][letter];
+      var cell = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter];
 
       /** Column doesnt exist yet */
       if (!Columns[letter]) Columns[letter] = {
@@ -115,18 +115,18 @@
    * @method extendButton
    * @static
    */
-  CORE.Extender.prototype.extendButton = function() {
+  NOVAE.Extender.prototype.extendButton = function() {
 
     var self = this;
 
     var extendButton = document.createElement("button");
       extendButton.className = "extendButton";
-      extendButton.addEventListener(CORE.Events.mouseDown, function(e) {
+      extendButton.addEventListener(NOVAE.Events.mouseDown, function(e) {
         /** User started to extend */
-        CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Extend = true;
+        NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.Extend = true;
       });
 
-      extendButton.addEventListener(CORE.Events.mouseMove, function(e) {
+      extendButton.addEventListener(NOVAE.Events.mouseMove, function(e) {
         e.target.style.cursor = "crosshair";
       });
 
@@ -140,16 +140,16 @@
    * @method updateCells
    * @static
    */
-  CORE.Extender.prototype.updateCells = function(Cells) {
+  NOVAE.Extender.prototype.updateCells = function(Cells) {
 
     for (var ii = 0; ii < Cells.length; ++ii) {
-      var letter = CORE.$.numberToAlpha(Cells[ii].letter);
+      var letter = NOVAE.$.numberToAlpha(Cells[ii].letter);
       var number = Cells[ii].number;
-      if (CORE.Cells.Used[CORE.CurrentSheet][letter]) {
-        if (!CORE.Cells.Used[CORE.CurrentSheet][letter][letter + number]) {
-          CORE.$.registerCell({letter: letter, number: number});
+      if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter]) {
+        if (!NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number]) {
+          NOVAE.$.registerCell({letter: letter, number: number});
         }
-        CORE.Cells.Used[CORE.CurrentSheet][letter][letter + number].Content = Cells[ii].value;
+        NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].Content = Cells[ii].value;
       }
     }
 

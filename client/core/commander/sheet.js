@@ -19,7 +19,7 @@
    * @method sheetAction
    * @static
    */
-  CORE.Commander.prototype.sheetAction = function(caller, action, data) {
+  NOVAE.Commander.prototype.sheetAction = function(caller, action, data) {
 
     console.log(caller, action, data);
 

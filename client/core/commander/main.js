@@ -19,7 +19,7 @@
    * @class Commander
    * @static
    */
-  CORE.Commander = function() {
+  NOVAE.Commander = function() {
 
     this.Stack = {
       /** Save DO commands */
@@ -41,8 +41,8 @@
 
   };
 
-  CORE.Commander.prototype = CORE.Commander;
-  CORE.Commander.prototype.constructor = CORE.Commander;
+  NOVAE.Commander.prototype = NOVAE.Commander;
+  NOVAE.Commander.prototype.constructor = NOVAE.Commander;
 
   /**
    * Redo
@@ -50,7 +50,7 @@
    * @method redo
    * @static
    */
-  CORE.Commander.prototype.redo = function() {
+  NOVAE.Commander.prototype.redo = function() {
 
     /** Limited undo stack size.. */
     if ( (this.Stack.redoCommands.length + 1) >= this.Settings.maxRedo ) {
@@ -76,7 +76,7 @@
    * @method undo
    * @static
    */
-  CORE.Commander.prototype.undo = function() {
+  NOVAE.Commander.prototype.undo = function() {
 
     /** Limited undo stack size.. */
     if ( (this.Stack.undoCommands.length + 1) >= this.Settings.maxUndo ) {
@@ -104,7 +104,7 @@
    * @method pushRedoCommand
    * @static
    */
-  CORE.Commander.prototype.pushRedoCommand = function(cmd, strict) {
+  NOVAE.Commander.prototype.pushRedoCommand = function(cmd, strict) {
 
     /** Clean redo stack if user was in redo pipeline */
     if (strict) this.breakUndoPipeline();
@@ -121,7 +121,7 @@
    * @method pushUndoCommand
    * @static
    */
-  CORE.Commander.prototype.pushUndoCommand = function(cmd, strict) {
+  NOVAE.Commander.prototype.pushUndoCommand = function(cmd, strict) {
 
     /** Clean redo stack if user was in undo pipeline */
     if (strict) this.breakRedoPipeline();
@@ -137,7 +137,7 @@
    * @return {object} [Command]
    * @static
    */
-  CORE.Commander.prototype.lastRedoCommand = function() {
+  NOVAE.Commander.prototype.lastRedoCommand = function() {
 
     if (this.Stack.redoCommands.length) {
       return (this.Stack.redoCommands.pop());
@@ -154,7 +154,7 @@
    * @return {object} [Command]
    * @static
    */
-  CORE.Commander.prototype.lastUndoCommand = function() {
+  NOVAE.Commander.prototype.lastUndoCommand = function() {
 
     if (this.Stack.undoCommands.length) {
       return (this.Stack.undoCommands.pop());
@@ -171,7 +171,7 @@
    * @return {boolean}
    * @static
    */
-  CORE.Commander.prototype.breakRedoPipeline = function() {
+  NOVAE.Commander.prototype.breakRedoPipeline = function() {
 
     /** Clean redo stack */
     if (this.Stack.redoCommands.length) {
@@ -190,7 +190,7 @@
    * @return {boolean}
    * @static
    */
-  CORE.Commander.prototype.breakUndoPipeline = function() {
+  NOVAE.Commander.prototype.breakUndoPipeline = function() {
 
     /** Clean undo stack */
     if (this.Stack.undoCommands.length) {
@@ -210,7 +210,7 @@
    * @method executeCommand
    * @static
    */
-  CORE.Commander.prototype.executeCommand = function(cmd, mode) {
+  NOVAE.Commander.prototype.executeCommand = function(cmd, mode) {
 
     /** Nothing to undo */
     if (!cmd) return void 0;
@@ -250,7 +250,7 @@
    * @return {object} Undo stack command
    * @static
    */
-  CORE.Commander.prototype.getEarlierCommand = function(jump, caller, action) {
+  NOVAE.Commander.prototype.getEarlierCommand = function(jump, caller, action) {
 
     var jumps = jump;
 

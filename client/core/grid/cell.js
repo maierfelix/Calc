@@ -19,7 +19,7 @@
    * @class Cell
    * @static
    */
-  CORE.Grid.prototype.Cell = function() {
+  NOVAE.Grid.prototype.Cell = function() {
 
     /**
      * Cell has a custom font color
@@ -120,4 +120,4 @@
 
   };
 
-  CORE.Grid.prototype.Cell = CORE.Grid.Cell;
+  NOVAE.Grid.prototype.Cell = NOVAE.Grid.Cell;

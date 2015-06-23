@@ -14,7 +14,7 @@
 "use strict";
 
   /** Initialize the cell style menu */
-  CORE_UI.Modal = function(title, content, resolve) {
+  NOVAE_UI.Modal = function(title, content, resolve) {
 
     var parsedTitle = null;
     var parsedContent = null;

@@ -19,18 +19,18 @@
    * @method fontItalic
    * @static
    */
-  CORE.Styler.prototype.fontItalic = function() {
+  NOVAE.Styler.prototype.fontItalic = function() {
 
     var jumps = 0;
 
     /** Shorter syntax */
-    var masterCell = CORE.Sheets[CORE.CurrentSheet].Selector.masterSelected;
+    var masterCell = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected;
     var currentMaster = masterCell.Current;
-    var selectSheet = CORE.Sheets[CORE.CurrentSheet].Selector;
+    var selectSheet = NOVAE.Sheets[NOVAE.CurrentSheet].Selector;
 
     /** Active master selection */
     if (selectSheet.masterSelected.Current && selectSheet.masterSelected.Current !== null) {
-      if (CORE.Sheets[CORE.CurrentSheet].isMasterSheet()) {
+      if (NOVAE.Sheets[NOVAE.CurrentSheet].isMasterSheet()) {
         this.inheritSheetMasterStyling("FontItalic", true, masterCell.Current);
       }
       masterCell = masterCell.Columns[masterCell.Current] || masterCell.Rows[masterCell.Current];
@@ -42,35 +42,35 @@
     }
 
     /** Validate all selected cells */
-    CORE.$.validateCells();
+    NOVAE.$.validateCells();
 
     /** Overwrite used cells styling, if active master selection */
-    if (CORE.Cells.Used[CORE.CurrentSheet][currentMaster]) {
+    if (NOVAE.Cells.Used[NOVAE.CurrentSheet][currentMaster]) {
       selectSheet.inheritMasterStyling(currentMaster, masterCell, "FontItalic");
     }
 
     /** Loop through all selected cells */
     for (var ii = 0; ii < selectSheet.SelectedCells.length; ++ii) {
-      var letter = CORE.$.numberToAlpha(selectSheet.SelectedCells[ii].letter);
+      var letter = NOVAE.$.numberToAlpha(selectSheet.SelectedCells[ii].letter);
       var cellName = letter + selectSheet.SelectedCells[ii].number;
       /** User wants to disable italic property by executing again */
-      if (CORE.Cells.Used[CORE.CurrentSheet][letter][cellName].FontItalic) {
+      if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].FontItalic) {
         /** Update the font italic */
-        CORE.Cells.Used[CORE.CurrentSheet][letter][cellName].FontItalic = false;
+        NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].FontItalic = false;
         /** Immediately update cells font italic */
-        jumps = CORE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
-        if (jumps >= 0) CORE.DOM.Output.children[jumps].style.fontStyle = "normal";
+        jumps = NOVAE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
+        if (jumps >= 0) NOVAE.DOM.Output.children[jumps].style.fontStyle = "normal";
       } else {
         /** Update the font italic */
-        CORE.Cells.Used[CORE.CurrentSheet][letter][cellName].FontItalic = true;
+        NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].FontItalic = true;
         /** Immediately update cells font italic */
-        jumps = CORE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
-        if (jumps >= 0) CORE.DOM.Output.children[jumps].style.fontStyle = "italic";
+        jumps = NOVAE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
+        if (jumps >= 0) NOVAE.DOM.Output.children[jumps].style.fontStyle = "italic";
       }
     }
 
     /** Inherit style changes to slave sheets */
-    if (CORE.Sheets[CORE.CurrentSheet].isMasterSheet()) {
+    if (NOVAE.Sheets[NOVAE.CurrentSheet].isMasterSheet()) {
       this.inheritSheetStyling("FontItalic", true);
     }
 

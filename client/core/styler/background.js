@@ -19,11 +19,11 @@
    * @method backgroundStyle
    * @static
    */
-  CORE.Styler.prototype.backgroundStyle = function(color) {
+  NOVAE.Styler.prototype.backgroundStyle = function(color) {
 
-    var selectSheet = CORE.Sheets[CORE.CurrentSheet].Selector;
+    var selectSheet = NOVAE.Sheets[NOVAE.CurrentSheet].Selector;
 
-    var element = CORE.DOM.ChangeCellBackground.children[1];
+    var element = NOVAE.DOM.ChangeCellBackground.children[1];
 
     /** Shorter syntax */
     var masterCell = selectSheet.masterSelected;
@@ -31,7 +31,7 @@
 
     /** Active master selection */
     if (masterCell.Current && masterCell.Current !== null) {
-      if (CORE.Sheets[CORE.CurrentSheet].isMasterSheet()) {
+      if (NOVAE.Sheets[NOVAE.CurrentSheet].isMasterSheet()) {
         this.inheritSheetMasterStyling("BackgroundColor", color, masterCell.Current);
       }
       masterCell = masterCell.Columns[masterCell.Current] || masterCell.Rows[masterCell.Current];
@@ -42,10 +42,10 @@
     }
 
     /** Validate all selected cells */
-    CORE.$.validateCells();
+    NOVAE.$.validateCells();
 
     /** Overwrite used cells styling, if active master selection */
-    if (CORE.Cells.Used[CORE.CurrentSheet][currentMaster]) {
+    if (NOVAE.Cells.Used[NOVAE.CurrentSheet][currentMaster]) {
       selectSheet.inheritMasterStyling(currentMaster, masterCell, "BackgroundColor");
     }
 
@@ -56,7 +56,7 @@
     this.appendBackgroundStyle(color);
 
     /** Inherit style changes to slave sheets */
-    if (CORE.Sheets[CORE.CurrentSheet].isMasterSheet()) {
+    if (NOVAE.Sheets[NOVAE.CurrentSheet].isMasterSheet()) {
       this.inheritSheetStyling("BackgroundColor", color);
     }
 
@@ -71,19 +71,19 @@
    * @method appendBackgroundStyle
    * @static
    */
-  CORE.Styler.prototype.appendBackgroundStyle = function(color) {
+  NOVAE.Styler.prototype.appendBackgroundStyle = function(color) {
 
-    var selectedCells = arguments[1] || CORE.Sheets[CORE.CurrentSheet].Selector.SelectedCells;
+    var selectedCells = arguments[1] || NOVAE.Sheets[NOVAE.CurrentSheet].Selector.SelectedCells;
 
     /** Loop through all selected cells */
     for (var ii = 0; ii < selectedCells.length; ++ii) {
-      var letter = CORE.$.numberToAlpha(selectedCells[ii].letter);
+      var letter = NOVAE.$.numberToAlpha(selectedCells[ii].letter);
       var name = letter + selectedCells[ii].number;
       /** Update the cell background color */
-      CORE.Cells.Used[CORE.CurrentSheet][letter][name].BackgroundColor = color;
+      NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][name].BackgroundColor = color;
       /** Immediately update cells background color */
-      var jumps = CORE.$.getCell({ letter: selectedCells[ii].letter, number: selectedCells[ii].number });
-      if (jumps >= 0) CORE.DOM.Output.children[jumps].style.background = color;
+      var jumps = NOVAE.$.getCell({ letter: selectedCells[ii].letter, number: selectedCells[ii].number });
+      if (jumps >= 0) NOVAE.DOM.Output.children[jumps].style.background = color;
     }
 
   };
@@ -94,18 +94,18 @@
    * @method backgroundStyleCommand
    * @static
    */
-  CORE.Styler.prototype.backgroundStyleCommand = function(color) {
+  NOVAE.Styler.prototype.backgroundStyleCommand = function(color) {
 
-    var selector = CORE.Sheets[CORE.CurrentSheet].Selector;
+    var selector = NOVAE.Sheets[NOVAE.CurrentSheet].Selector;
 
     /** Get the old color */
     var getColor = selector.SelectedCells[0];
-    var getColorLetter = CORE.$.numberToAlpha(getColor.letter);
+    var getColorLetter = NOVAE.$.numberToAlpha(getColor.letter);
     var getColorNumber = getColor.number;
-    getColor = CORE.Cells.Used[CORE.CurrentSheet][getColorLetter][getColorLetter + getColorNumber].BackgroundColor;
+    getColor = NOVAE.Cells.Used[NOVAE.CurrentSheet][getColorLetter][getColorLetter + getColorNumber].BackgroundColor;
 
     /** Push change into undo stack */
-    var command = CORE.newCommand();
+    var command = NOVAE.newCommand();
         command.caller = "Styler";
         command.action = "BackgroundColor";
         command.data = {
@@ -118,6 +118,6 @@
         };
 
     /** Push command into the commander stack */
-    CORE.Sheets[CORE.CurrentSheet].Commander.pushUndoCommand(command, true);
+    NOVAE.Sheets[NOVAE.CurrentSheet].Commander.pushUndoCommand(command, true);
 
   };

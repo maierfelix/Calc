@@ -22,7 +22,7 @@
    * @param {object} [data] Command data to process
    * @static
    */
-  CORE.Commander.prototype.Command = function(caller, action, data) {
+  NOVAE.Commander.prototype.Command = function(caller, action, data) {
 
     this.caller = caller;
 
@@ -32,4 +32,4 @@
 
   };
 
-  CORE.Commander.prototype.Command = CORE.Commander.Command;
+  NOVAE.Commander.prototype.Command = NOVAE.Commander.Command;

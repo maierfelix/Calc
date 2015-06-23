@@ -19,57 +19,57 @@
    * @method selectCellByKeyPress
    * @static
    */
-  CORE.Selector.prototype.selectCellByKeyPress = function() {
+  NOVAE.Selector.prototype.selectCellByKeyPress = function() {
 
     var letter = this.parentSelectedCell.Letter;
     var number = this.parentSelectedCell.Number;
 
     /** Dont overscroll left axis start */
-    if ( (CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledX + letter) <= 0) {
-      letter = letter + CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledX + CORE.Sheets[CORE.CurrentSheet].Settings.scrolledX;
+    if ( (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.keyScrolledX + letter) <= 0) {
+      letter = letter + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.keyScrolledX + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX;
       /** Dont scroll below zero */
-      if (CORE.Sheets[CORE.CurrentSheet].Settings.scrolledX >= 1) CORE.Sheets[CORE.CurrentSheet].Settings.scrolledX -= 1;
-      CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledX += 1;
+      if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX >= 1) NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX -= 1;
+      NOVAE.Sheets[NOVAE.CurrentSheet].Settings.keyScrolledX += 1;
       /** Update grid and menu */
-      CORE.Sheets[CORE.CurrentSheet].updateWidth("default");
-      CORE.Sheets[CORE.CurrentSheet].updateMenu();
+      NOVAE.Sheets[NOVAE.CurrentSheet].updateWidth("default");
+      NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
     /** Dont overscroll left axis end */
-    } else if ((CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledX + letter) >= (CORE.Sheets[CORE.CurrentSheet].Settings.x + 1)) {
-      CORE.Sheets[CORE.CurrentSheet].Settings.scrolledX += 1;
-      letter = CORE.Sheets[CORE.CurrentSheet].Settings.x + CORE.Sheets[CORE.CurrentSheet].Settings.scrolledX;
-      CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledX -= 1;
+    } else if ((NOVAE.Sheets[NOVAE.CurrentSheet].Settings.keyScrolledX + letter) >= (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.x + 1)) {
+      NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX += 1;
+      letter = NOVAE.Sheets[NOVAE.CurrentSheet].Settings.x + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX;
+      NOVAE.Sheets[NOVAE.CurrentSheet].Settings.keyScrolledX -= 1;
       /** Update grid and menu */
-      CORE.Sheets[CORE.CurrentSheet].updateWidth("default");
-      CORE.Sheets[CORE.CurrentSheet].updateMenu();
+      NOVAE.Sheets[NOVAE.CurrentSheet].updateWidth("default");
+      NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
     /** Update the letter */
     } else {
-      letter = letter + (CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledX + CORE.Sheets[CORE.CurrentSheet].Settings.scrolledX);
+      letter = letter + (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.keyScrolledX + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX);
     }
 
     /** Dont overscroll top axis start */
-    if ( (CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledY + number) <= 0) {
+    if ( (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.keyScrolledY + number) <= 0) {
       number = 1;
-      CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledY += 1;
+      NOVAE.Sheets[NOVAE.CurrentSheet].Settings.keyScrolledY += 1;
       /** Dont scroll below zero */
-      if (CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY >= 1) CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY -= 1;
+      if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY >= 1) NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY -= 1;
       /** Update grid and menu */
-      CORE.Sheets[CORE.CurrentSheet].updateHeight("up", 1);
-      CORE.Sheets[CORE.CurrentSheet].updateMenu();
+      NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("up", 1);
+      NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
     /** Dont overscroll top axis end */
-    } else if ((CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledY + number) >= (CORE.Sheets[CORE.CurrentSheet].Settings.y + 1) ) {
-      CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY += 1;
-      number = CORE.Sheets[CORE.CurrentSheet].Settings.y + CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY;
-      CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledY -= 1;
+    } else if ((NOVAE.Sheets[NOVAE.CurrentSheet].Settings.keyScrolledY + number) >= (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y + 1) ) {
+      NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY += 1;
+      number = NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY;
+      NOVAE.Sheets[NOVAE.CurrentSheet].Settings.keyScrolledY -= 1;
       /** Update grid and menu */
-      CORE.Sheets[CORE.CurrentSheet].updateHeight("up", 1);
-      CORE.Sheets[CORE.CurrentSheet].updateMenu();
+      NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("up", 1);
+      NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
     /** Update the number */
     } else {
-      number = number + (CORE.Sheets[CORE.CurrentSheet].Settings.keyScrolledY + CORE.Sheets[CORE.CurrentSheet].Settings.scrolledY);
+      number = number + (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.keyScrolledY + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY);
     }
 
     /** User presses the shift key */
-    if (CORE.Sheets[CORE.CurrentSheet].Input.Keyboard.Shift) {
+    if (NOVAE.Sheets[NOVAE.CurrentSheet].Input.Keyboard.Shift) {
       this.getSelectionByKeyPress(letter, number);
     }
     /** Select the new cell */
@@ -104,7 +104,7 @@
    * @method getSelectionByKeyPress
    * @static
    */
-  CORE.Selector.prototype.getSelectionByKeyPress = function(letter, number) {
+  NOVAE.Selector.prototype.getSelectionByKeyPress = function(letter, number) {
 
     /** Use first selected cell as parent cell selection */
     this.Selected.First = this.Select;

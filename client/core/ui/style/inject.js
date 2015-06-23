@@ -14,26 +14,26 @@
 "use strict";
 
   /** Initialize the column and row injection buttons */
-  CORE_UI.initInjectionButtons = function() {
+  NOVAE_UI.initInjectionButtons = function() {
 
     /** Initialize insert column button */
-    CORE.DOM.InsertColumn.addEventListener('click', function() {
-      CORE.Injector.insertColumn();
+    NOVAE.DOM.InsertColumn.addEventListener('click', function() {
+      NOVAE.Injector.insertColumn();
     });
 
     /** Initialize delete column button */
-    CORE.DOM.DeleteColumn.addEventListener('click', function() {
-      CORE.Injector.deleteColumn();
+    NOVAE.DOM.DeleteColumn.addEventListener('click', function() {
+      NOVAE.Injector.deleteColumn();
     });
 
     /** Initialize insert row button */
-    CORE.DOM.InsertRow.addEventListener('click', function() {
-      CORE.Injector.insertRow();
+    NOVAE.DOM.InsertRow.addEventListener('click', function() {
+      NOVAE.Injector.insertRow();
     });
 
     /** Initialize delete row button */
-    CORE.DOM.DeleteRow.addEventListener('click', function() {
-      CORE.Injector.deleteRow();
+    NOVAE.DOM.DeleteRow.addEventListener('click', function() {
+      NOVAE.Injector.deleteRow();
     });
 
   };

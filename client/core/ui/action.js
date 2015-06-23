@@ -14,17 +14,17 @@
 "use strict";
 
   /** Create Action Object */
-  CORE_UI.ACTION = {
+  NOVAE_UI.ACTION = {
     /** SAVE */
     save: function() {
-      CORE.File.export();
+      NOVAE.File.export();
     },
     /** SAVE IMAGE */
     saveImage: function() {
-      CORE.File.exportImage();
+      NOVAE.File.exportImage();
     },
     /** OPEN */
     open: function() {
-      CORE.File.import();
+      NOVAE.File.import();
     }
   };

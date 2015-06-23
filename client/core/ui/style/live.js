@@ -14,7 +14,7 @@
 "use strict";
 
   /** Initialize the background settings menu */
-  CORE_UI.initLiveCellMenu = function() {
+  NOVAE_UI.initLiveCellMenu = function() {
 
     /** TODO: Disable live cells */
 

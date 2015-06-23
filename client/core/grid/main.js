@@ -19,7 +19,7 @@
    * @class Grid
    * @static
    */
-  CORE.Grid = function() {
+  NOVAE.Grid = function() {
 
     /** Object holds size of the current grid */
     this.Settings = {
@@ -72,7 +72,7 @@
     this.cellArray = []
 
     /** Different action on desktop and mobile */
-    this.mouseMode = !CORE.Settings.Mobile ? "mouseover" : "touchmove";
+    this.mouseMode = !NOVAE.Settings.Mobile ? "mouseover" : "touchmove";
 
     /** Template Object */
     this.Templates = {
@@ -163,8 +163,8 @@
 
   };
 
-  CORE.Grid.prototype = CORE.Grid;
-  CORE.Grid.prototype.constructor = CORE.Grid;
+  NOVAE.Grid.prototype = NOVAE.Grid;
+  NOVAE.Grid.prototype.constructor = NOVAE.Grid;
 
   /**
    * Calculate the new grid sizes
@@ -172,11 +172,11 @@
    * @method calculateGrid
    * @static
    */
-  CORE.Grid.prototype.calculateGrid = function() {
+  NOVAE.Grid.prototype.calculateGrid = function() {
 
     /** Round down */
-    this.Settings.x = Math.ceil( - ( CORE.Settings.Width / this.CellTemplate.Width ) );
-    this.Settings.y = Math.ceil( - ( CORE.Settings.Height / this.CellTemplate.Height ) );
+    this.Settings.x = Math.ceil( - ( NOVAE.Settings.Width / this.CellTemplate.Width ) );
+    this.Settings.y = Math.ceil( - ( NOVAE.Settings.Height / this.CellTemplate.Height ) );
 
     /** - to + conversion */
     this.Settings.x = ( ~ this.Settings.x + 1 ) + 1;
@@ -190,9 +190,9 @@
    * @method cellHover
    * @static
    */
-  CORE.Grid.prototype.cellHover = function(e) {
+  NOVAE.Grid.prototype.cellHover = function(e) {
 
-    if (!CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Edit) CORE.DOM.CurrentCell.innerHTML = e.target.getAttribute("name");
+    if (!NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.Edit) NOVAE.DOM.CurrentCell.innerHTML = e.target.getAttribute("name");
 
   };
 
@@ -202,10 +202,10 @@
    * @method addCellListeners
    * @static
    */
-  CORE.Grid.prototype.addCellListeners = function() {
+  NOVAE.Grid.prototype.addCellListeners = function() {
 
-    for (var ii = 0; ii < CORE.DOM.Output.children.length; ++ii) {
-      CORE.DOM.Output.children[ii].addEventListener(this.mouseMode, this.cellHover, false);
+    for (var ii = 0; ii < NOVAE.DOM.Output.children.length; ++ii) {
+      NOVAE.DOM.Output.children[ii].addEventListener(this.mouseMode, this.cellHover, false);
     }
 
   };
@@ -216,7 +216,7 @@
    * @method generateCells
    * @static
    */
-  CORE.Grid.prototype.generateCells = function() {
+  NOVAE.Grid.prototype.generateCells = function() {
 
     /** Detect breakpoints and switch between pre-letters */
     var Breaks = 1,
@@ -255,11 +255,11 @@
 
         /** Counter is below the first breakpoint */
         if (ii < this.Settings.y) {
-          Letter = CORE.$.numberToAlpha(Breaks);
+          Letter = NOVAE.$.numberToAlpha(Breaks);
         /** Counter is above the first breakpoint and a modulo */
         } else if (ii % this.Settings.y === 1) {
           Breaks += 1;
-          Letter = CORE.$.numberToAlpha(Breaks);
+          Letter = NOVAE.$.numberToAlpha(Breaks);
         }
 
         style = "height: " + styleHeight + "px; width: " + styleWidth + "px;";
@@ -268,8 +268,8 @@
         /** !Evil DOM Content */
         output += '<' + this.Templates.Cell.element + ' name="' + Letter + Number + '" id="' + ii + '" class="' + this.Templates.Cell.class + '" style="' + style + '">';
         /** Check if cell contains custom content */
-        if (CORE.Cells.Used[CORE.CurrentSheet][Letter] && CORE.Cells.Used[CORE.CurrentSheet][Letter][Letter + Number]) {
-          output += CORE.Cells.Used[CORE.CurrentSheet][Letter][Letter + Number].Content;
+        if (NOVAE.Cells.Used[NOVAE.CurrentSheet][Letter] && NOVAE.Cells.Used[NOVAE.CurrentSheet][Letter][Letter + Number]) {
+          output += NOVAE.Cells.Used[NOVAE.CurrentSheet][Letter][Letter + Number].Content;
         }
         output += '</' + this.Templates.Cell.element + '>';
 
@@ -297,14 +297,14 @@
 
     }
 
-    CORE.DOM.Output.innerHTML = output;
+    NOVAE.DOM.Output.innerHTML = output;
 
     this.cacheDOM();
 
     this.addCellListeners();
 
     /** User was in edit mode */
-    if (CORE.Sheets[CORE.CurrentSheet].Input.Mouse.Edit) this.getEditSelection(CORE.Sheets[CORE.CurrentSheet].Selector.Edit);
+    if (NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.Edit) this.getEditSelection(NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Edit);
 
   };
 
@@ -314,7 +314,7 @@
    * @method isMasterSheet
    * @static
    */
-  CORE.Grid.prototype.isMasterSheet = function(e) {
+  NOVAE.Grid.prototype.isMasterSheet = function(e) {
 
     if (this.Settings.master) return (true);
     return (false);

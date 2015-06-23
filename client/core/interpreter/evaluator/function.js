@@ -45,15 +45,15 @@
       }
 
       /** Register live cell */
-      if (!CORE.Cells.Live[name]) CORE.registerLiveCell(name);
+      if (!NOVAE.Cells.Live[name]) NOVAE.registerLiveCell(name);
 
       /** Check if live cell got registered, if yes update its url */
-      if (CORE.Cells.Live[name]) {
-        CORE.Cells.Live[name].Url = urlValue;
-        CORE.Cells.Live[name].RefreshTime = timeValue;
+      if (NOVAE.Cells.Live[name]) {
+        NOVAE.Cells.Live[name].Url = urlValue;
+        NOVAE.Cells.Live[name].RefreshTime = timeValue;
       }
 
-      CORE.Awakener.evalLive();
+      NOVAE.Awakener.evalLive();
 
       return void 0;
 
@@ -69,13 +69,13 @@
       var result = null;
 
       /** Search for live cell json data */
-      if (CORE.Cells.Live[dataTarget]) {
+      if (NOVAE.Cells.Live[dataTarget]) {
         /** Compile appended JSON pipeline */
         for (var ii = 0; ii < node.append.length; ++ii) {
           node.append[ii] = this.interpretExpression(node.append[ii]);
         }
-        if (CORE.Cells.Live[dataTarget].Data) {
-          result = this.readJSONTree(CORE.Cells.Live[dataTarget].Data, node.append);
+        if (NOVAE.Cells.Live[dataTarget].Data) {
+          result = this.readJSONTree(NOVAE.Cells.Live[dataTarget].Data, node.append);
         }
       }
 

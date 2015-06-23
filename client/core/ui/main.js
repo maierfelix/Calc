@@ -16,7 +16,7 @@
   var root = this;
 
   /** Static Namespace Class */
-  var CORE_UI = CORE_UI || {};
+  var NOVAE_UI = NOVAE_UI || {};
 
   /** Assign it global */
-  root.CORE_UI = CORE_UI;
+  root.NOVAE_UI = NOVAE_UI;

@@ -14,7 +14,7 @@
 "use strict";
 
   /** Initialize the background settings menu */
-  CORE_UI.initBackgroundChangeMenu = function() {
+  NOVAE_UI.initBackgroundChangeMenu = function() {
 
     /** Initialize color picker */
     var pickers = document.querySelector("#background_colorpicker");
@@ -22,11 +22,11 @@
 
     /** Apply color change */
     picker.addEventListener('colorChange', function(e) {
-      CORE.Styler.backgroundStyle(CORE.$.hexToRgba(e.detail.picker.getHexColor()));
+      NOVAE.Styler.backgroundStyle(NOVAE.$.hexToRgba(e.detail.picker.getHexColor()));
     });
 
     /** Initialize cell background change menu */
-    CORE.DOM.ChangeCellBackground.addEventListener('click', function(e) {
+    NOVAE.DOM.ChangeCellBackground.addEventListener('click', function(e) {
 
       /** Display the color picker */
       pickers.style.display = "block";
