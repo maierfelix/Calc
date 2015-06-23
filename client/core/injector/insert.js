@@ -38,6 +38,18 @@
       CORE.Styler.inheritInjection(CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First, "insertColumn");
     }
 
+    /** Push change into undo stack */
+    var command = CORE.newCommand();
+        command.caller = "Injector";
+        command.action = "insertColumn";
+        command.data = {
+          firstSelect: firstSelectedCell,
+          sheet: sheet
+        };
+
+    /** Push command into the commander stack only if arguments[2] isnt true */
+    if (!arguments[2]) CORE.Sheets[sheet].Commander.pushUndoCommand(command, true);
+
     /** Refresh the grid */
     CORE.Event.redraw(sheet);
 
@@ -152,6 +164,18 @@
     if (!arguments.length && CORE.Sheets[CORE.CurrentSheet].isMasterSheet()) {
       CORE.Styler.inheritInjection(CORE.Sheets[CORE.CurrentSheet].Selector.Selected.First, "insertRow");
     }
+
+    /** Push change into undo stack */
+    var command = CORE.newCommand();
+        command.caller = "Injector";
+        command.action = "insertRow";
+        command.data = {
+          firstSelect: firstSelectedCell,
+          sheet: sheet
+        };
+
+    /** Push command into the commander stack only if arguments[2] isnt true */
+    if (!arguments[2]) CORE.Sheets[sheet].Commander.pushUndoCommand(command, true);
 
     /** Refresh the grid */
     CORE.Event.redraw(sheet);

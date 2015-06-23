@@ -233,6 +233,9 @@
             break;
         }
         break;
+      case "Injector":
+        this.reverseInsertion(cmd, mode);
+        break;
     }
 
   };

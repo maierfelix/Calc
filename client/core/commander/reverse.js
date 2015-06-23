@@ -16,6 +16,7 @@
   /**
    * Reverse a selection
    *
+   * @param {object} [data] Selection data
    * @method reverseSelection
    * @static
    */
@@ -26,8 +27,48 @@
   };
 
   /**
+   * Reverse a insertion
+   *
+   * @param {object} [data] Insertion data
+   * @param {number} [mode] Reversed or not
+   * @method reverseInsertion
+   * @static
+   */
+  CORE.Commander.prototype.reverseInsertion = function(data, mode) {
+
+    var sheet = data.data.sheet;
+
+    var action = data.action;
+
+    var selection = data.data.firstSelect;
+
+    /** Reversed, set third argument to true to prevent circular reference */
+    if (!mode) {
+      switch (action) {
+        case "insertColumn":
+          CORE.Injector["deleteColumn"](sheet, selection, true);
+          break;
+        case "deleteColumn":
+          CORE.Injector["insertColumn"](sheet, selection, true);
+          break;
+        case "insertRow":
+          CORE.Injector["deleteRow"](sheet, selection, true);
+          break;
+        case "deleteRow":
+          CORE.Injector["insertRow"](sheet, selection, true);
+          break;
+      }
+    /** Not reversed */
+    } else {
+      if (CORE.Injector[action]) CORE.Injector[action](sheet, selection, true);
+    }
+
+  };
+
+  /**
    * Reverse a resize
    *
+   * @param {object} [data] Resize data
    * @method reverseResize
    * @static
    */
