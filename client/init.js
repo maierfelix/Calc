@@ -21,6 +21,7 @@ Import.scripts = [
   "lib/socket.io.min.js",
   "lib/codemirror.js",
   "style/mui/js/mui.min.js",
+  "lib/vm.min.js",
   /** Polyfills */
   "core/polyfill.js",
   /** Menu */
@@ -107,8 +108,8 @@ Import.scripts = [
   "core/interpreter/evaluator/function.js",
   "core/interpreter/type.js",
   /** Javascript interpreter */
-  "api/interpreter.js",
   "api/spreadsheet.js",
+  "api/interpreter.js",
   "api/main.js"
 ];
 

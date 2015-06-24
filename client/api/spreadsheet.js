@@ -25,6 +25,8 @@
 
     this.Spreadsheet = null;
 
+    this.modules = {};
+
   };
 
   SpreadSheet.prototype = SpreadSheet;
@@ -89,14 +91,53 @@
   };
 
   /**
-   * Redraw a sheet
+   * Repaint a sheet
    *
-   * @method redraw
+   * @method repaint
    * @static
    */
   SpreadSheet.prototype.redraw = function() {
 
+    if (this.Spreadsheet.CurrentSheet === this.CurrentSheetName) {
+      this.Spreadsheet.Sheets[this.CurrentSheetName].updateWidth("default");
+      this.Spreadsheet.Sheets[this.CurrentSheetName].Selector.getSelection();
+    }
+
+  };
+
+  /**
+   * Resize a sheet
+   *
+   * @method resize
+   * @static
+   */
+  SpreadSheet.prototype.resize = function() {
+
     if (NOVAE.CurrentSheet === this.CurrentSheetName) NOVAE.Event.redraw();
+
+  };
+
+  /**
+   * Get the current view as a range
+   *
+   * @method getView
+   * @static
+   */
+  SpreadSheet.prototype.getView = function() {
+
+    /** Simulate view range */
+    var first = {
+      Letter: this.Spreadsheet.Sheets[this.CurrentSheetName].Settings.scrolledX || 1,
+      Number: this.Spreadsheet.Sheets[this.CurrentSheetName].Settings.scrolledY || 1
+    };
+    var last = {
+      Letter: this.Spreadsheet.Sheets[this.CurrentSheetName].Settings.scrolledX + this.Spreadsheet.Sheets[this.CurrentSheetName].Settings.x + 1,
+      Number: this.Spreadsheet.Sheets[this.CurrentSheetName].Settings.scrolledY + this.Spreadsheet.Sheets[this.CurrentSheetName].Settings.y + 1
+    };
+
+    var range = NOVAE.$.numberToAlpha(first.Letter) + first.Number + ":" + NOVAE.$.numberToAlpha(last.Letter) + last.Number;
+
+    return (range);
 
   };
 

@@ -21,18 +21,22 @@
    */
   var Interpreter = function() {
 
-    /** Create a closure and open a try catch statement */
-    this.scriptOpen = "(function(){";
-    this.scriptOpen += "try {";
+    var self = this;
 
-    /** Catch errors and pass it to the interpreter error handler */
-    this.scriptClose = "} catch(err) {Interpreter.error(err.name, err.message);}";
-    this.scriptClose += "})();";
+    this.vm = new Vm();
 
-    /** Disable all security risk scopes */
-    this.scriptSecurity = 'var window = void 0, alert = void 0,';
-    this.scriptSecurity += 'NOVAE = void 0, AJAX = void 0, ENGEL = void 0,';
-    this.scriptSecurity += ' Import = void 0, NOVAE_Interpreter = void 0, NOVAE_UI = void 0;';
+    /** Allow access to the spreadsheet */
+    this.vm.realm.global.SpreadSheet = SpreadSheet;
+
+    /** Make setInterval working */
+    this.vm.realm.global.setInterval = function(cb, time) {
+      if (typeof time === "number" && time >= 0) {
+        setInterval(function() {
+          if (self.vm.killed) return;
+          cb();
+        }, time);
+      }
+    };
 
   };
 
@@ -47,16 +51,7 @@
    */
   Interpreter.prototype.run = function() {
 
-    var stream = this.scriptOpen + this.scriptSecurity + arguments[0] + this.scriptClose;
-
-    var script = document.createElement('script');
-        script.setAttribute("typus", "custom");
-        script.src = 'data:text/javascript,' + encodeURIComponent(stream);
-
-    document.body.appendChild(script);
-
-    var removeScript = document.querySelector('script[typus="custom"]');
-    removeScript.parentNode.removeChild(removeScript);
+    this.vm.eval(arguments[0]);
 
   };
 
@@ -67,7 +62,9 @@
    * @static
    */
   Interpreter.prototype.error = function(name, msg) {
+
     console.error(name, msg);
+
   };
 
   /** Override myself */

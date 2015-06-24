@@ -10,17 +10,12 @@ function randomRgbColor() {
  */
 function flashingBackground() {
 
-  /** Create a new range */
-  var range = new sheet.Range("A1:S50");
+  /** Get the current users view each call */
+  var range = new sheet.Range(sheet.getView());
 
-  /** Direct range property change */
-  var value1 = randomRgbColor();
-  var value2 = randomRgbColor();
-  var value3 = randomRgbColor();
+  range.set("BackgroundColor", "rgb(" + randomRgbColor() + "," + randomRgbColor() +", " + randomRgbColor() + ")");
 
-  range.set("BackgroundColor", "rgb(" + value1 + "," + value2 +", " + value3 + ")");
-
-  /** Redraw the sheet, since changes were made */
+  /** Redraw the sheet, since styling only changes were made */
   sheet.redraw();
 
 };
