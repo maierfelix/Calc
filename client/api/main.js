@@ -21,11 +21,11 @@ var NOVAE_Interpreter = function() {
     /** Run the test script */
     var myInterpreter = Interpreter.run(content);
 
-    /*var myCodeMirror = CodeMirror(document.body, {
+    var myCodeMirror = CodeMirror(document.body, {
       value: content,
       mode:  "javascript",
       lineNumbers: true
-    });*/
+    });
 
   });
 

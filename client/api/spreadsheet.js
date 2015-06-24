@@ -96,7 +96,7 @@
    */
   SpreadSheet.prototype.redraw = function() {
 
-    NOVAE.Event.redraw(this.CurrentSheetName);
+    if (NOVAE.CurrentSheet === this.CurrentSheetName) NOVAE.Event.redraw();
 
   };
 
