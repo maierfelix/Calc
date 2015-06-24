@@ -16,15 +16,16 @@
 var NOVAE_Interpreter = function() {
 
   /** Load test script */
-  AJAX.GET("./api/test.js", function(content) {
+  AJAX.GET("./api/flashingBackground.js", function(content) {
 
     /** Run the test script */
     var myInterpreter = Interpreter.run(content);
-    var myCodeMirror = CodeMirror(document.body, {
+
+    /*var myCodeMirror = CodeMirror(document.body, {
       value: content,
       mode:  "javascript",
       lineNumbers: true
-    });
+    });*/
 
   });
 

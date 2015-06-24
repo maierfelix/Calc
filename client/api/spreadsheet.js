@@ -140,11 +140,23 @@
    */
   SpreadSheet.prototype.Range.prototype.getValues = function(property) {
 
-    property = property;
-
     var array = NOVAE.$.getSelectionCellProperty(NOVAE.$.coordToSelection(this.range.first, this.range.last), property, this.CurrentSheetName);
 
     return (array);
+
+  };
+
+  /**
+   * Get length of a range
+   *
+   * @method getLength
+   * @static
+   */
+  SpreadSheet.prototype.Range.prototype.getLength = function() {
+
+    var array = NOVAE.$.coordToSelection(this.range.first, this.range.last);
+
+    return (array.length);
 
   };
 
@@ -164,7 +176,7 @@
       var letter = NOVAE.$.numberToAlpha(range[ii].letter);
       var number = range[ii].number;
       NOVAE.$.registerCell({letter: letter, number: number});
-      NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number][property] = data;
+      NOVAE.Cells.Used[SpreadSheet.CurrentSheetName][letter][letter + number][property] = data;
     }
 
   };
@@ -187,7 +199,7 @@
       var letter = NOVAE.$.numberToAlpha(range[ii].letter);
       var number = range[ii].number;
       NOVAE.$.registerCell({letter: letter, number: number});
-      NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number][property] = array[ii];
+      NOVAE.Cells.Used[SpreadSheet.CurrentSheetName][letter][letter + number][property] = array[ii];
     }
 
   };

@@ -2,24 +2,20 @@
 var sheet = SpreadSheet.getActiveSheet();
 
 /** Create a new range */
-var range = new sheet.Range('A1:S10000');
-
-/** Direct range property change */
-range.set('BackgroundColor', 'rgb(0,0,0)');
-range.set('BackgroundColor', 'rgb(150,240,100)');
-
-/** Get properties of a range */
-var content = range.getValues('BackgroundColor');
+var range = new sheet.Range('A1:Z10000');
 
 /** Create a new array which holds some new background colors */
 var newValues = [];
 
-/** Fill the array with some random content */
-for (var ii = 0; ii < content.length; ++ii) {
-  newValues[ii] = Math.ceil(Math.random()*1000);
-};
+/** Get length of the range */
+var length = range.getLength();
 
-/** Change background color of the range with a length matching array holding values */
+/** Fill the array with some random content */
+for (var ii = 0; ii < length; ++ii) {
+  newValues[ii] = Math.ceil(Math.random()*1000);
+}
+
+/** Change content of the range with a length matching array holding new values */
 range.setValues('Content', newValues);
 
 /** Redraw the sheet, since changes were made */
