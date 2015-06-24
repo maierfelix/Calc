@@ -16,10 +16,10 @@
   /**
    * NovaeCalc high level API
    *
-   * @class Spreadsheet
+   * @class SpreadSheet
    * @static
    */
-  var Spreadsheet = function() {
+  var SpreadSheet = function() {
 
     this.CurrentSheetName = null;
 
@@ -27,8 +27,8 @@
 
   };
 
-  Spreadsheet.prototype = Spreadsheet;
-  Spreadsheet.prototype.constructor = Spreadsheet;
+  SpreadSheet.prototype = SpreadSheet;
+  SpreadSheet.prototype.constructor = SpreadSheet;
 
   /**
    * Initialize API
@@ -36,7 +36,7 @@
    * @method init
    * @static
    */
-  Spreadsheet.prototype.init = function() {
+  SpreadSheet.prototype.init = function() {
 
     /** Check if NovaeCalc exists */
     if (!window.NOVAE) throw new Error("NovaeCalc wasn't found!");
@@ -51,11 +51,13 @@
    * @method getActiveSheet
    * @static
    */
-  Spreadsheet.prototype.getActiveSheet = function() {
+  SpreadSheet.prototype.getActiveSheet = function() {
 
     this.CurrentSheetName = this.Spreadsheet.CurrentSheet;
 
     this.CurrentSheet = this.Spreadsheet.Sheets[this.CurrentSheetName];
+
+    return (this.CurrentSheetName);
 
   };
 
@@ -66,38 +68,9 @@
    * @return {boolean}
    * @static
    */
-  Spreadsheet.prototype.sheetExists = function(name) {
+  SpreadSheet.prototype.sheetExists = function(name) {
 
     return (this.Spreadsheet.Sheets[name] ? true : false);
-
-  };
-
-  /**
-   * Get a range
-   *
-   * @method getRange
-   * @return {object}
-   * @static
-   */
-  Spreadsheet.prototype.getRange = function(range) {
-
-    range = range.split(":");
-
-    var first = range[0];
-
-    var last = range[1];
-
-    var firstCoordinates = {
-      letter: NOVAE.$.alphaToNumber(first.match(NOVAE.REGEX.numbers).join("")),
-      number: parseInt(first.match(NOVAE.REGEX.letters).join(""))
-    };
-
-    var lastCoordinates = {
-      letter: NOVAE.$.alphaToNumber(last.match(NOVAE.REGEX.numbers).join("")),
-      number: parseInt(last.match(NOVAE.REGEX.letters).join(""))
-    };
-
-    return (new Range({first: firstCoordinates, last: lastCoordinates}));
 
   };
 
@@ -108,7 +81,7 @@
    * @return {array} selected Cells
    * @static
    */
-  Spreadsheet.prototype.addListener = function() {
+  SpreadSheet.prototype.addListener = function() {
 
     var type = arguments[0];
 
@@ -125,15 +98,29 @@
    * @param {string} [range] Range
    * @static
    */
-  Spreadsheet.prototype.Range = function(range) {
+  SpreadSheet.prototype.Range = function() {
 
-    this.range = range;
+    this.range = arguments[0].data.split(":");
 
-    this.selection = NOVAE.$.coordToSelection(this.range.first, this.range.last);
+    var first = this.range[0];
+
+    var last = this.range[1];
+
+    var firstCoordinates = {
+      letter: NOVAE.$.alphaToNumber(first.match(NOVAE.REGEX.numbers).join("")),
+      number: parseInt(first.match(NOVAE.REGEX.letters).join(""))
+    };
+
+    var lastCoordinates = {
+      letter: NOVAE.$.alphaToNumber(last.match(NOVAE.REGEX.numbers).join("")),
+      number: parseInt(last.match(NOVAE.REGEX.letters).join(""))
+    };
+
+    this.range = {first: firstCoordinates, last: lastCoordinates};
 
   };
 
-  Spreadsheet.prototype.Range = Spreadsheet.Range;
+  SpreadSheet.prototype.Range = SpreadSheet.Range;
 
   /**
    * Get values of a range
@@ -142,12 +129,35 @@
    * @method get
    * @static
    */
-  Spreadsheet.prototype.get = function(property) {
+  SpreadSheet.prototype.Range.prototype.get = function(property) {
 
-    return(NOVAE.$.getSelectionCellProperty(selection, property, this.CurrentSheetName));
+    property = property.data;
+
+    var array = NOVAE.$.getSelectionCellProperty(NOVAE.$.coordToSelection(this.range.first, this.range.last), property, this.CurrentSheetName);
+
+    return (array);
 
   };
 
-  Spreadsheet = new Spreadsheet();
+  /**
+   * Update values of a range
+   *
+   * @param {string} [property] Property to update
+   * @param {object} [data] New data
+   * @method get
+   * @static
+   */
+  SpreadSheet.prototype.Range.prototype.set = function(property, data) {
 
-  Spreadsheet.init();
+    var range = NOVAE.$.coordToSelection(this.range.first, this.range.last);
+
+    for (var ii = 0; ii < range.length; ++ii) {
+      var letter = NOVAE.$.numberToAlpha(range[ii].letter);
+      var number = range[ii].number;
+      NOVAE.$.registerCell({letter: letter, number: number});
+      NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number][property] = data;
+    }
+
+    NOVAE.Event.redraw();
+
+  };

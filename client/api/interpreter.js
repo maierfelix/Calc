@@ -1052,39 +1052,83 @@ Interpreter.prototype.initRegExp = function(scope) {
  * @param {!Object} scope Global scope.
  */
 Interpreter.prototype.initSpreadsheet = function(scope) {
+
   var thisInterpreter = this;
-  var mySpreadsheet = thisInterpreter.createObject(this.OBJECT);
-  this.setProperty(scope, 'Spreadsheet', mySpreadsheet);
+  var wrapper;
 
-  var wrapper = (function() {
-    return function() {
-      Spreadsheet.getActiveSheet();
-      return (this);
-    };
-  })(Spreadsheet.getActiveSheet);
+  // SpreadSheet constructor.
+  wrapper = function() {
+    if (this.parent == thisInterpreter.SPREADSHEET) {
+      var newSpreadSheet = this;
+    } else {
+      var newSpreadSheet = thisInterpreter.createObject(thisInterpreter.SPREADSHEET);
+    }
+    newSpreadSheet.sheet = new SpreadSheet();
+    newSpreadSheet.sheet.init();
+    return newSpreadSheet;
+  };
+  this.SPREADSHEET = this.createNativeFunction(wrapper);
+  this.setProperty(scope, 'SpreadSheet', this.SPREADSHEET);
 
-  this.setProperty(mySpreadsheet, 'getActiveSheet', this.createNativeFunction(wrapper));
+  // SpreadSheet constructor.
+  wrapper = function() {
+    if (this.parent == thisInterpreter.RANGE) {
+      var newRange = this;
+    } else {
+      var newRange = thisInterpreter.createObject(thisInterpreter.RANGE);
+    }
+    newRange.range = new SpreadSheet.Range(arguments[0]);
+    return newRange;
+  };
+  this.RANGE = this.createNativeFunction(wrapper);
+  this.setProperty(scope, 'Range', this.RANGE);
 
-  wrapper = (function(nativeFunc) {
-    return function() {
-      var range = arguments[0] ? arguments[0].data : undefined;
-      var nativeObj = nativeFunc.call(Spreadsheet, range);
-      return (nativeObj);
-    };
-  })(Spreadsheet.getRange);
+  var functions = ['get'];
+  for (var i = 0; i < functions.length; i++) {
+    wrapper = (function(nativeFunc) {
+      return function(var_args) {
+        var args = [];
+        for (var i = 0; i < arguments.length; i++) {
+          args[i] = arguments[i];
+        }
+        var nativeObj = thisInterpreter.createPrimitive(this.range[nativeFunc].apply(this.range, args));
+        var array = thisInterpreter.createObject(thisInterpreter.ARRAY);
+        for (var ii = 0; ii < nativeObj.data.length; ii++) {
+          thisInterpreter.setProperty(array, ii, nativeObj.data[ii]);
+        }
+        return(array);
+      };
+    })(functions[i]);
+    this.setProperty(this.RANGE.properties.prototype, functions[i], this.createNativeFunction(wrapper), false, true);
+  }
 
-  this.setProperty(mySpreadsheet, 'getRange', this.createNativeFunction(wrapper));
+  var functions = ['set'];
+  for (var i = 0; i < functions.length; i++) {
+    wrapper = (function(nativeFunc) {
+      return function(var_args) {
+        var args = [];
+        for (var i = 0; i < arguments.length; i++) {
+          args[i] = arguments[i].data;
+        }
+        var nativeObj = thisInterpreter.createPrimitive(this.range[nativeFunc].apply(this.range, args));
+      };
+    })(functions[i]);
+    this.setProperty(this.RANGE.properties.prototype, functions[i], this.createNativeFunction(wrapper), false, true);
+  }
 
-  wrapper = (function(nativeFunc) {
-    return function() {
-      var type = arguments[0] ? arguments[0].data : undefined;
-      var func = arguments[1] ? arguments[1].data : undefined;
-      var nativeObj = nativeFunc.call(Spreadsheet, type, func);
-      return void 0;
-    };
-  })(Spreadsheet.addListener);
-
-  this.setProperty(mySpreadsheet, 'addListener', this.createNativeFunction(wrapper));
+  var functions = ['getActiveSheet'];
+  for (var i = 0; i < functions.length; i++) {
+    wrapper = (function(nativeFunc) {
+      return function(var_args) {
+        var args = [];
+        for (var i = 0; i < arguments.length; i++) {
+          args[i] = arguments[i];
+        }
+        return thisInterpreter.createPrimitive(this.sheet[nativeFunc].apply(this.sheet, args));
+      };
+    })(functions[i]);
+    this.setProperty(this.SPREADSHEET.properties.prototype, functions[i], this.createNativeFunction(wrapper), false, true);
+  }
 
 };
 
