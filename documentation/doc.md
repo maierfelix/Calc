@@ -6,6 +6,7 @@ This is the included documentation for the NovaeCalc project.
 
 * [User interface](#User interface)
 * [Formulas](#Formulas)
+* [Scripts](#Scripts)
 * [Projects](#Projects)
 * [Sheets](#Sheets)
 * [Live Cells](#Live Cells)
@@ -60,6 +61,42 @@ Find the highest number of its arguments: "max",
 Round number to the nearest integer: "round",
 Round number downwards to the nearest integer: "floor",
 Round number upwards to the nearest integer: "ceil"
+```
+
+## Scripts
+NovaeCalc has a own scripting language based on Javascript, which provides you some great ways to write your own makros and functions.
+
+### Example
+```js
+/** Initialize a new sheet api */
+var sheet = new SpreadSheet();
+
+/** Get the current active sheet */
+sheet.getActiveSheet();
+
+/** Create a new range */
+var range = new Range('A5:K10');
+
+/** Direct range property change */
+range.set('BackgroundColor', 'rgb(0,0,0)');
+range.set('BackgroundColor', 'rgb(150,240,100)');
+
+/** Get properties of range */
+var content = range.getValues('BackgroundColor');
+
+/** Create a new array which holds some new background colors */
+var newValues = [];
+
+/** Fill the array with some random content */
+for (var ii = 0; ii < content.length; ++ii) {
+  newValues[ii] = Math.ceil(Math.random()*1000);
+};
+
+/** Change background color of the range with a length matching array holding values */
+range.setValues('Content', newValues);
+
+/** Redraw the sheet, since changes were made */
+sheet.redraw();
 ```
 
 ## Projects
