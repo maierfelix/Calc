@@ -92,6 +92,18 @@
   };
 
   /**
+   * Redraw a sheet
+   *
+   * @method redraw
+   * @static
+   */
+  SpreadSheet.prototype.redraw = function() {
+
+    NOVAE.Event.redraw(this.CurrentSheetName);
+
+  };
+
+  /**
    * Range Class
    *
    * @class Range
@@ -126,10 +138,10 @@
    * Get values of a range
    *
    * @param {string} [property] Property to get
-   * @method get
+   * @method getValues
    * @static
    */
-  SpreadSheet.prototype.Range.prototype.get = function(property) {
+  SpreadSheet.prototype.Range.prototype.getValues = function(property) {
 
     property = property.data;
 
@@ -144,7 +156,7 @@
    *
    * @param {string} [property] Property to update
    * @param {object} [data] New data
-   * @method get
+   * @method set
    * @static
    */
   SpreadSheet.prototype.Range.prototype.set = function(property, data) {
@@ -158,6 +170,27 @@
       NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number][property] = data;
     }
 
-    NOVAE.Event.redraw();
+  };
+
+  /**
+   * Update values of a range array
+   *
+   * @param {string} [property] Property to update
+   * @param {object} [data] New data
+   * @method setValues
+   * @static
+   */
+  SpreadSheet.prototype.Range.prototype.setValues = function(property, array) {
+
+    var range = NOVAE.$.coordToSelection(this.range.first, this.range.last);
+
+    if (range.length !== Object.keys(array).length) return void 0;
+
+    for (var ii = 0; ii < range.length; ++ii) {
+      var letter = NOVAE.$.numberToAlpha(range[ii].letter);
+      var number = range[ii].number;
+      NOVAE.$.registerCell({letter: letter, number: number});
+      NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number][property] = array[ii].data;
+    }
 
   };

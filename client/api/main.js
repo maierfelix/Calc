@@ -25,30 +25,12 @@ var NOVAE_Interpreter = function() {
 
   };
 
-  //code += "var content = new Range('A1:B10').get('Content');";
+  /** Load test script */
+  AJAX.GET("./api/test.js", function(content) {
 
-  var code = "var content = new Range('A5:K10');";
+    /** Run the test script */
+    var myInterpreter = new Interpreter(content).run();
 
-  code += "content.set('BackgroundColor', 'rgb(0,0,0)');";
-
-  code += "content.set('BackgroundColor', 'rgb(150,240,100)');";
-
-  //code += "content.set('BackgroundColor', 'rgb(0,0,0)');";
-
-  //code += "log(content); for(var ii = 0; ii < content.length; ++ii) { log(content[ii]); }";
-
-  //code += "var test = values.get('Content'); log(test);";
-
-  //code += "values.get('Content');";
-
-  //code += "var newBackgroundColor = sheet.getRange('A1:B10').set('BackgroundColor', '#000');";
-
-  //code += "log(selection); log(sheet);";
-
-  //code += "sheet.addListener('click', 1);";
-
-  setTimeout(function() {
-    var myInterpreter = new Interpreter(code, init).run();
-  }, 500);
+  });
 
 };

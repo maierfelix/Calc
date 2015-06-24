@@ -19,8 +19,8 @@ Import.scripts = [
   "lib/ajax.min.js",
   "lib/eight-bit-color-picker.min.js",
   "lib/socket.io.min.js",
-  "style/mui/js/mui.min.js",
   "lib/acorn.min.js",
+  "style/mui/js/mui.min.js",
   /** Polyfills */
   "core/polyfill.js",
   /** Menu */

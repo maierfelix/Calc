@@ -135,7 +135,7 @@ Interpreter.prototype.initGlobalScope = function(scope) {
         str = str || thisInterpreter.UNDEFINED;
         return thisInterpreter.createPrimitive(nativeFunc(str.toString()));
       };
-    })(window[strFunctions[i]]);
+    })([strFunctions[i]]);
     this.setProperty(scope, strFunctions[i],
                      this.createNativeFunction(wrapper));
   }
@@ -1083,7 +1083,7 @@ Interpreter.prototype.initSpreadsheet = function(scope) {
   this.RANGE = this.createNativeFunction(wrapper);
   this.setProperty(scope, 'Range', this.RANGE);
 
-  var functions = ['get'];
+  var functions = ['get', 'getValues'];
   for (var i = 0; i < functions.length; i++) {
     wrapper = (function(nativeFunc) {
       return function(var_args) {
@@ -1102,13 +1102,13 @@ Interpreter.prototype.initSpreadsheet = function(scope) {
     this.setProperty(this.RANGE.properties.prototype, functions[i], this.createNativeFunction(wrapper), false, true);
   }
 
-  var functions = ['set'];
+  var functions = ['set', 'setValues'];
   for (var i = 0; i < functions.length; i++) {
     wrapper = (function(nativeFunc) {
       return function(var_args) {
         var args = [];
         for (var i = 0; i < arguments.length; i++) {
-          args[i] = arguments[i].data;
+          args[i] = arguments[i].type === "string" ? arguments[i].data : arguments[i].properties;
         }
         var nativeObj = thisInterpreter.createPrimitive(this.range[nativeFunc].apply(this.range, args));
       };
@@ -1116,7 +1116,7 @@ Interpreter.prototype.initSpreadsheet = function(scope) {
     this.setProperty(this.RANGE.properties.prototype, functions[i], this.createNativeFunction(wrapper), false, true);
   }
 
-  var functions = ['getActiveSheet'];
+  var functions = ['getActiveSheet', 'redraw'];
   for (var i = 0; i < functions.length; i++) {
     wrapper = (function(nativeFunc) {
       return function(var_args) {
@@ -2441,11 +2441,10 @@ Interpreter.prototype['stepVariableDeclarator'] = function() {
   }
 };
 
-Interpreter.prototype['stepWhileStatement'] =
-    Interpreter.prototype['stepDoWhileStatement'];
+Interpreter.prototype['stepWhileStatement'] = Interpreter.prototype['stepDoWhileStatement'];
 
-// Preserve top-level API functions from being pruned by JS compilers.
-// Add others as needed.
-window['Interpreter'] = Interpreter;
-Interpreter.prototype['step'] = Interpreter.prototype.step;
-Interpreter.prototype['run'] = Interpreter.prototype.run;
+onmessage = function(e) {
+  var code = e.data;
+  var myInterpreter = new Interpreter(code).run();
+  postMessage("Ready!");
+}
