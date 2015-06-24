@@ -94,11 +94,4 @@ Master key: *3b011508e1edb8a92daca0c72522b4449aa455c820009ce1b4a838c868d6c4b8*
  - [Mui](https://github.com/muicss/mui/blob/master/LICENSE.txt)
  - [Socket.io](https://github.com/Automattic/socket.io/blob/master/LICENSE)
  - [Codemirror](https://github.com/codemirror/CodeMirror/blob/master/LICENSE)
-
-## Libraries
- * [ImportJS](https://github.com/felixmaier/ImportJS)
- * [Eight Bit Color Picker](https://github.com/bilalq/eight-bit-color-picker)
- * [Fastclick](https://github.com/ftlabs/fastclick)
- * [Mui](https://github.com/muicss/mui)
- * [Socket.io](https://github.com/Automattic/socket.io)
- * [Codemirror](https://github.com/codemirror/codemirror)
+ - [Vm.js](https://github.com/tarruda/vm.js/blob/master/LICENSE-MIT)
