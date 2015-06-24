@@ -88,19 +88,17 @@ Master key: *3b011508e1edb8a92daca0c72522b4449aa455c820009ce1b4a838c868d6c4b8*
 ### BSD License:
  - [NovaeCalc](https://github.com/felixmaier/NovaeCalc/blob/master/LICENSE.BSD)
 
-### Apache License:
- - [JS-Interpreter](https://github.com/NeilFraser/JS-Interpreter/blob/master/LICENSE)
-
 ### MIT License:
  - [Eight Bit Color Picker](https://github.com/bilalq/eight-bit-color-picker/blob/master/LICENSE)
  - [Fastclick](https://github.com/ftlabs/fastclick/blob/master/LICENSE)
  - [Mui](https://github.com/muicss/mui/blob/master/LICENSE.txt)
  - [Socket.io](https://github.com/Automattic/socket.io/blob/master/LICENSE)
+ - [Codemirror](https://github.com/codemirror/CodeMirror/blob/master/LICENSE)
 
 ## Libraries
- * [JS-Interpreter](https://github.com/NeilFraser/JS-Interpreter)
  * [ImportJS](https://github.com/felixmaier/ImportJS)
  * [Eight Bit Color Picker](https://github.com/bilalq/eight-bit-color-picker)
  * [Fastclick](https://github.com/ftlabs/fastclick)
  * [Mui](https://github.com/muicss/mui)
  * [Socket.io](https://github.com/Automattic/socket.io)
+ * [Codemirror](https://github.com/codemirror/codemirror)
