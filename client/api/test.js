@@ -1,17 +1,14 @@
 /** Initialize a new sheet api */
-var sheet = new SpreadSheet();
-
-/** Get the current active sheet */
-sheet.getActiveSheet();
+var sheet = SpreadSheet.getActiveSheet();
 
 /** Create a new range */
-var range = new Range('A1:S500');
+var range = new sheet.Range('A1:S10000');
 
 /** Direct range property change */
 range.set('BackgroundColor', 'rgb(0,0,0)');
 range.set('BackgroundColor', 'rgb(150,240,100)');
 
-/** Get properties of range */
+/** Get properties of a range */
 var content = range.getValues('BackgroundColor');
 
 /** Create a new array which holds some new background colors */

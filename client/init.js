@@ -19,7 +19,7 @@ Import.scripts = [
   "lib/ajax.min.js",
   "lib/eight-bit-color-picker.min.js",
   "lib/socket.io.min.js",
-  "lib/acorn.min.js",
+  "lib/codemirror.js",
   "style/mui/js/mui.min.js",
   /** Polyfills */
   "core/polyfill.js",
@@ -107,8 +107,8 @@ Import.scripts = [
   "core/interpreter/evaluator/function.js",
   "core/interpreter/type.js",
   /** Javascript interpreter */
-  "api/spreadsheet.js",
   "api/interpreter.js",
+  "api/spreadsheet.js",
   "api/main.js"
 ];
 

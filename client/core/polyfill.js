@@ -11,8 +11,6 @@
  *
  */
 
-"use strict";
-
   /** Round integer to its nearst X integer */
   Math.roundTo = function(a, b) {
     b = 1 / (b);

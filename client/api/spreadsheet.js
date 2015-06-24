@@ -38,9 +38,6 @@
    */
   SpreadSheet.prototype.init = function() {
 
-    /** Check if NovaeCalc exists */
-    if (!window.NOVAE) throw new Error("NovaeCalc wasn't found!");
-
     this.Spreadsheet = NOVAE;
 
   };
@@ -57,7 +54,7 @@
 
     this.CurrentSheet = this.Spreadsheet.Sheets[this.CurrentSheetName];
 
-    return (this.CurrentSheetName);
+    return (this);
 
   };
 
@@ -112,7 +109,7 @@
    */
   SpreadSheet.prototype.Range = function() {
 
-    this.range = arguments[0].data.split(":");
+    this.range = arguments[0].split(":");
 
     var first = this.range[0];
 
@@ -143,7 +140,7 @@
    */
   SpreadSheet.prototype.Range.prototype.getValues = function(property) {
 
-    property = property.data;
+    property = property;
 
     var array = NOVAE.$.getSelectionCellProperty(NOVAE.$.coordToSelection(this.range.first, this.range.last), property, this.CurrentSheetName);
 
@@ -184,13 +181,16 @@
 
     var range = NOVAE.$.coordToSelection(this.range.first, this.range.last);
 
-    if (range.length !== Object.keys(array).length) return void 0;
+    if (range.length !== array.length) return void 0;
 
     for (var ii = 0; ii < range.length; ++ii) {
       var letter = NOVAE.$.numberToAlpha(range[ii].letter);
       var number = range[ii].number;
       NOVAE.$.registerCell({letter: letter, number: number});
-      NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number][property] = array[ii].data;
+      NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number][property] = array[ii];
     }
 
   };
+
+  SpreadSheet = new SpreadSheet();
+  SpreadSheet.init();

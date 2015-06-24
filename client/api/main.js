@@ -15,21 +15,16 @@
 
 var NOVAE_Interpreter = function() {
 
-  var init = function(interpreter, scope) {
-
-    var log = function(text) {
-      return interpreter.createPrimitive(console.log(text));
-    };
-
-    interpreter.setProperty(scope, 'log', interpreter.createNativeFunction(log));
-
-  };
-
   /** Load test script */
   AJAX.GET("./api/test.js", function(content) {
 
     /** Run the test script */
-    var myInterpreter = new Interpreter(content).run();
+    var myInterpreter = Interpreter.run(content);
+    var myCodeMirror = CodeMirror(document.body, {
+      value: content,
+      mode:  "javascript",
+      lineNumbers: true
+    });
 
   });
 
