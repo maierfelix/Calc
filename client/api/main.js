@@ -16,17 +16,24 @@
 var NOVAE_Interpreter = function() {
 
   /** Load test script */
-  AJAX.GET("./api/flashingBackground.js", function(content) {
+  AJAX.GET("./api/helper.js", function(data) {
 
-    var code = Interpreter.registerModule(content);
+    Interpreter.registerModule(data);
 
-    /** Run the test script */
-    Interpreter.run(code);
+    /** Load test script */
+    AJAX.GET("./api/flashingBackground.js", function(content) {
 
-    var myCodeMirror = CodeMirror(document.body, {
-      value: code,
-      mode:  "javascript",
-      lineNumbers: true
+      var code = Interpreter.registerModule(content);
+
+      /** Run the test script */
+      Interpreter.run(code);
+
+      /*var myCodeMirror = CodeMirror(document.body, {
+        value: code,
+        mode:  "javascript",
+        lineNumbers: true
+      });*/
+
     });
 
   });

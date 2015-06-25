@@ -40,6 +40,9 @@
       }
     };
 
+    /** Make includes working */
+    this.vm.realm.global.console = console;
+
   };
 
   Interpreter.prototype = Interpreter;
@@ -66,57 +69,71 @@
    * @method lex
    * @static
    */
-  Interpreter.prototype.lex = function(code) {
+  Interpreter.prototype.lex = function(input) {
 
-    var headerName = "";
+    var originalInput = input;
 
-    var headerDescription = "";
+    var Tokens = [];
 
-    var poundRegex = /\#(.*)\#/g;
+    /** Precompile lexical regular expressions */
+    var KeyWords = [
+      { name: "LX_HASH",   rx: /^\#(.*)\#/ }
+    ];
 
+    /** Precompile regex */
+    var blank = /^[ \t\v\f]+/;
+
+    /** Precompile regex */
+    var notBlank = /^\S+/;
+
+    /** Precompile regex */
     var lineBreak = /^[\r\n]+/;
 
-    var match = code.match(poundRegex);
+    /** Is blank */
+    var isBlank = function() { return arguments[0e0].match(blank); };
 
-    var headerIntro = "";
+    /** Is not blank */
+    var isNotBlank = function() { return arguments[0e0].match(notBlank); };
 
-    var array = [];
+    /** Is line break */
+    var isLineBreak = function() { return arguments[0e0].match(lineBreak); };
 
-    var length = 0;
+    while (input) {
 
-    /** Get first line */
-    while (code && !code.match(lineBreak)) {
-      headerIntro += code[0];
-      code = code.substring(1);
-    }
+      /** Ignore blanks */
+      var match = isLineBreak(input) || isBlank(input);
 
-    var ii = 0;
+      for (var ii = 0e0; !match && ii < KeyWords.length; ++ii) {
 
-    /** Get first line inside */
-    while (code && code.length) {
-      match = code.match(poundRegex);
-      if (match) {
-        if (match[0] === headerIntro) {
-          code = code.substring(headerIntro.length);
-          ii++;
-        } else {
-          name = match[0].replace(/#/g, "");
+        /** Matches with a keyword regex */
+        if (match = input.match(KeyWords[ii].rx)) {
+
+          Tokens.push({
+            type:  KeyWords[ii].name,
+            value: match[0].trim()
+          });
+
         }
+
       }
-      if (ii >= 2) break;
-      if (!headerName && ii === 0) {
-        headerName = name;
-      }
-      if (!headerDescription && ii === 1) {
-        headerDescription = name;
-      }
-      code = code.substring(1);
+
+      /** Continue if stream goes on */
+      if (match && match[0]) input = input.substring(match[0].length);
+      else break;
+
     }
 
-    code = code.substring(code.indexOf("\n"));
-    code = code.replace(/^\s+|\s+$/g,"");
+    for (var ii = 0; ii < Tokens.length; ++ii) {
+      Tokens[ii] = Tokens[ii].value.replace(/#/g, "").trim();
+      originalInput = originalInput.substring(originalInput.indexOf("\n") + 1);
+    }
 
-    return ([headerName.trim(), headerDescription.trim(), code]);
+    originalInput = originalInput.replace(/^\s+|\s+$/g,"");
+
+    Tokens.shift();
+    Tokens.pop();
+ 
+    return([Tokens[0], Tokens[1], Tokens[2], originalInput]);
 
   };
 
@@ -129,18 +146,40 @@
    */
   Interpreter.prototype.registerModule = function(code) {
 
+    var included = [];
+
     var lexed = this.lex(code);
 
     var name = lexed[0];
 
     var description = lexed[1];
 
-    code = lexed[2];
+    var includes = lexed[2];
+
+    code = lexed[3];
 
     if (!this.modules[name]) {
       this.modules[name] = {
         code: code,
         description: description
+      }
+    }
+
+    if (includes) {
+      includes = includes.replace("include", "");
+      includes = (/<(.*?)>/g).exec(includes)[1];
+      includes = includes.split(",");
+      for (var ii = 0; ii < includes.length; ++ii) {
+        includes[ii] = includes[ii].trim();
+        included.push(includes[ii]);
+      }
+    }
+
+    if (included.length) {
+      for (var ii = 0; ii < included.length; ++ii) {
+        if (this.modules[included[ii]]) {
+          this.modules[name].code = this.modules[included[ii]].code + this.modules[name].code;
+        } else throw new Error(included[ii] + " doesn't exist!");
       }
     }
 

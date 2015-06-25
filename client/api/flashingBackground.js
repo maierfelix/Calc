@@ -1,14 +1,11 @@
 ############################
 #   Flashing_Background    #
 #  Random flashing colors  #
+#     include <Helper>     #
 ############################
 
 /** Initialize a new sheet api */
 var sheet = SpreadSheet.getActiveSheet();
-
-function randomRgbColor() {
-  return (Math.floor(Math.random() * 255) + 1);
-};
 
 /**
  * Flashes the background with random colors
