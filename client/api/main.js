@@ -15,27 +15,35 @@
 
 var NOVAE_Interpreter = function() {
 
-  /** Load test script */
-  AJAX.GET("./api/helper.js", function(data) {
+  var dir = "./api/test/";
 
-    Interpreter.registerModule(data);
+  var scripts = [dir + "helper.js", dir + "flashingBackground.js", dir + "fillContent.js", dir + "run.js"];
 
-    /** Load test script */
-    AJAX.GET("./api/flashingBackground.js", function(content) {
+  var length = scripts.length;
 
-      var code = Interpreter.registerModule(content);
+  for (var ii = 0; ii < scripts.length; ++ii) {
 
-      /** Run the test script */
-      Interpreter.run(code);
+    /** Load script */
+    AJAX.GET(scripts[ii], function(ii, data) {
 
-      /*var myCodeMirror = CodeMirror(document.body, {
-        value: code,
-        mode:  "javascript",
-        lineNumbers: true
-      });*/
+      length--;
 
-    });
+      /** Register script as a module */
+      scripts[ii] = Interpreter.registerModule(data);
 
-  });
+      length <= 0 && run(scripts);
+
+    }.bind(this, ii));
+
+  }
+
+  /** Execute scripts */
+  var run = function(scripts) {
+
+    for (var ii = 0; ii < scripts.length; ++ii) {
+      Interpreter.run(scripts[ii]);
+    }
+
+  };
 
 };

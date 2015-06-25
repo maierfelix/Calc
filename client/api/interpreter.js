@@ -140,6 +140,8 @@
   /**
    * Register a new module
    *
+   * TODO: Make includes not dependent of input order
+   *
    * @param {string} [code] Code of the module
    * @method registerModule
    * @static
