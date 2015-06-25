@@ -18,11 +18,13 @@ var NOVAE_Interpreter = function() {
   /** Load test script */
   AJAX.GET("./api/flashingBackground.js", function(content) {
 
+    var code = Interpreter.registerModule(content);
+
     /** Run the test script */
-    var myInterpreter = Interpreter.run(content);
+    Interpreter.run(code);
 
     var myCodeMirror = CodeMirror(document.body, {
-      value: content,
+      value: code,
       mode:  "javascript",
       lineNumbers: true
     });

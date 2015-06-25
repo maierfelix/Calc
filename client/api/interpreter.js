@@ -23,6 +23,8 @@
 
     var self = this;
 
+    this.modules = {};
+
     this.vm = new Vm();
 
     /** Allow access to the spreadsheet */
@@ -46,24 +48,103 @@
   /**
    * Run a script
    *
+   * @param {string} [code] Code to be executed
    * @method run
    * @static
    */
-  Interpreter.prototype.run = function() {
+  Interpreter.prototype.run = function(code) {
 
     this.vm.eval(arguments[0]);
 
   };
 
   /**
-   * Throw a error
+   * Lexical analysis of a modules code
+   * Tries to retreive the modules name
    *
-   * @method error
+   * @param {string} [code] Code
+   * @method lex
    * @static
    */
-  Interpreter.prototype.error = function(name, msg) {
+  Interpreter.prototype.lex = function(code) {
 
-    console.error(name, msg);
+    var headerName = "";
+
+    var headerDescription = "";
+
+    var poundRegex = /\#(.*)\#/g;
+
+    var lineBreak = /^[\r\n]+/;
+
+    var match = code.match(poundRegex);
+
+    var headerIntro = "";
+
+    var array = [];
+
+    var length = 0;
+
+    /** Get first line */
+    while (code && !code.match(lineBreak)) {
+      headerIntro += code[0];
+      code = code.substring(1);
+    }
+
+    var ii = 0;
+
+    /** Get first line inside */
+    while (code && code.length) {
+      match = code.match(poundRegex);
+      if (match) {
+        if (match[0] === headerIntro) {
+          code = code.substring(headerIntro.length);
+          ii++;
+        } else {
+          name = match[0].replace(/#/g, "");
+        }
+      }
+      if (ii >= 2) break;
+      if (!headerName && ii === 0) {
+        headerName = name;
+      }
+      if (!headerDescription && ii === 1) {
+        headerDescription = name;
+      }
+      code = code.substring(1);
+    }
+
+    code = code.substring(code.indexOf("\n"));
+    code = code.replace(/^\s+|\s+$/g,"");
+
+    return ([headerName.trim(), headerDescription.trim(), code]);
+
+  };
+
+  /**
+   * Register a new module
+   *
+   * @param {string} [code] Code of the module
+   * @method registerModule
+   * @static
+   */
+  Interpreter.prototype.registerModule = function(code) {
+
+    var lexed = this.lex(code);
+
+    var name = lexed[0];
+
+    var description = lexed[1];
+
+    code = lexed[2];
+
+    if (!this.modules[name]) {
+      this.modules[name] = {
+        code: code,
+        description: description
+      }
+    }
+
+    return (this.modules[name].code);
 
   };
 

@@ -1,3 +1,8 @@
+############################
+#   Flashing_Background    #
+#  Random flashing colors  #
+############################
+
 /** Initialize a new sheet api */
 var sheet = SpreadSheet.getActiveSheet();
 

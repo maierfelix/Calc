@@ -25,8 +25,6 @@
 
     this.Spreadsheet = null;
 
-    this.modules = {};
-
   };
 
   SpreadSheet.prototype = SpreadSheet;
