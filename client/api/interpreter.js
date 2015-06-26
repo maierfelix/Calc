@@ -40,7 +40,10 @@
       }
     };
 
-    /** Make includes working */
+    /** Prevent module keyword */
+    this.vm.realm.global.module = void 0;
+
+    /** Make console working */
     this.vm.realm.global.console = console;
 
   };
@@ -62,22 +65,78 @@
   };
 
   /**
-   * Lexical analysis of a modules code
-   * Tries to retreive the modules name
+   * Register a new module
    *
-   * @param {string} [code] Code
-   * @method lex
+   * TODO: Make includes not dependent of input order
+   *
+   * @param {string} [code] Code of the module
+   * @method registerModule
    * @static
    */
-  Interpreter.prototype.lex = function(input) {
+  Interpreter.prototype.registerModule = function(code) {
 
-    var originalInput = input;
+    var head = this.readHead(code);
+
+    var name = head.name;
+
+    var description = head.description;
+
+    var imported = head["import"];
+
+    var require = head.require;
+
+    var code = head.code;
+
+    if (!this.modules[name]) {
+      this.modules[name] = {
+        code: code,
+        description: description
+      }
+    }
+
+    if (require && require.length) {
+      this.modules[name].require = require;
+    }
+
+    if (imported && imported.length) {
+      if (!this.modules[name]["import"]) {
+        this.modules[name]["import"] = imported;
+      }
+      for (var ii = 0; ii < imported.length; ++ii) {
+        if (this.modules[imported[ii]]) {
+          this.modules[name].code = this.modules[imported[ii]].code + this.modules[name].code;
+        } else throw new Error(imported[ii] + " doesn't exist!");
+      }
+    }
+
+    return (this.modules[name].code);
+
+  };
+
+  /**
+   * Read a modules head and parse JSON from
+   *
+   * @param {string} [input] Code of the module
+   * @method readHead
+   * @static
+   */
+  Interpreter.prototype.readHead = function(input) {
 
     var Tokens = [];
 
     /** Precompile lexical regular expressions */
     var KeyWords = [
-      { name: "LX_HASH",   rx: /^\#(.*)\#/ }
+      { name: "LX_MODULE",   rx: /^(module)/ },
+      { name: "LX_LBRAC",    rx: /^[\\{]+/   },
+      { name: "LX_RBRAC",    rx: /^[\\}]+/   },
+      { name: "LX_LHBRAC",   rx: /^\[.*?/    },
+      { name: "LX_RHBRAC",   rx: /^\].*?/    },
+      { name: "LX_SEMIC",    rx: /^[;]+/     },
+      { name: "LX_COMMA",    rx: /^,/        },
+      { name: "LX_COLON",    rx: /^[:]+/     },
+      { name: "LX_NUMBER",   rx: /^[-]?[0-9]+(\.\d+[0-9]*)?/ },
+      { name: "LX_BOOLEAN",  rx: /^(true|false)/ },
+      { name: "LX_STRING",   rx: /^"(\\\\"|[^"])(.*?)"|'"'(\\\\'|[^'])*'"/ },
     ];
 
     /** Precompile regex */
@@ -98,20 +157,32 @@
     /** Is line break */
     var isLineBreak = function() { return arguments[0e0].match(lineBreak); };
 
+    var record = false;
+
+    var headStream = "";
+
     while (input) {
 
       /** Ignore blanks */
       var match = isLineBreak(input) || isBlank(input);
 
-      for (var ii = 0e0; !match && ii < KeyWords.length; ++ii) {
+      for (var ii = 0e0; ii < KeyWords.length; ++ii) {
 
         /** Matches with a keyword regex */
         if (match = input.match(KeyWords[ii].rx)) {
 
-          Tokens.push({
-            type:  KeyWords[ii].name,
-            value: match[0].trim()
-          });
+          /** Start recording */
+          if (KeyWords[ii].name === "LX_LBRAC" && record === false && !Tokens.length) {
+            record = true;
+          }
+
+          if (record) {
+            Tokens.push({
+              type:  KeyWords[ii].name,
+              value: match[0].trim()
+            });
+            headStream += match[0];
+          }
 
         }
 
@@ -119,73 +190,32 @@
 
       /** Continue if stream goes on */
       if (match && match[0]) input = input.substring(match[0].length);
-      else break;
+      else input = input.substring(1);
 
-    }
-
-    for (var ii = 0; ii < Tokens.length; ++ii) {
-      Tokens[ii] = Tokens[ii].value.replace(/#/g, "").trim();
-      originalInput = originalInput.substring(originalInput.indexOf("\n") + 1);
-    }
-
-    originalInput = originalInput.replace(/^\s+|\s+$/g,"");
-
-    Tokens.shift();
-    Tokens.pop();
- 
-    return([Tokens[0], Tokens[1], Tokens[2], originalInput]);
-
-  };
-
-  /**
-   * Register a new module
-   *
-   * TODO: Make includes not dependent of input order
-   *
-   * @param {string} [code] Code of the module
-   * @method registerModule
-   * @static
-   */
-  Interpreter.prototype.registerModule = function(code) {
-
-    var included = [];
-
-    var lexed = this.lex(code);
-
-    var name = lexed[0];
-
-    var description = lexed[1];
-
-    var includes = lexed[2];
-
-    code = lexed[3];
-
-    if (!this.modules[name]) {
-      this.modules[name] = {
-        code: code,
-        description: description
+      if (record) {
+        if (Tokens[Tokens.length - 1].type === "LX_SEMIC" &&
+            Tokens[Tokens.length - 2].type === "LX_RBRAC") {
+          break;
+        } else if (Tokens[Tokens.length - 1].type === "LX_RBRAC") {
+          break;
+        }
       }
+
     }
 
-    if (includes) {
-      includes = includes.replace("include", "");
-      includes = (/<(.*?)>/g).exec(includes)[1];
-      includes = includes.split(",");
-      for (var ii = 0; ii < includes.length; ++ii) {
-        includes[ii] = includes[ii].trim();
-        included.push(includes[ii]);
-      }
+    input = input.substring(input.indexOf("\n") + 1);
+
+    var json;
+
+    try {
+      json = JSON.parse(headStream);
+    } catch(err) {
+      throw new Error(err);
     }
 
-    if (included.length) {
-      for (var ii = 0; ii < included.length; ++ii) {
-        if (this.modules[included[ii]]) {
-          this.modules[name].code = this.modules[included[ii]].code + this.modules[name].code;
-        } else throw new Error(included[ii] + " doesn't exist!");
-      }
-    }
+    json.code = input;
 
-    return (this.modules[name].code);
+    return(json);
 
   };
 

@@ -1,7 +1,7 @@
-#######################################
-#                Helper               #
-#  Provides various helper functions  #
-#######################################
+module = {
+  "name": "Helper",
+  "description": "Provides various helper functions"
+};
 
 /** Return a random RGB compatible number */
 function randomRgbColor() {

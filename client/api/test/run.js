@@ -1,7 +1,8 @@
-########################################################
-#                       MainScript                     #
-#  include<Helper, Flashing_Background, Fill_Content>  #
-########################################################
+module = {
+  "name": "MainScript",
+  "description": "The main script",
+  "import": ["Helper", "FlashingBackground", "FillContent"]
+};
 
 /** Initialize a new sheet api */
 var sheet = SpreadSheet.getActiveSheet();
@@ -19,4 +20,4 @@ setInterval(function() {
   /** Redraw the sheet, since changes were made */
   sheet.redraw();
 
-}, 1000);
+}, 750);

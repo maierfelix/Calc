@@ -1,8 +1,8 @@
-############################
-#       Fill_Content       #
-#      Random content      #
-#     include <Helper>     #
-############################
+module = {
+  "name": "FillContent",
+  "description": "Random content",
+  "require": ["Helper"]
+};
 
 /**
  * Fill sheet range with random content
