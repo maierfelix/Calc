@@ -65,37 +65,42 @@ Round number upwards to the nearest integer: "ceil"
 
 ## Scripts
 NovaeCalc has a own scripting language based on Javascript, which provides you some great ways to write your own makros and functions.
+You can write scripts as modules and combine them. See the example below how to do so.
 
-### Example
+Define a module:
 ```js
-/** Initialize a new sheet api */
-var sheet = new SpreadSheet();
+module = {
+  /** Unique name of the module */
+  "name": ..,
+  /** A short description of the module */
+  "description": ...,
+  /** Import other modules if you want to have access to their content */
+  "import": [.., ..]
+};
+```
+After that, you can start writing the modules code:
+```js
+/** Initialize a new sheet api and take the current active sheet */
+var sheet = SpreadSheet.getActiveSheet();
 
-/** Get the current active sheet */
-sheet.getActiveSheet();
+/** Get a range of the user's current view */
+var range = new sheet.Range(sheet.getView());
 
-/** Create a new range */
-var range = new Range('A5:K10');
-
-/** Direct range property change */
-range.set('BackgroundColor', 'rgb(0,0,0)');
-range.set('BackgroundColor', 'rgb(150,240,100)');
-
-/** Get properties of range */
-var content = range.getValues('BackgroundColor');
+/** Get length of the range */
+var length = range.getLength();
 
 /** Create a new array which holds some new background colors */
 var newValues = [];
 
 /** Fill the array with some random content */
-for (var ii = 0; ii < content.length; ++ii) {
+for (var ii = 0; ii < length; ++ii) {
   newValues[ii] = Math.ceil(Math.random()*1000);
-};
+}
 
-/** Change background color of the range with a length matching array holding values */
+/** Change content of the range with a length matching array holding new values */
 range.setValues('Content', newValues);
 
-/** Redraw the sheet, since changes were made */
+/** Since you changed the styling of the sheet, it has to be redrawn */
 sheet.redraw();
 ```
 
