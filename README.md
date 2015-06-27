@@ -63,8 +63,8 @@ Master key: *3b011508e1edb8a92daca0c72522b4449aa455c820009ce1b4a838c868d6c4b8*
    - [ ] Multi-user cell styling
    - [ ] Multi-user cell resizing
    - [x] Multi-sheet support
-   - [ ] Delete sheets
-   - [ ] Count users in current sheet
+   - [x] Delete sheets
+   - [x] Count users in current sheet
    - [ ] Synchronization
    - [ ] Screen mirroring
    - [ ] Save styling as ranges
@@ -80,9 +80,7 @@ Master key: *3b011508e1edb8a92daca0c72522b4449aa455c820009ce1b4a838c868d6c4b8*
 - [ ] Styling bug on master column and row background styling (scrolledXY > Settings.xy)
 
 ## Notes:
-- [ ] Possibly include server-side cell calculation option
 - [ ] Pow higher priority than multiply
-- [ ] Possibly blocking formula interpretation, outsource into web worker
 
 ## Licensing
 ### BSD License:
