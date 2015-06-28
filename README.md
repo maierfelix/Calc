@@ -51,6 +51,10 @@ Master key: *3b011508e1edb8a92daca0c72522b4449aa455c820009ce1b4a838c868d6c4b8*
    - [ ] Cell ranges
    - [ ] Multi-sheet cell references
 
+- [ ] Script logic
+   - [ ] Sheets
+   - [x] Ranges
+
 - [ ] Server
    - [x] Rooms
    - [x] Room passwords
