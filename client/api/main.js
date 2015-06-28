@@ -40,9 +40,14 @@ var NOVAE_Interpreter = function() {
   /** Execute scripts */
   var run = function(scripts) {
 
-    for (var ii = 0; ii < scripts.length; ++ii) {
-      Interpreter.run(scripts[ii]);
-    }
+    /** Run all scripts */
+    Interpreter.run();
+
+    var myCodeMirror = CodeMirror(document.body, {
+      value: scripts[scripts.length-1],
+      mode:  "javascript",
+      lineNumbers: true
+    });
 
   };
 

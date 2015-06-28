@@ -58,9 +58,14 @@
    * @method run
    * @static
    */
-  Interpreter.prototype.run = function(code) {
+  Interpreter.prototype.run = function() {
 
-    this.vm.eval(arguments[0]);
+    /** Auto compile all modules */
+    if (!arguments[0]) {
+      for (var module in this.modules) {
+        this.vm.eval(this.compileModule(module));
+      }
+    }
 
   };
 
@@ -88,28 +93,41 @@
     var code = head.code;
 
     if (!this.modules[name]) {
-      this.modules[name] = {
-        code: code,
-        description: description
-      }
+      this.modules[name] = new Interpreter.Module(code, description, imported);
     }
 
     if (require && require.length) {
       this.modules[name].require = require;
     }
 
+    return (this.modules[name].code);
+
+  };
+
+  /**
+   * Compile a module
+   *
+   * @param {string} [name] Module name
+   * @method compileModule
+   * @static
+   */
+  Interpreter.prototype.compileModule = function(name) {
+
+    var imported = this.modules[name]["import"];
+
+    //return (this.modules[name].code);
+
     if (imported && imported.length) {
-      if (!this.modules[name]["import"]) {
-        this.modules[name]["import"] = imported;
-      }
       for (var ii = 0; ii < imported.length; ++ii) {
         if (this.modules[imported[ii]]) {
-          this.modules[name].code = this.modules[imported[ii]].code + this.modules[name].code;
+          this.modules[name].compiled = this.modules[imported[ii]].code + this.modules[name].code;
         } else throw new Error(imported[ii] + " doesn't exist!");
       }
+    } else {
+      this.modules[name].compiled = this.modules[name].code;
     }
 
-    return (this.modules[name].code);
+    return (this.modules[name].compiled);
 
   };
 
@@ -218,6 +236,31 @@
     return(json);
 
   };
+
+  /**
+   * Module Class
+   *
+   * @param {string} [code] Code
+   * @param {string} [description] Description
+   * @param {array} [imported] Scripts to import
+   * @class Module
+   * @static
+   */
+  Interpreter.prototype.Module = function(code, description, imported) {
+
+    this.code = code || null;
+
+    this.description = description || null;
+
+    this["import"] = imported || null;
+
+    this.active = false;
+
+    this.activation = null;
+
+  };
+
+  Interpreter.prototype.Module = Interpreter.Module;
 
   /** Override myself */
   Interpreter = new Interpreter();

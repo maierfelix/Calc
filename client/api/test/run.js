@@ -20,4 +20,4 @@ setInterval(function() {
   /** Redraw the sheet, since changes were made */
   sheet.redraw();
 
-}, 750);
+}, 1000);
