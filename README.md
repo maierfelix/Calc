@@ -31,13 +31,11 @@ Master key: *3b011508e1edb8a92daca0c72522b4449aa455c820009ce1b4a838c868d6c4b8*
  - [ ] Functionalities
    - [x] Export projects
    - [x] Import project
-   - [ ] Backup projects into LocalStorage
+   - [ ] Backup last project state into LocalStorage
    - [ ] Undo, redo stack
    - [x] Multiple sheets
    - [x] Delete sheets
    - [x] System speed optimization
-   - [ ] Jump to (x, y)
-   - [ ] Select From X To X
    - [ ] Debug
 
 - [ ] Formula logic
