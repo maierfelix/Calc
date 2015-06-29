@@ -50,7 +50,11 @@
     }
 
     /** Create background style command */
-    this.backgroundStyleCommand(color);
+    if (NOVAE.Sheets[NOVAE.CurrentSheet].Selector.allSelected) {
+      //this.backgroundStyleCommand(color);
+    } else {
+      this.backgroundStyleCommand(color);
+    }
 
     /** Append the background style */
     this.appendBackgroundStyle(color);

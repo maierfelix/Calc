@@ -47,7 +47,7 @@
     }
 
     var container = document.createElement("div");
-        container.className = "modal fadeIn";
+        container.className = "modal modal-animation-fade fadeIn";
 
     for (var ii in parsedContent.children) {
       if (parsedContent.children[ii] instanceof HTMLElement) {
@@ -58,9 +58,6 @@
     // Show the modal
     mui.overlay('on', container);
 
-    parsedTitle = parsedTitle.children[0];
-    parsedTitle.className += " fadeIn";
-
-    document.querySelector("#mui-overlay").appendChild(parsedTitle);
+    container.appendChild(parsedTitle);
 
   };

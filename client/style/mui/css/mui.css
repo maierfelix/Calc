@@ -1649,6 +1649,9 @@ hr {
   animation-duration: 0.001s;
   -webkit-animation-name: mui-node-inserted;
   animation-name: mui-node-inserted;
+  font-size: 1em;
+  font-weight: 300;
+  font-family: 'Roboto',Arial,sans-serif;
 }
 
 .mui-btn.mui-text-black {

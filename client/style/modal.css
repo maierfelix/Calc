@@ -1,0 +1,77 @@
+.modal {
+  display: block;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-left: -250px;
+  margin-top: -150px;
+  width: 500px;
+  height: 200px;
+  background: white;
+  padding: 25px;
+  box-shadow: 0 2px 3px rgba(0,0,0,0.5);
+  -moz-box-shadow: 0 2px 3px rgba(0,0,0,0.5);
+  -webkit-box-shadow: 0 2px 3px rgba(0,0,0,0.5);
+  z-index: 1999;
+  opacity: 1;
+}
+
+.modal h2 {
+  margin-top: 0;
+}
+
+.modal p {
+  font-size: 20px;
+}
+
+.modal form input[type='text'], .modal form input[type='password'], .modal form input[type='email'], .modal form textarea{
+  margin: 0;
+  border: none;
+  background: #f7f7f7;
+  padding: 18px 10px;
+  font-size: 16px;
+  width: 79%;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+.modal form input[type='submit']{
+  padding: 18px 10px;
+  background: none;
+  font-size: 16px;
+  text-transform: uppercase;
+  border: none;
+  background: black;
+  color: white;
+  width: 20%;
+  margin: 0;
+}
+
+.modal-open .modal {
+  opacity: 1;
+}
+
+.modal-overlay {
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.58);
+  opacity: 1;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 100;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  overflow: auto;
+}
+
+@media screen and (max-width: 530px) {
+  .modal {
+    width: 400px;
+    margin-left: -200px;
+  }
+}

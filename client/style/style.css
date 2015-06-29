@@ -1,3 +1,6 @@
+/* Default Demo Style */
+@import url(http://fonts.googleapis.com/css?family=Roboto:300,400,700);
+
 * {
   box-sizing: border-box;
 }
@@ -16,6 +19,31 @@ html * {
     -webkit-touch-callout: none;
     -webkit-tap-highlight-color: transparent;
     -webkit-text-size-adjust: none
+}
+
+h1, h2, h3 {
+  font-family: 'Roboto',Arial,sans-serif;
+}
+
+h1 { 
+  font-size: 2.5em; 
+  font-weight: 300; 
+}
+
+h2 { 
+  font-size: 1.5em; 
+  font-weight: 300; 
+}
+
+h3 { 
+  font-size: 1.2em; 
+  font-weight: 400; 
+}
+
+h1, h2, h3 {
+  font-size: 1.5em !important;
+  font-weight: 300 !important;
+  font-family: 'Roboto',Arial,sans-serif !important;
 }
 
 body, html {
@@ -934,60 +962,6 @@ button, input, select, textArea {
   color: #fff !important;
 }
 
-.modal {
-  background-color: rgb(255, 255, 255);
-  width: 75%;
-  min-height: 50%;
-  position: absolute;
-  top: -webkit-calc(50% - 35%);
-  left: -webkit-calc(50% - 37%);
-  top: -moz-calc(50% - 35%);
-  left: -moz-calc(50% - 37%);
-  top: calc(50% - 35%);
-  left: calc(50% - 37%);
-  transition: 0.5s left,0.5s top, 0.5s width, 0.5s height, 0.5s opacity;
-  overflow: hidden;
-  outline: 0;
-  z-index: 40;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  box-shadow: 0 1px 30px rgba(0,0,0,.5);
-  height: 50px;
-}
-
-.modal>h4 {
-  position: absolute;
-  font-size: 18px;
-  line-height: 25px;
-  font-family: Roboto,Helvetica Neue,Helvetica,Arial,sans-serif;
-  font-weight: 500;
-  color: #757575;
-  height: 75px;
-  width: 75%;
-  margin-top: -1px !important;
-  position: absolute;
-  padding-left: 10px;
-  padding-top: 32px;
-  text-align: center;
-  margin: 24px 0;
-  top: -webkit-calc(50% - 35%);
-  left: -webkit-calc(50% - 37%);
-  top: -moz-calc(50% - 35%);
-  left: -moz-calc(50% - 37%);
-  top: calc(50% - 35%);
-  left: calc(50% - 37%);
-}
-
-.modal>h3 {
-  font-family: "RobotoDraft","Roboto",sans-serif !important;
-  font-size: 22px !important;
-  font-weight: 600 !important;
-  padding-left: 10px;
-  margin: 24px 0;
-  background-color: rgba(68, 138, 255, 1);
-  color: #fff;
-}
-
 .alertButton {
   position: absolute !important;
   margin: 11px 11px;
@@ -1001,31 +975,6 @@ button, input, select, textArea {
 .alertAbort {
   bottom: 5px;
   right: 0px;
-}
-
-.modalTitle {
-  height: 75px;
-  width: 75%;
-  margin-top: -1px !important;
-  position: absolute;
-  z-index: 999;
-  font-family: "RobotoDraft","Roboto",sans-serif !important;
-  font-size: 22px !important;
-  font-weight: 600 !important;
-  padding-left: 10px;
-  padding-top: 20px;
-  text-align: center;
-  margin: 24px 0;
-  background-color: rgba(68, 138, 255, 1);
-  color: #fff;
-  top: -webkit-calc(50% - 35%);
-  left: -webkit-calc(50% - 37%);
-  top: -moz-calc(50% - 35%);
-  left: -moz-calc(50% - 37%);
-  top: calc(50% - 35%);
-  left: calc(50% - 37%);
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
 }
 
 .editorButtonOk {

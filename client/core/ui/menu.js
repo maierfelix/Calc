@@ -61,7 +61,7 @@
       /** Calculate mouse press duration */
       var time = (new Date().getTime() - lastPress);
 
-      if (time >= 750) {
+      if (!NOVAE.Connector.connected && time >= 750) {
         /** Add a master sheet */
         NOVAE.Sheets.addSheet(false, true);
       } else {

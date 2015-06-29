@@ -47,7 +47,7 @@
       var muiButton = "mui-btn mui-btn-primary mui-btn-lg alertButton";
 
       /** The modal content */
-      var title = "<h3 class='modalTitle'>More than one master sheet isn't allowed!</h3>";
+      var title = "<h3>More than one master sheet isn't allowed!</h3>";
       var buttons = "<button class='"+muiButton+" alertOk' name='ok'>Ok</button>";
 
       /** Alert the user, that more than one master sheets are not allowed */
@@ -173,7 +173,7 @@
         var muiButton = "mui-btn mui-btn-primary mui-btn-lg alertButton";
 
         /** The modal content */
-        var title = "<h3 class='modalTitle'>Do you really want to delete " + name + "?</h3>";
+        var title = "<h2>Delete Sheet</h2><h3>Do you really want to delete " + name + "?</h3>";
         var buttons = "<button class='"+muiButton+" alertOk' name='ok'>Ok</button><button class='"+muiButton+" alertAbort' name='abort'>Abort</button>";
 
         NOVAE_UI.Modal(title, buttons, function(submit) {

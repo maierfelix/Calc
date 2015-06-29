@@ -35,7 +35,9 @@
     /** Customized cells -> Sheet -> Dictionary[a-Z] -> ColumnRow[a-Z] -> Cell[a-Z+0-9] */
     Used: {},
     /** Live cells */
-    Live: {}
+    Live: {},
+    /** All cell */
+    All: null
   };
 
   /** System speed grade */
