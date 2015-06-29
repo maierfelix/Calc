@@ -25,7 +25,7 @@ If you want to test the latest multi-user functionality, go to:
    - [x] Insert, delete columns and rows
    - [x] Glossy, outer border selection fields
    - [ ] Formula / Cell content extending (horizontal, vertical, numbers, strings)
-   - [ ] Copy / Paste / Delete /Cut Out cells
+   - [x] Copy / Paste / Delete / Cut Out cells
 
  - [ ] Functionalities
    - [x] Export projects
