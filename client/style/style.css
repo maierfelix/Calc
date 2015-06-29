@@ -978,29 +978,33 @@ button, input, select, textArea {
 }
 
 .editorButtonOk {
-  background-color: rgba(68, 138, 255, 0.9) !important;
-  z-index: 4;
-  bottom: 0px;
-  left: -3px;
+  position: absolute !important;
+  right: 75px;
+  top: -1px;
+  position: absolute;
+  z-index: 999;
+  background-color: rgba(0,0,0,0) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24) !important;
 }
 
 .editorButtonShortCut {
-  background-color: rgba(68, 138, 255, 0.9) !important;
-  z-index: 4;
-  bottom: 0px;
-  left: 75px;
+  position: absolute !important;
+  right: 40px;
+  top: -1px;
+  position: absolute;
+  z-index: 999;
+  background-color: rgba(0,0,0,0) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24) !important;
 }
 
 .editorButtonAdd {
-  background-color: rgba(68, 138, 255, 0.9) !important;
-  height: 21px !important;
-  line-height: 21px !important;
-  width: 42px !important;
-  padding: 0px !important;
-  margin: 2px !important;
-  z-index: 4;
-  top: 0px;
-  right: 0px;
+  position: absolute !important;
+  right: 5px;
+  top: -1px;
+  position: absolute;
+  z-index: 999;
+  background-color: rgba(0,0,0,0) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24) !important;
 }
 
 .editorButtonAdd>span {
@@ -1030,4 +1034,20 @@ button, input, select, textArea {
 
 .ebcp-text-container, .ebcp-preview-values {
   display: none !important;
+}
+
+.moduleContainer {
+  position: absolute;
+  z-index: 999999;
+  bottom: 0px;
+  right: 5px;
+  padding: 0px;
+  margin: 0px;
+}
+
+.editorScript {
+  width: auto !important;
+  padding-left: 2px !important;
+  padding-right: 2px !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24) !important;
 }

@@ -43,9 +43,6 @@
     /** Prevent module keyword */
     this.vm.realm.global.module = void 0;
 
-    /** Make console working */
-    this.vm.realm.global.console = console;
-
   };
 
   Interpreter.prototype = Interpreter;
@@ -65,6 +62,9 @@
       for (var module in this.modules) {
         this.vm.eval(this.compileModule(module));
       }
+    /** Compile a single module */
+    } else {
+      this.vm.eval(this.compileModule(arguments[0]));
     }
 
   };
@@ -115,13 +115,13 @@
 
     var imported = this.modules[name]["import"];
 
-    //return (this.modules[name].code);
-
     if (imported && imported.length) {
+      var injectScripts = "";
       for (var ii = 0; ii < imported.length; ++ii) {
         if (this.modules[imported[ii]]) {
-          this.modules[name].compiled = this.modules[imported[ii]].code + this.modules[name].code;
+          injectScripts += this.modules[imported[ii]].code;
         } else throw new Error(imported[ii] + " doesn't exist!");
+        this.modules[name].compiled = injectScripts + this.modules[name].code;
       }
     } else {
       this.modules[name].compiled = this.modules[name].code;
@@ -221,6 +221,7 @@
 
     }
 
+    input = input.substring(input.indexOf("\n") + 1);
     input = input.substring(input.indexOf("\n") + 1);
 
     var json;

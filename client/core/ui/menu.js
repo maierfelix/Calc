@@ -31,15 +31,21 @@
     active: false
   };
 
-  /** Create a empty codemirror instance */
-  NOVAE_UI.CodeMirror = CodeMirror(document.body, {
-    value: "",
-    mode:  "javascript",
-    lineNumbers: true
-  });
+  NOVAE_UI.CodeMirror = {
+    /** Create a empty codemirror instance */
+    instance: CodeMirror(document.body, {
+      mode:  "javascript",
+      lineNumbers: true,
+      readOnly: false,
+      theme: "default"
+    }),
+    visible: false,
+    currentScript: null
+  };
 
-  /** Hide codemirror by default */
-  NOVAE_UI.CodeMirror.getWrapperElement().style.display = "none";
+  NOVAE_UI.CodeMirror.instance.setValue("");
+
+  NOVAE_UI.CodeMirror.instance.getWrapperElement().style.display = "none";
 
   /** Initialize everything */
   NOVAE_UI.init = function() {
@@ -84,16 +90,17 @@
     /** Script Manager */
     NOVAE.DOM.ScriptButton.addEventListener(NOVAE.Events.mouseDown, function() {
 
-      var element = NOVAE_UI.CodeMirror.getWrapperElement();
-
-      var visibility = element.getAttribute("hide") === "true" || false;
+      var visibility = NOVAE_UI.CodeMirror.visible || false;
 
       if (!visibility) {
-        element.style.display = "block";
-        element.setAttribute("hide", "true");
+        NOVAE_UI.CodeMirror.instance.getWrapperElement().style.display = "block";
+        NOVAE_UI.CodeMirror.visible = true;
+        NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.ScriptEdit = true;
+        NOVAE_UI.CodeMirror.instance.focus();
       } else {
-        element.style.display = "none";
-        element.setAttribute("hide", "false");
+        NOVAE_UI.CodeMirror.instance.getWrapperElement().style.display = "none";
+        NOVAE_UI.CodeMirror.visible = false;
+        NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.ScriptEdit = false;
       }
 
     });
@@ -161,14 +168,78 @@
   /** Initialise codemirror */
   NOVAE_UI.initCodeMirror = function() {
 
-    var element = NOVAE_UI.CodeMirror.getWrapperElement();
+    /** Disable grid input on focus */
+    NOVAE_UI.CodeMirror.instance.on("focus", function(){
+      NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.ScriptEdit = true;
+    });
 
-    element.setAttribute("hide", "false");
+    /** Listen for script changes */
+    NOVAE_UI.CodeMirror.instance.on("change", function() {
 
-    element.innerHTML += '<button class="mui-btn mui-btn-primary mui-btn-lg alertButton alertOk editorButtonOk" name="run"><span class="fa fa-play"></span></button>';
+      if (NOVAE_UI.CodeMirror.currentScript) {
+        Interpreter.modules[NOVAE_UI.CodeMirror.currentScript].code = NOVAE_UI.CodeMirror.instance.getValue();
+      }
 
-    element.innerHTML += '<button class="mui-btn mui-btn-primary mui-btn-lg alertButton editorButtonShortCut" name="shortcut"><span class="fa fa-key"></span></button>';
+    });
 
-    element.innerHTML += '<button class="mui-btn mui-btn-primary mui-btn-lg alertButton editorButtonAdd" name="add"><span class="fa fa-plus"></span></button>';
+    var element = NOVAE_UI.CodeMirror.instance.getWrapperElement();
+
+    NOVAE_UI.CodeMirror.visible = false;
+
+    var button = document.createElement("button");
+        button.className = "mui-btn mui-btn-default mui-btn-raised mui-btn-sm editorButtonOk";
+        button.innerHTML = '<span class="fa fa-play"></span>';
+        button.addEventListener(NOVAE.Events.mouseDown, function() {
+          if (NOVAE_UI.CodeMirror.currentScript) {
+            Interpreter.run(NOVAE_UI.CodeMirror.currentScript);
+          }
+        });
+
+    element.appendChild(button);
+
+    button = document.createElement("button")
+    button.className = "mui-btn mui-btn-default mui-btn-raised mui-btn-sm editorButtonShortCut";
+    button.innerHTML = '<span class="fa fa-key"></span>';
+    button.addEventListener(NOVAE.Events.mouseDown, function() {
+      console.log("Add shortcut");
+    });
+
+    element.appendChild(button);
+
+    button = document.createElement("button")
+    button.className = "mui-btn mui-btn-default mui-btn-raised mui-btn-sm editorButtonAdd";
+    button.innerHTML = '<span class="fa fa-plus"></span>';
+    button.addEventListener(NOVAE.Events.mouseDown, function() {
+      console.log("Add script");
+    });
+
+    element.appendChild(button);
+
+    var modules = document.createElement("span");
+        modules.className = "moduleContainer";
+
+    for (var ii in Interpreter.modules) {
+      var item = document.createElement("button");
+      item.className = "mui-btn mui-btn-default mui-btn-raised mui-btn-sm editorScript";
+      item.innerHTML = ii;
+      item.addEventListener(NOVAE.Events.mouseDown, function(e) {
+        NOVAE_UI.CodeMirrorLoadScript(e.target.textContent);
+      });
+      modules.appendChild(item);
+    }
+
+    element.appendChild(modules);
+
+  };
+
+  /** Load script into Codemirror */
+  NOVAE_UI.CodeMirrorLoadScript = function(name) {
+
+    if (Interpreter.modules[name]) {
+      NOVAE_UI.CodeMirror.currentScript = name;
+      NOVAE_UI.CodeMirror.instance.setValue(Interpreter.modules[name].code);
+    } else {
+      NOVAE_UI.CodeMirror.currentScript = null;
+    }
 
   };

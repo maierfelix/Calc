@@ -115,13 +115,14 @@ Import.scripts = [
 
 Import.after = function() {
   ENGEL.init();
-  NOVAE.$.init();
-  NOVAE_UI.init();
-  NOVAE_Interpreter();
-  NOVAE.Speedy.runTest(function () {
-    /** Add fade out animation, hide element */
-    document.querySelector("#loader").classList.add("fadeOut");
-    setTimeout( function() { document.querySelector("#loader").style.display = "none"; }, 750);
+  NOVAE_Interpreter(function() {
+    NOVAE.$.init();
+    NOVAE_UI.init();
+    NOVAE.Speedy.runTest(function () {
+      /** Add fade out animation, hide element */
+      document.querySelector("#loader").classList.add("fadeOut");
+      setTimeout( function() { document.querySelector("#loader").style.display = "none"; }, 750);
+    });
   });
 };
 

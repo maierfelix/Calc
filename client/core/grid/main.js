@@ -127,8 +127,8 @@
         Edit: false,
         /** User extends a selection */
         Extend: false,
-        /** User edits a live cell url */
-        LiveCellEdit: false,
+        /** User edits a script */
+        ScriptEdit: false,
         /** Save last mouse click to identify single and double clicks */
         lastMouseDown: 0,
         /** Save last clicked cell */

@@ -13,7 +13,7 @@
 
 "use strict";
 
-var NOVAE_Interpreter = function() {
+var NOVAE_Interpreter = function(callback) {
 
   var dir = "./api/test/";
 
@@ -39,6 +39,8 @@ var NOVAE_Interpreter = function() {
 
   /** Execute scripts */
   var run = function(scripts) {
+
+    callback();
 
     /** Run all scripts */
     //Interpreter.run();

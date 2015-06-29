@@ -112,8 +112,8 @@
       }
     }
 
-    /** User edits a live cells url */
-    if (NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.LiveCellEdit) return void 0;
+    /** User edits a script */
+    if (NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.ScriptEdit) return void 0;
 
     /** User opened console, don't touch anything here */
     if (e.keyCode === 123) return void 0;

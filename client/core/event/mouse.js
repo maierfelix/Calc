@@ -113,8 +113,8 @@
         NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
       }
 
-      /** User aborted live cell edit */
-      NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.LiveCellEdit = false;
+      /** User aborted script edit */
+      NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.ScriptEdit = false;
 
       /** User aborted master selection */
       NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Current = null;
