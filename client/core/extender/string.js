@@ -82,6 +82,7 @@
     } else {
       for (var ii = 0; ii < Cells.length; ++ii) {
         Cells[ii].value = NOVAE.$.replaceNumbers(string, String(extendStack[ii]));
+        Cells[ii].value = Cells[ii].value.trim();
       }
     }
 

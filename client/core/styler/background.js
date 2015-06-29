@@ -99,9 +99,9 @@
     var selector = NOVAE.Sheets[NOVAE.CurrentSheet].Selector;
 
     /** Get the old color */
-    var getColor = selector.SelectedCells[0];
-    var getColorLetter = NOVAE.$.numberToAlpha(getColor.letter);
-    var getColorNumber = getColor.number;
+    var getColor = selector.Selected.First;
+    var getColorLetter = NOVAE.$.numberToAlpha(getColor.Letter);
+    var getColorNumber = getColor.Number;
     getColor = NOVAE.Cells.Used[NOVAE.CurrentSheet][getColorLetter][getColorLetter + getColorNumber].BackgroundColor;
 
     /** Push change into undo stack */

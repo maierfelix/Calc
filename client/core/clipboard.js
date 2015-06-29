@@ -123,34 +123,43 @@
 
     data = data.slice(0);
 
-    var startColumn = position.Letter;
-    var startNumber = position.Number;
-
-    var lastColumn = startColumn;
-    var lastRow = startNumber;
-
-    var letterPadding = 0;
-    var numberPadding = 0;
-
     /** Inherit paste */
     if (NOVAE.Sheets[NOVAE.CurrentSheet].isMasterSheet()) {
       NOVAE.Styler.inheritPasteCells(position, data);
     }
 
+    var startColumn = position.Letter;
+    var startNumber = position.Number;
+
+    /** Start column to be inserted */
+    var lastColumn = startColumn;
+    /** Start row to be inserted */
+    var lastRow = startNumber;
+
+    var columnPadding = 0;
+    var rowPadding = 0;
+
+    /** Adjust copying to the new position */
     for (var ii = 0; ii < data.length; ++ii) {
-      if (data[ii].number !== lastRow) numberPadding++;
-      if (data[ii].letter !== lastColumn) {
-        letterPadding++;
-        numberPadding = 0;
+
+      if (data[ii].number !== lastRow && ii) rowPadding++;
+
+      if (data[ii].letter !== lastColumn && ii) {
+        columnPadding++;
+        rowPadding = 0;
       }
+
       lastColumn = data[ii].letter;
       lastRow = data[ii].number;
-      data[ii].letter = data[ii].letter + startColumn - data[ii].letter + letterPadding;
-      data[ii].number = data[ii].number + startNumber - data[ii].number + numberPadding;
+      data[ii].letter = data[ii].letter + startColumn - data[ii].letter + columnPadding;
+      data[ii].number = data[ii].number + startNumber - data[ii].number + rowPadding;
+
       var letter = NOVAE.$.numberToAlpha(data[ii].letter);
       var number = data[ii].number;
+
       NOVAE.$.registerCell({letter: letter, number: number});
       NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].Content = data[ii].value;
+
     }
 
     NOVAE.Sheets[NOVAE.CurrentSheet].updateWidth("default");

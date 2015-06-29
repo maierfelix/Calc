@@ -484,6 +484,10 @@
     /** Calculate letter start and end, so we know where to inject the string */
     letters.end = inputLength - numbers.start;
 
+    if (numbers.string[0].length > 1) {
+      numbers.end += numbers.string[0].length;
+    }
+
     /** String template */
     var string = letters.string[0];
 
