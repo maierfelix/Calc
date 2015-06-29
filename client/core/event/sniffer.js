@@ -220,7 +220,7 @@
     /** Run the interpreter */
     NOVAE.eval();
 
-    NOVAE.Sheets[NOVAE.CurrentSheet].getEditSelection({ letter: NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First.Letter, number: NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First.Number });
+    NOVAE.Sheets[NOVAE.CurrentSheet].getEditSelection({ Letter: NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First.Letter, Number: NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First.Number });
 
     NOVAE.Sheets[NOVAE.CurrentSheet].cleanEditSelection();
 
