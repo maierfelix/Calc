@@ -31,12 +31,18 @@
     active: false
   };
 
+  /** Create a empty codemirror instance */
+  NOVAE_UI.CodeMirror = CodeMirror(document.body, {
+    value: "",
+    mode:  "javascript",
+    lineNumbers: true
+  });
+
+  /** Hide codemirror by default */
+  NOVAE_UI.CodeMirror.getWrapperElement().style.display = "none";
+
   /** Initialize everything */
   NOVAE_UI.init = function() {
-
-    document.querySelector("#menu_connect").addEventListener('click', function(e) {
-      NOVAE.Connector.loginModal();
-    });
 
     NOVAE.DOM.AddSheet.addEventListener(NOVAE.Events.mouseDown, function() {
 
@@ -73,6 +79,23 @@
     /** Undo button */
     NOVAE.DOM.UndoButton.addEventListener('click', function() {
       NOVAE.Sheets[NOVAE.CurrentSheet].Commander.undo();
+    });
+
+    /** Script Manager */
+    NOVAE.DOM.ScriptButton.addEventListener(NOVAE.Events.mouseDown, function() {
+
+      var element = NOVAE_UI.CodeMirror.getWrapperElement();
+
+      var visibility = element.getAttribute("hide") === "true" || false;
+
+      if (!visibility) {
+        element.style.display = "block";
+        element.setAttribute("hide", "true");
+      } else {
+        element.style.display = "none";
+        element.setAttribute("hide", "false");
+      }
+
     });
 
     document.querySelector("#import_file").addEventListener('change', function(e) {
@@ -114,6 +137,8 @@
     /** Initialize cell style menu */
     NOVAE_UI.initCellStyleMenu();
 
+    NOVAE_UI.initCodeMirror();
+
   };
 
   /** Close all menus */
@@ -130,5 +155,20 @@
     for (var ii in NOVAE_UI.MENU) {
       NOVAE_UI.MENU[ii].active = false;
     }
+
+  };
+
+  /** Initialise codemirror */
+  NOVAE_UI.initCodeMirror = function() {
+
+    var element = NOVAE_UI.CodeMirror.getWrapperElement();
+
+    element.setAttribute("hide", "false");
+
+    element.innerHTML += '<button class="mui-btn mui-btn-primary mui-btn-lg alertButton alertOk editorButtonOk" name="run"><span class="fa fa-play"></span></button>';
+
+    element.innerHTML += '<button class="mui-btn mui-btn-primary mui-btn-lg alertButton editorButtonShortCut" name="shortcut"><span class="fa fa-key"></span></button>';
+
+    element.innerHTML += '<button class="mui-btn mui-btn-primary mui-btn-lg alertButton editorButtonAdd" name="add"><span class="fa fa-plus"></span></button>';
 
   };

@@ -154,7 +154,7 @@
       { name: "LX_COLON",    rx: /^[:]+/     },
       { name: "LX_NUMBER",   rx: /^[-]?[0-9]+(\.\d+[0-9]*)?/ },
       { name: "LX_BOOLEAN",  rx: /^(true|false)/ },
-      { name: "LX_STRING",   rx: /^"(\\\\"|[^"])(.*?)"|'"'(\\\\'|[^'])*'"/ },
+      { name: "LX_STRING",   rx: /^"(\\\\"|[^"])(.*?)"|'"'(\\\\'|[^'])*'"/ }
     ];
 
     /** Precompile regex */

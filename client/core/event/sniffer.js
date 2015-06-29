@@ -100,7 +100,7 @@
 
       /** Fetch the current selected cell */
       NOVAE.Sheets[NOVAE.CurrentSheet].cleanEditSelection();
-      NOVAE.Sheets[NOVAE.CurrentSheet].getEditSelection({ letter: NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First.Letter, number: NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First.Number });
+      NOVAE.Sheets[NOVAE.CurrentSheet].getEditSelection({ Letter: NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First.Letter, Number: NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First.Number });
 
       /** Async input processing */
       this.processCellContent();
@@ -189,7 +189,11 @@
       /** Check if cell is a formula */
       NOVAE.Event.isFormula();
       /** Move cursor to end of cell content text */
-      if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell] && NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Content && NOVAE.Sheets[NOVAE.CurrentSheet].Selector.cellFocusSwitch) NOVAE.Sheets[NOVAE.CurrentSheet].goToEndOfCellText();
+      if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell] &&
+          NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Content &&
+          NOVAE.Sheets[NOVAE.CurrentSheet].Selector.cellFocusSwitch) {
+          NOVAE.Sheets[NOVAE.CurrentSheet].goToEndOfCellText();
+      }
       NOVAE.Sheets[NOVAE.CurrentSheet].Selector.cellFocusSwitch = true;
       /** Focus the cell input field while typing */
       NOVAE.DOM.CellInput.focus();
@@ -198,6 +202,8 @@
       if (NOVAE.Connector.connected) {
         NOVAE.Connector.action("updateCell", { cell: editCell, value: NOVAE.DOM.CellInput.value });
       }
+
+      //NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
 
     }, 1);
 

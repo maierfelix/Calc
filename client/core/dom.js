@@ -102,3 +102,6 @@
 
   /** Select and prepare the cell input container */
   NOVAE.DOM.CellInput = document.querySelector("#cell_input");
+
+  /** Select and prepare the script manager button */
+  NOVAE.DOM.ScriptButton = document.querySelector("#script_button");

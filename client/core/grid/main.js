@@ -304,7 +304,7 @@
     this.addCellListeners();
 
     /** User was in edit mode */
-    if (NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.Edit) this.getEditSelection(NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Edit);
+    if (NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.Edit) this.getEditSelection(NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First);
 
   };
 

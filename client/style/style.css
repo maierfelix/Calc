@@ -1028,6 +1028,36 @@ button, input, select, textArea {
   border-top-right-radius: 4px;
 }
 
+.editorButtonOk {
+  background-color: rgba(68, 138, 255, 0.9) !important;
+  z-index: 4;
+  bottom: 0px;
+  left: -3px;
+}
+
+.editorButtonShortCut {
+  background-color: rgba(68, 138, 255, 0.9) !important;
+  z-index: 4;
+  bottom: 0px;
+  left: 75px;
+}
+
+.editorButtonAdd {
+  background-color: rgba(68, 138, 255, 0.9) !important;
+  height: 21px !important;
+  line-height: 21px !important;
+  width: 42px !important;
+  padding: 0px !important;
+  margin: 2px !important;
+  z-index: 4;
+  top: 0px;
+  right: 0px;
+}
+
+.editorButtonAdd>span {
+  margin-left: 2px;
+}
+
 #background_colorpicker, #font_colorpicker {
   position: fixed;
   top: 25%;

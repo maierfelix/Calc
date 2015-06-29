@@ -24,15 +24,15 @@
     if (!object || object === undefined) return void 0;
 
     /** New edit selection position */
-    var newLetter = NOVAE.$.numberToAlpha(object.letter),
-        newNumber = object.number,
-        jumps = 0,
-        element = null;
+    var newLetter = NOVAE.$.numberToAlpha(object.Letter);
+    var newNumber = object.Number;
+    var jumps = 0;
+    var element = null;
 
     /** User edits something right now */
     NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.Edit = true;
 
-    jumps = NOVAE.$.getCell(object);
+    jumps = NOVAE.$.getCell({ letter: object.Letter, number: object.Number });
     if (jumps >= 0) element = NOVAE.DOM.Output.children[jumps];
 
     /** Clean old edited cell */
