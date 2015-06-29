@@ -211,6 +211,28 @@
   };
 
   /**
+   * Inherit cell deletion
+   *
+   * @method inheritDeleteCells
+   * @static
+   */
+  NOVAE.Styler.prototype.inheritDeleteCells = function(cells) {
+
+    /** Sheets to inherit */
+    var inheritSheets = this.getSlaveSheets();
+
+    for (var sheet = 0; sheet < inheritSheets.length; ++sheet) {
+      for (var ii = 0; ii < cells.length; ++ii) {
+        var letter = NOVAE.$.numberToAlpha(cells[ii].letter);
+        var number = cells[ii].number;
+        NOVAE.$.registerCell({letter: letter, number: number, sheet: inheritSheets[sheet]});
+        NOVAE.Cells.Used[inheritSheets[sheet]][letter][letter + number].Content = "";
+      }
+    }
+
+  };
+
+  /**
    * Inherit cell paste
    *
    * @method inheritPasteCells
@@ -226,26 +248,84 @@
 
     for (var sheet = 0; sheet < inheritSheets.length; ++sheet) {
 
-      var letterPadding = 0;
-      var numberPadding = 0;
+      var columnPadding = 0;
+      var rowPadding = 0;
 
       var lastColumn = startColumn;
       var lastRow = startNumber;
 
       for (var ii = 0; ii < cells.length; ++ii) {
-        if (cells[ii].number !== lastRow) numberPadding++;
-        if (cells[ii].letter !== lastColumn) {
-          letterPadding++;
-          numberPadding = 0;
+
+        if (cells[ii].number !== lastRow && ii) rowPadding++;
+        if (cells[ii].letter !== lastColumn && ii) {
+          columnPadding++;
+          rowPadding = 0;
         }
+
         lastColumn = cells[ii].letter;
         lastRow = cells[ii].number;
-        cells[ii].letter = cells[ii].letter + startColumn - cells[ii].letter + letterPadding;
-        cells[ii].number = cells[ii].number + startNumber - cells[ii].number + numberPadding;
+
+        cells[ii].letter = cells[ii].letter + startColumn - cells[ii].letter + columnPadding;
+        cells[ii].number = cells[ii].number + startNumber - cells[ii].number + rowPadding;
+
         var letter = NOVAE.$.numberToAlpha(cells[ii].letter);
         var number = cells[ii].number;
+
         NOVAE.$.registerCell({letter: letter, number: number, sheet: inheritSheets[sheet]});
         NOVAE.Cells.Used[inheritSheets[sheet]][letter][letter + number].Content = cells[ii].value;
+
+      }
+
+    }
+
+  };
+
+  /**
+   * Inherit all cells content deletion
+   *
+   * @method inheritDeleteAllCellsContent
+   * @static
+   */
+  NOVAE.Styler.prototype.inheritDeleteAllCellsContent = function() {
+
+    /** Sheets to inherit */
+    var inheritSheets = this.getSlaveSheets();
+
+    for (var sheet = 0; sheet < inheritSheets.length; ++sheet) {
+
+      var cells = NOVAE.Cells.Used[inheritSheets[sheet]];
+
+      for (var ii in cells) {
+        for (var cell in cells[ii]) {
+          cells[ii][cell].Content = "";
+        }
+      }
+
+    }
+
+  };
+
+  /**
+   * Inherit content deletion of all cells inside a master selection
+   *
+   * @method inheritDeleteMasterSelectionContent
+   * @static
+   */
+  NOVAE.Styler.prototype.inheritDeleteMasterSelectionContent = function(masterSelected) {
+
+    /** Sheets to inherit */
+    var inheritSheets = this.getSlaveSheets();
+
+    for (var sheet = 0; sheet < inheritSheets.length; ++sheet) {
+
+      var cells = NOVAE.Cells.Used[inheritSheets[sheet]];
+
+      if (cells[masterSelected]) {
+        for (var ii in cells) {
+          for (var cell in cells[ii]) {
+            cells[ii][cell].Content = "";
+          }
+        }
       }
 
     }

@@ -197,6 +197,11 @@
    */
   NOVAE.Selector.prototype.deleteCellSelection = function() {
 
+    /** Inherit deletion */
+    if (NOVAE.Sheets[NOVAE.CurrentSheet].isMasterSheet()) {
+      NOVAE.Styler.inheritDeleteCells(this.SelectedCells.slice(0));
+    }
+
     /** User selected all cells, delete all content */
     if (this.allSelected) {
       this.deleteAllCellsContent();
@@ -235,6 +240,11 @@
    */
   NOVAE.Selector.prototype.deleteAllCellsContent = function() {
 
+    /** Inherit deletion */
+    if (NOVAE.Sheets[NOVAE.CurrentSheet].isMasterSheet()) {
+      NOVAE.Styler.inheritDeleteAllCellsContent();
+    }
+
     var cells = NOVAE.Cells.Used[NOVAE.CurrentSheet];
 
     for (var ii in cells) {
@@ -252,6 +262,11 @@
    * @static
    */
   NOVAE.Selector.prototype.deleteMasterSelectionContent = function() {
+
+    /** Inherit deletion */
+    if (NOVAE.Sheets[NOVAE.CurrentSheet].isMasterSheet()) {
+      NOVAE.Styler.inheritDeleteMasterSelectionContent(this.masterSelected.Current);
+    }
 
     var masterSelected = this.masterSelected.Current;
 
