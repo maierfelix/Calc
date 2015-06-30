@@ -38,6 +38,7 @@ If you want to test the latest multi-user functionality, go to:
    - [ ] Debug
 
 - [ ] Formula logic
+   - [ ] Natural order recalculation
    - [ ] Syntax
    - [ ] Multi-language support
    - [ ] String functions
@@ -74,7 +75,6 @@ If you want to test the latest multi-user functionality, go to:
 - [ ] Pow support: Math.pow => (2^2)^2, LX_POW
 
 ## Bugs:
-- [ ] Deep formula variable reference execution
 - [ ] Key scrolling
 - [ ] Reversed selection extending doesnt work
 - [ ] Reversed selection resize ghost switch bug
