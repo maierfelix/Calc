@@ -87,6 +87,16 @@
       NOVAE.Sheets[NOVAE.CurrentSheet].Commander.undo();
     });
 
+    /** Redo menu button */
+    NOVAE.DOM.RedoMenuButton.addEventListener('click', function() {
+      NOVAE.Sheets[NOVAE.CurrentSheet].Commander.redo();
+    });
+
+    /** Undo menu button */
+    NOVAE.DOM.UndoMenuButton.addEventListener('click', function() {
+      NOVAE.Sheets[NOVAE.CurrentSheet].Commander.undo();
+    });
+
     /** Script Manager */
     NOVAE.DOM.ScriptButton.addEventListener(NOVAE.Events.mouseDown, function() {
 
@@ -237,7 +247,7 @@
 
     if (Interpreter.modules[name]) {
       NOVAE_UI.CodeMirror.currentScript = name;
-      NOVAE_UI.CodeMirror.instance.setValue(Interpreter.modules[name].code);
+      NOVAE_UI.CodeMirror.instance.setValue(Interpreter.modules[name].original);
     } else {
       NOVAE_UI.CodeMirror.currentScript = null;
     }

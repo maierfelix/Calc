@@ -123,7 +123,8 @@
         this.Selected.First.Number = this.Selected.Last.Number;
         this.Selected.Last.Number = backup;
         this.selectionMode = "verticalNegative";
-      }
+        this.reversed = true;
+      } else this.reversed = false;
 
       for (var yy = 0; yy < height; ++yy) {
         /** Positive vertical selection */
@@ -138,6 +139,9 @@
 
     /** Horizontal selection */
     } else if (width > 0) {
+
+      this.reversed = false;
+
       /** Positive Diagonal horizontal and vertical selection */
       if (firstCell.Number <= lastCell.Number) {
         this.selectionMode = "horizontalPositive";
@@ -148,8 +152,11 @@
             }
           }
         }
+
       /** Negative Diagonal horizontal and vertical selection */
       } else {
+
+        this.reversed = true;
 
         /** Inversion START */
         backup = firstCell.Number;
@@ -197,6 +204,8 @@
         this.Selected.Last.Number = backup;
         this.selectionMode = "horizontalNegativeNegative";
       }
+
+      this.reversed = true;
 
       /** Convert negative width into positive */
       width = ( ~ width + 1 );

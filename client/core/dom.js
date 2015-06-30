@@ -100,6 +100,12 @@
   /** Select and prepare the undo button */
   NOVAE.DOM.UndoButton = document.querySelector("#button_undo");
 
+  /** Select and prepare the redo menu button */
+  NOVAE.DOM.RedoMenuButton = document.querySelector("#menu_redo");
+
+  /** Select and prepare the undo menu button */
+  NOVAE.DOM.UndoMenuButton = document.querySelector("#menu_undo");
+
   /** Select and prepare the cell input container */
   NOVAE.DOM.CellInput = document.querySelector("#cell_input");
 

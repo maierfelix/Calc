@@ -90,15 +90,17 @@
 
     var require = head.require;
 
-    var code = head.code;
+    var newCode = head.code;
 
     if (!this.modules[name]) {
-      this.modules[name] = new Interpreter.Module(code, description, imported);
+      this.modules[name] = new Interpreter.Module(newCode, description, imported);
     }
 
     if (require && require.length) {
       this.modules[name].require = require;
     }
+
+    this.modules[name].original = code;
 
     return (this.modules[name].code);
 

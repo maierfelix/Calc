@@ -23,6 +23,7 @@
 
     var x = 0;
     var y = 0;
+    var backup;
 
     if (["verticalPositive", "horizontalPositive", "horizontalNegativePositive"].indexOf(this.selectionMode) >= 0) {
       /** Update menu items selection */

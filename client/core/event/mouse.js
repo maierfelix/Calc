@@ -46,6 +46,9 @@
    */
   NOVAE.Event.mouseDown = function (e) {
 
+    /** User aborted script edit */
+    if (NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.ScriptEdit) return void 0;
+
     /** Only accept left click, prevent multiple mousedown event */
     if (e.button === 1 || /** Middle click */
         e.button === 2 || /** Right click */
@@ -112,9 +115,6 @@
         NOVAE.Sheets[NOVAE.CurrentSheet].Selector.allSelected = false;
         NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
       }
-
-      /** User aborted script edit */
-      NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.ScriptEdit = false;
 
       /** User aborted master selection */
       NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Current = null;

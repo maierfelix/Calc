@@ -31,20 +31,10 @@ var NOVAE_Interpreter = function(callback) {
       /** Register script as a module */
       scripts[ii] = Interpreter.registerModule(data);
 
-      length <= 0 && run(scripts);
+      if (length <= 0) callback();
 
     }.bind(this, ii));
 
   }
-
-  /** Execute scripts */
-  var run = function(scripts) {
-
-    callback();
-
-    /** Run all scripts */
-    //Interpreter.run();
-
-  };
 
 };

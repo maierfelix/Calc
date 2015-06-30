@@ -86,6 +86,9 @@
       Number: 0
     };
 
+    /** Detect reversed selections */
+    this.reversed = false;
+
     /** Currently edited cell */
     this.Edit = null;
 
