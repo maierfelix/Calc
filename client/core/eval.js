@@ -44,41 +44,64 @@
           formulas.push({
             name: kk,
             /** Validate formula, add the parent cell value before the formula to emulate a variable assignment */
-            value: cells[ii][kk].Formula.substr(0, 0) + kk + cells[ii][kk].Formula.substr(0),
-            variableReferences: NOVAE.$.getVariables(cells[ii][kk].Formula.substr(0))
+            value: cells[ii][kk].Formula.substr(0, 0) + kk + cells[ii][kk].Formula.substr(0)
           });
         }
       }
     }
 
     if (formulas && formulas.length) {
-      /** Process all formulas found */
+      /** Process all found formulas */
       for (var ii = 0; ii < formulas.length; ++ii) {
 
-        if (formulas[ii].variableReferences && formulas[ii].variableReferences.length) {
-
-          var variables = formulas[ii].variableReferences;
-
-          /** TODO: Recursively pre-interpret variable references */
-
-        }
-
-        var letter = formulas[ii].name.match(NOVAE.REGEX.numbers).join("");
-
         /** Receive the result */
-        result = ENGEL.interpret(formulas[ii].value).VAR[formulas[ii].name].value.value;
+        var result = this.evaluateFormula(formulas[ii].value);
+
+        var name = formulas[ii].name;
+        var letter = name.match(NOVAE.REGEX.numbers).join("");
+        var number = ~~(name.match(NOVAE.REGEX.letters).join(""));
+
         /** Update used cell stack content */
         usedCellSheet[letter][formulas[ii].name].Content = result;
 
-        var name = formulas[ii].name;
-        var letter = NOVAE.$.alphaToNumber(name.match(NOVAE.REGEX.numbers).join(""));
-        var number = ~~(name.match(NOVAE.REGEX.letters).join(""));
-
         /** Display the result, if cell is in view */
-        var jumps = NOVAE.$.getCell({ letter: letter, number: number });
+        var jumps = NOVAE.$.getCell({ letter: NOVAE.$.alphaToNumber(letter), number: number });
         if (jumps >= 0) NOVAE.DOM.Output.children[jumps].innerHTML = result;
+
       }
     }
+
+  };
+
+  /**
+   * Recursive evaluate a formula
+   *
+   * @method evaluateFormula
+   * @static
+   */
+  NOVAE.evaluateFormula = function(formula) { 
+
+    var interpret = ENGEL.interpret(formula);
+
+    var name = interpret.Variables.shift();
+
+    var result = interpret.Stack.VAR[name].value.value;
+
+    for (var ii = 0; ii < interpret.Variables.length; ++ii) {
+      var letter = interpret.Variables[ii].match(NOVAE.REGEX.numbers).join("");
+      if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter] &&
+          NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][interpret.Variables[ii]] &&
+          NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][interpret.Variables[ii]].Formula) {
+        var value = NOVAE.evaluateFormula(interpret.Variables[ii] + NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][interpret.Variables[ii]].Formula);
+        ENGEL.STACK.VAR[interpret.Variables[ii]].value = {
+          raw: value,
+          value: value
+        }
+        result = value;
+      }
+    }
+
+    return (result || 0);
 
   };
 

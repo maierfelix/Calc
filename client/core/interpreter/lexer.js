@@ -126,6 +126,9 @@
     /** Clean tokens */
     this.Tokens = [];
 
+    /** Fetch variable tokens */
+    this.variables = [];
+
     /** Scan the input stream */
     while (input) {
 
@@ -153,6 +156,7 @@
             if (!this.isValidVariable(match[0])) {
               console.log(match[0] + " is a invalid variable name!");
             }
+            this.variables.push(match[0].trim());
           }
 
           /** Special case, user wrote a subtraction without spaces */
@@ -218,6 +222,9 @@
 
     }
 
-    return (this.Tokens);
+    return ({
+      tokens: this.Tokens,
+      variables: this.variables
+    });
 
   };
