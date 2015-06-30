@@ -75,6 +75,8 @@
 
   /**
    * Recursive evaluate a formula
+   * Consider natural order recalculation, means recalculate each dependent cell
+   * before calculate the real result
    *
    * @method evaluateFormula
    * @static
@@ -85,23 +87,17 @@
 
     var name = interpret.Variables.shift();
 
-    var result = interpret.Stack.VAR[name].value.value;
-
+    /** Natural order recalculation */
     for (var ii = 0; ii < interpret.Variables.length; ++ii) {
       var letter = interpret.Variables[ii].match(NOVAE.REGEX.numbers).join("");
       if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter] &&
           NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][interpret.Variables[ii]] &&
           NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][interpret.Variables[ii]].Formula) {
-        var value = NOVAE.evaluateFormula(interpret.Variables[ii] + NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][interpret.Variables[ii]].Formula);
-        ENGEL.STACK.VAR[interpret.Variables[ii]].value = {
-          raw: value,
-          value: value
-        }
-        result = value;
+        NOVAE.evaluateFormula(interpret.Variables[ii] + NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][interpret.Variables[ii]].Formula);
       }
     }
 
-    return (result || 0);
+    return (ENGEL.interpret(formula).Stack.VAR[name].value.value);
 
   };
 
