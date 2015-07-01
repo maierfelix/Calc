@@ -18,7 +18,7 @@
 
 .ebcp-selector.ebcp-shown-selector {
 	left: 0px !important;
-  top: 5px !important;
+  top: 0px !important;
 }
 
 /* Color selection box styling */
@@ -34,7 +34,7 @@
   box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.4);
   padding: 20px;
   width: 300px;
-  height: 200px;
+  height: 288px;
   background-color: rgba(0, 0, 0, 0.7);
   overflow: hidden;
 
@@ -60,7 +60,10 @@
 
 /* Define size of palette */
 .ebcp-palette {
-  max-width: 164px;
+  left: 0px;
+  position: absolute;
+  top: 0px;
+  width: 100%;
 }
 
 /* Fix positioning of preview values */
@@ -77,8 +80,8 @@
 
 /* Squares in color picker */
 .ebcp-palette-row > div {
-  width: 10px;
-  height: 10px;
+  width: 18px;
+  height: 18px;
   cursor: crosshair;
 }
 
