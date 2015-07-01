@@ -164,22 +164,9 @@
 
     this.shift();
 
-    /** Read arguments of CONNECT function */
-    if (this.currentBlock.type === "LX_CONNECT") {
-      if (block[0].type === "LX_LPAR") CallExpression.arguments = this.readFunctionArguments();
     /** Read arguments of Math function call */
-    } else if (this.MathFunctions.indexOf(this.currentBlock.type) >= 0) {
+    if (this.MathFunctions.indexOf(this.currentBlock.type) >= 0) {
       if (block[0].type === "LX_LPAR") CallExpression.arguments = this.readFunctionArguments();
-    /** Read arguments of JSON function */
-    } else if (this.currentBlock.type === "LX_JSON") {
-      if (block[0].type === "LX_LPAR") CallExpression.arguments = this.readFunctionArguments();
-      /** Create array of following json operations */
-      CallExpression.append = [];
-      /** Delete right parenthese */
-      this.shift();
-      /** Delete first JSON call method */
-      this.shift();
-      CallExpression.append = this.readFunctionArguments();
     }
 
     this.shift();
@@ -216,25 +203,27 @@
       /** Function call inside the arguments */
       if ((this.ReservedFunctions.concat(this.MathFunctions)).indexOf(block[0].type) >= 0) {
         parentArray.push(this.functionAssignment());
-        this.shift();
-        block.shift();
+        if (this.currentBlock.type === "LX_RPAR") { console.log(1);
+          this.shift();
+          break;
+        }
       }
+
+      if (!block[0]) break;
 
       if (block[0].type === "LX_LPAR") jumper++;
       else if (block[0].type === "LX_RPAR") jumper--;
 
-      if (["LX_COMMA", "LX_JSON_CALL"].indexOf(block[0].type) >= 0) {
+      if (["LX_COMMA"].indexOf(block[0].type) >= 0) {
         parentArray.push(array);
         array = [];
-      } else if (["LX_RPAR", "LX_SEMIC"].indexOf(block[0].type) >= 0) {
+      } else if (["LX_RPAR"].indexOf(block[0].type) >= 0) {
         if (jumper <= 0) {
           parentArray.push(array);
           jumper = 0;
           break;
         }
-      }
-
-      if (["LX_COMMA", "LX_JSON_CALL"].indexOf(block[0].type) <= -1) {
+      } else {
         array.push(block[0]);
       }
 
@@ -257,7 +246,9 @@
         argumentArray.push(this.ruleExpression());
 
       /** Function call inside the arguments, already parsed */
-      } else argumentArray.push(parentArray[ii]);
+      } else {
+        argumentArray.push(parentArray[ii]);
+      }
 
     }
 

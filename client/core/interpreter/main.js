@@ -55,7 +55,7 @@
     /** Generate AST */
     this.ast = this.Parser.parse(this.lexed.tokens);
 
-    //console.log(this.ast);
+    console.log(this.ast);
 
     /** Evaluate the AST */
     this.Evaluator.evaluate(this.ast);

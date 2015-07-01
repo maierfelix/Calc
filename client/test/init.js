@@ -66,7 +66,9 @@
       "3+3/2.5*4+22+(-(-(9)+-(9*9)*-((945.95)+(94/748*1.115))+44+2))+(55+-5.55)",
       /** Math api */
       "50 + max(10, max(100, 200, 300), 40, 60, 77, 5) + 100",
-      //"50 - 10 + max(2*3, max(100, max(400, 500)), 40, 77, 5) + ((100 / 2) * 2)" // Buggy
+      "max(7*2.5,20+10,max(4*99,max(7777,33333*6), 9999999, max(1,2*2), 7777), 10000000) + (10 * 10) + max(7*2.5,20+10,max(4*99,max(7777,33333*6), 9999999, max(1,2*2), 7777), 10000000)",
+      "min(max(10,min(1,2),max(5)), 10, max(max(10, 20)), 30)",
+      "min(10, max(2,5)) * 50 - 10 + max ( 2*3, max(100, 99*9, max(77*2)), 1000 ) + (10 * 10) + max(1,2,3)"
     ];
 
     for (var ii = 0; ii < array.length; ++ii) {
@@ -80,7 +82,7 @@
         }
       }
 
-      engelResult = ENGEL.interpret(varName + array[ii]).VAR[singleVarName].value.value;
+      engelResult = ENGEL.interpret(varName + array[ii]).Stack.VAR[singleVarName].value.value;
       jsResult = parseFloat(window.eval(compile));
 
       if (engelResult !== jsResult) {
@@ -88,6 +90,9 @@
         console.log("#### Results doesn't match! => " + (array[ii]) + " ####");
         console.log( "ENGEL:", engelResult);
         console.log( "JS:   ", jsResult);
+        document.body.innerHTML += "<font color='red'>✕</font> " + array[ii] + "<br/>";
+      } else {
+        document.body.innerHTML += "<font color='green'>√</font> " + array[ii] + "<br/>";
       }
 
     }

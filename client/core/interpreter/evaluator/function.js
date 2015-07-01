@@ -102,7 +102,7 @@
       var argumentArray = [];
 
       for (var ii = 0; ii < node.arguments.length; ++ii) {
-        if (!node.arguments[ii].CallExpression) {
+        if (!node.arguments[ii] || !node.arguments[ii].CallExpression) {
           argumentArray.push(this.interpretExpression(node.arguments[ii]));
         } else {
           /** Evaluate the function call, dont pass over a variable name to update! */
