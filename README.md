@@ -38,7 +38,7 @@ If you want to test the latest multi-user functionality, go to:
    - [ ] Debug
 
 - [ ] Formula logic
-   - [ ] Natural order recalculation
+   - [x] Natural order recalculation
    - [ ] Syntax
    - [ ] Multi-language support
    - [ ] String functions
@@ -48,8 +48,9 @@ If you want to test the latest multi-user functionality, go to:
    - [ ] Information functions
    - [ ] Date / Time functions
    - [x] JSON processing
-   - [ ] Cell ranges
+   - [ ] Ranges
    - [ ] Multi-sheet cell references
+   - [ ] If / Else
 
 - [ ] Script logic
    - [ ] Sheets
