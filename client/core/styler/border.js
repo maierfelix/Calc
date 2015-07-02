@@ -13,56 +13,13 @@
 
 "use strict";
 
-  /** Initialize the border settings menu */
-  NOVAE_UI.initBorderChangeMenu = function() {
-
-    /** Initialize border menu */
-    NOVAE.DOM.ChangeCellBorder.addEventListener('click', function(e) {
-
-      var element = NOVAE.DOM.ChangeCellBorder;
-
-      /** Display menu switch */
-      if (element.getAttribute("hide") === "true") {
-        NOVAE.DOM.ChangeCellBorderMenu.style.display = "block";
-        element.setAttribute("hide", "false");
-      }
-      else if (element.getAttribute("hide") === "false") {
-        NOVAE.DOM.ChangeCellBorderMenu.style.display = "none";
-        element.setAttribute("hide", "true");
-      }
-
-      /** Dont loose the selection */
-      NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
-
-    });
-
-    /** Click listeners for all border settings menu items */
-    for (var ii = 0; ii < NOVAE.DOM.ChangeCellBorderMenuItems.children.length; ++ii) {
-      if (NOVAE.DOM.ChangeCellBorderMenuItems.children[ii].id) {
-        NOVAE.DOM.ChangeCellBorderMenuItems.children[ii].addEventListener('click', function(e) {
-
-          var mode = null;
-
-          if (e.target.id) mode = e.target.id;
-          else if (e.target.parentNode.id) mode = e.target.parentNode.id;
-
-          /** Validate all selected cells */
-          NOVAE.$.validateCells();
-
-          /** Update the cells border */
-          NOVAE.Styler.updateCellBorder(mode);
-
-          /** Dont loose the selection */
-          NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
-
-        });
-      }
-    }
-
-  };
-
-  /** Update a cells border */
-  NOVAE_UI.updateCellBorder = function(id) {
+  /**
+   * Change border
+   *
+   * @method updateCellBorder
+   * @static
+   */
+  NOVAE.Styler.prototype.updateCellBorder = function(id) {
 
     /** Check if cell to update is in view */
     var jumps = null;

@@ -21,97 +21,23 @@
 
     var picker = new EightBitColorPicker({ el: pickers });
 
-    /** Initialize font change menu */
-    NOVAE.DOM.ChangeFont.addEventListener('change', function(e) {
+    /** Font family */
+    for (var ii = 0; ii < NOVAE.DOM.ChangeFontUl.children.length; ++ii) {
+      NOVAE.DOM.ChangeFontUl.children[ii].addEventListener('click', function(e) {
+        NOVAE.Styler.fontFamily(e.target.innerHTML);
+        /** Dont loose the selection */
+        NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
+      });
+    }
 
-      var jumps = 0;
-
-      /** Shorter syntax */
-      var masterCell = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected;
-      var currentMaster = masterCell.Current;
-      var selectSheet = NOVAE.Sheets[NOVAE.CurrentSheet].Selector;
-
-      /** Active master selection */
-      if (NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Current && NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Current !== null) {
-        masterCell = masterCell.Columns[masterCell.Current] || masterCell.Rows[masterCell.Current];
-        /** Check if master cell exists */
-        if (masterCell) masterCell.Font = e.target.value;
-      }
-
-      /** Validate all selected cells */
-      NOVAE.$.validateCells();
-
-      /** Overwrite used cells styling */
-      if (NOVAE.Cells.Used[NOVAE.CurrentSheet][currentMaster]) {
-        NOVAE.Sheets[NOVAE.CurrentSheet].Selector.inheritMasterStyling(currentMaster, masterCell, "Font");
-      }
-
-      /** Loop through all selected cells */
-      for (var ii = 0; ii < selectSheet.SelectedCells.length; ++ii) {
-        var letter = NOVAE.$.numberToAlpha(selectSheet.SelectedCells[ii].letter);
-        var cellName = letter + selectSheet.SelectedCells[ii].number;
-        /** Update the font */
-        if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName]) {
-          NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].Font = e.target.value;
-          /** Immediately update cells font */
-          jumps = NOVAE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
-          if (jumps >= 0) NOVAE.DOM.Output.children[jumps].style.fontFamily = e.target.children[e.target.selectedIndex].getAttribute("value");
-        }
-      }
-
-      /** Dont loose the selection */
-      selectSheet.getSelection();
-
-    });
-
-    /** Fix selection loss on click */
-    NOVAE.DOM.ChangeFont.addEventListener('click', function(e) {
-
-      /** Dont loose the selection */
-      NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
-
-    });
-
-    /** Initialize font size menu */
-    NOVAE.DOM.ChangeFontSize.addEventListener('change', function(e) {
-
-      var jumps = 0;
-
-      /** Shorter syntax */
-      var masterCell = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected;
-      var currentMaster = masterCell.Current;
-      var selectSheet = NOVAE.Sheets[NOVAE.CurrentSheet].Selector;
-
-      /** Active master selection */
-      if (selectSheet.masterSelected.Current && selectSheet.masterSelected.Current !== null) {
-        masterCell = masterCell.Columns[masterCell.Current] || masterCell.Rows[masterCell.Current];
-        /** Check if master cell exists */
-        if (masterCell) masterCell.FontSize = ~~(e.target.value);
-      }
-
-      /** Validate all selected cells */
-      NOVAE.$.validateCells();
-
-      /** Overwrite used cells styling */
-      if (NOVAE.Cells.Used[NOVAE.CurrentSheet][currentMaster]) {
-        selectSheet.inheritMasterStyling(currentMaster, masterCell, "FontSize");
-      }
-
-      /** Loop through all selected cells */
-      for (var ii = 0; ii < selectSheet.SelectedCells.length; ++ii) {
-        var letter = NOVAE.$.numberToAlpha(selectSheet.SelectedCells[ii].letter);
-        var cellName = letter + selectSheet.SelectedCells[ii].number;
-        /** Update the font size */
-        NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].FontSize = ~~(e.target.value);
-        /** Immediately update cells font size */
-        jumps = NOVAE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
-        if (jumps >= 0) NOVAE.DOM.Output.children[jumps].style.fontSize = e.target.children[e.target.selectedIndex].getAttribute("value") + "px";
-      }
-
-      /** Dont loose the selection */
-      selectSheet.getSelection();
-
-    });
+    /** Font size */
+    for (var ii = 0; ii < NOVAE.DOM.ChangeFontSizeUl.children.length; ++ii) {
+      NOVAE.DOM.ChangeFontSizeUl.children[ii].addEventListener('click', function(e) {
+        NOVAE.Styler.fontSize(e.target.innerHTML);
+        /** Dont loose the selection */
+        NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
+      });
+    }
 
     /** Fix selection loss on click */
     NOVAE.DOM.ChangeFontSize.addEventListener('click', function(e) {

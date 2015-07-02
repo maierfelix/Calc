@@ -73,7 +73,7 @@
                 Arial
                 <span class="mui-caret"></span>
               </button>
-              <ul class="mui-dropdown-menu">
+              <ul id="change_font_ul" class="mui-dropdown-menu">
                 <li><a href="#">Arial</a></li>
                 <li><a href="#">Courier New</a></li>
                 <li><a href="#">Georgia</a></li>
@@ -83,7 +83,7 @@
                 12
                 <span class="mui-caret"></span>
               </button>
-              <ul class="mui-dropdown-menu">
+              <ul id="change_fontSize_ul" class="mui-dropdown-menu">
                 <li><a href="#">6</a></li>
                 <li><a href="#">7</a></li>
                 <li><a href="#">8</a></li>
@@ -107,7 +107,7 @@
               <!-- Change Background Color -->
               <button id="change_background" class="mui-btn mui-btn-default mui-btn-raised mui-btn-sm"></button>
               <!-- Change Border -->
-              <button id="change_border" class="mui-btn mui-btn-default mui-btn-raised mui-btn-sm"></button>
+              <button hide="true" id="change_border" class="mui-btn mui-btn-default mui-btn-raised mui-btn-sm"></button>
             </div>
           </div>
           <div class="mui-tab-pane" id="pane-justified-3">
@@ -190,35 +190,35 @@
 
     <!-- Border settings menu -->
     <div id="border_settings_menu" style="position: absolute;top: 37px;left: 400px;z-index: 99999;display:none;">
-      <div id="panels" class="collapse-none" style="left: 0px; width: 150px;height: 140px;top: 25px;border-bottom: 1px solid black;">
+      <div id="panels" class="collapse-none" style="left: 0px; width: 150px;height: 140px;top: 25px;">
         <div class="panels-tabs">
           <div class="panels-frame" style="height: 138px;">
             <div class="panel-container panel-properties">
               <div class="properties-panels">
                 <div id="border_settings_menu_items" class="properties-panel-content" style="width: 250px;">
-                  <button id="border_left" style="width: 55px; height: 25px; position: absolute; left: 15px; top: 10px;">
+                  <button class="mui-btn mui-btn-default mui-btn-mini activeSheet" id="border_left" style="left: 23px; top: 10px;">
                     <span>Left</span>
                   </button>
-                  <button id="border_right" style="width: 55px; height: 25px; position: absolute; left: 75px; top: 10px;">
+                  <button class="mui-btn mui-btn-default mui-btn-mini activeSheet" id="border_right" style="left: 75px; top: 10px;">
                     <span>Right</span>
                   </button>
-                  <button id="border_top" style="width: 55px; height: 25px; position: absolute; left: 15px; top: 40px;">
+                  <button class="mui-btn mui-btn-default mui-btn-mini activeSheet" id="border_top" style="left: 15px; top: 40px;">
                     <span>Top</span>
                   </button>
-                  <button id="border_bottom" style="width: 55px; height: 25px; position: absolute; left: 75px; top: 40px;">
+                  <button class="mui-btn mui-btn-default mui-btn-mini activeSheet" id="border_bottom" style="left: 75px; top: 40px;">
                     <span>Bottom</span>
                   </button>
-                  <button id="border_all" style="width: 55px; height: 25px; position: absolute; left: 15px; top: 70px;">
+                  <button class="mui-btn mui-btn-default mui-btn-mini activeSheet" id="border_all" style="left: 15px; top: 70px;">
                     <span>All</span>
                   </button>
-                  <button id="border_outer" style="width: 55px; height: 25px; position: absolute; left: 75px; top: 70px;">
+                  <button class="mui-btn mui-btn-default mui-btn-mini activeSheet" id="border_outer" style="position: absolute; left: 75px; top: 70px;">
                     <span>Outer</span>
                   </button>
-                  <button style="position: absolute;width: 55px; height: 25px;left: 15px;top: 100px;">
-                    <span style="border-bottom: 4px solid #000;position: absolute;margin-left: -16px;margin-top: -12px;font-size: 13px;">Color</span>
+                  <button class="mui-btn mui-btn-default mui-btn-mini activeSheet" style="left: 15px;top: 100px;">
+                    <span>Color</span>
                   </button>
-                  <button style="position: absolute;width: 55px; height: 25px;left: 75px;top: 100px;">
-                    <span style="position: absolute;margin-left: -16px;margin-top: -9px;font-size: 13px;">Style</span>
+                  <button class="mui-btn mui-btn-default mui-btn-mini activeSheet" style="left: 75px;top: 100px;">
+                    <span>Style</span>
                   </button>
                 </div>
               </div>

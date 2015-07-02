@@ -40,8 +40,14 @@
   /** Select and prepare the font change container */
   NOVAE.DOM.ChangeFont = document.querySelector("#change_font");
 
+  /** Select and prepare the font change ul container */
+  NOVAE.DOM.ChangeFontUl = document.querySelector("#change_font_ul");
+
   /** Select and prepare the font size container */
   NOVAE.DOM.ChangeFontSize = document.querySelector("#change_fontSize");
+
+  /** Select and prepare the font change ul container */
+  NOVAE.DOM.ChangeFontSizeUl = document.querySelector("#change_fontSize_ul");
 
   /** Select and prepare font color container */
   NOVAE.DOM.ChangeFontColor = document.querySelector("#change_fontColor");

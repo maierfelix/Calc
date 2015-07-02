@@ -1061,3 +1061,11 @@ button, input, select, textArea {
     display: none;
   }
 }
+
+#border_settings_menu_items>button {
+  padding: 0px;
+  color: #fff !important;
+  width: 55px;
+  height: 25px;
+  position: absolute; 
+}
