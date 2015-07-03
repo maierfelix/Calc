@@ -2,7 +2,7 @@
  * This file is part of the NovaeCalc project.
  *
  * It is permitted to use, redistribute and/or modify this software
- * under the terms of the MIT License
+ * under the terms of the BSD License
  *
  * @author Felix Maier <maier.felix96@gmail.com>
  * @copyright (c) 2015 Felix Maier, @felixmaier
@@ -34,6 +34,10 @@
   var Security = require('./security.js');
       Security = new Security();
 
+  /** Helper module */
+  var Helper = require('./helper.js');
+      Helper = new Helper();
+
   /** Bucket module */
   var Bucket = require('./bucket.js');
       Bucket = new Bucket();
@@ -43,6 +47,9 @@
 
   /** Room class */
   var Room = require('./room.js');
+
+  /** Cell class */
+  var Cell = require('./cell.js');
 
   /** Initialize database */
   Database.init(server, function() {
@@ -232,36 +239,101 @@
 
         var userRoom = Bucket.getCurrentUserRoom(socket.id);
         /** Check user for admin rights and valid room */
-        if (Bucket.isValidUser(socket.id)) {
-          /** Validate cell object */
-          if (Security.isSecure(data.sheet)  && data.sheet.length  && /** Sheet  */
-              Security.isSecure(data.cell)   && data.value.length  && /** Cell   */
-              Security.isSecure(data.letter) && data.letter.length && /** Letter */
-              (typeof data.value === "string")) {                     /** Value  */
-                /** Check if sheet is already registered */
-                if (!userRoom.sheets[data.sheet] || !userRoom.sheets[data.sheet].cells) {
-                  /** Register new sheet */
-                  userRoom.sheets[data.sheet] = {
-                    cells: {}
-                  };
-                }
-                /** Dictionary lookup style */
-                if (!userRoom.sheets[data.sheet].cells[data.letter]) {
-                  /** Register cell dictionary */
-                  userRoom.sheets[data.sheet].cells[data.letter] = {};
-                }
-                /** Update cell */
-                if (userRoom.sheets[data.sheet].cells[data.letter]) {
-                  /** Update cell */
-                  userRoom.sheets[data.sheet].cells[data.letter][data.cell] = data.value;
-                }
-                /** Send cell update to all clients in the same room */
-                Bucket.shareData({sheet: data.sheet, letter: data.letter, cell: data.cell, value: data.value}, socket.id, "cellchange", false);
-              }
-        /** User isn't in a room or entered wrong password */
-        } else {
+        if (!Bucket.isValidUser(socket.id)) return void 0;
 
+        /** Validate data */
+        if (!data.hasOwnProperty("range")) {
+          if (!Security.isSecure(data.sheet)    || /** Sheet  */
+              !Security.isSecure(data.cell)     || /** Cell   */
+              typeof data.value !== "string"    || /** Value  */
+              !Security.isSecure(data.letter)   || /** Letter */
+              !Security.isSecure(data.property) || /** Property */
+              !Security.isValidCellProperty(data.property)) return void 0;
+        } else {
+          if (!Security.isSecure(data.sheet)                  || /** Sheet  */
+              typeof data.value !== "string"                  || /** Range  */
+              !Security.isSecure(data.property)               || /** Property */
+              !Security.isValidCellProperty(data.property)) return void 0;
         }
+
+        /** Check if sheet is already registered */
+        if (!userRoom.sheets[data.sheet] || !userRoom.sheets[data.sheet].cells) {
+          /** Register new sheet */
+          userRoom.sheets[data.sheet] = {
+            cells: {}
+          };
+        }
+
+        /** Boolean conversion */
+        if (["FontBold", "FontItalic", "FontUnderlined"].indexOf(data.property) >= 0) {
+          if (data.value === "true" ||
+              data.value === "false") {
+            data.value = data.value === "true" ? true : false;
+          }
+        }
+
+        /** Process range */
+        if (data.hasOwnProperty("range")) {
+          var bool = null;
+          var selection = Helper.rangeToSelection(data.range);
+          for (var ii = 0; ii < selection.length; ++ii) {
+            var letter = Helper.numberToAlpha(selection[ii].letter);
+            var cell = letter + selection[ii].number;
+            /** Register dictionary */
+            if (!userRoom.sheets[data.sheet].cells[letter]) {
+              userRoom.sheets[data.sheet].cells[letter] = {};
+            }
+            /** Register cell */
+            if (!userRoom.sheets[data.sheet].cells[letter][cell]) {
+              userRoom.sheets[data.sheet].cells[letter][cell] = new Cell();
+            }
+            if (userRoom.sheets[data.sheet].cells[letter][cell].hasOwnProperty(data.property)) {
+              /** Update property as boolean */
+              if (typeof data.value === "boolean") {
+                if (userRoom.sheets[data.sheet].cells[letter][cell][data.property]) {
+                  bool = false;
+                  userRoom.sheets[data.sheet].cells[letter][cell][data.property] = false;
+                } else {
+                  bool = true;
+                  userRoom.sheets[data.sheet].cells[letter][cell][data.property] = true;
+                }
+              /** Update property */
+              } else {
+                userRoom.sheets[data.sheet].cells[letter][cell][data.property] = data.value;
+              }
+            }
+          }
+          /** Send cell update to all clients in the same room */
+          Bucket.shareData({sheet: data.sheet, range: data.range, value: bool !== null ? bool : data.value, property: data.property}, socket.id, "cellrangechange", false);
+          return void 0;
+        }
+
+        /** Dictionary lookup style */
+        if (!userRoom.sheets[data.sheet].cells[data.letter]) {
+          /** Register cell dictionary */
+          userRoom.sheets[data.sheet].cells[data.letter] = {};
+        }
+
+        /** Update cell */
+        if (userRoom.sheets[data.sheet].cells[data.letter]) {
+          /** Cell does not exist yet */
+          if (!userRoom.sheets[data.sheet].cells[data.letter][data.cell]) {
+            userRoom.sheets[data.sheet].cells[data.letter][data.cell] = new Cell();
+          }
+          /** If received content, check if its a formula */
+          if (data.property === "Content") {
+            if (data.value[0] === "=") {
+              /** Update cell */
+              userRoom.sheets[data.sheet].cells[data.letter][data.cell]["Formula"] = data.value;
+            } else userRoom.sheets[data.sheet].cells[data.letter][data.cell]["Content"] = data.value;
+          } else {
+            /** Update cell */
+            userRoom.sheets[data.sheet].cells[data.letter][data.cell][data.property] = data.value;
+          }
+        }
+
+        /** Send cell update to all clients in the same room */
+        Bucket.shareData({sheet: data.sheet, letter: data.letter, cell: data.cell, value: data.value}, socket.id, "cellchange", false);
 
       });
 
@@ -436,6 +508,7 @@
     if (data === '/bucket') console.log(Bucket);
     if (data === '/bucketroomusers') console.log(Bucket.rooms[0].users);
     if (data === '/bucketroomsheets') console.log(Bucket.rooms[0].sheets);
+    if (data === '/bucketroomsheetcells') console.log(Bucket.rooms[0].sheets.Sheet1.cells["A"]);
 
   });
 
