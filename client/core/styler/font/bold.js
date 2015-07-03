@@ -74,6 +74,12 @@
       this.inheritSheetStyling("FontBold", true);
     }
 
+    /** Share font bold styling */
+    if (NOVAE.Connector.connected) {
+      var range = NOVAE.$.selectionToRange(NOVAE.Sheets[NOVAE.CurrentSheet].Selector.SelectedCells);
+      NOVAE.Connector.action("updateCell", { range: range, property: "FontBold", value: "true" });
+    }
+
     /** Dont loose the selection */
     selectSheet.getSelection();
 

@@ -62,6 +62,12 @@
       this.inheritSheetStyling("Font", font);
     }
 
+    /** Share font family styling */
+    if (NOVAE.Connector.connected) {
+      var range = NOVAE.$.selectionToRange(NOVAE.Sheets[NOVAE.CurrentSheet].Selector.SelectedCells);
+      NOVAE.Connector.action("updateCell", { range: range, property: "Font", value: font });
+    }
+
     /** Dont loose the selection */
     selectSheet.getSelection();
 

@@ -64,6 +64,12 @@
       this.inheritSheetStyling("BackgroundColor", color);
     }
 
+    /** Share background styling */
+    if (NOVAE.Connector.connected) {
+      var range = NOVAE.$.selectionToRange(NOVAE.Sheets[NOVAE.CurrentSheet].Selector.SelectedCells);
+      NOVAE.Connector.action("updateCell", { range: range, property: "BackgroundColor", value: color });
+    }
+
     /** Dont loose the selection */
     selectSheet.getSelection();
 

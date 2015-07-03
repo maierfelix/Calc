@@ -200,7 +200,7 @@
 
       /** Share cell changes */
       if (NOVAE.Connector.connected) {
-        NOVAE.Connector.action("updateCell", { cell: editCell, value: NOVAE.DOM.CellInput.value });
+        NOVAE.Connector.action("updateCell", { cell: editCell, value: NOVAE.DOM.CellInput.value, property: "Content" });
       }
 
       //NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();

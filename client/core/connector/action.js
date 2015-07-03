@@ -97,8 +97,10 @@
   NOVAE.Connector.prototype.updateCell = function(object) {
 
     /** Validate data */
-    if (object.cell && object.value && object.value.length) {
-      object.letter = object.cell.match(NOVAE.REGEX.numbers).join("");
+    if (object.range || object.cell && object.value && object.value.length) {
+      if (!object.range) {
+        object.letter = object.cell.match(NOVAE.REGEX.numbers).join("");
+      }
       object.sheet = NOVAE.CurrentSheet;
       this.socket.emit("updatecell", object);
     }
@@ -127,12 +129,8 @@
           if (!NOVAE.Cells.Used[sheet]) NOVAE.Cells.Used[sheet] = {};
           if (!NOVAE.Cells.Used[sheet][letter]) NOVAE.Cells.Used[sheet][letter] = {};
           if (!NOVAE.Cells.Used[sheet][letter][cell]) NOVAE.Cells.Used[sheet][letter][cell] = new NOVAE.Grid.Cell();
-          /** Formula? */
-          if (object[sheet].cells[letter][cell][0] === "=") {
-            NOVAE.Cells.Used[sheet][letter][cell].Formula = object[sheet].cells[letter][cell];
-          /** Default content */
-          } else {
-            NOVAE.Cells.Used[sheet][letter][cell].Content = object[sheet].cells[letter][cell];
+          for (var property in object[sheet].cells[letter][cell]) {
+            NOVAE.Cells.Used[sheet][letter][cell][property] = object[sheet].cells[letter][cell][property];
           }
         }
       }
@@ -180,6 +178,39 @@
       }
     } else {
       NOVAE.Cells.Used[object.sheet][object.letter][object.cell].Content = object.value;
+    }
+
+    /** Refresh the grid */
+    NOVAE.Sheets[NOVAE.CurrentSheet].updateWidth("default");
+    NOVAE.eval();
+
+  };
+
+  /**
+   * Process a cell range
+   *
+   * @method processCellRange
+   * @static
+   */
+  NOVAE.Connector.prototype.processCellRange = function(object) {
+
+    var selection = NOVAE.$.rangeToSelection(object.range);
+
+    for (var ii = 0; ii < selection.length; ++ii) {
+      var letter = NOVAE.$.numberToAlpha(selection[ii].letter);
+      var cell = letter + selection[ii].number;
+      /** Register dictionary */
+      if (!NOVAE.Cells.Used[object.sheet][letter]) {
+        NOVAE.Cells.Used[object.sheet][letter] = {};
+      }
+      /** Register cell */
+      if (!NOVAE.Cells.Used[object.sheet][letter][cell]) {
+        NOVAE.Cells.Used[object.sheet][letter][cell] = new NOVAE.Grid.Cell();
+      }
+      /** Update property */
+      if (NOVAE.Cells.Used[object.sheet][letter][cell].hasOwnProperty(object.property)) {
+        NOVAE.Cells.Used[object.sheet][letter][cell][object.property] = object.value;
+      }
     }
 
     /** Refresh the grid */

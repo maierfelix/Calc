@@ -576,7 +576,7 @@
   };
 
   /**
-   * Convert to coordinates into a selection array
+   * Convert coordinates into a selection array
    *
    * @method coordToSelection
    * @static
@@ -627,5 +627,70 @@
     }
 
     return (resultArray);
+
+  };
+
+  /**
+   * Get range of a selection array
+   *
+   * @method selectionToRange
+   * @static
+   */
+  NOVAE.$.selectionToRange = function(array) {
+
+    var range = "";
+
+    if (array.length === 1) {
+      var letter = NOVAE.$.numberToAlpha(array[0].letter);
+      var number = array[0].number;
+      range = letter + number + ":" + letter + number;
+      return (range);
+    }
+
+    var letter = NOVAE.$.numberToAlpha(array[0].letter);
+    var number = array[0].number;
+
+    range = letter + number + ":";
+
+    letter = NOVAE.$.numberToAlpha(array[array.length - 1].letter);
+
+    number = array[array.length - 1].number;
+
+    range += letter + number;
+
+    return (range);
+
+  };
+
+  /**
+   * Get selection array of a range
+   *
+   * @method rangeToSelection
+   * @static
+   */
+  NOVAE.$.rangeToSelection = function(range) {
+
+    if (!range.match(":")) return void 0;
+
+    range = range.split(":");
+
+    if (!range || !range[0] || !range[1]) return void 0;
+
+    var first = range[0];
+    var last = range[1];
+
+    first = {
+      letter: NOVAE.$.alphaToNumber(first.match(NOVAE.REGEX.numbers).join("")),
+      number: parseInt(first.match(NOVAE.REGEX.letters).join(""))
+    };
+
+    last = {
+      letter: NOVAE.$.alphaToNumber(last.match(NOVAE.REGEX.numbers).join("")),
+      number: parseInt(last.match(NOVAE.REGEX.letters).join(""))
+    };
+
+    var selection = NOVAE.$.coordToSelection(first, last);
+
+    return (selection || void 0);
 
   };

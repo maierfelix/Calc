@@ -63,6 +63,12 @@
       this.inheritSheetStyling("Color", color);
     }
 
+    /** Share font color styling */
+    if (NOVAE.Connector.connected) {
+      var range = NOVAE.$.selectionToRange(NOVAE.Sheets[NOVAE.CurrentSheet].Selector.SelectedCells);
+      NOVAE.Connector.action("updateCell", { range: range, property: "Color", value: color });
+    }
+
     /** Dont loose the selection */
     selectSheet.getSelection();
 

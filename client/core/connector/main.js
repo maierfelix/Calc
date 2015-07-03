@@ -132,6 +132,10 @@
             case "cellchange":
               this.processServerCell(data.data);
               break;
+            /** Received a cell range with new data */
+            case "cellrangechange":
+              this.processCellRange(data.data);
+              break;
             /** Scroll change */
             case "scrolling":
               this.processServerScrolling(data.data);
@@ -243,9 +247,8 @@
     var muiButton = "mui-btn mui-btn-primary mui-btn-lg alertButton";
 
     /** The modal content */
-    var title = "<h3 class='modalTitle'>The entered room security token is wrong!</h3>";
-    var content = "<h4>You don't have any write access to the document.</h4>";
-    var buttons = content + "<button class='"+muiButton+" alertOk' name='ok'>Ok</button>";
+    var title = "<h2>The entered room security token is wrong!</h2><h3>You don't have write access to the document.</h3>";
+    var buttons = "<button class='"+muiButton+" alertOk' name='ok'>Ok</button>";
 
     NOVAE_UI.Modal(title, buttons, function(submit) {});
 

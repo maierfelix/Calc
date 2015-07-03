@@ -62,6 +62,12 @@
       this.inheritSheetStyling("FontSize", size);
     }
 
+    /** Share font size styling */
+    if (NOVAE.Connector.connected) {
+      var range = NOVAE.$.selectionToRange(NOVAE.Sheets[NOVAE.CurrentSheet].Selector.SelectedCells);
+      NOVAE.Connector.action("updateCell", { range: range, property: "FontSize", value: size });
+    }
+
     /** Dont loose the selection */
     selectSheet.getSelection();
 
