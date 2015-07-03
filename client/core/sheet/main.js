@@ -301,7 +301,9 @@
           /** Special styling for master sheets */
           NOVAE.DOM.Sheets.children[ii].classList.add("activeMasterSheet");
         } else {
-          NOVAE.DOM.Sheets.children[ii].classList.add("activeSheet");
+          if (NOVAE.DOM.Sheets.children[ii]) {
+            NOVAE.DOM.Sheets.children[ii].classList.add("activeSheet");
+          }
         }
       }
     }

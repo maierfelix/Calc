@@ -34,10 +34,18 @@
   NOVAE.Cells = {
     /** Customized cells -> Sheet -> Dictionary[a-Z] -> ColumnRow[a-Z] -> Cell[a-Z+0-9] */
     Used: {},
+    /** Resized columns and rows */
+    Resized: {},
     /** Live cells */
     Live: {},
     /** All cell */
-    All: null
+    All: {
+      Cell: null,
+      Resize: {
+        Column: null,
+        Row: null
+      }
+    }
   };
 
   /** System speed grade */

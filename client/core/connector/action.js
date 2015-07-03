@@ -26,6 +26,9 @@
       case "updateCell":
         this.updateCell(object);
         break;
+      case "resize":
+        this.resize(object);
+        break;
       case "scrolling":
         this.updateScrolling(object);
         break;
@@ -108,13 +111,29 @@
   };
 
   /**
+   * Update column or row on the server
+   *
+   * @method resize
+   * @static
+   */
+  NOVAE.Connector.prototype.resize = function(object) {
+
+    /** Validate data */
+    if (object.type === "column" || object.type === "row" && object.name && object.name.length && object.size >= 0) {
+      object.sheet = NOVAE.CurrentSheet;
+      this.socket.emit("resize", object);
+    }
+
+  };
+
+  /**
    * Process cell received from the server
    *
    * @method processServerCells
    * @static
    */
   NOVAE.Connector.prototype.processServerCells = function(object) {
-
+console.log(object);
     var sheets = [];
 
     for (var sheet in object) {

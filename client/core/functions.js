@@ -90,6 +90,9 @@
     /** Initialize ClipBoard Plugin */
     NOVAE.ClipBoard = new NOVAE.ClipBoard();
 
+    /** Initialize all cell */
+    NOVAE.Cells.All.Cell = new NOVAE.Grid.Cell();
+
     /** A direct command creation helper function */
     NOVAE.newCommand = function() {
 

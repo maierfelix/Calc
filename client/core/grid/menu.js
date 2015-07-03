@@ -190,6 +190,7 @@
           /** Re-render grid */
           NOVAE.Sheets[NOVAE.CurrentSheet].Input.lastAction.scrollY = false;
           this.setAttribute("timestamp", e.timeStamp);
+
           /** Inherit resize if myself is a master sheet */
           if (self.isMasterSheet()) {
             NOVAE.Styler.inheritResize(e.target.innerHTML, width);
@@ -205,6 +206,11 @@
 
           /** Push command into the commander stack */
           NOVAE.Sheets[NOVAE.CurrentSheet].Commander.pushUndoCommand(command, true);
+
+          /** Share column resize */
+          if (NOVAE.Connector.connected) {
+            NOVAE.Connector.action("resize", { type: "column", name: e.target.innerHTML, size: width });
+          }
 
         });
 
@@ -244,7 +250,7 @@
 
           }
 
-          if ((x + y) >= -35) {
+          if ((x + y) >= 0) {
             e.target.style.cursor = "col-resize";
             if (e.target.getAttribute("clicked") === "1") {
 
@@ -283,7 +289,7 @@
               }
               /** User scrolls cell to left */
               else if (self.mouseMoveDirection.directionX === "left") {
-                if (parseInt(e.target.style.width) > self.CellTemplate.Width) {
+                if (parseInt(e.target.style.width) >= 0) {
                   e.target.style.width = (parseInt(e.target.style.width) - 2) + "px";
                   /** Update customized cell object */
                   self.customCellSizes.alphabetical[name].Width -= 2;
@@ -397,7 +403,7 @@
 
           }
 
-          if ((x + y) >= - 35) {
+          if ((x + y) >= 0) {
             e.target.style.cursor = "row-resize";
             if (e.target.getAttribute("clicked") === "1") {
 
@@ -438,7 +444,7 @@
               }
               /** User scrolls cell down */
               else if (self.mouseMoveDirection.directionY === "up") {
-                if (parseInt(e.target.style.height) > self.CellTemplate.Height) {
+                if (parseInt(e.target.style.height) >= 0) {
                   e.target.style.height = (parseInt(e.target.style.height) - 2) + "px";
                   /** Update customized cell object */
                   self.customCellSizes.numeric[name].Height -= 2;
