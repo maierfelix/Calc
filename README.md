@@ -8,7 +8,7 @@ NovaeCalc runs the best on Google Chrome.
 
 # Multi-user test project
 If you want to test the latest multi-user functionality, go to:
-* [Link](http://felixmaier.info/NovaeCalc/?testroom1&key=3b011508e1edb8a92daca0c72522b4449aa455c820009ce1b4a838c868d6c4b8)<br/>
+* [Link](http://felixmaier.info/NovaeCalc/?testroom3&key=bc84f9b24615476392f18d4e313c45e1ad95379873a41f442b6f89a291c3d934)<br/>
 
 ## Current state:
 
