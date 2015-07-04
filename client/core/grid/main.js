@@ -164,13 +164,66 @@
    */
   NOVAE.Grid.prototype.calculateGrid = function() {
 
+    var resizedX = this.getResizedX();
+    var resizedY = this.getResizedY();
+
     /** Round down */
-    this.Settings.x = Math.ceil( - ( NOVAE.Settings.Width / this.CellTemplate.Width ) );
-    this.Settings.y = Math.ceil( - ( NOVAE.Settings.Height / this.CellTemplate.Height ) );
+    this.Settings.x = Math.ceil( - ( NOVAE.Settings.Width / this.CellTemplate.Width) );
+    this.Settings.y = Math.ceil( - ( NOVAE.Settings.Height / this.CellTemplate.Height) );
 
     /** - to + conversion */
     this.Settings.x = ( ~ this.Settings.x + 1 ) + 1;
     this.Settings.y = ( ~ this.Settings.y + 1 ) - 3;
+
+    /** Expand grid width if columns got resized smaller */
+    if (resizedX <= 0) {
+      this.Settings.x += ( ~ Math.floor(resizedX / this.CellTemplate.Width) + 1 ) + 1;
+    }
+
+    /** Expand grid height if rows got resized smaller */
+    if (resizedY <= 0) {
+      this.Settings.y += ( ~ Math.floor(resizedY / this.CellTemplate.Height) + 1 ) + 1;
+    }
+
+  };
+
+  /**
+   * Get the whole resize X factor
+   *
+   * @method getResizedX
+   * @static
+   */
+  NOVAE.Grid.prototype.getResizedX = function() {
+
+    var x = 0;
+
+    var columns = NOVAE.Cells.Resized[NOVAE.CurrentSheet].Columns;
+
+    for (var cell in columns) {
+      x += columns[cell].Width;
+    }
+
+    return (x);
+
+  };
+
+  /**
+   * Get the whole resize Y factor
+   *
+   * @method getResizedY
+   * @static
+   */
+  NOVAE.Grid.prototype.getResizedY = function() {
+
+    var y = 0;
+
+    var rows = NOVAE.Cells.Resized[NOVAE.CurrentSheet].Rows;
+
+    for (var cell in rows) {
+      y += rows[cell].Height;
+    }
+
+    return (y);
 
   };
 

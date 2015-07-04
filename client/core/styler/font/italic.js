@@ -49,6 +49,11 @@
       selectSheet.inheritMasterStyling(currentMaster, masterCell, "FontItalic");
     }
 
+    /** Append all font italic style */
+    if (NOVAE.Sheets[NOVAE.CurrentSheet].Selector.allSelected) {
+      this.appendAllFontItalic();
+    }
+
     /** Loop through all selected cells */
     for (var ii = 0; ii < selectSheet.SelectedCells.length; ++ii) {
       var letter = NOVAE.$.numberToAlpha(selectSheet.SelectedCells[ii].letter);
@@ -82,5 +87,43 @@
 
     /** Dont loose the selection */
     selectSheet.getSelection();
+
+  };
+
+  /**
+   * Append all font italic
+   *
+   * @method appendAllFontItalic
+   * @static
+   */
+  NOVAE.Styler.prototype.appendAllFontItalic = function() {
+
+    if (NOVAE.Cells.All[NOVAE.CurrentSheet].Cell.FontItalic) {
+      NOVAE.Cells.All[NOVAE.CurrentSheet].Cell.FontItalic = false;
+    } else {
+      NOVAE.Cells.All[NOVAE.CurrentSheet].Cell.FontItalic = true;
+    }
+
+    var usedCells = NOVAE.Cells.Used[NOVAE.CurrentSheet];
+
+    var masterCells = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected;
+
+    /** Overwrite all registered cells font bold */
+    for (var letter in usedCells) {
+      for (var cell in usedCells[letter]) {
+        usedCells[letter][cell].FontItalic = NOVAE.Cells.All[NOVAE.CurrentSheet].Cell.FontItalic;
+      }
+    }
+
+    /** Overwrite all master columns font bold */
+    for (var cell in masterCells.Columns) {
+      masterCells.Columns[cell].FontItalic = NOVAE.Cells.All[NOVAE.CurrentSheet].Cell.FontItalic;
+    }
+    /** Overwrite all master rows font bold */
+    for (var cell in masterCells.Rows) {
+      masterCells.Rows[cell].FontItalic = NOVAE.Cells.All[NOVAE.CurrentSheet].Cell.FontItalic;
+    }
+
+    NOVAE.Event.redraw();
 
   };

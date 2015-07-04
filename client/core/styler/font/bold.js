@@ -49,6 +49,11 @@
       selectSheet.inheritMasterStyling(currentMaster, masterCell, "FontBold");
     }
 
+    /** Append all font bold style */
+    if (NOVAE.Sheets[NOVAE.CurrentSheet].Selector.allSelected) {
+      this.appendAllFontBold();
+    }
+
     /** Loop through all selected cells */
     for (var ii = 0; ii < selectSheet.SelectedCells.length; ++ii) {
       var letter = NOVAE.$.numberToAlpha(selectSheet.SelectedCells[ii].letter);
@@ -82,5 +87,43 @@
 
     /** Dont loose the selection */
     selectSheet.getSelection();
+
+  };
+
+  /**
+   * Append all font bold
+   *
+   * @method appendAllFontBold
+   * @static
+   */
+  NOVAE.Styler.prototype.appendAllFontBold = function() {
+
+    if (NOVAE.Cells.All[NOVAE.CurrentSheet].Cell.FontBold) {
+      NOVAE.Cells.All[NOVAE.CurrentSheet].Cell.FontBold = false;
+    } else {
+      NOVAE.Cells.All[NOVAE.CurrentSheet].Cell.FontBold = true;
+    }
+
+    var usedCells = NOVAE.Cells.Used[NOVAE.CurrentSheet];
+
+    var masterCells = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected;
+
+    /** Overwrite all registered cells font bold */
+    for (var letter in usedCells) {
+      for (var cell in usedCells[letter]) {
+        usedCells[letter][cell].FontBold = NOVAE.Cells.All[NOVAE.CurrentSheet].Cell.FontBold;
+      }
+    }
+
+    /** Overwrite all master columns font bold */
+    for (var cell in masterCells.Columns) {
+      masterCells.Columns[cell].FontBold = NOVAE.Cells.All[NOVAE.CurrentSheet].Cell.FontBold;
+    }
+    /** Overwrite all master rows font bold */
+    for (var cell in masterCells.Rows) {
+      masterCells.Rows[cell].FontBold = NOVAE.Cells.All[NOVAE.CurrentSheet].Cell.FontBold;
+    }
+
+    NOVAE.Event.redraw();
 
   };

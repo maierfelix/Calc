@@ -49,6 +49,11 @@
       selectSheet.inheritMasterStyling(currentMaster, masterCell, "FontUnderlined");
     }
 
+    /** Append all font underline style */
+    if (NOVAE.Sheets[NOVAE.CurrentSheet].Selector.allSelected) {
+      this.appendAllFontUnderline();
+    }
+
     /** Loop through all selected cells */
     for (var ii = 0; ii < selectSheet.SelectedCells.length; ++ii) {
       var letter = NOVAE.$.numberToAlpha(selectSheet.SelectedCells[ii].letter);
@@ -82,5 +87,43 @@
 
     /** Dont loose the selection */
     selectSheet.getSelection();
+
+  };
+
+  /**
+   * Append all font underline
+   *
+   * @method appendAllFontUnderline
+   * @static
+   */
+  NOVAE.Styler.prototype.appendAllFontUnderline = function() {
+
+    if (NOVAE.Cells.All[NOVAE.CurrentSheet].Cell.FontUnderlined) {
+      NOVAE.Cells.All[NOVAE.CurrentSheet].Cell.FontUnderlined = false;
+    } else {
+      NOVAE.Cells.All[NOVAE.CurrentSheet].Cell.FontUnderlined = true;
+    }
+
+    var usedCells = NOVAE.Cells.Used[NOVAE.CurrentSheet];
+
+    var masterCells = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected;
+
+    /** Overwrite all registered cells font bold */
+    for (var letter in usedCells) {
+      for (var cell in usedCells[letter]) {
+        usedCells[letter][cell].FontUnderlined = NOVAE.Cells.All[NOVAE.CurrentSheet].Cell.FontUnderlined;
+      }
+    }
+
+    /** Overwrite all master columns font bold */
+    for (var cell in masterCells.Columns) {
+      masterCells.Columns[cell].FontUnderlined = NOVAE.Cells.All[NOVAE.CurrentSheet].Cell.FontUnderlined;
+    }
+    /** Overwrite all master rows font bold */
+    for (var cell in masterCells.Rows) {
+      masterCells.Rows[cell].FontUnderlined = NOVAE.Cells.All[NOVAE.CurrentSheet].Cell.FontUnderlined;
+    }
+
+    NOVAE.Event.redraw();
 
   };

@@ -33,6 +33,12 @@
     /** Prepare platform dependent events */
     NOVAE.$.prepareEvents();
 
+    /** Create resize object if not existing yet */
+    if (!NOVAE.Cells.Resized[NOVAE.CurrentSheet]) NOVAE.$.createResizedObject();
+
+    /** Create all object if not existing yet */
+    if (!NOVAE.Cells.All[NOVAE.CurrentSheet]) NOVAE.$.createAllObject();
+
     /** Calculate scroll amount */
     NOVAE.Settings.Scroll.OriginalVertical = NOVAE.Settings.Scroll.Vertical = NOVAE.$.calculateScrollAmount();
 
@@ -512,7 +518,13 @@
   NOVAE.$.createSheet = function(name, master) {
 
     /** Initialize cell used stack for the new sheet */
-    if (!NOVAE.Cells.Used[NOVAE.CurrentSheet]) NOVAE.Cells.Used[NOVAE.CurrentSheet] = {};
+    if (!NOVAE.Cells.Used[name]) NOVAE.Cells.Used[name] = {};
+
+    /** Create resize object if not existing yet */
+    if (!NOVAE.Cells.Resized[name]) NOVAE.$.createResizedObject();
+
+    /** Create all object if not existing yet */
+    if (!NOVAE.Cells.All[name]) NOVAE.$.createAllObject();
 
     /** Create new cell used stack */
     NOVAE.Sheets[name] = new NOVAE.Grid();

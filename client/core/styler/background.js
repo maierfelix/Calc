@@ -49,7 +49,7 @@
       selectSheet.inheritMasterStyling(currentMaster, masterCell, "BackgroundColor");
     }
 
-    /** Append all cell background style and redraw the grid */
+    /** Append all cell background style */
     if (NOVAE.Sheets[NOVAE.CurrentSheet].Selector.allSelected) {
       this.appendAllBackgroundStyle(color);
     } else {

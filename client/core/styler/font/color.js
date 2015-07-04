@@ -47,6 +47,11 @@
       selectSheet.inheritMasterStyling(currentMaster, masterCell, "Color");
     }
 
+    /** Append all font color style */
+    if (NOVAE.Sheets[NOVAE.CurrentSheet].Selector.allSelected) {
+      this.appendAllFontColor(color);
+    }
+
     /** Loop through all selected cells */
     for (var ii = 0; ii < selectSheet.SelectedCells.length; ++ii) {
       var letter = NOVAE.$.numberToAlpha(selectSheet.SelectedCells[ii].letter);
@@ -71,5 +76,39 @@
 
     /** Dont loose the selection */
     selectSheet.getSelection();
+
+  };
+
+  /**
+   * Append all font color
+   *
+   * @method appendAllFontColor
+   * @static
+   */
+  NOVAE.Styler.prototype.appendAllFontColor = function(color) {
+
+    NOVAE.Cells.All[NOVAE.CurrentSheet].Cell.Color = color;
+
+    var usedCells = NOVAE.Cells.Used[NOVAE.CurrentSheet];
+
+    var masterCells = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected;
+
+    /** Overwrite all registered cells background style */
+    for (var letter in usedCells) {
+      for (var cell in usedCells[letter]) {
+        usedCells[letter][cell].Color = color;
+      }
+    }
+
+    /** Overwrite all master columns background style */
+    for (var cell in masterCells.Columns) {
+      masterCells.Columns[cell].Color = color;
+    }
+    /** Overwrite all master rows background style */
+    for (var cell in masterCells.Rows) {
+      masterCells.Rows[cell].Color = color;
+    }
+
+    NOVAE.Event.redraw();
 
   };
