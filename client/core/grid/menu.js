@@ -216,6 +216,9 @@
             NOVAE.Connector.action("resize", { type: "column", name: e.target.innerHTML, size: width });
           }
 
+          /** Hide the resize helper */
+          NOVAE.DOM.ColumnResizeHelper.style.display = "none";
+
         });
 
         element.addEventListener(NOVAE.Events.mouseOut, function(e) {
@@ -258,6 +261,13 @@
             e.target.style.cursor = "col-resize";
             if (e.target.getAttribute("clicked") === "1") {
 
+              /** Show the resize helper */
+              NOVAE.DOM.ColumnResizeHelper.style.display = "block";
+
+              var resizeHelperValue = parseInt(e.target.style.left) + parseInt(e.target.style.width);
+
+              resizeHelperValue -= Math.floor(self.CellTemplate.Width / 2) + 1;
+
               var name = e.target.innerHTML;
 
               /** Create custom cell scroll object */
@@ -290,6 +300,9 @@
                 /** Update total cell resize factor */
                 self.Settings.cellResizedX += 2;
 
+                /** Update resize helper left position */
+                NOVAE.DOM.ColumnResizeHelper.style.left = resizeHelperValue + 2 + "px";
+
               }
               /** User scrolls cell to left */
               else if (self.mouseMoveDirection.directionX === "left") {
@@ -308,6 +321,8 @@
                   customCellSizes.Columns[name].Width = 0;
 
                 }
+                /** Update resize helper left position */
+                NOVAE.DOM.ColumnResizeHelper.style.left = resizeHelperValue - 2 + "px";
               }
             }
           }
@@ -370,6 +385,9 @@
           /** Push command into the commander stack */
           NOVAE.Sheets[NOVAE.CurrentSheet].Commander.pushUndoCommand(command, true);
 
+          /** Hide the resize helper */
+          NOVAE.DOM.RowResizeHelper.style.display = "none";
+
         });
 
         element.addEventListener(NOVAE.Events.mouseOut, function(e) {
@@ -413,6 +431,11 @@
             e.target.style.cursor = "row-resize";
             if (e.target.getAttribute("clicked") === "1") {
 
+              /** Show the resize helper */
+              NOVAE.DOM.RowResizeHelper.style.display = "block";
+
+              var resizeHelperValue = parseInt(e.target.style.top) + parseInt(e.target.style.height);
+
               var name = e.target.innerHTML;
 
               /** Create custom cell scroll object */
@@ -447,6 +470,9 @@
                 /** Update total cell resize factor */
                 self.Settings.cellResizedY += 2;
 
+                /** Update resize helper top position */
+                NOVAE.DOM.RowResizeHelper.style.top = resizeHelperValue + 2 + "px";
+
               }
               /** User scrolls cell down */
               else if (self.mouseMoveDirection.directionY === "up") {
@@ -465,6 +491,8 @@
                   customCellSizes.Rows[name].Height = 0;
 
                 }
+                /** Update resize helper top position */
+                NOVAE.DOM.RowResizeHelper.style.top = resizeHelperValue - 2 + "px";
               }
 
             }

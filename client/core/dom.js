@@ -117,3 +117,9 @@
 
   /** Select and prepare the script manager button */
   NOVAE.DOM.ScriptButton = document.querySelector("#script_button");
+
+  /** Select and prepare the column resize helper */
+  NOVAE.DOM.ColumnResizeHelper = document.querySelector("#column_resize_helper");
+
+  /** Select and prepare the row resize helper */
+  NOVAE.DOM.RowResizeHelper = document.querySelector("#row_resize_helper");

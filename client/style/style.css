@@ -1069,3 +1069,19 @@ button, input, select, textArea {
   height: 25px;
   position: absolute; 
 }
+
+#column_resize_helper {
+  position: absolute;
+  z-index: 2;
+  background-color: darkgrey;
+  width: 1px;
+  height: 100%;
+}
+
+#row_resize_helper {
+  position: absolute;
+  z-index: 2;
+  background-color: darkgrey;
+  height: 1px;
+  width: 100%;
+}
