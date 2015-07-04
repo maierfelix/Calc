@@ -206,9 +206,7 @@
 
     /** User resized something */
     if (NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.CellResize) {
-      currentSheet.updateWidth();
-      currentSheet.generateMenu();
-      currentSheet.Selector.getSelection();
+      NOVAE.Event.redraw();
       currentSheet.Input.Mouse.CellResize = false;
     }
 

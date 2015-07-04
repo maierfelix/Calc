@@ -190,11 +190,6 @@
 
           var width = customCellSizes.Columns[e.target.innerHTML].Width;
 
-          /** Resize grid, since we may need to expand it */
-          if (width < 0) {
-            NOVAE.Event.redraw();
-          }
-
           this.setAttribute("clicked", 0);
           /** Re-render grid */
           NOVAE.Sheets[NOVAE.CurrentSheet].Input.lastAction.scrollY = false;
@@ -357,11 +352,6 @@
         element.addEventListener(NOVAE.Events.mouseUp, function(e) {
 
           var height = customCellSizes.Rows[e.target.innerHTML].Height;
-
-          /** Resize grid, since we may need to expand it */
-          if (height < 0) {
-            NOVAE.Event.redraw();
-          }
 
           this.setAttribute("clicked", 0);
           /** Inherit resize if myself is a master sheet */
