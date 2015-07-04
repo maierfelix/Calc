@@ -192,6 +192,11 @@
       NOVAE.SystemSpeed = 10;
     }
 
+    /** Remove grid animation if grid is larger than 65 */
+    if (this.Settings.x + this.Settings.y >= 65) {
+      NOVAE.Event.resetMouseScrollAnimation();
+    }
+
   };
 
   /**
