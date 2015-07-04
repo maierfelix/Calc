@@ -49,10 +49,11 @@
       selectSheet.inheritMasterStyling(currentMaster, masterCell, "BackgroundColor");
     }
 
-    /** Create background style command */
+    /** Append all cell background style and redraw the grid */
     if (NOVAE.Sheets[NOVAE.CurrentSheet].Selector.allSelected) {
-      //this.backgroundStyleCommand(color);
+      this.appendAllBackgroundStyle(color);
     } else {
+      /** Create background style command */
       this.backgroundStyleCommand(color);
     }
 
@@ -125,6 +126,65 @@
             first: selector.SelectedCells[0],
             last: selector.SelectedCells[selector.SelectedCells.length - 1]
           }
+        };
+
+    /** Push command into the commander stack */
+    NOVAE.Sheets[NOVAE.CurrentSheet].Commander.pushUndoCommand(command, true);
+
+  };
+
+  /**
+   * Append the all background style
+   *
+   * @method appendAllBackgroundStyle
+   * @static
+   */
+  NOVAE.Styler.prototype.appendAllBackgroundStyle = function(color) {
+
+    NOVAE.Cells.All[NOVAE.CurrentSheet].Cell.BackgroundColor = color;
+
+    var usedCells = NOVAE.Cells.Used[NOVAE.CurrentSheet];
+
+    var masterCells = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected;
+
+    /** Overwrite all registered cells background style */
+    for (var letter in usedCells) {
+      for (var cell in usedCells[letter]) {
+        usedCells[letter][cell].BackgroundColor = color;
+      }
+    }
+
+    /** Overwrite all master columns background style */
+    for (var cell in masterCells.Columns) {
+      masterCells.Columns[cell].BackgroundColor = color;
+    }
+    /** Overwrite all master rows background style */
+    for (var cell in masterCells.Rows) {
+      masterCells.Rows[cell].BackgroundColor = color;
+    }
+
+    this.allBackgroundStyleCommand(color);
+
+    NOVAE.Event.redraw();
+
+  };
+
+  /**
+   * Convert all background style action into command
+   *
+   * @method appendAllBackgroundStyle
+   * @static
+   */
+  NOVAE.Styler.prototype.allBackgroundStyleCommand = function(color) {
+
+    /** Push change into undo stack */
+    var command = NOVAE.newCommand();
+        command.caller = "Styler";
+        command.action = "BackgroundColor";
+        command.all = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.allSelected;
+        command.data = {
+          newColor: color,
+          oldColor: "rgb(0,0,0)"
         };
 
     /** Push command into the commander stack */

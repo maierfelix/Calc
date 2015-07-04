@@ -73,25 +73,69 @@
    */
   NOVAE.Selector.prototype.appendSelectionStyling = function(letter, number, jumps, style) {
 
+    /** ^= Invisible cell hover color */
+    var white = "rgba(198, 198, 198, 0.5)";
+    /** Contains various white types to be specific colored in the grid */
+    var isWhite = ["255,255,255", "255,255,254", "255,255,253", "253,253,253"];
+
     /** Priority 1: If cell has custom background, add transparence to it */
     if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter] &&
         NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number] &&
         NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].BackgroundColor !== null) {
-      /** Change background color and add transparency */
-      NOVAE.DOM.CacheArray[jumps].style.background = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].BackgroundColor.replace(')', ', 0.55)').replace('rgb', 'rgba');
-      if (this.SelectedCells.length === 1) NOVAE.DOM.CacheArray[jumps].classList.add(style);
+
+      var color = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].BackgroundColor;
+
+      /** Make white visible */
+      if (isWhite.indexOf(color.substring(4, 15)) >= 0) {
+        NOVAE.DOM.CacheArray[jumps].style.background = white;
+      } else {
+        /** Change background color and add transparency */
+        NOVAE.DOM.CacheArray[jumps].style.background = color.replace(')', ', 0.55)').replace('rgb', 'rgba');
+      }
+
+    if (this.SelectedCells.length === 1) NOVAE.DOM.CacheArray[jumps].classList.add(style);
 
     /** Priority 2: Column master selection */
     } else if (NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Columns[letter] &&
                NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Columns[letter].BackgroundColor !== null) {
-      /** Change background color and add transparency */
-      NOVAE.DOM.CacheArray[jumps].style.background = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Columns[letter].BackgroundColor.replace(')', ', 0.55)').replace('rgb', 'rgba');
+
+      var color = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Columns[letter].BackgroundColor;
+
+      /** Make white visible */
+      if (isWhite.indexOf(color.substring(4, 15)) >= 0) {
+        NOVAE.DOM.CacheArray[jumps].style.background = white;
+      } else {
+        /** Change background color and add transparency */
+        NOVAE.DOM.CacheArray[jumps].style.background = color.replace(')', ', 0.55)').replace('rgb', 'rgba');
+      }
 
     /** Priority 3: Row master selection */
     } else if (NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Rows[number] &&
         NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Rows[number].BackgroundColor !== null) {
-      /** Change background color and add transparency */
-      NOVAE.DOM.CacheArray[jumps].style.background = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Rows[number].BackgroundColor.replace(')', ', 0.55)').replace('rgb', 'rgba');
+
+      var color = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Rows[number].BackgroundColor;
+
+      /** Make white visible */
+      if (isWhite.indexOf(color.substring(4, 15)) >= 0) {
+        NOVAE.DOM.CacheArray[jumps].style.background = white;
+      } else {
+        /** Change background color and add transparency */
+        NOVAE.DOM.CacheArray[jumps].style.background = color.replace(')', ', 0.55)').replace('rgb', 'rgba');
+      }
+
+    /** All background styling */
+    } else if (NOVAE.Cells.All[NOVAE.CurrentSheet] &&
+        NOVAE.Cells.All[NOVAE.CurrentSheet].Cell.BackgroundColor !== null) {
+
+      var color = NOVAE.Cells.All[NOVAE.CurrentSheet].Cell.BackgroundColor;
+
+      /** Make white visible */
+      if (isWhite.indexOf(color.substring(4, 15)) >= 0) {
+        NOVAE.DOM.CacheArray[jumps].style.background = white;
+      } else {
+        /** Change background color and add transparency */
+        NOVAE.DOM.CacheArray[jumps].style.background = color.replace(')', ', 0.55)').replace('rgb', 'rgba');
+      }
 
     } else {
       NOVAE.DOM.CacheArray[jumps].classList.add(style);
@@ -183,6 +227,10 @@
         /** Priority 3: Rows */
         } else if (NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Rows[number]) {
           NOVAE.DOM.CacheArray[ii].style.background = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Rows[number].BackgroundColor;
+
+        /** Priority 4: All */
+        } else if (NOVAE.Cells.All[NOVAE.CurrentSheet].Cell) {
+          NOVAE.DOM.CacheArray[ii].style.background = NOVAE.Cells.All[NOVAE.CurrentSheet].Cell.BackgroundColor;
         }
 
       }

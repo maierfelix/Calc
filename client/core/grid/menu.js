@@ -83,11 +83,6 @@
     x = this.CellTemplate.Width * pos_x;
     y = this.CellTemplate.Height * pos_y;
 
-    /** Create resized object if not existing yet */
-    if (!NOVAE.Cells.Resized[NOVAE.CurrentSheet]) {
-      NOVAE.$.createResizedObject(Letter);
-    }
-
     var customCellSizes = NOVAE.Cells.Resized[NOVAE.CurrentSheet];
 
     /** Menu cell has a custom x position */

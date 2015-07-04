@@ -58,6 +58,9 @@
       /** Remove style of cell */
       this.removeCellStyling(ii);
 
+      /** Append all styling */
+      this.updateCellAllStyling(calculation, ii);
+
       /** Master selection column */
       if (NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Columns[Letter]) {
         this.updateCellMasterStyling(Letter, ii);
@@ -255,6 +258,78 @@
 
     /** Switch between columns and rows */
     var data = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Columns[name] || NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Rows[name];
+
+    /** Check if cell has a custom font */
+    if (data.Font) {
+      NOVAE.DOM.Cache[ii].style.fontFamily = data.Font;
+    }
+
+    /** Check if cell has a custom font size */
+    if (data.FontSize) {
+      NOVAE.DOM.Cache[ii].style.fontSize = data.FontSize + "px";
+    }
+
+    /** Check if cell has a custom font color */
+    if (data.Color) {
+      NOVAE.DOM.Cache[ii].style.color = data.Color;
+    }
+
+    /** Check if cell has a custom font bold property */
+    if (data.FontBold) {
+      NOVAE.DOM.Cache[ii].style.fontWeight = "bold";
+    }
+
+    /** Check if cell has a custom font italic property */
+    if (data.FontItalic) {
+      NOVAE.DOM.Cache[ii].style.fontStyle = "italic";
+    }
+
+    /** Check if cells font is underlined */
+    if (data.FontUnderlined) {
+      NOVAE.DOM.Cache[ii].style.textDecoration = "underline";
+    }
+
+    /** Check if cell has a custom background color */
+    if (data.BackgroundColor) {
+      NOVAE.DOM.Cache[ii].style.background = data.BackgroundColor;
+    }
+
+    /** Check if cell has custom border settings */
+    if (data.Border && data.Border.used) {
+      /** Left border */
+      if (data.Border.left) {
+        NOVAE.DOM.Cache[ii].style.borderLeft = "2px solid black";
+      }
+      /** Right border */
+      if (data.Border.right) {
+        NOVAE.DOM.Cache[ii].style.borderRight = "2px solid black";
+      }
+      /** Top border */
+      if (data.Border.top) {
+        NOVAE.DOM.Cache[ii].style.borderTop = "2px solid black";
+      }
+      /** Bottom border */
+      if (data.Border.bottom) {
+        NOVAE.DOM.Cache[ii].style.borderBottom = "2px solid black";
+      }
+      /** Full border */
+      if (data.Border.full) {
+        NOVAE.DOM.Cache[ii].style.border = "2px solid black";
+      }
+    }
+
+  };
+
+  /**
+   * Update specific cell with a all styling
+   *
+   * @method updateCellAllStyling
+   * @static
+   */
+  NOVAE.Grid.prototype.updateCellAllStyling = function(name, ii) {
+
+    /** Switch between columns and rows */
+    var data = NOVAE.Cells.All[NOVAE.CurrentSheet].Cell;
 
     /** Check if cell has a custom font */
     if (data.Font) {

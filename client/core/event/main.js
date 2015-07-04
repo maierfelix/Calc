@@ -76,6 +76,12 @@
 
     NOVAE.Sheets[NOVAE.CurrentSheet].Input.lastAction.scrollY = false;
 
+    /** Create resize object if not existing yet */
+    if (!NOVAE.Cells.Resized[NOVAE.CurrentSheet]) NOVAE.$.createResizedObject();
+
+    /** Create all object if not existing yet */
+    if (!NOVAE.Cells.All[NOVAE.CurrentSheet]) NOVAE.$.createAllObject();
+
     NOVAE.Sheets[NOVAE.CurrentSheet].calculateGrid();
 
     NOVAE.Sheets[NOVAE.CurrentSheet].generateCells();

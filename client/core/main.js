@@ -37,15 +37,7 @@
     /** Resized columns and rows */
     Resized: {},
     /** All cell */
-    All: {
-      Cell: null,
-      Resize: {
-        /** Resized column */
-        Column: null,
-        /** Resized row */
-        Row: null,
-      }
-    },
+    All: {},
     /** Live cells */
     Live: {}
   };

@@ -90,9 +90,6 @@
     /** Initialize ClipBoard Plugin */
     NOVAE.ClipBoard = new NOVAE.ClipBoard();
 
-    /** Initialize all cell */
-    NOVAE.Cells.All.Cell = new NOVAE.Grid.Cell();
-
     /** A direct command creation helper function */
     NOVAE.newCommand = function() {
 
@@ -699,7 +696,7 @@
   };
 
   /**
-   * Create a resized object for a sheet
+   * Create resized object for a sheet
    *
    * @method createResizedObject
    * @static
@@ -708,15 +705,39 @@
 
     var name = arguments[0] || NOVAE.CurrentSheet;
 
-    if (!NOVAE.Cells.Resized[NOVAE.CurrentSheet]) {
+    if (!NOVAE.Cells.Resized[name]) {
       /** Create resized object */
-      NOVAE.Cells.Resized[NOVAE.CurrentSheet] = {
+      NOVAE.Cells.Resized[name] = {
         /** Save resized columns */
         Columns: {},
         /** Save resized rows */
         Rows: {},
         /** Fast access array */
         array: []
+      };
+    }
+
+  };
+
+  /**
+   * Create all object for a sheet
+   *
+   * @method createAllObject
+   * @static
+   */
+  NOVAE.$.createAllObject = function() {
+
+    var name = arguments[0] || NOVAE.CurrentSheet;
+
+    if (!NOVAE.Cells.All[name]) {
+      /** Create resized object */
+      NOVAE.Cells.All[name] = {
+        /** Cell */
+        Cell: new NOVAE.Grid.Cell(),
+        Resize: {
+          Column: null,
+          Row: null
+        }
       };
     }
 
