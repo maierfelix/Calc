@@ -242,10 +242,14 @@
       if (match >= selectedCell.Number) {
         switch (mode) {
          case "insert":
-            customArray.push({ old: match, new: match + 1 });
+            customArray.push({ old: match, new: (match + 1) });
             break;
           case "delete":
-            customArray.push({ old: match, new: match - 1 });
+            if (match > selectedCell.Number) {
+              customArray.push({ old: match, new: (match - 1) });
+            } else {
+              customArray.push({ old: match, new: match });
+            }
             break;
         }
       }
