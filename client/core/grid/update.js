@@ -395,23 +395,25 @@
   /**
    * Remove specific cell styling
    *
+   * This is really slow, make this faster!
+   *
    * @method removeCellStyling
    * @static
    */
   NOVAE.Grid.prototype.removeCellStyling = function(ii) {
 
-    NOVAE.DOM.Cache[ii].style.borderLeft = "";
-    NOVAE.DOM.Cache[ii].style.borderRight = "";
-    NOVAE.DOM.Cache[ii].style.borderTop = "";
-    NOVAE.DOM.Cache[ii].style.borderBottom = "";
-    NOVAE.DOM.Cache[ii].style.border = "";
-    NOVAE.DOM.Cache[ii].style.fontFamily = "";
-    NOVAE.DOM.Cache[ii].style.fontSize = 12 + "px";
-    NOVAE.DOM.Cache[ii].style.fontStyle = "normal";
-    NOVAE.DOM.Cache[ii].style.fontWeight = "normal";
-    NOVAE.DOM.Cache[ii].style.textDecoration = "none";
-    NOVAE.DOM.Cache[ii].style.background = "#fff";
-    NOVAE.DOM.Cache[ii].style.color = "#000";
-    NOVAE.DOM.Cache[ii].innerHTML = "";
+    if (NOVAE.DOM.Cache[ii].style.borderLeft.length) NOVAE.DOM.Cache[ii].style.borderLeft = "";
+    if (NOVAE.DOM.Cache[ii].style.borderRight.length) NOVAE.DOM.Cache[ii].style.borderRight = "";
+    if (NOVAE.DOM.Cache[ii].style.borderTop.length) NOVAE.DOM.Cache[ii].style.borderTop = "";
+    if (NOVAE.DOM.Cache[ii].style.borderBottom.length) NOVAE.DOM.Cache[ii].style.borderBottom = "";
+    if (NOVAE.DOM.Cache[ii].style.border.length) NOVAE.DOM.Cache[ii].style.border = "";
+    if (NOVAE.DOM.Cache[ii].style.fontFamily.length) NOVAE.DOM.Cache[ii].style.fontFamily = "";
+    if (NOVAE.DOM.Cache[ii].style.fontSize !== "12px") NOVAE.DOM.Cache[ii].style.fontSize = 12 + "px";
+    if (NOVAE.DOM.Cache[ii].style.fontStyle !== "normal") NOVAE.DOM.Cache[ii].style.fontStyle = "normal";
+    if (NOVAE.DOM.Cache[ii].style.fontWeight !== "normal") NOVAE.DOM.Cache[ii].style.fontWeight = "normal";
+    if (NOVAE.DOM.Cache[ii].style.textDecoration !== "none") NOVAE.DOM.Cache[ii].style.textDecoration = "none";
+    if (NOVAE.DOM.Cache[ii].style.background !== "#fff") NOVAE.DOM.Cache[ii].style.background = "#fff";
+    if (NOVAE.DOM.Cache[ii].style.color !== "#000") NOVAE.DOM.Cache[ii].style.color = "#000";
+    if (NOVAE.DOM.Cache[ii].innerHTML.length) NOVAE.DOM.Cache[ii].innerHTML = "";
 
   };

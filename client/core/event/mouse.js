@@ -443,6 +443,8 @@
 
       }
 
+      var largeGrid = NOVAE.Sheets[NOVAE.CurrentSheet].Settings.x + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y >= 65 ? true : false;
+
       /** User scrolled up or down, dont redraw */
       NOVAE.Sheets[NOVAE.CurrentSheet].Input.lastAction.scrollY = true;
 
@@ -452,7 +454,7 @@
 
         /** Animate, since slow scrolled */
         if (difference > 75 || difference > calcDifference * 2) {
-          NOVAE.Event.animateMouseDown();
+          if (!largeGrid) NOVAE.Event.animateMouseDown();
         }
 
         NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Vertical);
@@ -463,7 +465,7 @@
           NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = 0;
           NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("default", NOVAE.Settings.Scroll.Vertical);
 
-          NOVAE.Event.animateMouseUpMaximum();
+          if (!largeGrid) NOVAE.Event.animateMouseUpMaximum();
 
           /** Only redraw, if something is resized */
           if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.cellResizedX + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.cellResizedY) {
@@ -480,7 +482,7 @@
 
           /** Animate, since slow scrolled */
           if (difference > 75 || difference > calcDifference * 2) {
-            NOVAE.Event.animateMouseUp();
+            if (!largeGrid) NOVAE.Event.animateMouseUp();
           }
 
         }

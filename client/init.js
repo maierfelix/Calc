@@ -85,6 +85,7 @@ Import.scripts = [
   "core/styler/inherit.js",
   "core/styler/background.js",
   "core/styler/border.js",
+  "core/styler/resize.js",
   "core/styler/font/color.js",
   "core/styler/font/bold.js",
   "core/styler/font/italic.js",
