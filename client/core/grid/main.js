@@ -185,6 +185,13 @@
       this.Settings.y += ( ~ Math.floor(resizedY / this.CellTemplate.Height) + 1 ) + 1;
     }
 
+    /** Speed up scrolling */
+    if (this.Settings.x + this.Settings.y >= 100) {
+      NOVAE.SystemSpeed = 5;
+    } else if (this.Settings.x + this.Settings.y >= 150) {
+      NOVAE.SystemSpeed = 10;
+    }
+
   };
 
   /**

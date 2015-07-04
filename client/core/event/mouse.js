@@ -434,7 +434,7 @@
             NOVAE.Settings.Scroll.Vertical = Math.floor(amount);
           /** Slow scrolling */
           } else {
-            NOVAE.Settings.Scroll.Vertical = NOVAE.Settings.Scroll.OriginalVertical;
+            NOVAE.Settings.Scroll.Vertical = NOVAE.Settings.Scroll.OriginalVertical * Math.ceil(NOVAE.SystemSpeed);
           }
         /** Mobile device scroll amount */
         } else {
