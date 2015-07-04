@@ -74,15 +74,15 @@
    */
   NOVAE.Commander.prototype.reverseResize = function(data) {
 
-    var cellSizes = NOVAE.Sheets[NOVAE.CurrentSheet].customCellSizes;
+    var cellSizes = NOVAE.Cells.Resized[NOVAE.CurrentSheet];
 
-    var resizeType = isNaN(parseInt(data.name)) ? "alphabetical" : "numeric";
+    var resizeType = isNaN(parseInt(data.name)) ? "Columns" : "Rows";
 
     if (cellSizes[resizeType][data.name]) {
-      if (resizeType === "alphabetical") {
-        cellSizes[resizeType][data.name].Width = data.width; 
-      } else if (resizeType === "numeric") {
-        cellSizes[resizeType][data.name].Height = data.height; 
+      if (resizeType === "Columns") {
+        cellSizes[resizeType][data.name].Width = data.width;
+      } else if (resizeType === "Rows") {
+        cellSizes[resizeType][data.name].Height = data.height;
       }
     }
 

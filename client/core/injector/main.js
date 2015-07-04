@@ -131,7 +131,7 @@
       selectedCell = selected;
     } else selectedCell = NOVAE.Sheets[sheet].Selector.Selected.First;
 
-    var Cells = NOVAE.Sheets[sheet].customCellSizes.alphabetical;
+    var Cells = NOVAE.Cells.Resized[sheet].Columns;
 
     var customArray = [];
 
@@ -226,7 +226,7 @@
       selectedCell = selected;
     } else selectedCell = NOVAE.Sheets[sheet].Selector.Selected.First;
 
-    var customCells = NOVAE.Sheets[sheet].customCellSizes.numeric;
+    var customCells = NOVAE.Cells.Resized[sheet].Rows;
 
     var customArray = [];
 

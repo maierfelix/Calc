@@ -83,45 +83,52 @@
     x = this.CellTemplate.Width * pos_x;
     y = this.CellTemplate.Height * pos_y;
 
+    /** Create resized object if not existing yet */
+    if (!NOVAE.Cells.Resized[NOVAE.CurrentSheet]) {
+      NOVAE.$.createResizedObject(Letter);
+    }
+
+    var customCellSizes = NOVAE.Cells.Resized[NOVAE.CurrentSheet];
+
     /** Menu cell has a custom x position */
-    if (type === "alpha" && this.customCellSizes.alphabetical[Letter]) {
-      width += this.customCellSizes.alphabetical[Letter].Width;
+    if (type === "alpha" && NOVAE.Cells.Resized[NOVAE.CurrentSheet].Columns[Letter]) {
+      width += customCellSizes.Columns[Letter].Width;
     }
 
     /** Update x position of all menu cells after cells with a custom width */
     if (type === "alpha") {
-      for (var customCell in this.customCellSizes.alphabetical) {
+      for (var customCell in customCellSizes.Columns) {
         /** Update x position of all menu cells behind a cell with a custom width */
         if (NOVAE.$.alphaToNumber(Letter) > NOVAE.$.alphaToNumber(customCell)) {
-          x += this.customCellSizes.alphabetical[customCell].Width;
+          x += customCellSizes.Columns[customCell].Width;
         }
         /** X-View was scrolled */
         if (this.Settings.scrolledX) {
           /** If custom cell is not in view anymore, adjust all cells behind the custom cells with its custom width */
           if (this.Settings.scrolledX >= NOVAE.$.alphaToNumber(customCell)) {
-            x -= this.customCellSizes.alphabetical[customCell].Width;
+            x -= customCellSizes.Columns[customCell].Width;
           }
         }
       }
     }
 
     /** Menu cell has a custom y position */
-    if (type === "numeric" && this.customCellSizes.numeric[Letter]) {
-      height += this.customCellSizes.numeric[Letter].Height;
+    if (type === "numeric" && customCellSizes.Rows[Letter]) {
+      height += customCellSizes.Rows[Letter].Height;
     }
 
     /** Update y position of all menu cells after cells with a custom height */
     if (type === "numeric") {
-      for (var customCell in this.customCellSizes.numeric) {
+      for (var customCell in customCellSizes.Rows) {
         /** Update y position of all menu cells behind a cell with a custom height */
         if (Letter > customCell) {
-          y += this.customCellSizes.numeric[customCell].Height;
+          y += customCellSizes.Rows[customCell].Height;
         }
         /** X-View was scrolled */
         if (this.Settings.scrolledY) {
           /** If custom cell is not in view anymore, adjust all cells behind the custom cells with its custom height */
           if (this.Settings.scrolledY >= customCell) {
-            y -= this.customCellSizes.numeric[customCell].Height;
+            y -= customCellSizes.Rows[customCell].Height;
           }
         }
       }
@@ -164,6 +171,8 @@
 
     var self = this;
 
+    var customCellSizes = NOVAE.Cells.Resized[NOVAE.CurrentSheet];
+
     /** Create dom ready element */
     var element = document.createElement(template.element);
         element.className = template.class;
@@ -184,7 +193,7 @@
 
         element.addEventListener(NOVAE.Events.mouseUp, function(e) {
 
-          var width = self.customCellSizes.alphabetical[e.target.innerHTML].Width;
+          var width = customCellSizes.Columns[e.target.innerHTML].Width;
 
           this.setAttribute("clicked", 0);
           /** Re-render grid */
@@ -257,8 +266,8 @@
               var name = e.target.innerHTML;
 
               /** Create custom cell scroll object */
-              if (!self.customCellSizes.alphabetical[name]) {
-                self.customCellSizes.alphabetical[name] = {
+              if (!customCellSizes.Columns[name]) {
+                customCellSizes.Columns[name] = {
                   Width: 0,
                   Height: 0
                 };
@@ -281,7 +290,7 @@
                 e.target.style.width = (parseInt(e.target.style.width) + 2) + "px";
 
                 /** Update customized cell object */
-                self.customCellSizes.alphabetical[name].Width += 2;
+                customCellSizes.Columns[name].Width += 2;
 
                 /** Update total cell resize factor */
                 self.Settings.cellResizedX += 2;
@@ -292,7 +301,7 @@
                 if (parseInt(e.target.style.width) >= 0) {
                   e.target.style.width = (parseInt(e.target.style.width) - 2) + "px";
                   /** Update customized cell object */
-                  self.customCellSizes.alphabetical[name].Width -= 2;
+                  customCellSizes.Columns[name].Width -= 2;
 
                   /** Update total cell resize factor */
                   self.Settings.cellResizedX -= 2;
@@ -301,7 +310,7 @@
                   e.target.style.width = self.CellTemplate.Width + "px";
 
                   /** Update customized cell object */
-                  self.customCellSizes.alphabetical[name].Width = 0;
+                  customCellSizes.Columns[name].Width = 0;
 
                 }
               }
@@ -325,6 +334,8 @@
 
     var self = this;
 
+    var customCellSizes = NOVAE.Cells.Resized[NOVAE.CurrentSheet];
+
     /** Create dom ready element */
     var element = document.createElement(template.element);
         element.className = template.class;
@@ -345,12 +356,12 @@
 
         element.addEventListener(NOVAE.Events.mouseUp, function(e) {
 
-          var height = self.customCellSizes.numeric[e.target.innerHTML].Height;
+          var height = customCellSizes.Rows[e.target.innerHTML].Height;
 
           this.setAttribute("clicked", 0);
           /** Inherit resize if myself is a master sheet */
           if (self.isMasterSheet()) {
-            NOVAE.Styler.inheritResize(e.target.innerHTML, self.customCellSizes.numeric[e.target.innerHTML].Height);
+            NOVAE.Styler.inheritResize(e.target.innerHTML, customCellSizes.Rows[e.target.innerHTML].Height);
           }
 
           /** Push change into undo stack */
@@ -410,13 +421,13 @@
               var name = e.target.innerHTML;
 
               /** Create custom cell scroll object */
-              if (!self.customCellSizes.numeric[name]) {
+              if (!customCellSizes.Rows[name]) {
 
-                self.customCellSizes.numeric[name] = {
+                customCellSizes.Rows[name] = {
                   Width: 0,
                   Height: 0
                 };
-                self.customCellSizes.array.push(parseInt(name));
+                customCellSizes.array.push(parseInt(name));
 
                 /** Push change into undo stack */
                 var command = NOVAE.newCommand();
@@ -436,7 +447,7 @@
                 e.target.style.height = (parseInt(e.target.style.height) + 2) + "px";
 
                 /** Update customized cell object */
-                self.customCellSizes.numeric[name].Height += 2;
+                customCellSizes.Rows[name].Height += 2;
 
                 /** Update total cell resize factor */
                 self.Settings.cellResizedY += 2;
@@ -447,7 +458,7 @@
                 if (parseInt(e.target.style.height) >= 0) {
                   e.target.style.height = (parseInt(e.target.style.height) - 2) + "px";
                   /** Update customized cell object */
-                  self.customCellSizes.numeric[name].Height -= 2;
+                  customCellSizes.Rows[name].Height -= 2;
 
                   /** Update total cell resize factor */
                   self.Settings.cellResizedY -= 2;
@@ -456,7 +467,7 @@
                   e.target.style.height = self.CellTemplate.Height + "px";
 
                   /** Update customized cell object */
-                  self.customCellSizes.numeric[name].Height = 0;
+                  customCellSizes.Rows[name].Height = 0;
 
                 }
               }

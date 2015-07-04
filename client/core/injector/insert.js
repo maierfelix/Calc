@@ -95,7 +95,7 @@
   NOVAE.Injector.prototype.insertColumn_Columns = function(sheet, firstSelected) {
 
     /** ### Resized Columns ### */
-    var customizedCells = NOVAE.Sheets[sheet].customCellSizes.alphabetical;
+    var customizedCells = NOVAE.Cells.Resized[sheet].Columns;
 
     var customArray = this.getAlphaCustomizedCells("insert", sheet, firstSelected);
 
@@ -220,7 +220,7 @@
    */
   NOVAE.Injector.prototype.insertRow_Rows = function(sheet, firstSelected) {
 
-    var Cells = NOVAE.Sheets[sheet].customCellSizes.numeric;
+    var Cells = NOVAE.Cells.Resized[sheet].Rows;
 
     /** ## Cell Section ## */
     var customArray = this.getNumericCustomizedCells("insert", sheet, firstSelected);

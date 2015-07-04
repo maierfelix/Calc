@@ -21,7 +21,7 @@
    */
   NOVAE.Grid.prototype.resizeHorizontal = function(Letter, ii) {
 
-    var customCell = this.customCellSizes.alphabetical;
+    var customCell = NOVAE.Cells.Resized[NOVAE.CurrentSheet].Columns;
     /** Total amount of shifting cell rows to left */
     var totalLeftShift = 0;
     /** DOM caching */
@@ -80,7 +80,7 @@
    */
   NOVAE.Grid.prototype.resizeVertical = function(Number, ii) {
 
-    var customCell = this.customCellSizes.numeric;
+    var customCell = NOVAE.Cells.Resized[NOVAE.CurrentSheet].Rows;
     /** Total amount of shifting cell rows to top */
     var totalTopShift = 0;
     /** DOM caching */
@@ -140,12 +140,14 @@
    */
   NOVAE.Grid.prototype.verticalInView = function(number) {
 
-    var length = this.customCellSizes.array.length;
+    var customCellSizes = NOVAE.Cells.Resized[NOVAE.CurrentSheet];
+
+    var length = customCellSizes.array.length;
 
     for (var ii = 0; ii < length; ++ii) {
 
-      if (this.customCellSizes.array[ii] <= (this.Settings.scrolledY + (this.Settings.y + this.Settings.lastScrollY))) {
-        if (this.customCellSizes.array[ii] >= (this.Settings.scrolledY - (this.Settings.lastScrollY))) {
+      if (customCellSizes.array[ii] <= (this.Settings.scrolledY + (this.Settings.y + this.Settings.lastScrollY))) {
+        if (customCellSizes.array[ii] >= (this.Settings.scrolledY - (this.Settings.lastScrollY))) {
           return (true);
         }
       }

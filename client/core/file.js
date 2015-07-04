@@ -32,12 +32,11 @@
   NOVAE.File.prototype.getData = function() {
 
     var cellData = '"Cells":' + JSON.stringify(NOVAE.Cells) + ",";
-    var cellSizes = '"CellSizes":' + JSON.stringify(NOVAE.Grid.customCellSizes) + ",";
     var cellStack = '"CellStack":' + JSON.stringify(ENGEL.STACK.VAR) + ",";
     var coreSettings = '"CoreSettings":' + JSON.stringify(NOVAE.Settings) + ",";
     var gridSettings = '"GridSettings":' + JSON.stringify(NOVAE.Grid.Settings);
 
-    return ("{" + cellData + cellSizes + cellStack + coreSettings + gridSettings + "}");
+    return ("{" + cellData + cellStack + coreSettings + gridSettings + "}");
 
   };
 
@@ -50,21 +49,6 @@
   NOVAE.File.prototype.import = function() {
 
     var data = JSON.parse(JSON.parse(arguments[0]));
-
-    /** Update resized cells */
-    NOVAE.Grid.customCellSizes = data.CellSizes;
-
-    /** Update grid settings */
-    NOVAE.Grid.Settings = data.GridSettings;
-
-    /** Update used cells */
-    NOVAE.Cells = data.Cells;
-
-    /** Update variable stack */
-    ENGEL.STACK.VAR = data.CellStack;
-
-    /** Update everything */
-    NOVAE.Event.resize();
 
   };
 

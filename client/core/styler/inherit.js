@@ -173,21 +173,22 @@
    */
   NOVAE.Styler.prototype.inheritResize = function(cell, amount) {
 
-    var resizeType = isNaN(parseInt(cell)) ? "alphabetical" : "numeric";
+    var resizeType = isNaN(parseInt(cell)) ? "Columns" : "Rows";
 
     /** Sheets to inherit */
     var inheritSheets = this.getSlaveSheets();
 
     /** Column resize */
-    if (resizeType === "alphabetical") {
+    if (resizeType === "Columns") {
       for (var ii = 0; ii < inheritSheets.length; ++ii) {
-        if (!NOVAE.Sheets[inheritSheets[ii]].customCellSizes[resizeType][cell]) {
-          NOVAE.Sheets[inheritSheets[ii]].customCellSizes[resizeType][cell] = {
+        var customColumnSizes = NOVAE.Cells.Resized[inheritSheets[ii]].Columns;
+        if (!customColumnSizes[cell]) {
+          customColumnSizes[cell] = {
             Width: 0,
             Height: 0
           };
         }
-        NOVAE.Sheets[inheritSheets[ii]].customCellSizes[resizeType][cell].Width = amount;
+        customColumnSizes[cell].Width = amount;
         NOVAE.Sheets[inheritSheets[ii]].Settings.cellResizedX = amount;
         NOVAE.Sheets[inheritSheets[ii]].Input.lastAction.scrollY = false;
         NOVAE.Sheets[inheritSheets[ii]].Input.Mouse.CellResize = true;
@@ -195,15 +196,16 @@
     /** Row resize */
     } else {
       for (var ii = 0; ii < inheritSheets.length; ++ii) {
-        if (!NOVAE.Sheets[inheritSheets[ii]].customCellSizes[resizeType][cell]) {
-          NOVAE.Sheets[inheritSheets[ii]].customCellSizes[resizeType][cell] = {
+        var customRowSizes = NOVAE.Cells.Resized[inheritSheets[ii]].Rows;
+        if (!customRowSizes[cell]) {
+          customRowSizes[cell] = {
             Width: 0,
             Height: 0
           };
         }
-        NOVAE.Sheets[inheritSheets[ii]].customCellSizes[resizeType][cell].Height = amount;
+        customRowSizes[cell].Height = amount;
         NOVAE.Sheets[inheritSheets[ii]].Settings.cellResizedY = amount;
-        NOVAE.Sheets[inheritSheets[ii]].customCellSizes.array.push(parseInt(cell));
+        NOVAE.Cells.Resized[inheritSheets[ii]].array.push(parseInt(cell));
         NOVAE.Sheets[inheritSheets[ii]].Input.Mouse.CellResize = true;
       }
     }

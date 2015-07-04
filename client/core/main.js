@@ -36,16 +36,18 @@
     Used: {},
     /** Resized columns and rows */
     Resized: {},
-    /** Live cells */
-    Live: {},
     /** All cell */
     All: {
       Cell: null,
       Resize: {
+        /** Resized column */
         Column: null,
-        Row: null
+        /** Resized row */
+        Row: null,
       }
-    }
+    },
+    /** Live cells */
+    Live: {}
   };
 
   /** System speed grade */

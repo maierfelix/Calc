@@ -58,16 +58,6 @@
       lastAction: null
     };
 
-    /** Save cells which got a custom width or height */
-    this.customCellSizes = {
-      /** Alphabetical menu */
-      alphabetical: {},
-      /** Numeric menu */
-      numeric: {},
-      /** Fast access array */
-      array: []
-    };
-
     /** Save each grid cell */
     this.cellArray = []
 

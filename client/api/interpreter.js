@@ -43,6 +43,9 @@
     /** Prevent module keyword */
     this.vm.realm.global.module = void 0;
 
+    /** Make console working again */
+    this.vm.realm.global.console = console;
+
   };
 
   Interpreter.prototype = Interpreter;

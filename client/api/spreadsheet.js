@@ -140,6 +140,20 @@
   };
 
   /**
+   * Convert sheet columns and rows to a specific size
+   *
+   * @param {string} [x] Column size 
+   * @param {string} [y] Row size 
+   * @method resizeTo
+   * @static
+   */
+  SpreadSheet.prototype.resizeTo = function(x, y) {
+
+    console.log(x, y);
+
+  };
+
+  /**
    * Range Class
    *
    * @class Range

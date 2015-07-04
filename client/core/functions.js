@@ -697,3 +697,27 @@
     return (selection || void 0);
 
   };
+
+  /**
+   * Create a resized object for a sheet
+   *
+   * @method createResizedObject
+   * @static
+   */
+  NOVAE.$.createResizedObject = function() {
+
+    var name = arguments[0] || NOVAE.CurrentSheet;
+
+    if (!NOVAE.Cells.Resized[NOVAE.CurrentSheet]) {
+      /** Create resized object */
+      NOVAE.Cells.Resized[NOVAE.CurrentSheet] = {
+        /** Save resized columns */
+        Columns: {},
+        /** Save resized rows */
+        Rows: {},
+        /** Fast access array */
+        array: []
+      };
+    }
+
+  };
