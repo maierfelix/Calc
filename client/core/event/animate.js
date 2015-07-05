@@ -85,3 +85,15 @@
     NOVAE.DOM.VerticalMenu.style.top = "0px";
 
   };
+
+  /**
+   * Check if grid is large and if we're on mobile
+   *
+   * @method isLargeGrid
+   * @static
+   */
+  NOVAE.Event.isLargeGrid = function() {
+
+    return (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.x + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y >= 65 || NOVAE.Settings.Mobile ? true : false);
+
+  };

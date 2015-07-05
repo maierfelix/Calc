@@ -343,13 +343,13 @@
     var number = object.number;
     var name = letter + number;
 
-    if (NOVAE.Cells.Used[sheet][letter]) {
-      if (!NOVAE.Cells.Used[sheet][letter][name]) {
-        NOVAE.Cells.Used[sheet][letter][name] = new NOVAE.Sheets[sheet].Cell();
-      }
-    } else {
+    if (!NOVAE.Cells.Used[sheet][letter]) {
       NOVAE.Cells.Used[sheet][letter] = {};
-      NOVAE.Cells.Used[sheet][letter][name] = new NOVAE.Sheets[sheet].Cell();
+    }
+
+    if (!NOVAE.Cells.Used[sheet][letter][name]) {
+      NOVAE.Cells.Used[sheet][letter][name] = new NOVAE.Grid.Cell(name);
+      NOVAE.Cells.Used[sheet][letter][name].inheritStyling();
     }
 
   };

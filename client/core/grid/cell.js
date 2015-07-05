@@ -20,7 +20,13 @@
    * @static
    */
   NOVAE.Grid.prototype.Cell = function() {
-
+    /**
+     * Cell has a custom font color
+     *
+     * @property Color
+     * @type String
+     */
+     this.name = arguments[0] || null;
     /**
      * Cell has a custom font color
      *
@@ -121,3 +127,57 @@
   };
 
   NOVAE.Grid.prototype.Cell = NOVAE.Grid.Cell;
+
+  /**
+   * Inherit styling of parent cells
+   *
+   * @method inheritStyling
+   * @static
+   */
+  NOVAE.Grid.prototype.Cell.prototype.inheritStyling = function() {
+
+    var allCell = NOVAE.Cells.All[NOVAE.CurrentSheet].Cell;
+
+    if (!this.name || !allCell) return void 0;
+
+    /** Get letter of cell name for dictionary lookup */
+    var letter = this.name.match(NOVAE.REGEX.numbers).join("");
+    var number = this.name.match(NOVAE.REGEX.letters).join("");
+
+    var Cells = NOVAE.Cells.Used[NOVAE.CurrentSheet];
+
+    this.inheritProperties(this, allCell);
+
+    var masterCells = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected;
+
+    /** Inherit master column properties */
+    if (masterCells.Columns[letter]) {
+      this.inheritProperties(this, masterCells.Columns[letter]);
+    }
+
+    /** Inherit master row properties */
+    if (masterCells.Rows[number]) {
+      this.inheritProperties(this, masterCells.Rows[number]);
+    }
+
+  };
+
+  /**
+   * Inherit all properties
+   *
+   * @method inheritProperties
+   * @static
+   */
+  NOVAE.Grid.prototype.Cell.prototype.inheritProperties = function(a, b) {
+
+    for (var property in b) {
+      if (b.hasOwnProperty(property)) {
+        if (typeof b[property] === "object") {
+          this.inheritProperties(this, b[property]);
+        } else {
+          if (b[property] !== null) a[property] = b[property];
+        }
+      }
+    }
+
+  };

@@ -443,7 +443,8 @@
 
       }
 
-      var largeGrid = NOVAE.Sheets[NOVAE.CurrentSheet].Settings.x + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y >= 65 ? true : false;
+      /** Only animate scrolling if grid is smaller than 65 and we're not on mobile */
+      var largeGrid = NOVAE.Event.isLargeGrid();
 
       /** User scrolled up or down, dont redraw */
       NOVAE.Sheets[NOVAE.CurrentSheet].Input.lastAction.scrollY = true;

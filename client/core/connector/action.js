@@ -147,7 +147,7 @@ console.log(object);
         for (var cell in object[sheet].cells[letter]) {
           if (!NOVAE.Cells.Used[sheet]) NOVAE.Cells.Used[sheet] = {};
           if (!NOVAE.Cells.Used[sheet][letter]) NOVAE.Cells.Used[sheet][letter] = {};
-          if (!NOVAE.Cells.Used[sheet][letter][cell]) NOVAE.Cells.Used[sheet][letter][cell] = new NOVAE.Grid.Cell();
+          if (!NOVAE.Cells.Used[sheet][letter][cell]) NOVAE.Cells.Used[sheet][letter][cell] = new NOVAE.Grid.Cell(cell);
           for (var property in object[sheet].cells[letter][cell]) {
             NOVAE.Cells.Used[sheet][letter][cell][property] = object[sheet].cells[letter][cell][property];
           }
@@ -187,7 +187,7 @@ console.log(object);
     if (!NOVAE.Cells.Used[object.sheet][object.letter]) NOVAE.Cells.Used[object.sheet][object.letter] = {};
 
     if (!NOVAE.Cells.Used[object.sheet][object.letter][object.cell]) {
-      NOVAE.Cells.Used[object.sheet][object.letter][object.cell] = new NOVAE.Grid.Cell();
+      NOVAE.Cells.Used[object.sheet][object.letter][object.cell] = new NOVAE.Grid.Cell(object.cell);
     }
 
     if (object.value[0] === "=") {
@@ -224,7 +224,7 @@ console.log(object);
       }
       /** Register cell */
       if (!NOVAE.Cells.Used[object.sheet][letter][cell]) {
-        NOVAE.Cells.Used[object.sheet][letter][cell] = new NOVAE.Grid.Cell();
+        NOVAE.Cells.Used[object.sheet][letter][cell] = new NOVAE.Grid.Cell(cell);
       }
       /** Update property */
       if (NOVAE.Cells.Used[object.sheet][letter][cell].hasOwnProperty(object.property)) {

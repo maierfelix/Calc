@@ -26,14 +26,14 @@
         /** Master selected column */
         if (!this.masterSelected.Columns[name]) {
           /** Owns similar properties as a grid cell */
-          this.masterSelected.Columns[name] = new NOVAE.Sheets[NOVAE.CurrentSheet].Cell();
+          this.masterSelected.Columns[name] = new NOVAE.Grid.Cell();
         }
         break;
       case "number":
         /** Master selected row */
         if (!this.masterSelected.Rows[name]) {
           /** Owns similar properties as a grid cell */
-          this.masterSelected.Rows[name] = new NOVAE.Sheets[NOVAE.CurrentSheet].Cell();
+          this.masterSelected.Rows[name] = new NOVAE.Grid.Cell();
         }
         break;
     }
