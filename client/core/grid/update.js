@@ -76,7 +76,7 @@
       }
 
       /** Only resize grid if necessary */
-      if (!NOVAE.Sheets[NOVAE.CurrentSheet].Input.lastAction.scrollY) {
+      if (!NOVAE.Sheets[NOVAE.CurrentSheet].Input.lastAction.scrollY || !NOVAE.Sheets[NOVAE.CurrentSheet].Input.lastAction.scrollX) {
         /** Horizontal cell row got resized */
         this.resizeHorizontal(Letter, ii);
       }

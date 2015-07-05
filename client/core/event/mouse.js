@@ -267,6 +267,7 @@
 
     /** User is wiping? */
     if (NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.Pressed) {
+
       /** Valid cell ? */
       if (e.target.parentNode && e.target.parentNode.id === NOVAE.DOM.Output.id) {
 
@@ -446,44 +447,87 @@
       /** Only animate scrolling if grid is smaller than 65 and we're not on mobile */
       var largeGrid = NOVAE.Event.isLargeGrid();
 
+      /** Detect horizontal scrolling */
+      var horizontalScroll = NOVAE.Sheets[NOVAE.CurrentSheet].Input.Keyboard.Shift ? true : false;
+
       /** User scrolled up or down, dont redraw */
       NOVAE.Sheets[NOVAE.CurrentSheet].Input.lastAction.scrollY = true;
 
       if (direction === "down") {
-        NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY += NOVAE.Settings.Scroll.Vertical;
-        NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = NOVAE.Settings.Scroll.Vertical;
 
-        /** Animate, since slow scrolled */
-        if (difference > 75 || difference > calcDifference * 2) {
-          if (!largeGrid) NOVAE.Event.animateMouseDown();
-        }
+        /** Horizontal scrolling */
+        if (horizontalScroll) {
 
-        NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Vertical);
-      }
-      else if (direction === "up") {
-        if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY - NOVAE.Settings.Scroll.Vertical <= 0) {
-          NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY = 0;
-          NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = 0;
-          NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("default", NOVAE.Settings.Scroll.Vertical);
+          NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX += NOVAE.Settings.Scroll.Horizontal;
+          NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollX = NOVAE.Settings.Scroll.Horizontal;
 
-          if (!largeGrid) NOVAE.Event.animateMouseUpMaximum();
+          NOVAE.Sheets[NOVAE.CurrentSheet].updateWidth("right", NOVAE.Settings.Scroll.Horizontal);
 
-          /** Only redraw, if something is resized */
-          if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.cellResizedX + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.cellResizedY) {
-            if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.redrawOnZero) {
-              NOVAE.Event.redraw();
-            }
-          }
+        /** Vertical scrolling */
+        } else {
 
-        }
-        else if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY - NOVAE.Settings.Scroll.Vertical >= 0) {
-          NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY -= NOVAE.Settings.Scroll.Vertical;
+          NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY += NOVAE.Settings.Scroll.Vertical;
           NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = NOVAE.Settings.Scroll.Vertical;
-          NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("up", NOVAE.Settings.Scroll.Vertical);
 
           /** Animate, since slow scrolled */
           if (difference > 75 || difference > calcDifference * 2) {
-            if (!largeGrid) NOVAE.Event.animateMouseUp();
+            if (!largeGrid) NOVAE.Event.animateMouseDown();
+          }
+
+          NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Vertical);
+        }
+
+      }
+      else if (direction === "up") {
+
+        /** Horizontal scrolling */
+        if (horizontalScroll) {
+
+          if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX - NOVAE.Settings.Scroll.Horizontal <= 0) {
+
+            NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX = 0;
+            NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollX = 0;
+            NOVAE.Sheets[NOVAE.CurrentSheet].updateWidth("default");
+
+            NOVAE.Event.redraw();
+
+          } else if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX - NOVAE.Settings.Scroll.Horizontal >= 0) {
+
+            NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX -= NOVAE.Settings.Scroll.Horizontal;
+            NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollX = NOVAE.Settings.Scroll.Horizontal;
+            NOVAE.Sheets[NOVAE.CurrentSheet].updateWidth("left");
+
+          }
+
+        /** Vertical scrolling */
+        } else {
+
+          if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY - NOVAE.Settings.Scroll.Vertical <= 0) {
+
+            NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY = 0;
+            NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = 0;
+            NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("default", NOVAE.Settings.Scroll.Vertical);
+
+            if (!largeGrid) NOVAE.Event.animateMouseUpMaximum();
+
+            /** Only redraw, if something is resized */
+            if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.cellResizedX + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.cellResizedY) {
+              if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.redrawOnZero) {
+                NOVAE.Event.redraw();
+              }
+            }
+
+          } else if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY - NOVAE.Settings.Scroll.Vertical >= 0) {
+
+            NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY -= NOVAE.Settings.Scroll.Vertical;
+            NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = NOVAE.Settings.Scroll.Vertical;
+            NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("up", NOVAE.Settings.Scroll.Vertical);
+
+            /** Animate, since slow scrolled */
+            if (difference > 75 || difference > calcDifference * 2) {
+              if (!largeGrid) NOVAE.Event.animateMouseUp();
+            }
+
           }
 
         }
