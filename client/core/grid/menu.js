@@ -278,7 +278,7 @@
                   Width: 0,
                   Height: 0
                 };
-                customCellSizes.columnArray.push(NOVAE.$.alphaToNumber(e.target.innerHTML));
+                customCellSizes.columnArray.push(NOVAE.$.alphaToNumber(name));
 
                 /** Push change into undo stack */
                 var command = NOVAE.newCommand();
