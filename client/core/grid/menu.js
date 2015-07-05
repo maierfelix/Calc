@@ -278,6 +278,7 @@
                   Width: 0,
                   Height: 0
                 };
+                customCellSizes.columnArray.push(NOVAE.$.alphaToNumber(e.target.innerHTML));
 
                 /** Push change into undo stack */
                 var command = NOVAE.newCommand();
@@ -449,7 +450,7 @@
                   Width: 0,
                   Height: 0
                 };
-                customCellSizes.array.push(parseInt(name));
+                customCellSizes.rowArray.push(parseInt(name));
 
                 /** Push change into undo stack */
                 var command = NOVAE.newCommand();

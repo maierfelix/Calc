@@ -724,8 +724,9 @@
         Columns: {},
         /** Save resized rows */
         Rows: {},
-        /** Fast access array */
-        array: []
+        /** Fast access arrays */
+        columnArray: [],
+        rowArray: []
       };
     }
 

@@ -190,6 +190,7 @@
         }
         customColumnSizes[cell].Width = amount;
         NOVAE.Sheets[inheritSheets[ii]].Settings.cellResizedX = amount;
+        NOVAE.Cells.Resized[inheritSheets[ii]].columnArray.push(NOVAE.$.alphaToNumber(cell));
         NOVAE.Sheets[inheritSheets[ii]].Input.lastAction.scrollY = false;
         NOVAE.Sheets[inheritSheets[ii]].Input.Mouse.CellResize = true;
       }
@@ -205,7 +206,7 @@
         }
         customRowSizes[cell].Height = amount;
         NOVAE.Sheets[inheritSheets[ii]].Settings.cellResizedY = amount;
-        NOVAE.Cells.Resized[inheritSheets[ii]].array.push(parseInt(cell));
+        NOVAE.Cells.Resized[inheritSheets[ii]].rowArray.push(parseInt(cell));
         NOVAE.Sheets[inheritSheets[ii]].Input.Mouse.CellResize = true;
       }
     }

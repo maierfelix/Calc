@@ -39,6 +39,10 @@
 
     var letterToNumber = NOVAE.$.alphaToNumber(Letter);
 
+    if (!this.horizontalInView(letterToNumber)) return void 0;
+
+    NOVAE.Sheets[NOVAE.CurrentSheet].Settings.redrawOnZero = true;
+
     /** Search for custom cell rows */
     for (var kk in customCell) {
 
@@ -79,7 +83,7 @@
    * @static
    */
   NOVAE.Grid.prototype.resizeVertical = function(Number, ii) {
-
+ 
     var customCell = NOVAE.Cells.Resized[NOVAE.CurrentSheet].Rows;
     /** Total amount of shifting cell rows to top */
     var totalTopShift = 0;
@@ -142,12 +146,38 @@
 
     var customCellSizes = NOVAE.Cells.Resized[NOVAE.CurrentSheet];
 
-    var length = customCellSizes.array.length;
+    var length = customCellSizes.rowArray.length;
 
     for (var ii = 0; ii < length; ++ii) {
 
-      if (customCellSizes.array[ii] <= (this.Settings.scrolledY + (this.Settings.y + this.Settings.lastScrollY))) {
-        if (customCellSizes.array[ii] >= (this.Settings.scrolledY - (this.Settings.lastScrollY))) {
+      if (customCellSizes.rowArray[ii] <= (this.Settings.scrolledY + (this.Settings.y + this.Settings.lastScrollY))) {
+        if (customCellSizes.rowArray[ii] >= (this.Settings.scrolledY - (this.Settings.lastScrollY))) {
+          return (true);
+        }
+      }
+
+    }
+
+    return (false);
+
+  };
+
+  /**
+   * Check if a cell is in view
+   *
+   * @method horizontalInView
+   * @static
+   */
+  NOVAE.Grid.prototype.horizontalInView = function(number) {
+
+    var customCellSizes = NOVAE.Cells.Resized[NOVAE.CurrentSheet];
+
+    var length = customCellSizes.columnArray.length;
+
+    for (var ii = 0; ii < length; ++ii) {
+
+      if (customCellSizes.columnArray[ii] <= (this.Settings.scrolledX + (this.Settings.x + this.Settings.lastScrollX))) {
+        if (customCellSizes.columnArray[ii] >= (this.Settings.scrolledX - (this.Settings.lastScrollX))) {
           return (true);
         }
       }

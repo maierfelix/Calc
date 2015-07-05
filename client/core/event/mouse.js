@@ -339,6 +339,9 @@
    */
   NOVAE.Event.scroll = function(e) {
 
+    /** Disable zooming */
+    e.preventDefault();
+
     var direction = 0;
 
     /** We're on a mobile device */
