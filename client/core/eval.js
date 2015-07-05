@@ -81,11 +81,26 @@
    * @method evaluateFormula
    * @static
    */
-  NOVAE.evaluateFormula = function(formula) { 
+  NOVAE.evaluateFormula = function(formula) {
+
+    var index = arguments[1] || undefined;
 
     var interpret = ENGEL.interpret(formula);
 
     var name = interpret.Variables.shift();
+
+    if (index && index.length) {
+      if (index[0] === name) {
+
+        var muiButton = "mui-btn mui-btn-primary mui-btn-lg alertButton";
+        var title = "<h2>Circular Reference detected!</h2><h3>It seems like you have a circular reference in " + name + ".</h3>";
+        var buttons = "<button class='"+muiButton+" alertOk' name='ok'>Ok</button>";
+        NOVAE_UI.Modal(title, buttons, function(submit) {});
+        return ("CircularReference");
+      }
+    } else {
+      index = [name];
+    }
 
     /** Natural order recalculation */
     for (var ii = 0; ii < interpret.Variables.length; ++ii) {
@@ -93,7 +108,9 @@
       if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter] &&
           NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][interpret.Variables[ii]] &&
           NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][interpret.Variables[ii]].Formula) {
-        NOVAE.evaluateFormula(interpret.Variables[ii] + NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][interpret.Variables[ii]].Formula);
+          var result = NOVAE.evaluateFormula(interpret.Variables[ii] + NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][interpret.Variables[ii]].Formula, index || interpret.Variables);
+          /** Break calculation */
+          if (result === "CircularReference") return ("CircularReference");
       }
     }
 
