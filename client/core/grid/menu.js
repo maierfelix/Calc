@@ -183,6 +183,8 @@
             NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelect(e.target.innerHTML);
           } else this.setAttribute("timestamp", e.timeStamp);
           this.setAttribute("clicked", 1);
+          /** Higher layer position */
+          e.target.style.zIndex = 3;
           NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.CellResize = true;
         });
 
@@ -361,6 +363,8 @@
             NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelect(parseInt(e.target.innerHTML));
           } else this.setAttribute("timestamp", e.timeStamp);
           this.setAttribute("clicked", 1);
+          /** Higher layer position */
+          e.target.style.zIndex = 3;
           NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.CellResize = true;
         });
 

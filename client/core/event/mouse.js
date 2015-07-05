@@ -208,6 +208,9 @@
     if (NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.CellResize) {
       NOVAE.Event.redraw();
       currentSheet.Input.Mouse.CellResize = false;
+      /** Hide resize helpers */
+      NOVAE.DOM.ColumnResizeHelper.style.display = "none";
+      NOVAE.DOM.RowResizeHelper.style.display = "none";
     }
 
     /** Seems like user selected something */
