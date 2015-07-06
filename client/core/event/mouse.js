@@ -342,6 +342,9 @@
     /** Disable zooming */
     e.preventDefault();
 
+    /** Detect horizontal scrolling */
+    var horizontalScroll = NOVAE.Sheets[NOVAE.CurrentSheet].Input.Keyboard.Shift ? true : false;
+
     var direction = 0;
 
     /** We're on a mobile device */
@@ -357,6 +360,12 @@
         direction = 0;
       } else if (currentY < lastY) {
         direction = 1;
+      } else if (currentX >= currentY) {
+        direction = 0;
+        horizontalScroll = true;
+      } else if (currentX <= currentY) {
+        direction = 1;
+        horizontalScroll = true;
       }
 
       NOVAE.Sheets[NOVAE.CurrentSheet].Input.Touch.lastY = currentY;
@@ -452,9 +461,6 @@
 
       /** Only animate scrolling if grid is smaller than 65 and we're not on mobile */
       var largeGrid = NOVAE.Event.isLargeGrid();
-
-      /** Detect horizontal scrolling */
-      var horizontalScroll = NOVAE.Sheets[NOVAE.CurrentSheet].Input.Keyboard.Shift ? true : false;
 
       /** User scrolled up or down, dont redraw */
       NOVAE.Sheets[NOVAE.CurrentSheet].Input.lastAction.scrollY = true;

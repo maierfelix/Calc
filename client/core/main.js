@@ -60,6 +60,9 @@
   /** Mobile detection */
   NOVAE.Settings.Mobile = false;
 
+  /** WebApp detection */
+  NOVAE.Settings.isWebApp = false;
+
   /** iOS detection */
   NOVAE.Settings.isIOS = false;
 
@@ -77,6 +80,9 @@
 
   /** IE Browser detection */
   NOVAE.Settings.isIE = false;
+
+  /** Device landscape detection */
+  NOVAE.Settings.isLandscape = false;
 
   /** Cells to scroll per scroll */
   NOVAE.Settings.Scroll = {

@@ -41,6 +41,7 @@ Import.scripts = [
   "core/main.js",
   "core/dom.js",
   "core/eval.js",
+  "core/storage.js",
   /** Input */
   "core/event/main.js",
   "core/event/animate.js",

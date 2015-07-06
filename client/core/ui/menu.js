@@ -50,6 +50,16 @@
   /** Initialize everything */
   NOVAE_UI.init = function() {
 
+    /** Cell input */
+    NOVAE.DOM.CellInput.addEventListener('focusout', function() {
+
+      /** Scroll to abolsute top if we're on mobile ios */
+      if (NOVAE.Settings.Mobile && NOVAE.Settings.isIOS) {
+        window.scrollTo(0, 1);
+      }
+
+    });
+
     NOVAE.DOM.AddSheet.addEventListener(NOVAE.Events.mouseDown, function() {
 
       this.setAttribute("timestamp", new Date().getTime());

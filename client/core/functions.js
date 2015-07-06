@@ -24,11 +24,20 @@
    */
   NOVAE.$.init = function() {
 
-    /** Mobile device check */
-    NOVAE.$.isMobile();
+    /** Initialize local / session storage api */
+    NOVAE.Storage = new NOVAE.Storage();
 
     /** Detect used browser */
     NOVAE.$.detectBrowser();
+
+    /** Mobile device check */
+    NOVAE.$.isMobile();
+
+    /** Detect landscape mode if on mobile device */
+    NOVAE.$.alertGoLandscape();
+
+    /** Remind user to add app to his homescreen */
+    NOVAE.$.alertAddToHomeScreen();
 
     /** Prepare platform dependent events */
     NOVAE.$.prepareEvents();
@@ -112,7 +121,9 @@
    * @static
    */
   NOVAE.$.isMobile = function() {
-    if (/iPhone|iPad|iPod|Android|Mobile/i.test(navigator.userAgent)) NOVAE.Settings.Mobile = true;
+
+    return (NOVAE.Settings.Mobile);
+
   };
 
   /**
@@ -155,10 +166,105 @@
    */
   NOVAE.$.detectBrowser = function() {
 
+    if (/iPhone|iPad|iPod|Android|Mobile/i.test(navigator.userAgent)) {
+      NOVAE.Settings.Mobile = true;
+      NOVAE.Settings.isWebApp = typeof window.navigator.standalone != 'undefined' && window.navigator.standalone ? true : false;
+    }
+
     NOVAE.Settings.isFirefox = typeof InstallTrigger !== 'undefined' ? true : false;
     NOVAE.Settings.isSafari  = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0 ? true : false;
     NOVAE.Settings.isChrome  = !!window.chrome ? true : false;
     NOVAE.Settings.isIE      = /*@cc_on!@*/false || !!document.documentMode ? true : false;
+    NOVAE.Settings.isIOS     = navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i) ? true : false;
+    NOVAE.Settings.isAndroid = navigator.userAgent.match(/Android/i);
+
+  };
+
+  /**
+   * Detect landscape on mobile devices
+   *
+   * @method detectLandscape
+   * @static
+   */
+  NOVAE.$.detectLandscape = function() {
+
+    /** Android orientation */
+    if (NOVAE.Settings.isAndroid) {
+      if (NOVAE.Settings.Width > NOVAE.Settings.Height) {
+        NOVAE.Settings.isLandscape = true;
+      } else {
+        NOVAE.Settings.isLandscape = false;
+      }
+      return void 0;
+    }
+
+    /** IOS orientation */
+    var orientation = window.orientation;
+
+    NOVAE.Settings.isLandscape = false;
+
+    /** Abort, since it seems like its no IOS device */
+    if (orientation === undefined || orientation === null) return (NOVAE.Settings.isLandscape = true);
+
+    if (orientation === 0 || orientation === 180) {
+      NOVAE.Settings.isLandscape = false;
+    } else if (orientation === 90 || orientation === -90) {
+      NOVAE.Settings.isLandscape = true;
+    }
+
+  };
+
+  /**
+   * Alert user to add novaecalc to his home screen
+   *
+   * @method addToHomeScreen
+   * @static
+   */
+  NOVAE.$.alertAddToHomeScreen = function() {
+
+    var muiButton = "mui-btn mui-btn-primary mui-btn-lg alertButton";
+    var title = "<h2>Home Screen</h2><h3>Tap <img class='addHomeScreen' /> and then <b>Add to Home Screen</b>.</h3>";
+    var buttons = "<button class='"+muiButton+" alertOk'>Done</button>";
+
+    /** Remind user to add novaecalc to his homescreen */
+    if (!NOVAE.Settings.isWebApp) {
+      if (NOVAE.Settings.isIOS) {
+        if (!NOVAE.Storage.get({ property: "HomeScreen" })) {
+          NOVAE_UI.Modal(title, buttons, function() {});
+          /** Don't ask again */
+          NOVAE.Storage.set({ property: "HomeScreen", value: true });
+        }
+      }
+    }
+
+  };
+
+  /**
+   * Alert user to to go into landscape
+   *
+   * @method alertGoLandscape
+   * @static
+   */
+  NOVAE.$.alertGoLandscape = function() {
+
+    var muiButton = "mui-btn mui-btn-primary mui-btn-lg alertButton";
+    var title = "<h2><img class='rotateDevice' /></h2><h3>Rotate your device for the best experience.</h3>";
+    var buttons = "<button class='"+muiButton+" alertOk'>All right</button>";
+
+    if (NOVAE.Settings.Mobile) {
+
+      /** Only remind 1 time per session */
+      if (!NOVAE.Storage.get({ property: "Landscape" })) {
+        NOVAE.$.detectLandscape();
+        /** Remind user */
+        if (!NOVAE.Settings.isLandscape) {
+          NOVAE_UI.Modal(title, buttons, function() {});
+        }
+        /** Don't ask again */
+        NOVAE.Storage.set({ property: "Landscape", value: true });
+      }
+
+    }
 
   };
 

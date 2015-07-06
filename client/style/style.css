@@ -1085,3 +1085,16 @@ button, input, select, textArea {
   height: 1px;
   width: 100%;
 }
+
+.addHomeScreen {
+  content: url(../icon/action-icon-ios7.png);
+  width: 16px;
+  margin-top: -5px;
+}
+
+.rotateDevice {
+  content: url(../icon/rotate_left.png);
+  width: 42px;
+  margin-top: 2px;
+  margin-left: 0px;
+}
