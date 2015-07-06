@@ -19,7 +19,7 @@
   var NOVAE = NOVAE || {};
 
   /** NovaeCalc Version */
-  NOVAE.VERSION = "0.3";
+  NOVAE.VERSION = "0.4";
 
   /** Create DOM Object */
   NOVAE.DOM = {};
@@ -32,14 +32,16 @@
 
   /** Cell thingys */
   NOVAE.Cells = {
-    /** Customized cells -> Sheet -> Dictionary[a-Z] -> ColumnRow[a-Z] -> Cell[a-Z+0-9] */
+    /** Customized cells */
     Used: {},
     /** Resized columns and rows */
     Resized: {},
     /** All cell */
     All: {},
     /** Live cells */
-    Live: {}
+    Live: {},
+    /** Master cells */
+    Master: {}
   };
 
   /** System speed grade */

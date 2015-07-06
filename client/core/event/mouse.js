@@ -360,12 +360,16 @@
         direction = 0;
       } else if (currentY < lastY) {
         direction = 1;
-      } else if (currentX >= currentY) {
-        direction = 0;
-        horizontalScroll = true;
-      } else if (currentX <= currentY) {
-        direction = 1;
-        horizontalScroll = true;
+      } else {
+        if (lastX > -1 && currentX > -1) {
+          if (lastX < currentX) {
+            direction = 0;
+            horizontalScroll = true;
+          } else if (lastX > currentX) {
+            direction = 1;
+            horizontalScroll = true;
+          }
+        }
       }
 
       NOVAE.Sheets[NOVAE.CurrentSheet].Input.Touch.lastY = currentY;
