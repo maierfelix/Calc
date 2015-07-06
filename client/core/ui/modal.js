@@ -16,6 +16,9 @@
   /** Initialize the cell style menu */
   NOVAE_UI.Modal = function(title, content, resolve) {
 
+    /** Set active modal in current sheet to active */
+    NOVAE.Sheets[NOVAE.CurrentSheet].activeModal = true;
+
     var parsedTitle = null;
     var parsedContent = null;
 

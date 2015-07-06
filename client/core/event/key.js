@@ -30,9 +30,18 @@
        /** Calculate difference between this and last timestamp */
       var difference = e.timeStamp - NOVAE.Sheets[NOVAE.CurrentSheet].Input.lastKeyPress;
 
-      /** Prevent too fast key scrolling */
+      /** Slow down key spamming */
       if (difference && difference <= 100) return void 0;
 
+    }
+
+    /** Abort if active modal */
+    if (NOVAE.Sheets[NOVAE.CurrentSheet].activeModal) {
+      /** [ENTER] key pressed */
+      if (e.keyCode === 13) NOVAE.$.submitModal("ok");
+      /** [ESC] key pressed */
+      else if (e.keyCode === 27) NOVAE.$.submitModal("abort");
+      return void 0;
     }
 
     /** User pressed the [DEL] */

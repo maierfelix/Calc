@@ -4,7 +4,7 @@
   top: 50%;
   left: 50%;
   margin-left: -250px;
-  margin-top: -150px;
+  margin-top: -100px;
   width: 500px;
   height: 200px;
   background: white;
@@ -73,5 +73,19 @@
   .modal {
     width: 400px;
     margin-left: -200px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .modal {
+    width: 350px;
+    margin-left: -176px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .modal {
+    width: 300px;
+    margin-left: -150px;
   }
 }

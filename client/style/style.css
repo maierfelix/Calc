@@ -444,7 +444,7 @@ button, input, select, textArea {
   margin-bottom: 60px;
   background-color: #0084ff;
   width: 100%;
-  height: 100%;
+  height: 101%;
   position: absolute;
   z-index: 10;
   top: 0px;
@@ -1086,7 +1086,7 @@ button, input, select, textArea {
 
 .rotateDevice {
   content: url(../icon/rotate_left.png);
-  width: 42px;
+  width: 36px;
   margin-top: 2px;
   margin-left: 0px;
 }

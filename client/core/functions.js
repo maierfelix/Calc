@@ -112,6 +112,11 @@
 
     };
 
+    /** Scroll to abolsute top if we're on mobile ios */
+    if (NOVAE.Settings.Mobile && NOVAE.Settings.isIOS) {
+      window.scrollTo(0, 1);
+    }
+
   };
 
   /**
@@ -858,6 +863,38 @@
           Row: null
         }
       };
+    }
+
+  };
+
+  /**
+   * Submit a modal
+   *
+   * @method submitModal
+   * @static
+   */
+  NOVAE.$.submitModal = function(option) {
+
+    var element = document.querySelector("#mui-overlay");
+
+    if (element.children) element = element.children[0];
+    else element = void 0;
+
+    /** Simulate mouse click */
+    if (element) {
+      for (var ii = 0; ii < element.children.length; ++ii) {
+        if (element.children[ii].nodeName === "BUTTON") {
+          if (element.children[ii].getAttribute("name")) {
+            /** Take button */
+            if (element.children[ii].getAttribute("name") === option) {
+              element.children[ii].click();
+              NOVAE.Sheets[NOVAE.CurrentSheet].activeModal = false;
+              /** Break loop */
+              return void 0;
+            }
+          }
+        }
+      }
     }
 
   };

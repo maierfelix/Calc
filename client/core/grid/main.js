@@ -97,7 +97,7 @@
 
     /** Input thingys */
     this.Input = {
-      Touch :{
+      Touch: {
         /** Detect vertical scroll direction */
         lastY: 0,
         /** Detect horizontal scroll direction */
@@ -147,6 +147,9 @@
         scrollX: false
       }
     };
+
+    /** Detect active modals */
+    this.activeModal = false;
 
     /** Auto calculate grid */
     this.calculateGrid();
