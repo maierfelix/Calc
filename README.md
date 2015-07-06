@@ -74,6 +74,7 @@ If you want to test the latest multi-user functionality, go to:
 
 ## Todo:
 - [ ] Pow support: Math.pow => (2^2)^2, LX_POW
+- [ ] Grid: Pre-render out of view, fall back to native scrolling
 
 ## Bugs:
 - [ ] Key scrolling
