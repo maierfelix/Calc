@@ -178,6 +178,10 @@
     this.Settings.x = ( ~ this.Settings.x + 1 ) + 1;
     this.Settings.y = ( ~ this.Settings.y + 1 ) - 3;
 
+    /** Preload */
+    this.Settings.x = Math.floor(this.Settings.x * 1.5);
+    this.Settings.y *= 3;
+
     /** Expand grid width if columns got resized smaller */
     if (resizedX <= 0) {
       this.Settings.x += ( ~ Math.floor(resizedX / this.CellTemplate.Width) + 1 ) + 1;

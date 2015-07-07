@@ -184,6 +184,7 @@ button, input, select, textArea {
   width: 50px;
   height: 100%;
   z-index: 1;
+  overflow: hidden;
 }
 
 .menu_bright {
@@ -1089,6 +1090,29 @@ button, input, select, textArea {
   width: 36px;
   margin-top: 2px;
   margin-left: 0px;
+}
+
+#copyright_loading {
+  position: absolute;
+  left: 10px;
+  bottom: -3px;
+  z-index: 9999999;
+  color: #fff;
+  font-size: 1.3em !important;
+}
+
+@media screen and (max-width: 530px) {
+  #copyright_loading {
+    position: absolute;
+    top: 85%;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    z-index: 9999999;
+    color: #fff;
+    font-size: 1.1em !important;
+  }
 }
 
 /** Preload animation taken from: http://codepen.io/CasperPas/pen/erJKE */

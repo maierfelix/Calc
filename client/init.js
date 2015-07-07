@@ -125,8 +125,12 @@ Import.after = function() {
     NOVAE_UI.init();
     NOVAE.Speedy.runTest(function () {
       /** Add fade out animation, hide element */
+      document.querySelector("#copyright_loading").classList.add("fadeOut");
       document.querySelector("#loader").classList.add("fadeOut");
-      setTimeout( function() { document.querySelector("#loader").style.display = "none"; }, 750);
+      setTimeout( function() {
+        document.querySelector("#loader").style.display = "none";
+        document.querySelector("#copyright_loading").style.display = "none";
+      }, 750);
     });
   });
 };

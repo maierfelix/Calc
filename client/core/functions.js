@@ -256,7 +256,7 @@
     var title = "<h2><img class='rotateDevice' /></h2><h3>Rotate your device for the best experience.</h3>";
     var buttons = "<button class='"+muiButton+" alertOk'>All right</button>";
 
-    if (NOVAE.Settings.Mobile) {
+    if (NOVAE.Settings.Mobile && NOVAE.Settings.isIOS && NOVAE.Settings.isWebApp) {
 
       /** Only remind 1 time per session */
       if (!NOVAE.Storage.get({ property: "Landscape" })) {
