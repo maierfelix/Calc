@@ -496,18 +496,20 @@
 
           if (downReRender >= NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y) {
 
-            setTimeout(function() {
-              NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY += (downReRender - downSettingsY) + 1;
-              NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = NOVAE.Settings.Scroll.Vertical;
-              NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Vertical);
-              NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
-              NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
-              NOVAE.DOM.VerticalMenu.scrollTop = 0;
-              NOVAE.DOM.Output.scrollTop = 0;
-            }, 0);
+            var value = 0;
+            NOVAE.DOM.VerticalMenu.scrollTop = value;
+            /** Make sure both elements are synchonous scrolled */
+            if (value !== NOVAE.DOM.VerticalMenu.scrollTop) value = NOVAE.DOM.VerticalMenu.scrollTop;
+            NOVAE.DOM.Output.scrollTop = value;
+            NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY += Math.floor((downReRender - downSettingsY) + 1);
+            NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = NOVAE.Settings.Scroll.Vertical;
+            NOVAE.Event.redraw();
 
-            return void 0;
+          }
 
+          /** Animate, since slow scrolled */
+          if (difference > 75 || difference > calcDifference * 2) {
+            NOVAE.Event.animateMouseDown();
           }
 
         }
@@ -550,19 +552,22 @@
 
           if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY > 0 && upReRender === upSettingsY) {
 
-            setTimeout(function() {
-              NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY -= upReRender + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y;
-              NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = NOVAE.Settings.Scroll.Vertical;
-              NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Vertical);
-              NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
-              NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
-              NOVAE.DOM.VerticalMenu.scrollTop = Math.floor(upSettingsY * 2.5) * 100;
-              NOVAE.DOM.Output.scrollTop = NOVAE.DOM.VerticalMenu.scrollTop;
-              NOVAE.DOM.VerticalMenu.scrollTop -= 25;
-            }, 0);
+            var value = Math.floor(upSettingsY * 2.5) * 100;
+            NOVAE.DOM.Output.scrollTop = Math.floor(upSettingsY * 2.5) * 100;
+            /** Make sure both elements are synchonous scrolled */
+            if (NOVAE.DOM.Output.scrollTop !== value) value = NOVAE.DOM.Output.scrollTop;
+            NOVAE.DOM.VerticalMenu.scrollTop = value;
+            NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY -= Math.floor(upReRender + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y);
+            NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = NOVAE.Settings.Scroll.Vertical;
+            NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Vertical);
+            NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
+            NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
 
-            return void 0;
+          }
 
+          /** Animate, since slow scrolled */
+          if (difference > 75 || difference > calcDifference * 2) {
+            NOVAE.Event.animateMouseUp();
           }
 
         }
@@ -576,10 +581,6 @@
         if (NOVAE.Connector.connected) {
           NOVAE.Connector.action("scrolling", {direction: direction, amount: NOVAE.Settings.Scroll.Vertical, position: NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY});
         }
-
-        /** Update menu, get new selection */
-        NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
-        NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
 
         /** Simulate mouse move to display the scrolled selection */
         NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.lastMousePosition.x = Math.random();

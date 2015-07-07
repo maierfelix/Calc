@@ -432,7 +432,6 @@
 
           }
 
-          if ((x + y) >= 0) {
             e.target.style.cursor = "row-resize";
             if (e.target.getAttribute("clicked") === "1") {
 
@@ -476,7 +475,7 @@
                 self.Settings.cellResizedY += 2;
 
                 /** Update resize helper top position */
-                NOVAE.DOM.RowResizeHelper.style.top = resizeHelperValue + 2 + "px";
+                NOVAE.DOM.RowResizeHelper.style.top = resizeHelperValue - NOVAE.DOM.Output.scrollTop + "px";
 
               }
               /** User scrolls cell down */
@@ -497,12 +496,10 @@
 
                 }
                 /** Update resize helper top position */
-                NOVAE.DOM.RowResizeHelper.style.top = resizeHelperValue - 2 + "px";
+                NOVAE.DOM.RowResizeHelper.style.top = resizeHelperValue - NOVAE.DOM.Output.scrollTop - 2 + "px";
               }
 
             }
-          }
-          else e.target.style.cursor = "pointer";
 
         });
 
