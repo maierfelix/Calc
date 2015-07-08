@@ -281,7 +281,7 @@ button, input, select, textArea {
 }
 
 .single_row_hovered {
-  border: 2px solid #448AFF;
+  border: 1px solid #448AFF;
   outline: 1px solid #448AFF;
   background: #fff;
   color: #000;
@@ -879,19 +879,19 @@ button, input, select, textArea {
 }
 
 .border_top {
-  border-top: 1px solid #448AFF !important;
+  border-top: 2px solid #448AFF !important;
 }
 
 .border_bottom {
-  border-bottom: 1px solid #448AFF !important;
+  border-bottom: 2px solid #448AFF !important;
 }
 
 .border_left {
-  border-left: 1px solid #448AFF !important;
+  border-left: 2px solid #448AFF !important;
 }
 
 .border_right {
-  border-right: 1px solid #448AFF !important;
+  border-right: 2px solid #448AFF !important;
 }
 
 .closeButton {

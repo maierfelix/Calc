@@ -923,13 +923,19 @@
    * @method getNameFromDOMCell
    * @static
    */
-  NOVAE.$.getNameFromDOMCell = function(e) {
+  NOVAE.$.getNameFromDOMCell = function(e, cellName) {
+
+    var index = null;
+
+    if (e instanceof HTMLElement) {
+      index = NOVAE.$.getChildIndex(e);
+      index = NOVAE.Sheets[NOVAE.CurrentSheet].cellArray[index];
+    } else if (typeof e === "number") {
+      index = NOVAE.Sheets[NOVAE.CurrentSheet].cellArray[e];
+    }
 
     var letter = 0;
     var number = 0;
-
-    var index = NOVAE.$.getChildIndex(e);
-        index = NOVAE.Sheets[NOVAE.CurrentSheet].cellArray[index];
 
     var left = index.origLeft;
     var top = index.origTop;
@@ -962,9 +968,57 @@
 
     letter = Math.floor(letter + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX);
 
+    /** Return compiled cell name */
+    if (cellName) {
+      return (NOVAE.$.numberToAlpha(letter) + number);
+    }
+
     return ({
       letter: letter,
       number: number
+    });
+
+  };
+
+  /**
+   * Calculate cross browser scrolling
+   *
+   * @method calculateScroll
+   * @static
+   */
+  NOVAE.$.calculateScroll = function(e) {
+
+    var direction = 0;
+    var amount = 0;
+
+    /** IE and Chrome */
+    if (e.wheelDelta) {
+      if (e.wheelDelta * ( -120 ) > 0) direction = 1;
+        amount = Math.floor(e.wheelDelta / 10);
+        amount = amount <= 0 ? amount * (-1) : amount;
+    /** Chrome, Firefox */
+    } else {
+      /** Chrome */
+      if (e.deltaY > 0) {
+        direction = 1;
+        amount = Math.floor(e.deltaY);
+        amount = amount <= 0 ? amount * (-1) : amount;
+      /** Firefox */
+      } else if (e.detail * ( -120 ) > 0) {
+        direction = 0;
+        amount = Math.floor(e.detail * 10);
+        amount = amount <= 0 ? amount * (-1) : amount;
+      /** Firefox */
+      } else if (e.detail * ( -120 ) < 0) {
+        direction = 1;
+        amount = Math.floor(e.detail * 10);
+        amount = amount <= 0 ? amount * (-1) : amount;
+      } else direction = 0;
+    }
+
+    return ({
+      direction: direction,
+      amount: amount
     });
 
   };

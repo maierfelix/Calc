@@ -211,7 +211,8 @@
       }
 
       /** Reset background color if customized cell was in selection */
-      if (cellName = NOVAE.DOM.CacheArray[ii].getAttribute("name")) {
+      if (cellName = NOVAE.$.getNameFromDOMCell(ii, true)) {
+
         var letter = cellName.match(NOVAE.REGEX.numbers).join("");
         var number = cellName.match(NOVAE.REGEX.letters).join("");
 
@@ -234,6 +235,7 @@
         }
 
       }
+
     }
 
   };

@@ -48,6 +48,7 @@ Import.scripts = [
   "core/event/mouse.js",
   "core/event/key.js",
   "core/event/sniffer.js",
+  "core/event/scroll.js",
   /** Speed tester */
   "core/speedy/main.js",
   /** Sheet */
