@@ -25,7 +25,7 @@
         lastY = 0;
 
     var width = this.Settings.x,
-        height = this.Settings.y;
+        height = this.Settings.y - 1;
 
     /** View fix for the width */
     width += 1;
@@ -532,7 +532,7 @@
   NOVAE.Grid.prototype.updateMenuNoResizement = function() {
 
     /** Update vertical numeric menu */
-    for (var yy = 0; yy < this.Settings.y; ++yy) {
+    for (var yy = 0; yy < this.Settings.y - 1; ++yy) {
       NOVAE.DOM.VerticalMenu.children[yy].innerHTML = (yy + this.Settings.scrolledY) + 1;
     }
 

@@ -68,10 +68,6 @@
     setTimeout( function() {
       NOVAE.DOM.Output.classList.add("moveUp");
       NOVAE.DOM.VerticalMenu.classList.add("moveUp");
-      setTimeout( function() {
-        NOVAE.DOM.Output.classList.remove("moveUp");
-        NOVAE.DOM.VerticalMenu.classList.remove("moveUp");
-      }, 200);
     }, 55);
 
   };

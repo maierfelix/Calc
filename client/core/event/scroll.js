@@ -37,6 +37,8 @@
 
     var amount = 0;
 
+    var difference = 0;
+
     var calcDifference = Math.floor(NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y * (NOVAE.SystemSpeed - 0.5));
 
     /** We're on a mobile device */
@@ -85,7 +87,7 @@
     if (NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.lastMouseScroll > 0) {
 
       /** Calculate difference between this and last timestamp */
-      var difference = e.timeStamp - NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.lastMouseScroll;
+      difference = e.timeStamp - NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.lastMouseScroll;
 
       var selectedCellsLength = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.SelectedCells.length;
 
@@ -151,11 +153,8 @@
 
           if (downReRender >= NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y) {
 
-            var value = 0;
-            NOVAE.DOM.VerticalMenu.scrollTop = value;
-            /** Make sure both elements are synchonous scrolled */
-            if (value !== NOVAE.DOM.VerticalMenu.scrollTop) value = NOVAE.DOM.VerticalMenu.scrollTop;
-            NOVAE.DOM.Output.scrollTop = value;
+            NOVAE.DOM.Output.scrollTop = 0;
+            NOVAE.DOM.VerticalMenu.scrollTop = 0;
             NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY += Math.floor((downReRender - downSettingsY) + 1);
             NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = NOVAE.Settings.Scroll.Vertical;
             NOVAE.Event.redraw();
@@ -178,12 +177,13 @@
 
           if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY > 0 && upReRender === upSettingsY) {
 
-            var value = Math.floor(upSettingsY * 2.5) * 100;
-            NOVAE.DOM.Output.scrollTop = Math.floor(upSettingsY * 2.5) * 100;
-            /** Make sure both elements are synchonous scrolled */
-            if (NOVAE.DOM.Output.scrollTop !== value) value = NOVAE.DOM.Output.scrollTop;
-            NOVAE.DOM.VerticalMenu.scrollTop = value;
-            NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY -= Math.floor(upReRender + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y);
+            NOVAE.DOM.Output.scrollTop = NOVAE.DOM.Output.scrollHeight;
+            NOVAE.DOM.VerticalMenu.scrollTop = NOVAE.DOM.Output.scrollTop;
+
+            NOVAE.DOM.Output.scrollTop -= 7;
+            NOVAE.DOM.VerticalMenu.scrollTop -= 7;
+
+            NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY -= Math.floor(upReRender + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y / 4);
             NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = NOVAE.Settings.Scroll.Vertical;
             NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Vertical);
             NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
@@ -255,14 +255,6 @@
       NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.lastMousePosition.y = Math.random();
       /** Only simulate if we're on desktop */
       if (!NOVAE.Settings.Mobile) NOVAE.Event.mouseWipe(e);
-
-      /** Make sure scroll amounts are synchronous */
-      if (NOVAE.DOM.VerticalMenu.scrollTop !== NOVAE.DOM.Output.scrollTop) {
-        NOVAE.DOM.Output.scrollTop = NOVAE.DOM.VerticalMenu.scrollTop;
-        if (NOVAE.DOM.Output.scrollTop !== NOVAE.DOM.VerticalMenu.scrollTop) {
-          NOVAE.DOM.VerticalMenu.scrollTop = NOVAE.DOM.Output.scrollTop;
-        }
-      }
 
     }
 
