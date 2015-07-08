@@ -266,9 +266,9 @@
    */
   NOVAE.Grid.prototype.addCellListeners = function() {
 
-    for (var ii = 0; ii < NOVAE.DOM.Output.children.length; ++ii) {
+    /*for (var ii = 0; ii < NOVAE.DOM.Output.children.length; ++ii) {
       NOVAE.DOM.Output.children[ii].addEventListener(this.mouseMode, this.cellHover, false);
-    }
+    }*/
 
   };
 
@@ -328,7 +328,7 @@
         style += " left:" + x + "px; top: " + y + "px;";
 
         /** !Evil DOM Content */
-        output += '<' + this.Templates.Cell.element + ' name="' + Letter + Number + '" id="' + ii + '" class="' + this.Templates.Cell.class + '" style="' + style + '">';
+        output += '<' + this.Templates.Cell.element + ' class="' + this.Templates.Cell.class + '" style="' + style + '">';
         /** Check if cell contains custom content */
         if (NOVAE.Cells.Used[NOVAE.CurrentSheet][Letter] && NOVAE.Cells.Used[NOVAE.CurrentSheet][Letter][Letter + Number]) {
           output += NOVAE.Cells.Used[NOVAE.CurrentSheet][Letter][Letter + Number].Content;

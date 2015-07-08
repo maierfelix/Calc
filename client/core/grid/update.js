@@ -31,8 +31,7 @@
         Number = 0;
 
     /** Speed optimization, avoid using regular expressions */
-    if (this.Settings.scrolledX <= 0) Letter = NOVAE.DOM.Output.children[0].getAttribute("name").match(NOVAE.REGEX.numbers).join("");
-    else Letter = NOVAE.$.numberToAlpha(this.Settings.scrolledX + 1);
+    Letter = NOVAE.$.numberToAlpha(this.Settings.scrolledX + 1);
 
     /** Check if safe integer, also don't go below zero */
     this.Settings.scrolledY = this.Settings.scrolledY < 0 ? 0 : NOVAE.$.isSafeInteger(this.Settings.scrolledY);
@@ -52,8 +51,6 @@
         Number = 1;
         calculation = ( ( ii + this.Settings.scrolledY ) - helper + Number);
       }
-
-      NOVAE.DOM.Output.children[ii].setAttribute("name", Letter + calculation);
 
       /** Remove style of cell */
       this.removeCellStyling(ii);
@@ -135,8 +132,6 @@
                 /** Calculate cell number */
                 if (kk === 0) Number = (height - 1) + this.Settings.scrolledY;
                 else Number = kk + this.Settings.scrolledY;
-
-                NOVAE.DOM.Output.children[calculation].setAttribute("name", Letter + calculation);
 
               }
             }
@@ -402,18 +397,11 @@
    */
   NOVAE.Grid.prototype.removeCellStyling = function(ii) {
 
-    if (NOVAE.DOM.Cache[ii].style.borderLeft.length) NOVAE.DOM.Cache[ii].style.borderLeft = "";
-    if (NOVAE.DOM.Cache[ii].style.borderRight.length) NOVAE.DOM.Cache[ii].style.borderRight = "";
-    if (NOVAE.DOM.Cache[ii].style.borderTop.length) NOVAE.DOM.Cache[ii].style.borderTop = "";
-    if (NOVAE.DOM.Cache[ii].style.borderBottom.length) NOVAE.DOM.Cache[ii].style.borderBottom = "";
-    if (NOVAE.DOM.Cache[ii].style.border.length) NOVAE.DOM.Cache[ii].style.border = "";
-    if (NOVAE.DOM.Cache[ii].style.fontFamily.length) NOVAE.DOM.Cache[ii].style.fontFamily = "";
-    if (NOVAE.DOM.Cache[ii].style.fontSize !== "12px") NOVAE.DOM.Cache[ii].style.fontSize = 12 + "px";
-    if (NOVAE.DOM.Cache[ii].style.fontStyle !== "normal") NOVAE.DOM.Cache[ii].style.fontStyle = "normal";
-    if (NOVAE.DOM.Cache[ii].style.fontWeight !== "normal") NOVAE.DOM.Cache[ii].style.fontWeight = "normal";
-    if (NOVAE.DOM.Cache[ii].style.textDecoration !== "none") NOVAE.DOM.Cache[ii].style.textDecoration = "none";
-    if (NOVAE.DOM.Cache[ii].style.background !== "#fff") NOVAE.DOM.Cache[ii].style.background = "#fff";
-    if (NOVAE.DOM.Cache[ii].style.color !== "#000") NOVAE.DOM.Cache[ii].style.color = "#000";
-    if (NOVAE.DOM.Cache[ii].innerHTML.length) NOVAE.DOM.Cache[ii].innerHTML = "";
+    var left = parseInt(NOVAE.DOM.Cache[ii].style.left);
+    var top = parseInt(NOVAE.DOM.Cache[ii].style.top);
+    var width = parseInt(NOVAE.DOM.Cache[ii].style.width);
+
+    NOVAE.DOM.Cache[ii].setAttribute("style", "left:" + left + "px;" + "top:" + top + "px;" + "width:" + width + "px");
+    NOVAE.DOM.Cache[ii].innerHTML = "";
 
   };

@@ -125,9 +125,10 @@
       /** User can start to mouse wipe now */
       NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.startedMouseWipe = true;
 
-      var name = e.target.getAttribute("name");
-      var letter = NOVAE.$.alphaToNumber(name.match(NOVAE.REGEX.numbers).join(""));
-      var number = ~~(name.match(NOVAE.REGEX.letters).join(""));
+      var name = NOVAE.$.getNameFromDOMCell(e.target);
+
+      var letter = name.letter;
+      var number = name.number;
 
       var cellName = (NOVAE.$.numberToAlpha(letter)) + number;
 
@@ -136,39 +137,39 @@
 
       NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Select = NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.lastMouseDownCell;
 
-        NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First = {
-          Letter: letter,
-          Number: number
-        };
+      NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First = {
+        Letter: letter,
+        Number: number
+      };
 
-        NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.Last = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First;
+      NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.Last = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First;
 
-        /** Update parent cell, so keypress only moving will work */
-        NOVAE.Sheets[NOVAE.CurrentSheet].Selector.parentSelectedCell = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First;
-        NOVAE.Sheets[NOVAE.CurrentSheet].Settings.keyScrolledX = NOVAE.Sheets[NOVAE.CurrentSheet].Settings.keyScrolledY = 0;
+      /** Update parent cell, so keypress only moving will work */
+      NOVAE.Sheets[NOVAE.CurrentSheet].Selector.parentSelectedCell = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First;
+      NOVAE.Sheets[NOVAE.CurrentSheet].Settings.keyScrolledX = NOVAE.Sheets[NOVAE.CurrentSheet].Settings.keyScrolledY = 0;
 
-        /** Two selected cell coordinates */
-        if (NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First.Letter &&
-            NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First.Number &&
-            NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.Last.Letter &&
-            NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.Last.Number) {
-          /** Only execute selection if user doesnt edit a cell at the moment */
-          NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
-        }
+      /** Two selected cell coordinates */
+      if (NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First.Letter &&
+          NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First.Number &&
+          NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.Last.Letter &&
+          NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.Last.Number) {
+        /** Only execute selection if user doesnt edit a cell at the moment */
+        NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
+      }
 
-        /** User edits a cell and clicked on another cell which was also edited */
-        if ( NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.Edit &&
-             NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Edit !== NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First ||
-             NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Edit !== NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.Last  && 
-             NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First === NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.Last) {
-          NOVAE.eval();
-          NOVAE.Sheets[NOVAE.CurrentSheet].cleanEditSelection();
-        }
+      /** User edits a cell and clicked on another cell which was also edited */
+      if (NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.Edit &&
+          NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Edit !== NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First ||
+          NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Edit !== NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.Last  && 
+          NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First === NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.Last) {
+        NOVAE.eval();
+        NOVAE.Sheets[NOVAE.CurrentSheet].cleanEditSelection();
+      }
 
-        /** Clean edited cells only if the current selected cell isn't edited */
-        if (NOVAE.Cells.Used[NOVAE.CurrentSheet][NOVAE.$.numberToAlpha(letter)]) {
-          if (!NOVAE.Cells.Used[NOVAE.CurrentSheet][NOVAE.$.numberToAlpha(letter)][cellName]) NOVAE.Sheets[NOVAE.CurrentSheet].cleanEditSelection();
-        }
+      /** Clean edited cells only if the current selected cell isn't edited */
+      if (NOVAE.Cells.Used[NOVAE.CurrentSheet][NOVAE.$.numberToAlpha(letter)]) {
+        if (!NOVAE.Cells.Used[NOVAE.CurrentSheet][NOVAE.$.numberToAlpha(letter)][cellName]) NOVAE.Sheets[NOVAE.CurrentSheet].cleanEditSelection();
+      }
 
     /** User selected another cell, delete edited cell */
     } else if (NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.Edit) {
@@ -274,11 +275,13 @@
       /** Valid cell ? */
       if (e.target.parentNode && e.target.parentNode.id === NOVAE.DOM.Output.id) {
 
-        var name = e.target.getAttribute("name");
-        var letter = NOVAE.$.alphaToNumber(name.match(NOVAE.REGEX.numbers).join(""));
-        var number = ~~(name.match(NOVAE.REGEX.letters).join(""));
-        var cellName = (NOVAE.$.numberToAlpha(letter)) + number;
+      var cellName = (NOVAE.$.numberToAlpha(letter)) + number;
+
+        var name = NOVAE.$.getNameFromDOMCell(e.target);
+        var letter = name.letter;
+        var number = name.number;
         var compiledLetter = NOVAE.$.numberToAlpha(letter);
+        var cellName = compiledLetter + number;
 
         /** Calm Down, dont overwrite stack value with same value again */
         if ( (NOVAE.$.numberToAlpha(NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.Last.Letter) + NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.Last.Number) === cellName) return void 0;
@@ -340,7 +343,7 @@
   NOVAE.Event.scroll = function(e) {
 
     /** Disable zooming */
-    e.preventDefault();
+    //e.preventDefault();
 
     /** Detect horizontal scrolling */
     var horizontalScroll = NOVAE.Sheets[NOVAE.CurrentSheet].Input.Keyboard.Shift ? true : false;
@@ -509,7 +512,7 @@
 
           /** Animate, since slow scrolled */
           if (difference > 75 || difference > calcDifference * 2) {
-            NOVAE.Event.animateMouseDown();
+            //NOVAE.Event.animateMouseDown();
           }
 
         }
@@ -567,7 +570,7 @@
 
           /** Animate, since slow scrolled */
           if (difference > 75 || difference > calcDifference * 2) {
-            NOVAE.Event.animateMouseUp();
+            //NOVAE.Event.animateMouseUp();
           }
 
         }
@@ -587,6 +590,15 @@
         NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.lastMousePosition.y = Math.random();
         /** Only simulate if we're on desktop */
         if (!NOVAE.Settings.Mobile) NOVAE.Event.mouseWipe(e);
+
+        /** Make sure scroll amounts are synchronous */
+        if (NOVAE.DOM.VerticalMenu.scrollTop !== NOVAE.DOM.Output.scrollTop) {
+          NOVAE.DOM.Output.scrollTop = NOVAE.DOM.VerticalMenu.scrollTop;
+          if (NOVAE.DOM.Output.scrollTop !== NOVAE.DOM.VerticalMenu.scrollTop) {
+            NOVAE.DOM.VerticalMenu.scrollTop = NOVAE.DOM.Output.scrollTop;
+          }
+        }
+
       }
 
       NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.lastMouseScroll = e.timeStamp;

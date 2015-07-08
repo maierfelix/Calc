@@ -898,3 +898,73 @@
     }
 
   };
+
+  /**
+   * Get index of a child node
+   *
+   * @method getChildIndex
+   * @static
+   */
+  NOVAE.$.getChildIndex = function(e) {
+
+    var ii = 0;
+
+    while (e = e.previousElementSibling) {
+      ii++;
+    }
+
+    return ii;
+
+  };
+
+  /**
+   * Get a DOM cell name from a output child's index
+   *
+   * @method getNameFromDOMCell
+   * @static
+   */
+  NOVAE.$.getNameFromDOMCell = function(e) {
+
+    var letter = 0;
+    var number = 0;
+
+    var index = NOVAE.$.getChildIndex(e);
+        index = NOVAE.Sheets[NOVAE.CurrentSheet].cellArray[index];
+
+    var left = index.origLeft;
+    var top = index.origTop;
+
+    switch (true) {
+      case (top === 0):
+        number = 1;
+        break;
+      case (top === 25):
+        number = 2;
+        break;
+      case (top > 25):
+        number = top / 25 + 1;
+        break;
+    }
+
+    number = Math.floor(number + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY);
+
+    switch (true) {
+      case (left === 0):
+        letter = 1;
+        break;
+      case (left === 100):
+        letter = 2;
+        break;
+      case (left > 100):
+        letter = left / 100 + 1;
+        break;
+    }
+
+    letter = Math.floor(letter + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX);
+
+    return ({
+      letter: letter,
+      number: number
+    });
+
+  };

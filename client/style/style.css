@@ -276,6 +276,8 @@ button, input, select, textArea {
   color: #000 !important;
   padding-top: 3px !important;
   padding-left: 5px !important;
+  border-left: 1px solid darkgrey !important;
+  border-bottom: 1px solid darkgrey !important;
 }
 
 .single_row_hovered {

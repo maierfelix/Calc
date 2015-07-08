@@ -120,6 +120,8 @@
 
     NOVAE.Sheets[sheet].updateWidth("default");
 
+    NOVAE.Sheets[sheet].updateMenu();
+
     NOVAE.Sheets[sheet].Selector.getSelection();
 
   };
