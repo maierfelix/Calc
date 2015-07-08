@@ -26,7 +26,7 @@
     var element = NOVAE.DOM.ChangeCellBackground.children[1];
 
     /** Shorter syntax */
-    var masterCell = selectSheet.masterSelected;
+    var masterCell = NOVAE.Cells.Master[NOVAE.CurrentSheet];
     var currentMaster = masterCell.Current;
 
     /** Active master selection */
@@ -145,7 +145,7 @@
 
     var usedCells = NOVAE.Cells.Used[NOVAE.CurrentSheet];
 
-    var masterCells = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected;
+    var masterCells = NOVAE.Cells.Master[NOVAE.CurrentSheet];
 
     /** Overwrite all registered cells background style */
     for (var letter in usedCells) {

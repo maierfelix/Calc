@@ -59,14 +59,6 @@
     /** Helper to difference between selection modes */
     this.selectionMode = null;
 
-    /** Master selected columns and rows */
-    this.masterSelected = {
-      /** Current selected master cell */
-      Current: null,
-      Columns: {},
-      Rows: {}
-    };
-
     /** Selected cells -> First: L:0, N:0 | Last: L:0, N:0 */
     this.Selected = {
       First: {

@@ -25,12 +25,12 @@
     var jumps = null;
 
     /** Shorter syntax */
-    var masterCell = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected;
+    var masterCell = NOVAE.Cells.Master[NOVAE.CurrentSheet];
 
     var selectSheet = NOVAE.Sheets[NOVAE.CurrentSheet].Selector;
 
     /** Active master selection */
-    if (NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Current && NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Current !== null) {
+    if (NOVAE.Cells.Master[NOVAE.CurrentSheet].Current && NOVAE.Cells.Master[NOVAE.CurrentSheet].Current !== null) {
       masterCell = masterCell.Columns[masterCell.Current] || masterCell.Rows[masterCell.Current];
     } else masterCell = null;
 

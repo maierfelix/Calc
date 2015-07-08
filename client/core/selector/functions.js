@@ -207,7 +207,7 @@
       this.deleteAllCellsContent();
     }
     /** A master cell selection is active */
-    else if (this.masterSelected.Current !== undefined && this.masterSelected.Current !== null) {
+    else if (NOVAE.Cells.Master[NOVAE.CurrentSheet].Current !== undefined && NOVAE.Cells.Master[NOVAE.CurrentSheet].Current !== null) {
       this.deleteMasterSelectionContent();
     }
 
@@ -263,13 +263,12 @@
    */
   NOVAE.Selector.prototype.deleteMasterSelectionContent = function() {
 
+    var masterSelected = NOVAE.Cells.Master[NOVAE.CurrentSheet].Current;
+
     /** Inherit deletion */
     if (NOVAE.Sheets[NOVAE.CurrentSheet].isMasterSheet()) {
-      NOVAE.Styler.inheritDeleteMasterSelectionContent(this.masterSelected.Current);
+      NOVAE.Styler.inheritDeleteMasterSelectionContent(masterSelected);
     }
-
-    var masterSelected = this.masterSelected.Current;
-
     var cells = NOVAE.Cells.Used[NOVAE.CurrentSheet];
 
     if (cells[masterSelected]) {

@@ -117,7 +117,7 @@
       }
 
       /** User aborted master selection */
-      NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Current = null;
+      NOVAE.Cells.Master[NOVAE.CurrentSheet].Current = null;
 
       /** Hide live cell container */
       NOVAE.DOM.LiveCellContainer.style.display = "none";

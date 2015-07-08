@@ -59,10 +59,10 @@
       this.updateCellAllStyling(calculation, ii);
 
       /** Master selection column */
-      if (NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Columns[Letter]) {
+      if (NOVAE.Cells.Master[NOVAE.CurrentSheet].Columns[Letter]) {
         this.updateCellMasterStyling(Letter, ii);
       /** Master selection row */
-      } else if (NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Rows[calculation]) {
+      } else if (NOVAE.Cells.Master[NOVAE.CurrentSheet].Rows[calculation]) {
         this.updateCellMasterStyling(calculation, ii);
       }
 
@@ -252,7 +252,7 @@
   NOVAE.Grid.prototype.updateCellMasterStyling = function(name, ii) {
 
     /** Switch between columns and rows */
-    var data = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Columns[name] || NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Rows[name];
+    var data = NOVAE.Cells.Master[NOVAE.CurrentSheet].Columns[name] || NOVAE.Cells.Master[NOVAE.CurrentSheet].Rows[name];
 
     /** Check if cell has a custom font */
     if (data.Font) {

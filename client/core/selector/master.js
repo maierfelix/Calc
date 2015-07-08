@@ -24,22 +24,22 @@
     switch (typeof name) {
       case "string":
         /** Master selected column */
-        if (!this.masterSelected.Columns[name]) {
+        if (!NOVAE.Cells.Master[NOVAE.CurrentSheet].Columns[name]) {
           /** Owns similar properties as a grid cell */
-          this.masterSelected.Columns[name] = new NOVAE.Grid.Cell();
+          NOVAE.Cells.Master[NOVAE.CurrentSheet].Columns[name] = new NOVAE.Grid.Cell();
         }
         break;
       case "number":
         /** Master selected row */
-        if (!this.masterSelected.Rows[name]) {
+        if (!NOVAE.Cells.Master[NOVAE.CurrentSheet].Rows[name]) {
           /** Owns similar properties as a grid cell */
-          this.masterSelected.Rows[name] = new NOVAE.Grid.Cell();
+          NOVAE.Cells.Master[NOVAE.CurrentSheet].Rows[name] = new NOVAE.Grid.Cell();
         }
         break;
     }
 
     /** Set master selected row or column */
-    this.masterSelected.Current = name;
+    NOVAE.Cells.Master[NOVAE.CurrentSheet].Current = name;
 
   };
 

@@ -22,8 +22,8 @@
 
 		var hoverColor = "rgba(68, 138, 255, 0.75)";
 
-    var masterColumns = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Columns;
-    var masterRows = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Rows;
+    var masterColumns = NOVAE.Cells.Master[NOVAE.CurrentSheet].Columns;
+    var masterRows = NOVAE.Cells.Master[NOVAE.CurrentSheet].Rows;
 
     if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter] && NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell]) {
       /** Check if cell contains a formula - (higher priority than content!) */

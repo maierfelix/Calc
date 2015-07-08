@@ -26,11 +26,11 @@
     var selectSheet = NOVAE.Sheets[NOVAE.CurrentSheet].Selector;
 
     /** Shorter syntax */
-    var masterCell = selectSheet.masterSelected;
+    var masterCell = NOVAE.Cells.Master[NOVAE.CurrentSheet];
     var currentMaster = masterCell.Current;
 
     /** Active master selection */
-    if (selectSheet.masterSelected.Current && selectSheet.masterSelected.Current !== null) {
+    if (masterCell.Current && masterCell.Current !== null) {
       if (NOVAE.Sheets[NOVAE.CurrentSheet].isMasterSheet()) {
         this.inheritSheetMasterStyling("Color", color, masterCell.Current);
       }
@@ -91,7 +91,7 @@
 
     var usedCells = NOVAE.Cells.Used[NOVAE.CurrentSheet];
 
-    var masterCells = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected;
+    var masterCells = NOVAE.Cells.Master[NOVAE.CurrentSheet];
 
     /** Overwrite all registered cells background style */
     for (var letter in usedCells) {

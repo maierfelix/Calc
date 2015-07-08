@@ -97,7 +97,7 @@
     for (var ii = 0; ii < inheritSheets.length; ++ii) {
 
       /** Short syntax */
-      var masterSelected = NOVAE.Sheets[inheritSheets[ii]].Selector.masterSelected;
+      var masterSelected = NOVAE.Cells.Master[inheritSheets[ii]];
 
       if (!masterSelected[masterStyleType][current]) {
         masterSelected[masterStyleType][current] = new NOVAE.Grid.Cell();

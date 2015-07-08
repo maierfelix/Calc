@@ -148,7 +148,7 @@
 
     this.inheritProperties(this, allCell);
 
-    var masterCells = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected;
+    var masterCells = NOVAE.Cells.Master[NOVAE.CurrentSheet];
 
     /** Inherit master column properties */
     if (masterCells.Columns[letter]) {

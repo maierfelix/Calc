@@ -96,10 +96,10 @@
     if (this.SelectedCells.length === 1) NOVAE.DOM.CacheArray[jumps].classList.add(style);
 
     /** Priority 2: Column master selection */
-    } else if (NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Columns[letter] &&
-               NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Columns[letter].BackgroundColor !== null) {
+    } else if (NOVAE.Cells.Master[NOVAE.CurrentSheet].Columns[letter] &&
+               NOVAE.Cells.Master[NOVAE.CurrentSheet].Columns[letter].BackgroundColor !== null) {
 
-      var color = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Columns[letter].BackgroundColor;
+      var color = NOVAE.Cells.Master[NOVAE.CurrentSheet].Columns[letter].BackgroundColor;
 
       /** Make white visible */
       if (isWhite.indexOf(color.substring(4, 15)) >= 0) {
@@ -110,10 +110,10 @@
       }
 
     /** Priority 3: Row master selection */
-    } else if (NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Rows[number] &&
-        NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Rows[number].BackgroundColor !== null) {
+    } else if (NOVAE.Cells.Master[NOVAE.CurrentSheet].Rows[number] &&
+        NOVAE.Cells.Master[NOVAE.CurrentSheet].Rows[number].BackgroundColor !== null) {
 
-      var color = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Rows[number].BackgroundColor;
+      var color = NOVAE.Cells.Master[NOVAE.CurrentSheet].Rows[number].BackgroundColor;
 
       /** Make white visible */
       if (isWhite.indexOf(color.substring(4, 15)) >= 0) {
@@ -222,12 +222,12 @@
           NOVAE.DOM.CacheArray[ii].style.background = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].BackgroundColor;
 
         /** Priority 2: Columns */
-        } else if (NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Columns[letter]) {
-          NOVAE.DOM.CacheArray[ii].style.background = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Columns[letter].BackgroundColor;
+        } else if (NOVAE.Cells.Master[NOVAE.CurrentSheet].Columns[letter]) {
+          NOVAE.DOM.CacheArray[ii].style.background = NOVAE.Cells.Master[NOVAE.CurrentSheet].Columns[letter].BackgroundColor;
 
         /** Priority 3: Rows */
-        } else if (NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Rows[number]) {
-          NOVAE.DOM.CacheArray[ii].style.background = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelected.Rows[number].BackgroundColor;
+        } else if (NOVAE.Cells.Master[NOVAE.CurrentSheet].Rows[number]) {
+          NOVAE.DOM.CacheArray[ii].style.background = NOVAE.Cells.Master[NOVAE.CurrentSheet].Rows[number].BackgroundColor;
 
         /** Priority 4: All */
         } else if (NOVAE.Cells.All[NOVAE.CurrentSheet].Cell) {

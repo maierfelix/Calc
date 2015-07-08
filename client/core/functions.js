@@ -48,6 +48,9 @@
     /** Create all object if not existing yet */
     if (!NOVAE.Cells.All[NOVAE.CurrentSheet]) NOVAE.$.createAllObject();
 
+    /** Create master object if not existing yet */
+    if (!NOVAE.Cells.Master[NOVAE.CurrentSheet]) NOVAE.$.createMasterObject();
+
     /** Calculate scroll amount */
     NOVAE.Settings.Scroll.OriginalVertical = NOVAE.Settings.Scroll.Vertical = NOVAE.$.calculateScrollAmount();
 
@@ -637,6 +640,9 @@
     /** Create all object if not existing yet */
     if (!NOVAE.Cells.All[name]) NOVAE.$.createAllObject();
 
+    /** Create master object if not existing yet */
+    if (!NOVAE.Cells.Master[name]) NOVAE.$.createMasterObject();
+
     /** Create new cell used stack */
     NOVAE.Sheets[name] = new NOVAE.Grid();
 
@@ -862,6 +868,28 @@
           Column: null,
           Row: null
         }
+      };
+    }
+
+  };
+
+  /**
+   * Create master object for a sheet
+   *
+   * @method createMasterObject
+   * @static
+   */
+  NOVAE.$.createMasterObject = function() {
+
+    var name = arguments[0] || NOVAE.CurrentSheet;
+
+    if (!NOVAE.Cells.Master[name]) {
+      /** Create resized object */
+      NOVAE.Cells.Master[name] = {
+        /** Current selected master cell */
+        Current: null,
+        Columns: {},
+        Rows: {}
       };
     }
 

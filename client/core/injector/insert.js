@@ -67,7 +67,7 @@
   NOVAE.Injector.prototype.insertColumn_MasterColumns = function(sheet, firstSelected) {
 
     /** ### Master columns ### */
-    var masterCells = NOVAE.Sheets[sheet].Selector.masterSelected.Columns;
+    var masterCells = NOVAE.Cells.Master[sheet].Columns;
 
     /** Process master cells */
     var customArray = this.getAlphaMasterColumns("insert", sheet, firstSelected);
@@ -196,7 +196,7 @@
     /** Process master cells */
     var customArray = this.getNumericMasterRows("insert", sheet, firstSelected);
 
-    var masterCells = NOVAE.Sheets[sheet].Selector.masterSelected.Rows;
+    var masterCells = NOVAE.Cells.Master[sheet].Rows;
 
     /** Sort array by numbers ascending */
     customArray = customArray.sortOn("old");

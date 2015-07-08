@@ -34,30 +34,30 @@
     }
 
     /** Active master selection */
-    if (this.masterSelected.Current && this.masterSelected.Current !== null) {
+    if (NOVAE.Cells.Master[NOVAE.CurrentSheet].Current && NOVAE.Cells.Master[NOVAE.CurrentSheet].Current !== null) {
       /** Dont loose master selection */
-      this.masterSelect(this.masterSelected.Current);
+      this.masterSelect(NOVAE.Cells.Master[NOVAE.CurrentSheet].Current);
       /** Column master selection */
-      if (typeof this.masterSelected.Current === "string") {
+      if (typeof NOVAE.Cells.Master[NOVAE.CurrentSheet].Current === "string") {
         this.Selected.First = {
-          Letter: NOVAE.$.alphaToNumber(this.masterSelected.Current),
+          Letter: NOVAE.$.alphaToNumber(NOVAE.Cells.Master[NOVAE.CurrentSheet].Current),
           Number: NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY
         };
         this.Selected.Last = {
-          Letter: NOVAE.$.alphaToNumber(this.masterSelected.Current),
+          Letter: NOVAE.$.alphaToNumber(NOVAE.Cells.Master[NOVAE.CurrentSheet].Current),
           /** + 1 to set last selection out of view */
           Number: NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y + (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY + 1)
         };
       /** Row master selection */
-      } else if (typeof this.masterSelected.Current === "number") {
+      } else if (typeof NOVAE.Cells.Master[NOVAE.CurrentSheet].Current === "number") {
         this.Selected.First = {
           Letter: NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX,
-          Number: this.masterSelected.Current
+          Number: NOVAE.Cells.Master[NOVAE.CurrentSheet].Current
         };
         this.Selected.Last = {
           /** + 1 to set last selection out of view */
           Letter: NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX + (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.x + 1),
-          Number: this.masterSelected.Current
+          Number: NOVAE.Cells.Master[NOVAE.CurrentSheet].Current
         };
       }
     }

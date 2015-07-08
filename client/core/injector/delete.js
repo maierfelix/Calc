@@ -67,7 +67,7 @@
    */
   NOVAE.Injector.prototype.deleteColumn_MasterColumns = function(sheet, firstSelected) {
 
-    var masterCells = NOVAE.Sheets[sheet].Selector.masterSelected.Columns;
+    var masterCells = NOVAE.Cells.Master[sheet].Columns;
 
     /** Process master cells */
     var customArray = this.getAlphaMasterColumns("delete", sheet, firstSelected);
@@ -203,7 +203,7 @@
    */
   NOVAE.Injector.prototype.deleteRow_MasterRows = function(sheet, firstSelected) {
 
-    var masterCells = NOVAE.Sheets[sheet].Selector.masterSelected.Rows;
+    var masterCells = NOVAE.Cells.Master[sheet].Rows;
 
     /** Process master cells */
     var customArray = this.getNumericMasterRows("delete", sheet, firstSelected);

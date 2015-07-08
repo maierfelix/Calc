@@ -92,7 +92,7 @@
       selectedCell = selected;
     } else selectedCell = NOVAE.Sheets[sheet].Selector.Selected.First;
 
-    var masterCells = NOVAE.Sheets[sheet].Selector.masterSelected.Columns;
+    var masterCells = NOVAE.Cells.Master[sheet].Columns;
 
     var customArray = [];
 
@@ -274,7 +274,7 @@
       selectedCell = selected;
     } else selectedCell = NOVAE.Sheets[sheet].Selector.Selected.First;
 
-    var masterCells = NOVAE.Sheets[sheet].Selector.masterSelected.Rows;
+    var masterCells = NOVAE.Cells.Master[sheet].Rows;
 
     var customArray = [];
 
