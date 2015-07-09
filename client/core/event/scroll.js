@@ -153,11 +153,13 @@
 
           if (downReRender >= NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y) {
 
+            NOVAE.Collector.cache();
+
             NOVAE.DOM.Output.scrollTop = 0;
             NOVAE.DOM.VerticalMenu.scrollTop = 0;
             NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY += Math.floor((downReRender - downSettingsY) + 1);
             NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = NOVAE.Settings.Scroll.Vertical;
-            NOVAE.Event.redraw();
+            NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
 
           }
 
@@ -179,9 +181,6 @@
 
             NOVAE.DOM.Output.scrollTop = NOVAE.DOM.Output.scrollHeight;
             NOVAE.DOM.VerticalMenu.scrollTop = NOVAE.DOM.Output.scrollTop;
-
-            NOVAE.DOM.Output.scrollTop -= 7;
-            NOVAE.DOM.VerticalMenu.scrollTop -= 7;
 
             NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY -= Math.floor(upReRender + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y / 4);
             NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = NOVAE.Settings.Scroll.Vertical;

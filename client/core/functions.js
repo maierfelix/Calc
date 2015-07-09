@@ -72,11 +72,17 @@
     /** Initialize Extender Plugin */
     NOVAE.Extender = new NOVAE.Extender();
 
+    /** Initialize Collector Plguin */
+    NOVAE.Collector = new NOVAE.Collector();
+
     /** Add a new first sheet */
     NOVAE.Sheets.addSheet();
 
     /** Switch to the first sheet */
     NOVAE.Sheets.changeSheet(NOVAE.CurrentSheet);
+
+    /** Add first sheet to the collector */
+    NOVAE.Collector.addSheet(NOVAE.CurrentSheet);
 
     /** Add select all functionalitity to current cell button */
     NOVAE.$.initCurrentCellButton();
@@ -656,6 +662,8 @@
       NOVAE.Sheets[name].Settings.master = true;
     }
 
+    NOVAE.Collector.addSheet(name);
+
   };
 
   /**
@@ -696,6 +704,8 @@
 
     NOVAE.Sheets[name] = null;
     delete NOVAE.Sheets[name];
+
+    NOVAE.Collector.removeSheet(name);
 
     /** Send sheet change to server */
     if (NOVAE.Connector.connected) {

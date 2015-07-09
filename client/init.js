@@ -61,6 +61,8 @@ Import.scripts = [
   "core/grid/resize.js",
   "core/grid/cell.js",
   "core/grid/livecell.js",
+  /** Collector */
+  "core/collector/main.js",
   /** Injector */
   "core/injector/main.js",
   "core/injector/insert.js",
