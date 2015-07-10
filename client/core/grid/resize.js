@@ -25,21 +25,25 @@
     /** Total amount of shifting cell rows to left */
     var totalLeftShift = 0;
     /** DOM caching */
-    var cellRow = NOVAE.DOM.Cache[ii].style;
+    var cellColumn = {};
 
     /** The current cell column has a custom width */
     if (customCell[Letter]) {
       /** Update width of the custom cell column */
-      cellRow.width = (this.cellArray[ii].origWidth + customCell[Letter].Width) + "px";
+      cellColumn.width = (this.cellArray[ii].origWidth + customCell[Letter].Width);
       /** Update left position of the custom cell column */
-      cellRow.left = (this.cellArray[ii].origLeft) + "px";
+      cellColumn.left = (this.cellArray[ii].origLeft);
     }
     /** Reset width of all cells without a custom width */
-    else cellRow.width = this.cellArray[ii].origWidth + "px";
+    else cellColumn.width = this.cellArray[ii].origWidth;
 
     var letterToNumber = NOVAE.$.alphaToNumber(Letter);
 
-    if (!this.horizontalInView(letterToNumber)) return void 0;
+    if (!this.horizontalInView(letterToNumber)) {
+      if (cellColumn.hasOwnProperty("left")) NOVAE.DOM.Cache[ii].style.left = cellColumn.left + "px";
+      if (cellColumn.hasOwnProperty("width")) NOVAE.DOM.Cache[ii].style.width = cellColumn.width + "px";
+      return void 0;
+    }
 
     NOVAE.Sheets[NOVAE.CurrentSheet].Settings.redrawOnZero = true;
 
@@ -51,7 +55,7 @@
       /** Update all cell rows left position behind the customized cell column with its new width */
       if (letterToNumber > kkToNumber) {
         totalLeftShift += customCell[kk].Width;
-        cellRow.left = (this.cellArray[ii].origLeft + totalLeftShift) + "px";
+        cellColumn.left = (this.cellArray[ii].origLeft + totalLeftShift);
       }
 
       /** User has scrolled the grid */
@@ -59,7 +63,7 @@
 
         /** Check if customized cell column is in view */
         if (kkToNumber <= this.Settings.scrolledX) {
-          cellRow.left = this.cellArray[ii].origLeft + "px";
+          cellColumn.left = this.cellArray[ii].origLeft;
         }
 
       }
@@ -68,11 +72,14 @@
       if (letterToNumber >= kkToNumber) {
         if (this.Settings.scrolledX >= kkToNumber) {
           totalLeftShift -= customCell[kk].Width;
-          cellRow.left = (this.cellArray[ii].origLeft + totalLeftShift) + "px";
+          cellColumn.left = (this.cellArray[ii].origLeft + totalLeftShift);
         }
       }
 
     }
+
+    if (cellColumn.hasOwnProperty("left")) NOVAE.DOM.Cache[ii].style.left = cellColumn.left + "px";
+    if (cellColumn.hasOwnProperty("width")) NOVAE.DOM.Cache[ii].style.width = cellColumn.width + "px";
 
   };
 
@@ -88,7 +95,7 @@
     /** Total amount of shifting cell rows to top */
     var totalTopShift = 0;
     /** DOM caching */
-    var cellRow = NOVAE.DOM.Cache[ii].style;
+    var cellRow = {};
     /** Cache cell object height */
     var cellHeight = this.cellArray[ii].origHeight;
     /** Cache cell object top position */
@@ -97,14 +104,18 @@
     /** The current cell column has a custom height */
     if (customCell[Number]) {
       /** Update height of the custom cell column */
-      cellRow.height = (cellHeight + customCell[Number].Height) + "px";
+      cellRow.height = (cellHeight + customCell[Number].Height);
       /** Update top position of the custom cell column */
-      cellRow.top = (cellTop) + "px";
+      cellRow.top = (cellTop);
     }
     /** Reset height of all cells without a custom height */
-    else cellRow.height = cellHeight + "px";
+    else cellRow.height = cellHeight;
 
-    if (!this.verticalInView(Number)) return void 0;
+    if (!this.verticalInView(Number)) {
+      if (cellRow.hasOwnProperty("top")) NOVAE.DOM.Cache[ii].style.top = cellRow.top + "px";
+      if (cellRow.hasOwnProperty("height")) NOVAE.DOM.Cache[ii].style.height = cellRow.height + "px";
+      return void 0;
+    }
 
     NOVAE.Sheets[NOVAE.CurrentSheet].Settings.redrawOnZero = true;
 
@@ -114,13 +125,13 @@
       /** Update all cell rows top position behind the customized cell column with its new height */
       if (Number > kk) totalTopShift += customCell[kk].Height;
 
-      cellRow.top = (cellTop + totalTopShift) + "px";
+      cellRow.top = (cellTop + totalTopShift);
 
       /** User has scrolled the grid */
       if (this.Settings.scrolledY > 0) {
         /** Check if customized cell column is in view */
         if (kk <= this.Settings.scrolledY) {
-          cellRow.top = cellTop + "px";
+          cellRow.top = cellTop;
         }
       }
 
@@ -128,11 +139,14 @@
       if (Number >= kk) {
         if (this.Settings.scrolledY >= kk) {
           totalTopShift -= customCell[kk].Height;
-          cellRow.top = (cellTop + totalTopShift) + "px";
+          cellRow.top = (cellTop + totalTopShift);
         }
       }
 
     }
+
+    if (cellRow.hasOwnProperty("top")) NOVAE.DOM.Cache[ii].style.top = cellRow.top + "px";
+    if (cellRow.hasOwnProperty("height")) NOVAE.DOM.Cache[ii].style.height = cellRow.height + "px";
 
   };
 

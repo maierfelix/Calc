@@ -39,6 +39,7 @@
       { name: "LX_LHBRAC", rx: /^\[.*?/    },
       { name: "LX_RHBRAC", rx: /^\].*?/    },
       { name: "LX_SEMIC",  rx: /^[;]+/     },
+      { name: "LX_COLON",  rx: /^[:]+/     },
 
       /** Comparison */
       { name: "LX_EQ",  rx: /^==/          },

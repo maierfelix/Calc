@@ -102,6 +102,10 @@
       node[mode] = {
         value: ENGEL.TypeMaster(this.currentBlock.value).value
       };
+      /** Variable Range */
+      if (this.block[0].type === "LX_COLON") {
+        console.log(this.currentBlock, this.block[0], this.block[1]);
+      }
       this.shift();
     /** Bracket calculation */
     } else if (this.accept("LX_LPAR")) {
