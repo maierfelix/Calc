@@ -257,5 +257,84 @@
 
   };
 
+  /**
+   * Resize columns of a range
+   *
+   * @param {number} [property] New column width
+   * @method resizeColumns
+   * @static
+   */
+  SpreadSheet.prototype.Range.prototype.resizeColumns = function(amount) {
+
+    var customColumns = NOVAE.Cells.Resized[SpreadSheet.CurrentSheetName].Columns;
+
+    var columnArray = [];
+
+    var firstColumn = this.range.first.letter;
+    var lastColumn = this.range.last.letter;
+
+    var length = lastColumn - firstColumn;
+
+    for (var ii = 0; ii < length; ++ii) {
+
+      var letter = NOVAE.$.numberToAlpha(firstColumn + ii);
+
+      if (!customColumns[letter]) {
+        customColumns[letter] = {
+          Width: amount,
+          Height: 0
+        };
+      } else {
+        customColumns[letter].Width = amount;
+      }
+
+      NOVAE.Cells.Resized[SpreadSheet.CurrentSheetName].columnArray.push(NOVAE.$.alphaToNumber(letter));
+
+    }
+
+    NOVAE.Sheets[SpreadSheet.CurrentSheetName].Input.Mouse.CellResize = true;
+    NOVAE.Sheets[SpreadSheet.CurrentSheetName].Input.lastAction.scrollY = false;
+
+  };
+
+  /**
+   * Resize rows of a range
+   *
+   * @param {number} [property] New row width
+   * @method resizeRows
+   * @static
+   */
+  SpreadSheet.prototype.Range.prototype.resizeRows = function(amount) {
+
+    var customRows = NOVAE.Cells.Resized[SpreadSheet.CurrentSheetName].Rows;
+
+    var rowArray = [];
+
+    var firstRow = this.range.first.number;
+    var lastRow = this.range.last.number;
+
+    var length = lastRow - firstRow;
+
+    for (var ii = 0; ii < length; ++ii) {
+
+      var number = firstRow + ii;
+
+      if (!customRows[number]) {
+        customRows[number] = {
+          Width: 0,
+          Height: amount
+        };
+      } else {
+        customRows[number].Height = amount;
+      }
+
+      NOVAE.Cells.Resized[SpreadSheet.CurrentSheetName].rowArray.push(number);
+
+    }
+
+    NOVAE.Sheets[SpreadSheet.CurrentSheetName].Input.Mouse.CellResize = true;
+
+  };
+
   SpreadSheet = new SpreadSheet();
   SpreadSheet.init();

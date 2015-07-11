@@ -215,7 +215,7 @@
 
     var x = 0;
 
-    var columns = NOVAE.Cells.Resized[NOVAE.CurrentSheet].Columns;
+    var columns = NOVAE.Cells.Resized[arguments[0] || NOVAE.CurrentSheet].Columns;
 
     for (var cell in columns) {
       x += columns[cell].Width;
@@ -235,7 +235,7 @@
 
     var y = 0;
 
-    var rows = NOVAE.Cells.Resized[NOVAE.CurrentSheet].Rows;
+    var rows = NOVAE.Cells.Resized[arguments[0] || NOVAE.CurrentSheet].Rows;
 
     for (var cell in rows) {
       y += rows[cell].Height;

@@ -21,3 +21,18 @@ setInterval(function() {
   sheet.redraw();
 
 }, 1000);
+
+/** Resize grid to a pixel raster */
+(function() {
+
+  /** Resize all columns */
+  var range = new sheet.Range(sheet.getView());
+
+  range.resizeColumns(-80);
+
+  range.resizeRows(-5);
+
+  /** Redraw the sheet */
+  sheet.redraw();
+
+})();
