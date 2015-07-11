@@ -101,15 +101,18 @@
     /** Cache cell object top position */
     var cellTop = this.cellArray[ii].origTop;
 
-    /** The current cell column has a custom height */
+    /** The current cell row has a custom height */
     if (customCell[Number]) {
-      /** Update height of the custom cell column */
+      /** Update height of the custom cell row */
       cellRow.height = (cellHeight + customCell[Number].Height);
-      /** Update top position of the custom cell column */
-      cellRow.top = (cellTop);
     }
     /** Reset height of all cells without a custom height */
-    else cellRow.height = cellHeight;
+    else {
+      cellRow.height = cellHeight;
+    }
+
+    /** Reset top position of the cell row */
+    cellRow.top = cellTop;
 
     if (!this.verticalInView(Number)) {
       if (cellRow.hasOwnProperty("top")) NOVAE.DOM.Cache[ii].style.top = cellRow.top + "px";
@@ -122,20 +125,20 @@
     /** Search for custom cell rows */
     for (var kk in customCell) {
 
-      /** Update all cell rows top position behind the customized cell column with its new height */
+      /** Update all cell rows top position behind the customized cell row with its new height */
       if (Number > kk) totalTopShift += customCell[kk].Height;
 
       cellRow.top = (cellTop + totalTopShift);
 
       /** User has scrolled the grid */
       if (this.Settings.scrolledY > 0) {
-        /** Check if customized cell column is in view */
+        /** Check if customized cell row is in view */
         if (kk <= this.Settings.scrolledY) {
           cellRow.top = cellTop;
         }
       }
 
-      /** Custom cell column is not in view anymore, so substract its custom height from all cell rows behind */
+      /** Custom cell row is not in view anymore, so substract its custom height from all cell rows behind */
       if (Number >= kk) {
         if (this.Settings.scrolledY >= kk) {
           totalTopShift -= customCell[kk].Height;
