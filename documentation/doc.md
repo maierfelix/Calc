@@ -63,6 +63,38 @@ Round number downwards to the nearest integer: "floor",
 Round number upwards to the nearest integer: "ceil"
 ```
 
+## Calculations
+The following example assumes:
+```
+A2 = 5;
+B2 = 10;
+```
+```js
+C2 = A2 * B2; // 50
+C2 = (A2 + B2 * 2) * 2; // 50
+D2 = A2 + B2 + C2; // 65
+```
+String concatenate:
+```
+A2 = Hello;
+A3 = World;
+A4 = !;
+```
+```js
+A1 = A2 + " " + A3 + A4; // Hello World!
+```
+### Conditions
+The following example aussumes:
+```
+A1 = 0;
+```
+```js
+=if (A1 == 10, "True", "False"); // False
+=if (A1 + 10 == 10, "True", "False"); // True
+=if (A1 == 10 || A1 < 10, "True", "False"); // True
+=if (A1 == 0 && A1 >= 0 && A1 != 0, "True", "False"); // False
+```
+
 ## Scripts
 NovaeCalc has a own scripting language based on Javascript, which provides you some great ways to write your own makros and functions.
 You can write scripts as modules and combine them. See the example below how to do so.
