@@ -148,6 +148,9 @@
       }
     };
 
+    /** Detect fast scrolling */
+    this.fastScroll = false;
+
     /** Detect active modals */
     this.activeModal = false;
 
@@ -160,7 +163,7 @@
   NOVAE.Grid.prototype.constructor = NOVAE.Grid;
 
   /**
-   * Calculate the new grid sizes
+   * Calculate the grid size
    *
    * @method calculateGrid
    * @static
@@ -202,6 +205,21 @@
     if (this.Settings.x + this.Settings.y >= 65) {
       NOVAE.Event.resetMouseScrollAnimation();
     }
+
+    /** Auto calculate scroll method */
+    this.calculateScrollMethod();
+
+  };
+
+  /**
+   * Calculate scroll method
+   *
+   * @method calculateScrollMethod
+   * @static
+   */
+  NOVAE.Grid.prototype.calculateScrollMethod = function() {
+
+    this.fastScroll = this.Settings.x + this.Settings.y >= 100 ? true : false;
 
   };
 
@@ -254,20 +272,6 @@
   NOVAE.Grid.prototype.cellHover = function(e) {
 
     if (!NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.Edit) NOVAE.DOM.CurrentCell.innerHTML = e.target.getAttribute("name");
-
-  };
-
-  /**
-   * Show the currently hovered cell
-   *
-   * @method addCellListeners
-   * @static
-   */
-  NOVAE.Grid.prototype.addCellListeners = function() {
-
-    /*for (var ii = 0; ii < NOVAE.DOM.Output.children.length; ++ii) {
-      NOVAE.DOM.Output.children[ii].addEventListener(this.mouseMode, this.cellHover, false);
-    }*/
 
   };
 
@@ -361,8 +365,6 @@
     NOVAE.DOM.Output.innerHTML = output;
 
     this.cacheDOM();
-
-    this.addCellListeners();
 
     /** User was in edit mode */
     if (NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.Edit) this.getEditSelection(NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First);

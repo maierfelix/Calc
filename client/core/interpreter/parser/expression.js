@@ -33,6 +33,10 @@
       }
     }
 
+    if (this.accept("LX_IF")) {
+      return (this.ruleIf());
+    }
+
     while (this.accept(["LX_PLUS", "LX_MINUS", "LX_EQ", "LX_NEQ", "LX_GR", "LX_GRE", "LX_LW", "LX_LWE", "LX_AND", "LX_OR"])) {
       /** Left */
       parent = {
@@ -46,6 +50,68 @@
     }
 
     return (node);
+
+  };
+
+  /**
+   * Create an if statement expression AST
+   *
+   * @method ruleIf
+   * @return {object} if AST
+   * @static
+   */
+  ENGEL.PARSER.prototype.ruleIf = function() {
+
+    var node = {
+      IfStatement: {}
+    };
+
+    if (this.accept("LX_IF")) {
+      node.IfStatement.operator = this.currentBlock.type;
+      this.shift();
+      if (!this.expect("LX_LPAR")) return void 0;
+      node.IfStatement.arguments = this.readIfArguments();
+      this.shift();
+    }
+
+    return (node);
+
+  };
+
+  /**
+   * Create an if arguments AST
+   *
+   * @method readIfArguments
+   * @return {object} ifArguments AST
+   * @static
+   */
+  ENGEL.PARSER.prototype.readIfArguments = function() {
+
+    var args = [];
+
+    var argument = [];
+
+    /** Read if argument blocks */
+    while (this.block && this.block[0]) {
+      if (["LX_COMMA", "LX_RPAR"].indexOf(this.block[0].type) <= -1) {
+        argument.push(this.block[0]);
+      } else if (argument.length) {
+        args.push(argument);
+        argument = [];
+      }
+      this.shift();
+    }
+
+    for (var ii = 0; ii < args.length; ++ii) {
+      this.block = args[ii];
+      this.block.unshift(this.block[0]);
+      this.shift();
+      this.shift();
+      this.addSemicolon();
+      args[ii] = this.ruleExpression();
+    }
+
+    return args;
 
   };
 

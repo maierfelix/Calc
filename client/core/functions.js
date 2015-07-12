@@ -316,7 +316,7 @@
     letter = (a + (number - 1) % length);
 
     /** Auto validation */
-    letter = letter <= a ? String.fromCharCode(a) : String.fromCharCode(letter);
+    letter = letter <= a ? "A" : String.fromCharCode(letter);
 
     /** Get letter length */
     newNumber = parseInt((number - 1) / length);
@@ -331,8 +331,6 @@
   /**
    * Alphabetical letter to number conversion
    *
-   * TODO: Support > 702 =^ ZZ
-   *
    * @method alphaToNumber
    * @static
    */
@@ -340,29 +338,14 @@
 
     if (!isNaN(letter)) return void 0;
 
-    /** Charcode for a */
-    var a = 65;
+    var length = letter.length;
 
-    /** Alphabet length */
-    var length = 26;
+    for (var ii = 0, number = 0; ii < length; ++ii) {
+      number *= 26;
+      number += letter.charCodeAt(ii) - ("A".charCodeAt(0) - 1);
+    }
 
-    /** Calculation */
-    var newNumber = 0;
-
-    /** Convert letter into number */
-    var number = letter.charCodeAt(0);
-
-    /** Auto validation */
-    number = number <= a ? 1 : (number % a + 1);
-
-    /** Get number value */
-    newNumber = parseInt((number - 1) * length);
-
-    newNumber += (length);
-
-    if (letter = letter.substr(1, letter.length)) return (NOVAE.$.alphaToNumber(letter) + newNumber);
-
-    return (number);
+    return (number || 1);
 
   };
 

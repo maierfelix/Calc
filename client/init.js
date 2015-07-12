@@ -115,6 +115,7 @@ Import.scripts = [
   "core/interpreter/evaluator/main.js",
   "core/interpreter/evaluator/expression.js",
   "core/interpreter/evaluator/function.js",
+  "core/interpreter/evaluator/statement.js",
   "core/interpreter/type.js",
   /** Javascript interpreter */
   "api/spreadsheet.js",

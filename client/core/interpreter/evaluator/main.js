@@ -31,7 +31,7 @@
 
     this.Functions = {
       LX_POW: function(c) {
-        return Math.pow(self.interpretExpression(c.left), self.interpretExpression(c.right));
+        return (Math.pow(self[self.switcher](c.left, self.functionName), self[self.switcher](c.right, self.functionName)));
       },
       LX_UPLUS: function(c) {
         return +(self.interpretExpression(c));
@@ -51,22 +51,22 @@
       LX_DIV: function(c) {
         return self[self.switcher](c.left, self.functionName) / self[self.switcher](c.right, self.functionName);
       },
-      LX_EQ: function(c) { 
+      LX_EQ: function(c) {
         return self[self.switcher](c.left, self.functionName) == self[self.switcher](c.right, self.functionName);
       },
-      LX_NEQ: function(c) { 
+      LX_NEQ: function(c) {
         return self[self.switcher](c.left, self.functionName) != self[self.switcher](c.right, self.functionName);
       },
-      LX_LW: function(c) { 
+      LX_LW: function(c) {
         return self[self.switcher](c.left, self.functionName) < self[self.switcher](c.right, self.functionName);
       },
-      LX_GR: function(c) { 
+      LX_GR: function(c) {
         return self[self.switcher](c.left, self.functionName) > self[self.switcher](c.right, self.functionName);
       },
-      LX_LWE: function(c) { 
+      LX_LWE: function(c) {
         return self[self.switcher](c.left, self.functionName) <= self[self.switcher](c.right, self.functionName);
       },
-      LX_GRE: function(c) { 
+      LX_GRE: function(c) {
         return self[self.switcher](c.left, self.functionName) >= self[self.switcher](c.right, self.functionName);
       },
       LX_AND: function(c) {
@@ -78,6 +78,11 @@
         var result = self[self.switcher](c.left, self.functionName);
         if (result) return result;
         return self[self.switcher](c.right, self.functionName);
+      },
+      LX_IF: function(c) {
+        if (self.interpretExpression(c.left)) {
+          return (self.interpretExpression(c.right));
+        }
       }
     };
 

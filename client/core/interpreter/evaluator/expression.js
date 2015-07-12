@@ -27,7 +27,7 @@
 
     this.switcher = "interpretExpression";
 
-    /** Got operator precedence */
+    /** Got something special */
     if (ast.init) {
       return this.Functions[ast.operator](ast.init);
     }
@@ -35,6 +35,11 @@
     /** Function call */
     if (ast.CallExpression) {
       return this.evalExpression(ast.CallExpression);
+    }
+
+    /** If statement */
+    if (ast.IfStatement) {
+      return this.evalIfStatement(ast.IfStatement);
     }
 
     /** Got a variable */

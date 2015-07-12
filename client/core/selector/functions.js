@@ -14,6 +14,25 @@
 "use strict";
 
   /**
+   * Check if current selection is in view
+   *
+   * @method selectionInView
+   * @static
+   */
+  NOVAE.Selector.prototype.selectionInView = function() {
+
+    var first = this.Selected.First;
+
+    var last = this.Selected.Last;
+
+    if (NOVAE.$.getCell({ letter: first.Letter, number: first.Number }) >= 0 &&
+        NOVAE.$.getCell({ letter: last.Letter, number: last.Number }) >= 0) return (true);
+
+    return (false);
+
+  };
+
+  /**
    * Get the outer of a cell selection
    *
    * @method getOuterSelection

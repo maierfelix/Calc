@@ -45,7 +45,7 @@
     var calcDifference = Math.floor(NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y * (NOVAE.SystemSpeed - .5));
 
     /** Calculate if fast (native) scrolling is necessary */
-    var fastScroll = NOVAE.Sheets[NOVAE.CurrentSheet].Settings.x + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y >= 100 ? true : false;
+    var fastScroll = NOVAE.Sheets[NOVAE.CurrentSheet].fastScroll;
 
     /** We're on a mobile device */
     if (NOVAE.Settings.Mobile) {
@@ -147,7 +147,7 @@
         /** DOWN */
         case "down":
 
-          /** Fast scrolling */
+          /** Native optimized scrolling */
           if (fastScroll) {
 
             NOVAE.DOM.VerticalMenu.scrollTop += scrollAmount;
@@ -165,12 +165,13 @@
               NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY += Math.floor((downReRender - downSettingsY));
               NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = NOVAE.Settings.Scroll.Vertical;
               NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Vertical);
+              NOVAE.Sheets[NOVAE.CurrentSheet].Selector.cleanHoverEffect();
               NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
               NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
 
             }
 
-          /** Slow scrolling */
+          /** Default scrolling */
           } else {
 
             NOVAE.DOM.VerticalMenu.scrollTop = 0;
@@ -189,7 +190,7 @@
         /** UP */
         case "up":
 
-          /** Fast scrolling */
+          /** Native optimized scrolling */
           if (fastScroll) {
 
             NOVAE.DOM.VerticalMenu.scrollTop -= scrollAmount;
@@ -212,12 +213,13 @@
               NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY -= Math.floor(upReRender + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y / 4);
               NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = NOVAE.Settings.Scroll.Vertical;
               NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Vertical);
+              NOVAE.Sheets[NOVAE.CurrentSheet].Selector.cleanHoverEffect();
               NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
               NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
 
             }
 
-          /** Slow scrolling */
+          /** Default scrolling */
           } else {
 
             NOVAE.DOM.VerticalMenu.scrollTop = 0;
