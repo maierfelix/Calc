@@ -194,44 +194,50 @@
     if (this.allSelected) style = "row_hovered";
 
     /** Delete hover effect for all cells */
-    for (var ii = 0; ii < NOVAE.DOM.CacheArray.length; ++ii) {
+    for (var ii = 0; ii < this.SelectedCells.length; ++ii) {
 
-      /** Remove outer selection borders */
-      NOVAE.DOM.CacheArray[ii].classList.remove(style, "border_top", "border_bottom", "border_left", "border_right");
+      var cell = NOVAE.$.getCell({letter: this.SelectedCells[ii].letter, number: this.SelectedCells[ii].number });
 
-      if (singleCell) {
-        if (NOVAE.DOM.CacheArray[ii].children[0]) {
-          NOVAE.DOM.CacheArray[ii].removeChild(NOVAE.DOM.CacheArray[ii].children[0]);
+      if (NOVAE.DOM.CacheArray[cell]) {
+
+        /** Remove outer selection borders */
+        NOVAE.DOM.CacheArray[cell].classList.remove(style, "border_top", "border_bottom", "border_left", "border_right");
+
+        if (singleCell) {
+          if (NOVAE.DOM.CacheArray[cell].children[0]) {
+            NOVAE.DOM.CacheArray[cell].removeChild(NOVAE.DOM.CacheArray[cell].children[0]);
+          }
         }
-      }
 
-      /** Remove extender button */
-      if (NOVAE.DOM.CacheArray[ii].children[0]) {
-        NOVAE.DOM.CacheArray[ii].removeChild(NOVAE.DOM.CacheArray[ii].children[0]);
-      }
+        /** Remove extender button */
+        if (NOVAE.DOM.CacheArray[cell].children[0]) {
+          NOVAE.DOM.CacheArray[cell].removeChild(NOVAE.DOM.CacheArray[cell].children[0]);
+        }
 
-      /** Reset background color if customized cell was in selection */
-      if (cellName = NOVAE.$.getNameFromDOMCell(ii, true)) {
+        /** Reset background color if customized cell was in selection */
+        if (cellName = NOVAE.$.getNameFromDOMCell(cell, true)) {
 
-        var letter = cellName.match(NOVAE.REGEX.numbers).join("");
-        var number = cellName.match(NOVAE.REGEX.letters).join("");
+          var letter = cellName.match(NOVAE.REGEX.numbers).join("");
+          var number = cellName.match(NOVAE.REGEX.letters).join("");
 
-        /** Priority 1: Cells */
-        if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter] &&
-            NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number]) {
-          NOVAE.DOM.CacheArray[ii].style.background = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].BackgroundColor;
+          /** Priority 1: Cells */
+          if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter] &&
+              NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number]) {
+            NOVAE.DOM.CacheArray[cell].style.background = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].BackgroundColor;
 
-        /** Priority 2: Columns */
-        } else if (NOVAE.Cells.Master[NOVAE.CurrentSheet].Columns[letter]) {
-          NOVAE.DOM.CacheArray[ii].style.background = NOVAE.Cells.Master[NOVAE.CurrentSheet].Columns[letter].BackgroundColor;
+          /** Priority 2: Columns */
+          } else if (NOVAE.Cells.Master[NOVAE.CurrentSheet].Columns[letter]) {
+            NOVAE.DOM.CacheArray[cell].style.background = NOVAE.Cells.Master[NOVAE.CurrentSheet].Columns[letter].BackgroundColor;
 
-        /** Priority 3: Rows */
-        } else if (NOVAE.Cells.Master[NOVAE.CurrentSheet].Rows[number]) {
-          NOVAE.DOM.CacheArray[ii].style.background = NOVAE.Cells.Master[NOVAE.CurrentSheet].Rows[number].BackgroundColor;
+          /** Priority 3: Rows */
+          } else if (NOVAE.Cells.Master[NOVAE.CurrentSheet].Rows[number]) {
+            NOVAE.DOM.CacheArray[cell].style.background = NOVAE.Cells.Master[NOVAE.CurrentSheet].Rows[number].BackgroundColor;
 
-        /** Priority 4: All */
-        } else if (NOVAE.Cells.All[NOVAE.CurrentSheet].Cell) {
-          NOVAE.DOM.CacheArray[ii].style.background = NOVAE.Cells.All[NOVAE.CurrentSheet].Cell.BackgroundColor;
+          /** Priority 4: All */
+          } else if (NOVAE.Cells.All[NOVAE.CurrentSheet].Cell) {
+            NOVAE.DOM.CacheArray[cell].style.background = NOVAE.Cells.All[NOVAE.CurrentSheet].Cell.BackgroundColor;
+          }
+
         }
 
       }

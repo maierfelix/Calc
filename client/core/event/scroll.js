@@ -30,6 +30,9 @@
     /** Abort if [STRG] key pressed */
     if (NOVAE.Sheets[NOVAE.CurrentSheet].Input.Keyboard.Strg) return void 0;
 
+    /** Detect large grid */
+    var largeGrid = NOVAE.Event.isLargeGrid();
+
     /** Detect horizontal scrolling */
     var horizontalScroll = NOVAE.Sheets[NOVAE.CurrentSheet].Input.Keyboard.Shift ? true : false;
 
@@ -39,7 +42,10 @@
 
     var difference = 0;
 
-    var calcDifference = Math.floor(NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y * (NOVAE.SystemSpeed - 0.5));
+    var calcDifference = Math.floor(NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y * (NOVAE.SystemSpeed - .5));
+
+    /** Calculate if fast (native) scrolling is necessary */
+    var fastScroll = NOVAE.Sheets[NOVAE.CurrentSheet].Settings.x + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y >= 100 ? true : false;
 
     /** We're on a mobile device */
     if (NOVAE.Settings.Mobile) {
@@ -125,9 +131,6 @@
 
     }
 
-    /** Only animate scrolling if grid is smaller than 65 and we're not on mobile */
-    var largeGrid = NOVAE.Event.isLargeGrid();
-
     /** Calculate a scroll amount, divisible by 25 */
     var scrollAmount = Math.roundTo(NOVAE.Settings.Scroll.Vertical * 5, 25);
 
@@ -144,19 +147,36 @@
         /** DOWN */
         case "down":
 
-          NOVAE.DOM.VerticalMenu.scrollTop += scrollAmount;
-          NOVAE.DOM.Output.scrollTop += scrollAmount;
+          /** Fast scrolling */
+          if (fastScroll) {
 
-          var downSettingsY = Math.floor(NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y / 2.5);
+            NOVAE.DOM.VerticalMenu.scrollTop += scrollAmount;
+            NOVAE.DOM.Output.scrollTop += scrollAmount;
 
-          var downReRender = Math.floor(NOVAE.DOM.Output.scrollTop / 25) + downSettingsY;
+            var downSettingsY = Math.floor(NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y / 2.5);
 
-          if (downReRender >= NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y) {
+            var downReRender = Math.floor(NOVAE.DOM.Output.scrollTop / 25) + downSettingsY;
 
-            NOVAE.DOM.Output.scrollTop = 0;
+            if (downReRender >= NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y) {
+
+              NOVAE.DOM.Output.scrollTop = 0;
+              NOVAE.DOM.VerticalMenu.scrollTop = 0;
+
+              NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY += Math.floor((downReRender - downSettingsY));
+              NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = NOVAE.Settings.Scroll.Vertical;
+              NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Vertical);
+              NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
+              NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
+
+            }
+
+          /** Slow scrolling */
+          } else {
+
             NOVAE.DOM.VerticalMenu.scrollTop = 0;
+            NOVAE.DOM.Output.scrollTop = 0;
 
-            NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY += Math.floor((downReRender - downSettingsY));
+            NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY += NOVAE.Settings.Scroll.Vertical;
             NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = NOVAE.Settings.Scroll.Vertical;
             NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Vertical);
             NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
@@ -169,28 +189,66 @@
         /** UP */
         case "up":
 
-          NOVAE.DOM.VerticalMenu.scrollTop -= scrollAmount;
-          NOVAE.DOM.Output.scrollTop -= scrollAmount;
+          /** Fast scrolling */
+          if (fastScroll) {
 
-          var upSettingsY = Math.floor(NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y / 2.5);
+            NOVAE.DOM.VerticalMenu.scrollTop -= scrollAmount;
+            NOVAE.DOM.Output.scrollTop -= scrollAmount;
 
-          var upReRender = Math.floor(NOVAE.DOM.Output.scrollTop / 25) - upSettingsY;
+            var upSettingsY = Math.floor(NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y / 2.5);
 
-          if (upReRender < 0) upReRender = upReRender * -1;
+            var upReRender = Math.floor(NOVAE.DOM.Output.scrollTop / 25) - upSettingsY;
 
-          if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY > 0 && upReRender === upSettingsY) {
+            if (upReRender < 0) upReRender = upReRender * -1;
 
-            NOVAE.DOM.Output.scrollTop = NOVAE.DOM.Output.scrollHeight;
-            NOVAE.DOM.VerticalMenu.scrollTop = NOVAE.DOM.Output.scrollTop;
+            if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY > 0 && upReRender === upSettingsY) {
 
-            NOVAE.DOM.Output.scrollTop -= 7;
-            NOVAE.DOM.VerticalMenu.scrollTop -= 7;
+              NOVAE.DOM.Output.scrollTop = NOVAE.DOM.Output.scrollHeight;
+              NOVAE.DOM.VerticalMenu.scrollTop = NOVAE.DOM.Output.scrollTop;
 
-            NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY -= Math.floor(upReRender + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y / 4);
-            NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = NOVAE.Settings.Scroll.Vertical;
-            NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Vertical);
-            NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
-            NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
+              NOVAE.DOM.Output.scrollTop -= 7;
+              NOVAE.DOM.VerticalMenu.scrollTop -= 7;
+
+              NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY -= Math.floor(upReRender + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y / 4);
+              NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = NOVAE.Settings.Scroll.Vertical;
+              NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Vertical);
+              NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
+              NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
+
+            }
+
+          /** Slow scrolling */
+          } else {
+
+            NOVAE.DOM.VerticalMenu.scrollTop = 0;
+            NOVAE.DOM.Output.scrollTop = 0;
+
+            if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY - NOVAE.Settings.Scroll.Vertical <= 0) {
+
+              NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY = 0;
+              NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = 0;
+              NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("default", NOVAE.Settings.Scroll.Vertical);
+              NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
+              NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
+
+              if (!largeGrid) NOVAE.Event.animateMouseUpMaximum();
+
+              /** Only redraw, if something is resized */
+              if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.cellResizedX + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.cellResizedY) {
+                if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.redrawOnZero) {
+                  NOVAE.Event.redraw();
+                }
+              }
+
+            } else if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY - NOVAE.Settings.Scroll.Vertical >= 0) {
+
+              NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY -= NOVAE.Settings.Scroll.Vertical;
+              NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = NOVAE.Settings.Scroll.Vertical;
+              NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("up", NOVAE.Settings.Scroll.Vertical);
+              NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
+              NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
+
+            }
 
           }
 
