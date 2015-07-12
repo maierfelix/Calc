@@ -93,6 +93,7 @@ A1 = 0;
 =if (A1 + 10 == 10, "True", "False"); // True
 =if (A1 == 10 || A1 < 10, "True", "False"); // True
 =if (A1 == 0 && A1 >= 0 && A1 != 0, "True", "False"); // False
+=if (A1 == 0, A1 + 10, A1); // 10
 ```
 
 ## Scripts
