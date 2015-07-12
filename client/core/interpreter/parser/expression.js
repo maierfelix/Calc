@@ -130,7 +130,7 @@
     node = this.ruleFactor();
 
     /** Check for a following calculation */
-    while (this.accept(["LX_POW", "LX_MULT", "LX_DIV", "LX_EQ", "LX_NEQ", "LX_GR", "LX_GRE", "LX_LW", "LX_LWE", "LX_AND", "LX_OR"])) {
+    while (this.accept(["LX_POW", "LX_MULT", "LX_DIV"])) {
       /** Left */
       parent = {
         operator: this.currentBlock.type,
