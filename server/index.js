@@ -173,7 +173,7 @@
                     Bucket.updateUser(socket.id, "level", 3);
                     /** Update sheet where user currently is */
                     Bucket.updateUser(socket.id, "sheet", data.sheet);
-                    callback(result);
+                    callback(result.sheets);
                     /** Wrong security token */
                   } else callback(0);
                 });
@@ -238,6 +238,10 @@
         if (!data) return void 0;
 
         var userRoom = Bucket.getCurrentUserRoom(socket.id);
+
+        /** Abort if user is not in a room */
+        if (!userRoom) return void 0;
+
         /** Check user for admin rights and valid room */
         if (!Bucket.isValidUser(socket.id)) return void 0;
 
@@ -334,6 +338,30 @@
 
         /** Send cell update to all clients in the same room */
         Bucket.shareData({sheet: data.sheet, letter: data.letter, cell: data.cell, value: data.value}, socket.id, "cellchange", false);
+
+      });
+
+      /** Resize a row or column */
+      socket.on('resize', function(data) {
+
+        /** Abort if no data was received */
+        if (!data) return void 0;
+
+        var userRoom = Bucket.getCurrentUserRoom(socket.id);
+
+        /** Abort if user is not in a room */
+        if (!userRoom) return void 0;
+
+        /** Check user for admin rights and valid room */
+        if (!Bucket.isValidUser(socket.id)) return void 0;
+
+        /** Validate received data */
+        if (!Security.isSecure(data.sheet) || /** Sheet  */
+            !Security.isSecure(data.type)  || /** Type */
+            !Security.isSecure(data.name)  || /** Name */
+            !Security.isSecure(data.size)) return void 0;
+
+        console.log(data);
 
       });
 

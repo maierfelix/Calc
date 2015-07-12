@@ -118,6 +118,7 @@
           } else {
             /** Insert */
             data.sheets = {};
+            data.resize = {};
             self[collection].insert(data, {safe: true}, function(error, objects) {
               /** Error */
               if (error) {
@@ -194,9 +195,10 @@
 
         var node = {};
         node["sheets"] = data.sheets;
+        node["resize"] = {};
 
         self[collection].update({_id: id}, {$set: node}, function(error, object) {
-          resolve(data.sheets);
+          resolve(data);
         });
 
       }
