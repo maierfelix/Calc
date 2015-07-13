@@ -285,8 +285,8 @@
 
     if (this.block[0] && this.block[1]) {
       if (this.block[0].type === "LX_LPAR") {
-        this.shift();
-        if (this.block[0].type === "LX_RPAR") {
+        if (this.block[1].type === "LX_RPAR") {
+          this.shift();
           this.shift();
           this.shift();
           return (true);

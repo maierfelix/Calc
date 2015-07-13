@@ -70,14 +70,12 @@
         return self[self.switcher](c.left, self.functionName) >= self[self.switcher](c.right, self.functionName);
       },
       LX_AND: function(c) {
-        var result = self[self.switcher](c.left, self.functionName);
-        if (!result) return result;
-        return self[self.switcher](c.right, self.functionName);
+        var a = self[self.switcher](c.left, self.functionName);
+        return (!a ? a : self[self.switcher](c.right, self.functionName));
       },
       LX_OR: function(c) {
-        var result = self[self.switcher](c.left, self.functionName);
-        if (result) return result;
-        return self[self.switcher](c.right, self.functionName);
+        var a = self[self.switcher](c.left, self.functionName);
+        return (a ? a : self[self.switcher](c.right, self.functionName));
       },
       LX_IF: function(c) {
         if (self.interpretExpression(c.left)) {

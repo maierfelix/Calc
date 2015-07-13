@@ -28,8 +28,8 @@
     this.KeyWords = [
 
       /** Statements */
-      { name: "LX_IF",     rx: /^(wenn|if)(?![a-zA-Z0-9_])/i    },
-      { name: "LX_ELSE",   rx: /^(sonst|else)(?![a-zA-Z0-9_])/i },
+      { name: "LX_IF",     rx: /^(if|wenn)(?![a-zA-Z0-9_])/i    },
+      { name: "LX_ELSE",   rx: /^(else|sonst)(?![a-zA-Z0-9_])/i },
 
       /** Brackets */
       { name: "LX_LPAR",   rx: /^[\\(]()+/ },
@@ -42,14 +42,14 @@
       { name: "LX_COLON",  rx: /^[:]+/     },
 
       /** Comparison */
-      { name: "LX_EQ",  rx: /^==/          },
-      { name: "LX_NEQ", rx: /^!=/          },
-      { name: "LX_AND", rx: /^(&&|and)/i   },
-      { name: "LX_OR",  rx: /^([\\|\\|])+/ },
-      { name: "LX_GRE", rx: /^>=/          },
-      { name: "LX_LWE", rx: /^<=/          },
-      { name: "LX_GR",  rx: /^>/           },
-      { name: "LX_LW",  rx: /^</           },
+      { name: "LX_EQ",  rx: /^==/                   },
+      { name: "LX_NEQ", rx: /^!=/                   },
+      { name: "LX_AND", rx: /^(&&|and|und)/i        },
+      { name: "LX_OR",  rx: /^(or|oder|[\\|\\|])+/i },
+      { name: "LX_GRE", rx: /^>=/                   },
+      { name: "LX_LWE", rx: /^<=/                   },
+      { name: "LX_GR",  rx: /^>/                    },
+      { name: "LX_LW",  rx: /^</                    },
 
       /** Assignment */
       { name: "LX_ASSIGN", rx: /^=/ },

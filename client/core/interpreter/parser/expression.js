@@ -37,7 +37,7 @@
       return (this.ruleIf());
     }
 
-    while (this.accept(["LX_PLUS", "LX_MINUS", "LX_EQ", "LX_NEQ", "LX_GR", "LX_GRE", "LX_LW", "LX_LWE", "LX_AND", "LX_OR"])) {
+    while (this.accept(["LX_PLUS", "LX_MINUS", "LX_EQ", "LX_NEQ", "LX_GR", "LX_GRE", "LX_LW", "LX_LWE"])) {
       /** Left */
       parent = {
         operator: this.currentBlock.type,
@@ -46,6 +46,20 @@
       /** Right */
       this.shift();
       parent.right = this.ruleTerm();
+      node = parent;
+    }
+
+    /** Conditions */
+    while (this.accept(["LX_OR", "LX_AND"])) {
+      parent = node;
+      /** Left */
+      parent = {
+        operator: this.currentBlock.type,
+        left: node
+      };
+      /** Right */
+      this.shift();
+      parent.right = this.ruleExpression();
       node = parent;
     }
 
