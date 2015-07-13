@@ -49,6 +49,8 @@
       e.preventDefault();
       /** Delete all cells in the clipboard */
       NOVAE.Sheets[NOVAE.CurrentSheet].Selector.deleteCellSelection();
+      /** Update selection */
+      NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
       return void 0;
     }
 
@@ -92,6 +94,8 @@
         e.preventDefault();
         /** Make paste real */
         NOVAE.ClipBoard.pasteCellsIntoSheet(NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First);
+        /** Update selection */
+        NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
         return void 0;
       }
     }
@@ -103,8 +107,10 @@
         e.preventDefault();
         /** Copy selection */
         NOVAE.ClipBoard.copyCellsToClipBoard();
-        /** Delete selection */
+        /** Delete all cells in the clipboard */
         NOVAE.Sheets[NOVAE.CurrentSheet].Selector.deleteCellSelection();
+        /** Update selection */
+        NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
         return void 0;
       }
     }
@@ -116,6 +122,7 @@
         e.preventDefault();
         /** Set selection to all */
         NOVAE.Sheets[NOVAE.CurrentSheet].Selector.allSelected = true;
+        /** Update selection */
         NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
         return void 0;
       }

@@ -90,6 +90,8 @@
 
     var content = null;
 
+    var formula = null;
+
     for (var ii = 0; ii < copiedCells.length; ++ii) {
       var letter = NOVAE.$.numberToAlpha(copiedCells[ii].letter);
       var number = copiedCells[ii].number;
@@ -98,9 +100,14 @@
         /** Check if cell exists */
         if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number]) {
           content = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].Content;
+          formula = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].Formula;
           /** Valid content */
           if (content !== undefined && content !== null) {
             copiedCells[ii].value = content;
+          }
+          /** Valid formula */
+          if (formula !== undefined && formula !== null) {
+            copiedCells[ii].formula = formula;
           }
         }
       }
@@ -159,6 +166,7 @@
 
       NOVAE.$.registerCell({letter: letter, number: number});
       NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].Content = data[ii].value;
+      NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].Formula = data[ii].formula;
 
     }
 

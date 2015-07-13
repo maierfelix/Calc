@@ -241,7 +241,8 @@
 
       if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter]) {
         if (cell = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number]) {
-          NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].Content = "";
+          NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].Content = null;
+          NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].Formula = null;
         }
       }
 
