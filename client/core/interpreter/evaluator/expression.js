@@ -49,6 +49,12 @@
       return 0;
     }
 
+    /** Got a range */
+    if (ast.Range) {
+      /** Return range array */
+      return (NOVAE.$.rangeToSelection(ast.Range.value));
+    }
+
     /** Got a number or string */
     if (ast.Literal) {
       return ast.Literal.value;

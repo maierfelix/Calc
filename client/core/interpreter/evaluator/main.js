@@ -92,7 +92,9 @@
       /** Math api */
       math: ["asin", "sin", "acos", "cos", "atan", "atan2", "tan", "sqrt", "cbrt", "exp", "random", "min", "max", "round", "floor", "ceil", "roundTo"],
       json: ["JSON", "json"],
-      ajax: ["CONNECT", "connect"]
+      ajax: ["CONNECT", "connect"],
+      /** Functions */
+      func: ["sum"]
     };
 
   };

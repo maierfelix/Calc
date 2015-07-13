@@ -80,9 +80,7 @@
    */
   NOVAE.Event.resetMouseScrollAnimation = function() {
 
-    NOVAE.DOM.Output.setAttribute("class", "viewport");
     NOVAE.DOM.Output.style.top = "0px";
-    NOVAE.DOM.VerticalMenu.setAttribute("class", "menu_ver");
     NOVAE.DOM.VerticalMenu.style.top = "0px";
 
   };

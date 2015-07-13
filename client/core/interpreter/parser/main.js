@@ -33,6 +33,9 @@
     /** Math functions */
     this.MathFunctions = ["LX_MATH"];
 
+    /** Functions */
+    this.Functions = ["LX_SUM"];
+
   };
 
   ENGEL.PARSER.prototype = ENGEL;
@@ -169,6 +172,11 @@
       if (block[0].type === "LX_LPAR") CallExpression.arguments = this.readFunctionArguments();
     }
 
+    /** Read arguments of Function call */
+    else if (this.Functions.indexOf(this.currentBlock.type) >= 0) {
+      if (block[0].type === "LX_LPAR") CallExpression.arguments = this.readFunctionArguments();
+    }
+
     this.shift();
     this.shift();
 
@@ -202,6 +210,15 @@
 
       /** Function call inside the arguments */
       if ((this.ReservedFunctions.concat(this.MathFunctions)).indexOf(block[0].type) >= 0) {
+        parentArray.push(this.functionAssignment());
+        if (this.currentBlock.type === "LX_RPAR") {
+          this.shift();
+          break;
+        }
+      }
+
+      /** Function call inside the arguments */
+      else if ((this.Functions.concat(this.Functions)).indexOf(block[0].type) >= 0) {
         parentArray.push(this.functionAssignment());
         if (this.currentBlock.type === "LX_RPAR") { console.log(1);
           this.shift();

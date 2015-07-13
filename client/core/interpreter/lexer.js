@@ -28,8 +28,8 @@
     this.KeyWords = [
 
       /** Statements */
-      { name: "LX_IF",     rx: /^(wenn|if)(?![a-zA-Z0-9_])/    },
-      { name: "LX_ELSE",   rx: /^(sonst|else)(?![a-zA-Z0-9_])/ },
+      { name: "LX_IF",     rx: /^(wenn|if)(?![a-zA-Z0-9_])/i    },
+      { name: "LX_ELSE",   rx: /^(sonst|else)(?![a-zA-Z0-9_])/i },
 
       /** Brackets */
       { name: "LX_LPAR",   rx: /^[\\(]()+/ },
@@ -44,7 +44,7 @@
       /** Comparison */
       { name: "LX_EQ",  rx: /^==/          },
       { name: "LX_NEQ", rx: /^!=/          },
-      { name: "LX_AND", rx: /^(&&)/        },
+      { name: "LX_AND", rx: /^(&&|and)/i   },
       { name: "LX_OR",  rx: /^([\\|\\|])+/ },
       { name: "LX_GRE", rx: /^>=/          },
       { name: "LX_LWE", rx: /^<=/          },
@@ -63,6 +63,9 @@
 
       /** Math functions */
       { name: "LX_MATH", rx: /^(roundTo|asin|sin|acos|cos|atan|atan2|tan|sqrt|cbrt|exp|random|min|max|round|floor|ceil)/ },
+
+      /** Sum function */
+      { name: "LX_SUM", rx: /^(sum)/ },
 
       /** Connect function */
       { name: "LX_CONNECT", rx: /^(verbinden|connect)/ },
@@ -98,6 +101,12 @@
 
     /** Precompile regex */
     this.lineBreak = /^[\r\n]+/;
+
+    /** Precompile regex */
+    this.getLetters = /[^a-zA-Z]/g;
+
+    /** Precompile regex */
+    this.getNumbers = /[^0-9]/g;
 
     /** Is blank */
     this.isBlank = function() { return arguments[0e0].match(this.blank); };

@@ -818,6 +818,41 @@
   };
 
   /**
+   * Get values of a coordinate array
+   *
+   * @method getValueFromCoordinates
+   * @static
+   */
+  NOVAE.$.getValueFromCoordinates = function(array) {
+
+    var result = 0;
+
+    for (var ii = 0; ii < array.length; ++ii) {
+
+      var object = array[ii];
+
+      if (object.letter && object.number) {
+
+        var letter = NOVAE.$.numberToAlpha(object.letter);
+        var cell = letter + object.number;
+
+        if (NOVAE.Cells.Used[NOVAE.CurrentSheet]) {
+          if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter]) {
+            if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell]) {
+              result += parseInt(NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell].Content) || 0;
+            }
+          }
+        }
+
+      }
+
+    }
+
+    return (result || 0);
+
+  };
+
+  /**
    * Create resized object for a sheet
    *
    * @method createResizedObject

@@ -98,6 +98,11 @@
 
     NOVAE.Sheets[NOVAE.CurrentSheet].Input.Keyboard.Strg = false;
 
+    /** Remove grid animation if grid is larger than 65 */
+    if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.x + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y >= 65) {
+      NOVAE.Event.resetMouseScrollAnimation();
+    }
+
   };
 
   /**

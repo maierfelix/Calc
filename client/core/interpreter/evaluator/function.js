@@ -27,6 +27,99 @@
 
     var args = node.arguments;
 
+    /** Built in functions */
+    if (this.preDefFunc.func.indexOf(callee.Identifier) >= 0) {
+
+      callee.Identifier = callee.Identifier.toUpperCase();
+
+      /** Final result */
+      var result = null;
+
+      /** Compiled arguments */
+      var argumentArray = [];
+
+      /** Compile arguments */
+      for (var ii = 0; ii < args.length; ++ii) {
+        if (!args[ii] || !args[ii].CallExpression) {
+          argumentArray.push(this.interpretExpression(args[ii]));
+        } else {
+          /** Evaluate the function call, dont pass over a variable name to update! */
+          argumentArray.push(this.evalExpression(args[ii].CallExpression));
+        }
+      }
+
+      switch (callee.Identifier) {
+
+        case "SUM":
+          /** Sum up arguments */
+          for (var ii = 0; ii < argumentArray.length; ++ii) {
+            /** Default arguments */
+            if (typeof argumentArray[ii] === "number") {
+              result += argumentArray[ii];
+            } else {
+              /** Seems like we got a range */
+              if (argumentArray[ii] instanceof Array) {
+                result += NOVAE.$.getValueFromCoordinates(argumentArray[ii]);
+              }
+            }
+          }
+          break;
+
+      }
+
+      /** Update variable in the stack */
+      if (name && ENGEL.STACK.get(name)) {
+        ENGEL.STACK.update(name, {
+          raw: result,
+          value: self.TypeMaster(result).value,
+          type: typeof result
+        });
+      }
+
+      return (result);
+
+    }
+
+    /** Math api */
+    if (this.preDefFunc.math.indexOf(callee.Identifier) >= 0) {
+
+      /** Final result */
+      var result = null;
+
+      /** Compiled arguments */
+      var argumentArray = [];
+
+      for (var ii = 0; ii < node.arguments.length; ++ii) {
+        if (!node.arguments[ii] || !node.arguments[ii].CallExpression) {
+          argumentArray.push(this.interpretExpression(node.arguments[ii]));
+        } else {
+          /** Evaluate the function call, dont pass over a variable name to update! */
+          argumentArray.push(this.evalExpression(node.arguments[ii].CallExpression));
+        }
+      }
+
+      /** Check if math api function exists */
+      if (window.Math[callee.Identifier]) {
+
+        if (argumentArray && argumentArray.length) {
+          result = Math[callee.Identifier].apply(null, argumentArray);
+        } else result = Math[callee.Identifier].apply(null, null);
+
+      }
+
+      /** Update variable in the stack */
+      if (name && ENGEL.STACK.get(name)) {
+        ENGEL.STACK.update(name, {
+          raw: result,
+          value: self.TypeMaster(result).value,
+          type: typeof result
+        });
+      }
+
+      return (result);
+
+    }
+
     /** CONNECT */
     if (this.preDefFunc.ajax.indexOf(callee.Identifier) >= 0) {
 
@@ -89,46 +182,6 @@
       }
 
       return void 0;
-
-    }
-
-    /** Math api */
-    if (this.preDefFunc.math.indexOf(callee.Identifier) >= 0) {
-
-      /** Final result */
-      var result = null;
-
-      /** Compiled arguments */
-      var argumentArray = [];
-
-      for (var ii = 0; ii < node.arguments.length; ++ii) {
-        if (!node.arguments[ii] || !node.arguments[ii].CallExpression) {
-          argumentArray.push(this.interpretExpression(node.arguments[ii]));
-        } else {
-          /** Evaluate the function call, dont pass over a variable name to update! */
-          argumentArray.push(this.evalExpression(node.arguments[ii].CallExpression));
-        }
-      }
-
-      /** Check if math api function exists */
-      if (window.Math[callee.Identifier]) {
-
-        if (argumentArray && argumentArray.length) {
-          result = Math[callee.Identifier].apply(null, argumentArray);
-        } else result = Math[callee.Identifier].apply(null, null);
-
-      }
-
-      /** Update variable in the stack */
-      if (name && ENGEL.STACK.get(name)) {
-        ENGEL.STACK.update(name, {
-          raw: result,
-          value: self.TypeMaster(result).value,
-          type: typeof result
-        });
-      }
-
-      return (result);
 
     }
 

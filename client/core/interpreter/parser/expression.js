@@ -168,9 +168,15 @@
       node[mode] = {
         value: ENGEL.TypeMaster(this.currentBlock.value).value
       };
-      /** Variable Range */
+      /** Range */
       if (this.block[0].type === "LX_COLON") {
-        console.log(this.currentBlock, this.block[0], this.block[1]);
+        node = {
+          Range: {
+            value: this.currentBlock.value + this.block[0].value + this.block[1].value
+          }
+        };
+        this.shift();
+        this.shift();
       }
       this.shift();
     /** Bracket calculation */
@@ -190,6 +196,10 @@
     /** Function call */
     } else if (this.accept(this.ReservedFunctions.concat(this.MathFunctions))) {
       /** Add math function name to block start */
+      this.block.unshift(this.currentBlock);
+      node = this.functionAssignment();
+    } else if (this.accept(this.Functions.concat(this.Functions))) {
+      /** Add function name to block start */
       this.block.unshift(this.currentBlock);
       node = this.functionAssignment();
     }
