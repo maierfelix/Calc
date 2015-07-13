@@ -97,6 +97,7 @@ A5 = 25;
 =sum(A1:A5, 100, A1*2); // 185
 ```
 ### Conditions
+Conditions can be typed in english and german and are case insensitive.
 The following example aussumes:
 ```
 A1 = 0;
