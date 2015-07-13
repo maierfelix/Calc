@@ -83,6 +83,19 @@ A4 = !;
 ```js
 A1 = A2 + " " + A3 + A4; // Hello World!
 ```
+### Functions
+The following example assumes:
+```
+A1 = 5;
+A2 = 10;
+A3 = 15;
+A4 = 20;
+A5 = 25;
+```
+```js
+// SUM
+=sum(A1:A5, 100, A1*2); // 185
+```
 ### Conditions
 The following example aussumes:
 ```
