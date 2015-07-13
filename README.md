@@ -73,17 +73,13 @@ If you want to test the latest multi-user functionality, go to:
    - [ ] Save styling as ranges
 
 ## Todo:
-- [ ] Pow support: Math.pow => (2^2)^2, LX_POW
-- [ ] Grid: Pre-render out of view, fall back to native scrolling
+- [ ] Grid: Cache large grid
 
 ## Bugs:
 - [ ] Key scrolling
 - [ ] Reversed selection extending doesnt work
 - [ ] Reversed selection resize ghost switch bug
 - [ ] Styling bug on master column and row background styling (scrolledXY > Settings.xy)
-
-## Notes:
-- [ ] Pow higher priority than multiply
 
 ## Licensing
 ### BSD License:
