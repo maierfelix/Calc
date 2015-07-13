@@ -116,6 +116,37 @@
   };
 
   /**
+   * Create an pow expression AST
+   *
+   * @method rulePow
+   * @return {object} pow AST
+   * @static
+   */
+  ENGEL.PARSER.prototype.rulePow = function() {
+
+    var node;
+    var parent;
+
+    node = this.ruleFactor();
+
+    /** Check for a following calculation */
+    while (this.accept("LX_POW")) {
+      /** Left */
+      parent = {
+        operator: this.currentBlock.type,
+        left: node
+      };
+      /** Right */
+      this.shift();
+      parent.right = this.rulePow();
+      node = parent;
+    }
+
+    return (node);
+
+  };
+
+  /**
    * Create an term expression AST
    *
    * @method ruleTerm
@@ -127,10 +158,10 @@
     var node;
     var parent;
 
-    node = this.ruleFactor();
+    node = this.rulePow();
 
     /** Check for a following calculation */
-    while (this.accept(["LX_POW", "LX_MULT", "LX_DIV"])) {
+    while (this.accept(["LX_MULT", "LX_DIV"])) {
       /** Left */
       parent = {
         operator: this.currentBlock.type,
@@ -138,7 +169,7 @@
       };
       /** Right */
       this.shift();
-      parent.right = this.ruleFactor();
+      parent.right = this.rulePow();
       node = parent;
     }
 
