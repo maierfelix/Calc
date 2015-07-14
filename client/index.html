@@ -33,13 +33,78 @@
   <link rel="stylesheet" type="text/css" href="style/font-awesome.min.css"></link>
   <link rel="stylesheet" type="text/css" href="style/style.css"></link>
   <link rel="stylesheet" type="text/css" href="style/eight-bit-color-picker.css"></link>
-  <link rel="stylesheet" type="text/css" href="style/mui/css/mui.css"/>
+  <!--<link rel="stylesheet" type="text/css" href="style/mui/css/mui.css"/>-->
+  <link rel="stylesheet" type="text/css" href="style/material.css">
   <link rel="stylesheet" type="text/css" href="style/animations.css">
   <link rel="stylesheet" type="text/css" href="style/codemirror.css">
   <link rel="stylesheet" type="text/css" href="style/modal.css">
 </head>
 <body>
-  <div class="mui-container" style="margin-bottom: -19px;">
+<!-- Simple header with scrollable tabs. -->
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+  <header class="mdl-layout__header">
+    <div class="mdl-layout__header-row">
+      <!-- Title -->
+      <span class="mdl-layout-title" style="margin-top:-36px;">NovaeCalc</span>
+    </div>
+    <div class="menu_container">
+      <!-- Change Font Bold -->
+      <button id="change_bold" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+        <img unselectable="on" alt="" src="./icon/icon_res.png" class="ico bold">
+      </button>
+      <!-- Change Font Italic -->
+      <button id="change_italic" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+        <img unselectable="on" alt="" src="./icon/icon_res.png" class="ico italic">
+      </button>
+      <!-- Change Font Underline -->
+      <button id="change_underline" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+        <img unselectable="on" alt="" src="./icon/icon_res.png" class="ico underline">
+      </button>
+      <!-- Change Font Color -->
+      <button id="change_fontColor" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+        <img unselectable="on" alt="" src="./icon/icon_res.png" class="ico fontColor">
+      </button>
+      <!-- Change Background Color -->
+      <button id="change_background" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+        <img unselectable="on" alt="" src="./icon/icon_res.png" class="ico bgColor">
+      </button>
+      <!-- Change Border -->
+      <button hide="true" id="change_border" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+        <img unselectable="on" alt="" src="./icon/icon_res.png" class="ico border">
+      </button>
+      <!-- Insert Column -->
+      <button id="insert_column" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+        <img unselectable="on" alt="" src="./icon/icon_res.png" class="ico insertColumn">
+      </button>
+      <!-- Insert Row -->
+      <button id="insert_row" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+        <img unselectable="on" alt="" src="./icon/icon_res.png" class="ico insertRow">
+      </button>
+      <!-- Delete Column -->
+      <button id="delete_column" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+        <img unselectable="on" alt="" src="./icon/icon_res.png" class="ico deleteColumn">
+      </button>
+      <!-- Delete Row -->
+      <button id="delete_row" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+        <img unselectable="on" alt="" src="./icon/icon_res.png" class="ico deleteRow">
+      </button>
+    </div>
+  </header>
+  <div class="mdl-layout__drawer">
+    <span class="mdl-layout-title">NovaeCalc</span>
+    <nav class="mdl-navigation">
+      <a class="mdl-navigation__link" href="">Link</a>
+      <a class="mdl-navigation__link" href="">Link</a>
+      <a class="mdl-navigation__link" href="">Link</a>
+      <a class="mdl-navigation__link" href="">Link</a>
+    </nav>
+   </div>
+</div>
+
+  <div class="mdl-textfield mdl-js-textfield textfield-demo" style="position: absolute;left: 40px;top: 71px;z-index: 9;">
+      <input id="cell_input" class="mdl-textfield__input" type="text" style="left: 50px;padding: 11px 0;" />
+    </div>
+  <div class="mui-container" style="margin-bottom: -19px;display:none;">
     <div class="mui-panel">
         <span class="bottom_layer">
           <!-- Container holding all active sheets -->
@@ -108,40 +173,14 @@
                 <li><a href="#">24</a></li>
                 <li><a href="#">36</a></li>
               </ul>
-              <!-- Change Font Bold -->
-              <button id="change_bold" class="mui-btn mui-btn-default mui-btn-raised mui-btn-sm"></button>
-              <!-- Change Font Italic -->
-              <button id="change_italic" class="mui-btn mui-btn-default mui-btn-raised mui-btn-sm"></button>
-              <!-- Change Font Underline -->
-              <button id="change_underline" class="mui-btn mui-btn-default mui-btn-raised mui-btn-sm"></button>
-              <!-- Change Font Color -->
-              <button id="change_fontColor" class="mui-btn mui-btn-default mui-btn-raised mui-btn-sm"></button>
-              <!-- Change Background Color -->
-              <button id="change_background" class="mui-btn mui-btn-default mui-btn-raised mui-btn-sm"></button>
-              <!-- Change Border -->
-              <button hide="true" id="change_border" class="mui-btn mui-btn-default mui-btn-raised mui-btn-sm"></button>
             </div>
           </div>
           <div class="mui-tab-pane" id="pane-justified-3">
             <div style="height:34px;margin-top:5px;">
-              <!-- Insert Column -->
-              <button id="insert_column" class="mui-btn mui-btn-default mui-btn-raised mui-btn-sm"></button>
-              <!-- Delete Column -->
-              <button id="delete_column" class="mui-btn mui-btn-default mui-btn-raised mui-btn-sm"></button>
-              <!-- Insert Row -->
-              <button id="insert_row" class="mui-btn mui-btn-default mui-btn-raised mui-btn-sm"></button>
-              <!-- Delete Row -->
-              <button id="delete_row" class="mui-btn mui-btn-default mui-btn-raised mui-btn-sm"></button>
             </div>
           </div>
         </div>
 
-      <div class="mui-row input-container" style="padding-left:5px;padding-bottom:0px;">
-        <div class="mui-form-group">
-          <button class="mui-btn mui-btn-default mui-btn-raised mui-btn-sm cell_formula"></button>
-          <input id="cell_input" type="text" class="mui-form-control">
-        </div>
-      </div>
     </div>
   </div>
 

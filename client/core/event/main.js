@@ -94,8 +94,6 @@
 
     NOVAE.Awakener.evalLive();
 
-    NOVAE.eval();
-
     NOVAE.Sheets[NOVAE.CurrentSheet].Input.Keyboard.Strg = false;
 
     /** Remove grid animation if grid is larger than 65 */

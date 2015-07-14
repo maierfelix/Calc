@@ -91,7 +91,14 @@ button, input, select, textArea {
   position: absolute;
   width: 100%;
   height: 100%;
-  margin-top: 12px;
+  margin-top: 110px;
+}
+
+.menu_container {
+  position: absolute;
+  left: 175px;
+  top: 28px;
+  z-index: 99999;
 }
 
 #container {
@@ -380,6 +387,19 @@ button, input, select, textArea {
   cursor: pointer;
 }
 
+.fa.fa-bars {
+  font-weight: normal;
+  font-style: normal;
+  font-size: 21px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  word-wrap: normal;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
 /** ICONS END */
 
 .centered {
@@ -530,33 +550,6 @@ button, input, select, textArea {
   -ms-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
 }
-
-.insertColumn {
-  color: rgba(50, 50, 50, 0.70);
-  -webkit-transform: rotate(180deg);
-  -webkit-transform-origin: 100% 0;
-  -moz-transform-origin: 100% 0;
-  -ms-transform-origin: 100% 0;
-  -o-transform-origin: 100% 0;
-  transform-origin: 55% 45%;
-  margin-left: 0px;
-}
-
-.insertRow {
-  color: rgba(50, 50, 50, 0.70);
-  -webkit-transform: rotate(265deg) scaleX(1);
-  -moz-transform: rotate(265deg) scaleX(1);
-  -ms-transform: rotate(265deg) scaleX(1);
-  -o-transform: rotate(265deg) scaleX(1);
-  transform: rotate(265deg) scaleX(1);
-  -webkit-transform-origin: 100% 0;
-  -moz-transform-origin: 100% 0;
-  -ms-transform-origin: 100% 0;
-  -o-transform-origin: 100% 0;
-  transform-origin: 55% 45%;
-  margin-left: 0px;
-}
-
 .caret {
   position:absolute;
   margin-top: 7px;
@@ -574,113 +567,113 @@ button, input, select, textArea {
 }
 
 #change_bold {
-  width: 18px;
-  height: 18px;
-  background-color: rgba(50, 50, 50, 0.70);
+  background-color: transparent;
   display: inline-block;
-  -webkit-mask: url(../icon/bold.svg) no-repeat 50% 50%;
-  mask: url(../icon/bold.svg) no-repeat 50% 50%;
-  -webkit-mask-size: cover;
-  mask-size: cover;
+  position: absolute;
+  top: 0px;
+  left: 45px;
+  width: 16px;
+  height: 20px;
+  min-width: 20px !important;
 }
 
 #change_italic {
-  width: 18px;
-  height: 18px;
-  background-color: rgba(50, 50, 50, 0.70);
+  background-color: transparent;
   display: inline-block;
-  -webkit-mask: url(../icon/italic.svg) no-repeat 50% 50%;
-  mask: url(../icon/italic.svg) no-repeat 50% 50%;
-  -webkit-mask-size: cover;
-  mask-size: cover;
+  position: absolute;
+  top: 0px;
+  left: 70px;
+  width: 16px;
+  height: 20px;
+  min-width: 20px !important;
 }
 
 #change_underline {
-  width: 18px;
-  height: 18px;
-  background-color: rgba(50, 50, 50, 0.70);
+  background-color: transparent;
   display: inline-block;
-  -webkit-mask: url(../icon/underlined.svg) no-repeat 50% 50%;
-  mask: url(../icon/underlined.svg) no-repeat 50% 50%;
-  -webkit-mask-size: cover;
-  mask-size: cover;
+  position: absolute;
+  top: 0px;
+  left: 95px;
+  width: 16px;
+  height: 20px;
+  min-width: 20px !important
 }
 
 #change_fontColor {
-  width: 18px;
-  height: 18px;
-  background-color: rgba(50, 50, 50, 0.70);
+  background-color: transparent;
   display: inline-block;
-  -webkit-mask: url(../icon/letter_color.svg) no-repeat 50% 50%;
-  mask: url(../icon/letter_color.svg) no-repeat 50% 50%;
-  -webkit-mask-size: cover;
-  mask-size: cover;
+  position: absolute;
+  top: 25px;
+  left: 46px;
+  width: 16px;
+  height: 20px;
+  min-width: 20px !important;
 }
 
 #change_background {
-  width: 18px;
-  height: 18px;
-  background-color: rgba(50, 50, 50, 0.70);
+  background-color: transparent;
   display: inline-block;
-  -webkit-mask: url(../icon/bucket.svg) no-repeat 50% 50%;
-  mask: url(../icon/bucket.svg) no-repeat 50% 50%;
-  -webkit-mask-size: cover;
-  mask-size: cover;
+  position: absolute;
+  top: 25px;
+  left: 70px;
+  width: 16px;
+  height: 20px;
+  min-width: 20px !important;
 }
 
 #change_border {
-  width: 18px;
-  height: 18px;
-  background-color: rgba(50, 50, 50, 0.70);
+  background-color: transparent;
   display: inline-block;
-  -webkit-mask: url(../icon/border.svg) no-repeat 50% 50%;
-  mask: url(../icon/border.svg) no-repeat 50% 50%;
-  -webkit-mask-size: cover;
-  mask-size: cover;
+  position: absolute;
+  top: 25px;
+  left: 95px;
+  width: 16px;
+  height: 20px;
+  min-width: 20px !important;
 }
 
 #insert_column {
-  width: 18px;
-  height: 18px;
-  background-color: rgba(50, 50, 50, 0.70);
+  background-color: transparent;
   display: inline-block;
-  -webkit-mask: url(../icon/insert_column.svg) no-repeat 50% 50%;
-  mask: url(../icon/insert_column.svg) no-repeat 50% 50%;
-  -webkit-mask-size: cover;
-  mask-size: cover;
+  position: absolute;
+  top: 0px;
+  left: 160px;
+  width: 16px;
+  height: 20px;
+  min-width: 20px !important;
 }
 
 #delete_column {
-  width: 18px;
-  height: 18px;
-  background-color: rgba(50, 50, 50, 0.70);
+  background-color: transparent;
   display: inline-block;
-  -webkit-mask: url(../icon/delete_column.svg) no-repeat 50% 50%;
-  mask: url(../icon/delete_column.svg) no-repeat 50% 50%;
-  -webkit-mask-size: cover;
-  mask-size: cover;
+  position: absolute;
+  top: 0px;
+  left: 185px;
+  width: 16px;
+  height: 20px;
+  min-width: 20px !important;
 }
 
 #insert_row {
-  width: 18px;
-  height: 18px;
-  background-color: rgba(50, 50, 50, 0.70);
+  background-color: transparent;
   display: inline-block;
-  -webkit-mask: url(../icon/insert_row.svg) no-repeat 50% 50%;
-  mask: url(../icon/insert_row.svg) no-repeat 50% 50%;
-  -webkit-mask-size: cover;
-  mask-size: cover;
+  position: absolute;
+  top: 24px;
+  left: 160px;
+  width: 16px;
+  height: 20px;
+  min-width: 20px !important;
 }
 
 #delete_row {
-  width: 18px;
-  height: 18px;
-  background-color: rgba(50, 50, 50, 0.70);
+  background-color: transparent;
   display: inline-block;
-  -webkit-mask: url(../icon/delete_row.svg) no-repeat 50% 50%;
-  mask: url(../icon/delete_row.svg) no-repeat 50% 50%;
-  -webkit-mask-size: cover;
-  mask-size: cover;
+  position: absolute;
+  top: 25px;
+  left: 185px;
+  width: 16px;
+  height: 20px;
+  min-width: 20px !important;
 }
 
 #change_font {
@@ -710,7 +703,7 @@ button, input, select, textArea {
 #cell_input {
   padding-left: 20px;
   margin-left: 10px;
-  margin-top: 0px;
+  margin-top: -6px;
 }
 
 .calculate-icon {
@@ -740,6 +733,88 @@ button, input, select, textArea {
   position: absolute !important;
   margin-left: 10px !important;
   margin-top: 4px !important;
+}
+
+.ico {
+  -webkit-user-drag: none;
+  border-bottom-color: rgb(0, 0, 0);
+  border-bottom-style: none;
+  border-bottom-width: 0px;
+  border-image-outset: 0px;
+  border-image-repeat: stretch;
+  border-image-slice: 100%;
+  border-image-source: none;
+  border-image-width: 1;
+  border-left-color: rgb(0, 0, 0);
+  border-left-style: none;
+  border-left-width: 0px;
+  border-right-color: rgb(0, 0, 0);
+  border-right-style: none;
+  border-right-width: 0px;
+  border-top-color: rgb(0, 0, 0);
+  border-top-style: none;
+  border-top-width: 0px;
+  cursor: default;
+  display: block;
+  height: 180px;
+  list-style-type: none;
+  outline-color: rgb(0, 0, 0);
+  outline-style: none;
+  outline-width: 0px;
+  position: absolute;
+  text-align: left;
+  white-space: nowrap;
+  width: 180px;
+}
+
+.ico.bold {
+  left: 0px;
+  top: -20px;
+}
+
+.ico.italic {
+  left: -19px;
+  top: -20px;
+}
+
+.ico.underline {
+  left: -37px;
+  top: -20px;
+}
+
+.ico.fontColor {
+  left: -20px;
+  top: -38px;
+}
+
+.ico.bgColor {
+  left: 0px;
+  top: -38px;
+}
+
+.ico.border {
+  left: -1px;
+  top: -71px;
+}
+
+.ico.insertColumn {
+  left: 0px;
+  top: -1px;
+}
+
+.ico.insertRow {
+  left: -62px;
+  top: 0px;
+}
+
+.ico.deleteColumn {
+  left: -20px;
+  top: -1px;
+}
+
+.ico.deleteRow {
+  left: -41px;
+  top: 0px;
 }
 
 .fa-file {

@@ -20,7 +20,7 @@ Import.scripts = [
   "lib/eight-bit-color-picker.min.js",
   "lib/socket.io.min.js",
   "lib/codemirror.js",
-  "style/mui/js/mui.min.js",
+  "lib/material.min.js",
   "lib/vm.min.js",
   /** Polyfills */
   "core/polyfill.js",

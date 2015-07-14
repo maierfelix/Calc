@@ -243,6 +243,8 @@
         if (cell = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number]) {
           NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].Content = null;
           NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].Formula = null;
+          /** Remove from interpreter stack */
+          if (ENGEL.STACK.VAR[letter + number]) delete ENGEL.STACK.VAR[letter + number];
         }
       }
 
@@ -253,7 +255,7 @@
   };
 
   /**
-   * Delete content of all cells
+   * Delete content and formula of all cells
    *
    * @method deleteAllCellsContent
    * @static
@@ -269,7 +271,10 @@
 
     for (var ii in cells) {
       for (var cell in cells[ii]) {
-        cells[ii][cell].Content = "";
+        cells[ii][cell].Content = null;
+        cells[ii][cell].Formula = null;
+        /** Remove from interpreter stack */
+        if (ENGEL.STACK.VAR[cell]) delete ENGEL.STACK.VAR[cell];
       }
     }
 
