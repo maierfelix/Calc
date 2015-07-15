@@ -43,10 +43,7 @@
 <!-- Simple header with scrollable tabs. -->
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
   <header class="mdl-layout__header">
-    <div class="mdl-layout__header-row">
-      <!-- Title -->
-      <span class="mdl-layout-title" style="margin-top:-36px;">NovaeCalc</span>
-    </div>
+    <div class="mdl-layout__header-row"></div>
     <div class="menu_container">
       <!-- Change Font Bold -->
       <button id="change_bold" class="mdl-button mdl-js-button mdl-js-ripple-effect">
@@ -88,22 +85,33 @@
       <button id="delete_row" class="mdl-button mdl-js-button mdl-js-ripple-effect">
         <img unselectable="on" alt="" src="./icon/icon_res.png" class="ico deleteRow">
       </button>
+      <div style="position: absolute;z-index: 99999;left: 15px;top: -20px;background: lightgrey;width: 1px;height: 80px;"></div>
+      <div style="position: absolute;z-index: 99999;left: 140px;top: -20px;background: lightgrey;width: 1px;height: 80px;"></div>
+      <div style="position: absolute;z-index: 99999;left: 240px;top: -20px;background: lightgrey;width: 1px;height: 80px;"></div>
+      <span class="mdl-layout-title" style="margin-top: -21px;font-size: 10px;margin-left: 65px;">Styling</span>
+      <span class="mdl-layout-title" style="margin-top: -10px;font-size: 10px;margin-left: 180px;">Cells</span>
     </div>
   </header>
   <div class="mdl-layout__drawer">
     <span class="mdl-layout-title">NovaeCalc</span>
-    <nav class="mdl-navigation">
-      <a class="mdl-navigation__link" href="">Link</a>
-      <a class="mdl-navigation__link" href="">Link</a>
-      <a class="mdl-navigation__link" href="">Link</a>
-      <a class="mdl-navigation__link" href="">Link</a>
-    </nav>
+    <div class="mdl-navigation">
+      <div class="mdl-navigation__link" href="">New</div>
+      <div class="mdl-navigation__link" href="">Save</div>
+      <div id="script_button" class="mdl-navigation__link" href="">Script Manager</div>
+    </div>
    </div>
 </div>
 
-  <div class="mdl-textfield mdl-js-textfield textfield-demo" style="position: absolute;left: 40px;top: 71px;z-index: 9;">
-      <input id="cell_input" class="mdl-textfield__input" type="text" style="left: 50px;padding: 11px 0;" />
-    </div>
+  <span class="bottom_layer">
+    <!-- Container holding all active sheets -->
+    <span id="current_sheets"></span>
+    <button id="add_sheet" class="mdl-button mdl-js-button mdl-button--fab">+</button>
+  </span>
+
+  <div class="mdl-textfield mdl-js-textfield textfield-demo" style="position: absolute;left: 40px;top: 71px;z-index: 9;display:none;">
+    <input id="cell_input" class="mdl-textfield__input" type="text" style="left: 50px;padding: 11px 0;" />
+  </div>
+
   <div class="mui-container" style="margin-bottom: -19px;display:none;">
     <div class="mui-panel">
         <span class="bottom_layer">
@@ -130,7 +138,7 @@
             <span class="fa fa-gear" style="color: #fff;margin-left: 10px;margin-top: 20px;position: absolute;"></span>
             <button class="mui-btn mui-btn-hiddenPurple mui-btn-lg" data-mui-toggle="tab" data-mui-controls="pane-justified-3"> Cells</button>
           </li>
-          <li id="script_button">
+          <li>
             <span class="fa fa-coffee" style="color: #fff;margin-left: 8px;margin-top: 20px;position: absolute;"></span>
             <button class="mui-btn mui-btn-hiddenPurple mui-btn-lg"> Script</button>
           </li>

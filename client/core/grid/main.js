@@ -45,8 +45,8 @@
 
     /** Define Cell sizes */
     this.CellTemplate = {
-      Width: 100,
-      Height: 25
+      Width: 65,
+      Height: 20
     };
 
     /** Helper to detect mouse scroll direction */

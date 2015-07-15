@@ -996,15 +996,18 @@
     var left = index.origLeft;
     var top = index.origTop;
 
+    var width = NOVAE.Sheets[NOVAE.CurrentSheet].CellTemplate.Width;
+    var height = NOVAE.Sheets[NOVAE.CurrentSheet].CellTemplate.Height;
+
     switch (true) {
       case (top === 0):
         number = 1;
         break;
-      case (top === 25):
+      case (top === height):
         number = 2;
         break;
-      case (top > 25):
-        number = top / 25 + 1;
+      case (top > height):
+        number = top / height + 1;
         break;
     }
 
@@ -1014,11 +1017,11 @@
       case (left === 0):
         letter = 1;
         break;
-      case (left === 100):
+      case (left === width):
         letter = 2;
         break;
-      case (left > 100):
-        letter = left / 100 + 1;
+      case (left > width):
+        letter = left / width + 1;
         break;
     }
 

@@ -6508,8 +6508,8 @@ ul, ol {
   width: 48px;
   border: 0;
   -webkit-flex-shrink: 0;
-      -ms-flex-negative: 0;
-          flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
   overflow: hidden;
   text-align: center;
   cursor: pointer;
@@ -6517,8 +6517,8 @@ ul, ol {
   line-height: 50px;
   font-family: Helvetica, Arial, sans-serif;
   margin: 10px 12px;
-  top: 0;
-  left: 0;
+  top: 13px;
+  left: -11px;
   color: rgb(255,255,255);
   z-index: 4; }
   .mdl-layout__header .mdl-layout__drawer-button {
@@ -6653,9 +6653,9 @@ ul, ol {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  height: 110px;
-  min-height: 110px;
-  max-height: 110px;
+  height: 100px;
+  min-height: 100px;
+  max-height: 100px;
   margin: 0;
   padding: 0 40px 0 80px; }
   @media screen and (max-width: 850px) {

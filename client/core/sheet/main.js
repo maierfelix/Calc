@@ -44,7 +44,7 @@
     if (masterSheet && (NOVAE.MasterSheetCount + 1) > 1) {
 
       /** Css class helper */
-      var muiButton = "mui-btn mui-btn-primary mui-btn-lg alertButton";
+      var muiButton = "mdl-button mdl-js-button mdl-js-ripple-effect alertButton";
 
       /** The modal content */
       var title = "<h3>More than one master sheet isn't allowed!</h3>";
@@ -78,7 +78,7 @@
     NOVAE.$.createSheet(NOVAE.CurrentSheet, masterSheet);
 
     var button = document.createElement("button");
-        button.className = "mui-btn mui-btn-default mui-btn-mini slideUp";
+        button.className = "mdl-button mdl-js-button mdl-js-ripple-effect slideUp";
         /** Special background color for master sheets */
         if (masterSheet) button.setAttribute("style", "color:#fff;background-color:rgba(129, 199, 132, 0.8);");
         /** Default background for slave sheets */

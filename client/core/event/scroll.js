@@ -131,8 +131,8 @@
 
     }
 
-    /** Calculate a scroll amount, divisible by 25 */
-    var scrollAmount = Math.roundTo(NOVAE.Settings.Scroll.Vertical * 5, 25);
+    /** Calculate a scroll amount, divisible by celltemplate height */
+    var scrollAmount = Math.roundTo(NOVAE.Settings.Scroll.Vertical * 5, NOVAE.Sheets[NOVAE.CurrentSheet].CellTemplate.Height);
 
     /** User scrolled up or down, dont redraw */
     NOVAE.Sheets[NOVAE.CurrentSheet].Input.lastAction.scrollY = true;
@@ -155,7 +155,7 @@
 
             var downSettingsY = Math.floor(NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y / 2.5);
 
-            var downReRender = Math.floor(NOVAE.DOM.Output.scrollTop / 25) + downSettingsY;
+            var downReRender = Math.floor(NOVAE.DOM.Output.scrollTop / NOVAE.Sheets[NOVAE.CurrentSheet].CellTemplate.Height) + downSettingsY;
 
             if (downReRender >= NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y) {
 
@@ -198,7 +198,7 @@
 
             var upSettingsY = Math.floor(NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y / 2.5);
 
-            var upReRender = Math.floor(NOVAE.DOM.Output.scrollTop / 25) - upSettingsY;
+            var upReRender = Math.floor(NOVAE.DOM.Output.scrollTop / NOVAE.Sheets[NOVAE.CurrentSheet].CellTemplate.Height) - upSettingsY;
 
             if (upReRender < 0) upReRender = upReRender * -1;
 
@@ -207,8 +207,9 @@
               NOVAE.DOM.Output.scrollTop = NOVAE.DOM.Output.scrollHeight;
               NOVAE.DOM.VerticalMenu.scrollTop = NOVAE.DOM.Output.scrollTop;
 
-              NOVAE.DOM.Output.scrollTop -= 7;
-              NOVAE.DOM.VerticalMenu.scrollTop -= 7;
+              /** Scroll amount fix */
+              NOVAE.DOM.Output.scrollTop -= 2;
+              NOVAE.DOM.VerticalMenu.scrollTop -= 2;
 
               NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY -= Math.floor(upReRender + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y / 4);
               NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = NOVAE.Settings.Scroll.Vertical;

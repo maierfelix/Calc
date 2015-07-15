@@ -91,12 +91,12 @@ button, input, select, textArea {
   position: absolute;
   width: 100%;
   height: 100%;
-  margin-top: 110px;
+  margin-top: 95px;
 }
 
 .menu_container {
   position: absolute;
-  left: 175px;
+  left: 35px;
   top: 28px;
   z-index: 99999;
 }
@@ -122,12 +122,102 @@ button, input, select, textArea {
 }
 
 #current_cell {
-  height: 25px;
+  height: 26px;
   width: 51px;
   left: -1px;
   top: 0px;
   border-right: none !important;
   z-index: 9;
+}
+
+#current_sheets>button {
+  margin: 0px 5px 10px;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-user-select: none;
+  align-items: flex-start;
+  animation-duration: 1s;
+  animation-name: slideUp;
+  animation-timing-function: ease;
+  background-attachment: scroll;
+  background-clip: border-box;
+  background-color: rgb(33, 150, 243);
+  background-image: none;
+  background-origin: padding-box;
+  background-size: auto;
+  border-bottom-color: rgb(255, 255, 255);
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-bottom-style: none;
+  border-bottom-width: 0px;
+  border-image-outset: 0px;
+  border-image-repeat: stretch;
+  border-image-slice: 100%;
+  border-image-source: none;
+  border-image-width: 1;
+  border-left-color: rgb(255, 255, 255);
+  border-left-style: none;
+  border-left-width: 0px;
+  border-right-color: rgb(255, 255, 255);
+  border-right-style: none;
+  border-right-width: 0px;
+  border-top-color: rgb(255, 255, 255);
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  border-top-style: none;
+  border-top-width: 0px;
+  box-shadow: rgba(0, 0, 0, 0.65098) 0px 0px 8px 0px;
+  box-sizing: border-box;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  display: inline-block;
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 14px;
+  font-stretch: normal;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 300;
+  height: 27px;
+  letter-spacing: 0.699999988079071px;
+  line-height: 27px;
+  outline-color: rgb(255, 255, 255);
+  outline-style: none;
+  outline-width: 0px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  padding-bottom: 0px;
+  padding-left: 26px;
+  padding-right: 26px;
+  padding-top: 0px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  text-indent: 0px;
+  text-rendering: auto;
+  text-shadow: none;
+  text-transform: none;
+  touch-action: manipulation;
+  transition-delay: 0s;
+  transition-duration: 0.2s;
+  transition-property: all;
+  transition-timing-function: ease-in-out;
+  vertical-align: middle;
+  visibility: visible;
+  width: 98.90625px;
+  word-spacing: 0px;
+  writing-mode: lr-tb;
+  -webkit-writing-mode: horizontal-tb;
+}
+
+#add_sheet {
+  background: rgba(130, 177, 255, 0.8);
+  color: #fff;
+  margin-top: -15px;
+  font-size: 16px;
+  min-height: 42px;
+  height: 42px;
+  min-width: 42px;
+  width: 32px;
 }
 
 .changeFontLabel {
@@ -177,8 +267,8 @@ button, input, select, textArea {
 
 .menu_hor {
   position: absolute;
-  top: 0px;
-  left: -50px;
+  top: 5px;
+  left: -15px;
   width: 100%;
   height: 25px;
   z-index: 3;
@@ -192,6 +282,10 @@ button, input, select, textArea {
   height: 100%;
   z-index: 1;
   overflow: hidden;
+}
+
+.menu_ver>div {
+  width: 100% !important;
 }
 
 .menu_bright {
@@ -215,7 +309,7 @@ button, input, select, textArea {
 }
 
 .cell_dark_alpha {
-  color: #000;
+  color: #5e5e5e;
   background: #fff;
   font-family: 'Roboto', sans-serif;
   border-width: 1px !important;
@@ -230,7 +324,7 @@ button, input, select, textArea {
     -o-linear-gradient(top, lightgrey, rgba(0, 0, 0, 0)) 1 45%;
   border-image:
     linear-gradient(to top, lightgrey, rgba(0, 0, 0, 0)) 1 45%;
-  padding: 5px !important;
+  padding: 3px !important;
 }
 
 .cell_dark_alpha:hover {
@@ -239,7 +333,7 @@ button, input, select, textArea {
 }
 
 .cell_dark_number {
-  color: #000;
+  color: #5e5e5e;
   background: #fff;
   border: solid 1px darkgrey;
   font-family: 'Roboto', sans-serif;
@@ -275,7 +369,7 @@ button, input, select, textArea {
   text-align: center;
   position: absolute;
   overflow: hidden;
-  color: #000;
+  color: #5e5e5e;
 }
 
 .row_hovered {
@@ -637,7 +731,7 @@ button, input, select, textArea {
   display: inline-block;
   position: absolute;
   top: 0px;
-  left: 160px;
+  left: 165px;
   width: 16px;
   height: 20px;
   min-width: 20px !important;
@@ -648,7 +742,7 @@ button, input, select, textArea {
   display: inline-block;
   position: absolute;
   top: 0px;
-  left: 185px;
+  left: 195px;
   width: 16px;
   height: 20px;
   min-width: 20px !important;
@@ -659,7 +753,7 @@ button, input, select, textArea {
   display: inline-block;
   position: absolute;
   top: 24px;
-  left: 160px;
+  left: 165px;
   width: 16px;
   height: 20px;
   min-width: 20px !important;
@@ -670,7 +764,7 @@ button, input, select, textArea {
   display: inline-block;
   position: absolute;
   top: 25px;
-  left: 185px;
+  left: 195px;
   width: 16px;
   height: 20px;
   min-width: 20px !important;
@@ -973,8 +1067,8 @@ button, input, select, textArea {
   position: absolute !important;
   z-index: 9;
   right: 0;
-  margin-top: -7px;
-  padding-top: 0px;
+  margin-top: -9px;
+  padding-top: 5px;
   border-radius: 0px;
   border: none;
   width: 20px;
@@ -1282,6 +1376,10 @@ ul.rotate_wrapper li.rotate_item {
   -moz-animation-delay:0.8s; /* Firefox */
   -webkit-animation-delay:0.8s; /* Safari and Chrome */
   -o-animation-delay:0.8s; /* Opera */
+}
+
+.mdl-navigation>div {
+  cursor: pointer;
 }
 
 @keyframes orbit {
