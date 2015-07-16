@@ -85,7 +85,7 @@ button, input, select, textArea {
 
 #workspace {
   overflow: hidden;
-  font: 12px 'Roboto', sans-serif;
+  font: 11px 'Roboto', sans-serif;
   background: #fff;
   color: #000;
   position: absolute;
@@ -374,9 +374,8 @@ button, input, select, textArea {
 
 .row_hovered {
   background: rgba(198, 198, 198, 0.5) !important;
-  color: #000 !important;
-  padding-top: 3px !important;
-  padding-left: 5px !important;
+  padding-top: 4px !important;
+  padding-left: 4px !important;
   border-left: 1px solid darkgrey !important;
   border-bottom: 1px solid darkgrey !important;
 }
@@ -385,8 +384,7 @@ button, input, select, textArea {
   border: 1px solid #448AFF;
   outline: 1px solid #448AFF;
   background: #fff;
-  color: #000;
-  padding-top: 2px;
+  padding-top: 3px;
   padding-right: 3px;
   z-index: 1;
 }
@@ -1049,6 +1047,7 @@ button, input, select, textArea {
 
 .border_top {
   border-top: 2px solid #448AFF !important;
+  padding-top: 2px !important;
 }
 
 .border_bottom {
@@ -1057,10 +1056,12 @@ button, input, select, textArea {
 
 .border_left {
   border-left: 2px solid #448AFF !important;
+  padding-left: 3px !important;
 }
 
 .border_right {
   border-right: 2px solid #448AFF !important;
+  padding-left: 6px !important;
 }
 
 .closeButton {

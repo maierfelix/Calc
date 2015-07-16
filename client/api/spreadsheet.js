@@ -290,6 +290,8 @@
 
       NOVAE.Cells.Resized[SpreadSheet.CurrentSheetName].columnArray.push(NOVAE.$.alphaToNumber(letter));
 
+      NOVAE.Sheets[SpreadSheet.CurrentSheetName].Settings.cellResizedX += amount;
+
     }
 
     NOVAE.Sheets[SpreadSheet.CurrentSheetName].Input.Mouse.CellResize = true;
@@ -324,6 +326,7 @@
           Width: 0,
           Height: amount
         };
+        NOVAE.Sheets[SpreadSheet.CurrentSheetName].Settings.cellResizedY += amount;
       } else {
         customRows[number].Height = amount;
       }

@@ -28,7 +28,7 @@ setInterval(function() {
   /** Resize all columns */
   var range = new sheet.Range(sheet.getView());
 
-  range.resizeColumns(-80);
+  range.resizeColumns(-30);
 
   range.resizeRows(-5);
 

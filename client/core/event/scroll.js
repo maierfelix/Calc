@@ -207,10 +207,6 @@
               NOVAE.DOM.Output.scrollTop = NOVAE.DOM.Output.scrollHeight;
               NOVAE.DOM.VerticalMenu.scrollTop = NOVAE.DOM.Output.scrollTop;
 
-              /** Scroll amount fix */
-              NOVAE.DOM.Output.scrollTop -= 2;
-              NOVAE.DOM.VerticalMenu.scrollTop -= 2;
-
               NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY -= Math.floor(upReRender + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y / 4);
               NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = NOVAE.Settings.Scroll.Vertical;
               NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Vertical);

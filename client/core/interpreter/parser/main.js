@@ -169,12 +169,12 @@
 
     /** Read arguments of Math function call */
     if (this.MathFunctions.indexOf(this.currentBlock.type) >= 0) {
-      if (block[0].type === "LX_LPAR") CallExpression.arguments = this.readFunctionArguments();
+      if (block[0].type === "LX_LPAR") CallExpression.arguments = this.readArguments();
     }
 
     /** Read arguments of Function call */
     else if (this.Functions.indexOf(this.currentBlock.type) >= 0) {
-      if (block[0].type === "LX_LPAR") CallExpression.arguments = this.readFunctionArguments();
+      if (block[0].type === "LX_LPAR") CallExpression.arguments = this.readArguments();
     }
 
     this.shift();
@@ -185,13 +185,13 @@
   };
 
   /**
-   * Read a functions arguments
+   * Read arguments
    *
-   * @method readFunctionArguments
+   * @method readArguments
    * @return {array} function arguments array
    * @static
    */
-  ENGEL.PARSER.prototype.readFunctionArguments = function() {
+  ENGEL.PARSER.prototype.readArguments = function() {
 
     /** Shorter syntax */
     var block = this.block;
@@ -220,7 +220,7 @@
       /** Function call inside the arguments */
       else if ((this.Functions.concat(this.Functions)).indexOf(block[0].type) >= 0) {
         parentArray.push(this.functionAssignment());
-        if (this.currentBlock.type === "LX_RPAR") { console.log(1);
+        if (this.currentBlock.type === "LX_RPAR") {
           this.shift();
           break;
         }

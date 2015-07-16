@@ -71,6 +71,7 @@
       { name: "LX_CONNECT", rx: /^(verbinden|connect)/ },
 
       /** Types */
+      { name: "LX_BOOL",   rx: /^(true|false)/i                          },
       { name: "LX_VAR",    rx: /^[a-zA-Z_][a-zA-Z0-9_]*/                 },
       { name: "LX_NUMBER", rx: /^[-]?[0-9]+(\.\d+[0-9]*)?/               },
       { name: "LX_STRING", rx: /^"(\\\\"|[^"])(.*?)"|'"'(\\\\'|[^'])*'"/ },
@@ -159,13 +160,9 @@
           if (this.KeyWords[ii].name === "LX_VAR") { 
             match[0] = (match[0]).toUpperCase();
             /** Check if variable is a reserved word */
-            if (this.reservedKeyWords.indexOf(match[0]) >= 0) {
+            /*if (this.reservedKeyWords.indexOf(match[0]) >= 0) {
               console.log(match[0] + " is a reserved word and shall not be used!");
-            }
-            /** Check if variable is valid */
-            if (!this.isValidVariable(match[0])) {
-              console.log(match[0] + " is a invalid variable name!");
-            }
+            }*/
             this.variables.push(match[0].trim());
           }
 
@@ -189,8 +186,9 @@
           if (["LX_MINUS", "LX_PLUS"].indexOf(this.KeyWords[ii].name) >= 0) {
             /** Last token was a number, variable or a string */
             if (["LX_NUMBER", "LX_VAR", "LX_STRING", "LX_RPAR"].indexOf(this.Tokens[this.Tokens.length - 1].type) <= -1) {
-              /** Check if left opening parentheses is following */
-              if (input.substring(match[0e0].length)[0] === "(") {
+              /** Check if left opening parentheses is following, or a + - operator before a variable */
+              if (input.substring(match[0e0].length)[0] === "(" ||
+                 (input.substring(match[0e0].length)[0]).match(this.KeyWords[25].rx)) {
                 switch (this.KeyWords[ii].name) {
                   case "LX_PLUS":
                     this.Tokens.push({
