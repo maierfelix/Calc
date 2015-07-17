@@ -32,8 +32,39 @@
     var failures = 0;
 
     var array = [
-      "10 + max(10, max(10, max(7*7) ) + 20, 4*9)",
-      "10 + max(10, 2*2, max(), min(10,20), max(5*5, 10, max(7*7)) + 20, 4*9) + 2 * max(5, 10) + 90 * min(22, 33) + 10",
+      /** Float numbers */
+      "(2.5+2.0)",
+      "(-2.5+2.0)+2.25",
+      /** Plus */
+      "2+2",
+      "99+9+3",
+      /** Minus */
+      "2-2",
+      "999-9",
+      "100-5-10",
+      "999- -9",
+      /** Mult */
+      "2*2",
+      /** Division */
+      "10/2",
+      /** Operator precedence */
+      "5+5*2",
+      /** Negative numbers */
+      "-20",
+      "(-2.5*2)",
+      "100-22- -30",
+      "22-5+10- -20*-7/(-33.5)",
+      /** Parentheses */
+      "(5*5)-(2+10)*3-(99)",
+      /** Parentheses operator precedence */
+      "-(2*2)+10",
+      "-((2*2)+-(5+2))",
+      "-((-5*5)+(7*7)+-(-9))",
+      "-(-(2*2)+5)",
+      "(-(-(5*5)))+-(-5*-(-5))",
+      /** Math api */
+      "10 + max(22, (7*7) * 5 + 10) + 5",
+      "10 + max(10, 2*2, max(10), 99)",
       "10 + max(max(10, 2*2, max(), min(10,20), max(5*5, 10, max(7*7)) + 20, 4*9) + 2 * max(5, 10) + 90 * min(22, 33) + 10) + min(999, 1000) * 2"
     ];
 
@@ -74,6 +105,7 @@
     "../core/interpreter/lexer.js",
     "../core/interpreter/parser/main.js",
     "../core/interpreter/parser/expression.js",
+    "../core/interpreter/parser/arguments.js",
     "../core/interpreter/evaluator/main.js",
     "../core/interpreter/evaluator/expression.js",
     "../core/interpreter/evaluator/function.js",

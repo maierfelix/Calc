@@ -124,6 +124,39 @@
   };
 
   /**
+   * Create an function expression AST
+   *
+   * @method ruleFunction
+   * @return {object} function AST
+   * @static
+   */
+  ENGEL.PARSER.prototype.ruleFunction = function() {
+
+    var node;
+    var parent;
+
+    /** Add math function name to block start */
+    this.block.unshift(this.currentBlock);
+
+    node = this.functionAssignment();
+
+    if (this.accept("LX_MATH")) {
+      /** Left */
+      parent = {
+        operator: this.currentBlock.type,
+        left: node
+      };
+      /** Right */
+      this.shift();
+      parent.right = this.ruleExpression();
+      node = parent;
+    }
+
+    return (node);
+
+  };
+
+  /**
    * Create an term expression AST
    *
    * @method ruleTerm
@@ -203,9 +236,7 @@
       node.init = this.ruleFactor();
     /** Function call */
     } else if (this.accept(this.ReservedFunctions.concat(this.MathFunctions))) {
-      /** Add math function name to block start */
-      this.block.unshift(this.currentBlock);
-      node = this.functionAssignment();
+      node = this.ruleFunction();
     } else if (this.accept(this.Functions.concat(this.Functions))) {
       /** Add function name to block start */
       this.block.unshift(this.currentBlock);
