@@ -50,7 +50,7 @@
     /** Lexical analysis */
     this.lexed = this.Lexer.lex(stream);
 
-    for (var ii = 0; ii < this.lexed.tokens.length; ++ii) console.log(this.lexed.tokens[ii]);
+    //for (var ii = 0; ii < this.lexed.tokens.length; ++ii) console.log(this.lexed.tokens[ii]);
 
     /** Generate AST */
     this.ast = this.Parser.parse(this.lexed.tokens);

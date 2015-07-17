@@ -177,7 +177,11 @@
       if (block[0].type === "LX_LPAR") CallExpression.arguments = this.readArguments();
     }
 
-    this.shift();
+    /** Read arguments of if expression */
+    else if ("LX_IF".indexOf(this.currentBlock.type) >= 0) {
+      if (block[0].type === "LX_LPAR") CallExpression.arguments = this.readArguments();
+    }
+
     this.shift();
 
     return {CallExpression: CallExpression};
@@ -194,7 +198,7 @@
   ENGEL.PARSER.prototype.readArguments = function() {
 
     /** Shorter syntax */
-    var block = this.block;
+    var block = arguments[0] || this.block;
 
     var parentArray = [];
     var array = [];
@@ -211,18 +215,24 @@
       /** Function call inside the arguments */
       if ((this.ReservedFunctions.concat(this.MathFunctions)).indexOf(block[0].type) >= 0) {
         parentArray.push(this.functionAssignment());
-        if (this.currentBlock.type === "LX_RPAR") {
+        if (this.currentBlock && this.currentBlock.type === "LX_RPAR") {
           this.shift();
-          break;
         }
       }
 
       /** Function call inside the arguments */
       else if ((this.Functions.concat(this.Functions)).indexOf(block[0].type) >= 0) {
         parentArray.push(this.functionAssignment());
-        if (this.currentBlock.type === "LX_RPAR") {
+        if (this.currentBlock && this.currentBlock.type === "LX_RPAR") {
           this.shift();
-          break;
+        }
+      }
+
+      /** Function call inside the arguments */
+      else if (block[0].type === "LX_IF") {
+        parentArray.push(this.functionAssignment());
+        if (this.currentBlock && this.currentBlock.type === "LX_RPAR") {
+          this.shift();
         }
       }
 
@@ -239,6 +249,8 @@
           parentArray.push(array);
           jumper = 0;
           break;
+        } else {
+          array.push(block[0]);
         }
       } else {
         array.push(block[0]);
@@ -270,6 +282,7 @@
     }
 
     this.block = block;
+    this.shift();
 
     return (argumentArray);
 
