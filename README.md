@@ -88,7 +88,9 @@ If you want to test the latest multi-user functionality, go to:
 ### MIT License:
  - [Eight Bit Color Picker](https://github.com/bilalq/eight-bit-color-picker/blob/master/LICENSE)
  - [Fastclick](https://github.com/ftlabs/fastclick/blob/master/LICENSE)
- - [Mui](https://github.com/muicss/mui/blob/master/LICENSE.txt)
  - [Socket.io](https://github.com/Automattic/socket.io/blob/master/LICENSE)
  - [Codemirror](https://github.com/codemirror/CodeMirror/blob/master/LICENSE)
  - [Vm.js](https://github.com/tarruda/vm.js/blob/master/LICENSE-MIT)
+
+### Apache License:
+ - [Mdl](https://github.com/google/material-design-lite/blob/master/LICENSE)
