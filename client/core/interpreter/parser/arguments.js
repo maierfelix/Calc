@@ -41,15 +41,17 @@
       if (this.currentBlock.type === "LX_MATH") {
         if (block[0].type === "LX_LPAR") {
           record = true;
+          jumper++;
         }
       }
 
-      if (record && block[0].type === "LX_RPAR") {
+      if (record && jumper === 0) {
+        jumper--;
         argumentz.push(this.parseArguments(args));
         args = [];
       }
 
-      if (block[0].type === "LX_RPAR" && record) {
+      if (record && jumper <= 0 && block[0].type === "LX_RPAR") {
         record = false;
       }
 
@@ -62,10 +64,15 @@
       }
 
       if (record && block[0]) {
-        if (["LX_LPAR", "LX_RPAR"].indexOf(block[0].type) <= -1) {
-          args.push(block[0]);
+        args.push(block[0]);
+        if (block[0].type === "LX_RPAR") {
+          jumper--;
         }
+      } else {
+        break;
       }
+
+      //console.log(arguments[0] ? true : false, jumper, block[0]);
 
       block.shift();
 
