@@ -182,10 +182,6 @@
       if (block[0].type === "LX_LPAR") CallExpression.arguments = this.readArguments();
     }
 
-    this.shift();
-
-    this.shift();
-
     return {CallExpression: CallExpression};
 
   };

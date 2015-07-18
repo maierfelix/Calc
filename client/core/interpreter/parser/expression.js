@@ -135,12 +135,10 @@
     var node;
     var parent;
 
-    /** Add math function name to block start */
-    this.block.unshift(this.currentBlock);
-
     node = this.functionAssignment();
 
-    if (this.accept("LX_MATH")) {
+    /** Attached function */
+    while (this.accept("LX_MATH")) {
       /** Left */
       parent = {
         operator: this.currentBlock.type,
@@ -236,6 +234,8 @@
       node.init = this.ruleFactor();
     /** Function call */
     } else if (this.accept(this.ReservedFunctions.concat(this.MathFunctions))) {
+      /** Add function name to block start */
+      this.block.unshift(this.currentBlock);
       node = this.ruleFunction();
     } else if (this.accept(this.Functions.concat(this.Functions))) {
       /** Add function name to block start */

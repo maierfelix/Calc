@@ -49,6 +49,7 @@
         jumper--;
         argumentz.push(this.parseArguments(args));
         args = [];
+        break;
       }
 
       if (record && jumper <= 0 && block[0].type === "LX_RPAR") {
@@ -56,11 +57,19 @@
       }
 
       if (block[0].type === "LX_MATH") {
+
         if (block[0].type !== "LX_COMMA") {
           args.push(block[0]);
         }
-        block.shift();
-        argumentz.push(this.readArguments(block));
+
+        if (arguments.length) block.shift();
+
+        var deepArg = this.readArguments(block);
+
+        if (!deepArg) break;
+
+        argumentz.push(deepArg);
+
       }
 
       if (record && block[0]) {
@@ -72,13 +81,17 @@
         break;
       }
 
-      //console.log(arguments[0] ? true : false, jumper, block[0]);
-
       block.shift();
 
     }
 
-    return (argumentz[0]);
+    if (this.block[0].type !== "LX_COMMA") this.shift();
+
+    if (argumentz.length === 1) {
+      return argumentz[0];
+    } else {
+      return argumentz;
+    }
 
   };
 
