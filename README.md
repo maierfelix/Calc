@@ -80,6 +80,7 @@ If you want to test the latest multi-user functionality, go to:
 - [ ] Reversed selection extending doesnt work
 - [ ] Reversed selection resize ghost switch bug
 - [ ] Styling bug on master column and row background styling (scrolledXY > Settings.xy)
+- [ ] Sheet dictionary ENGEL variable stack
 
 ## Licensing
 ### BSD License:
