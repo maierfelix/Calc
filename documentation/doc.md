@@ -124,6 +124,17 @@ A5 = 1;
 =if (sum(A1:A5) >= 10, "A1:A5 = " + sum(A1:A5), "A1:A5 < 10"); // A1:A5 = 10
 ```
 
+Another example, showing how to calculate with a condition's result and use the SUM function.
+<br/>This example aussumes:
+```
+A1 = 5;
+A2 = 25;
+```
+
+```js
+=if (A1 == 5, A1 + if (A2 >= 5, sum(A1:A2), 0), 0); // 35
+```
+
 This example shows, how to use nested IF conditions.
 <br/>This example aussumes:
 ```
