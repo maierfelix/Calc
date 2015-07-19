@@ -45,8 +45,8 @@
 
     /** Define Cell sizes */
     this.CellTemplate = {
-      Width: 65,
-      Height: 20
+      Width: NOVAE.Settings.GridSizes.Columns,
+      Height: NOVAE.Settings.GridSizes.Rows
     };
 
     /** Helper to detect mouse scroll direction */

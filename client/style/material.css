@@ -6527,7 +6527,8 @@ ul, ol {
     background-color: inherit; }
     @media screen and (max-width: 850px) {
       .mdl-layout__header .mdl-layout__drawer-button {
-        margin: 4px; } }
+        margin-left: 12px;
+        margin-top: 10px; } }
   @media screen and (max-width: 850px) {
     .mdl-layout__drawer-button {
       margin: 4px;

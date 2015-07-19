@@ -268,7 +268,7 @@
 
               var resizeHelperValue = parseInt(e.target.style.left) + parseInt(e.target.style.width);
 
-              resizeHelperValue -= Math.floor(self.CellTemplate.Width / 4.25) + 1;
+              resizeHelperValue -= Math.floor(self.CellTemplate.Width / 2.4) + 1;
 
               var name = e.target.innerHTML;
 
@@ -438,7 +438,7 @@
               /** Show the resize helper */
               NOVAE.DOM.RowResizeHelper.style.display = "block";
 
-              var resizeHelperValue = parseInt(e.target.style.top) + 6.5 + parseInt(e.target.style.height);
+              var resizeHelperValue = parseInt(e.target.style.top) + 4 + parseInt(e.target.style.height);
 
               var name = e.target.innerHTML;
 

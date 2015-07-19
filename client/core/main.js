@@ -94,6 +94,12 @@
     OriginalHorizontal: 1
   };
 
+  /** Grid Sizes */
+  NOVAE.Settings.GridSizes = {
+    Columns: 85,
+    Rows: 22
+  };
+
   /** Event helper for mobile and desktop events */
   NOVAE.Events = {};
 
