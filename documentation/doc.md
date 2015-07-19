@@ -98,7 +98,7 @@ A5 = 25;
 ```
 ### Conditions
 Conditions can be typed as operators or in english and german and are case insensitive.
-The following example aussumes:
+<br/>The following example aussumes:
 ```
 A1 = 0;
 ```
@@ -108,6 +108,29 @@ A1 = 0;
 =if (A1 == 10 || A1 < 10, "True", "False"); // True
 =if (A1 == 0 && A1 >= 0 && A1 != 0, "True", "False"); // False
 =if (A1 == 0, A1 + 10, A1); // 10
+```
+
+The next example shows, how to mix the SUM function with conditions.
+<br/>This example aussumes:
+```
+A1 = 1;
+A2 = 2;
+A3 = 3;
+A4 = 3;
+A5 = 1;
+```
+
+```js
+=if (sum(A1:A5) >= 10, "A1:A5 = " + sum(A1:A5), "A1:A5 < 10"); // A1:A5 = 10
+```
+
+This example shows, how to use nested IF conditions.
+<br/>This example aussumes:
+```
+A1 = 10;
+```
+```js
+=if (A1 == 0, "A1 is 0", if (A1 == 10, "A1 is 10", if (A1 > 100, "A1 is > 100", if (A1 < 100, "A1 is < 100", "A1 is below 100")))); // A1 is < 100
 ```
 
 ## Scripts
