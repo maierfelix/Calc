@@ -33,10 +33,6 @@
       }
     }
 
-    if (this.accept("LX_IF")) {
-      return (this.ruleIf());
-    }
-
     while (this.accept(["LX_PLUS", "LX_MINUS", "LX_EQ", "LX_NEQ", "LX_GR", "LX_GRE", "LX_LW", "LX_LWE"])) {
       /** Left */
       parent = {
@@ -61,31 +57,6 @@
       this.shift();
       parent.right = this.ruleExpression();
       node = parent;
-    }
-
-    return (node);
-
-  };
-
-  /**
-   * Create an if statement expression AST
-   *
-   * @method ruleIf
-   * @return {object} if AST
-   * @static
-   */
-  ENGEL.PARSER.prototype.ruleIf = function() {
-
-    var node = {
-      IfStatement: {}
-    };
-
-    if (this.accept("LX_IF")) {
-      node.IfStatement.operator = this.currentBlock.type;
-      this.shift();
-      if (!this.expect("LX_LPAR")) return void 0;
-      node.IfStatement.arguments = this.readArguments();
-      this.shift();
     }
 
     return (node);
@@ -120,19 +91,6 @@
     }
 
     return (node);
-
-  };
-
-  /**
-   * Create an function expression AST
-   *
-   * @method ruleFunction
-   * @return {object} function AST
-   * @static
-   */
-  ENGEL.PARSER.prototype.ruleFunction = function() {
-
-    return (this.functionAssignment());
 
   };
 
@@ -218,9 +176,9 @@
     } else if (this.accept(this.ReservedFunctions.concat(this.MathFunctions))) {
       node = this.ruleArguments();
     } else if (this.accept(this.Functions.concat(this.Functions))) {
-      /** Add function name to block start */
-      this.block.unshift(this.currentBlock);
-      node = this.functionAssignment();
+      node = this.ruleArguments();
+    } else if (this.accept("LX_IF")) {
+      node = this.ruleIfArguments();
     }
 
     return (node);

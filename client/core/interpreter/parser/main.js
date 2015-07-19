@@ -178,7 +178,7 @@
     }
 
     /** Read arguments of if expression */
-    else if ("LX_IF".indexOf(this.currentBlock.type) >= 0) {
+    else if (("LX_IF").indexOf(this.currentBlock.type) >= 0) {
       if (block[0].type === "LX_LPAR") CallExpression.arguments = this.ruleExpression();
     }
 

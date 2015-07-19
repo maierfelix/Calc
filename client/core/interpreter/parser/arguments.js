@@ -43,12 +43,11 @@
 
   };
 
-
   /**
-   * Create an term expression AST
+   * Create an argument array AST
    *
-   * @method ruleTerm
-   * @return {object} term AST
+   * @method ruleArguments
+   * @return {object} argument array AST
    * @static
    */
   ENGEL.PARSER.prototype.ruleArguments = function() {
@@ -62,7 +61,6 @@
 
     node = this.readArgs();
 
-    /** Left */
     var CallExpression = {
       CallExpression: {
         arguments: node,
@@ -71,5 +69,37 @@
     };
 
     return (CallExpression);
+
+  };
+
+  /**
+   * Create an if argument array AST
+   *
+   * @method ruleIfArguments
+   * @return {object} argument array AST
+   * @static
+   */
+  ENGEL.PARSER.prototype.ruleIfArguments = function() {
+
+    var node;
+    var parent;
+
+    var name = {
+      type: this.currentBlock.type,
+      value: this.currentBlock.value
+    };
+
+    this.shift();
+
+    node = this.readArgs();
+
+    var IfStatement = {
+      IfStatement: {
+        arguments: node,
+        operator: name.type
+      }
+    };
+
+    return (IfStatement);
 
   };

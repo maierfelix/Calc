@@ -112,6 +112,7 @@ Import.scripts = [
   "core/interpreter/lexer.js",
   "core/interpreter/parser/main.js",
   "core/interpreter/parser/expression.js",
+  "core/interpreter/parser/arguments.js",
   "core/interpreter/evaluator/main.js",
   "core/interpreter/evaluator/expression.js",
   "core/interpreter/evaluator/function.js",
