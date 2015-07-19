@@ -169,17 +169,17 @@
 
     /** Read arguments of Math function call */
     if (this.MathFunctions.indexOf(this.currentBlock.type) >= 0) {
-      if (block[0].type === "LX_LPAR") CallExpression.arguments = this.readArguments();
+      if (block[0].type === "LX_LPAR") CallExpression.arguments = this.ruleExpression();
     }
 
     /** Read arguments of Function call */
     else if (this.Functions.indexOf(this.currentBlock.type) >= 0) {
-      if (block[0].type === "LX_LPAR") CallExpression.arguments = this.readArguments();
+      if (block[0].type === "LX_LPAR") CallExpression.arguments = this.ruleExpression();
     }
 
     /** Read arguments of if expression */
     else if ("LX_IF".indexOf(this.currentBlock.type) >= 0) {
-      if (block[0].type === "LX_LPAR") CallExpression.arguments = this.readArguments();
+      if (block[0].type === "LX_LPAR") CallExpression.arguments = this.ruleExpression();
     }
 
     return {CallExpression: CallExpression};

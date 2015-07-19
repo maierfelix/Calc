@@ -132,25 +132,7 @@
    */
   ENGEL.PARSER.prototype.ruleFunction = function() {
 
-    var node;
-    var parent;
-
-    node = this.functionAssignment();
-
-    /** Attached function */
-    while (this.accept("LX_MATH")) {
-      /** Left */
-      parent = {
-        operator: this.currentBlock.type,
-        left: node
-      };
-      /** Right */
-      this.shift();
-      parent.right = this.ruleExpression();
-      node = parent;
-    }
-
-    return (node);
+    return (this.functionAssignment());
 
   };
 
@@ -234,9 +216,7 @@
       node.init = this.ruleFactor();
     /** Function call */
     } else if (this.accept(this.ReservedFunctions.concat(this.MathFunctions))) {
-      /** Add function name to block start */
-      this.block.unshift(this.currentBlock);
-      node = this.ruleFunction();
+      node = this.ruleArguments();
     } else if (this.accept(this.Functions.concat(this.Functions))) {
       /** Add function name to block start */
       this.block.unshift(this.currentBlock);

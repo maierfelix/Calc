@@ -14,161 +14,62 @@
 "use strict";
 
   /**
-   * Read arguments
+   * Create an argument array AST
    *
-   * @method readArguments
-   * @return {array} function arguments array
+   * @method readArgs
+   * @return {object} argument AST
    * @static
    */
-  ENGEL.PARSER.prototype.readArguments = function() {
+  ENGEL.PARSER.prototype.readArgs = function() {
 
-    var block = arguments[0] || this.block;
-
-    var argumentz = [];
-
-    var args = [];
-
-    var record = false;
-
-    /** To ignore parentheses */
-    var jumper = 0;
+    var node = [];
 
     /** Empty arguments */
-    if (this.emptyArguments()) return ([]);
-
-    while (block[0]) {
-
-      if (this.currentBlock.type === "LX_MATH") {
-        if (block[0].type === "LX_LPAR") {
-          record = true;
-          jumper++;
-        }
-      }
-
-      if (record && jumper === 0) {
-        jumper--;
-        argumentz.push(this.parseArguments(args));
-        args = [];
-        break;
-      }
-
-      if (record && jumper <= 0 && block[0].type === "LX_RPAR") {
-        record = false;
-      }
-
-      if (block[0].type === "LX_MATH") {
-
-        if (block[0].type !== "LX_COMMA") {
-          args.push(block[0]);
-        }
-
-        if (arguments.length) block.shift();
-
-        var deepArg = this.readArguments(block);
-
-        if (!deepArg) break;
-
-        argumentz.push(deepArg);
-
-      }
-
-      if (record && block[0]) {
-        args.push(block[0]);
-        if (block[0].type === "LX_RPAR") {
-          jumper--;
-        }
-      } else {
-        break;
-      }
-
-      block.shift();
-
+    if (this.block[0].type === "LX_RPAR") {
+      this.shift();
+      this.shift();
+      return (node);
     }
 
-    if (this.block[0].type !== "LX_COMMA") this.shift();
-
-    if (argumentz.length === 1) {
-      return argumentz[0];
-    } else {
-      return argumentz;
+    /** Read arguments */
+    while (this.accept(["LX_LPAR", "LX_COMMA"])) {
+      this.shift();
+      node.push(this.ruleExpression());
     }
-
-  };
-
-  /**
-   * Parse a argument
-   *
-   * @method parseArguments
-   * @static
-   */
-  ENGEL.PARSER.prototype.parseArguments = function(block) {
-
-    var args = [];
-
-    var array = [];
-
-    while (block[0]) {
-
-      if (block[0].type !== "LX_COMMA") {
-        array.push(block[0]);
-      }
-
-      if (block[0].type === "LX_COMMA" || block.length === 1) {
-        args.push(this.injectBlock(array));
-        array = [];
-      }
-
-      block.shift();
-
-    }
-
-    return (args);
-
-  };
-
-  /**
-   * Inject a block array and auto parse it
-   *
-   * @method injectBlock
-   * @static
-   */
-  ENGEL.PARSER.prototype.injectBlock = function(block) {
-
-    var blockBackup = this.block.slice(0);
-
-    this.block = block;
 
     this.shift();
 
-    this.addSemicolon();
-
-    var result = this.ruleExpression();
-
-    this.block = blockBackup.slice(0);
-
-    return (result);
+    return (node);
 
   };
 
+
   /**
-   * Check if function arguments are empty
+   * Create an term expression AST
    *
-   * @method emptyArguments
+   * @method ruleTerm
+   * @return {object} term AST
    * @static
    */
-  ENGEL.PARSER.prototype.emptyArguments = function() {
+  ENGEL.PARSER.prototype.ruleArguments = function() {
 
-    if (this.block[0] && this.block[1]) {
-      if (this.block[0].type === "LX_LPAR") {
-        if (this.block[1].type === "LX_RPAR") {
-          this.shift();
-          this.shift();
-          this.shift();
-          return (true);
-        }
+    var node;
+    var parent;
+
+    var name = this.currentBlock.value;
+
+    this.shift();
+
+    node = this.readArgs();
+
+    /** Left */
+    var CallExpression = {
+      CallExpression: {
+        arguments: node,
+        callee: { Identifier: name }
       }
-    }
+    };
 
-    return (false);
+    return (CallExpression);
 
   };
