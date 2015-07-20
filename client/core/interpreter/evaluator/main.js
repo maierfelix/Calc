@@ -116,15 +116,7 @@
     /** Push Variable into Stack */
     if (node.id.type === "Identifier") {
       /** Initialise empty var stack variable */
-      ENGEL.STACK.VAR[node.id.name] = {
-        name: node.id.name,
-        type: mode,
-        value: {
-          value: null,
-          type: null,
-          raw: null
-        }
-      };
+      ENGEL.STACK.createVariable(node.id.name);
     }
 
     /** Assign expression to variable */

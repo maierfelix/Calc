@@ -63,12 +63,6 @@ body:not(input):not(select):not(textArea), html:not(input):not(select):not(textA
   cursor: default;
 }
 
-input:not([type=button]):not([type=submit]):not([type=checkbox]):not([type=radio]), select, textArea {
-  border: 1px solid rgba(41, 98, 255, 0.7);
-  border-radius: 1px;
-  background: #fff;
-}
-
 button, input, select, textArea {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -78,8 +72,8 @@ button, input, select, textArea {
   vertical-align: middle;
   background: #fff;
   color: #c7c7c7;
-  height: 20px;
-  line-height: 18px;
+  height: 25px;
+  line-height: 20px;
   display: inline-block;
 }
 
@@ -91,7 +85,29 @@ button, input, select, textArea {
   position: absolute;
   width: 100%;
   height: 100%;
-  margin-top: 95px;
+  margin-top: 75px;
+}
+
+.cell_input {
+  position: absolute;
+  left: 50px;
+  top: 75px;
+  z-index: 9;
+  display: block;
+  width: calc(100% - 100px) !important;
+}
+
+.cell_input>input {
+  left: 50px;
+  padding: 11px 5px;
+  background: rgba(0,0,0,0);
+  border: none;
+  color: #fff;
+  border-bottom: 1px solid #FFF;
+}
+
+.cell_input>label {
+  width: calc(100% - 100px) !important;
 }
 
 .menu_container {
@@ -772,6 +788,8 @@ button, input, select, textArea {
 #change_font {
   min-width: 110px;
   max-width: 110px;
+  left: 40px;
+  top: 40px;
 }
 
 #change_fontSize {
@@ -791,12 +809,6 @@ button, input, select, textArea {
   overflow-y: hidden;
   white-space: nowrap;
   height: 57px;
-}
-
-#cell_input {
-  padding-left: 20px;
-  margin-left: 10px;
-  margin-top: -6px;
 }
 
 .calculate-icon {

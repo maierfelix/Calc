@@ -85,7 +85,7 @@
 
     var index = arguments[1] || undefined;
 
-    var interpret = ENGEL.interpret(formula);
+    var interpret = ENGEL.interpret(NOVAE.CurrentSheet, formula);
 
     var name = interpret.Variables.shift();
 
@@ -114,17 +114,22 @@
       }
     }
 
-    return (ENGEL.interpret(formula).Stack.VAR[name].value.value);
+    return (ENGEL.interpret(NOVAE.CurrentSheet, formula).Stack.VAR[name].value.value);
 
   };
 
   /**
-   * Register a new cell into the stack
+   * Register a new cell into the interpreter stack
    *
    * @method registerCellVariable
    * @static
    */
   NOVAE.registerCellVariable = function() {
+
+    /** Register sheet if not existing yet */
+    if (!ENGEL.STACK.VAR[NOVAE.CurrentSheet]) {
+      ENGEL.STACK.VAR[NOVAE.CurrentSheet] = {};
+    }
 
     /** Cell is not registered yet */
     if (!ENGEL.STACK.get(arguments[0])) {
@@ -190,6 +195,7 @@
 
     /** Register the cell into the interpreter variable stack */
     NOVAE.registerCellVariable(arguments[0]);
+
   };
 
   /**

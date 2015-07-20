@@ -55,6 +55,14 @@
       return (NOVAE.$.rangeToSelection(ast.Range.value));
     }
 
+    /** Got a sheet variable reference */
+    if (ast.SheetReference) {
+      console.log(ast.SheetReference.Sheet, ast.SheetReference.value);
+      var value = ENGEL.STACK.getSheetValue(ast.Identifier.value);
+      if (value || value === "" || value === 0) return value;
+      return 1337;
+    }
+
     /** Got a number or string */
     if (ast.Literal) {
       return ast.Literal.value;

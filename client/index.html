@@ -82,7 +82,7 @@
         <img unselectable="on" alt="" src="./icon/icon_res.png" class="ico deleteColumn">
       </button>
       <!-- Delete Row -->
-      <button id="delete_row" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+      <button id="delete_row" class="change_font mdl-button mdl-js-button mdl-js-ripple-effect">
         <img unselectable="on" alt="" src="./icon/icon_res.png" class="ico deleteRow">
       </button>
       <div style="position: absolute;z-index: 99999;left: 15px;top: -20px;background: lightgrey;width: 1px;height: 80px;"></div>
@@ -92,6 +92,15 @@
       <span class="mdl-layout-title" style="margin-top: -10px;font-size: 10px;margin-left: 180px;">Cells</span>
     </div>
   </header>
+  <button id="demo-menu-lower-left" class="mdl-button mdl-js-button mdl-button--icon" style="position:absolute">
+        <i class="material-icons">Change font</i>
+      </button>
+      <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-left">
+        <li class="mdl-menu__item">Some Action</li>
+        <li class="mdl-menu__item">Another Action</li>
+        <li disabled class="mdl-menu__item">Disabled Action</li>
+        <li class="mdl-menu__item">Yet Another Action</li>
+      </ul>
   <div class="mdl-layout__drawer">
     <span class="mdl-layout-title">NovaeCalc</span>
     <div class="mdl-navigation">
@@ -108,8 +117,11 @@
     <button id="add_sheet" class="mdl-button mdl-js-button mdl-button--fab">+</button>
   </span>
 
-  <div class="mdl-textfield mdl-js-textfield textfield-demo" style="position: absolute;left: 290px;top: 50px;z-index: 9;display:block;">
-    <input id="cell_input" class="mdl-textfield__input" type="text" style="left: 50px;padding: 11px 0;" />
+  <div spellcheck="false" class="cell_input mdl-textfield mdl-js-textfield textfield-demo">
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+      <input id="cell_input" class="mdl-textfield__input" type="text" id="sample3" />
+      <label class="mdl-textfield__label" for="sample3"></label>
+    </div>
   </div>
 
   <div class="mui-container" style="margin-bottom: -19px;display:none;">

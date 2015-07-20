@@ -6655,7 +6655,7 @@ ul, ol {
       -ms-flex-align: center;
           align-items: center;
   height: 100px;
-  min-height: 100px;
+  min-height: 133px;
   max-height: 100px;
   margin: 0;
   padding: 0 40px 0 80px; }
@@ -8800,11 +8800,13 @@ _:-ms-input-placeholder, :root .mdl-slider.mdl-slider.is-upgraded {
 /* Animations */
 .mdl-textfield {
   position: relative;
+  z-index: 3;
   font-size: 16px;
   display: inline-block;
   box-sizing: border-box;
-  width: 300px;
-  margin: 0;
+  width: calc(100% - 100px);
+  height: 65px !important;
+  margin-top: -10px;
   padding: 20px 0; }
   .mdl-textfield .mdl-button {
     position: absolute;
@@ -8831,7 +8833,7 @@ _:-ms-input-placeholder, :root .mdl-slider.mdl-slider.is-upgraded {
   width: 100%;
   background: 16px;
   text-align: left;
-  color: inherit; }
+  color: #fcfcfc; }
   .mdl-textfield.is-focused .mdl-textfield__input {
     outline: none; }
   .mdl-textfield.is-invalid .mdl-textfield__input {
@@ -8849,7 +8851,7 @@ _:-ms-input-placeholder, :root .mdl-slider.mdl-slider.is-upgraded {
   right: 0;
   pointer-events: none;
   position: absolute;
-  top: 24px;
+  top: 20px;
   width: 100%;
   overflow: hidden;
   white-space: nowrap;
@@ -8862,7 +8864,7 @@ _:-ms-input-placeholder, :root .mdl-slider.mdl-slider.is-upgraded {
     -webkit-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
             transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
   .mdl-textfield--floating-label.is-focused .mdl-textfield__label, .mdl-textfield--floating-label.is-dirty .mdl-textfield__label {
-    color: rgb(63,81,181);
+    color: rgba(0,0,0, 0.26);
     font-size: 12px;
     top: 4px;
     visibility: visible; }
@@ -8872,7 +8874,7 @@ _:-ms-input-placeholder, :root .mdl-slider.mdl-slider.is-upgraded {
     color: rgb(222, 50, 38);
     font-size: 12px; }
   .mdl-textfield__label:after {
-    background-color: rgb(63,81,181);
+    background-color: #fff;
     bottom: 20px;
     content: '';
     height: 2px;

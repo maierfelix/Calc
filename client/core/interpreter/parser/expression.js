@@ -172,6 +172,28 @@
       this.shift();
       /** Calculate inner bracket */
       node.init = this.ruleFactor();
+    /** Sheet cell reference */
+    } else if (this.accept("LX_SHEET")) {
+
+      /** Syntax: Sheet :: Variable */
+      if (this.block[0].type === "LX_DBL_COLON" &&
+          this.block[1].type === "LX_VAR") {
+
+        /** Create sheet reference object */
+        node = {
+          SheetReference: {
+            Sheet: this.currentBlock.value,
+            value: this.block[1].value
+          }
+        };
+
+        /** Shift double colon */
+        this.shift();
+        /** Shift Variable */
+        this.shift();
+
+      }
+
     /** Function call */
     } else if (this.accept(this.ReservedFunctions.concat(this.MathFunctions))) {
       node = this.ruleArguments();

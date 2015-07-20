@@ -47,6 +47,8 @@
    */
   ENGEL.prototype.interpret = function(stream) {
 
+    //this.currentSheet = sheet;
+
     /** Lexical analysis */
     this.lexed = this.Lexer.lex(stream);
 

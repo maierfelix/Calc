@@ -32,14 +32,15 @@
       { name: "LX_ELSE",   rx: /^(else|sonst)(?![a-zA-Z0-9_])/i },
 
       /** Brackets */
-      { name: "LX_LPAR",   rx: /^[\\(]()+/ },
-      { name: "LX_RPAR",   rx: /^[\\)]()+/ },
-      { name: "LX_LBRAC",  rx: /^[\\{]+/   },
-      { name: "LX_RBRAC",  rx: /^[\\}]+/   },
-      { name: "LX_LHBRAC", rx: /^\[.*?/    },
-      { name: "LX_RHBRAC", rx: /^\].*?/    },
-      { name: "LX_SEMIC",  rx: /^[;]+/     },
-      { name: "LX_COLON",  rx: /^[:]+/     },
+      { name: "LX_LPAR",       rx: /^[\\(]()+/ },
+      { name: "LX_RPAR",       rx: /^[\\)]()+/ },
+      { name: "LX_LBRAC",      rx: /^[\\{]+/   },
+      { name: "LX_RBRAC",      rx: /^[\\}]+/   },
+      { name: "LX_LHBRAC",     rx: /^\[.*?/    },
+      { name: "LX_RHBRAC",     rx: /^\].*?/    },
+      { name: "LX_SEMIC",      rx: /^[;]+/     },
+      { name: "LX_DBL_COLON",  rx: /^[::]+/    },
+      { name: "LX_COLON",      rx: /^[:]+/     },
 
       /** Comparison */
       { name: "LX_EQ",  rx: /^==/                   },
@@ -69,6 +70,9 @@
 
       /** Connect function */
       { name: "LX_CONNECT", rx: /^(verbinden|connect)/ },
+
+      /** Sheet reference */
+      { name: "LX_SHEET",  rx: /^([A-Z0-9 _]*[A-Z0-9][A-Z0-9 _]+)(:)?([A-Z]+[0-9]+)/i },
 
       /** Types */
       { name: "LX_BOOL",   rx: /^(true|false)/i                          },
