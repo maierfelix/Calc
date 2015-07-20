@@ -179,6 +179,21 @@
                 match[0] = match[0].slice(0, 1);
                 break;
               }
+            /** Substract a parenthese */
+            } else if (this.Tokens[this.Tokens.length - 1].type === "LX_RPAR") {
+              var number;
+              /** Negative number */
+              if (number = match[0].split("-")[1]) {
+                this.Tokens.push({
+                  type:  "LX_MINUS",
+                  value: "-"
+                });
+                this.Tokens.push({
+                  type:  "LX_NUMBER",
+                  value: number
+                });
+                break;
+              }
             }
           }
 
@@ -189,6 +204,7 @@
               /** Check if left opening parentheses is following, or a + - operator before a variable */
               if (input.substring(match[0e0].length)[0] === "(" ||
                  (input.substring(match[0e0].length)[0]).match(this.KeyWords[25].rx)) {
+
                 switch (this.KeyWords[ii].name) {
                   case "LX_PLUS":
                     this.Tokens.push({
@@ -203,6 +219,7 @@
                     });
                     break;
                 }
+
                 match[0] = match[0].slice(0, 1);
                 break;
               }
