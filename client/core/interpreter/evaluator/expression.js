@@ -58,8 +58,8 @@
     /** Got a sheet variable reference */
     if (ast.SheetReference) {
       console.log(ast.SheetReference.Sheet, ast.SheetReference.value);
-      var value = ENGEL.STACK.getSheetValue(ast.Identifier.value);
-      if (value || value === "" || value === 0) return value;
+      //var value = ENGEL.STACK.getSheetValue(ast.SheetReference.Sheet, ast.SheetReference.value);
+      //if (value || value === "" || value === 0) return value;
       return 1337;
     }
 

@@ -39,7 +39,6 @@
       { name: "LX_LHBRAC",     rx: /^\[.*?/    },
       { name: "LX_RHBRAC",     rx: /^\].*?/    },
       { name: "LX_SEMIC",      rx: /^[;]+/     },
-      { name: "LX_DBL_COLON",  rx: /^[::]+/    },
       { name: "LX_COLON",      rx: /^[:]+/     },
 
       /** Comparison */
@@ -65,14 +64,17 @@
       /** Math functions */
       { name: "LX_MATH", rx: /^(roundTo|asin|sin|acos|cos|atan|atan2|tan|sqrt|cbrt|exp|random|min|max|round|floor|ceil)/ },
 
-      /** Sum function */
-      { name: "LX_SUM", rx: /^(sum)/ },
+      /** Built-in Functions */
+      { name: "LX_SUM",     rx: /^(sum|summe)/i         },
+      { name: "LX_COUNTIF", rx: /^(countif|zählewenn)/i },
+      { name: "LX_COUNT",   rx: /^(count|anzahl)/i      },
+      { name: "LX_BETWEEN", rx: /^(between|zwischen)/i  },
 
       /** Connect function */
       { name: "LX_CONNECT", rx: /^(verbinden|connect)/ },
 
       /** Sheet reference */
-      { name: "LX_SHEET",  rx: /^([A-Z0-9 _]*[A-Z0-9][A-Z0-9 _]+)(:)?([A-Z]+[0-9]+)/i },
+      { name: "LX_SHEET", rx: /^[a-zA-Z0-9_]+(::)/i },
 
       /** Types */
       { name: "LX_BOOL",   rx: /^(true|false)/i                          },
@@ -155,9 +157,17 @@
         /** Matches with a keyword regex */
         if (match = input.match(this.KeyWords[ii].rx)) {
 
+          if (this.KeyWords[ii].name === "LX_SHEET") {
+            this.Tokens.push({
+              type:  "LX_SHEET",
+              value: match[0].replace("::", "")
+            });
+            break;
+          }
+
           /** Optimize math, display function and operator precedences */
           if (["LX_UPLUS", "LX_UMINUS"].indexOf(this.KeyWords[ii].name) >= 0) {
-            match[0] = match[0].slice(0, -1);
+            match[0] = match[0].slice(0, 1);
           }
 
           /** Turn variables automatically uppercase */
@@ -206,8 +216,7 @@
             /** Last token was a number, variable or a string */
             if (["LX_NUMBER", "LX_VAR", "LX_STRING", "LX_RPAR"].indexOf(this.Tokens[this.Tokens.length - 1].type) <= -1) {
               /** Check if left opening parentheses is following, or a + - operator before a variable */
-              if (input.substring(match[0e0].length)[0] === "(" ||
-                 (input.substring(match[0e0].length)[0]).match(this.KeyWords[25].rx)) {
+              if (input.substring(match[0e0].length)[0] === "(") {
 
                 switch (this.KeyWords[ii].name) {
                   case "LX_PLUS":

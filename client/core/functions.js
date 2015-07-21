@@ -350,6 +350,33 @@
   };
 
   /**
+   * Check if a cell is registered or not
+   *
+   * @method cellIsRegistered
+   * @static
+   */
+  NOVAE.$.cellIsRegistered = function(object) {
+
+    var letter = NOVAE.$.numberToAlpha(object.letter);
+    var number = object.number;
+
+    if (letter && number >= 1) {
+
+      if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter]) {
+        if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number]) {
+          return (true);
+        }
+      }
+
+      return (false);
+
+    }
+
+    return void 0;
+
+  };
+
+  /**
    * Get a specific cell
    *
    * @method getCell
@@ -721,7 +748,7 @@
   };
 
   /**
-   * Get cell used property from a selection array
+   * Get property from cell used stack of a selection array
    *
    * @method getSelectionCellProperty
    * @static

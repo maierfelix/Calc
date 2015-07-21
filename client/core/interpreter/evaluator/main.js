@@ -89,10 +89,10 @@
       display: ["log", "print"],
       /** Math api */
       math: ["asin", "sin", "acos", "cos", "atan", "atan2", "tan", "sqrt", "cbrt", "exp", "random", "min", "max", "round", "floor", "ceil", "roundTo"],
-      json: ["JSON", "json"],
-      ajax: ["CONNECT", "connect"],
+      json: ["json"],
+      ajax: ["connect"],
       /** Functions */
-      func: ["sum"]
+      func: ["sum", "count", "countif", "between"]
     };
 
   };

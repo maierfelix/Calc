@@ -45,6 +45,17 @@
           return (this.interpretExpression(ast.arguments[2]));
         }
 
+      /** Something happened wrong */
+      } else {
+
+        if (!condition) {
+          return ("Missing condition");
+        } else if (!ast.arguments[1]) {
+          return ("Missing value_if_true");
+        } else if (!ast.arguments[2]) {
+          return ("Missing value_if_false");
+        }
+
       }
 
     }

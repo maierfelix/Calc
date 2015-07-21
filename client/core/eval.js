@@ -85,7 +85,7 @@
 
     var index = arguments[1] || undefined;
 
-    var interpret = ENGEL.interpret(NOVAE.CurrentSheet, formula);
+    var interpret = ENGEL.interpret(formula);
 
     var name = interpret.Variables.shift();
 
@@ -114,7 +114,7 @@
       }
     }
 
-    return (ENGEL.interpret(NOVAE.CurrentSheet, formula).Stack.VAR[name].value.value);
+    return (ENGEL.interpret(formula).Stack.VAR[name].value.value);
 
   };
 

@@ -176,14 +176,13 @@
     } else if (this.accept("LX_SHEET")) {
 
       /** Syntax: Sheet :: Variable */
-      if (this.block[0].type === "LX_DBL_COLON" &&
-          this.block[1].type === "LX_VAR") {
+      if (this.block[0].type === "LX_VAR") {
 
         /** Create sheet reference object */
         node = {
           SheetReference: {
             Sheet: this.currentBlock.value,
-            value: this.block[1].value
+            value: this.block[0].value
           }
         };
 

@@ -27,10 +27,10 @@
 
     var args = node.arguments;
 
+    callee.Identifier = callee.Identifier.toLowerCase();
+
     /** Built in functions */
     if (this.preDefFunc.func.indexOf(callee.Identifier) >= 0) {
-
-      callee.Identifier = callee.Identifier.toUpperCase();
 
       /** Final result */
       var result = null;
@@ -50,20 +50,54 @@
 
       switch (callee.Identifier) {
 
-        case "SUM":
-          /** Sum up arguments */
-          for (var ii = 0; ii < argumentArray.length; ++ii) {
-            /** Default arguments */
-            if (typeof argumentArray[ii] === "number") {
-              result += argumentArray[ii];
-            } else {
-              /** Seems like we got a range */
-              if (argumentArray[ii] instanceof Array) {
-                result += NOVAE.$.getValueFromCoordinates(argumentArray[ii]);
+        /** SUM */
+        case "sum":
+          /** Default arguments */
+          if (typeof argumentArray[0] === "number") {
+            result += argumentArray[0];
+          } else {
+            /** Seems like we got a range */
+            if (argumentArray[0] instanceof Array) {
+              result += NOVAE.$.getValueFromCoordinates(argumentArray[0]);
+            }
+          }
+        break;
+
+        /** COUNT */
+        case "count":
+          var length = 0;
+          /** Require a range */
+          if (argumentArray[0] instanceof Array) {
+            var array = NOVAE.$.getSelectionCellProperty(argumentArray[0], "Content");
+            for (var ii = 0; ii < array.length; ++ii) {
+              /** Only count valid numbers */
+              if (array[ii].value && array[ii].value !== "" && !isNaN(array[ii].value)) {
+                length++;
               }
             }
           }
-          break;
+          result = length;
+        break;
+
+        /** COUNTIF */
+        case "countif":
+          console.log(argumentArray);
+        break;
+
+        /** BETWEEN */
+        case "between":
+          var a = argumentArray[0];
+          var b = argumentArray[1];
+          var c = argumentArray[2];
+          /** Why not also support ranges? */
+          if (typeof a === "number") {
+            if (a <= b && a >= c) {
+              result = true;
+            } else {
+              result = false;
+            }
+          }
+        break;
 
       }
 
