@@ -451,8 +451,10 @@
 
     var name = arguments[0] || NOVAE.CurrentSheet;
 
+    var length = NOVAE.Sheets[name].Selector.SelectedCells.length;
+
     /** Loop through all selected cells */
-    for (var ii = 0; ii < NOVAE.Sheets[name].Selector.SelectedCells.length; ++ii) {
+    for (var ii = 0; ii < length; ++ii) {
       var letter = NOVAE.$.numberToAlpha(NOVAE.Sheets[name].Selector.SelectedCells[ii].letter);
       var number = NOVAE.Sheets[name].Selector.SelectedCells[ii].number;
       NOVAE.$.registerCell({ letter: letter, number: number, sheet: name });
@@ -759,7 +761,9 @@
 
     var resultArray = [];
 
-    for (var ii = 0; ii < array.length; ++ii) {
+    var length = array.length;
+
+    for (var ii = 0; ii < length; ++ii) {
       var letter = NOVAE.$.numberToAlpha(array[ii].letter);
       var number = array[ii].number;
       var value = null;
@@ -854,7 +858,9 @@
 
     var result = 0;
 
-    for (var ii = 0; ii < array.length; ++ii) {
+    var length = array.length;
+
+    for (var ii = 0; ii < length; ++ii) {
 
       var object = array[ii];
 
@@ -1002,7 +1008,7 @@
       ii++;
     }
 
-    return ii;
+    return (ii);
 
   };
 

@@ -78,8 +78,10 @@
     /** Sort array alphabetically */
     customArray = customArray.sortOn("old");
 
+    var length = customArray.length;
+
     /** Not reversed! */
-    for (var ii = 0; ii < customArray.length; ++ii) {
+    for (var ii = 0; ii < length; ++ii) {
       var value = customArray[ii];
       /** Selection matches the master cell, simply delete it */
       if (NOVAE.$.alphaToNumber(value.new) < firstSelected.Letter) {
@@ -108,8 +110,10 @@
     /** Sort array alphabetically */
     customArray = customArray.sortOn("old");
 
+    var length = customArray.length;
+
     /** Not reversed! */
-    for (var ii = 0; ii < customArray.length; ++ii) {
+    for (var ii = 0; ii < length; ++ii) {
       var value = customArray[ii];
       /** Selection matches the master cell, simply delete it */
       if (NOVAE.$.alphaToNumber(value.new) < firstSelected.Letter) {
@@ -138,8 +142,10 @@
     /** Sort array alphabetically */
     customArray = customArray.sortOn("old");
 
+    var length = customArray.length;
+
     /** Not reversed! */
-    for (var ii = 0; ii < customArray.length; ++ii) {
+    for (var ii = 0; ii < length; ++ii) {
       var value = customArray[ii];
       /** Selection matches the cell, simply delete it */
       if (NOVAE.$.alphaToNumber(value.new) < firstSelected.Letter) {
@@ -217,8 +223,10 @@
     /** Sort array numeric ascending */
     customArray = customArray.sortOn("old");
 
+    var length = customArray.length;
+
     /** Not reversed! */
-    for (var ii = 0; ii < customArray.length; ++ii) {
+    for (var ii = 0; ii < length; ++ii) {
       var value = customArray[ii];
       /** Selection matches the master cell, simply delete it */
       if (value.new < firstSelected) {
@@ -247,8 +255,10 @@
     /** Sort array numeric ascending */
     customArray = customArray.sortOn("old");
 
+    var length = customArray.length;
+
     /** Not reversed! */
-    for (var ii = 0; ii < customArray.length; ++ii) {
+    for (var ii = 0; ii < length; ++ii) {
       var value = customArray[ii];
       /** Selection matches the master cell, simply delete it */
       if (value.new < firstSelected) {
@@ -277,8 +287,10 @@
     /** Sort array numeric ascending */
     customArray = customArray.sortOn("old");
 
+    var length = customArray.length;
+
     /** Not reversed! */
-    for (var ii = 0; ii < customArray.length; ++ii) {
+    for (var ii = 0; ii < length; ++ii) {
       var value = customArray[ii];
       /** Selection matches the cell, simply delete it */
       if (value.new < firstSelected) {

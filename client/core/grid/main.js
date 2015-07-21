@@ -279,21 +279,22 @@
   NOVAE.Grid.prototype.generateCells = function() {
 
     /** Detect breakpoints and switch between pre-letters */
-    var Breaks = 1,
-        Number = 0,
-        Letter = null;
+    var Breaks = 1;
+    var Number = 0;
+    var Letter = null;
 
     var ii = 0;
 
     /** Clean counter */
     var kk = 0;
 
-    var x, y = 0;
+    var x = 0;
+    var y = 0;
 
     var style = null;
 
-    var styleWidth = this.Templates.Cell.style.width,
-        styleHeight = this.Templates.Cell.style.height;
+    var styleWidth = this.Templates.Cell.style.width;
+    var styleHeight = this.Templates.Cell.style.height;
 
     var output = "";
 

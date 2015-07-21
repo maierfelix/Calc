@@ -175,7 +175,7 @@
 
                 NOVAE.DOM.Output.style.display = "block";
 
-              }, 1);
+              }, 0);
 
             }
 
@@ -228,7 +228,7 @@
 
                 NOVAE.DOM.Output.style.display = "block";
 
-            }, 1);
+            }, 0);
 
             }
 

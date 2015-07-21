@@ -21,22 +21,24 @@
    */
   NOVAE.Grid.prototype.updateHeight = function(dir, scrollAmount) {
 
-    var width = this.Settings.x,
-        height = this.Settings.y,
-        br = this.Settings.y,
-        helper = 0,
-        calculation = 0,
-        /** Cell name attributes */
-        Letter = null,
-        Number = 0;
+    var width = this.Settings.x;
+    var height = this.Settings.y;
+    var br = this.Settings.y;
+    var helper = 0;
+    var calculation = 0;
+    /** Cell name attributes */
+    var Letter;
+    var Number = 0;
 
-    /** Speed optimization, avoid using regular expressions */
+    /** Create letter of major first column in view from the left */
     Letter = NOVAE.$.numberToAlpha(this.Settings.scrolledX + 1);
 
     /** Check if safe integer, also don't go below zero */
-    this.Settings.scrolledY = this.Settings.scrolledY < 0 ? 0 : NOVAE.$.isSafeInteger(this.Settings.scrolledY);
+    this.Settings.scrolledY = this.Settings.scrolledY < 0 ? 0 : this.Settings.scrolledY;
 
-    for (var ii = 0; ii < width * height; ++ii) {
+    var length = width * height;
+
+    for (var ii = 0; ii < length; ++ii) {
 
       /** Scroll Down */
       if (dir === "down") {
@@ -98,18 +100,18 @@
    */
   NOVAE.Grid.prototype.updateWidth = function(dir) {
 
-    var lastX = 0,
-        lastY = 0;
+    var lastX = 0;
+    var lastY = 0;
 
-    var width = this.Settings.x,
-        height = this.Settings.y,
-        br = this.Settings.y,
-        ii = 0;
+    var width = this.Settings.x;
+    var height = this.Settings.y;
+    var br = this.Settings.y;
+    var ii = 0;
 
     var calculation = 0;
 
-    var Letter = null,
-        Number = 0;
+    var Letter;
+    var Number = 0;
 
     /** View fix for the width */
     width += 1;
@@ -389,8 +391,6 @@
 
   /**
    * Remove specific cell styling
-   *
-   * This is really slow, make this faster!
    *
    * @method removeCellStyling
    * @static
