@@ -159,15 +159,23 @@
 
             if (downReRender >= NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y) {
 
-              NOVAE.DOM.Output.scrollTop = 0;
-              NOVAE.DOM.VerticalMenu.scrollTop = 0;
+              setTimeout(function() {
 
-              NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY += Math.floor((downReRender - downSettingsY));
-              NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = NOVAE.Settings.Scroll.Vertical;
-              NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Vertical);
-              NOVAE.Sheets[NOVAE.CurrentSheet].Selector.cleanHoverEffect();
-              NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
-              NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
+                NOVAE.DOM.Output.scrollTop = 0;
+                NOVAE.DOM.VerticalMenu.scrollTop = 0;
+
+                NOVAE.DOM.Output.style.display = "none";
+
+                NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY += Math.floor((downReRender - downSettingsY));
+                NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = NOVAE.Settings.Scroll.Vertical;
+                NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Vertical);
+                NOVAE.Sheets[NOVAE.CurrentSheet].Selector.cleanHoverEffect();
+                NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
+                NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
+
+                NOVAE.DOM.Output.style.display = "block";
+
+              }, 1);
 
             }
 
@@ -204,15 +212,23 @@
 
             if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY > 0 && upReRender === upSettingsY) {
 
-              NOVAE.DOM.Output.scrollTop = NOVAE.DOM.Output.scrollHeight;
-              NOVAE.DOM.VerticalMenu.scrollTop = NOVAE.DOM.Output.scrollTop;
+              setTimeout(function() {
 
-              NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY -= Math.floor(upReRender + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y / 4);
-              NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = NOVAE.Settings.Scroll.Vertical;
-              NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Vertical);
-              NOVAE.Sheets[NOVAE.CurrentSheet].Selector.cleanHoverEffect();
-              NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
-              NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
+                NOVAE.DOM.Output.scrollTop = NOVAE.DOM.Output.scrollHeight;
+                NOVAE.DOM.VerticalMenu.scrollTop = NOVAE.DOM.Output.scrollTop;
+
+                NOVAE.DOM.Output.style.display = "none";
+
+                NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY -= Math.floor(upReRender + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y / 4);
+                NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = NOVAE.Settings.Scroll.Vertical;
+                NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Vertical);
+                NOVAE.Sheets[NOVAE.CurrentSheet].Selector.cleanHoverEffect();
+                NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
+                NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
+
+                NOVAE.DOM.Output.style.display = "block";
+
+            }, 1);
 
             }
 

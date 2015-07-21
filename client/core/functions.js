@@ -958,13 +958,19 @@
    */
   NOVAE.$.submitModal = function(option) {
 
-    var element = document.querySelector("#mui-overlay");
+    var element = document.querySelector("#modal_helper");
 
     if (element.children) element = element.children[0];
     else element = void 0;
 
     /** Simulate mouse click */
     if (element) {
+      for (var ii = 0; ii < element.children.length; ++ii) {
+        if (element.children[ii].nodeName === "DIV") {
+          element = element.children[ii];
+          break;
+        }
+      }
       for (var ii = 0; ii < element.children.length; ++ii) {
         if (element.children[ii].nodeName === "BUTTON") {
           if (element.children[ii].getAttribute("name")) {

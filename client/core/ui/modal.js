@@ -16,6 +16,8 @@
   /** Initialize the cell style menu */
   NOVAE_UI.Modal = function(title, content, resolve) {
 
+    var modalContainer = document.querySelector("#modal_helper");
+
     /** Set active modal in current sheet to active */
     if (NOVAE.Sheets[NOVAE.CurrentSheet]) NOVAE.Sheets[NOVAE.CurrentSheet].activeModal = true;
 
@@ -41,8 +43,9 @@
         if (parsedContent.children[ii].nodeName === "BUTTON") {
           parsedContent.children[ii].addEventListener('click', function(e) {
             resolve(e.target.getAttribute("name"));
-            /** Auto close modal */
-            mui.overlay('off');
+            /** Close modal */
+            modalContainer.style.display = "none";
+            modalContainer.innerHTML = "";
           });
         }
       }
@@ -50,17 +53,17 @@
     }
 
     var container = document.createElement("div");
-        container.className = "modal modal-animation-fade fadeIn";
 
-    for (var ii in parsedContent.children) {
-      if (parsedContent.children[ii] instanceof HTMLElement) {
-        container.appendChild(parsedContent.children[ii]);
-      }
-    }
+    container.appendChild(parsedContent.children[0]);
+    container.appendChild(parsedContent.children[0]);
 
-    // Show the modal
-    mui.overlay('on', container);
+    var parentContainer = document.createElement("div");
+        parentContainer.className = "modal_container";
 
-    container.appendChild(parsedTitle);
+    parentContainer.appendChild(parsedTitle.children[0]);
+    parentContainer.appendChild(container);
+
+    modalContainer.appendChild(parentContainer);
+    modalContainer.style.display = "block";
 
   };

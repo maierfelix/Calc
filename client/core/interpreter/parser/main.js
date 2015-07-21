@@ -160,7 +160,7 @@
     /** Call expression template */
     var CallExpression = {
       callee: {
-        Identifier: block[0].value
+        Identifier: block[0].type.replace("LX_", "")
       },
       arguments: []
     };

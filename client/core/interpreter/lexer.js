@@ -65,7 +65,7 @@
       { name: "LX_MATH", rx: /^(roundTo|asin|sin|acos|cos|atan|atan2|tan|sqrt|cbrt|exp|random|min|max|round|floor|ceil)/ },
 
       /** Built-in Functions */
-      { name: "LX_SUM",     rx: /^(sum|summe)/i         },
+      { name: "LX_SUM",     rx: /^(summe|sum)/i         },
       { name: "LX_COUNTIF", rx: /^(countif|zählewenn)/i },
       { name: "LX_COUNT",   rx: /^(count|anzahl)/i      },
       { name: "LX_BETWEEN", rx: /^(between|zwischen)/i  },

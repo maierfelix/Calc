@@ -57,6 +57,9 @@
     /** Dont loose selection */
     NOVAE.Sheets[sheet].Selector.getSelection();
 
+    /** Recalc everything */
+    NOVAE.eval();
+
   };
 
   /**
@@ -192,6 +195,9 @@
 
     /** Dont loose selection */
     NOVAE.Sheets[sheet].Selector.getSelection();
+
+    /** Recalc everything */
+    NOVAE.eval();
 
   };
 

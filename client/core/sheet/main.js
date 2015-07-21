@@ -44,11 +44,11 @@
     if (masterSheet && (NOVAE.MasterSheetCount + 1) > 1) {
 
       /** Css class helper */
-      var muiButton = "mdl-button mdl-js-button mdl-js-ripple-effect alertButton";
+      var muiButton = "mdl-button mdl-js-button mdl-button--primary";
 
       /** The modal content */
-      var title = "<h3>More than one master sheet isn't allowed!</h3>";
-      var buttons = "<button class='"+muiButton+" alertOk' name='ok'>Ok</button>";
+      var title = "<h1>More than one master sheet isn't allowed!</h1>";
+      var buttons = "<button class='"+muiButton+" alertOk' name='ok'>Ok</button><button class='"+muiButton+" alertAbort' name='abort'>Abort</button>";
 
       /** Alert the user, that more than one master sheets are not allowed */
       NOVAE_UI.Modal(title, buttons, function(submit) {});
@@ -170,10 +170,10 @@
       if (Object.keys(NOVAE.Sheets).length > 1) {
 
         /** Css class helper */
-        var muiButton = "mui-btn mui-btn-primary mui-btn-lg alertButton";
+        var muiButton = "mdl-button mdl-js-button mdl-button--primary";
 
         /** The modal content */
-        var title = "<h2>Delete Sheet</h2><h3>Do you really want to delete " + name + "?</h3>";
+        var title = "<h1>Delete Sheet</h1><h2>Do you really want to delete " + name + "?</h2>";
         var buttons = "<button class='"+muiButton+" alertOk' name='ok'>Ok</button><button class='"+muiButton+" alertAbort' name='abort'>Abort</button>";
 
         NOVAE_UI.Modal(title, buttons, function(submit) {

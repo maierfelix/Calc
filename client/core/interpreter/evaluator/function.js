@@ -79,11 +79,6 @@
           result = length;
         break;
 
-        /** COUNTIF */
-        case "countif":
-          console.log(argumentArray);
-        break;
-
         /** BETWEEN */
         case "between":
           var a = argumentArray[0];

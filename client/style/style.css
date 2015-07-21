@@ -77,6 +77,68 @@ button, input, select, textArea {
   display: inline-block;
 }
 
+.modal_overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 99999999;
+  background-color: rgba(0, 0, 0, 0.2);
+  overflow: auto;
+}
+
+.modal_container {
+  box-sizing: border-box;
+  width: 400px;
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
+  padding-bottom: 20px;
+  border-radius: 3px;
+  z-index: 9999999;
+  background: #fff;
+  display: block;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-left: -200px;
+  margin-top: -100px;
+  opacity: 1;
+}
+.modal_container>h1 {
+  box-sizing: border-box;
+  padding: 20px;
+  margin-top: 0px;
+  margin-bottom: 20px;
+  height: 125px;
+}
+.modal_container>h1, input::-webkit-input-placeholder, button {
+  font-family: 'roboto', sans-serif;
+  -webkit-transition: all 0.3s ease-in-out;
+          transition: all 0.3s ease-in-out;
+}
+
+.modal_container>h1 {
+  height: auto;
+  width: 100%;
+  font-size: 18px;
+  background: rgba(33, 150, 243, 0.9);
+  color: white;
+  line-height: 150%;
+  border-radius: 3px 3px 0 0;
+  box-shadow: 0 2px 5px -2px rgba(0, 0, 0, 0.2);
+}
+
+.modal_container>div {
+  padding-left: 20px;
+  margin-top: 0px;
+}
+
+.modal_container>div>button {
+  margin-left: -5px;
+  margin-top: 0px;
+  color: rgba(33, 150, 243, 1) !important;
+}
+
 #workspace {
   overflow: hidden;
   font: 12px 'Roboto', sans-serif;
@@ -183,7 +245,6 @@ button, input, select, textArea {
   border-top-right-radius: 0px;
   border-top-style: none;
   border-top-width: 0px;
-  box-shadow: rgba(0, 0, 0, 0.65098) 0px 0px 8px 0px;
   box-sizing: border-box;
   color: rgb(255, 255, 255);
   cursor: pointer;
@@ -1081,13 +1142,17 @@ button, input, select, textArea {
   position: absolute !important;
   z-index: 9;
   right: 0;
-  margin-top: -9px;
-  padding-top: 5px;
+  margin-top: -13px;
+  padding-top: 9px;
   border-radius: 0px;
   border: none;
   width: 20px;
   background-color: rgba(21, 101, 192, 0.55);
   color: #fff !important;
+}
+
+.activeMasterSheet .closeButton {
+  margin-top: -40px;
 }
 
 .usersInRoom {
@@ -1146,14 +1211,9 @@ button, input, select, textArea {
   margin: 11px 11px;
 }
 
-.alertOk {
-  bottom: 5px;
-  left: 0px;
-}
-
 .alertAbort {
-  bottom: 5px;
-  right: 0px;
+  float: right;
+  margin-right: 15px;
 }
 
 .editorButtonOk {

@@ -54,8 +54,14 @@
 
     var node;
     var parent;
+    var name;
 
-    var name = this.currentBlock.value;
+    /** Only optimize math function calls */
+    if ((this.MathFunctions).indexOf(this.currentBlock.type) <= -1) {
+      name = this.currentBlock.type.replace("LX_", "");
+    } else {
+      name = this.currentBlock.value;
+    }
 
     this.shift();
 
