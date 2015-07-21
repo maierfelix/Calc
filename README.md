@@ -39,18 +39,17 @@ If you want to test the latest multi-user functionality, go to:
 
 - [ ] Formula logic
    - [x] Natural order recalculation
-   - [ ] Syntax
-   - [ ] Multi-language support
+   - [x] Multi-language support
    - [ ] String functions
    - [x] Numeric functions
    - [ ] Statistical functions
-   - [ ] Logical functions
+   - [x] Logical conditions
    - [ ] Information functions
    - [ ] Date / Time functions
    - [x] JSON processing
-   - [ ] Ranges
+   - [x] Ranges
    - [ ] Multi-sheet cell references
-   - [ ] If / Else
+   - [x] If statements
 
 - [ ] Script logic
    - [ ] Sheets
@@ -80,7 +79,7 @@ If you want to test the latest multi-user functionality, go to:
 - [ ] Reversed selection extending doesnt work
 - [ ] Reversed selection resize ghost switch bug
 - [ ] Styling bug on master column and row background styling (scrolledXY > Settings.xy)
-- [ ] Sheet dictionary ENGEL variable stack
+- [ ] Sheet dictionary in ENGEL variable stack
 
 ## Licensing
 ### BSD License:
