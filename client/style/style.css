@@ -145,8 +145,8 @@ button, input, select, textArea {
   background: #fff;
   color: #000;
   position: absolute;
-  width: 100%;
-  height: 100%;
+  width: 2000px;
+  height: 2000px;
   margin-top: 75px;
 }
 
@@ -362,6 +362,11 @@ button, input, select, textArea {
   overflow: hidden;
 }
 
+.menu_hor>th {
+  padding-left: 0!important;
+  padding-right: 0!important;
+}
+
 .menu_ver>div {
   width: 100% !important;
 }
@@ -423,12 +428,6 @@ button, input, select, textArea {
   cursor: pointer;
 }
 
-.table {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-}
-
 .viewport {
   overflow: hidden;
   position: absolute;
@@ -438,16 +437,31 @@ button, input, select, textArea {
   right: 0;
 }
 
+table {
+  table-layout: fixed;
+  width: 0px;
+  border-spacing: 0px;
+  padding: 0px;
+  margin: 0px;
+  border-collapse: collapse;
+}
+
+tbody>tr {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
 .row {
-  border: solid 0px lightgrey;
-  border-left: 1px solid lightgrey;
-  border-bottom: 1px solid lightgrey;
-  background: #fff;
-  padding: 4px;
-  text-align: center;
-  position: absolute;
+  border-right: 1px solid #CCC;
+  border-bottom: 1px solid #CCC;
+  empty-cells: show;
+  line-height: 21px;
+  padding: 0 4px 0 4px;
+  background-color: #FFF;
+  vertical-align: top;
   overflow: hidden;
-  color: #5e5e5e;
+  outline-width: 0;
+  white-space: pre-line;
 }
 
 .row_hovered {

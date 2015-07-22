@@ -127,6 +127,7 @@ Import.scripts = [
 Import.after = function() {
   ENGEL.init();
   NOVAE_Interpreter(function() {
+    document.querySelector("#loader").style.display = "none";
     NOVAE.$.init();
     NOVAE_UI.init();
     NOVAE.Speedy.runTest(function () {

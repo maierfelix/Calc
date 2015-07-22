@@ -246,14 +246,25 @@
         <div id="current_cell" class="row default_layer"></div>
 
         <!-- Horizontal alphabetical menu -->
-        <div id="letter_menu" class="menu_hor"></div>
+        <!--<div id="letter_menu" class="menu_hor"></div>-->
 
         <!-- Vertical numeric menu -->
         <div id="number_menu" class="menu_ver"></div>
 
         <div class="body_container">
           <!-- Cell Grid -->
-          <div id="output" class="viewport" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></div>
+          <div class="viewport" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+            <table style="width: auto; height: auto;" border="0" cellpadding="0" cellspacing="0">
+              <colgroup id="colgroup_menu"></colgroup>
+              <thead>
+                <tr id="letter_menu"></tr>
+              </thead>
+              <tbody>
+                <tr id="output"></tr>
+                <!-- 1 row -->
+              </tbody>
+            </table>
+          </div>
         </div>
 
       </div>

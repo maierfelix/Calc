@@ -77,11 +77,11 @@
       /** Only resize grid if necessary */
       if (!NOVAE.Sheets[NOVAE.CurrentSheet].Input.lastAction.scrollY || !NOVAE.Sheets[NOVAE.CurrentSheet].Input.lastAction.scrollX) {
         /** Horizontal cell row got resized */
-        this.resizeHorizontal(Letter, ii);
+        //this.resizeHorizontal(Letter, ii);
       }
 
       /** Vertical cell row got resized */
-      this.resizeVertical(calculation, ii);
+      //this.resizeVertical(calculation, ii);
 
       if ( (ii + 1) % br === 0) {
         Letter = NOVAE.$.numberToAlpha(NOVAE.$.alphaToNumber(Letter) + 1);

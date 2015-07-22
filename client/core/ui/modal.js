@@ -46,6 +46,7 @@
             /** Close modal */
             modalContainer.style.display = "none";
             modalContainer.innerHTML = "";
+            NOVAE.Sheets[NOVAE.CurrentSheet].activeModal = false;
           });
         }
       }

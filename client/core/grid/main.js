@@ -67,7 +67,7 @@
     /** Template Object */
     this.Templates = {
       Cell: {
-        element: "div",
+        element: "td",
         class: "row",
         style: {
           height: this.CellTemplate.Height,
@@ -77,7 +77,7 @@
       /** Menu templates */
       Menu: {
         Alphabetical: {
-          element: "div",
+          element: "th",
           class: "row cell_dark_alpha",
           style: {
             height: this.CellTemplate.Height,
@@ -85,7 +85,7 @@
           }
         },
         Numeric: {
-          element: "div",
+          element: "td",
           class: "row cell_dark_number",
           style: {
             height: this.CellTemplate.Height,
@@ -303,6 +303,8 @@
 
     this.generateMenu();
 
+    var tdArray = [];
+
     for (var xx = 0; xx < this.Settings.x; ++xx) {
 
       for (var yy = 0; yy < this.Settings.y; ++yy) {
@@ -319,15 +321,18 @@
           Letter = NOVAE.$.numberToAlpha(Breaks);
         /** Counter is above the first breakpoint and a modulo */
         } else if (ii % this.Settings.y === 1) {
+          //console.log(Breaks);
+          tdArray.push(output);
+          output = "";
           Breaks += 1;
           Letter = NOVAE.$.numberToAlpha(Breaks);
         }
 
         style = "height: " + styleHeight + "px; width: " + styleWidth + "px;";
-        style += " left:" + x + "px; top: " + y + "px;";
+        //style += " left:" + x + "px; top: " + y + "px;";
 
         /** !Evil DOM Content */
-        output += '<' + this.Templates.Cell.element + ' class="' + this.Templates.Cell.class + '" style="' + style + '">';
+        output += '<' + this.Templates.Cell.element + ' column="' + Breaks + '" class="' + this.Templates.Cell.class + '" style="' + style + '">';
         /** Check if cell contains custom content */
         if (NOVAE.Cells.Used[NOVAE.CurrentSheet][Letter] && NOVAE.Cells.Used[NOVAE.CurrentSheet][Letter][Letter + Number]) {
           output += NOVAE.Cells.Used[NOVAE.CurrentSheet][Letter][Letter + Number].Content;
@@ -358,7 +363,16 @@
 
     }
 
-    NOVAE.DOM.Output.innerHTML = output;
+    NOVAE.DOM.Output.innerHTML = "";
+
+    for (var ii = 0; ii < tdArray.length; ++ii) {
+
+      var element = document.createElement("tr");
+          element.innerHTML = tdArray[ii];
+
+      NOVAE.DOM.Output.parentNode.appendChild(element);
+
+    }
 
     this.cacheDOM();
 

@@ -45,6 +45,7 @@
           if (xx !== lastX) {
             lastX = xx;
             this.generateMenuNode(NOVAE.$.numberToAlpha(lastX + this.Settings.scrolledX), NOVAE.DOM.HorizontalMenu, xx, yy, "alpha");
+            this.generateMenuNode(NOVAE.$.numberToAlpha(lastX + this.Settings.scrolledX), document.querySelector("#colgroup_menu"), xx, yy, "alpha");
           }
         }
 
@@ -131,12 +132,12 @@
 
     if (type === "numeric") {
       style = "height: " + height + "px; width: " + width + "px;";
-      style += " left:" + x + "px; top: " + y + "px;";
+      //style += " left:" + x + "px; top: " + y + "px;";
     }
     /** Alphabetical menu border overlay fix by add 1 to the width */
     else if (type === "alpha") {
       style = "height: " + height + "px; width: " + (width + 1) + "px;";
-      style += " left:" + x + "px; top: " + y + "px;";
+      //style += " left:" + x + "px; top: " + y + "px;";
     }
 
     /** Center vertical menu text */
