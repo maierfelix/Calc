@@ -411,7 +411,7 @@ button, input, select, textArea {
 .cell_dark_number {
   color: #5e5e5e;
   background: #fff;
-  border: solid 1px darkgrey;
+  border: solid 1px lightgrey;
   font-family: 'Roboto', sans-serif;
   padding: 5px !important;
   border-bottom: none !important;
@@ -472,7 +472,7 @@ tbody>tr {
 }
 
 .single_row_hovered {
-  border: 1px solid #448AFF;
+  border: 2px solid #448AFF;
   outline: 1px solid #448AFF;
   background: #fff;
   padding-top: 3px;
@@ -1323,7 +1323,7 @@ tbody>tr {
 
 #column_resize_helper {
   position: absolute;
-  z-index: 2;
+  z-index: 5;
   background-color: darkgrey;
   width: 1px;
   height: 100%;

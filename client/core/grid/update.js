@@ -129,13 +129,18 @@
             for (var kk = 0; kk < height; ++kk) {
               /** Calculate cell node position */
               calculation = (kk + ii - (lastX) - height);
-              if (NOVAE.DOM.Output.children[calculation]) {
+
+              if (NOVAE.DOM.Cache[calculation]) {
 
                 /** Calculate cell number */
-                if (kk === 0) Number = (height - 1) + this.Settings.scrolledY;
-                else Number = kk + this.Settings.scrolledY;
+                if (kk === 0) {
+                  Number = (height - 1) + this.Settings.scrolledY;
+                } else {
+                  Number = kk + this.Settings.scrolledY;
+                }
 
               }
+
             }
           }
         }

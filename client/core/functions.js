@@ -384,11 +384,11 @@
    */
   NOVAE.$.getCell = function(object) {
 
-    var letter = object.letter,
-        number = object.number,
-        jumps = ((NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y * (letter - 1) ) + number - 1 - NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY) - (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y * NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX);
+    var letter = object.letter;
+    var number = object.number;
+    var jumps = ((NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y * (letter - 1) ) + number - 1 - NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY) - (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y * NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX);
 
-    if (NOVAE.$.isInView(letter, jumps) && NOVAE.DOM.Output.children[jumps]) return (jumps);
+    if (NOVAE.$.isInView(letter, jumps) && NOVAE.DOM.Cache[jumps]) return (jumps);
 
     return void 0;
 
