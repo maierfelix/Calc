@@ -56,7 +56,9 @@ Import.scripts = [
   /** Grid */
   "core/grid/main.js",
   "core/grid/cache.js",
-  "core/grid/menu.js",
+  "core/grid/menu/main.js",
+  "core/grid/menu/column.js",
+  "core/grid/menu/row.js",
   "core/grid/update.js",
   "core/grid/resize.js",
   "core/grid/cell.js",

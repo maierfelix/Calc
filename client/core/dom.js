@@ -25,6 +25,15 @@
   /** Select and prepare the output container */
   NOVAE.DOM.Output = document.querySelector("#output");
 
+  /** Select and prepare the column group container */
+  NOVAE.DOM.ColumnGroup = document.querySelector("#column_group");
+
+  /** Select and prepare the table head container */
+  NOVAE.DOM.TableHead = document.querySelector("#table_head");
+
+  /** Select and prepare the table body container */
+  NOVAE.DOM.TableBody = document.querySelector("#table_body");
+
   /** Select and prepare the vertical menu */
   NOVAE.DOM.VerticalMenu = document.querySelector("#number_menu");
 

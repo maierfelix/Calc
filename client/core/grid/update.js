@@ -397,11 +397,9 @@
    */
   NOVAE.Grid.prototype.removeCellStyling = function(ii) {
 
-    var left = parseInt(NOVAE.DOM.Cache[ii].style.left);
-    var top = parseInt(NOVAE.DOM.Cache[ii].style.top);
-    var width = parseInt(NOVAE.DOM.Cache[ii].style.width);
-
-    NOVAE.DOM.Cache[ii].setAttribute("style", "left:" + left + "px;" + "top:" + top + "px;" + "width:" + width + "px");
-    NOVAE.DOM.Cache[ii].innerHTML = "";
+    if (NOVAE.DOM.Cache[ii]) {
+      NOVAE.DOM.Cache[ii].setAttribute("style", "");
+      NOVAE.DOM.Cache[ii].innerHTML = "";
+    }
 
   };

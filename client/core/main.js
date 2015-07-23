@@ -96,7 +96,7 @@
 
   /** Grid Sizes */
   NOVAE.Settings.GridSizes = {
-    Columns: 85,
+    Columns: 95,
     Rows: 22
   };
 

@@ -21,20 +21,23 @@
    */
   NOVAE.Grid.prototype.cacheDOM = function() {
 
-    var children = NOVAE.DOM.Output.children;
-    var childLength = NOVAE.DOM.Output.children.length;
+    var children = NOVAE.DOM.TableBody.children;
+    var childLength = 0;
 
     NOVAE.DOM.Cache = null;
     delete NOVAE.DOM.Cache;
 
     NOVAE.DOM.Cache = {};
+    NOVAE.DOM.CacheArray = [];
 
-    /** Used for faster iteration, also preallocate required memory */
-    NOVAE.DOM.CacheArray = new Array(childLength);
-
-    for (var ii = 0; ii < childLength; ++ii) {
-      NOVAE.DOM.Cache[ii] = children[ii];
-      NOVAE.DOM.CacheArray[ii] = children[ii];
+    for (var ii = 0; ii < NOVAE.DOM.TableBody.children.length; ++ii) {
+      for (var kk = 0; kk < NOVAE.DOM.TableBody.children[ii].children.length; ++kk) {
+        if (NOVAE.DOM.TableBody.children[ii].children[kk].nodeName === "TD") {
+          var coord = kk + this.Settings.y * ii - 1;
+          NOVAE.DOM.Cache[coord] = NOVAE.DOM.TableBody.children[ii].children[kk];
+          NOVAE.DOM.CacheArray[coord] = NOVAE.DOM.TableBody.children[ii].children[kk];
+        }
+      }
     }
 
   };

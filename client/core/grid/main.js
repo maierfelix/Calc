@@ -77,7 +77,7 @@
       /** Menu templates */
       Menu: {
         Alphabetical: {
-          element: "th",
+          element: "div",
           class: "row cell_dark_alpha",
           style: {
             height: this.CellTemplate.Height,
@@ -291,8 +291,6 @@
     var x = 0;
     var y = 0;
 
-    var style = null;
-
     var styleWidth = this.Templates.Cell.style.width;
     var styleHeight = this.Templates.Cell.style.height;
 
@@ -301,9 +299,16 @@
     /** Preallocate required memory */
     this.cellArray = new Array(this.Settings.x * this.Settings.y);
 
-    this.generateMenu();
-
     var tdArray = [];
+
+    /** Clean the whole menu */
+    NOVAE.DOM.HorizontalMenu.innerHTML = "";
+    NOVAE.DOM.VerticalMenu.innerHTML = "";
+    NOVAE.DOM.TableHead.innerHTML = "";
+    NOVAE.DOM.TableBody.innerHTML = "";
+    NOVAE.DOM.ColumnGroup.innerHTML = "";
+
+    this.generateMenu();
 
     for (var xx = 0; xx < this.Settings.x; ++xx) {
 
@@ -321,18 +326,21 @@
           Letter = NOVAE.$.numberToAlpha(Breaks);
         /** Counter is above the first breakpoint and a modulo */
         } else if (ii % this.Settings.y === 1) {
-          //console.log(Breaks);
-          tdArray.push(output);
+
+          var element = document.createElement("tr");
+              element.innerHTML = output;
+
+          element.insertBefore(this.generateMenuRow(this.Settings.y - Breaks), element.firstChild);
+
+          NOVAE.DOM.TableBody.appendChild(element);
+
           output = "";
           Breaks += 1;
           Letter = NOVAE.$.numberToAlpha(Breaks);
         }
 
-        style = "height: " + styleHeight + "px; width: " + styleWidth + "px;";
-        //style += " left:" + x + "px; top: " + y + "px;";
-
         /** !Evil DOM Content */
-        output += '<' + this.Templates.Cell.element + ' column="' + Breaks + '" class="' + this.Templates.Cell.class + '" style="' + style + '">';
+        output += '<' + this.Templates.Cell.element + ' column="' + Breaks + '" class="' + this.Templates.Cell.class + '">';
         /** Check if cell contains custom content */
         if (NOVAE.Cells.Used[NOVAE.CurrentSheet][Letter] && NOVAE.Cells.Used[NOVAE.CurrentSheet][Letter][Letter + Number]) {
           output += NOVAE.Cells.Used[NOVAE.CurrentSheet][Letter][Letter + Number].Content;
@@ -360,17 +368,6 @@
         kk++;
 
       }
-
-    }
-
-    NOVAE.DOM.Output.innerHTML = "";
-
-    for (var ii = 0; ii < tdArray.length; ++ii) {
-
-      var element = document.createElement("tr");
-          element.innerHTML = tdArray[ii];
-
-      NOVAE.DOM.Output.parentNode.appendChild(element);
 
     }
 

@@ -22,7 +22,7 @@
   NOVAE.Event.mouseDoubleClick = function (e) {
 
     /** Valid cell ? */
-    if (e.target.parentNode.id === NOVAE.DOM.Output.id) {
+    if (e.target.parentNode.parentNode && e.target.parentNode.parentNode.id === NOVAE.DOM.TableBody.id) {
 
       /** Get grid number and fix it */
       var attribute = e.target.getAttribute("name");
@@ -72,7 +72,7 @@
 
       /** Max delay of 250 milliseconds */
       if (difference && difference <= 250) {
-        if (e.target.parentNode.id === NOVAE.DOM.Output.id) {
+        if (e.target.parentNode.parentNode && e.target.parentNode.parentNode.id === NOVAE.DOM.TableBody.id) {
           /** Prevent double mouse clicks between multiple cells */
           if (e.target.getAttribute("name") === NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.lastMouseDownCell) {
             NOVAE.Event.mouseDoubleClick(e);
@@ -107,7 +107,7 @@
     if (e.target.parentNode.id === NOVAE.DOM.HorizontalMenu.id) return void 0;
 
     /** Valid cell ? */
-    if (e.target.parentNode.id === NOVAE.DOM.Output.id) {
+    if (e.target.parentNode.parentNode && e.target.parentNode.parentNode.id === NOVAE.DOM.TableBody.id) {
 
       /** Abort all selection */
       if (NOVAE.Sheets[NOVAE.CurrentSheet].Selector.allSelected) {
@@ -125,7 +125,10 @@
       /** User can start to mouse wipe now */
       NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.startedMouseWipe = true;
 
-      var name = NOVAE.$.getNameFromDOMCell(e.target, false);
+      var column = NOVAE.$.getNameFromDOMCell(e.target, false).number - 1;
+      var row = NOVAE.$.getNameFromDOMCell(e.target.parentNode, false).number;
+
+      var name = {letter: column, number: row};
 
       var letter = name.letter;
       var number = name.number;
@@ -215,7 +218,7 @@
     }
 
     /** Seems like user selected something */
-    if (e.target.parentNode && e.target.parentNode.id === NOVAE.DOM.Output.id) {
+    if (e.target.parentNode.parentNode && e.target.parentNode.parentNode.id === NOVAE.DOM.TableBody.id) {
 
       if (currentSheet.Selector.Selected.First.Letter &&
           currentSheet.Selector.Selected.First.Number &&
@@ -253,11 +256,16 @@
     if (NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.lastMousePosition.x === e.pageX &&
         NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.lastMousePosition.y === e.pageY) return void 0;
 
-    if (e.target.parentNode && e.target.parentNode.id === NOVAE.DOM.Output.id) {
+    if (e.target.parentNode.parentNode && e.target.parentNode.parentNode.id === NOVAE.DOM.TableBody.id) {
 
-      var name = NOVAE.$.getNameFromDOMCell(e.target, true);
+      var column = NOVAE.$.getNameFromDOMCell(e.target, false).number - 1;
+      var row = NOVAE.$.getNameFromDOMCell(e.target.parentNode, false).number;
 
-      NOVAE.DOM.CurrentCell.innerHTML = name;
+      var name = {letter: column, number: row};
+
+      var cell = NOVAE.$.numberToAlpha(name.letter) + name.number;
+
+      NOVAE.DOM.CurrentCell.innerHTML = cell;
 
     }
 
@@ -281,11 +289,14 @@
     if (NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.Pressed) {
 
       /** Valid cell ? */
-      if (e.target.parentNode && e.target.parentNode.id === NOVAE.DOM.Output.id) {
+      if (e.target.parentNode.parentNode && e.target.parentNode.parentNode.id === NOVAE.DOM.TableBody.id) {
 
-      var cellName = (NOVAE.$.numberToAlpha(letter)) + number;
+        var cellName = (NOVAE.$.numberToAlpha(letter)) + number;
 
-        var name = NOVAE.$.getNameFromDOMCell(e.target, false);
+        var column = NOVAE.$.getNameFromDOMCell(e.target, false).number - 1;
+        var row = NOVAE.$.getNameFromDOMCell(e.target.parentNode, false).number;
+
+        var name = {letter: column, number: row};
         var letter = name.letter;
         var number = name.number;
         var compiledLetter = NOVAE.$.numberToAlpha(letter);

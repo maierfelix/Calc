@@ -78,7 +78,7 @@
     }
 
     /** Make sure the grid was scrolled */
-    if (e.target.parentNode.id !== NOVAE.DOM.Output.id) return void 0;
+    if (e.target.parentNode.parentNode && e.target.parentNode.parentNode.id !== NOVAE.DOM.TableBody.id) return void 0;
 
     /** Only calculate that way, if not on mobile */
     if (!NOVAE.Settings.Mobile) {

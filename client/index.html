@@ -249,20 +249,26 @@
         <!--<div id="letter_menu" class="menu_hor"></div>-->
 
         <!-- Vertical numeric menu -->
-        <div id="number_menu" class="menu_ver"></div>
+        <div id="number_menu" class="menu_ver" style="display:none;"></div>
 
         <div class="body_container">
           <!-- Cell Grid -->
-          <div class="viewport" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+          <div class="viewport" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="display:none;">
             <table style="width: auto; height: auto;" border="0" cellpadding="0" cellspacing="0">
               <colgroup id="colgroup_menu"></colgroup>
               <thead>
                 <tr id="letter_menu"></tr>
               </thead>
-              <tbody>
-                <tr id="output"></tr>
-                <!-- 1 row -->
-              </tbody>
+              <tbody id="output"></tbody>
+            </table>
+          </div>
+          <div class="viewport">
+            <table style="width: 0px; height: 0px;overflow: hidden; white-space: nowrap;" border="0" cellpadding="0" cellspacing="0">
+              <colgroup id="column_group"></colgroup>
+              <thead>
+                <tr id="table_head"></tr>
+              </thead>
+              <tbody id="table_body"></tbody>
             </table>
           </div>
         </div>
