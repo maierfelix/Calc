@@ -61,6 +61,39 @@
    */
   NOVAE.Grid.prototype.updateMenu = function() {
 
+    //this.updateColumns();
+
+    this.updateRows();
+
+  };
+
+  /**
+   * Update rows
+   *
+   * @method updateRows
+   * @static
+   */
+  NOVAE.Grid.prototype.updateRows = function() {
+
+    var scrolled = this.Settings.scrolledY + 1;
+
+    var element;
+
+    var value = 0;
+
+    var resetValue = NOVAE.Sheets[NOVAE.CurrentSheet].CellTemplate.Height;
+
+    for (var yy = 0; yy < this.Settings.y; ++yy) {
+      value = scrolled + yy;
+      element = NOVAE.DOM.TableBody.children[yy].children[0].children[0];
+      element.innerHTML = value;
+      if (value = NOVAE.Cells.Resized[NOVAE.CurrentSheet].Rows[value]) {
+        element.style.height = resetValue + value.Height + "px";
+      } else {
+        element.style.height = resetValue + "px";
+      }
+    }
+
   };
 
   /**

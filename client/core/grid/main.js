@@ -183,6 +183,7 @@
 
     /** Preload */
     this.Settings.y *= 3;
+    //this.Settings.x *= 2;
 
     /** Expand grid width if columns got resized smaller */
     if (resizedX <= 0) {
@@ -324,8 +325,18 @@
         /** Counter is below the first breakpoint */
         if (ii < this.Settings.y) {
           Letter = NOVAE.$.numberToAlpha(Breaks);
-        /** Counter is above the first breakpoint and a modulo */
-        } else if (ii % this.Settings.y === 1) {
+        }
+
+        /** !Evil DOM Content */
+        output += '<' + this.Templates.Cell.element + ' row="' + Breaks + '" class="' + this.Templates.Cell.class + '">';
+        /** Check if cell contains custom content */
+        if (NOVAE.Cells.Used[NOVAE.CurrentSheet][Letter] && NOVAE.Cells.Used[NOVAE.CurrentSheet][Letter][Letter + Number]) {
+          output += NOVAE.Cells.Used[NOVAE.CurrentSheet][Letter][Letter + Number].Content;
+        }
+        output += '</' + this.Templates.Cell.element + '>';
+
+        /** New row */
+        if (ii % this.Settings.x === 0) {
 
           var element = document.createElement("tr");
               element.innerHTML = output;
@@ -335,20 +346,12 @@
           NOVAE.DOM.TableBody.appendChild(element);
 
           output = "";
+
           Breaks += 1;
+
           Letter = NOVAE.$.numberToAlpha(Breaks);
-        }
 
-        /** !Evil DOM Content */
-        output += '<' + this.Templates.Cell.element + ' column="' + Breaks + '" class="' + this.Templates.Cell.class + '">';
-        /** Check if cell contains custom content */
-        if (NOVAE.Cells.Used[NOVAE.CurrentSheet][Letter] && NOVAE.Cells.Used[NOVAE.CurrentSheet][Letter][Letter + Number]) {
-          output += NOVAE.Cells.Used[NOVAE.CurrentSheet][Letter][Letter + Number].Content;
         }
-        output += '</' + this.Templates.Cell.element + '>';
-
-        /** Reset grid number if counter is exactly the modulo */
-        if (ii % this.Settings.y === 0) Number = 0;
 
         /** Save current user view */
         this.cellArray[kk] = {

@@ -204,6 +204,7 @@
             if (parseInt(e.target.style.height) >= 0) {
 
               e.target.style.height = (parseInt(e.target.style.height) - 2) + "px";
+
               /** Update customized cell object */
               customCellSizes.Rows[name].Height -= 2;
 

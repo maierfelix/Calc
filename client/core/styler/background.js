@@ -94,7 +94,7 @@
       NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][name].BackgroundColor = color;
       /** Immediately update cells background color */
       var jumps = NOVAE.$.getCell({ letter: selectedCells[ii].letter, number: selectedCells[ii].number });
-      if (jumps >= 0) NOVAE.DOM.Output.children[jumps].style.background = color;
+      if (jumps >= 0) NOVAE.DOM.CacheArray[jumps].style.background = color;
     }
 
   };

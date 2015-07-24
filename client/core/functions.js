@@ -377,7 +377,7 @@
   };
 
   /**
-   * Get a specific cell
+   * Get a specific cell from the grid
    *
    * @method getCell
    * @static
@@ -386,11 +386,9 @@
 
     var letter = object.letter;
     var number = object.number;
-    var jumps = ((NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y * (letter - 1) ) + number - 1 - NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY) - (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y * NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX);
+    var jumps = 0;
 
-    if (NOVAE.$.isInView(letter, jumps) && NOVAE.DOM.Cache[jumps]) return (jumps);
-
-    return void 0;
+    console.log(letter, number);
 
   };
 

@@ -132,7 +132,7 @@
     }
 
     /** Calculate a scroll amount, divisible by celltemplate height */
-    var scrollAmount = Math.roundTo(NOVAE.Settings.Scroll.Vertical * 5, NOVAE.Sheets[NOVAE.CurrentSheet].CellTemplate.Height);
+    var scrollAmount = Math.roundTo(NOVAE.Settings.Scroll.Vertical, NOVAE.Sheets[NOVAE.CurrentSheet].CellTemplate.Height);
 
     /** User scrolled up or down, dont redraw */
     NOVAE.Sheets[NOVAE.CurrentSheet].Input.lastAction.scrollY = true;
@@ -153,7 +153,7 @@
             NOVAE.DOM.VerticalMenu.scrollTop += scrollAmount;
             NOVAE.DOM.Output.scrollTop += scrollAmount;
 
-            var downSettingsY = Math.floor(NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y / 2.5);
+            var downSettingsY = Math.floor(NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y);
 
             var downReRender = Math.floor(NOVAE.DOM.Output.scrollTop / NOVAE.Sheets[NOVAE.CurrentSheet].CellTemplate.Height) + downSettingsY;
 
@@ -162,16 +162,10 @@
               NOVAE.DOM.Output.scrollTop = 0;
               NOVAE.DOM.VerticalMenu.scrollTop = 0;
 
-              NOVAE.DOM.Output.style.display = "none";
-
-              NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY += Math.floor((downReRender - downSettingsY));
+              NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY += 3;
               NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = NOVAE.Settings.Scroll.Vertical;
               NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Vertical);
-              NOVAE.Sheets[NOVAE.CurrentSheet].Selector.cleanHoverEffect();
               NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
-              NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
-
-              NOVAE.DOM.Output.style.display = "block";
 
             }
 
@@ -185,7 +179,6 @@
             NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = NOVAE.Settings.Scroll.Vertical;
             NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Vertical);
             NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
-            NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
 
           }
 
@@ -206,21 +199,22 @@
 
             if (upReRender < 0) upReRender = upReRender * -1;
 
-            if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY > 0 && upReRender === upSettingsY) {
+            if ((NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY - 3) > 0 && upReRender === upSettingsY) {
 
               NOVAE.DOM.Output.scrollTop = NOVAE.DOM.Output.scrollHeight;
               NOVAE.DOM.VerticalMenu.scrollTop = NOVAE.DOM.Output.scrollTop;
 
-              NOVAE.DOM.Output.style.display = "none";
-
-              NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY -= Math.floor(upReRender + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y / 4);
+              NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY -= 3;
               NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = NOVAE.Settings.Scroll.Vertical;
               NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Vertical);
-              NOVAE.Sheets[NOVAE.CurrentSheet].Selector.cleanHoverEffect();
               NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
-              NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
 
-              NOVAE.DOM.Output.style.display = "block";
+            } else {
+
+              NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY = 0;
+              NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = 0;
+              NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("default", NOVAE.Settings.Scroll.Vertical);
+              NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
 
             }
 
