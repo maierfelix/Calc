@@ -401,6 +401,7 @@ button, input, select, textArea {
   font-weight: 500;
   border-top: 1px solid #CCC;
   border-left: 1px solid #CCC !important;
+  border-right: none !important;
 }
 
 .cell_dark_alpha:hover {
@@ -424,22 +425,20 @@ button, input, select, textArea {
 }
 
 .viewport {
-  overflow: hidden;
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  z-index: 3;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 500px;
+  margin-top: 22px;
+  margin-left: 0px;
 }
 
 table {
   table-layout: fixed;
-  width: 0px;
+  width: 100%;
   border-spacing: 0px;
-  padding: 0px;
-  margin: 0px;
   border-collapse: collapse;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 tbody>tr {
@@ -449,6 +448,12 @@ tbody>tr {
 
 #table_body>tr>th {
   height: 25px;
+}
+
+thead {
+  position: absolute;
+  margin-top: -22px;
+  margin-left: -2px;
 }
 
 .row {

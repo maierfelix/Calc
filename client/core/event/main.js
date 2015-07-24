@@ -88,6 +88,8 @@
 
     NOVAE.Sheets[NOVAE.CurrentSheet].updateWidth("default");
 
+    NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
+
     NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
 
     NOVAE.Awakener.reset();

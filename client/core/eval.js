@@ -13,6 +13,8 @@
 
 "use strict";
 
+  /** TODO: Save formulated cells in seperate object for max performance gain */
+
   /**
    * Run the interpreter
    *
