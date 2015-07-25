@@ -100,12 +100,6 @@
 
     }
 
-    /** Vertical menu clicked */
-    if (e.target.parentNode.id === NOVAE.DOM.VerticalMenu.id) return void 0;
-
-    /** Horizontal menu clicked */
-    if (e.target.parentNode.id === NOVAE.DOM.HorizontalMenu.id) return void 0;
-
     /** Valid cell ? */
     if (e.target.parentNode.parentNode && e.target.parentNode.parentNode.id === NOVAE.DOM.TableBody.id) {
 

@@ -71,7 +71,7 @@
       width += customCellSizes.Columns[compiledLetter].Width;
     }
 
-    style = "height: " + height + "px; width: " + (width + 1) + "px;";
+    style = "height: " + height + "px; width: " + (width) + "px;";
 
     column = this.initialiseColumn();
 

@@ -182,7 +182,7 @@
     this.Settings.y = ( ~ this.Settings.y + 1 ) - 3;
 
     /** Preload */
-    //this.Settings.y *= 3;
+    this.Settings.y *= 3;
     //this.Settings.y -= 10;
     //this.Settings.x *= 2;
 
@@ -304,8 +304,6 @@
     var tdArray = [];
 
     /** Clean the whole menu */
-    NOVAE.DOM.HorizontalMenu.innerHTML = "";
-    NOVAE.DOM.VerticalMenu.innerHTML = "";
     NOVAE.DOM.TableHead.innerHTML = "";
     NOVAE.DOM.TableBody.innerHTML = "";
     NOVAE.DOM.ColumnGroup.innerHTML = "";

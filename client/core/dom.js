@@ -25,6 +25,9 @@
   /** Select and prepare the output container */
   NOVAE.DOM.Output = document.querySelector("#output");
 
+  /** Select and prepare the viewport container */
+  NOVAE.DOM.Viewport = document.querySelector(".viewport");
+
   /** Select and prepare the column group container */
   NOVAE.DOM.ColumnGroup = document.querySelector("#column_group");
 

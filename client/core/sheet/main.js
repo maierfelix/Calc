@@ -137,10 +137,10 @@
     /** Auto change to the new sheet*/
     NOVAE.Sheets.changeSheet(NOVAE.CurrentSheet, 1);
 
-    NOVAE.DOM.Output.classList.add("pullDown");
+    NOVAE.DOM.Viewport.classList.add("pullDown");
 
     setTimeout(function() {
-      NOVAE.DOM.Output.classList.remove("pullDown");
+      NOVAE.DOM.Viewport.classList.remove("pullDown");
     }, 275);
 
     /** Refresh everything */
@@ -241,10 +241,10 @@
     NOVAE.CurrentSheet = name;
 
     if (!arguments[1]) {
-      NOVAE.DOM.Output.classList.add("fadeIn");
+      NOVAE.DOM.Viewport.classList.add("fadeIn");
 
       setTimeout(function() {
-        NOVAE.DOM.Output.classList.remove("fadeIn");
+        NOVAE.DOM.Viewport.classList.remove("fadeIn");
       }, 275);
     }
 

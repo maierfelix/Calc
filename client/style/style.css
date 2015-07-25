@@ -427,9 +427,11 @@ button, input, select, textArea {
 .viewport {
   overflow-x: hidden;
   overflow-y: auto;
-  height: 500px;
   margin-top: 22px;
   margin-left: 0px;
+  height: -webkit-calc(100% - 125px); 
+  height: -moz-calc(100% - 125px); 
+  height: -o-calc(100% - 125px);
 }
 
 table {
@@ -452,8 +454,9 @@ tbody>tr {
 
 thead {
   position: absolute;
+  z-index: 3;
   margin-top: -22px;
-  margin-left: -2px;
+  margin-left: -1px;
 }
 
 .row {

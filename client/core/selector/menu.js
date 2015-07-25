@@ -39,16 +39,16 @@
     y -= NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY;
 
     /** Clean the horizontal menu */
-    for (var ii = 0; ii < NOVAE.DOM.HorizontalMenu.children.length; ++ii) {
+    /*for (var ii = 0; ii < NOVAE.DOM.HorizontalMenu.children.length; ++ii) {
       NOVAE.DOM.HorizontalMenu.children[ii].classList.remove("cell_dark");
       NOVAE.DOM.HorizontalMenu.children[ii].classList.remove("cell_bright");
-    }
+    }*/
 
     /** Clean the vertical menu */
-    for (var ii = 0; ii < NOVAE.DOM.VerticalMenu.children.length; ++ii) {
+    /*for (var ii = 0; ii < NOVAE.DOM.VerticalMenu.children.length; ++ii) {
       NOVAE.DOM.VerticalMenu.children[ii].classList.remove("cell_dark");
       NOVAE.DOM.VerticalMenu.children[ii].classList.remove("cell_bright");
-    }
+    }*/
 
     /** Dont select anything if all selected */
     if (this.allSelected) return void 0;
@@ -57,14 +57,14 @@
     this.MenuSelection.Horizontal = x;
     this.MenuSelection.Vertical = y;
 
-    if (NOVAE.DOM.HorizontalMenu.children[x]) {
+    /*if (NOVAE.DOM.HorizontalMenu.children[x]) {
       NOVAE.DOM.HorizontalMenu.children[x].classList.add("cell_bright");
       NOVAE.DOM.HorizontalMenu.children[x].classList.remove("cell_dark");
-    }
+    }*/
 
-    if (NOVAE.DOM.VerticalMenu.children[y]) {
+    /*if (NOVAE.DOM.VerticalMenu.children[y]) {
       NOVAE.DOM.VerticalMenu.children[y].classList.add("cell_bright");
       NOVAE.DOM.VerticalMenu.children[y].classList.remove("cell_dark");
-    }
+    }*/
 
   };
