@@ -187,29 +187,29 @@
           /** User scrolls cell up */
           if (self.mouseMoveDirection.directionY === "down") {
 
-            e.target.style.height = (parseInt(e.target.style.height) + 2) + "px";
+            e.target.style.height = (parseInt(e.target.style.height) + 3) + "px";
 
             /** Update customized cell object */
-            customCellSizes.Rows[name].Height += 2;
+            customCellSizes.Rows[name].Height += 3;
 
             /** Update total cell resize factor */
-            self.Settings.cellResizedY += 2;
+            self.Settings.cellResizedY += 3;
 
             /** Update resize helper top position */
-            NOVAE.DOM.RowResizeHelper.style.top = resizeHelperValue - NOVAE.DOM.Output.scrollTop + "px";
+            NOVAE.DOM.RowResizeHelper.style.top = resizeHelperValue - NOVAE.DOM.Viewport.scrollTop + "px";
 
           /** User scrolls cell down */
           } else if (self.mouseMoveDirection.directionY === "up") {
 
             if (parseInt(e.target.style.height) >= 0) {
 
-              e.target.style.height = (parseInt(e.target.style.height) - 2) + "px";
+              e.target.style.height = (parseInt(e.target.style.height) - 3) + "px";
 
               /** Update customized cell object */
-              customCellSizes.Rows[name].Height -= 2;
+              customCellSizes.Rows[name].Height -= 3;
 
               /** Update total cell resize factor */
-              self.Settings.cellResizedY -= 2;
+              self.Settings.cellResizedY -= 3;
 
             } else {
 
@@ -221,7 +221,7 @@
             }
 
             /** Update resize helper top position */
-            NOVAE.DOM.RowResizeHelper.style.top = resizeHelperValue - NOVAE.DOM.Output.scrollTop - 2 + "px";
+            NOVAE.DOM.RowResizeHelper.style.top = resizeHelperValue - NOVAE.DOM.Viewport.scrollTop - 3 + "px";
 
           }
 

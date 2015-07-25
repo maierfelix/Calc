@@ -21,15 +21,11 @@
    */
   NOVAE.Event.animateMouseUp = function() {
 
-    NOVAE.DOM.Output.classList.remove("moveDown");
-    NOVAE.DOM.VerticalMenu.classList.remove("moveDown");
-    NOVAE.DOM.Output.classList.remove("moveUp");
-    NOVAE.DOM.VerticalMenu.classList.remove("moveUp");
+    NOVAE.DOM.Viewport.classList.remove("moveDown");
+    NOVAE.DOM.Viewport.classList.remove("moveUp");
     setTimeout( function() {
-      NOVAE.DOM.Output.classList.add("moveDown");
-      NOVAE.DOM.VerticalMenu.classList.add("moveDown");
-      NOVAE.DOM.Output.style.top = "-25px";
-      NOVAE.DOM.VerticalMenu.style.top = "-25px";
+      NOVAE.DOM.Viewport.classList.add("moveDown");
+      NOVAE.DOM.Viewport.style.top = "-25px";
     }, 1);
 
   };
@@ -43,12 +39,9 @@
   NOVAE.Event.animateMouseUpMaximum = function() {
 
     /** Animate */
-    NOVAE.DOM.Output.classList.remove("moveDown");
-    NOVAE.DOM.VerticalMenu.classList.remove("moveDown");
-    NOVAE.DOM.Output.classList.remove("moveUp");
-    NOVAE.DOM.VerticalMenu.classList.remove("moveUp");
-    NOVAE.DOM.Output.style.top = "0px";
-    NOVAE.DOM.VerticalMenu.style.top = "0px";
+    NOVAE.DOM.Viewport.classList.remove("moveDown");
+    NOVAE.DOM.Viewport.classList.remove("moveUp");
+    NOVAE.DOM.Viewport.style.top = "0px";
 
   };
 
@@ -60,14 +53,11 @@
    */
   NOVAE.Event.animateMouseDown = function() {
 
-    NOVAE.DOM.Output.classList.remove("moveDown");
-    NOVAE.DOM.VerticalMenu.classList.remove("moveDown");
-    NOVAE.DOM.Output.classList.remove("moveUp");
-    NOVAE.DOM.VerticalMenu.classList.remove("moveUp");
+    NOVAE.DOM.Viewport.classList.remove("moveDown");
+    NOVAE.DOM.Viewport.classList.remove("moveUp");
 
     setTimeout( function() {
-      NOVAE.DOM.Output.classList.add("moveUp");
-      NOVAE.DOM.VerticalMenu.classList.add("moveUp");
+      NOVAE.DOM.Viewport.classList.add("moveUp");
     }, 55);
 
   };

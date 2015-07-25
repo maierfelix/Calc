@@ -27,15 +27,14 @@
     NOVAE.DOM.Cache = null;
     delete NOVAE.DOM.Cache;
 
-    NOVAE.DOM.Cache = {};
+    NOVAE.DOM.Cache = [];
     NOVAE.DOM.CacheArray = [];
 
     for (var ii = 0; ii < NOVAE.DOM.TableBody.children.length; ++ii) {
       for (var kk = 0; kk < NOVAE.DOM.TableBody.children[ii].children.length; ++kk) {
         if (NOVAE.DOM.TableBody.children[ii].children[kk].nodeName === "TD") {
           var coord = kk + this.Settings.y * ii - 1;
-          NOVAE.DOM.Cache[coord] = NOVAE.DOM.TableBody.children[ii].children[kk];
-          NOVAE.DOM.CacheArray[coord] = NOVAE.DOM.TableBody.children[ii].children[kk];
+          NOVAE.DOM.Cache.push(NOVAE.DOM.TableBody.children[ii].children[kk]);
         }
       }
     }

@@ -97,7 +97,7 @@
   /** Grid Sizes */
   NOVAE.Settings.GridSizes = {
     Columns: 95,
-    Rows: 22
+    Rows: 23
   };
 
   /** Event helper for mobile and desktop events */

@@ -29,6 +29,7 @@
     /** Cell name attributes */
     var Letter;
     var Number = 0;
+    var position = 0;
 
     /** Create letter of major first column in view from the left */
     Letter = NOVAE.$.numberToAlpha(this.Settings.scrolledX + 1);
@@ -44,34 +45,38 @@
       if (dir === "down") {
         Number = (this.Settings.scrolledY - scrollAmount) + 1;
         calculation = ( ( ii + scrollAmount ) - helper + Number);
+        position = ((calculation - 1) * this.Settings.x + (NOVAE.$.alphaToNumber(Letter) - 1)) - (this.Settings.scrolledY * this.Settings.x);
       /** Scroll Up */
       } else if (dir === "up") {
         Number = (this.Settings.scrolledY + scrollAmount) + 1;
         calculation = ( ( ii - scrollAmount ) - helper + Number);
+        position = ((calculation - 1) * this.Settings.x + (NOVAE.$.alphaToNumber(Letter) - 1)) - (this.Settings.scrolledY * this.Settings.x);
       /** Scroll to Default */
       } else {
         Number = 1;
         calculation = ( ( ii + this.Settings.scrolledY ) - helper + Number);
+        position = ((calculation - 1) * this.Settings.x + (NOVAE.$.alphaToNumber(Letter) - 1)) - (this.Settings.scrolledY * this.Settings.x);
       }
 
       /** Remove style of cell */
       this.removeCellStyling(ii);
 
       /** Append all styling */
-      this.updateCellAllStyling(calculation, ii);
+      //this.updateCellAllStyling(calculation, ii);
 
       /** Master selection column */
       if (NOVAE.Cells.Master[NOVAE.CurrentSheet].Columns[Letter]) {
-        this.updateCellMasterStyling(Letter, ii);
+        //this.updateCellMasterStyling(Letter, ii);
       /** Master selection row */
       } else if (NOVAE.Cells.Master[NOVAE.CurrentSheet].Rows[calculation]) {
-        this.updateCellMasterStyling(calculation, ii);
+        //this.updateCellMasterStyling(calculation, ii);
       }
 
       /** Check if cell is registered, if yes update its styling */
       if (NOVAE.Cells.Used[NOVAE.CurrentSheet][Letter] && NOVAE.Cells.Used[NOVAE.CurrentSheet][Letter][Letter + calculation]) {
+        console.log(ii, calculation, position);
         /** Higher priority than master styling */
-        this.updateCellStyling(Letter, Letter + calculation, ii);
+        this.updateCellStyling(Letter, Letter + calculation, position);
       }
 
       if ( (ii + 1) % br === 0) {
@@ -106,6 +111,8 @@
     if (!NOVAE.Cells.Used[NOVAE.CurrentSheet][name]) return void 0;
 
     if (!NOVAE.Cells.Used[NOVAE.CurrentSheet][name][cell]) return void 0;
+
+    if (!NOVAE.DOM.Cache[ii]) return void 0;
 
     /** Check if cell has custom content */
     if (NOVAE.Cells.Used[NOVAE.CurrentSheet][name][cell].Content !== undefined && NOVAE.Cells.Used[NOVAE.CurrentSheet][name][cell].Content !== null) {

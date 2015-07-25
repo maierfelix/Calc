@@ -427,7 +427,7 @@ button, input, select, textArea {
 .viewport {
   overflow-x: hidden;
   overflow-y: auto;
-  margin-top: 22px;
+  margin-top: 21px;
   margin-left: 0px;
   height: -webkit-calc(100% - 125px); 
   height: -moz-calc(100% - 125px); 
@@ -455,7 +455,7 @@ tbody>tr {
 thead {
   position: absolute;
   z-index: 3;
-  margin-top: -22px;
+  margin-top: -21px;
   margin-left: -1px;
 }
 
@@ -1378,6 +1378,13 @@ thead {
     z-index: 9999999;
     color: #fff;
     font-size: 1.1em !important;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .modal_container {
+    width: 300px;
+    margin-left: -150px;
   }
 }
 

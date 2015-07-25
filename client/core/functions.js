@@ -388,7 +388,12 @@
     var number = object.number;
     var jumps = 0;
 
-    console.log(letter, number);
+    if (NOVAE.DOM.TableBody.children[number]) {
+      if (NOVAE.DOM.TableBody.children[number].children[letter]) {
+        //console.log(NOVAE.DOM.TableBody.children[number].children[letter]);
+        return (NOVAE.DOM.TableBody.children[number].children[letter]);
+      }
+    }
 
   };
 

@@ -132,7 +132,7 @@
     }
 
     /** Calculate a scroll amount, divisible by celltemplate height */
-    var scrollAmount = Math.roundTo(NOVAE.Settings.Scroll.Vertical * 5, NOVAE.Sheets[NOVAE.CurrentSheet].CellTemplate.Height);
+    var scrollAmount = Math.roundTo(NOVAE.Settings.Scroll.Vertical * 5, 25);
 
     /** User scrolled up or down, dont redraw */
     NOVAE.Sheets[NOVAE.CurrentSheet].Input.lastAction.scrollY = true;
@@ -152,15 +152,15 @@
 
             NOVAE.DOM.Viewport.scrollTop += scrollAmount;
 
-            var downSettingsY = Math.floor(NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y / 2.5);
+            var downSettingsY = Math.floor(NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y / 3);
 
             var downReRender = Math.floor(NOVAE.DOM.Viewport.scrollTop / NOVAE.Sheets[NOVAE.CurrentSheet].CellTemplate.Height) + downSettingsY;
 
             if (downReRender >= NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y) {
-
+console.log("Re-render Down");
               NOVAE.DOM.Viewport.scrollTop = 0;
 
-              NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY += Math.floor((downReRender - downSettingsY));
+              NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY += Math.floor((downReRender - downSettingsY - 6));
               NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = NOVAE.Settings.Scroll.Vertical;
               NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Vertical);
               //NOVAE.Sheets[NOVAE.CurrentSheet].Selector.cleanHoverEffect();
@@ -190,19 +190,19 @@
           /** Native optimized scrolling */
           if (fastScroll) {
 
-            NOVAE.DOM.Viewport.scrollTop -= scrollAmount;
-
-            var upSettingsY = Math.floor(NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y / 2.5);
+            var upSettingsY = Math.floor(NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y / 3);
 
             var upReRender = Math.floor(NOVAE.DOM.Viewport.scrollTop / NOVAE.Sheets[NOVAE.CurrentSheet].CellTemplate.Height) - upSettingsY;
 
             if (upReRender < 0) upReRender = upReRender * -1;
 
-            if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY > 0 && upReRender === upSettingsY) {
+            NOVAE.DOM.Viewport.scrollTop -= Math.floor(scrollAmount / 2);
 
+            if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY > 0 && upReRender === upSettingsY) {
+console.log("Re-render Up");
               NOVAE.DOM.Viewport.scrollTop = NOVAE.DOM.Viewport.scrollHeight;
 
-              NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY -= Math.floor(upReRender + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y / 4);
+              NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY -= Math.floor(upReRender + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y / 4) + 6;
               NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = NOVAE.Settings.Scroll.Vertical;
               NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Vertical);
               //NOVAE.Sheets[NOVAE.CurrentSheet].Selector.cleanHoverEffect();
