@@ -92,7 +92,7 @@
       json: ["json"],
       ajax: ["connect"],
       /** Functions */
-      func: ["sum", "count", "countif", "between"]
+      func: ["sum", "count", "countif", "between", "average"]
     };
 
   };

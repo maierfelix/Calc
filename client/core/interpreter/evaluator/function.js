@@ -94,6 +94,23 @@
           }
         break;
 
+        /** AVERAGE */
+        case "average":
+          var calc = [];
+          /** Get content of range */
+          var array = NOVAE.$.getSelectionCellProperty(argumentArray[0], "Content");
+          for (var ii = 0; ii < array.length; ++ii) {
+            /** Only count valid numbers */
+            if (array[ii].value && array[ii].value !== "" && !isNaN(array[ii].value)) {
+              calc.push(array[ii].value);
+            }
+          }
+          if (calc.length) {
+            result = Math.average(calc);
+          }
+          console.log(result);
+        break;
+
       }
 
       /** Update variable in the stack */

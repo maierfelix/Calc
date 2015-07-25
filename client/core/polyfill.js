@@ -11,10 +11,34 @@
  *
  */
 
-  /** Round integer to its nearst X integer */
+  /**
+   * Round integer to its nearst X integer
+   * @param  {number} a Number
+   * @param  {number} b Round to
+   * @return {number} rounded number
+   */
   Math.roundTo = function(a, b) {
     b = 1 / (b);
     return (Math.round(a * b) / b);
+  };
+
+  /**
+   * Calculate an average
+   * @param  {array} array
+   * @return {number} average
+   */
+  Math.average = function(array) {
+
+    var sum = 0;
+
+    var length = array.length;
+
+    for (var ii = 0; ii < length; ii++) {
+      sum += parseFloat(array[ii], 10);
+    }
+
+    return (sum / length);
+
   };
 
   /**
