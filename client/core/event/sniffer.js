@@ -179,7 +179,7 @@
     setTimeout(function() {
       NOVAE.$.registerCell({ letter: letter, number: number });
       jumps = NOVAE.$.getCell({ letter: NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First.Letter, number: NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First.Number });
-      if (jumps >= 0) element = NOVAE.DOM.Output.children[jumps];
+      if (jumps >= 0) element = NOVAE.DOM.Cache[jumps];
       /** Update cell used stack value with cell input fields value */
       if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell]) NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Content = NOVAE.DOM.CellInput.value;
       /** Cell is not in view, register it anyway */

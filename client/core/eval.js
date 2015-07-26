@@ -68,7 +68,7 @@
 
         /** Display the result, if cell is in view */
         var jumps = NOVAE.$.getCell({ letter: NOVAE.$.alphaToNumber(letter), number: number });
-        if (jumps >= 0) NOVAE.DOM.Output.children[jumps].innerHTML = result;
+        if (jumps >= 0) NOVAE.DOM.Cache[jumps].innerHTML = result;
 
       }
     }

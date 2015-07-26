@@ -33,7 +33,7 @@
     NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.Edit = true;
 
     jumps = NOVAE.$.getCell({ letter: object.Letter, number: object.Number });
-    if (jumps >= 0) element = NOVAE.DOM.Output.children[jumps];
+    if (jumps >= 0) element = NOVAE.DOM.Cache[jumps];
 
     /** Clean old edited cell */
     if (element) element.classList.remove("cell_edit");
@@ -111,14 +111,14 @@
           number = ~~(NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Edit.match(NOVAE.REGEX.letters).join("")),
           jumps = ((this.Settings.y * (NOVAE.$.alphaToNumber(letter) - 1) ) + number - 1 - this.Settings.scrolledY) - (this.Settings.y * this.Settings.scrolledX);
 
-      if (NOVAE.DOM.Output.children[jumps]) {
-        NOVAE.DOM.Output.children[jumps].classList.remove("cell_edit");
+      if (NOVAE.DOM.Cache[jumps]) {
+        NOVAE.DOM.Cache[jumps].classList.remove("cell_edit");
       }
-      if (NOVAE.DOM.Output.children[jumps + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY]) {
-        NOVAE.DOM.Output.children[jumps + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY].classList.remove("cell_edit");
+      if (NOVAE.DOM.Cache[jumps + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY]) {
+        NOVAE.DOM.Cache[jumps + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY].classList.remove("cell_edit");
       }
-      if (NOVAE.DOM.Output.children[jumps - NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY]) {
-        NOVAE.DOM.Output.children[jumps - NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY].classList.remove("cell_edit");
+      if (NOVAE.DOM.Cache[jumps - NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY]) {
+        NOVAE.DOM.Cache[jumps - NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY].classList.remove("cell_edit");
       }
 
       /** Cell was successfully registered */
@@ -130,7 +130,7 @@
           if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].Formula !== NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].Content) {
             /** Disgorge the formula */
             jumps = NOVAE.$.getCell({ letter: letter, number: number });
-            if (jumps >= 0) NOVAE.DOM.Output.children[jumps].innerHTML = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].Content;
+            if (jumps >= 0) NOVAE.DOM.Cache[jumps].innerHTML = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].Content;
           }
         }
       }
@@ -154,7 +154,7 @@
 
       var jumps = NOVAE.$.getCell({ letter: NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First.Letter, number: NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First.Number });
 
-      if (jumps >= 0) NOVAE.$.selectText(NOVAE.DOM.Output.children[jumps]);
+      if (jumps >= 0) NOVAE.$.selectText(NOVAE.DOM.Cache[jumps]);
 
     }
 

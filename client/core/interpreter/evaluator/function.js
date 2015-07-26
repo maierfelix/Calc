@@ -108,7 +108,6 @@
           if (calc.length) {
             result = Math.average(calc);
           }
-          console.log(result);
         break;
 
       }

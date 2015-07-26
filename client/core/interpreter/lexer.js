@@ -136,6 +136,7 @@
    * Lexical analysis a string and generates a list of tokens
    *
    * @method lex
+   * @param {string} input
    * @return {array} of Tokens
    * @static
    */

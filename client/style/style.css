@@ -400,8 +400,8 @@ button, input, select, textArea {
   padding: 3px !important;
   font-weight: 500;
   border-top: 1px solid #CCC;
-  border-left: 1px solid #CCC !important;
-  border-right: none !important;
+  border-left: 1px solid #CCC;
+  border-bottom: 1px solid #CCC;
 }
 
 .cell_dark_alpha:hover {
@@ -415,8 +415,9 @@ button, input, select, textArea {
   border: solid 1px lightgrey;
   font-family: 'Roboto', sans-serif;
   padding: 5px !important;
-  border-bottom: none !important;
+  border-bottom: none;
   font-weight: 500;
+  vertical-align: middle !important;
 }
 
 .cell_dark_number:hover {
@@ -452,6 +453,11 @@ tbody>tr {
   height: 25px;
 }
 
+#table_body>tr>td {
+  border-right: 1px solid #CCC;
+  border-bottom: 1px solid #CCC;
+}
+
 thead {
   position: absolute;
   z-index: 3;
@@ -460,8 +466,6 @@ thead {
 }
 
 .row {
-  border-right: 1px solid #CCC;
-  border-bottom: 1px solid #CCC;
   empty-cells: show;
   padding: 0 4px 0 4px;
   background-color: #FFF;
@@ -477,10 +481,13 @@ thead {
   padding-left: 4px !important;
   border-left: 1px solid darkgrey !important;
   border-bottom: 1px solid darkgrey !important;
+  border: 1px solid darkgrey !important;
 }
 
 .single_row_hovered {
   border: 2px solid #448AFF;
+  border-right: 2px solid #448AFF !important;
+  border-bottom: 2px solid #448AFF !important;
   outline: 1px solid #448AFF;
   background: #fff;
   padding-top: 3px;

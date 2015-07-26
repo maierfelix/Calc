@@ -27,7 +27,7 @@
 
     if (["verticalPositive", "horizontalPositive", "horizontalNegativePositive"].indexOf(this.selectionMode) >= 0) {
       /** Update menu items selection */
-      x = this.Selected.Last.Letter - 1;
+      x = this.Selected.Last.Letter;
       y = this.Selected.Last.Number - 1;
     } else if (["verticalNegative", "horizontalNegative", "horizontalNegativeNegative"].indexOf(this.selectionMode) >= 0) {
       /** Update menu items selection */
@@ -39,16 +39,16 @@
     y -= NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY;
 
     /** Clean the horizontal menu */
-    /*for (var ii = 0; ii < NOVAE.DOM.HorizontalMenu.children.length; ++ii) {
-      NOVAE.DOM.HorizontalMenu.children[ii].classList.remove("cell_dark");
-      NOVAE.DOM.HorizontalMenu.children[ii].classList.remove("cell_bright");
-    }*/
+    for (var ii = 0; ii < NOVAE.DOM.TableHead.children.length; ++ii) {
+      NOVAE.DOM.TableHead.children[ii].children[0].classList.remove("cell_dark");
+      NOVAE.DOM.TableHead.children[ii].children[0].classList.remove("cell_bright");
+    }
 
     /** Clean the vertical menu */
-    /*for (var ii = 0; ii < NOVAE.DOM.VerticalMenu.children.length; ++ii) {
-      NOVAE.DOM.VerticalMenu.children[ii].classList.remove("cell_dark");
-      NOVAE.DOM.VerticalMenu.children[ii].classList.remove("cell_bright");
-    }*/
+    for (var ii = 0; ii < NOVAE.DOM.TableBody.children.length; ++ii) {
+      NOVAE.DOM.TableBody.children[ii].children[0].children[0].classList.remove("cell_dark");
+      NOVAE.DOM.TableBody.children[ii].children[0].children[0].classList.remove("cell_bright");
+    }
 
     /** Dont select anything if all selected */
     if (this.allSelected) return void 0;
@@ -57,14 +57,14 @@
     this.MenuSelection.Horizontal = x;
     this.MenuSelection.Vertical = y;
 
-    /*if (NOVAE.DOM.HorizontalMenu.children[x]) {
-      NOVAE.DOM.HorizontalMenu.children[x].classList.add("cell_bright");
-      NOVAE.DOM.HorizontalMenu.children[x].classList.remove("cell_dark");
-    }*/
+    if (NOVAE.DOM.TableHead.children[x]) {
+      NOVAE.DOM.TableHead.children[x].children[0].classList.add("cell_bright");
+      NOVAE.DOM.TableHead.children[x].children[0].classList.remove("cell_dark");
+    }
 
-    /*if (NOVAE.DOM.VerticalMenu.children[y]) {
-      NOVAE.DOM.VerticalMenu.children[y].classList.add("cell_bright");
-      NOVAE.DOM.VerticalMenu.children[y].classList.remove("cell_dark");
-    }*/
+    if (NOVAE.DOM.TableBody.children[y]) {
+      NOVAE.DOM.TableBody.children[y].children[0].children[0].classList.add("cell_bright");
+      NOVAE.DOM.TableBody.children[y].children[0].children[0].classList.remove("cell_dark");
+    }
 
   };

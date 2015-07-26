@@ -24,9 +24,6 @@
     var children = NOVAE.DOM.TableBody.children;
     var childLength = 0;
 
-    NOVAE.DOM.Cache = null;
-    delete NOVAE.DOM.Cache;
-
     NOVAE.DOM.Cache = [];
     NOVAE.DOM.CacheArray = [];
 

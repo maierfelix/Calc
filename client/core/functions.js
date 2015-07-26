@@ -384,16 +384,16 @@
    */
   NOVAE.$.getCell = function(object) {
 
+    var sheet = object.sheet ? NOVAE.Sheets[object.sheet] : NOVAE.Sheets[NOVAE.CurrentSheet];
+
     var letter = object.letter;
     var number = object.number;
-    var jumps = 0;
 
-    if (NOVAE.DOM.TableBody.children[number]) {
-      if (NOVAE.DOM.TableBody.children[number].children[letter]) {
-        //console.log(NOVAE.DOM.TableBody.children[number].children[letter]);
-        return (NOVAE.DOM.TableBody.children[number].children[letter]);
-      }
-    }
+    var jumps = ((number - 1) * (sheet.Settings.x)) + (letter - 1);
+
+    if (NOVAE.$.isInView(letter, jumps)) return (jumps);
+
+    return void 0;
 
   };
 
@@ -406,10 +406,8 @@
   NOVAE.$.isInView = function(letter, jumps) {
 
     var row = letter;
-        row = row <= 1 ? 1 : row;
+        row = row || 1;
 
-    if (jumps < ( (letter * NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y) - NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y) - (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y * NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX) ) return (false);
-    else if (jumps >= (letter * NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y) - (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y * NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX) ) return (false);
     return (true);
 
   };
@@ -444,7 +442,7 @@
   };
 
   /**
-   * Check if multiple cells was selected and each is valid
+   * Check if multiple cells were selected and each is valid
    * If not, register each into the cell used stack
    *
    * @method validateCells

@@ -327,7 +327,7 @@
         }
 
         /** !Evil DOM Content */
-        output += '<' + this.Templates.Cell.element + ' row="' + Breaks + '" class="' + this.Templates.Cell.class + '">';
+        output += '<' + this.Templates.Cell.element + ' class="' + this.Templates.Cell.class + '" style="">';
         /** Check if cell contains custom content */
         if (NOVAE.Cells.Used[NOVAE.CurrentSheet][Letter] && NOVAE.Cells.Used[NOVAE.CurrentSheet][Letter][Letter + Number]) {
           output += NOVAE.Cells.Used[NOVAE.CurrentSheet][Letter][Letter + Number].Content;

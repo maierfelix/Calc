@@ -97,7 +97,7 @@
 
     var object = this.getOuterSelection();
 
-    var cacheTarget = "";
+    var cacheTarget;
 
     var letter = "";
 
@@ -153,7 +153,7 @@
     for (var ii = 0; ii < object.top.length; ++ii) {
       jumps = NOVAE.$.getCell(object.top[ii]);
       if (jumps >= 0) {
-        NOVAE.DOM.CacheArray[jumps].classList.add("border_top");
+        NOVAE.DOM.Cache[jumps].classList.add("border_top");
       }
     }
 
@@ -161,7 +161,7 @@
     for (var ii = 0; ii < object.bottom.length; ++ii) {
       jumps = NOVAE.$.getCell(object.bottom[ii]);
       if (jumps >= 0) {
-        NOVAE.DOM.CacheArray[jumps].classList.add("border_bottom");
+        NOVAE.DOM.Cache[jumps].classList.add("border_bottom");
       }
     }
 
@@ -169,7 +169,7 @@
     for (var ii = 0; ii < object.left.length; ++ii) {
       jumps = NOVAE.$.getCell(object.left[ii]);
       if (jumps >= 0) {
-        NOVAE.DOM.CacheArray[jumps].classList.add("border_left");
+        NOVAE.DOM.Cache[jumps].classList.add("border_left");
       }
     }
 
@@ -177,7 +177,7 @@
     for (var ii = 0; ii < object.right.length; ++ii) {
       jumps = NOVAE.$.getCell(object.right[ii]);
       if (jumps >= 0) {
-        NOVAE.DOM.CacheArray[jumps].classList.add("border_right");
+        NOVAE.DOM.Cache[jumps].classList.add("border_right");
       }
     }
 

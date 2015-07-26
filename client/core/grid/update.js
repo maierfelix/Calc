@@ -42,39 +42,27 @@
     for (var ii = 0; ii < length; ++ii) {
 
       /** Scroll Down */
-      if (dir === "down") {
-        Number = (this.Settings.scrolledY - scrollAmount) + 1;
-        calculation = ( ( ii + scrollAmount ) - helper + Number);
-        position = ((calculation - 1) * this.Settings.x + (NOVAE.$.alphaToNumber(Letter) - 1)) - (this.Settings.scrolledY * this.Settings.x);
-      /** Scroll Up */
-      } else if (dir === "up") {
-        Number = (this.Settings.scrolledY + scrollAmount) + 1;
-        calculation = ( ( ii - scrollAmount ) - helper + Number);
-        position = ((calculation - 1) * this.Settings.x + (NOVAE.$.alphaToNumber(Letter) - 1)) - (this.Settings.scrolledY * this.Settings.x);
-      /** Scroll to Default */
-      } else {
-        Number = 1;
-        calculation = ( ( ii + this.Settings.scrolledY ) - helper + Number);
-        position = ((calculation - 1) * this.Settings.x + (NOVAE.$.alphaToNumber(Letter) - 1)) - (this.Settings.scrolledY * this.Settings.x);
-      }
+      Number = 1;
+      calculation = ( ( ii + this.Settings.scrolledY ) - helper + Number);
+
+      position = ((calculation - 1) * this.Settings.x + (NOVAE.$.alphaToNumber(Letter) - 1)) - (this.Settings.scrolledY * this.Settings.x);
 
       /** Remove style of cell */
-      this.removeCellStyling(ii);
+      this.removeCellStyling(position);
 
       /** Append all styling */
-      //this.updateCellAllStyling(calculation, ii);
+      this.updateCellAllStyling(calculation, position);
 
       /** Master selection column */
       if (NOVAE.Cells.Master[NOVAE.CurrentSheet].Columns[Letter]) {
-        //this.updateCellMasterStyling(Letter, ii);
+        this.updateCellMasterStyling(Letter, position);
       /** Master selection row */
       } else if (NOVAE.Cells.Master[NOVAE.CurrentSheet].Rows[calculation]) {
-        //this.updateCellMasterStyling(calculation, ii);
+        this.updateCellMasterStyling(calculation, position);
       }
 
       /** Check if cell is registered, if yes update its styling */
       if (NOVAE.Cells.Used[NOVAE.CurrentSheet][Letter] && NOVAE.Cells.Used[NOVAE.CurrentSheet][Letter][Letter + calculation]) {
-        console.log(ii, calculation, position);
         /** Higher priority than master styling */
         this.updateCellStyling(Letter, Letter + calculation, position);
       }
