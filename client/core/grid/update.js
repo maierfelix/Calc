@@ -28,7 +28,6 @@
     var calculation = 0;
     /** Cell name attributes */
     var Letter;
-    var Number = 0;
     var position = 0;
 
     /** Create letter of major first column in view from the left */
@@ -41,9 +40,7 @@
 
     for (var ii = 0; ii < length; ++ii) {
 
-      /** Scroll Down */
-      Number = 1;
-      calculation = ( ( ii + this.Settings.scrolledY ) - helper + Number);
+      calculation = ( ( ii + this.Settings.scrolledY ) - helper + 1);
 
       position = ((calculation - 1) * this.Settings.x + (NOVAE.$.alphaToNumber(Letter) - 1)) - (this.Settings.scrolledY * this.Settings.x);
 

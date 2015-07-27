@@ -391,22 +391,21 @@
 
     var jumps = ((number - 1) * (sheet.Settings.x)) + (letter - 1);
 
-    if (NOVAE.$.isInView(letter, jumps)) return (jumps);
+    if (NOVAE.$.isInView(letter, number, jumps)) return (jumps);
 
     return void 0;
 
   };
 
   /**
-   * Check if a cell is in its correct row
+   * Check if a cell is in its correct column and row
    *
    * @method isInView
    * @static
    */
-  NOVAE.$.isInView = function(letter, jumps) {
+  NOVAE.$.isInView = function(letter, number, jumps) {
 
-    var row = letter;
-        row = row || 1;
+    if (jumps >= ((number * NOVAE.Sheets[NOVAE.CurrentSheet].Settings.x) - NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY)) return (false);
 
     return (true);
 

@@ -165,7 +165,7 @@ console.log("Re-render Down");
               NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Vertical);
               //NOVAE.Sheets[NOVAE.CurrentSheet].Selector.cleanHoverEffect();
               NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
-              //NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
+              NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
 
             }
 
@@ -178,7 +178,7 @@ console.log("Re-render Down");
             NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = NOVAE.Settings.Scroll.Vertical;
             NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Vertical);
             NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
-            //NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
+            NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
 
           }
 
@@ -207,7 +207,7 @@ console.log("Re-render Up");
               NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Vertical);
               //NOVAE.Sheets[NOVAE.CurrentSheet].Selector.cleanHoverEffect();
               NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
-              //NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
+              NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
 
             }
 

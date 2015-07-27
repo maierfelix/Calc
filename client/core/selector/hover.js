@@ -192,61 +192,48 @@
 
     if (this.allSelected) style = "row_hovered";
 
-    /** Delete hover effect for all cells */
-    for (var ii = 0; ii < this.SelectedCells.length; ++ii) {
+    var length = NOVAE.DOM.Cache.length;
 
-      var cell = null;
+    for (var cell = 0; cell < length; ++cell) {
 
-      if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY) {
-        cell = NOVAE.$.getCell({letter: this.SelectedCells[ii].letter, number: this.SelectedCells[ii].number + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY });
-      } else {
-        cell = NOVAE.$.getCell({letter: this.SelectedCells[ii].letter, number: this.SelectedCells[ii].number });
+      /** Remove outer selection borders */
+      NOVAE.DOM.Cache[cell].classList.remove(style, "border_top", "border_bottom", "border_left", "border_right");
+
+      if (NOVAE.DOM.Cache[cell].children[0]) {
+        NOVAE.DOM.Cache[cell].removeChild(NOVAE.DOM.Cache[cell].children[0]);
       }
 
-      if (cell >= 0 && NOVAE.DOM.Cache[cell]) {
+      var column = NOVAE.$.getNameFromDOMCell(NOVAE.DOM.Cache[cell], false).number - 1;
+      var row = NOVAE.$.getNameFromDOMCell(NOVAE.DOM.Cache[cell].parentNode, false).number;
 
-        /** Remove outer selection borders */
-        NOVAE.DOM.Cache[cell].classList.remove(style, "border_top", "border_bottom", "border_left", "border_right");
+      var name = {letter: column, number: row};
 
-        if (singleCell) {
-          if (NOVAE.DOM.Cache[cell].children[0]) {
-            NOVAE.DOM.Cache[cell].removeChild(NOVAE.DOM.Cache[cell].children[0]);
-          }
-        }
+      /** Reset background color if customized cell was in selection */
+      if (name) {
 
-        /** Remove extender button */
-        if (NOVAE.DOM.Cache[cell].children[0]) {
-          NOVAE.DOM.Cache[cell].removeChild(NOVAE.DOM.Cache[cell].children[0]);
-        }
+        var letter = NOVAE.$.numberToAlpha(name.letter);
+        var number = name.number;
 
-        /** Reset background color if customized cell was in selection */
-        if (cellName = NOVAE.$.getNameFromDOMCell(cell, true)) {
+        /** Priority 1: Cells */
+        if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter] &&
+            NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number]) {
 
-          var letter = cellName.match(NOVAE.REGEX.numbers).join("");
-          var number = cellName.match(NOVAE.REGEX.letters).join("");
+          NOVAE.DOM.Cache[cell].style.background = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].BackgroundColor;
 
-          /** Priority 1: Cells */
-          if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter] &&
-              NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number]) {
+        /** Priority 2: Columns */
+        } else if (NOVAE.Cells.Master[NOVAE.CurrentSheet].Columns[letter]) {
 
-            NOVAE.DOM.Cache[cell].style.background = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].BackgroundColor;
+          NOVAE.DOM.Cache[cell].style.background = NOVAE.Cells.Master[NOVAE.CurrentSheet].Columns[letter].BackgroundColor;
 
-          /** Priority 2: Columns */
-          } else if (NOVAE.Cells.Master[NOVAE.CurrentSheet].Columns[letter]) {
+        /** Priority 3: Rows */
+        } else if (NOVAE.Cells.Master[NOVAE.CurrentSheet].Rows[number]) {
 
-            NOVAE.DOM.Cache[cell].style.background = NOVAE.Cells.Master[NOVAE.CurrentSheet].Columns[letter].BackgroundColor;
+          NOVAE.DOM.Cache[cell].style.background = NOVAE.Cells.Master[NOVAE.CurrentSheet].Rows[number].BackgroundColor;
 
-          /** Priority 3: Rows */
-          } else if (NOVAE.Cells.Master[NOVAE.CurrentSheet].Rows[number]) {
+        /** Priority 4: All */
+        } else if (NOVAE.Cells.All[NOVAE.CurrentSheet].Cell) {
 
-            NOVAE.DOM.Cache[cell].style.background = NOVAE.Cells.Master[NOVAE.CurrentSheet].Rows[number].BackgroundColor;
-
-          /** Priority 4: All */
-          } else if (NOVAE.Cells.All[NOVAE.CurrentSheet].Cell) {
-
-            NOVAE.DOM.Cache[cell].style.background = NOVAE.Cells.All[NOVAE.CurrentSheet].Cell.BackgroundColor;
-
-          }
+          NOVAE.DOM.Cache[cell].style.background = NOVAE.Cells.All[NOVAE.CurrentSheet].Cell.BackgroundColor;
 
         }
 
