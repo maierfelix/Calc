@@ -103,6 +103,8 @@
       NOVAE.Event.resetMouseScrollAnimation();
     }
 
+    NOVAE.DOM.Viewport.scrollTop = NOVAE.Sheets[NOVAE.CurrentSheet].Settings.nativeScrollPosition.y;
+
   };
 
   /**
@@ -126,6 +128,8 @@
     NOVAE.Sheets[sheet].updateWidth("default");
 
     NOVAE.Sheets[sheet].updateMenu();
+
+    NOVAE.DOM.Viewport.scrollTop = NOVAE.Sheets[sheet].Settings.nativeScrollPosition.y;
 
     NOVAE.Sheets[sheet].Selector.getSelection();
 

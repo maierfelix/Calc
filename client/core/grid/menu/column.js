@@ -38,7 +38,7 @@
     column.innerHTML = " ";
 
     /** Append col group */
-    this.generateColGroup(width);
+    this.generateColGroup(width - 4);
 
     var th = document.createElement("th");
         th.appendChild(column);

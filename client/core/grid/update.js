@@ -40,7 +40,19 @@
 
     for (var ii = 0; ii < length; ++ii) {
 
-      calculation = ( ( ii + this.Settings.scrolledY ) - helper + 1);
+      /** Scroll Down */
+      if (dir === "down") {
+        Number = (this.Settings.scrolledY - scrollAmount) + 1;
+        calculation = ( ( ii + scrollAmount ) - helper + Number);
+      /** Scroll Up */
+      } else if (dir === "up") {
+        Number = (this.Settings.scrolledY - scrollAmount) + 1;
+        calculation = ( ( ii + scrollAmount ) - helper + Number);
+      /** Scroll to Default */
+      } else {
+        Number = 1;
+        calculation = ( ( ii + this.Settings.scrolledY ) - helper + Number);
+      }
 
       position = ((calculation - 1) * this.Settings.x + (NOVAE.$.alphaToNumber(Letter) - 1)) - (this.Settings.scrolledY * this.Settings.x);
 

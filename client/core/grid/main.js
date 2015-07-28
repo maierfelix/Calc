@@ -40,7 +40,12 @@
       lastScrollX: 0,
       lastScrollY: 0,
       /** Redraw the grid 1 time, if scrolledY amount is <= 1 */
-      redrawOnZero: false
+      redrawOnZero: false,
+      /** Save current native scroll position */
+      nativeScrollPosition: {
+        x: 0,
+        y: 0
+      }
     };
 
     /** Define Cell sizes */
