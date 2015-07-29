@@ -69,10 +69,6 @@ If you want to test the latest multi-user functionality, go to:
    - [x] Count users in current sheet
    - [ ] Synchronization
    - [ ] Screen mirroring
-   - [ ] Save styling as ranges
-
-## Todo:
-- [ ] Grid: Cache large grid
 
 ## Bugs:
 - [ ] Key scrolling
