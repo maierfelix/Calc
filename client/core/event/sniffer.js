@@ -126,9 +126,9 @@
       var number = editCell.match(NOVAE.REGEX.letters).join("");
       var cellEditContent = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter] && NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Content ? NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Content : undefined;
       /** Check if cell is filled and valid */
-      if (cellEditContent !== undefined && cellEditContent !== null && cellEditContent.length) {
+      if (cellEditContent !== null) {
         /** Cell starts with a "=" and will be interpreted as a formula */
-        if (cellEditContent[0] === "=") {
+        if (cellEditContent && cellEditContent[0] === "=") {
           NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Formula = cellEditContent;
 
           /** Inherit cell formula to slave sheets */
@@ -142,11 +142,9 @@
           if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Formula && NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Formula.length) {
             NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Formula = null;
           }
-          /** Check if cell has content, if yes pass it over to the interpreter stack */
-          if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Content && NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Content.length) {
-            /** Update the cell stacks content */
-            NOVAE.updateCell(editCell, NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Content);
-          }
+
+          /** Update the cell stacks content */
+          NOVAE.updateCell(editCell, NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Content);
 
           /** Inherit cell content to slave sheets */
           if (NOVAE.Sheets[NOVAE.CurrentSheet].isMasterSheet()) {

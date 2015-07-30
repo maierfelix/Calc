@@ -86,8 +86,9 @@
       }
     }
 
+    NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("default", NOVAE.Settings.Scroll.Vertical);
     NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
-    NOVAE.Sheets[NOVAE.CurrentSheet].updateWidth("default");
+    NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
 
   };
 

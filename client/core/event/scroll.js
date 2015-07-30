@@ -165,7 +165,6 @@
               NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY += (downReRender - downSettingsY);
               NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = NOVAE.Settings.Scroll.Vertical;
               NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Vertical);
-              //NOVAE.Sheets[NOVAE.CurrentSheet].Selector.cleanHoverEffect();
               NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
               NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
 
@@ -216,15 +215,6 @@
               NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
               NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
 
-            } else if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY <= 0 && upReRender <= NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y) {
-
-              NOVAE.DOM.Viewport.scrollTop = 0;
-              NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY = 0;
-              NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = NOVAE.Settings.Scroll.Vertical;
-              NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Vertical);
-              NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
-              NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
-
             }
 
             NOVAE.Sheets[NOVAE.CurrentSheet].Settings.nativeScrollPosition.y = NOVAE.DOM.Viewport.scrollTop;
@@ -240,7 +230,7 @@
               NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = 0;
               NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("default", NOVAE.Settings.Scroll.Vertical);
               NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
-              //NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
+              NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
 
               if (!largeGrid) NOVAE.Event.animateMouseUpMaximum();
 
@@ -250,7 +240,7 @@
               NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = NOVAE.Settings.Scroll.Vertical;
               NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("up", NOVAE.Settings.Scroll.Vertical);
               NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
-              //NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
+              NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
 
             }
 
@@ -268,19 +258,16 @@
         /** DOWN */
         case "down":
 
-          NOVAE.DOM.Viewport.scrollTop += scrollAmount;
-
           NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX += NOVAE.Settings.Scroll.Horizontal;
           NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollX = NOVAE.Settings.Scroll.Horizontal;
           NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
-          NOVAE.Sheets[NOVAE.CurrentSheet].updateWidth("right", NOVAE.Settings.Scroll.Horizontal);
+          NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Horizontal);
+          NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
 
           break;
 
         /** UP */
         case "up":
-
-          NOVAE.DOM.Viewport.scrollTop -= scrollAmount;
 
           /** Zero scroll */
           if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX - NOVAE.Settings.Scroll.Horizontal <= 0) {
@@ -288,7 +275,8 @@
             NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX = 0;
             NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollX = 0;
             NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
-            NOVAE.Sheets[NOVAE.CurrentSheet].updateWidth("default");
+            NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Horizontal);
+            NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
 
           /** Default scroll */
           } else if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX - NOVAE.Settings.Scroll.Horizontal >= 0) {
@@ -296,7 +284,8 @@
             NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX -= NOVAE.Settings.Scroll.Horizontal;
             NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollX = NOVAE.Settings.Scroll.Horizontal;
             NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
-            NOVAE.Sheets[NOVAE.CurrentSheet].updateWidth("left");
+            NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Horizontal);
+            NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
 
           }
 

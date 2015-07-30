@@ -61,9 +61,42 @@
    */
   NOVAE.Grid.prototype.updateMenu = function() {
 
-    //this.updateColumns();
+    this.updateColumns();
 
     this.updateRows();
+
+  };
+
+  /**
+   * Update columns
+   *
+   * @method updateColumns
+   * @static
+   */
+  NOVAE.Grid.prototype.updateColumns = function() {
+
+    var scrolled = this.Settings.scrolledX;
+
+    var element;
+
+    var letter = 0;
+
+    var resetValue = NOVAE.Sheets[NOVAE.CurrentSheet].CellTemplate.Width;
+
+    for (var xx = 0; xx < this.Settings.x; ++xx) {
+      if (xx > 0) {
+        element = NOVAE.DOM.TableHead.children[xx].children[0];
+        letter = NOVAE.$.numberToAlpha(scrolled + xx);
+        element.innerHTML = letter;
+        if (letter = NOVAE.Cells.Resized[NOVAE.CurrentSheet].Columns[letter]) {
+          element.style.width = resetValue + letter.Width + "px";
+          NOVAE.DOM.ColumnGroup.children[xx].style.width = resetValue + letter.Width + "px";
+        } else {
+          element.style.width = resetValue + "px";
+          NOVAE.DOM.ColumnGroup.children[xx].style.width = resetValue + "px";
+        }
+      }
+    }
 
   };
 
@@ -93,15 +126,5 @@
         element.style.height = resetValue + "px";
       }
     }
-
-  };
-
-  /**
-   * Update the menu, dont care about resizes
-   *
-   * @method updateMenuNoResizement
-   * @static
-   */
-  NOVAE.Grid.prototype.updateMenuNoResizement = function() {
 
   };
