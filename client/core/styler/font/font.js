@@ -59,7 +59,7 @@
       NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].Font = font;
       /** Immediately update cells font family */
       jumps = NOVAE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
-      if (jumps >= 0) NOVAE.DOM.Output.children[jumps].style.fontFamily = font;
+      if (jumps >= 0) NOVAE.DOM.Cache[jumps].style.fontFamily = font;
     }
 
     /** Inherit style changes to slave sheets */

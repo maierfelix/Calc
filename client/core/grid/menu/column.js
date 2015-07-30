@@ -147,6 +147,14 @@
     /** Mouse up */
     element.addEventListener(NOVAE.Events.mouseUp, function(e) {
 
+      /** Register resize column if not registered yet */
+      if (!customCellSizes.Columns[e.target.innerHTML]) {
+        customCellSizes.Columns[e.target.innerHTML] = {
+          Width: 0,
+          Height: 0
+        };
+      }
+
       var width = customCellSizes.Columns[e.target.innerHTML].Width;
 
       this.setAttribute("clicked", 0);

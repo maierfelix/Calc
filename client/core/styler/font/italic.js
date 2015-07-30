@@ -64,13 +64,13 @@
         NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].FontItalic = false;
         /** Immediately update cells font italic */
         jumps = NOVAE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
-        if (jumps >= 0) NOVAE.DOM.Output.children[jumps].style.fontStyle = "normal";
+        if (jumps >= 0) NOVAE.DOM.Cache[jumps].style.fontStyle = "normal";
       } else {
         /** Update the font italic */
         NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].FontItalic = true;
         /** Immediately update cells font italic */
         jumps = NOVAE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
-        if (jumps >= 0) NOVAE.DOM.Output.children[jumps].style.fontStyle = "italic";
+        if (jumps >= 0) NOVAE.DOM.Cache[jumps].style.fontStyle = "italic";
       }
     }
 

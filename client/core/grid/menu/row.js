@@ -88,6 +88,14 @@
       /** Mouse up */
       element.addEventListener(NOVAE.Events.mouseUp, function(e) {
 
+        /** Register resize row if not registered yet */
+        if (!customCellSizes.Rows[e.target.innerHTML]) {
+          customCellSizes.Rows[e.target.innerHTML] = {
+            Width: 0,
+            Height: 0
+          };
+        }
+
         var height = customCellSizes.Rows[e.target.innerHTML].Height;
 
         this.setAttribute("clicked", 0);

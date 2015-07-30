@@ -54,7 +54,7 @@
         calculation = ( ( ii + this.Settings.scrolledY ) - helper + Number);
       }
 
-      position = ((calculation - 1) * this.Settings.x + (NOVAE.$.alphaToNumber(Letter) - 1)) - (this.Settings.scrolledY * this.Settings.x);
+      position = ((calculation - 1) * this.Settings.x + (NOVAE.$.alphaToNumber(Letter))) - (this.Settings.scrolledY * this.Settings.x) - 1;
 
       /** Remove style of cell */
       this.removeCellStyling(position);
@@ -113,7 +113,22 @@
 
     /** Check if cell has custom content */
     if (NOVAE.Cells.Used[NOVAE.CurrentSheet][name][cell].Content !== undefined && NOVAE.Cells.Used[NOVAE.CurrentSheet][name][cell].Content !== null) {
+
+      /** Cell has content, check if it's numeric or literal */
+      if (!isNaN(NOVAE.Cells.Used[NOVAE.CurrentSheet][name][cell].Content)) {
+        NOVAE.Cells.Used[NOVAE.CurrentSheet][name][cell].isNumeric = true;
+      } else {
+        NOVAE.Cells.Used[NOVAE.CurrentSheet][name][cell].isNumeric = false;
+      }
+
+      /** Update cell's content */
       NOVAE.DOM.Cache[ii].innerHTML = NOVAE.Cells.Used[NOVAE.CurrentSheet][name][cell].Content;
+
+    }
+
+    /** Check if cell is numeric and needs special formating */
+    if (NOVAE.Cells.Used[NOVAE.CurrentSheet][name][cell].isNumeric) {
+      NOVAE.DOM.Cache[ii].style.textAlign = "right";
     }
 
     /** Check if cell has a custom font */

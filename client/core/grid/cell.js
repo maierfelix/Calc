@@ -27,6 +27,7 @@
      * @type String
      */
      this.name = arguments[0] || null;
+
     /**
      * Cell has a custom font color
      *
@@ -60,6 +61,14 @@
     this.Content = null;
 
     /**
+     * Cell is a number or not
+     *
+     * @property isNumeric
+     * @type Boolean
+     */
+    this.isNumeric = false;
+
+    /**
      * Cell has a custom font family
      *
      * @property Font
@@ -79,7 +88,7 @@
      * Cell font is bold
      *
      * @property FontBold
-     * @type String
+     * @type Boolean
      */
     this.FontBold = false;
 
@@ -87,7 +96,7 @@
      * Cell font is italic
      *
      * @property FontItalic
-     * @type String
+     * @type Boolean
      */
     this.FontItalic = false;
 
@@ -95,7 +104,7 @@
      * Cell font is underlined
      *
      * @property FontUnderlined
-     * @type String
+     * @type Boolean
      */
     this.FontUnderlined = false;
 

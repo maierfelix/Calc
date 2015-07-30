@@ -203,7 +203,7 @@
         NOVAE.DOM.Cache[cell].removeChild(NOVAE.DOM.Cache[cell].children[0]);
       }
 
-      var column = NOVAE.$.getNameFromDOMCell(NOVAE.DOM.Cache[cell], false).number - 1;
+      var column = NOVAE.$.getNameFromDOMCell(NOVAE.DOM.Cache[cell], false).number - 1 - NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY;
       var row = NOVAE.$.getNameFromDOMCell(NOVAE.DOM.Cache[cell].parentNode, false).number;
 
       var name = {letter: column, number: row};

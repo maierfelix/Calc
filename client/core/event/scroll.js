@@ -162,7 +162,7 @@
 
               NOVAE.DOM.Viewport.scrollTop = 0;
 
-              NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY += Math.floor((downReRender - downSettingsY - 6));
+              NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY += (downReRender - downSettingsY);
               NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = NOVAE.Settings.Scroll.Vertical;
               NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Vertical);
               //NOVAE.Sheets[NOVAE.CurrentSheet].Selector.cleanHoverEffect();
@@ -208,9 +208,18 @@
 
               var calcAmount = NOVAE.DOM.TableBody.offsetHeight - (NOVAE.Settings.GridSizes.Rows * NOVAE.Settings.GridSizes.Rows + (NOVAE.Settings.GridSizes.Rows * 10));
 
-              NOVAE.DOM.Viewport.scrollTop = calcAmount;
+              NOVAE.DOM.Viewport.scrollTop = Math.roundTo(calcAmount, 25);
 
-              NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY -= Math.floor(upReRender + upSettingsY + 6);
+              NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY -= (upReRender + upSettingsY) - 2;
+              NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = NOVAE.Settings.Scroll.Vertical;
+              NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Vertical);
+              NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
+              NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
+
+            } else if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY <= 0 && upReRender <= NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y) {
+
+              NOVAE.DOM.Viewport.scrollTop = 0;
+              NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY = 0;
               NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = NOVAE.Settings.Scroll.Vertical;
               NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Vertical);
               NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();

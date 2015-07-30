@@ -60,7 +60,7 @@
       NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].Color = color;
       /** Immediately update cells font color */
       jumps = NOVAE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
-      if (jumps >= 0) NOVAE.DOM.Output.children[jumps].style.color = color;
+      if (jumps >= 0) NOVAE.DOM.Cache[jumps].style.color = color;
     }
 
     /** Inherit style changes to slave sheets */

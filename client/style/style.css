@@ -200,7 +200,7 @@ button, input, select, textArea {
 }
 
 #current_cell {
-  height: 25px;
+  height: 26px;
   width: 44px;
   left: -1px;
   top: 0px;
@@ -387,7 +387,8 @@ button, input, select, textArea {
 .cell_bright {
   color: #0D47A1 !important;
   background: #dedede !important;
-  border: solid 1px #3D5AFE !important;
+  border: none !important;
+  outline: solid 1px #3D5AFE;
   font-family: 'Roboto', sans-serif;
   font-weight: bold;
   padding: 4px !important;
@@ -403,6 +404,7 @@ button, input, select, textArea {
   border-top: 1px solid #CCC;
   border-left: 1px solid #CCC;
   border-bottom: 1px solid #CCC;
+  text-align: center !important;
 }
 
 .cell_dark_alpha:hover {
@@ -419,6 +421,7 @@ button, input, select, textArea {
   border-bottom: none;
   font-weight: 500;
   vertical-align: middle !important;
+  text-align: center !important;
 }
 
 .cell_dark_number:hover {
@@ -428,7 +431,7 @@ button, input, select, textArea {
 
 .viewport {
   overflow: hidden;
-  margin-top: 22px;
+  margin-top: 23px;
   margin-left: 0px;
   height: -webkit-calc(100% - 125px); 
   height: -moz-calc(100% - 125px); 
@@ -463,17 +466,17 @@ thead {
 
 .row {
   empty-cells: show;
-  padding: 0 4px 0 4px;
+  padding: 0 4px 0 5px;
   background-color: #FFF;
-  vertical-align: top;
-  overflow: hidden;
-  outline-width: 0;
+  vertical-align: middle;
+  outline-width: 1px;
   white-space: pre-line;
+  overflow: visible;
 }
 
 .row_hovered {
   background: rgba(198, 198, 198, 0.5) !important;
-  padding-top: 4px !important;
+  padding-top: 1px !important;
   padding-left: 4px !important;
   border-left: 1px solid darkgrey !important;
   border-bottom: 1px solid darkgrey !important;
@@ -486,7 +489,7 @@ thead {
   border-bottom: 2px solid #448AFF !important;
   outline: 1px solid #448AFF;
   background: #fff;
-  padding-top: 3px;
+  padding-top: 2px;
   padding-right: 3px;
   z-index: 1;
 }
@@ -1145,7 +1148,7 @@ thead {
 
 .border_top {
   border-top: 2px solid #448AFF !important;
-  padding-top: 2px !important;
+  padding-top: 1px !important;
 }
 
 .border_bottom {
@@ -1154,12 +1157,12 @@ thead {
 
 .border_left {
   border-left: 2px solid #448AFF !important;
-  padding-left: 3px !important;
+  padding-right: 4px !important;
 }
 
 .border_right {
   border-right: 2px solid #448AFF !important;
-  padding-left: 6px !important;
+  padding-right: 3px !important;
 }
 
 .closeButton {

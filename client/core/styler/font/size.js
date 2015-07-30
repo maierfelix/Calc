@@ -59,7 +59,7 @@
       NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].FontSize = size;
       /** Immediately update cells font size */
       jumps = NOVAE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
-      if (jumps >= 0) NOVAE.DOM.Output.children[jumps].style.fontSize = size + "px";
+      if (jumps >= 0) NOVAE.DOM.Cache[jumps].style.fontSize = size + "px";
     }
 
     /** Inherit style changes to slave sheets */

@@ -64,13 +64,13 @@
         NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].FontBold = false;
         /** Immediately update cells font bold */
         jumps = NOVAE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
-        if (jumps >= 0) NOVAE.DOM.Output.children[jumps].style.fontWeight = "normal";
+        if (jumps >= 0) NOVAE.DOM.Cache[jumps].style.fontWeight = "normal";
       } else {
         /** Update the font bold */
         NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].FontBold = true;
         /** Immediately update cells font bold */
         jumps = NOVAE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
-        if (jumps >= 0) NOVAE.DOM.Output.children[jumps].style.fontWeight = "bold";
+        if (jumps >= 0) NOVAE.DOM.Cache[jumps].style.fontWeight = "bold";
       }
     }
 

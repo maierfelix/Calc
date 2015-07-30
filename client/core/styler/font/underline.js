@@ -64,13 +64,13 @@
         NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].FontUnderlined = false;
         /** Immediately update cells font underlined */
         jumps = NOVAE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
-        if (jumps >= 0) NOVAE.DOM.Output.children[jumps].style.textDecoration = "none";
+        if (jumps >= 0) NOVAE.DOM.Cache[jumps].style.textDecoration = "none";
       } else {
         /** Update the font underlined */
         NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].FontUnderlined = true;
         /** Immediately update cells font underlined */
         jumps = NOVAE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
-        if (jumps >= 0) NOVAE.DOM.Output.children[jumps].style.textDecoration = "underline";
+        if (jumps >= 0) NOVAE.DOM.Cache[jumps].style.textDecoration = "underline";
       }
     }
 

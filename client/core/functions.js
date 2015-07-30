@@ -389,7 +389,7 @@
     var letter = object.letter;
     var number = object.number;
 
-    var jumps = ((number - 1) * (sheet.Settings.x)) + (letter - 1) - (sheet.Settings.scrolledY * (sheet.Settings.x) + sheet.Settings.scrolledY);
+    var jumps = ((number - 1) * (sheet.Settings.x)) + (letter - 1) - (sheet.Settings.scrolledY * (sheet.Settings.x) + sheet.Settings.scrolledY) + sheet.Settings.scrolledY;
 
     if (NOVAE.$.isInView(letter, number, jumps)) return (jumps);
 

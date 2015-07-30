@@ -63,12 +63,12 @@
         /** Check if user wants to disable the border by applying it again */
         if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].Border.left) {
           NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].Border.left = null;
-          if (jumps >= 0) NOVAE.DOM.Output.children[jumps].style.borderLeft = "";
+          if (jumps >= 0) NOVAE.DOM.Cache[jumps].style.borderLeft = "";
         } else {
           /** Update cell used stack */
           NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].Border.left = true;
           /** Immediately update cells border */
-          if (jumps >= 0) NOVAE.DOM.Output.children[jumps].style.borderLeft = "2px solid black";
+          if (jumps >= 0) NOVAE.DOM.Cache[jumps].style.borderLeft = "2px solid black";
         }
       }
 
@@ -86,12 +86,12 @@
         /** Check if user wants to disable the border by applying it again */
         if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].Border.right) {
           NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].Border.right = null;
-          if (jumps >= 0) NOVAE.DOM.Output.children[jumps].style.borderRight = "";
+          if (jumps >= 0) NOVAE.DOM.Cache[jumps].style.borderRight = "";
         } else {
           /** Update cell used stack */
           NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].Border.right = true;
           /** Immediately update cells border */
-          if (jumps >= 0) NOVAE.DOM.Output.children[jumps].style.borderRight = "2px solid black";
+          if (jumps >= 0) NOVAE.DOM.Cache[jumps].style.borderRight = "2px solid black";
         }
       }
 
@@ -109,12 +109,12 @@
         /** Check if user wants to disable the border by applying it again */
         if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].Border.top) {
           NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].Border.top = null;
-          if (jumps >= 0) NOVAE.DOM.Output.children[jumps].style.borderTop = "";
+          if (jumps >= 0) NOVAE.DOM.Cache[jumps].style.borderTop = "";
         } else {
           /** Update cell used stack */
           NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].Border.top = true;
           /** Immediately update cells border */
-          if (jumps >= 0) NOVAE.DOM.Output.children[jumps].style.borderTop = "2px solid black";
+          if (jumps >= 0) NOVAE.DOM.Cache[jumps].style.borderTop = "2px solid black";
         }
       }
 
@@ -132,12 +132,12 @@
         /** Check if user wants to disable the border by applying it again */
         if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].Border.bottom) {
           NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].Border.bottom = null;
-          if (jumps >= 0) NOVAE.DOM.Output.children[jumps].style.borderBottom = "";
+          if (jumps >= 0) NOVAE.DOM.Cache[jumps].style.borderBottom = "";
         } else {
           /** Update cell used stack */
           NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].Border.bottom = true;
           /** Immediately update cells border */
-          if (jumps >= 0) NOVAE.DOM.Output.children[jumps].style.borderBottom = "2px solid black";
+          if (jumps >= 0) NOVAE.DOM.Cache[jumps].style.borderBottom = "2px solid black";
         }
       }
 
@@ -161,7 +161,7 @@
         /** Check if user wants to disable the border by applying it again */
         if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].Border.full) {
           NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].Border.full = false;
-          if (jumps >= 0) NOVAE.DOM.Output.children[jumps].style.border = "";
+          if (jumps >= 0) NOVAE.DOM.Cache[jumps].style.border = "";
         } else {
           /** Update cell used stack */
           NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].Border.full = true;
@@ -173,7 +173,7 @@
           NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].Border.bottom = false;
 
           /** Immediately update cells border */
-          if (jumps >= 0) NOVAE.DOM.Output.children[jumps].style.border = "2px solid black";
+          if (jumps >= 0) NOVAE.DOM.Cache[jumps].style.border = "2px solid black";
         }
       }
 
@@ -186,8 +186,8 @@
           if (masterCell.Border.right) masterCell.Border.right = false;
           else masterCell.Border.right = true;
           if (jumps >= 0) {
-            if (masterCell.Border.left) NOVAE.DOM.Output.children[jumps].style.borderLeft = "2px solid black";
-            if (masterCell.Border.right) NOVAE.DOM.Output.children[jumps].style.borderRight = "2px solid black";
+            if (masterCell.Border.left) NOVAE.DOM.Cache[jumps].style.borderLeft = "2px solid black";
+            if (masterCell.Border.right) NOVAE.DOM.Cache[jumps].style.borderRight = "2px solid black";
           }
           NOVAE.Sheets[NOVAE.CurrentSheet].updateWidth("default");
           /** Dont loose the selection */

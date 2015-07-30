@@ -107,9 +107,10 @@
 
     if (NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Edit) {
 
-      var letter = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Edit.match(NOVAE.REGEX.numbers).join(""),
-          number = ~~(NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Edit.match(NOVAE.REGEX.letters).join("")),
-          jumps = ((this.Settings.y * (NOVAE.$.alphaToNumber(letter) - 1) ) + number - 1 - this.Settings.scrolledY) - (this.Settings.y * this.Settings.scrolledX);
+      var letter = NOVAE.$.alphaToNumber(NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Edit.match(NOVAE.REGEX.numbers).join(""));
+      var number = ~~(NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Edit.match(NOVAE.REGEX.letters).join(""));
+
+      var jumps = NOVAE.$.getCell({letter: letter, number: number});
 
       if (NOVAE.DOM.Cache[jumps]) {
         NOVAE.DOM.Cache[jumps].classList.remove("cell_edit");

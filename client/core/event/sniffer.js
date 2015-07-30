@@ -185,7 +185,14 @@
       /** Cell is not in view, register it anyway */
       else NOVAE.registerCell(editCell);
       /** Update cell content with cell used stack value */
-      if (element) element.innerHTML = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Content;
+      if (element) {
+        element.innerHTML = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Content;
+        if (!isNaN(element.innerHTML)) {
+          element.style.textAlign = "right";
+        } else {
+          element.style.textAlign = "left";
+        }
+      }
       /** Check if cell is a formula */
       NOVAE.Event.isFormula();
       /** Move cursor to end of cell content text */

@@ -152,7 +152,7 @@
     /** Top */
     for (var ii = 0; ii < object.top.length; ++ii) {
       jumps = NOVAE.$.getCell(object.top[ii]);
-      if (jumps >= 0) {
+      if (jumps >= 0 && NOVAE.DOM.Cache[jumps]) {
         NOVAE.DOM.Cache[jumps].classList.add("border_top");
       }
     }
@@ -160,7 +160,7 @@
     /** Bottom */
     for (var ii = 0; ii < object.bottom.length; ++ii) {
       jumps = NOVAE.$.getCell(object.bottom[ii]);
-      if (jumps >= 0) {
+      if (jumps >= 0 && NOVAE.DOM.Cache[jumps]) {
         NOVAE.DOM.Cache[jumps].classList.add("border_bottom");
       }
     }
@@ -168,7 +168,7 @@
     /** Left */
     for (var ii = 0; ii < object.left.length; ++ii) {
       jumps = NOVAE.$.getCell(object.left[ii]);
-      if (jumps >= 0) {
+      if (jumps >= 0 && NOVAE.DOM.Cache[jumps]) {
         NOVAE.DOM.Cache[jumps].classList.add("border_left");
       }
     }
@@ -176,7 +176,7 @@
     /** Right */
     for (var ii = 0; ii < object.right.length; ++ii) {
       jumps = NOVAE.$.getCell(object.right[ii]);
-      if (jumps >= 0) {
+      if (jumps >= 0 && NOVAE.DOM.Cache[jumps]) {
         NOVAE.DOM.Cache[jumps].classList.add("border_right");
       }
     }
