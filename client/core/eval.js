@@ -53,6 +53,9 @@
     }
 
     if (formulas && formulas.length) {
+
+      ENGEL.CurrentSheet = NOVAE.CurrentSheet;
+
       /** Process all found formulas */
       for (var ii = 0; ii < formulas.length; ++ii) {
 
@@ -71,6 +74,7 @@
         if (jumps >= 0) NOVAE.DOM.Cache[jumps].innerHTML = result;
 
       }
+
     }
 
   };
@@ -116,7 +120,7 @@
       }
     }
 
-    return (ENGEL.interpret(formula).Stack.VAR[name].value.value);
+    return (ENGEL.interpret(formula).Stack.VAR[ENGEL.CurrentSheet][name].value.value);
 
   };
 
@@ -131,6 +135,7 @@
     /** Register sheet if not existing yet */
     if (!ENGEL.STACK.VAR[NOVAE.CurrentSheet]) {
       ENGEL.STACK.VAR[NOVAE.CurrentSheet] = {};
+      ENGEL.CurrentSheet = NOVAE.CurrentSheet;
     }
 
     /** Cell is not registered yet */
@@ -138,9 +143,9 @@
       /** Register the cell */
       ENGEL.STACK.createVariable(arguments[0]);
       /** Update cell stack name, check if it was successfully registered */
-      if (ENGEL.STACK.VAR[arguments[0]]) {
+      if (ENGEL.STACK.VAR[ENGEL.CurrentSheet] && ENGEL.STACK.VAR[ENGEL.CurrentSheet][arguments[0]]) {
         /** Update the name */
-        ENGEL.STACK.VAR[arguments[0]].name = arguments[0];
+        ENGEL.STACK.VAR[ENGEL.CurrentSheet][arguments[0]].name = arguments[0];
       } else throw new Error("Fatal Error, failed to register " + arguments[0] + "!");
     }
 
@@ -172,12 +177,18 @@
     /** Cell was registered successfully */
     if (ENGEL.STACK.get(name)) {
 
+      var originalSheet = ENGEL.CurrentSheet;
+
+      ENGEL.CurrentSheet = NOVAE.CurrentSheet;
+
       /** Update the cell value */
       ENGEL.STACK.update(name, {
         raw: arguments[1],
         value: ENGEL.TypeMaster(arguments[1]).value,
         type: "number"
       });
+
+      ENGEL.CurrentSheet = originalSheet;
 
     }
 

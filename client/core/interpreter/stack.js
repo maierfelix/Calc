@@ -38,7 +38,9 @@
    * @static
    */
   ENGEL.STACK.prototype.dump = function() {
+
     this.VAR = {};
+
   };
 
   /**
@@ -49,8 +51,13 @@
    * @static
    */
   ENGEL.STACK.prototype.get = function(value) {
-    if (this.VAR[value]) { return this.VAR[value]; }
+
+    if (this.VAR[ENGEL.CurrentSheet] && this.VAR[ENGEL.CurrentSheet][value]) {
+      return this.VAR[ENGEL.CurrentSheet][value];
+    }
+
     return void 0;
+
   };
 
   /**
@@ -61,8 +68,13 @@
    * @static
    */
   ENGEL.STACK.prototype.getValue = function(value) {
-    if (this.VAR[value]) { return this.VAR[value].value.value; }
+
+    if (this.VAR[ENGEL.CurrentSheet] && this.VAR[ENGEL.CurrentSheet][value]) {
+      return this.VAR[ENGEL.CurrentSheet][value].value.value;
+    }
+
     return void 0;
+
   };
 
   /**
@@ -73,8 +85,13 @@
    * @static
    */
   ENGEL.STACK.prototype.update = function(value, data) {
-    if (this.VAR[value]) { return this.VAR[value].value = data; }
+
+    if (this.VAR[ENGEL.CurrentSheet] && this.VAR[ENGEL.CurrentSheet][value]) {
+      return this.VAR[ENGEL.CurrentSheet][value].value = data;
+    }
+
     return void 0;
+
   };
 
   /**
@@ -85,8 +102,10 @@
    * @static
    */
   ENGEL.STACK.prototype.createVariable = function(value) {
-    if (!this.VAR[value]) {
-      this.VAR[value] = {
+
+    if (this.VAR[ENGEL.CurrentSheet] && !this.VAR[ENGEL.CurrentSheet][value]) {
+
+      this.VAR[ENGEL.CurrentSheet][value] = {
         name:  "undefined",
         type:  "var",
           value: {
@@ -95,7 +114,11 @@
           raw:   null
         }
       };
-      return this.VAR[value];
+
+      return this.VAR[ENGEL.CurrentSheet][value];
+
     }
+
     return void 0;
+
   };

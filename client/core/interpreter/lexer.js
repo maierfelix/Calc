@@ -179,7 +179,14 @@
             /*if (this.reservedKeyWords.indexOf(match[0]) >= 0) {
               console.log(match[0] + " is a reserved word and shall not be used!");
             }*/
-            this.variables.push(match[0].trim());
+            /** Ignore sheet reference variables */
+            if (this.Tokens[this.Tokens.length - 1]) {
+              if (this.Tokens[this.Tokens.length - 1].type !== "LX_SHEET") {
+                this.variables.push(match[0].trim());
+              }
+            } else {
+              this.variables.push(match[0].trim());
+            }
           }
 
           /** Special case, user wrote a subtraction without spaces */

@@ -23,6 +23,12 @@
     var varName = "A1 =";
     /** Save the variable name without equal sign */
     var singleVarName = varName.slice(0, 2);
+    /** Sheet name */
+    var sheetName = "test";
+
+    ENGEL.CurrentSheet = sheetName;
+
+    ENGEL.STACK.VAR[ENGEL.CurrentSheet] = {};
 
     var reservedFunctions = ["asin","sin","acos","cos","atan","atan2","tan","sqrt","cbrt","exp","random","min","max","round","floor","ceil"];
     var compile = "";
@@ -84,7 +90,7 @@
         }
       }
 
-      engelResult = ENGEL.interpret(varName + array[ii]).Stack.VAR[singleVarName].value.value;
+      engelResult = ENGEL.interpret(varName + array[ii]).Stack.VAR[ENGEL.CurrentSheet][singleVarName].value.value;
       jsResult = parseFloat(window.eval(compile));
 
       if (engelResult !== jsResult) {

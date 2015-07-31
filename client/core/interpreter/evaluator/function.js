@@ -52,44 +52,58 @@
 
         /** SUM */
         case "sum":
-          /** Default arguments */
-          if (typeof argumentArray[0] === "number") {
-            result += argumentArray[0];
-          } else {
-            /** Seems like we got a range */
-            if (argumentArray[0] instanceof Array) {
-              result += NOVAE.$.getValueFromCoordinates(argumentArray[0]);
+          for (var ii = 0; ii < argumentArray.length; ++ii) {
+            if (argumentArray[ii] && argumentArray[ii].range) {
+              result += argumentArray[ii].result;
+            } else {
+              if (argumentArray[ii]) {
+                result += argumentArray[ii];
+              }
             }
           }
         break;
 
         /** COUNT */
         case "count":
+
           var length = 0;
-          /** Require a range */
-          if (argumentArray[0] instanceof Array) {
-            var array = NOVAE.$.getSelectionCellProperty(argumentArray[0], "Content");
-            for (var ii = 0; ii < array.length; ++ii) {
-              /** Only count valid numbers */
-              if (array[ii].value && array[ii].value !== "" && !isNaN(array[ii].value)) {
+
+          for (var ii = 0; ii < argumentArray.length; ++ii) {
+            var array;
+            /** Got a range */
+            if (argumentArray[ii] && argumentArray[ii].range) {
+              array = NOVAE.$.getSelectionCellProperty(argumentArray[ii].range, "Content");
+            } else {
+              array = argumentArray[ii];
+            }
+            if (array instanceof Array) {
+              for (var kk = 0; kk < array.length; ++kk) {
+                /** Only count valid numbers */
+                if (array[kk].value && array[kk].value !== "" && !isNaN(array[kk].value)) {
+                  length++;
+                }
+              }
+            } else {
+              if (array !== "" && !isNaN(array)) {
                 length++;
               }
             }
           }
+
           result = length;
+
         break;
 
         /** BETWEEN */
         case "between":
           var a = argumentArray[0];
-          var b = argumentArray[1];
-          var c = argumentArray[2];
-          /** Why not also support ranges? */
+          var b = argumentArray[2];
+          var c = argumentArray[1];
           if (typeof a === "number") {
             if (a <= b && a >= c) {
-              result = true;
+              result = 1;
             } else {
-              result = false;
+              result = 0;
             }
           }
         break;
@@ -98,7 +112,7 @@
         case "average":
           var calc = [];
           /** Get content of range */
-          var array = NOVAE.$.getSelectionCellProperty(argumentArray[0], "Content");
+          var array = NOVAE.$.getSelectionCellProperty(argumentArray[0].range, "Content");
           for (var ii = 0; ii < array.length; ++ii) {
             /** Only count valid numbers */
             if (array[ii].value && array[ii].value !== "" && !isNaN(array[ii].value)) {
@@ -131,15 +145,31 @@
       /** Final result */
       var result = null;
 
+      /** Math function doesn't exist */
+      if (!window.Math[callee.Identifier]) {
+        result = 0;
+        /** Update variable in the stack */
+        if (ENGEL.STACK.get(name)) {
+          ENGEL.STACK.update(name, {
+            raw: result,
+            value: self.TypeMaster(result).value,
+            type: typeof result
+          });
+        }
+        /** Skip here */
+        return void 0;
+      }
+
       /** Compiled arguments */
       var argumentArray = [];
 
-      for (var ii = 0; ii < node.arguments.length; ++ii) {
-        if (!node.arguments[ii] || !node.arguments[ii].CallExpression) {
-          argumentArray.push(this.interpretExpression(node.arguments[ii]));
+      /** Compile arguments */
+      for (var ii = 0; ii < args.length; ++ii) {
+        if (!args[ii] || !args[ii].CallExpression) {
+          argumentArray.push(this.interpretExpression(args[ii]));
         } else {
           /** Evaluate the function call, dont pass over a variable name to update! */
-          argumentArray.push(this.evalExpression(node.arguments[ii].CallExpression));
+          argumentArray.push(this.evalExpression(args[ii].CallExpression));
         }
       }
 

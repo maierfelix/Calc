@@ -240,6 +240,8 @@
 
     NOVAE.CurrentSheet = name;
 
+    ENGEL.CurrentSheet = name;
+
     if (!arguments[1]) {
       NOVAE.DOM.Viewport.classList.add("fadeIn");
 
@@ -247,6 +249,8 @@
         NOVAE.DOM.Viewport.classList.remove("fadeIn");
       }, 275);
     }
+
+    NOVAE.eval();
 
     /** Send sheet change to server */
     if (NOVAE.Connector.connected) {

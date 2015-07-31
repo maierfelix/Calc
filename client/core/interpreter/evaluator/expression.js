@@ -46,21 +46,38 @@
     if (ast.Identifier) {
       var value = ENGEL.STACK.getValue(ast.Identifier.value);
       if (value || value === "" || value === 0) return value;
-      return 0;
+      return void 0;
     }
 
     /** Got a range */
     if (ast.Range) {
       /** Return range array */
-      return (NOVAE.$.rangeToSelection(ast.Range.value));
+      var range = {
+        length: 0,
+        result: 0,
+        range: null
+      };
+      range.range = NOVAE.$.rangeToSelection(ast.Range.value);
+      range.length = NOVAE.$.getSelectionCellProperty(range.range, "Content").length;
+      range.result = NOVAE.$.getValueFromCoordinates(range.range);
+      return (range);
     }
 
     /** Got a sheet variable reference */
     if (ast.SheetReference) {
-      console.log(ast.SheetReference.Sheet, ast.SheetReference.value);
-      //var value = ENGEL.STACK.getSheetValue(ast.SheetReference.Sheet, ast.SheetReference.value);
-      //if (value || value === "" || value === 0) return value;
-      return 1337;
+      var sheet = ast.SheetReference.Sheet;
+      var value = ast.SheetReference.value;
+      var result = "ReferenceError";
+      var originalSheet = ENGEL.CurrentSheet;
+      var originalNovaeSheet = NOVAE.CurrentSheet;
+      if (ENGEL.STACK.VAR[sheet]) {
+        if (ENGEL.STACK.VAR[sheet][value]) {
+          result = ENGEL.STACK.VAR[sheet][value].value.value;
+        } else {
+          result = 0;
+        }
+      }
+      return result;
     }
 
     /** Got a number or string */

@@ -700,11 +700,9 @@
       delete NOVAE.Cells.Used[name][ii];
     }
 
-    NOVAE.ClipBoard.copiedCells[name] = [];
     NOVAE.ClipBoard.copiedCells[name] = null;
     delete NOVAE.ClipBoard.copiedCells[name];
 
-    NOVAE.Sheets[name].Selector.SelectedCells = [];
     NOVAE.Sheets[name].Selector.SelectedCells = null;
     delete NOVAE.Sheets[name].Selector.SelectedCells;
 
@@ -718,6 +716,18 @@
     delete NOVAE.Sheets[name];
 
     NOVAE.Collector.removeSheet(name);
+
+    NOVAE.Cells.All[name] = null;
+    delete NOVAE.Cells.All[name];
+
+    NOVAE.Cells.Master[name] = null;
+    delete NOVAE.Cells.Master[name];
+
+    NOVAE.Cells.Resized[name] = null;
+    delete NOVAE.Cells.Resized[name];
+
+    NOVAE.Cells.Used[name] = null;
+    delete NOVAE.Cells.Used[name];
 
     /** Send sheet change to server */
     if (NOVAE.Connector.connected) {
