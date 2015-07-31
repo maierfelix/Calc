@@ -284,7 +284,7 @@ button, input, select, textArea {
   transition-timing-function: ease-in-out;
   vertical-align: middle;
   visibility: visible;
-  width: 98.90625px;
+  width: auto;
   word-spacing: 0px;
   writing-mode: lr-tb;
   -webkit-writing-mode: horizontal-tb;

@@ -68,14 +68,21 @@
       var sheet = ast.SheetReference.Sheet;
       var value = ast.SheetReference.value;
       var result = "ReferenceError";
-      var originalSheet = ENGEL.CurrentSheet;
-      var originalNovaeSheet = NOVAE.CurrentSheet;
       if (ENGEL.STACK.VAR[sheet]) {
         if (ENGEL.STACK.VAR[sheet][value]) {
-          result = ENGEL.STACK.VAR[sheet][value].value.value;
+          var letter = value.match(NOVAE.REGEX.numbers).join("");
+          if (NOVAE.Cells.Used[sheet][letter][value].Formula) {
+            result = ENGEL.interpret(value + NOVAE.Cells.Used[sheet][letter][value].Formula).Stack.VAR[sheet][value].value.value;
+          } else {
+            result = NOVAE.Cells.Used[sheet][letter][value].Content;
+          }
+          if (!isNaN(result)) result = parseFloat(result);
+          NOVAE.updateCell(value, result);
         } else {
           result = 0;
         }
+      } else {
+        result = 0;
       }
       return result;
     }

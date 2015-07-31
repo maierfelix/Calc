@@ -172,7 +172,7 @@
    * @method updateCell
    * @static
    */
-  NOVAE.updateCell = function(name) {
+  NOVAE.updateCell = function(name, value) {
 
     /** Cell was registered successfully */
     if (ENGEL.STACK.get(name)) {
@@ -183,8 +183,8 @@
 
       /** Update the cell value */
       ENGEL.STACK.update(name, {
-        raw: arguments[1],
-        value: ENGEL.TypeMaster(arguments[1]).value,
+        raw: value,
+        value: ENGEL.TypeMaster(value).value,
         type: "number"
       });
 

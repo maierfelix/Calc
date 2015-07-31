@@ -729,10 +729,52 @@
     NOVAE.Cells.Used[name] = null;
     delete NOVAE.Cells.Used[name];
 
+    NOVAE.eval();
+
     /** Send sheet change to server */
     if (NOVAE.Connector.connected) {
       NOVAE.Connector.action("deleteSheet", {sheet: name});
     }
+
+  };
+
+  /**
+   * Rename a sheet
+   *
+   * @method renameSheet
+   * @static
+   */
+  NOVAE.$.renameSheet = function(oldName, newName) {
+
+    /** Abort if sheet not found */
+    if (!NOVAE.Sheets[oldName]) return void 0;
+    if (!NOVAE.Cells.All[oldName]) return void 0;
+    if (!NOVAE.Cells.Master[oldName]) return void 0;
+    if (!NOVAE.Cells.Resized[oldName]) return void 0;
+    if (!NOVAE.Cells.Used[oldName]) return void 0;
+
+    NOVAE.Sheets[newName] = NOVAE.Sheets[oldName];
+    NOVAE.Sheets[oldName] = null;
+    delete NOVAE.Sheets[oldName];
+
+    NOVAE.Cells.All[newName] = NOVAE.Cells.All[oldName];
+    NOVAE.Cells.All[oldName] = null;
+    delete NOVAE.Cells.All[oldName];
+
+    NOVAE.Cells.Master[newName] = NOVAE.Cells.Master[oldName];
+    NOVAE.Cells.Master[oldName] = null;
+    delete NOVAE.Cells.Master[oldName];
+
+    NOVAE.Cells.Resized[newName] = NOVAE.Cells.Resized[oldName];
+    NOVAE.Cells.Resized[oldName] = null;
+    delete NOVAE.Cells.Resized[oldName];
+
+    NOVAE.Cells.Used[newName] = NOVAE.Cells.Used[oldName];
+    NOVAE.Cells.Used[oldName] = null;
+    delete NOVAE.Cells.Used[oldName];
+
+    NOVAE.Sheets.changeSheet(newName);
+    NOVAE.Sheets.setActiveSheet(newName);
 
   };
 

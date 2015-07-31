@@ -159,6 +159,9 @@
     /** Detect active modals */
     this.activeModal = false;
 
+    /** Detect sheet name editing */
+    this.changeSheetName = false;
+
     /** Auto calculate grid */
     this.calculateGrid();
 

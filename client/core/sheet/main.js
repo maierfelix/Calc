@@ -37,6 +37,9 @@
 
     var newSheetNumber = NOVAE.SheetCount;
 
+    /** To detect double clicks */
+    var singleClick = null;
+
     /** Detect if user wants to create a master sheet */
     var masterSheet = arguments[1] || false;
 
@@ -111,23 +114,75 @@
     button.appendChild(closeButton);
     button.appendChild(usersInRoom);
 
+    button.setAttribute("clickcount", 0);
+    button.setAttribute("autocomplete", "off");
+    button.setAttribute("autocorrect", "off");
+    button.setAttribute("autocapitalize", "off");
+    button.setAttribute("spellcheck", "false");
+
     /** Change sheet on click */
-    button.addEventListener('click', function(e) {
+    button.addEventListener(NOVAE.Events.mouseDown, function(e) {
+
+      /** Increase click counter */
+      e.target.setAttribute("clickcount", (parseInt(e.target.getAttribute("clickcount"))) + 1);
+
       var name = e.target.getAttribute("name");
-      if (name && name.length) {
-        NOVAE.Sheets.changeSheet(name);
-        NOVAE.Event.resize();
-        /** Highlight active sheet */
-        NOVAE.Sheets.setActiveSheet(name);
-      /** Close button pressed ? */
+
+      var clickCounter = parseInt(e.target.getAttribute("clickcount"));
+
+      /** Sheet button target */
+      if (e.target.className !== "closeButton") {
+
+        /** Single click */
+        if (clickCounter === 1) {
+
+          clearTimeout(singleClick);
+
+          singleClick = setTimeout(function() {
+
+            NOVAE.Sheets.changeSheet(name);
+            NOVAE.Event.resize();
+            /** Highlight active sheet */
+            NOVAE.Sheets.setActiveSheet(name);
+
+            singleClick = null;
+
+            e.target.setAttribute("clickcount", 0);
+
+          }, 200);
+
+        /** Double click */
+        } else if (clickCounter === 2) {
+
+          clearTimeout(singleClick);
+          singleClick = null;
+          e.target.setAttribute("clickcount", 0);
+
+          NOVAE.Sheets[NOVAE.CurrentSheet].changeSheetName = true;
+
+          e.target.contentEditable = true;
+
+          e.target.setAttribute("lastname", e.target.textContent.slice(0,  e.target.textContent.length - 2));
+
+        }
+
+      /** Delete sheet button target */
       } else {
-        if (e.target.nodeName === "BUTTON") {
-          /** Delete button pressed, try to delete the sheet */
-          if (name = e.target.parentNode.getAttribute("name")) {
-            NOVAE.Sheets.deleteSheet(name);
-          }
+        /** Delete button pressed, try to delete the sheet */
+        if (name = e.target.parentNode.getAttribute("name")) {
+          NOVAE.Sheets.deleteSheet(name);
         }
       }
+
+    });
+
+    button.addEventListener('blur', function(e) {
+      e.target.contentEditable = false;
+      var oldSheetName = e.target.getAttribute("lastname");
+      var newSheetName = e.target.textContent.slice(0, e.target.textContent.length - 2);
+      e.target.setAttribute("name", newSheetName);
+      NOVAE.$.renameSheet(oldSheetName, newSheetName);
+      NOVAE.Sheets[NOVAE.CurrentSheet].changeSheetName = false;
     });
 
     /** Insert sheet button into the dom */

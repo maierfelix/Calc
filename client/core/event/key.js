@@ -35,6 +35,11 @@
 
     }
 
+    /** Abort if sheet name editing */
+    if (NOVAE.Sheets[NOVAE.CurrentSheet].changeSheetName) {
+      return void 0;
+    }
+
     /** Abort if active modal */
     if (NOVAE.Sheets[NOVAE.CurrentSheet].activeModal) {
       /** [ENTER] key pressed */
