@@ -774,7 +774,7 @@
     delete NOVAE.Cells.Used[oldName];
 
     NOVAE.Sheets.changeSheet(newName);
-    NOVAE.Sheets.setActiveSheet(newName);
+    NOVAE.Sheets.setActiveSheet(NOVAE.CurrentSheet);
 
   };
 

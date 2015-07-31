@@ -123,6 +123,8 @@
     /** Change sheet on click */
     button.addEventListener(NOVAE.Events.mouseDown, function(e) {
 
+      NOVAE.Sheets[NOVAE.CurrentSheet].changeSheetName = false;
+
       /** Increase click counter */
       e.target.setAttribute("clickcount", (parseInt(e.target.getAttribute("clickcount"))) + 1);
 
@@ -132,6 +134,8 @@
 
       /** Sheet button target */
       if (e.target.className !== "closeButton") {
+
+        e.target.contentEditable = false;
 
         /** Single click */
         if (clickCounter === 1) {
@@ -162,12 +166,12 @@
 
           e.target.contentEditable = true;
 
-          e.target.setAttribute("lastname", e.target.textContent.slice(0,  e.target.textContent.length - 2));
-
         }
 
       /** Delete sheet button target */
       } else {
+        /** Don't allow deletion, if in sheet name edit mode */
+        if (NOVAE.Sheets[NOVAE.CurrentSheet].changeSheetName) return void 0;
         /** Delete button pressed, try to delete the sheet */
         if (name = e.target.parentNode.getAttribute("name")) {
           NOVAE.Sheets.deleteSheet(name);
@@ -177,9 +181,11 @@
     });
 
     button.addEventListener('blur', function(e) {
+      if (!NOVAE.Sheets[NOVAE.CurrentSheet].changeSheetName) return void 0;
       e.target.contentEditable = false;
-      var oldSheetName = e.target.getAttribute("lastname");
+      var oldSheetName = e.target.getAttribute("name");
       var newSheetName = e.target.textContent.slice(0, e.target.textContent.length - 2);
+      if (NOVAE.CurrentSheet === newSheetName || oldSheetName === newSheetName) return void 0;
       e.target.setAttribute("name", newSheetName);
       NOVAE.$.renameSheet(oldSheetName, newSheetName);
       NOVAE.Sheets[NOVAE.CurrentSheet].changeSheetName = false;
@@ -328,6 +334,7 @@
 
     for (var ii = 0; ii < NOVAE.DOM.Sheets.children.length; ++ii) {
       NOVAE.DOM.Sheets.children[ii].classList.remove("activeSheet", "activeMasterSheet");
+      NOVAE.DOM.Sheets.children[ii].contentEditable = false;
       attribute = NOVAE.DOM.Sheets.children[ii].getAttribute("name");
       /** Clean old sheet buttons */
       if (!NOVAE.Sheets[attribute]) {
