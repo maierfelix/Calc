@@ -74,7 +74,7 @@ If you want to test the latest multi-user functionality, go to:
 - [ ] Key scrolling
 - [ ] Reversed selection extending doesnt work
 - [ ] Reversed selection resize ghost switch bug
-- [ ] Styling bug on master column and row background styling (scrolledXY > Settings.xy)
+- [ ] Master selection without styling causes styling errors (For example white background)
 - [ ] Sheet dictionary in ENGEL variable stack
 
 ## Licensing
