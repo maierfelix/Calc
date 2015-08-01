@@ -31,8 +31,7 @@
       { name: "LX_SPACE", rx: /^\s/ },
 
       /** Statements */
-      { name: "LX_IF",     rx: /^(if|wenn)(?![a-zA-Z0-9_])/i    },
-      { name: "LX_ELSE",   rx: /^(else|sonst)(?![a-zA-Z0-9_])/i },
+      { name: "LX_IF",     rx: /^(if)(?![a-zA-Z0-9_])/i   },
 
       /** Brackets */
       { name: "LX_LPAR",       rx: /^[\\(]()+/ },
@@ -45,14 +44,14 @@
       { name: "LX_COLON",      rx: /^[:]+/     },
 
       /** Comparison */
-      { name: "LX_EQ",  rx: /^==/                   },
-      { name: "LX_NEQ", rx: /^!=/                   },
-      { name: "LX_AND", rx: /^(&&|and|und)/i        },
-      { name: "LX_OR",  rx: /^(or|oder|[\\|\\|])+/i },
-      { name: "LX_GRE", rx: /^>=/                   },
-      { name: "LX_LWE", rx: /^<=/                   },
-      { name: "LX_GR",  rx: /^>/                    },
-      { name: "LX_LW",  rx: /^</                    },
+      { name: "LX_EQ",  rx: /^==/              },
+      { name: "LX_NEQ", rx: /^!=/              },
+      { name: "LX_AND", rx: /^(&&|and)/i       },
+      { name: "LX_OR",  rx: /^(or|[\\|\\|])+/i },
+      { name: "LX_GRE", rx: /^>=/              },
+      { name: "LX_LWE", rx: /^<=/              },
+      { name: "LX_GR",  rx: /^>/               },
+      { name: "LX_LW",  rx: /^</               },
 
       /** Assignment */
       { name: "LX_ASSIGN", rx: /^=/ },
@@ -61,21 +60,21 @@
       { name: "LX_COMMA", rx: /^,/ },
 
       /** Instructions */
-      { name: "LX_JSON",      rx: /^(JSON)/     },
-      { name: "LX_JSON_CALL", rx: /^->/         },
+      { name: "LX_JSON",      rx: /^(JSON)/ },
+      { name: "LX_JSON_CALL", rx: /^->/     },
 
       /** Math functions */
       { name: "LX_MATH", rx: /^(roundTo|asin|sin|acos|cos|atan|atan2|tan|sqrt|cbrt|exp|random|min|max|round|floor|ceil)/ },
 
       /** Built-in Functions */
-      { name: "LX_SUM",     rx: /^(summe|sum)/i             },
-      { name: "LX_COUNTIF", rx: /^(countif|zählewenn)/i     },
-      { name: "LX_COUNT",   rx: /^(count|anzahl)/i          },
-      { name: "LX_BETWEEN", rx: /^(between|zwischen)/i      },
-      { name: "LX_AVERAGE", rx: /^(average|durchschnitt)/i  },
+      { name: "LX_SUM",     rx: /^(sum)/i      },
+      { name: "LX_COUNTIF", rx: /^(countif)/i  },
+      { name: "LX_COUNT",   rx: /^(count)/i    },
+      { name: "LX_BETWEEN", rx: /^(between)/i  },
+      { name: "LX_AVERAGE", rx: /^(average)/i  },
 
       /** Connect function */
-      { name: "LX_CONNECT", rx: /^(verbinden|connect)/ },
+      { name: "LX_CONNECT", rx: /^(connect)/ },
 
       /** Sheet reference */
       { name: "LX_SHEET", rx: /^[a-zA-Z0-9_]+(::)/i },

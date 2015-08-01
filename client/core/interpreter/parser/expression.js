@@ -138,9 +138,9 @@
     var mode;
 
     /** Numbers, variables and strings are allowed */
-    if (this.accept(["LX_NUMBER", "LX_VAR", "LX_STRING"])) {
+    if (this.accept(["LX_NUMBER", "LX_VAR", "LX_STRING", "LX_BOOL"])) {
       /** Handle numbers and strings the same */
-      if (["LX_NUMBER", "LX_STRING"].indexOf(this.currentBlock.type) >= 0) mode = "Literal";
+      if (["LX_NUMBER", "LX_STRING", "LX_BOOL"].indexOf(this.currentBlock.type) >= 0) mode = "Literal";
       /** Variable */
       else mode = "Identifier";
       node = {};

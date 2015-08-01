@@ -85,6 +85,8 @@
     /** Generate AST */
     this.ast = this.Parser.parse(tokenList);
 
+    console.log(this.ast);
+
     /** Evaluate the AST */
     this.Evaluator.evaluate(this.ast);
 

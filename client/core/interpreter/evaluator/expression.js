@@ -46,7 +46,7 @@
     if (ast.Identifier) {
       var value = ENGEL.STACK.getValue(ast.Identifier.value);
       if (value || value === "" || value === 0) return value;
-      return void 0;
+      return 0;
     }
 
     /** Got a range */
@@ -89,6 +89,16 @@
 
     /** Got a number or string */
     if (ast.Literal) {
+      /** Only let strings pass */
+      if (isNaN(ast.Literal.value)) {
+        var value = ast.Literal.value.toLowerCase();
+        /** Got a fake boolean */
+        if (["true", "false"].indexOf(value) >= 0) {
+          /** Fake bool conversion */
+          return (value === "true" ? 1 : 0);
+        }
+      }
+      /** Got a string or number */
       return ast.Literal.value;
     }
 
