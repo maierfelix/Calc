@@ -56,6 +56,8 @@
       NOVAE.Sheets[NOVAE.CurrentSheet].Selector.deleteCellSelection();
       /** Update selection */
       NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
+      /** Re-run the interpreter */
+      NOVAE.eval();
       return void 0;
     }
 
@@ -101,6 +103,8 @@
         NOVAE.ClipBoard.pasteCellsIntoSheet(NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First);
         /** Update selection */
         NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
+        /** Re-run the interpreter */
+        NOVAE.eval();
         return void 0;
       }
     }
@@ -116,6 +120,8 @@
         NOVAE.Sheets[NOVAE.CurrentSheet].Selector.deleteCellSelection();
         /** Update selection */
         NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
+        /** Re-run the interpreter */
+        NOVAE.eval();
         return void 0;
       }
     }

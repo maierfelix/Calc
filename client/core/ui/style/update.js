@@ -28,8 +28,8 @@
 
     if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter] && NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell]) {
       /** Check if cell contains a formula - (higher priority than content!) */
-      if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell].Formula) {
-        NOVAE.DOM.CellInput.value = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell].Formula;
+      if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell].Formula.Stream) {
+        NOVAE.DOM.CellInput.value = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell].Formula.Stream;
       /** Check if cell has a custom content */
       } else if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell].Content !== undefined && NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell].Content !== null) {
         /** Update cell input content */

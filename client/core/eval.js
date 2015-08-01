@@ -41,13 +41,23 @@
     for (var ii in cells) {
       for (var kk in cells[ii]) {
         /** Cell has a formula */
-        if (cells[ii][kk].Formula && cells[ii][kk].Formula.length) {
-          /** The formula behind the variable assignment */
-          formulas.push({
+        if (cells[ii][kk].Formula.Stream && cells[ii][kk].Formula.Stream.length) {
+
+          var formulaObject = {
             name: kk,
             /** Validate formula, add the parent cell value before the formula to emulate a variable assignment */
-            value: cells[ii][kk].Formula.substr(0, 0) + kk + cells[ii][kk].Formula.substr(0)
-          });
+            value: cells[ii][kk].Formula.Stream.substr(0, 0) + kk + cells[ii][kk].Formula.Stream.substr(0)
+          };
+
+          var tokens = ENGEL.Lexer.lex(formulaObject.value);
+
+          formulaObject.lexed = tokens;
+
+          cells[ii][kk].Formula.Lexed = tokens;
+
+          /** The formula behind the variable assignment */
+          formulas.push(formulaObject);
+
         }
       }
     }
@@ -60,7 +70,7 @@
       for (var ii = 0; ii < formulas.length; ++ii) {
 
         /** Receive the result */
-        var result = this.evaluateFormula(formulas[ii].value);
+        var result = this.evaluateFormula(formulas[ii].lexed);
 
         var name = formulas[ii].name;
         var letter = name.match(NOVAE.REGEX.numbers).join("");
@@ -89,11 +99,11 @@
    */
   NOVAE.evaluateFormula = function(formula) {
 
-    var index = arguments[1] || undefined;
+    var index = arguments[1] || void 0;
 
-    var interpret = ENGEL.interpret(formula);
+    var interpret = ENGEL.interpretTokens(formula.tokens.slice(0));
 
-    var name = interpret.Variables.shift();
+    var name = formula.variables.shift();
 
     if (index && index.length) {
       if (index[0] === name) {
@@ -109,18 +119,21 @@
     }
 
     /** Natural order recalculation */
-    for (var ii = 0; ii < interpret.Variables.length; ++ii) {
-      var letter = interpret.Variables[ii].match(NOVAE.REGEX.numbers).join("");
+    for (var ii = 0; ii < formula.variables.length; ++ii) {
+      var letter = formula.variables[ii].match(NOVAE.REGEX.numbers).join("");
       if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter] &&
-          NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][interpret.Variables[ii]] &&
-          NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][interpret.Variables[ii]].Formula) {
-          var result = NOVAE.evaluateFormula(interpret.Variables[ii] + NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][interpret.Variables[ii]].Formula, index || interpret.Variables);
+          NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][formula.variables[ii]] &&
+          NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][formula.variables[ii]].Formula.Lexed &&
+          NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][formula.variables[ii]].Formula.Lexed.tokens) {
+          var result = NOVAE.evaluateFormula(NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][formula.variables[ii]].Formula.Lexed, index || formula.variables);
           /** Break calculation */
           if (result === "CircularReference") return ("CircularReference");
       }
     }
 
-    return (ENGEL.interpret(formula).Stack.VAR[ENGEL.CurrentSheet][name].value.value);
+    name = formula.tokens[0].value;
+
+    return (ENGEL.interpretTokens(formula.tokens.slice(0)).Stack.VAR[ENGEL.CurrentSheet][name].value.value);
 
   };
 

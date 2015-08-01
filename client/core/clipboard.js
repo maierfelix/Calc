@@ -100,7 +100,7 @@
         /** Check if cell exists */
         if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number]) {
           content = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].Content;
-          formula = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].Formula;
+          formula = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].Formula.Stream;
           /** Valid content */
           if (content !== undefined && content !== null) {
             copiedCells[ii].value = content;
@@ -164,9 +164,13 @@
       var letter = NOVAE.$.numberToAlpha(data[ii].letter);
       var number = data[ii].number;
 
-      NOVAE.$.registerCell({letter: letter, number: number});
+      NOVAE.registerCell(letter + number);
+      NOVAE.updateCell(letter + number, data[ii].value);
       NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].Content = data[ii].value;
-      NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].Formula = data[ii].formula;
+      NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].Formula = {
+        Stream: data[ii].formula,
+        Lexed: null
+      };
 
     }
 

@@ -129,7 +129,7 @@
       if (cellEditContent !== null) {
         /** Cell starts with a "=" and will be interpreted as a formula */
         if (cellEditContent && cellEditContent[0] === "=") {
-          NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Formula = cellEditContent;
+          NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Formula.Stream = cellEditContent;
 
           /** Inherit cell formula to slave sheets */
           if (NOVAE.Sheets[NOVAE.CurrentSheet].isMasterSheet()) {
@@ -139,8 +139,8 @@
         /** Cell has no formula anymore */
         } else {
           /** Clean the cell formula if it has content */
-          if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Formula && NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Formula.length) {
-            NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Formula = null;
+          if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Formula.Stream && NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Formula.Stream.length) {
+            NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Formula.Stream = null;
           }
 
           /** Update the cell stacks content */

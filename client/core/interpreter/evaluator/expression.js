@@ -71,8 +71,8 @@
       if (ENGEL.STACK.VAR[sheet]) {
         if (ENGEL.STACK.VAR[sheet][value]) {
           var letter = value.match(NOVAE.REGEX.numbers).join("");
-          if (NOVAE.Cells.Used[sheet][letter][value].Formula) {
-            result = ENGEL.interpret(value + NOVAE.Cells.Used[sheet][letter][value].Formula).Stack.VAR[sheet][value].value.value;
+          if (NOVAE.Cells.Used[sheet][letter][value].Formula.Stream) {
+            result = ENGEL.interpret(value + NOVAE.Cells.Used[sheet][letter][value].Formula.Stream).Stack.VAR[sheet][value].value.value;
           } else {
             result = NOVAE.Cells.Used[sheet][letter][value].Content;
           }

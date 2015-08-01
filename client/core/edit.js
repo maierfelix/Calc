@@ -53,12 +53,12 @@
         /** Cell was successfully registered into the interpreter cell stack */
         if (NOVAE.validCell(newLetter + newNumber)) {
           /** Cell has a formula */
-          if (NOVAE.Cells.Used[NOVAE.CurrentSheet][newLetter][newLetter + newNumber].Formula && 
-              NOVAE.Cells.Used[NOVAE.CurrentSheet][newLetter][newLetter + newNumber].Formula.length) {
+          if (NOVAE.Cells.Used[NOVAE.CurrentSheet][newLetter][newLetter + newNumber].Formula.Stream && 
+              NOVAE.Cells.Used[NOVAE.CurrentSheet][newLetter][newLetter + newNumber].Formula.Stream.length) {
             /** Cell formula doesnt match with its content (seems like we got a calculation result) */
-            if (NOVAE.Cells.Used[NOVAE.CurrentSheet][newLetter][newLetter + newNumber].Formula !== NOVAE.Cells.Used[NOVAE.CurrentSheet][newLetter][newLetter + newNumber].Content) {
+            if (NOVAE.Cells.Used[NOVAE.CurrentSheet][newLetter][newLetter + newNumber].Formula.Stream !== NOVAE.Cells.Used[NOVAE.CurrentSheet][newLetter][newLetter + newNumber].Content) {
               /** Disgorge the formula */
-              element.innerHTML = NOVAE.Cells.Used[NOVAE.CurrentSheet][newLetter][newLetter + newNumber].Formula;
+              element.innerHTML = NOVAE.Cells.Used[NOVAE.CurrentSheet][newLetter][newLetter + newNumber].Formula.Stream;
               /** Move cursor to end of cell content text */
               this.goToEndOfCellText();
             }
@@ -68,12 +68,12 @@
           /** Register the cell into the interpreter variable stack */
           NOVAE.registerCellVariable(newLetter + newNumber);
           /** Cell has a formula */
-          if (NOVAE.Cells.Used[NOVAE.CurrentSheet][newLetter][newLetter + newNumber].Formula && 
-              NOVAE.Cells.Used[NOVAE.CurrentSheet][newLetter][newLetter + newNumber].Formula.length) {
+          if (NOVAE.Cells.Used[NOVAE.CurrentSheet][newLetter][newLetter + newNumber].Formula.Stream && 
+              NOVAE.Cells.Used[NOVAE.CurrentSheet][newLetter][newLetter + newNumber].Formula.Stream.length) {
             /** Cell formula doesnt match with its content (seems like we got a calculation result) */
-            if (NOVAE.Cells.Used[NOVAE.CurrentSheet][newLetter][newLetter + newNumber].Formula !== NOVAE.Cells.Used[NOVAE.CurrentSheet][newLetter][newLetter + newNumber].Content) {
+            if (NOVAE.Cells.Used[NOVAE.CurrentSheet][newLetter][newLetter + newNumber].Formula.Stream !== NOVAE.Cells.Used[NOVAE.CurrentSheet][newLetter][newLetter + newNumber].Content) {
               /** Disgorge the formula */
-              element.innerHTML = NOVAE.Cells.Used[NOVAE.CurrentSheet][newLetter][newLetter + newNumber].Formula;
+              element.innerHTML = NOVAE.Cells.Used[NOVAE.CurrentSheet][newLetter][newLetter + newNumber].Formula.Stream;
               /** Move cursor to end of cell content text */
               this.goToEndOfCellText();
             }
@@ -125,10 +125,10 @@
       /** Cell was successfully registered */
       if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter] && NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number]) {
         /** Cell has a formula */
-        if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].Formula && 
-            NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].Formula.length) {
+        if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].Formula.Stream && 
+            NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].Formula.Stream.length) {
           /** Cell formula doesnt match with its content (seems like we got a calculation result) */
-          if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].Formula !== NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].Content) {
+          if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].Formula.Stream !== NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].Content) {
             /** Disgorge the formula */
             jumps = NOVAE.$.getCell({ letter: letter, number: number });
             if (jumps >= 0) NOVAE.DOM.Cache[jumps].innerHTML = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].Content;

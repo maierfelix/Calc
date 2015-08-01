@@ -27,6 +27,9 @@
     /** Precompile lexical regular expressions */
     this.KeyWords = [
 
+      /** Whitespace */
+      { name: "LX_SPACE", rx: /^\s/ },
+
       /** Statements */
       { name: "LX_IF",     rx: /^(if|wenn)(?![a-zA-Z0-9_])/i    },
       { name: "LX_ELSE",   rx: /^(else|sonst)(?![a-zA-Z0-9_])/i },
@@ -117,16 +120,16 @@
     this.getNumbers = /[^0-9]/g;
 
     /** Is blank */
-    this.isBlank = function() { return arguments[0e0].match(this.blank); };
+    this.isBlank = function(a) { return a.match(this.blank); };
 
     /** Is not blank */
-    this.isNotBlank = function() { return arguments[0e0].match(this.notBlank); };
+    this.isNotBlank = function(a) { return a.match(this.notBlank); };
 
     /** Is line break */
-    this.isLineBreak = function() { return arguments[0e0].match(this.lineBreak); };
+    this.isLineBreak = function(a) { return a.match(this.lineBreak); };
 
     /** Is valid variable */
-    this.isValidVariable = function() { return arguments[0e0].match(this.isVariable); };
+    this.isValidVariable = function(a) { return a.match(this.isVariable); };
 
   };
 
@@ -152,7 +155,7 @@
     while (input) {
 
       /** Ignore blanks */
-      var match = this.isLineBreak(input) || this.isBlank(input);
+      var match = this.isLineBreak(input);
 
       for (var ii = 0e0; !match && ii < this.KeyWords.length; ++ii) {
 

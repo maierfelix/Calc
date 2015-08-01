@@ -241,10 +241,10 @@
 
       if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter]) {
         if (cell = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number]) {
-          NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].Content = null;
-          NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].Formula = null;
+          cell.Content = null;
+          cell.Formula.Stream = null;
           /** Remove from interpreter stack */
-          if (ENGEL.STACK.VAR[letter + number]) delete ENGEL.STACK.VAR[letter + number];
+          if (ENGEL.STACK.VAR[NOVAE.CurrentSheet][letter + number]) delete ENGEL.STACK.VAR[NOVAE.CurrentSheet][letter + number];
         }
       }
 
@@ -272,9 +272,9 @@
     for (var ii in cells) {
       for (var cell in cells[ii]) {
         cells[ii][cell].Content = null;
-        cells[ii][cell].Formula = null;
+        cells[ii][cell].Formula.Stream = null;
         /** Remove from interpreter stack */
-        if (ENGEL.STACK.VAR[cell]) delete ENGEL.STACK.VAR[cell];
+        if (ENGEL.STACK.VAR[NOVAE.CurrentSheet][cell]) delete ENGEL.STACK.VAR[cell];
       }
     }
 

@@ -49,7 +49,29 @@
    */
   ENGEL.PARSER.prototype.parse = function(input) {
 
+    input = this.removeWhiteSpace(input);
+
     return (this.createAST(input));
+
+  };
+
+  /**
+   * Remove white spaces from a token list
+   *
+   * @method removeWhiteSpace
+   * @return {array} Tokens
+   * @static
+   */
+  ENGEL.PARSER.prototype.removeWhiteSpace = function(input) {
+
+    /** Remove all white space */
+    for (var ii = 0; ii < input.length; ++ii) {
+      if (input[ii].type === "LX_SPACE") {
+        input.splice(ii, 1);
+      }
+    }
+
+    return (input);
 
   };
 

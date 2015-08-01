@@ -752,6 +752,10 @@
     if (!NOVAE.Cells.Master[oldName]) return void 0;
     if (!NOVAE.Cells.Resized[oldName]) return void 0;
     if (!NOVAE.Cells.Used[oldName]) return void 0;
+    if (!ENGEL.STACK.VAR[oldName]) return void 0;
+
+    /** Update all sheet references with new sheet name */
+    NOVAE.$.updateSheetCellReferences(oldName, newName);
 
     NOVAE.Sheets[newName] = NOVAE.Sheets[oldName];
     NOVAE.Sheets[oldName] = null;
@@ -773,8 +777,49 @@
     NOVAE.Cells.Used[oldName] = null;
     delete NOVAE.Cells.Used[oldName];
 
+    ENGEL.STACK.VAR[newName] = ENGEL.STACK.VAR[oldName];
+    ENGEL.STACK.VAR[oldName] = null;
+    delete ENGEL.STACK.VAR[oldName];
+
     NOVAE.Sheets.changeSheet(newName);
     NOVAE.Sheets.setActiveSheet(NOVAE.CurrentSheet);
+
+  };
+
+  /**
+   * Update sheet cell references in all sheets
+   *
+   * @method updateSheetCellReferences
+   * @static
+   */
+  NOVAE.$.updateSheetCellReferences = function(oldSheet, newSheet) {
+
+    for (var sheet in NOVAE.Cells.Used) {
+      for (var letter in NOVAE.Cells.Used[sheet]) {
+        for (var cell in NOVAE.Cells.Used[sheet][letter]) {
+          /** Cell contains formula */
+          if (NOVAE.Cells.Used[sheet][letter][cell].Formula.Stream && NOVAE.Cells.Used[sheet][letter][cell].Formula.Stream.length) {
+            var tokens = NOVAE.Cells.Used[sheet][letter][cell].Formula.Lexed.tokens;
+            var length = tokens.length;
+            var replaced = false;
+            for (var ii = 0; ii < length; ++ii) {
+              /** Optimize sheet cell references */
+              if (tokens[ii].type === "LX_SHEET") {
+                var sheetToken = tokens[ii];
+                if (sheetToken.value === oldSheet) {
+                  sheetToken.value = newSheet;
+                  replaced = true;
+                }
+              }
+            }
+            /** Something got replaced */
+            if (replaced) {
+              NOVAE.Cells.Used[sheet][letter][cell].Formula.Stream = ENGEL.tokensToStream(tokens);
+            }
+          }
+        }
+      }
+    }
 
   };
 

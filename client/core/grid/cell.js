@@ -20,6 +20,7 @@
    * @static
    */
   NOVAE.Grid.prototype.Cell = function() {
+
     /**
      * Cell has a custom font color
      *
@@ -50,7 +51,12 @@
      * @property Formula
      * @type String
      */
-    this.Formula = null;
+    this.Formula = {
+      /** Plain formula string */
+      Stream: null,
+      /** Lexical analyzed stream */
+      Lexed: null
+    };
 
     /**
      * Cell has content
@@ -182,7 +188,7 @@
     for (var property in b) {
       if (b.hasOwnProperty(property)) {
         if (typeof b[property] === "object") {
-          this.inheritProperties(this, b[property]);
+          this.inheritProperties(this[property], b[property]);
         } else {
           if (b[property] !== null) a[property] = b[property];
         }
