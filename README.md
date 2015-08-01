@@ -34,6 +34,7 @@ If you want to test the latest multi-user functionality, go to:
    - [ ] Undo, redo stack
    - [x] Multiple sheets
    - [x] Delete sheets
+   - [ ] Rename sheets
    - [x] System speed optimization
    - [ ] Debug
 
@@ -50,6 +51,7 @@ If you want to test the latest multi-user functionality, go to:
    - [x] Ranges
    - [ ] Multi-sheet cell references
    - [x] If statements
+   - [x] Booleans
 
 - [ ] Script logic
    - [ ] Sheets
@@ -66,6 +68,7 @@ If you want to test the latest multi-user functionality, go to:
    - [ ] Multi-user cell resizing
    - [x] Multi-sheet support
    - [x] Delete sheets
+   - [ ] Rename sheets
    - [x] Count users in current sheet
    - [ ] Synchronization
    - [ ] Screen mirroring
@@ -74,7 +77,6 @@ If you want to test the latest multi-user functionality, go to:
 - [ ] Key scrolling
 - [ ] Reversed selection extending doesnt work
 - [ ] Reversed selection resize ghost switch bug
-- [ ] Master selection without styling causes styling errors (For example white background)
 - [ ] Sheet dictionary in ENGEL variable stack
 
 ## Licensing
