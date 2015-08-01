@@ -76,7 +76,17 @@
       "10 + max(10, max(5, max(30, 50, 40), 7.5) + 777, 99)",
       "10 + max(max(10, 2*2, max(), min(10,20), max(5*5, 10, max(7*7)) + 20, 4*9) + 2 * max(5, 10) + 90 * min(22, 33) + 10) + min(999, 1000) * 2",
       "min(1000, 2000) * (66 + max(5, 600, 400)) + max(10, 65, 22, 8)",
-      "max(10, 2 * 2 + 3 + max(10, 30) + 6 * 6, 2*5)"
+      "max(10, 2 * 2 + 3 + max(10, 30) + 6 * 6, 2*5)",
+      /** Booleans */
+      "true + true",
+      "true - false",
+      "true != true",
+      "true == true",
+      "true == false",
+      "1 == true",
+      "1 == false",
+      "0 != true",
+      "true * 5 + (1 + true - false - 100) * true"
     ];
 
     for (var ii = 0; ii < array.length; ++ii) {
@@ -91,9 +101,13 @@
       }
 
       engelResult = ENGEL.interpret(varName + array[ii]).Stack.VAR[ENGEL.CurrentSheet][singleVarName].value.value;
-      jsResult = parseFloat(window.eval(compile));
+      jsResult = window.eval(compile);
 
-      if (engelResult !== jsResult) {
+      if (["TRUE", "FALSE"].indexOf(engelResult) >= 0) {
+        engelResult = engelResult === "TRUE" || false;
+      }
+
+      if (engelResult != jsResult) {
         failures++;
         console.log("#### Results doesn't match! => " + (array[ii]) + " ####");
         console.log( "ENGEL:", engelResult);

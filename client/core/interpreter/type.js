@@ -30,8 +30,13 @@
 
     object.value = data;
 
+    /** Boolean */
+    if (typeof data === "boolean") {
+      object.value = data ? "TRUE" : "FALSE";
+    }
+
     /** Numeric */
-    if (!isNaN(data)) object.value = parseFloat(data);
+    else if (!isNaN(data)) object.value = parseFloat(data);
 
     /** String */
     else if (typeof data == "string" || (typeof data == "object" && data.constructor === String)) {

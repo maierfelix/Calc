@@ -21,7 +21,7 @@
    */
   ENGEL.EVAL.prototype.interpretExpression = function(ast) {
 
-    if (!isNaN(ast)) return ast;
+    if (!isNaN(ast)) return (ast);
 
     if (!ast) return void 0;
 
@@ -29,24 +29,28 @@
 
     /** Got something special */
     if (ast.init) {
-      return this.Functions[ast.operator](ast.init);
+      return (this.Functions[ast.operator](ast.init));
     }
 
     /** Function call */
     if (ast.CallExpression) {
-      return this.evalExpression(ast.CallExpression);
+      return (this.evalExpression(ast.CallExpression));
     }
 
     /** If statement */
     if (ast.IfStatement) {
-      return this.evalIfStatement(ast.IfStatement);
+      return (this.evalIfStatement(ast.IfStatement));
     }
 
     /** Got a variable */
     if (ast.Identifier) {
       var value = ENGEL.STACK.getValue(ast.Identifier.value);
+      /** Handle boolean types */
+      if (["TRUE", "FALSE"].indexOf(value) >= 0) {
+        return (value === "TRUE" || false);
+      }
       if (value || value === "" || value === 0) return value;
-      return 0;
+      return (0);
     }
 
     /** Got a range */
@@ -84,7 +88,7 @@
       } else {
         result = 0;
       }
-      return result;
+      return (result);
     }
 
     /** Got a number or string */
@@ -95,16 +99,16 @@
         /** Got a fake boolean */
         if (["true", "false"].indexOf(value) >= 0) {
           /** Fake bool conversion */
-          return (value === "true" ? 1 : 0);
+          return (value === "true" ? true : false);
         }
       }
       /** Got a string or number */
-      return ast.Literal.value;
+      return (ast.Literal.value);
     }
 
     /** Got an operator */
     if (this.Functions[ast.operator]) {
-      return this.Functions[ast.operator](ast);
+      return (this.Functions[ast.operator](ast));
     }
 
     return void 0;

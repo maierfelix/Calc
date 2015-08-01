@@ -1220,17 +1220,15 @@ thead {
 }
 
 .extendButton {
-  position: absolute !important;
   z-index: 9;
-  right: 0;
-  bottom: 0px;
-  padding-top: 0px;
-  border-radius: 0px;
+  position: absolute;
   border: none;
   width: 10px;
   height: 6px;
   background-color: rgba(41, 121, 255, 1);
   color: #fff !important;
+  bottom: 0px;
+  right: 0px;
 }
 
 .alertButton {

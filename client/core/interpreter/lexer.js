@@ -181,6 +181,10 @@
             /*if (this.reservedKeyWords.indexOf(match[0]) >= 0) {
               console.log(match[0] + " is a reserved word and shall not be used!");
             }*/
+            /** Check if variable is valid */
+            if (!this.isValidVariable(match[0])) {
+              throw new Error(match[0] + " is a invalid variable name!");
+            }
             /** Ignore sheet reference variables */
             if (this.Tokens[this.Tokens.length - 1]) {
               if (this.Tokens[this.Tokens.length - 1].type !== "LX_SHEET") {

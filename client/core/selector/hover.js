@@ -216,22 +216,26 @@
 
         /** Priority 1: Cells */
         if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter] &&
-            NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number]) {
+            NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number] &&
+            NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].BackgroundColor !== null) {
 
           NOVAE.DOM.Cache[cell].style.background = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].BackgroundColor;
 
         /** Priority 2: Columns */
-        } else if (NOVAE.Cells.Master[NOVAE.CurrentSheet].Columns[letter]) {
+        } else if (NOVAE.Cells.Master[NOVAE.CurrentSheet].Columns[letter] &&
+                   NOVAE.Cells.Master[NOVAE.CurrentSheet].Columns[letter].BackgroundColor !== null) {
 
           NOVAE.DOM.Cache[cell].style.background = NOVAE.Cells.Master[NOVAE.CurrentSheet].Columns[letter].BackgroundColor;
 
         /** Priority 3: Rows */
-        } else if (NOVAE.Cells.Master[NOVAE.CurrentSheet].Rows[number]) {
+        } else if (NOVAE.Cells.Master[NOVAE.CurrentSheet].Rows[number] &&
+                   NOVAE.Cells.Master[NOVAE.CurrentSheet].Rows[number].BackgroundColor !== null) {
 
           NOVAE.DOM.Cache[cell].style.background = NOVAE.Cells.Master[NOVAE.CurrentSheet].Rows[number].BackgroundColor;
 
         /** Priority 4: All */
-        } else if (NOVAE.Cells.All[NOVAE.CurrentSheet].Cell) {
+        } else if (NOVAE.Cells.All[NOVAE.CurrentSheet].Cell &&
+                   NOVAE.Cells.All[NOVAE.CurrentSheet].Cell.BackgroundColor !== null) {
 
           NOVAE.DOM.Cache[cell].style.background = NOVAE.Cells.All[NOVAE.CurrentSheet].Cell.BackgroundColor;
 
