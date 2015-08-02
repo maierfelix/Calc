@@ -264,7 +264,12 @@
         if (!userRoom.sheets[data.sheet] || !userRoom.sheets[data.sheet].cells) {
           /** Register new sheet */
           userRoom.sheets[data.sheet] = {
-            cells: {}
+            cells: {},
+            /** Resize object */
+            resize: {
+              rows: {},
+              columns: {}
+            }
           };
         }
 
@@ -361,7 +366,38 @@
             !Security.isSecure(data.name)  || /** Name */
             !Security.isSecure(data.size)) return void 0;
 
-        console.log(data);
+        /** Column resize */
+        if (data.type === "column" && isNaN(data.name) && userRoom.sheets[data.sheet]) {
+          /** Already exists */
+          if (userRoom.sheets[data.sheet].resize.columns[data.name]) {
+            userRoom.sheets[data.sheet].resize.columns[data.name].Width = data.size;
+          /** Register new column */
+          } else {
+            userRoom.sheets[data.sheet].resize.columns[data.name] = {
+              Height: 0,
+              Width: data.size
+            };
+          }
+        }
+        /** Row resize */
+        else if (data.type === "row" && !isNaN(data.name) && userRoom.sheets[data.sheet]) {
+          /** Already exists */
+          if (userRoom.sheets[data.sheet].resize.rows[data.name]) {
+            userRoom.sheets[data.sheet].resize.rows[data.name].Height = data.size;
+          /** Register new row */
+          } else {
+            userRoom.sheets[data.sheet].resize.rows[data.name] = {
+              Height: data.size,
+              Width: 0
+            };
+          }
+        /** Something happened wrong */
+        } else {
+          return void 0;
+        }
+
+        /** Share resize with everyone in the room but not myself */
+        Bucket.shareData({sheet: data.sheet, type: data.type, name: data.name, size: data.size}, socket.id, "resize", false);
 
       });
 
