@@ -405,11 +405,15 @@ button, input, select, textArea {
   border-left: 1px solid #CCC;
   border-bottom: 1px solid #CCC;
   text-align: center !important;
+  -webkit-transition: 0.25s left, 0.25s width, 0.25s opacity;
+  transition: 0.25s left, 0.25s width, 0.25s opacity;
 }
 
 .cell_dark_alpha:hover {
   color: #448AFF !important;
   cursor: pointer;
+  -webkit-transition: none !important;
+  transition: none !important;
 }
 
 .cell_dark_number {
@@ -422,11 +426,15 @@ button, input, select, textArea {
   font-weight: 500;
   vertical-align: middle !important;
   text-align: center !important;
+  -webkit-transition: 0.25s top, 0.25s height, 0.25s opacity;
+  transition: 0.25s top, 0.25s height, 0.25s opacity;
 }
 
 .cell_dark_number:hover {
   color: #448AFF !important;
   cursor: pointer;
+  -webkit-transition: none !important;
+  transition: none !important;
 }
 
 .viewport {
@@ -1331,6 +1339,11 @@ thead {
   width: 55px;
   height: 25px;
   position: absolute; 
+}
+
+#column_group>col {
+  -webkit-transition: 0.25s left, 0.25s width, 0.25s opacity;
+  transition: 0.25s left, 0.25s width, 0.25s opacity;
 }
 
 #column_resize_helper {

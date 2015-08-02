@@ -95,11 +95,13 @@
       }
     }
 
-    /** Refresh the grid */
-    NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("default", 0);
-    NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
-    NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
     NOVAE.eval();
+    NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
+
+    /** Refresh the grid */
+    setTimeout(function() {
+      NOVAE.Event.redraw();
+    }, 250);
 
   };
 
@@ -117,20 +119,26 @@
       NOVAE.Cells.Used[object.sheet][object.letter][object.cell] = new NOVAE.Grid.Cell(object.cell);
     }
 
-    if (object.value[0] === "=") {
+    /** Received formula */
+    if (object.value[0] === "=" && object.value[1]) {
       /** Only attach cell if it ends with a semicolon */
       if (object.value[object.value.length - 1] === ";") {
         NOVAE.Cells.Used[object.sheet][object.letter][object.cell].Formula.Stream = object.value;
+        NOVAE.Cells.Used[object.sheet][object.letter][object.cell].Content = null;
       }
+    /** Received content */
     } else {
       NOVAE.registerCell(object.cell);
       NOVAE.updateCell(object.cell, object.value);
       NOVAE.Cells.Used[object.sheet][object.letter][object.cell].Content = object.value;
+      NOVAE.Cells.Used[object.sheet][object.letter][object.cell].Formula.Stream = null;
     }
 
     /** Refresh the grid */
-    NOVAE.Sheets[NOVAE.CurrentSheet].updateWidth("default");
     NOVAE.eval();
+    NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("default", 0);
+    NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
+    NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
 
   };
 
@@ -162,8 +170,10 @@
     }
 
     /** Refresh the grid */
-    NOVAE.Sheets[NOVAE.CurrentSheet].updateWidth("default");
     NOVAE.eval();
+    NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("default", 0);
+    NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
+    NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
 
   };
 
@@ -307,9 +317,11 @@
       }
     }
 
-    /** Refresh the grid */
-    NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("default", 0);
     NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
-    NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
+
+    /** Refresh the grid */
+    setTimeout(function() {
+      NOVAE.Event.redraw();
+    }, 250);
 
   };

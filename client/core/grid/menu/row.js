@@ -46,6 +46,56 @@
   };
 
   /**
+   * Resize a row
+   *
+   * @method resizeRow
+   * @static
+   */
+  NOVAE.Grid.prototype.resizeRow = function(name) {
+
+    var customCellSizes = NOVAE.Cells.Resized[NOVAE.CurrentSheet];
+
+    /** Register resize column if not registered yet */
+    if (!customCellSizes.Rows[name]) {
+      customCellSizes.Rows[name] = {
+        Width: 0,
+        Height: 0
+      };
+    }
+
+    var height = customCellSizes.Rows[name].Height;
+
+    /** Re-render grid */
+    NOVAE.Sheets[NOVAE.CurrentSheet].Input.lastAction.scrollY = false;
+
+    /** Inherit resize if myself is a master sheet */
+    if (this.isMasterSheet()) {
+      NOVAE.Styler.inheritResize(name, height);
+    }
+
+    /** Push change into undo stack */
+    var command = NOVAE.newCommand();
+        command.caller = "Resize";
+        command.data = {
+          name: name,
+          height: height
+        };
+
+    /** Push command into the commander stack */
+    NOVAE.Sheets[NOVAE.CurrentSheet].Commander.pushUndoCommand(command, true);
+
+    /** Share row resize */
+    if (NOVAE.Connector.connected) {
+      NOVAE.Connector.action("resize", { type: "row", name: name, size: height });
+    }
+
+    /** Hide the resize helper */
+    NOVAE.DOM.ColumnResizeHelper.style.display = "none";
+
+  };
+
+
+  /**
    * Initialise a row
    *
    * @method initialiseRow
@@ -83,45 +133,8 @@
 
         NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.CellResize = true;
 
-      });
-
-      /** Mouse up */
-      element.addEventListener(NOVAE.Events.mouseUp, function(e) {
-
-        /** Register resize row if not registered yet */
-        if (!customCellSizes.Rows[e.target.innerHTML]) {
-          customCellSizes.Rows[e.target.innerHTML] = {
-            Width: 0,
-            Height: 0
-          };
-        }
-
-        var height = customCellSizes.Rows[e.target.innerHTML].Height;
-
-        this.setAttribute("clicked", 0);
-        /** Inherit resize if myself is a master sheet */
-        if (self.isMasterSheet()) {
-          NOVAE.Styler.inheritResize(e.target.innerHTML, customCellSizes.Rows[e.target.innerHTML].Height);
-        }
-
-        /** Push change into undo stack */
-        var command = NOVAE.newCommand();
-            command.caller = "Resize";
-            command.data = {
-              name: e.target.innerHTML,
-              height: height
-            };
-
-        /** Share row resize */
-        if (NOVAE.Connector.connected) {
-          NOVAE.Connector.action("resize", { type: "row", name: e.target.innerHTML, size: height });
-        }
-
-        /** Push command into the commander stack */
-        NOVAE.Sheets[NOVAE.CurrentSheet].Commander.pushUndoCommand(command, true);
-
-        /** Hide the resize helper */
-        NOVAE.DOM.RowResizeHelper.style.display = "none";
+        /** Update currently resized column */
+        NOVAE.Sheets[NOVAE.CurrentSheet].lastResized.Row = e.target.innerHTML;
 
       });
 

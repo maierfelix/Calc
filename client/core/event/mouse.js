@@ -204,6 +204,15 @@
 
     /** User resized something */
     if (NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.CellResize) {
+      /** Got a unprocessed resize */
+      if (NOVAE.Sheets[NOVAE.CurrentSheet].lastResized.Column && NOVAE.Sheets[NOVAE.CurrentSheet].lastResized.Column.length) {
+        NOVAE.Sheets[NOVAE.CurrentSheet].resizeColumn(NOVAE.Sheets[NOVAE.CurrentSheet].lastResized.Column);
+        NOVAE.Sheets[NOVAE.CurrentSheet].lastResized.Column = null;
+      }
+      if (NOVAE.Sheets[NOVAE.CurrentSheet].lastResized.Row && NOVAE.Sheets[NOVAE.CurrentSheet].lastResized.Row.length) {
+        NOVAE.Sheets[NOVAE.CurrentSheet].resizeRow(NOVAE.Sheets[NOVAE.CurrentSheet].lastResized.Row);
+        NOVAE.Sheets[NOVAE.CurrentSheet].lastResized.Row = null;
+      }
       NOVAE.Event.redraw();
       currentSheet.Input.Mouse.CellResize = false;
       /** Hide resize helpers */

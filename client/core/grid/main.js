@@ -94,7 +94,7 @@
           class: "row cell_dark_number",
           style: {
             height: this.CellTemplate.Height,
-            width:  (this.CellTemplate.Width / 2)
+            width:  Math.ceil(this.CellTemplate.Width / 2)
           }
         }
       }
@@ -153,6 +153,12 @@
       }
     };
 
+    /** Save current resized column and row */
+    this.lastResized = {
+      Column: null,
+      Row: null
+    };
+
     /** Detect fast scrolling */
     this.fastScroll = false;
 
@@ -191,8 +197,6 @@
 
     /** Preload */
     this.Settings.y *= 4;
-    //this.Settings.y -= 10;
-    //this.Settings.x *= 2;
 
     /** Expand grid width if columns got resized smaller */
     if (resizedX <= 0) {
