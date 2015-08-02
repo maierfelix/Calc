@@ -331,10 +331,16 @@
           }
           /** If received content, check if its a formula */
           if (data.property === "Content") {
-            if (data.value[0] === "=") {
+            /** Received formula */
+            if (data.value[0] === "=" && data.value[1]) {
               /** Update cell */
               userRoom.sheets[data.sheet].cells[data.letter][data.cell]["Formula"] = data.value;
-            } else userRoom.sheets[data.sheet].cells[data.letter][data.cell]["Content"] = data.value;
+              userRoom.sheets[data.sheet].cells[data.letter][data.cell]["Content"] = null;
+            /** Received Content */
+            } else {
+              userRoom.sheets[data.sheet].cells[data.letter][data.cell]["Formula"] = null;
+              userRoom.sheets[data.sheet].cells[data.letter][data.cell]["Content"] = data.value;
+            }
           } else {
             /** Update cell */
             userRoom.sheets[data.sheet].cells[data.letter][data.cell][data.property] = data.value;
@@ -365,6 +371,19 @@
             !Security.isSecure(data.type)  || /** Type */
             !Security.isSecure(data.name)  || /** Name */
             !Security.isSecure(data.size)) return void 0;
+
+        /** Check if sheet is already registered */
+        if (!userRoom.sheets[data.sheet] || !userRoom.sheets[data.sheet].cells) {
+          /** Register new sheet */
+          userRoom.sheets[data.sheet] = {
+            cells: {},
+            /** Resize object */
+            resize: {
+              rows: {},
+              columns: {}
+            }
+          };
+        }
 
         /** Column resize */
         if (data.type === "column" && isNaN(data.name) && userRoom.sheets[data.sheet]) {
@@ -433,7 +452,7 @@
         }
 
       });
-      
+
       /** Socket changed sheet */
       socket.on('changesheet', function(data) {
 
@@ -451,7 +470,14 @@
               /** Check if sheet exists in the room, if not create it */
               if (!userRoom.sheets[data.sheet]) {
                 /** Create the sheet in the bucket room sheets */
-                userRoom.sheets[data.sheet] = {};
+                userRoom.sheets[data.sheet] = {
+                  cells: {},
+                  /** Resize object */
+                  resize: {
+                    rows: {},
+                    columns: {}
+                  }
+                };
                 /** Save new sheet in the database */
                 Database.updateSheet("rooms", {sheets: userRoom.sheets}, userRoom.id, function(finished) {
                   /** Share the new sheet update to all clients in the room */
