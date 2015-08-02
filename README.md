@@ -64,13 +64,12 @@ If you want to test the latest multi-user functionality, go to:
    - [x] Roles
    - [x] Share rooms
    - [x] Multi-user cell editing
-   - [ ] Multi-user cell styling
-   - [ ] Multi-user cell resizing
+   - [x] Multi-user cell styling
+   - [x] Multi-user cell resizing
    - [x] Multi-sheet support
    - [x] Delete sheets
    - [ ] Rename sheets
-   - [x] Count users in current sheet
-   - [ ] Synchronization
+   - [ ] Row, Column injection methods
    - [ ] Screen mirroring
 
 ## Bugs:
