@@ -28,6 +28,7 @@
     var calculation = 0;
     /** Cell name attributes */
     var Letter;
+    var Number;
     var position = 0;
 
     /** Create letter of major first column in view from the left */

@@ -112,6 +112,11 @@
               height: height
             };
 
+        /** Share row resize */
+        if (NOVAE.Connector.connected) {
+          NOVAE.Connector.action("resize", { type: "row", name: e.target.innerHTML, size: height });
+        }
+
         /** Push command into the commander stack */
         NOVAE.Sheets[NOVAE.CurrentSheet].Commander.pushUndoCommand(command, true);
 

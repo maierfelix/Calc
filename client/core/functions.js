@@ -661,6 +661,8 @@
     /** Create master object if not existing yet */
     if (!NOVAE.Cells.Master[name]) NOVAE.$.createMasterObject();
 
+    if (!ENGEL.STACK.VAR[name]) ENGEL.STACK.VAR[name] = {};
+
     /** Create new cell used stack */
     NOVAE.Sheets[name] = new NOVAE.Grid();
 

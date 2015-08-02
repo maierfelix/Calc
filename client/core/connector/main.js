@@ -148,6 +148,10 @@
             case "deletesheet":
               this.processSheetDeletion(data.data);
               break;
+            /** Someone resized something */
+            case "resize":
+              this.processResize(data.data);
+              break;
           }
           break;
       }

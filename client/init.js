@@ -107,6 +107,7 @@ Import.scripts = [
   "core/clipboard.js",
   /** Connector */
   "core/connector/main.js",
+  "core/connector/live.js",
   "core/connector/action.js",
   /** Interpreter */
   "core/interpreter/main.js",
