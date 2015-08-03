@@ -30,6 +30,12 @@
      * @member {object}
      */
     this.validNumber = /^-?\d*\.?\d+$/;
+    /**
+     * Valid cell properties
+     *
+     * @member {array}
+     */
+    this.validCellProperties = ["Color", "BackgroundColor", "Formula", "Content", "Font", "FontSize", "FontBold", "FontItalic", "FontUnderlined"];
   };
 
   /**
@@ -104,8 +110,17 @@
    */
   Security.prototype.isValidCellProperty = function(property) {
 
+    var properties = this.validCellProperties;
+
+    /** Single property */
     if (property && typeof property === "string" && property.length) {
-      if (["Color", "BackgroundColor", "Formula", "Content", "Font", "FontSize", "FontBold", "FontItalic", "FontUnderlined"].indexOf(property) >= 0) return (true);
+      if (properties.indexOf(property) >= 0) return (true);
+    /** Multiple properties */
+    } else if (property && property instanceof Array && property.length) {
+      for (var ii = 0; ii < property.length; ++ii) {
+        if (properties.indexOf(property[ii]) <= -1) return (false);
+      }
+      return (true);
     }
 
     return (false);

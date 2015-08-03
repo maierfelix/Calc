@@ -254,6 +254,7 @@
               !Security.isSecure(data.property) || /** Property */
               !Security.isValidCellProperty(data.property)) return void 0;
         } else {
+          /** Validate range data */
           if (!Security.isSecure(data.sheet)                  || /** Sheet  */
               typeof data.value !== "string"                  || /** Range  */
               !Security.isSecure(data.property)               || /** Property */
@@ -264,11 +265,17 @@
         if (!userRoom.sheets[data.sheet] || !userRoom.sheets[data.sheet].cells) {
           /** Register new sheet */
           userRoom.sheets[data.sheet] = {
+            /** Cell object */
             cells: {},
             /** Resize object */
             resize: {
-              rows: {},
-              columns: {}
+              columns: {},
+              rows: {}
+            },
+            /** Master object */
+            master: {
+              columns: {},
+              rows: {}
             }
           };
         }
@@ -379,8 +386,8 @@
             cells: {},
             /** Resize object */
             resize: {
-              rows: {},
-              columns: {}
+              columns: {},
+              rows: {}
             }
           };
         }
@@ -415,8 +422,142 @@
           return void 0;
         }
 
-        /** Share resize with everyone in the room but not myself */
+        /** Share resize with everyone in the room */
         Bucket.shareData({sheet: data.sheet, type: data.type, name: data.name, size: data.size}, socket.id, "resize", false);
+
+      });
+
+      /** Cell paste */
+      socket.on('pastecells', function(data) {
+
+        /** Abort if no data was received */
+        if (!data) return void 0;
+
+        /** Validate user */
+        if (!Bucket.isValidUser(socket.id)) return void 0;
+
+        var userSheet = Bucket.getUser(socket.id).sheet;
+
+        /** Validate data */
+        if (!Security.isSecure(data.sheet) ||
+            !data.data ||
+            !data.data.start ||
+            !data.data.end ||
+            !Security.isValidCellProperty(data.property)) return void 0;
+
+        var userRoom = Bucket.getCurrentUserRoom(socket.id);
+
+        /** Process start range */
+        var cells = Helper.rangeToSelection(data.data.start);
+
+        var position = Helper.rangeToSelection(data.data.end);
+
+        var startColumn = position[0].letter;
+        var startNumber = position[0].number;
+
+        /** Start column to be inserted */
+        var lastColumn = startColumn;
+        /** Start row to be inserted */
+        var lastRow = startNumber;
+
+        var columnPadding = 0;
+        var rowPadding = 0;
+
+        var sheet = userRoom.sheets[data.sheet].cells;
+
+        /** Fill cells with data */
+        for (var ii = 0; ii < cells.length; ++ii) {
+          var letter = Helper.numberToAlpha(cells[ii].letter);
+          var number = cells[ii].number;
+          var name = letter + number;
+          for (var prop = 0; prop < data.property.length; ++prop) {
+            if (sheet[letter] &&
+                sheet[letter][name] &&
+                sheet[letter][name].hasOwnProperty(data.property[prop])) {
+              cells[ii][data.property[prop]] = sheet[letter][name][data.property[prop]];
+            }
+          }
+        }
+
+        /** Adjust copying to the new position */
+        for (var ii = 0; ii < cells.length; ++ii) {
+
+          if (cells[ii].number !== lastRow && ii) rowPadding++;
+
+          if (cells[ii].letter !== lastColumn && ii) {
+            columnPadding++;
+            rowPadding = 0;
+          }
+
+          lastColumn = cells[ii].letter;
+          lastRow = cells[ii].number;
+          cells[ii].letter = cells[ii].letter + startColumn - cells[ii].letter + columnPadding;
+          cells[ii].number = cells[ii].number + startNumber - cells[ii].number + rowPadding;
+
+          var letter = Helper.numberToAlpha(cells[ii].letter);
+          var number = cells[ii].number;
+          var name = letter + number;
+
+          /** Update cells */
+          for (var prop = 0; prop < data.property.length; ++prop) {
+            if (!sheet[letter]) {
+              sheet[letter] = {};
+            }
+            if (!sheet[letter][name]) {
+              sheet[letter][name] = new Cell();
+            }
+            if (sheet[letter][name].hasOwnProperty(data.property[prop])) {
+              sheet[letter][name][data.property[prop]] = cells[ii][data.property[prop]];
+            }
+          }
+
+        }
+
+        Bucket.shareData({sheet: data.sheet, range: {start: data.data.start, end: data.data.end}, property: data.property}, socket.id, "pastecells", false);
+
+      });
+
+      /** Cell deletion */
+      socket.on('deletecells', function(data) {
+
+        /** Abort if no data was received */
+        if (!data) return void 0;
+
+        /** Validate user */
+        if (!Bucket.isValidUser(socket.id)) return void 0;
+
+        var userSheet = Bucket.getUser(socket.id).sheet;
+
+        /** Make sure we received a range */
+        if (!data.hasOwnProperty("range")) return void 0;
+
+        /** Validate range data */
+        if (!Security.isSecure(data.sheet)                  || /** Sheet  */
+            !Security.isValidCellProperty(data.property)) return void 0;
+
+        var userRoom = Bucket.getCurrentUserRoom(socket.id);
+
+        var selection = Helper.rangeToSelection(data.range);
+
+        for (var ii = 0; ii < selection.length; ++ii) {
+          var letter = Helper.numberToAlpha(selection[ii].letter);
+          var cell = letter + selection[ii].number;
+          for (var kk = 0; kk < data.property.length; ++kk) {
+            /** Check if cell exists */
+            if (userRoom.sheets[data.sheet] && 
+                userRoom.sheets[data.sheet].cells[letter] &&
+                userRoom.sheets[data.sheet].cells[letter][cell]) {
+
+              /** Delete cells property */
+              if (userRoom.sheets[data.sheet].cells[letter][cell].hasOwnProperty(data.property[kk])) {
+                userRoom.sheets[data.sheet].cells[letter][cell][data.property[kk]] = null;
+              }
+
+            }
+          }
+        }
+
+        Bucket.shareData({sheet: data.sheet, range: data.range, property: data.property}, socket.id, "deletecells", false);
 
       });
 
