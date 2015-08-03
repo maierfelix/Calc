@@ -70,6 +70,8 @@ If you want to test the latest multi-user functionality, go to:
    - [x] Delete sheets
    - [ ] Rename sheets
    - [ ] Row, Column injection methods
+   - [ ] Extend cell content & formulas
+   - [ ] Paste, Delete Cells
    - [ ] Screen mirroring
 
 ## Bugs:
