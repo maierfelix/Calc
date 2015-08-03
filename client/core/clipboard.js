@@ -64,17 +64,19 @@
    */
   NOVAE.ClipBoard.prototype.copyCellsToClipBoard = function() {
 
+    var sheet = arguments[1] || NOVAE.CurrentSheet;
+
     /** Sheet isnt registered in clipBoard yet */
-    if (!this.copiedCells[NOVAE.CurrentSheet]) this.copiedCells[NOVAE.CurrentSheet] = {};
+    if (!this.copiedCells[sheet]) this.copiedCells[sheet] = {};
 
     /** Clean old copied cells */
-    this.copiedCells[NOVAE.CurrentSheet] = [];
+    this.copiedCells[sheet] = [];
 
     /** Update clipBoard sheet cells */
-    this.copiedCells[NOVAE.CurrentSheet] = arguments[0] || NOVAE.Sheets[NOVAE.CurrentSheet].Selector.SelectedCells;
+    this.copiedCells[sheet] = arguments[0] || NOVAE.Sheets[sheet].Selector.SelectedCells;
 
     /** Check if copied cells contain content */
-    this.validateCellContent();
+    this.validateCellContent(sheet);
 
   };
 
@@ -84,9 +86,9 @@
    * @method validateCellContent
    * @static
    */
-  NOVAE.ClipBoard.prototype.validateCellContent = function() {
+  NOVAE.ClipBoard.prototype.validateCellContent = function(sheet) {
 
-    var copiedCells = this.copiedCells[NOVAE.CurrentSheet];
+    var copiedCells = this.copiedCells[sheet];
 
     var content = null;
 
@@ -96,11 +98,11 @@
       var letter = NOVAE.$.numberToAlpha(copiedCells[ii].letter);
       var number = copiedCells[ii].number;
       /** Cell dictionary exists */
-      if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter]) {
+      if (NOVAE.Cells.Used[sheet][letter]) {
         /** Check if cell exists */
-        if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number]) {
-          content = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].Content;
-          formula = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].Formula.Stream;
+        if (NOVAE.Cells.Used[sheet][letter][letter + number]) {
+          content = NOVAE.Cells.Used[sheet][letter][letter + number].Content;
+          formula = NOVAE.Cells.Used[sheet][letter][letter + number].Formula.Stream;
           /** Valid content */
           if (content !== undefined && content !== null) {
             copiedCells[ii].value = content;
@@ -121,12 +123,11 @@
    * @method pasteCellsIntoSheet
    * @static
    */
-  NOVAE.ClipBoard.prototype.pasteCellsIntoSheet = function(position) {
+  NOVAE.ClipBoard.prototype.pasteCellsIntoSheet = function(position, online, sheet) {
 
-    /** Received cells form the server */
-    var online = arguments[1];
+    sheet = sheet || NOVAE.CurrentSheet;
 
-    var data = this.copiedCells[NOVAE.CurrentSheet];
+    var data = this.copiedCells[sheet];
 
     /** Abort if nothing to paste or no specific inject position */
     if (!data || !data.length || !position) return void 0;
@@ -134,7 +135,7 @@
     data = data.slice(0);
 
     /** Inherit paste */
-    if (NOVAE.Sheets[NOVAE.CurrentSheet].isMasterSheet()) {
+    if (NOVAE.Sheets[sheet].isMasterSheet()) {
       NOVAE.Styler.inheritPasteCells(position, data);
     }
 
@@ -175,8 +176,8 @@
 
       NOVAE.registerCell(letter + number);
       NOVAE.updateCell(letter + number, data[ii].value);
-      NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].Content = data[ii].value;
-      NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].Formula = {
+      NOVAE.Cells.Used[sheet][letter][letter + number].Content = data[ii].value;
+      NOVAE.Cells.Used[sheet][letter][letter + number].Formula = {
         Stream: data[ii].formula,
         Lexed: null
       };

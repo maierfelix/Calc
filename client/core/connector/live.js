@@ -385,9 +385,16 @@
    */
   NOVAE.Connector.prototype.processPasteCells = function(object) {
 
+    if (!object.sheet ||
+        typeof object.sheet !== "string" ||
+        !object.range ||
+        !object.property ||
+        typeof object.range.end !== "string" ||
+        typeof object.range.start !== "string") { return void 0; }
+
     var selection = NOVAE.$.rangeToSelection(object.range.start);
 
-    NOVAE.ClipBoard.copyCellsToClipBoard(selection);
+    NOVAE.ClipBoard.copyCellsToClipBoard(selection, object.sheet);
 
     var position = object.range.end.split(":")[0];
 
@@ -396,6 +403,6 @@
       Number: parseInt(position.match(NOVAE.REGEX.letters).join(""))
     };
 
-    NOVAE.ClipBoard.pasteCellsIntoSheet(position, true);
+    NOVAE.ClipBoard.pasteCellsIntoSheet(position, true, object.sheet);
 
   };
