@@ -152,6 +152,14 @@
             case "resize":
               this.processResize(data.data);
               break;
+            /** Someone deleted a range */
+            case "deletecells":
+              this.processDeleteCells(data.data);
+              break;
+            /** Someone pasted cells */
+            case "pastecells":
+              this.processPasteCells(data.data);
+              break;
           }
           break;
       }

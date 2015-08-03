@@ -325,3 +325,77 @@
     }, 250);
 
   };
+
+  /**
+   * Process a cell range deletion
+   *
+   * @method processDeleteCells
+   * @static
+   */
+  NOVAE.Connector.prototype.processDeleteCells = function(object) {
+
+    if (!object.sheet ||
+        typeof object.sheet !== "string" ||
+        !object.range ||
+        typeof object.range !== "string" ||
+        !object.property) { return void 0; }
+
+    var selection = NOVAE.$.rangeToSelection(object.range);
+
+    for (var ii = 0; ii < selection.length; ++ii) {
+      var letter = NOVAE.$.numberToAlpha(selection[ii].letter);
+      var name = letter + selection[ii].number;
+      if (NOVAE.Cells.Used[object.sheet] &&
+          NOVAE.Cells.Used[object.sheet][letter] &&
+          NOVAE.Cells.Used[object.sheet][letter][name]) {
+        for (var prop = 0; prop < object.property.length; ++prop) {
+          if (NOVAE.Cells.Used[object.sheet][letter][name].hasOwnProperty(object.property[prop])) {
+            if (object.property[prop] === "Formula") {
+              NOVAE.Cells.Used[object.sheet][letter][name].Formula = {
+                Stream: null,
+                Lexed: null
+              };
+            } else {
+              NOVAE.Cells.Used[object.sheet][letter][name][object.property[prop]] = null;
+            }
+            if (["Content", "Formula"].indexOf(object.property[prop]) >= 0) {
+              if (ENGEL.STACK.VAR[object.sheet] &&
+                  ENGEL.STACK.VAR[object.sheet][name]) {
+                delete ENGEL.STACK.VAR[object.sheet][name];
+              }
+            }
+          }
+        }
+      }
+    }
+
+    /** Refresh the grid */
+    NOVAE.eval();
+    NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("default", 0);
+    NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
+    NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
+
+  };
+
+  /**
+   * Process a cell paste
+   *
+   * @method processPasteCells
+   * @static
+   */
+  NOVAE.Connector.prototype.processPasteCells = function(object) {
+
+    var selection = NOVAE.$.rangeToSelection(object.range.start);
+
+    NOVAE.ClipBoard.copyCellsToClipBoard(selection);
+
+    var position = object.range.end.split(":")[0];
+
+    position = {
+      Letter: NOVAE.$.alphaToNumber(position.match(NOVAE.REGEX.numbers).join("")),
+      Number: parseInt(position.match(NOVAE.REGEX.letters).join(""))
+    };
+
+    NOVAE.ClipBoard.pasteCellsIntoSheet(position, true);
+
+  };

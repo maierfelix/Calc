@@ -242,12 +242,21 @@
       if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter]) {
         if (cell = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number]) {
           cell.Content = null;
-          cell.Formula.Stream = null;
+          cell.Formula = {
+            Stream: null,
+            Lexed: null
+          };
           /** Remove from interpreter stack */
           if (ENGEL.STACK.VAR[NOVAE.CurrentSheet][letter + number]) delete ENGEL.STACK.VAR[NOVAE.CurrentSheet][letter + number];
         }
       }
 
+    }
+
+    /** Share cell deletion */
+    if (NOVAE.Connector.connected) {
+      var range = NOVAE.$.selectionToRange(selectedCells);
+      NOVAE.Connector.action("deleteCells", {range: range, property: ["Content", "Formula"]});
     }
 
     NOVAE.Sheets[NOVAE.CurrentSheet].updateWidth("default");

@@ -71,7 +71,7 @@
     this.copiedCells[NOVAE.CurrentSheet] = [];
 
     /** Update clipBoard sheet cells */
-    this.copiedCells[NOVAE.CurrentSheet] = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.SelectedCells;
+    this.copiedCells[NOVAE.CurrentSheet] = arguments[0] || NOVAE.Sheets[NOVAE.CurrentSheet].Selector.SelectedCells;
 
     /** Check if copied cells contain content */
     this.validateCellContent();
@@ -123,6 +123,9 @@
    */
   NOVAE.ClipBoard.prototype.pasteCellsIntoSheet = function(position) {
 
+    /** Received cells form the server */
+    var online = arguments[1];
+
     var data = this.copiedCells[NOVAE.CurrentSheet];
 
     /** Abort if nothing to paste or no specific inject position */
@@ -145,6 +148,12 @@
 
     var columnPadding = 0;
     var rowPadding = 0;
+
+    /** Array for online sharing */
+    var onlinePasteData = {
+      start: NOVAE.$.selectionToRange(data),
+      end: NOVAE.$.numberToAlpha(startColumn) + startNumber
+    };
 
     /** Adjust copying to the new position */
     for (var ii = 0; ii < data.length; ++ii) {
@@ -174,6 +183,13 @@
 
     }
 
+    /** Share cell paste */
+    if (NOVAE.Connector.connected && !online) {
+      onlinePasteData.end += ":" + NOVAE.$.numberToAlpha(data[data.length - 1].letter) + data[data.length - 1].number;
+      NOVAE.Connector.action("pasteCells", {data: onlinePasteData, property: ["Content", "Formula"]});
+    }
+
+    NOVAE.eval();
     NOVAE.Sheets[NOVAE.CurrentSheet].updateWidth("default");
 
   };

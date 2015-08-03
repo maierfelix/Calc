@@ -38,6 +38,54 @@
       case "deleteSheet":
         this.deleteSheet(object);
         break;
+      case "deleteCells":
+        this.deleteCells(object);
+        break;
+      case "pasteCells":
+        this.pasteCells(object);
+        break;
+    }
+
+  };
+
+  /**
+   * Delete cell range on the server
+   *
+   * @method deleteCells
+   * @static
+   */
+  NOVAE.Connector.prototype.deleteCells = function(object) {
+
+    if (!object.sheet) {
+      object.sheet = NOVAE.CurrentSheet;
+    }
+
+    if (object && object.sheet) {
+      if (typeof object.sheet === "string" &&
+          typeof object.property === "string" ||
+          object.property instanceof Array) {
+        this.socket.emit("deletecells", object);
+      }
+    }
+
+  };
+
+  /**
+   * Paste cells on the server
+   *
+   * @method pasteCells
+   * @static
+   */
+  NOVAE.Connector.prototype.pasteCells = function(object) {
+
+    if (!object.sheet) {
+      object.sheet = NOVAE.CurrentSheet;
+    }
+
+    if (object && object.sheet) {
+      if (typeof object.sheet === "string") {
+        this.socket.emit("pastecells", object);
+      }
     }
 
   };
