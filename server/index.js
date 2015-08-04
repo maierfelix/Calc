@@ -137,6 +137,10 @@
                   /** Dont pass over private data */
                   delete callback.data._id;
                   delete callback.data.token;
+                  /** No sheets yet, create one first */
+                  if (!Object.keys(callback.data.sheets).length) {
+                    callback.data.sheets["Sheet1"] = {};
+                  }
                   socket.emit("message", {type: "roomdata", data: callback.data, state: 1});
                 }
               });
@@ -659,6 +663,56 @@
               }
             }
           }
+        }
+
+      });
+
+      /** Socket renamed a sheet */
+      socket.on('renamesheet', function(data) {
+
+        /** Abort if no data was received */
+        if (!data) return void 0;
+
+        data = data.data;
+
+        var userRoom = null;
+
+        /** Validate received data */
+        if (typeof data.oldName === "string" &&
+            typeof data.newName === "string") {
+
+          /** Check user for admin rights and valid room */
+          if (!Bucket.isValidUser(socket.id)) return void 0;
+
+          userRoom = Bucket.getCurrentUserRoom(socket.id);
+
+          /** Check if sheet exists in the room, if not create it */
+          if (!userRoom.sheets[data.newName] && userRoom.sheets[data.oldName]) {
+            /** Create the sheet in the bucket room sheets */
+            userRoom.sheets[data.newName] = {
+              cells: {},
+              /** Resize object */
+              resize: {
+                rows: {},
+                columns: {}
+              }
+            };
+            /** Move sheet data */
+            userRoom.sheets[data.newName].cells = userRoom.sheets[data.oldName].cells;
+            userRoom.sheets[data.newName].resize.rows = userRoom.sheets[data.oldName].resize.rows;
+            userRoom.sheets[data.newName].resize.columns = userRoom.sheets[data.oldName].resize.columns;
+            delete userRoom.sheets[data.oldName].cells;
+            delete userRoom.sheets[data.oldName].resize.rows;
+            delete userRoom.sheets[data.oldName].resize.columns;
+            delete userRoom.sheets[data.oldName];
+            /** Save new sheet in the database */
+            Database.updateSheet("rooms", {sheets: userRoom.sheets}, userRoom.id, function(finished) {
+              /** Share the new sheet update to all clients in the room */
+              Bucket.shareData({oldSheet: data.oldName, newSheet: data.newName}, socket.id, "renamesheet");
+            });
+
+          }
+
         }
 
       });

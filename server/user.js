@@ -53,10 +53,10 @@
   };
 
   /**
-   * Check if user is admin
-   * @param {string} username Username
-   * @method isAdmin
-   * @return {boolean}
+   * Return the sheet the user is in
+   * @param {string} sheetName
+   * @method currentSheet
+   * @return {string}
    */
   User.prototype.currentSheet = function() {
 

@@ -71,6 +71,24 @@
   };
 
   /**
+   * Update all users in this room
+   * @param {string} username Username to be used
+   * @method updateUsers
+   * @return {object}
+   */
+  Bucket.prototype.updateUsers = function(property, value) {
+
+    for (var ii = 0; ii < this.users.length; ++ii) {
+      if (property && this.users[ii] && this.users[ii].hasOwnProperty(property)) {
+        this.users[ii][property] = value;
+      }
+    }
+
+    return void 0;
+
+  };
+
+  /**
    * Get a single user
    * @param {string} username Username
    * @method getUser
