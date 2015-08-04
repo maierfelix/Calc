@@ -30,11 +30,10 @@ If you want to test the latest multi-user functionality, go to:
  - [ ] Functionalities
    - [x] Export projects
    - [x] Import project
-   - [ ] Backup last project state into LocalStorage
    - [ ] Undo, redo stack
    - [x] Multiple sheets
    - [x] Delete sheets
-   - [ ] Rename sheets
+   - [x] Rename sheets
    - [x] System speed optimization
    - [ ] Debug
 
@@ -72,7 +71,7 @@ If you want to test the latest multi-user functionality, go to:
    - [ ] Rename sheets
    - [ ] Row, Column injection methods
    - [ ] Extend cell content & formulas
-   - [ ] Paste, Delete Cells
+   - [ ] Paste, Delete, Cut Out Cells
    - [ ] Screen mirroring
 
 ## Bugs:
