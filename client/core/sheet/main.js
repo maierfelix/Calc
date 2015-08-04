@@ -32,6 +32,8 @@
    */
   NOVAE.Sheets.prototype.addSheet = function() {
 
+    var self = this;
+
     /** Increase sheet count */
     NOVAE.SheetCount++;
 
@@ -123,6 +125,21 @@
     /** Change sheet on click */
     button.addEventListener(NOVAE.Events.mouseDown, function(e) {
 
+      /** Only accept left click */
+      if (e.button === 1 || /** Middle click */
+          e.button === 2 || /** Right click */
+          e.which  === 3 || /** Right click */
+          e.which  === 2) { return void 0; }
+
+      if (NOVAE.Sheets[NOVAE.CurrentSheet].changeSheetName) {
+        /** Seems like sheet name didnt got updated yet */
+        if (NOVAE.Sheets[NOVAE.CurrentSheetNameEdit]) {
+          self.renameSheet(self.getInvalidSheets(NOVAE.CurrentSheetNameEdit));
+        } else {
+          self.renameSheet(e);
+        }
+      }
+
       NOVAE.Sheets[NOVAE.CurrentSheet].changeSheetName = false;
 
       /** Increase click counter */
@@ -166,6 +183,8 @@
 
           e.target.contentEditable = true;
 
+          NOVAE.CurrentSheetNameEdit = e.target.getAttribute("name");
+
         }
 
       /** Delete sheet button target */
@@ -181,14 +200,9 @@
     });
 
     button.addEventListener('blur', function(e) {
-      if (!NOVAE.Sheets[NOVAE.CurrentSheet].changeSheetName) return void 0;
-      e.target.contentEditable = false;
-      var oldSheetName = e.target.getAttribute("name");
-      var newSheetName = e.target.textContent.slice(0, e.target.textContent.length - 2);
-      if (NOVAE.CurrentSheet === newSheetName || oldSheetName === newSheetName) return void 0;
-      e.target.setAttribute("name", newSheetName);
-      NOVAE.$.renameSheet(oldSheetName, newSheetName);
-      NOVAE.Sheets[NOVAE.CurrentSheet].changeSheetName = false;
+
+      self.renameSheet(e);
+
     });
 
     /** Insert sheet button into the dom */
@@ -212,6 +226,68 @@
 
     /** Highlight active sheet */
     NOVAE.Sheets.setActiveSheet(NOVAE.CurrentSheet);
+
+  };
+
+  /**
+   * Get invalid sheets
+   *
+   * @method getInvalidSheets
+   * @static
+   */
+  NOVAE.Sheets.prototype.getInvalidSheets = function(name) {
+
+    var length = NOVAE.DOM.Sheets.children.length;
+
+    for (var ii = 0; ii < length; ++ii) {
+      var sheetName = NOVAE.DOM.Sheets.children[ii].textContent.slice(0, NOVAE.DOM.Sheets.children[ii].textContent.length - 2);
+      if (sheetName !== NOVAE.DOM.Sheets.children[ii].getAttribute("name")) {
+        return ({
+          target: NOVAE.DOM.Sheets.children[ii]
+        });
+      }
+    }
+
+    return void 0;
+
+  };
+
+  /**
+   * Rename a sheet
+   *
+   * @method renameSheet
+   * @static
+   */
+  NOVAE.Sheets.prototype.renameSheet = function(e) {
+
+    if (!e) return void 0;
+
+    if (!NOVAE.Sheets[NOVAE.CurrentSheet].changeSheetName) return void 0;
+    e.target.contentEditable = false;
+    var oldSheetName = e.target.getAttribute("name");
+    var newSheetName = e.target.textContent.slice(0, e.target.textContent.length - 2);
+    if (NOVAE.CurrentSheet === newSheetName || oldSheetName === newSheetName) return void 0;
+    /** Make sure the sheet isn't taken */
+    if (NOVAE.Sheets.hasOwnProperty(newSheetName)) return void 0;
+    e.target.setAttribute("name", newSheetName);
+
+    NOVAE.$.renameSheet(oldSheetName, newSheetName, NOVAE.Connector.connected);
+
+    /** Send sheet name change to the server */
+    if (NOVAE.Connector.connected) {
+      var originalSheet = NOVAE.CurrentSheet;
+      NOVAE.CurrentSheet = newSheetName;
+      ENGEL.CurrentSheet = newSheetName;
+      NOVAE.Sheets[NOVAE.CurrentSheet].changeSheetName = false;
+      NOVAE.eval();
+      NOVAE.Connector.action("renameSheet", {oldName: oldSheetName, newName: newSheetName});
+      NOVAE.CurrentSheet = originalSheet;
+    /** Offline sheet name change */
+    } else {
+      NOVAE.Sheets[NOVAE.CurrentSheet].changeSheetName = false;
+      NOVAE.Sheets.changeSheet(newName);
+      NOVAE.Sheets.setActiveSheet(NOVAE.CurrentSheet);
+    }
 
   };
 

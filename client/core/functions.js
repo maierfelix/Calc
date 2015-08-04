@@ -72,17 +72,11 @@
     /** Initialize Extender Plugin */
     NOVAE.Extender = new NOVAE.Extender();
 
-    /** Initialize Collector Plguin */
-    NOVAE.Collector = new NOVAE.Collector();
-
     /** Add a new first sheet */
     NOVAE.Sheets.addSheet();
 
     /** Switch to the first sheet */
     NOVAE.Sheets.changeSheet(NOVAE.CurrentSheet);
-
-    /** Add first sheet to the collector */
-    NOVAE.Collector.addSheet(NOVAE.CurrentSheet);
 
     /** Add select all functionalitity to current cell button */
     NOVAE.$.initCurrentCellButton();
@@ -105,9 +99,6 @@
     /** Select first cell in the grid */
     NOVAE.Sheets[NOVAE.CurrentSheet].Selector.selectCell(1, 1);
 
-    /** Try to connect */
-    if (NOVAE.Connector.getURL()) NOVAE.Connector.connect();
-
     /** Initialize Speed test Plugin */
     NOVAE.Speedy = new NOVAE.Speedy();
 
@@ -125,6 +116,9 @@
     if (NOVAE.Settings.Mobile && NOVAE.Settings.isIOS) {
       window.scrollTo(0, 1);
     }
+
+    /** Try to connect */
+    if (NOVAE.Connector.getURL()) NOVAE.Connector.connect();
 
   };
 
@@ -676,8 +670,6 @@
       NOVAE.Sheets[name].Settings.master = true;
     }
 
-    NOVAE.Collector.addSheet(name);
-
   };
 
   /**
@@ -717,8 +709,6 @@
     NOVAE.Sheets[name] = null;
     delete NOVAE.Sheets[name];
 
-    NOVAE.Collector.removeSheet(name);
-
     NOVAE.Cells.All[name] = null;
     delete NOVAE.Cells.All[name];
 
@@ -746,7 +736,7 @@
    * @method renameSheet
    * @static
    */
-  NOVAE.$.renameSheet = function(oldName, newName) {
+  NOVAE.$.renameSheet = function(oldName, newName, online) {
 
     /** Abort if sheet not found */
     if (!NOVAE.Sheets[oldName]) return void 0;
@@ -783,9 +773,6 @@
     ENGEL.STACK.VAR[oldName] = null;
     delete ENGEL.STACK.VAR[oldName];
 
-    NOVAE.Sheets.changeSheet(newName);
-    NOVAE.Sheets.setActiveSheet(NOVAE.CurrentSheet);
-
   };
 
   /**
@@ -800,7 +787,8 @@
       for (var letter in NOVAE.Cells.Used[sheet]) {
         for (var cell in NOVAE.Cells.Used[sheet][letter]) {
           /** Cell contains formula */
-          if (NOVAE.Cells.Used[sheet][letter][cell].Formula.Stream && NOVAE.Cells.Used[sheet][letter][cell].Formula.Stream.length) {
+          if (NOVAE.Cells.Used[sheet][letter][cell].Formula.Stream && NOVAE.Cells.Used[sheet][letter][cell].Formula.Stream.length &&
+              NOVAE.Cells.Used[sheet][letter][cell].Formula.Lexed && NOVAE.Cells.Used[sheet][letter][cell].Formula.Lexed.tokens) {
             var tokens = NOVAE.Cells.Used[sheet][letter][cell].Formula.Lexed.tokens;
             var length = tokens.length;
             var replaced = false;

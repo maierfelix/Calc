@@ -27,7 +27,7 @@
       sheets.push(sheet);
       /** Add new sheet if not existing yet */
       if (!NOVAE.Sheets[sheet]) {
-        NOVAE.Sheets[sheet] = new NOVAE.Grid();
+        NOVAE.CurrentSheet = sheet;
         NOVAE.Sheets.addSheet(sheet);
       }
       /** Process Cells */
@@ -264,6 +264,41 @@
       /** Sheet exists */
       if (NOVAE.Sheets[object.sheet]) {
         NOVAE.Sheets.killSwitchSheet(object.sheet);
+      }
+    }
+
+  };
+
+  /**
+   * Process a sheet rename
+   *
+   * @method processRenameSheet
+   * @static
+   */
+  NOVAE.Connector.prototype.processRenameSheet = function(object) {
+
+    if (!object.oldSheet ||
+        typeof object.oldSheet !== "string" ||
+        !object.newSheet ||
+        typeof object.newSheet !== "string") { return void 0; }
+
+    var originalSheet = NOVAE.CurrentSheet;
+
+    if (NOVAE.Sheets[object.oldSheet] && !NOVAE.Sheets[object.newSheet]) {
+      var e = {
+        target: null
+      };
+      for (var ii = 0; ii < NOVAE.DOM.Sheets.children.length; ++ii) {
+        if (NOVAE.DOM.Sheets.children[ii].getAttribute("name") === object.oldSheet) {
+          var node = NOVAE.DOM.Sheets.children[ii];
+          var text = document.createTextNode(object.newSheet);
+          node.innerHTML = node.innerHTML.replace(object.oldSheet, "");
+          node.appendChild(text);
+          e.target = NOVAE.DOM.Sheets.children[ii];
+          NOVAE.Sheets.renameSheet(e);
+          NOVAE.CurrentSheet = originalSheet;
+          return void 0;
+        }
       }
     }
 

@@ -38,6 +38,9 @@
       case "deleteSheet":
         this.deleteSheet(object);
         break;
+      case "renameSheet":
+        this.renameSheet(object);
+        break;
       case "deleteCells":
         this.deleteCells(object);
         break;
@@ -119,6 +122,23 @@
         this.socket.emit("deletesheet", {sheet: object.sheet});
       }
     }
+
+  };
+
+  /**
+   * Rename a sheet on the server
+   *
+   * @method renameSheet
+   * @static
+   */
+  NOVAE.Connector.prototype.renameSheet = function(object) {
+
+    if (!object.oldName ||
+        typeof object.oldName !== "string" ||
+        !object.newName ||
+        typeof object.newName !== "string") { return void 0; }
+
+    this.socket.emit("renamesheet", {data: object});
 
   };
 

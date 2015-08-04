@@ -101,6 +101,36 @@
   };
 
   /**
+   * Reset the current session
+   *
+   * @method resetSession
+   * @static
+   */
+  NOVAE.Connector.prototype.resetSession = function() {
+
+    for (var sheet in NOVAE.Sheets) {
+      if (NOVAE.Sheets[sheet] instanceof NOVAE.Grid) {
+        delete NOVAE.Sheets[sheet];
+      }
+    }
+
+    NOVAE.Cells.Used = {};
+
+    NOVAE.Cells.All = null;
+    NOVAE.Cells.All = {};
+
+    NOVAE.Cells.Master = null;
+    NOVAE.Cells.Master = {};
+
+    NOVAE.Cells.Resized = null;
+    NOVAE.Cells.Resized = {};
+
+    NOVAE.CurrentSheet = null;
+    ENGEL.CurrentSheet = null;
+
+  };
+
+  /**
    * Handle specific messages from the server
    *
    * @method handleMessage
@@ -121,6 +151,8 @@
         case "roomdata":
           if (this.room) {
             if (data.data) {
+              /** Clear everything */
+              this.resetSession();
               this.processServerCells(data.data.sheets);
             }
           }
@@ -147,6 +179,10 @@
             /** Sheet update, someone deleted a sheet */
             case "deletesheet":
               this.processSheetDeletion(data.data);
+              break;
+            /** Someone renamed a sheet */
+            case "renamesheet":
+              this.processRenameSheet(data.data);
               break;
             /** Someone resized something */
             case "resize":

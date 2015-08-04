@@ -59,6 +59,9 @@
   /** Amount of created master sheets, shall not be over 1 */
   NOVAE.MasterSheetCount = 0;
 
+  /** Currently edited sheet name */
+  NOVAE.CurrentSheetNameEdit = null;
+
   /** Mobile detection */
   NOVAE.Settings.Mobile = false;
 
