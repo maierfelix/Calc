@@ -63,6 +63,7 @@ If you want to test the latest multi-user functionality, go to:
    - [x] Users
    - [x] Roles
    - [x] Share rooms
+   - [ ] Operational transformation
    - [x] Multi-user cell editing
    - [x] Multi-user cell styling
    - [x] Multi-user cell resizing
