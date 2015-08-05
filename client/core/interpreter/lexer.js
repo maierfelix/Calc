@@ -130,6 +130,9 @@
     /** Is valid variable */
     this.isValidVariable = function(a) { return a.match(this.isVariable); };
 
+    /** Is a range */
+    this.isRange = function(a) { return (a[1] === ":" && a.match(this.getNumbers) ? true : false); };
+
   };
 
   ENGEL.LEXER.prototype = ENGEL.LEXER;
@@ -175,15 +178,24 @@
           }
 
           /** Turn variables automatically uppercase */
-          if (this.KeyWords[ii].name === "LX_VAR") { 
+          if (this.KeyWords[ii].name === "LX_VAR") {
             match[0] = (match[0]).toUpperCase();
-            /** Check if variable is a reserved word */
-            /*if (this.reservedKeyWords.indexOf(match[0]) >= 0) {
-              console.log(match[0] + " is a reserved word and shall not be used!");
-            }*/
             /** Check if variable is valid */
             if (!this.isValidVariable(match[0])) {
-              throw new Error(match[0] + " is a invalid variable name!");
+              /** Maybe we got a pure letter range */
+              if (this.isRange(match[0] + input.substring(match[0].length)[0])) {
+                input = input.substring(match[0].length + 2);
+                this.Tokens.push({
+                  type:  "LX_VAR",
+                  value: match[0]
+                });
+                this.Tokens.push({
+                  type:  "LX_COLON",
+                  value: ":"
+                });
+              } else {
+                throw new Error(match[0] + " is a invalid variable name!");
+              }
             }
             /** Ignore sheet reference variables */
             if (this.Tokens[this.Tokens.length - 1]) {
@@ -193,6 +205,11 @@
             } else {
               this.variables.push(match[0].trim());
             }
+          }
+
+          /** Add colons to variable references to detect ranges */
+          if (this.KeyWords[ii].name === "LX_COLON") {
+            this.variables.push(match[0].trim());
           }
 
           /** Special case, user wrote a subtraction without spaces */

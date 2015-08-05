@@ -854,15 +854,19 @@
       var letter = NOVAE.$.numberToAlpha(array[ii].letter);
       var number = array[ii].number;
       var value = null;
-      if (NOVAE.Cells.Used[sheet][letter]) {
-        if (NOVAE.Cells.Used[sheet][letter][letter + number]) {
-          if (value = NOVAE.Cells.Used[sheet][letter][letter + number][property]) {
-            resultArray.push({
-              name: letter + number,
-              value: value
-            });
+      if (!isNaN(number)) {
+        if (NOVAE.Cells.Used[sheet][letter]) {
+          if (NOVAE.Cells.Used[sheet][letter][letter + number]) {
+            if (value = NOVAE.Cells.Used[sheet][letter][letter + number][property]) {
+              resultArray.push({
+                name: letter + number,
+                value: value
+              });
+            }
           }
         }
+      } else {
+        console.log(letter, number);
       }
     }
 
@@ -936,12 +940,63 @@
   };
 
   /**
+   * Transforms a uncompiled selection array
+   * back into valid cell names
+   *
+   * @method validateSelectionNames
+   * @static
+   */
+  NOVAE.$.validateSelectionNames = function(selection) {
+
+    for (var ii = 0; ii < selection.length; ++ii) {
+      selection[ii] = NOVAE.$.numberToAlpha(selection[ii].letter) + selection[ii].number;
+    }
+
+    return (selection);
+
+  };
+
+  /**
+   * Validate cell references, like join ranges
+   *
+   * @method validateCellReferences
+   * @static
+   */
+  NOVAE.$.validateCellReferences = function(data) {
+
+    var array = [];
+
+    /** Ignore first array element */
+    for (var ii = 0; ii < data.length; ++ii) {
+      if (ii > 0) {
+        /** Check if we got a range */
+        if (data[ii + 1]) {
+          if (data[ii + 1] === ":") {
+            data[ii] = data[ii] + data[ii + 1] + data[ii + 2];
+            data.splice(ii + 1, 2);
+            var range = NOVAE.$.validateSelectionNames(NOVAE.$.rangeToSelection(data[ii]));
+            data.splice(ii, 1);
+            data = data.inject(ii, range);
+          }
+        }
+      }
+    }
+
+    data = data.removeDuplicates();
+
+    return (data);
+
+  };
+
+  /**
    * Get values of a coordinate array
    *
    * @method getValueFromCoordinates
    * @static
    */
   NOVAE.$.getValueFromCoordinates = function(array) {
+
+    var sheet = arguments[1] || NOVAE.CurrentSheet;
 
     var result = 0;
 
@@ -954,12 +1009,15 @@
       if (object.letter && object.number) {
 
         var letter = NOVAE.$.numberToAlpha(object.letter);
-        var cell = letter + object.number;
+        var number = object.number;
+        var cell = letter + number;
 
-        if (NOVAE.Cells.Used[NOVAE.CurrentSheet]) {
-          if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter]) {
-            if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell]) {
-              result += parseInt(NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell].Content) || 0;
+        if (NOVAE.Cells.Used[sheet]) {
+          if (NOVAE.Cells.Used[sheet][letter]) {
+            if (NOVAE.Cells.Used[sheet][letter][cell]) {
+              if (!isNaN(NOVAE.Cells.Used[sheet][letter][cell].Content)) {
+                result += parseInt(NOVAE.Cells.Used[sheet][letter][cell].Content) || 0;
+              }
             }
           }
         }

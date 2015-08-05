@@ -103,15 +103,13 @@
 
     var interpret = ENGEL.interpretTokens(formula.tokens.slice(0));
 
+    /** Validate all cell references, split ranges etc */
+    formula.variables = NOVAE.$.validateCellReferences(formula.variables);
+
     var name = formula.variables.shift();
 
     if (index && index.length) {
       if (index[0] === name) {
-
-        var muiButton = "mui-btn mui-btn-primary mui-btn-lg alertButton";
-        var title = "<h2>Circular Reference detected!</h2><h3>It seems like you have a circular reference in " + name + ".</h3>";
-        var buttons = "<button class='"+muiButton+" alertOk' name='ok'>Ok</button>";
-        NOVAE_UI.Modal(title, buttons, function(submit) {});
         return ("CircularReference");
       }
     } else {

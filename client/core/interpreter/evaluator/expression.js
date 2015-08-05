@@ -50,7 +50,7 @@
         return (value === "TRUE" || false);
       }
       if (value || value === "" || value === 0) return value;
-      return (0);
+      return (true);
     }
 
     /** Got a range */
@@ -62,8 +62,9 @@
         range: null
       };
       range.range = NOVAE.$.rangeToSelection(ast.Range.value);
-      range.length = NOVAE.$.getSelectionCellProperty(range.range, "Content").length;
-      range.result = NOVAE.$.getValueFromCoordinates(range.range);
+      var rangeResult = this.getCellContent(range.range);
+      range.length = rangeResult.length;
+      range.result = rangeResult.result;
       return (range);
     }
 
@@ -112,5 +113,41 @@
     }
 
     return void 0;
+
+  };
+
+  /**
+   * Get cell content of a range
+   *
+   * @method getCellContent
+   * @static
+   */
+  ENGEL.EVAL.prototype.getCellContent = function(array) {
+
+    var result = 0;
+
+    var resultArray = [];
+
+    var length = array.length;
+
+    for (var ii = 0; ii < length; ++ii) {
+      var letter = NOVAE.$.numberToAlpha(array[ii].letter);
+      var number = array[ii].number;
+      var name = letter + number;
+      var value = ENGEL.STACK.getValue(name);
+      if (value !== null && value !== void 0) {
+        if (["TRUE", "FALSE"].indexOf(value) <= -1) {
+          if (!isNaN(value)) {
+            result += value;
+          }
+          resultArray.push(value);
+        }
+      }
+    }
+
+    return ({
+      length: resultArray,
+      result: result
+    });
 
   };

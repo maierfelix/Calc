@@ -68,3 +68,26 @@
     }
 
   };
+
+  /**
+   * Inject another array at specific position
+   * 
+   */
+  Array.prototype.inject = function(pos, array) {
+
+    return this.slice(0, pos).concat(array).concat(this.slice(pos));
+
+  };
+
+  /**
+   * Remove duplicates from an array
+   *
+   */
+  Array.prototype.removeDuplicates = function() {
+
+    return this.reduce(function(a, b) { 
+      if (a.indexOf(b) <= -1) a.push(b); 
+      return (a);
+    }, []);
+
+  };

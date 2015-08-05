@@ -56,7 +56,8 @@
             if (argumentArray[ii] && argumentArray[ii].range) {
               result += argumentArray[ii].result;
             } else {
-              if (argumentArray[ii]) {
+              /** Don't count booleans */
+              if (typeof argumentArray[ii] !== "boolean") {
                 result += argumentArray[ii];
               }
             }
@@ -69,22 +70,11 @@
           var length = 0;
 
           for (var ii = 0; ii < argumentArray.length; ++ii) {
-            var array;
-            /** Got a range */
             if (argumentArray[ii] && argumentArray[ii].range) {
-              array = NOVAE.$.getSelectionCellProperty(argumentArray[ii].range, "Content");
+              length += argumentArray[ii].length.length;
             } else {
-              array = argumentArray[ii];
-            }
-            if (array instanceof Array) {
-              for (var kk = 0; kk < array.length; ++kk) {
-                /** Only count valid numbers */
-                if (array[kk].value && array[kk].value !== "" && !isNaN(array[kk].value)) {
-                  length++;
-                }
-              }
-            } else {
-              if (array !== "" && !isNaN(array)) {
+              /** Don't count booleans */
+              if (typeof argumentArray[ii] !== "boolean") {
                 length++;
               }
             }
