@@ -71,7 +71,12 @@
 
           for (var ii = 0; ii < argumentArray.length; ++ii) {
             if (argumentArray[ii] && argumentArray[ii].range) {
-              length += argumentArray[ii].length.length;
+              for (var kk = 0; kk < argumentArray[ii].length.length; ++kk) {
+                var value = argumentArray[ii].length[kk];
+                if (value !== "" && !isNaN(value)) {
+                  length++;
+                }
+              }
             } else {
               /** Don't count booleans */
               if (typeof argumentArray[ii] !== "boolean") {
@@ -101,16 +106,25 @@
         /** AVERAGE */
         case "average":
           var calc = [];
-          /** Get content of range */
-          var array = NOVAE.$.getSelectionCellProperty(argumentArray[0].range, "Content");
-          for (var ii = 0; ii < array.length; ++ii) {
-            /** Only count valid numbers */
-            if (array[ii].value && array[ii].value !== "" && !isNaN(array[ii].value)) {
-              calc.push(array[ii].value);
+          for (var ii = 0; ii < argumentArray.length; ++ii) {
+            if (argumentArray[ii] && argumentArray[ii].range) {
+              for (var kk = 0; kk < argumentArray[ii].length.length; ++kk) {
+                var value = argumentArray[ii].length[kk];
+                if (value !== "" && !isNaN(value)) {
+                  calc.push(argumentArray[ii].length[kk]);
+                }
+              }
+            } else {
+              /** Don't count booleans */
+              if (typeof argumentArray[ii] !== "boolean") {
+                calc.push(argumentArray[ii]);
+              }
             }
           }
           if (calc.length) {
             result = Math.average(calc);
+          } else {
+            result = 0;
           }
         break;
 

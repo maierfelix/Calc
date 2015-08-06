@@ -50,7 +50,8 @@
         return (value === "TRUE" || false);
       }
       if (value || value === "" || value === 0) return value;
-      return (true);
+      /** Return boolean to detect a undefined variable and the boolean =^ 0 */
+      return (false);
     }
 
     /** Got a range */

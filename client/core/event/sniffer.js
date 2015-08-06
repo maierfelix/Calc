@@ -138,9 +138,11 @@
 
         /** Cell has no formula anymore */
         } else {
+
           /** Clean the cell formula if it has content */
           if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Formula.Stream && NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Formula.Stream.length) {
             NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Formula.Stream = null;
+            NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Formula.Lexed = null;
           }
 
           /** Update the cell stacks content */
@@ -207,8 +209,6 @@
       if (NOVAE.Connector.connected) {
         NOVAE.Connector.action("updateCell", { cell: editCell, value: NOVAE.DOM.CellInput.value, property: "Content" });
       }
-
-      //NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
 
     }, 1);
 

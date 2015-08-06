@@ -201,6 +201,9 @@
 
       ENGEL.CurrentSheet = originalSheet;
 
+    } else {
+      NOVAE.registerCell(name);
+      NOVAE.updateCell(name, value);
     }
 
   };
