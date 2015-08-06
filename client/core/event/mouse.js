@@ -272,6 +272,9 @@
 
     }
 
+    /** Abort, if user is currently resizing */
+    if (NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.CellResize) return void 0;
+
     /** Detect mouse move direction */
     if (NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.Pressed) {
 
