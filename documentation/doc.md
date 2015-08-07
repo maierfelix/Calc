@@ -83,6 +83,17 @@ A4 = !;
 ```js
 A1 = A2 + " " + A3 + A4; // Hello World!
 ```
+
+Logical operators:
+```
+A2 = 5;
+A3 = 5;
+```
+
+```js
+A1 = A2 == 5; // TRUE
+A1 = A2 == A3; // TRUE
+```
 ### Functions
 The following example assumes:
 ```
@@ -91,10 +102,18 @@ A2 = 10;
 A3 = 15;
 A4 = 20;
 A5 = 25;
+A6 = hello;
+A7 = TRUE;
 ```
 ```js
 // SUM
 =sum(A1:A5, 100, A1*2); // 185
+// AVERAGE
+=average(A1, A1:A5); // 15
+// COUNT
+=count(A1:A10); // 5
+// BETWEEN
+=between(A1:A3, A5, A4 + A5); // TRUE
 ```
 ### Conditions
 Conditions can be typed as operators or in english and german and are case insensitive.
