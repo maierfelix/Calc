@@ -17,7 +17,7 @@
    * Security class
    * Various method to validate input streams
    */
-  function Security() {
+  function Security(cell) {
     /**
      * Precompile string validation regex, only letters and numbers allowed
      *
@@ -35,7 +35,25 @@
      *
      * @member {array}
      */
-    this.validCellProperties = ["Color", "BackgroundColor", "Formula", "Content", "Font", "FontSize", "FontBold", "FontItalic", "FontUnderlined"];
+    this.validCellProperties = this.generateCellProperties(cell);
+  };
+
+  /**
+   * Generate valid cell properties
+   * @return {array}
+   */
+  Security.prototype.generateCellProperties = function(cell) {
+
+    var array = [];
+
+    for (var prop in cell) {
+      if (cell.hasOwnProperty(prop)) {
+        array.push(prop);
+      }
+    }
+
+    return (array);
+
   };
 
   /**

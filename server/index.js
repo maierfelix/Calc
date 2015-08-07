@@ -30,10 +30,6 @@
   var Database = require('./database.js');
       Database = new Database(mongodb);
 
-  /** Security module */
-  var Security = require('./security.js');
-      Security = new Security();
-
   /** Helper module */
   var Helper = require('./helper.js');
       Helper = new Helper();
@@ -50,6 +46,10 @@
 
   /** Cell class */
   var Cell = require('./cell.js');
+
+  /** Security module */
+  var Security = require('./security.js');
+      Security = new Security(new Cell());
 
   /** Initialize database */
   Database.init(server, function() {
@@ -139,7 +139,7 @@
                   delete callback.data.token;
                   /** No sheets yet, create one first */
                   if (!Object.keys(callback.data.sheets).length) {
-                    callback.data.sheets["Sheet1"] = {};
+                    callback.data.sheets["Example"] = {};
                   }
                   socket.emit("message", {type: "roomdata", data: callback.data, state: 1});
                 }
