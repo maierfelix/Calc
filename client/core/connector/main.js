@@ -280,7 +280,6 @@
 
   };
 
-
   /**
    * Wrong password modal
    *
@@ -289,14 +288,12 @@
    */
   NOVAE.Connector.prototype.wrongPasswordModal = function() {
 
-    if (!window.mui) return void 0;
-
     /** Css class helper */
-    var muiButton = "mui-btn mui-btn-primary mui-btn-lg alertButton";
+    var muiButton = "mdl-button mdl-js-button mdl-button--primary";
 
     /** The modal content */
-    var title = "<h2>The entered room security token is wrong!</h2><h3>You don't have write access to the document.</h3>";
-    var buttons = "<button class='"+muiButton+" alertOk' name='ok'>Ok</button>";
+    var title = "<h1>The entered room security token is wrong!<br/>You don't have write access to the document.</h1>";
+    var buttons = "<button class='"+muiButton+" alertOk' name='ok'>Ok</button><button class='"+muiButton+" alertAbort' name='abort'>Abort</button>";
 
     NOVAE_UI.Modal(title, buttons, function(submit) {});
 

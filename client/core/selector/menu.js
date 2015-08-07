@@ -25,13 +25,13 @@
     var y = 0;
     var backup;
 
-    if (["verticalPositive", "horizontalPositive", "horizontalNegativePositive"].indexOf(this.selectionMode) >= 0) {
+    if (["verticalPositive", "horizontalPositive"].indexOf(this.selectionMode) >= 0) {
       /** Update menu items selection */
       x = this.Selected.Last.Letter;
       y = this.Selected.Last.Number - 1;
-    } else if (["verticalNegative", "horizontalNegative", "horizontalNegativeNegative"].indexOf(this.selectionMode) >= 0) {
+    } else if (["verticalNegative", "horizontalNegative", "horizontalNegativeNegative", "horizontalNegativePositive"].indexOf(this.selectionMode) >= 0) {
       /** Update menu items selection */
-      x = this.Selected.First.Letter - 1;
+      x = this.Selected.First.Letter;
       y = this.Selected.First.Number - 1;
     }
 

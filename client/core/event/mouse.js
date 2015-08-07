@@ -119,7 +119,7 @@
       /** User can start to mouse wipe now */
       NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.startedMouseWipe = true;
 
-      var column = NOVAE.$.getNameFromDOMCell(e.target, false).number - 1 - NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY;
+      var column = NOVAE.$.getNameFromDOMCell(e.target, false).number - 1 - NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX;
       var row = NOVAE.$.getNameFromDOMCell(e.target.parentNode, false).number;
 
       var name = {letter: column, number: row};
@@ -261,7 +261,7 @@
 
     if (e.target.parentNode.parentNode && e.target.parentNode.parentNode.id === NOVAE.DOM.TableBody.id) {
 
-      var column = NOVAE.$.getNameFromDOMCell(e.target, false).number - 1 - NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY;
+      var column = NOVAE.$.getNameFromDOMCell(e.target, false).number - 1 - NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX;
       var row = NOVAE.$.getNameFromDOMCell(e.target.parentNode, false).number;
 
       var name = {letter: column, number: row};
@@ -299,7 +299,7 @@
 
         var cellName = (NOVAE.$.numberToAlpha(letter)) + number;
 
-        var column = NOVAE.$.getNameFromDOMCell(e.target, false).number - 1 - NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY;
+        var column = NOVAE.$.getNameFromDOMCell(e.target, false).number - 1 - NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX;
         var row = NOVAE.$.getNameFromDOMCell(e.target.parentNode, false).number;
 
         var name = {letter: column, number: row};

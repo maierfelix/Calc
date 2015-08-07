@@ -267,8 +267,23 @@
     var oldSheetName = e.target.getAttribute("name");
     var newSheetName = e.target.textContent.slice(0, e.target.textContent.length - 2);
     if (NOVAE.CurrentSheet === newSheetName || oldSheetName === newSheetName) return void 0;
-    /** Make sure the sheet isn't taken */
-    if (NOVAE.Sheets.hasOwnProperty(newSheetName)) return void 0;
+    /** Abort, if the choosen sheet name is already taken */
+    if (NOVAE.Sheets.hasOwnProperty(newSheetName)) {
+
+      /** Css class helper */
+      var muiButton = "mdl-button mdl-js-button mdl-button--primary";
+
+      /** The modal content */
+      var title = "<h1>This sheet name is already taken! Please choose another.</h1>";
+      var buttons = "<button class='"+muiButton+" alertOk' name='ok'>Ok</button><button class='"+muiButton+" alertAbort' name='abort' style='display:none' ></button>";
+
+      NOVAE_UI.Modal(title, buttons, function() {});
+
+      var text = document.createTextNode(oldSheetName);
+      e.target.innerHTML = e.target.innerHTML.replace(newSheetName, "");
+      e.target.appendChild(text);
+      return void 0;
+    }
     e.target.setAttribute("name", newSheetName);
 
     NOVAE.$.renameSheet(oldSheetName, newSheetName, NOVAE.Connector.connected);

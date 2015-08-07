@@ -478,7 +478,7 @@ thead {
   background-color: #FFF;
   vertical-align: middle;
   outline-width: 1px;
-  white-space: pre-line;
+  white-space: nowrap;
   overflow: visible;
 }
 
@@ -532,7 +532,7 @@ thead {
   color: #000;
   outline: none;
   cursor: text;
-  white-space: pre-wrap;
+  white-space: nowrap;
   -webkit-transform: translateZ(0);
   word-wrap: break-word;
   direction: ltr;
@@ -1363,15 +1363,13 @@ thead {
 }
 
 .addHomeScreen {
-  content: url(../icon/action-icon-ios7.png);
   width: 16px;
   margin-top: -5px;
 }
 
 .rotateDevice {
-  content: url(../icon/rotate_left.png);
-  width: 36px;
-  margin-top: 2px;
+  width: 24px;
+  margin-top: -4px;
   margin-left: 0px;
 }
 

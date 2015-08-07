@@ -55,7 +55,7 @@
         calculation = ( ( ii + this.Settings.scrolledY ) - helper + Number);
       }
 
-      position = ((calculation - 1) * this.Settings.x + (NOVAE.$.alphaToNumber(Letter))) - (this.Settings.scrolledY * this.Settings.x) - 1;
+      position = ((calculation - 1) * this.Settings.x + (NOVAE.$.alphaToNumber(Letter))) - (this.Settings.scrolledY * this.Settings.x) - 1 - this.Settings.scrolledX;
 
       /** Remove style of cell */
       this.removeCellStyling(position);

@@ -228,16 +228,19 @@
    * @method addToHomeScreen
    * @static
    */
-  NOVAE.$.alertAddToHomeScreen = function() {
+  NOVAE.$.alertAddToHomeScreen = function(strict) {
 
-    var muiButton = "mui-btn mui-btn-primary mui-btn-lg alertButton";
-    var title = "<h2>Home Screen</h2><h3>Tap <img class='addHomeScreen' /> and then <b>Add to Home Screen</b>.</h3>";
-    var buttons = "<button class='"+muiButton+" alertOk'>Done</button>";
+    /** Css class helper */
+    var muiButton = "mdl-button mdl-js-button mdl-button--primary";
+
+    /** The modal content */
+    var title = "<h1>Tap <img src='icon/action-icon-ios7.png' class='addHomeScreen' /> and then <b>Add to Home Screen</b>.</h1>";
+    var buttons = "<button class='"+muiButton+" alertOk' name='ok'>Done</button><button class='"+muiButton+" alertAbort' name='abort'>Abort</button>";
 
     /** Remind user to add novaecalc to his homescreen */
     if (!NOVAE.Settings.isWebApp) {
       if (NOVAE.Settings.isIOS) {
-        if (!NOVAE.Storage.get({ property: "HomeScreen" })) {
+        if (!NOVAE.Storage.get({ property: "HomeScreen" }) || strict) {
           NOVAE_UI.Modal(title, buttons, function() {});
           /** Don't ask again */
           NOVAE.Storage.set({ property: "HomeScreen", value: true });
@@ -253,19 +256,22 @@
    * @method alertGoLandscape
    * @static
    */
-  NOVAE.$.alertGoLandscape = function() {
+  NOVAE.$.alertGoLandscape = function(strict) {
 
-    var muiButton = "mui-btn mui-btn-primary mui-btn-lg alertButton";
-    var title = "<h2><img class='rotateDevice' /></h2><h3>Rotate your device for the best experience.</h3>";
-    var buttons = "<button class='"+muiButton+" alertOk'>All right</button>";
+    /** Css class helper */
+    var muiButton = "mdl-button mdl-js-button mdl-button--primary";
+
+    /** The modal content */
+    var title = "<h1><img src='icon/rotate_left.png' class='rotateDevice' /> Rotate your device for the best experience.</h1>";
+    var buttons = "<button class='"+muiButton+" alertOk' name='ok'>All right</button><button class='"+muiButton+" alertAbort' name='abort'>Abort</button>";
 
     if (NOVAE.Settings.Mobile && NOVAE.Settings.isIOS && NOVAE.Settings.isWebApp) {
 
       /** Only remind 1 time per session */
-      if (!NOVAE.Storage.get({ property: "Landscape" })) {
+      if (!NOVAE.Storage.get({ property: "Landscape" }) || strict) {
         NOVAE.$.detectLandscape();
         /** Remind user */
-        if (!NOVAE.Settings.isLandscape) {
+        if (NOVAE.Settings.isLandscape) {
           NOVAE_UI.Modal(title, buttons, function() {});
         }
         /** Don't ask again */
@@ -383,24 +389,24 @@
     var letter = object.letter;
     var number = object.number;
 
-    var jumps = ((number - 1) * (sheet.Settings.x)) + (letter - 1) - (sheet.Settings.scrolledY * (sheet.Settings.x) + sheet.Settings.scrolledY) + sheet.Settings.scrolledY;
+    var jumps = ((number - sheet.Settings.scrolledY) - 1) * (sheet.Settings.x) + (letter - 1 - sheet.Settings.scrolledX);
 
-    if (NOVAE.$.isInView(letter, number, jumps)) return (jumps);
+    if (NOVAE.$.isInView(number, jumps, sheet)) return (jumps);
 
     return void 0;
 
   };
 
   /**
-   * Check if a cell is in its correct column and row
+   * Check if a cell is in its correct row
    *
    * @method isInView
    * @static
    */
-  NOVAE.$.isInView = function(letter, number, jumps) {
+  NOVAE.$.isInView = function(number, jumps, sheet) {
 
-    if (jumps >= ((number * NOVAE.Sheets[NOVAE.CurrentSheet].Settings.x) - NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY)) return (false);
-
+    if (jumps < ( (number * sheet.Settings.x) - sheet.Settings.x) - (sheet.Settings.x * sheet.Settings.scrolledY) ) return (false);
+    else if (jumps >= (number * sheet.Settings.x) - (sheet.Settings.x * sheet.Settings.scrolledY) ) return (false);
     return (true);
 
   };
@@ -1210,6 +1216,8 @@
     }
 
     letter = Math.floor(letter + NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX);
+
+    letter += NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX;
 
     /** Return compiled cell name */
     if (cellName) {

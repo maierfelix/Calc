@@ -203,6 +203,13 @@
         this.Selected.First.Number = this.Selected.Last.Number;
         this.Selected.Last.Number = backup;
         this.selectionMode = "horizontalNegativeNegative";
+      } else {
+        lastCell.Number = firstCell.Number;
+        backup = this.Selected.First.Number;
+
+        /** Switch real selection */
+        this.Selected.First.Number = this.Selected.Last.Number;
+        this.Selected.Last.Number = backup;
       }
 
       this.reversed = true;
