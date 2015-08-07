@@ -224,29 +224,3 @@ A maximum of 1 master sheets can exist at the same time.
 Master sheets are green colored by default.
 To create a master sheet, press the *+* button on the right bottom at least for 2 seconds.
 To delete a master sheet, click on the small *-* button on the right top of it.
-
-## Live Cells
-
-### Parent live cells
-A parent live cell initialises an ajax connection between the cell and the output from an external link.
-The output has to be JSON formatted.
-
-Example:
-```js
-=CONNECT(A1 + "graph.facebook.com/" + A2, A3);
-```
-The above command contains the url to the facebook graph. You can inject as much cell content as you want, so the url will be variable and depends on your cell's.
-
-A1 can be "*http://*" or "*https://*".
-A2 could contain a username like "*BillGates*" or "*SteveJobs*".
-A3 contains the the refresh amount (in ms), for example *5000* =^ *5 Seconds*.
-
-### Child live cells
-Child live cells receives the JSON data from a parent live cell.
-
-Example:
-```js
-=JSON(A1)->"name";
-```
-The above command presumes a parent live cell at *A1*, and print its property called "*name*".
-Import "*examples/LiveFacebook.nvc*" to see how it works.
