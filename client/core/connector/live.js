@@ -21,87 +21,81 @@
    */
   NOVAE.Connector.prototype.processServerCells = function(object) {
 
-    var sheets = [];
+    NOVAE.SheetCount = 0;
+
+    if (typeof object === "object") {
+      NOVAE.DOM.Sheets.innerHTML = "";
+    }
 
     for (var sheet in object) {
-      sheets.push(sheet);
-      /** Add new sheet if not existing yet */
-      if (!NOVAE.Sheets[sheet]) {
-        NOVAE.CurrentSheet = sheet;
-        NOVAE.Sheets.addSheet(sheet);
-      }
-      /** Process Cells */
-      for (var letter in object[sheet].cells) {
-        for (var cell in object[sheet].cells[letter]) {
-          if (!NOVAE.Cells.Used[sheet]) NOVAE.Cells.Used[sheet] = {};
-          if (!NOVAE.Cells.Used[sheet][letter]) NOVAE.Cells.Used[sheet][letter] = {};
-          if (!NOVAE.Cells.Used[sheet][letter][cell]) NOVAE.Cells.Used[sheet][letter][cell] = new NOVAE.Grid.Cell(cell);
-          for (var property in object[sheet].cells[letter][cell]) {
-            if (property === "Formula") {
-              NOVAE.Cells.Used[sheet][letter][cell][property].Stream = object[sheet].cells[letter][cell][property];
-            } else if (property === "Content") {
-              NOVAE.registerCell(cell);
-              NOVAE.updateCell(cell, object[sheet].cells[letter][cell][property]);
-              NOVAE.Cells.Used[sheet][letter][cell][property] = object[sheet].cells[letter][cell][property];
+      if (!NOVAE.Sheets.hasOwnProperty(sheet)) {
+        /** Add new sheet if not existing yet */
+        if (!NOVAE.Sheets[sheet]) {
+          NOVAE.CurrentSheet = sheet;
+          NOVAE.Sheets.addSheet(sheet, false);
+        }
+        /** Process Cells */
+        for (var letter in object[sheet].cells) {
+          for (var cell in object[sheet].cells[letter]) {
+            if (!NOVAE.Cells.Used[sheet]) NOVAE.Cells.Used[sheet] = {};
+            if (!NOVAE.Cells.Used[sheet][letter]) NOVAE.Cells.Used[sheet][letter] = {};
+            if (!NOVAE.Cells.Used[sheet][letter][cell]) NOVAE.Cells.Used[sheet][letter][cell] = new NOVAE.Grid.Cell(cell);
+            for (var property in object[sheet].cells[letter][cell]) {
+              if (property === "Formula") {
+                NOVAE.Cells.Used[sheet][letter][cell][property].Stream = object[sheet].cells[letter][cell][property];
+              } else if (property === "Content") {
+                NOVAE.registerCell(cell);
+                NOVAE.updateCell(cell, object[sheet].cells[letter][cell][property]);
+                NOVAE.Cells.Used[sheet][letter][cell][property] = object[sheet].cells[letter][cell][property];
+              } else {
+                NOVAE.Cells.Used[sheet][letter][cell][property] = object[sheet].cells[letter][cell][property];
+              }
+            }
+          }
+        }
+        /** Process resized columns and rows */
+        if (object[sheet].resize) {
+          /** Columns */
+          for (var letter in object[sheet].resize.columns) {
+            /** Already existing */
+            if (NOVAE.Cells.Resized[sheet].Columns[letter]) {
+              NOVAE.Cells.Resized[sheet].Columns[letter].Width = object[sheet].resize.columns[letter].Width;
+            /** Not existing yet */
             } else {
-              NOVAE.Cells.Used[sheet][letter][cell][property] = object[sheet].cells[letter][cell][property];
+              NOVAE.Cells.Resized[sheet].Columns[letter] = {
+                Width: object[sheet].resize.columns[letter].Width,
+                Height: 0
+              };
+            }
+          }
+          /** Rows */
+          for (var number in object[sheet].resize.rows) {
+            /** Already existing */
+            if (NOVAE.Cells.Resized[sheet].Rows[number]) {
+              NOVAE.Cells.Resized[sheet].Rows[number].Height = object[sheet].resize.rows[number].Height;
+            /** Not existing yet */
+            } else {
+              NOVAE.Cells.Resized[sheet].Rows[number] = {
+                Width: 0,
+                Height: object[sheet].resize.rows[number].Height
+              };
             }
           }
         }
       }
-      /** Process resized columns and rows */
-      if (object[sheet].resize) {
-        /** Columns */
-        for (var letter in object[sheet].resize.columns) {
-          /** Already existing */
-          if (NOVAE.Cells.Resized[sheet].Columns[letter]) {
-            NOVAE.Cells.Resized[sheet].Columns[letter].Width = object[sheet].resize.columns[letter].Width;
-          /** Not existing yet */
-          } else {
-            NOVAE.Cells.Resized[sheet].Columns[letter] = {
-              Width: object[sheet].resize.columns[letter].Width,
-              Height: 0
-            };
-          }
-        }
-        /** Rows */
-        for (var number in object[sheet].resize.rows) {
-          /** Already existing */
-          if (NOVAE.Cells.Resized[sheet].Rows[number]) {
-            NOVAE.Cells.Resized[sheet].Rows[number].Height = object[sheet].resize.rows[number].Height;
-          /** Not existing yet */
-          } else {
-            NOVAE.Cells.Resized[sheet].Rows[number] = {
-              Width: 0,
-              Height: object[sheet].resize.rows[number].Height
-            };
-          }
-        }
-      }
     }
 
-    /** Received new sheets from the server */
-    if (sheets.length) {
-      /** Synchronize server sheets with client sheets, delete sheets which doesn't exist on the server */
-      for (var sheet in NOVAE.Sheets) {
-        if (NOVAE.Sheets.hasOwnProperty(sheet)) {
-          if (sheets.indexOf(sheet) >= 0) {
-            //
-          /** Delete non-server received sheets, and switch to another */
-          } else {
-            NOVAE.Sheets.killSwitchSheet(sheet);
-          }
-        }
-      }
+    if (typeof object === "object") {
+
+      NOVAE.eval();
+      NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
+
+      /** Refresh the grid */
+      setTimeout(function() {
+        NOVAE.Event.redraw();
+      }, 250);
+
     }
-
-    NOVAE.eval();
-    NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
-
-    /** Refresh the grid */
-    setTimeout(function() {
-      NOVAE.Event.redraw();
-    }, 250);
 
   };
 
@@ -285,6 +279,7 @@
     var originalSheet = NOVAE.CurrentSheet;
 
     if (NOVAE.Sheets[object.oldSheet] && !NOVAE.Sheets[object.newSheet]) {
+      NOVAE.Sheets[NOVAE.CurrentSheet].changeSheetName = true;
       var e = {
         target: null
       };
@@ -295,12 +290,23 @@
           node.innerHTML = node.innerHTML.replace(object.oldSheet, "");
           node.appendChild(text);
           e.target = NOVAE.DOM.Sheets.children[ii];
-          NOVAE.Sheets.renameSheet(e);
-          NOVAE.CurrentSheet = originalSheet;
-          return void 0;
+          NOVAE.$.renameSheet(object.oldSheet, object.newSheet);
+          break;
         }
       }
     }
+
+    /** The current active sheet got renamed, refresh it */
+    if (NOVAE.CurrentSheet === object.oldSheet) {
+      NOVAE.CurrentSheet = object.newSheet;
+      NOVAE.eval();
+      NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("default", 0);
+      NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
+      NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
+    }
+
+    ENGEL.CurrentSheet = NOVAE.CurrentSheet;
+    NOVAE.Sheets[object.newSheet].changeSheetName = false;
 
   };
 

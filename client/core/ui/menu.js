@@ -53,7 +53,7 @@
     /** Cell input */
     NOVAE.DOM.CellInput.addEventListener('focusout', function() {
 
-      /** Scroll to abolsute top if we're on mobile ios */
+      /** Scroll to absolute top if we're on mobile ios */
       if (NOVAE.Settings.Mobile && NOVAE.Settings.isIOS) {
         window.scrollTo(0, 1);
       }
@@ -84,6 +84,12 @@
         /** Add a slave sheet */
         NOVAE.Sheets.addSheet();
       }
+
+      NOVAE.Sheets.changeSheet("Sheet" + NOVAE.SheetCount);
+
+      NOVAE.Sheets.setActiveSheet(NOVAE.CurrentSheet);
+
+      NOVAE.Event.resize();
 
     });
 

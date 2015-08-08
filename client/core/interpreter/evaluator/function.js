@@ -91,14 +91,23 @@
 
         /** BETWEEN */
         case "between":
+          for (var ii = 0; ii < argumentArray.length; ++ii) {
+            if (argumentArray[ii] && argumentArray[ii].range) {
+              argumentArray[ii] = argumentArray[ii].result;
+            }
+          }
           var a = argumentArray[0];
           var b = argumentArray[2];
           var c = argumentArray[1];
+          /** Empty cell */
+          if (typeof a === "boolean") {
+            a = a ? 1 : 0;
+          }
           if (typeof a === "number") {
             if (a <= b && a >= c) {
-              result = 1;
+              result = "TRUE";
             } else {
-              result = 0;
+              result = "FALSE";
             }
           }
         break;

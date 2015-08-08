@@ -213,92 +213,36 @@ button, input, select, textArea {
 }
 
 #current_sheets>button {
-  margin: 0px 5px 10px;
-  -webkit-appearance: none;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  -webkit-user-select: none;
-  align-items: flex-start;
-  animation-duration: 1s;
-  animation-name: slideUp;
-  animation-timing-function: ease;
-  background-attachment: scroll;
-  background-clip: border-box;
-  background-color: rgb(33, 150, 243);
-  background-image: none;
-  background-origin: padding-box;
-  background-size: auto;
-  border-bottom-color: rgb(255, 255, 255);
-  border-bottom-left-radius: 0px;
-  border-bottom-right-radius: 0px;
-  border-bottom-style: none;
-  border-bottom-width: 0px;
-  border-image-outset: 0px;
-  border-image-repeat: stretch;
-  border-image-slice: 100%;
-  border-image-source: none;
-  border-image-width: 1;
-  border-left-color: rgb(255, 255, 255);
-  border-left-style: none;
-  border-left-width: 0px;
-  border-right-color: rgb(255, 255, 255);
-  border-right-style: none;
-  border-right-width: 0px;
-  border-top-color: rgb(255, 255, 255);
-  border-top-left-radius: 0px;
-  border-top-right-radius: 0px;
-  border-top-style: none;
-  border-top-width: 0px;
-  box-sizing: border-box;
-  color: rgb(255, 255, 255);
-  cursor: pointer;
-  display: inline-block;
+  margin-left: 5px;
+  margin-top: -25px;
+  width: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: rgba(130, 177, 255, 0.8);
+  color: #fff;
   font-family: Roboto, Arial, sans-serif;
   font-size: 14px;
   font-stretch: normal;
   font-style: normal;
   font-variant: normal;
   font-weight: 300;
-  height: 27px;
-  letter-spacing: 0.699999988079071px;
-  line-height: 27px;
-  outline-color: rgb(255, 255, 255);
-  outline-style: none;
-  outline-width: 0px;
-  overflow-x: hidden;
-  overflow-y: hidden;
-  padding-bottom: 0px;
-  padding-left: 26px;
-  padding-right: 26px;
-  padding-top: 0px;
-  position: relative;
-  text-align: center;
-  text-decoration: none;
-  text-indent: 0px;
-  text-rendering: auto;
-  text-shadow: none;
+  letter-spacing: 0.75px;
   text-transform: none;
-  touch-action: manipulation;
-  transition-delay: 0s;
-  transition-duration: 0.2s;
-  transition-property: all;
-  transition-timing-function: ease-in-out;
-  vertical-align: middle;
-  visibility: visible;
-  width: auto;
-  word-spacing: 0px;
-  writing-mode: lr-tb;
-  -webkit-writing-mode: horizontal-tb;
+  padding-top: 0px;
+  border-radius: 0px;
+  height: 32px;
 }
 
 #add_sheet {
   background: rgba(130, 177, 255, 0.8);
   color: #fff;
-  margin-top: -15px;
+  margin-top: -25px;
+  margin-left: 5px;
   font-size: 16px;
-  min-height: 42px;
-  height: 42px;
-  min-width: 42px;
-  width: 32px;
+  min-height: 34px;
+  height: 34px;
+  min-width: 34px;
+  width: 34px;
 }
 
 .changeFontLabel {
@@ -1174,20 +1118,18 @@ thead {
 }
 
 .closeButton {
-  position: absolute !important;
-  z-index: 9;
-  right: 0;
-  margin-top: -13px;
-  padding-top: 9px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  font-size: 10px;
   border-radius: 0px;
   border: none;
-  width: 20px;
+  height: 10px;
+  width: 18px;
+  line-height: 8px;
+  padding-left: 2px;
   background-color: rgba(21, 101, 192, 0.55);
-  color: #fff !important;
-}
-
-.activeMasterSheet .closeButton {
-  margin-top: -40px;
+  color: #fff;
 }
 
 .usersInRoom {

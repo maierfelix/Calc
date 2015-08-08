@@ -120,6 +120,8 @@
     /** Try to connect */
     if (NOVAE.Connector.getURL()) NOVAE.Connector.connect();
 
+    NOVAE.Event.resize();
+
   };
 
   /**
@@ -742,7 +744,7 @@
    * @method renameSheet
    * @static
    */
-  NOVAE.$.renameSheet = function(oldName, newName, online) {
+  NOVAE.$.renameSheet = function(oldName, newName) {
 
     /** Abort if sheet not found */
     if (!NOVAE.Sheets[oldName]) return void 0;
