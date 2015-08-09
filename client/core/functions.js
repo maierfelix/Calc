@@ -73,7 +73,7 @@
     NOVAE.Extender = new NOVAE.Extender();
 
     /** Add a new first sheet */
-    NOVAE.Sheets.addSheet();
+    NOVAE.Sheets.addSheet("Sheet1");
 
     /** Switch to the first sheet */
     NOVAE.Sheets.changeSheet(NOVAE.CurrentSheet);

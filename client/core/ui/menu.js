@@ -79,10 +79,10 @@
 
       if (!NOVAE.Connector.connected && time >= 750) {
         /** Add a master sheet */
-        NOVAE.Sheets.addSheet(false, true);
+        NOVAE.Sheets.addSheetEvent(false, true);
       } else {
         /** Add a slave sheet */
-        NOVAE.Sheets.addSheet();
+        NOVAE.Sheets.addSheetEvent();
       }
 
       NOVAE.Sheets.changeSheet("Sheet" + NOVAE.SheetCount);

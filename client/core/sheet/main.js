@@ -25,12 +25,12 @@
   NOVAE.Sheets.prototype.constructor = NOVAE.Sheets;
 
   /**
-   * Add a sheet
+   * Add a sheet, submitted from the DOM
    *
-   * @method addSheet
+   * @method addSheetEvent
    * @static
    */
-  NOVAE.Sheets.prototype.addSheet = function(name, isMasterSheet) {
+  NOVAE.Sheets.prototype.addSheetEvent = function(name, isMasterSheet) {
 
     NOVAE.SheetCount++;
 
@@ -39,31 +39,53 @@
       name = "Sheet" + NOVAE.SheetCount;
     }
 
+    var newSheetNumber = 1;
+
+    /** Sheet already exists */
+    if (NOVAE.Sheets.hasOwnProperty(name)) {
+      /** Try to generate a sheet name */
+      while (true) {
+        newSheetNumber++;
+        if (!NOVAE.Sheets.hasOwnProperty("Sheet" + newSheetNumber)) break;
+      }
+      name = "Sheet" + newSheetNumber;
+    }
+
+    this.addSheet(name);
+
+    /** Auto select sheet, if only 1 sheet exists */
+    if (Object.keys(NOVAE.Sheets).length === 1) {
+      this.setActiveSheet(NOVAE.CurrentSheet);
+    }
+
+    /** Send sheet change to server */
+    if (NOVAE.Connector.connected) {
+      NOVAE.Connector.action("changeSheet", {sheet: name});
+    }
+
+  };
+
+
+  /**
+   * Add a sheet
+   *
+   * @method addSheet
+   * @static
+   */
+  NOVAE.Sheets.prototype.addSheet = function(name) {
+
     /** Sheet already exists */
     if (NOVAE.Sheets.hasOwnProperty(name)) return void 0;
 
-    if (name && name.length) {
-      NOVAE.CurrentSheet = name;
-    } else if (isMasterSheet) {
-      NOVAE.MasterSheetCount++;
-      NOVAE.CurrentSheet = "MasterSheet" + newSheetNumber;
-    } else {
-      NOVAE.CurrentSheet = "Sheet" + newSheetNumber;
-    }
+    NOVAE.CurrentSheet = name;
 
-    ENGEL.CurrentSheet = NOVAE.CurrentSheet;
+    ENGEL.CurrentSheet = name;
 
     /** Initialise sheet */
     NOVAE.$.createSheet(NOVAE.CurrentSheet, false);
 
-    /** Append sheet link to the dom */
-    var button = this.createSheetButton(NOVAE.CurrentSheet);
-
-    NOVAE.DOM.Sheets.appendChild(button);
-
-    if (Object.keys(NOVAE.Sheets).length === 1) {
-      this.setActiveSheet(NOVAE.CurrentSheet);
-    }
+    /** Append sheet button to the dom */
+    NOVAE.DOM.Sheets.appendChild(this.createSheetButton(NOVAE.CurrentSheet));
 
   };
 
@@ -75,12 +97,11 @@
    */
   NOVAE.Sheets.prototype.changeSheet = function(name) {
 
-    /** Sheet is already active */
-    if (name === NOVAE.CurrentSheet) return void 0;
-
     NOVAE.CurrentSheet = name;
 
     ENGEL.CurrentSheet = name;
+
+    this.setActiveSheet(name);
 
     NOVAE.Event.resize();
 
@@ -502,10 +523,15 @@
       var title = "<h1>This sheet name is already taken! Please choose another.</h1>";
       var buttons = "<button class='"+muiButton+" alertOk' name='ok'>Ok</button><button class='"+muiButton+" alertAbort' name='abort' style='display:none'></button>";
 
-      /** Delayed, so we prevent instant skipping of warning dialog */
-      setTimeout(function() {
+      /** Delayed, so we prevent instant skipping of warning dialog, if [ENTER] key pressed */
+      if (Object.prototype.toString.call(e) === "[object KeyboardEvent]") {
+        setTimeout(function() {
+          NOVAE_UI.Modal(title, buttons, function() {});
+        }, 15);
+      /** Undelayed */
+      } else {
         NOVAE_UI.Modal(title, buttons, function() {});
-      }, 15);
+      }
 
       if (target) {
         target.children[0].innerHTML = oldName;
@@ -547,6 +573,11 @@
     if (oldName === NOVAE.CurrentSheet) {
       NOVAE.CurrentSheet = newName;
       ENGEL.CurrentSheet = newName;
+    }
+
+    /** Send sheet name change to the server */
+    if (NOVAE.Connector.connected) {
+      NOVAE.Connector.action("renameSheet", {oldName: oldName, newName: newName});
     }
 
   };

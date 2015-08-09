@@ -21,7 +21,7 @@
    */
   NOVAE.Connector.prototype.processServerCells = function(object) {
 
-    NOVAE.SheetCount = 0;
+    NOVAE.SheetCount = Object.keys(object).length;
 
     if (typeof object === "object") {
       NOVAE.DOM.Sheets.innerHTML = "";
@@ -87,13 +87,8 @@
 
     if (typeof object === "object") {
 
-      NOVAE.eval();
-      NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
-
-      /** Refresh the grid */
-      setTimeout(function() {
-        NOVAE.Event.redraw();
-      }, 250);
+      NOVAE.Sheets.changeSheet(NOVAE.CurrentSheet);
+      NOVAE.Event.resize();
 
     }
 
@@ -235,11 +230,11 @@
     if (object.sheet && typeof object.sheet === "string") {
       /** Sheet does not exist here yet */
       if (!NOVAE.Sheets[object.sheet]) {
-        NOVAE.Sheets[object.sheet] = new NOVAE.Grid();
         /** Make addition real */
-        NOVAE.Sheets.addSheet(object.sheet);
+        NOVAE.Sheets.addSheet(object.sheet, false);
+        NOVAE.Sheets.changeSheet(object.sheet);
+        NOVAE.Event.resize();
       }
-      NOVAE.Sheets.changeSheet(object.sheet);
     }
 
   };
@@ -257,7 +252,8 @@
     if (object.sheet && typeof object.sheet === "string") {
       /** Sheet exists */
       if (NOVAE.Sheets[object.sheet]) {
-        NOVAE.Sheets.killSwitchSheet(object.sheet);
+        NOVAE.Sheets.deleteSheet(object.sheet, true);
+        if (NOVAE.SheetCount > 1) NOVAE.SheetCount--;
       }
     }
 
@@ -276,36 +272,25 @@
         !object.newSheet ||
         typeof object.newSheet !== "string") { return void 0; }
 
-    var originalSheet = NOVAE.CurrentSheet;
-
     if (NOVAE.Sheets[object.oldSheet] && !NOVAE.Sheets[object.newSheet]) {
-      NOVAE.Sheets[NOVAE.CurrentSheet].changeSheetName = true;
-      var e = {
-        target: null
-      };
-      for (var ii = 0; ii < NOVAE.DOM.Sheets.children.length; ++ii) {
-        if (NOVAE.DOM.Sheets.children[ii].getAttribute("name") === object.oldSheet) {
-          var node = NOVAE.DOM.Sheets.children[ii];
-          var text = document.createTextNode(object.newSheet);
-          node.innerHTML = node.innerHTML.replace(object.oldSheet, "");
-          node.appendChild(text);
-          e.target = NOVAE.DOM.Sheets.children[ii];
-          NOVAE.$.renameSheet(object.oldSheet, object.newSheet);
-          break;
-        }
-      }
+      NOVAE.Sheets.renameSheet(object.oldSheet, object.newSheet);
     }
 
     /** The current active sheet got renamed, refresh it */
     if (NOVAE.CurrentSheet === object.oldSheet) {
       NOVAE.CurrentSheet = object.newSheet;
-      NOVAE.eval();
-      NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("default", 0);
-      NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
-      NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
+      ENGEL.CurrentSheet = object.newSheet;
+      NOVAE.Event.resize(NOVAE.CurrentSheet);
     }
 
-    ENGEL.CurrentSheet = NOVAE.CurrentSheet;
+    /** Update the sheet button with it's new name */
+    var button = NOVAE.Sheets.getSheetButtonByName(object.oldSheet);
+
+    if (button && button.children[0]) {
+      button.children[0].innerHTML = object.newSheet;
+      button.setAttribute("name", object.newSheet);
+    }
+
     NOVAE.Sheets[object.newSheet].changeSheetName = false;
 
   };
