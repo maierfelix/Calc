@@ -165,8 +165,49 @@
    */
   Room.prototype.countUsers = function() {
 
-    if (this.users.length) return (this.users.length);
-    return (0);
+    return (this.users.length || 0);
+
+  };
+
+  /**
+   * Check if a sheet exists
+   * @param {string} name Sheet name
+   * @return {boolean}
+   * @method sheetExists
+   */
+  Room.prototype.sheetExists = function(name) {
+
+    if (this.sheets.hasOwnProperty(name)) return (true);
+
+    return (false);
+
+  };
+
+  /**
+   * Create a sheet in this room
+   * @param {string} name Sheet name
+   * @method createSheet
+   */
+  Room.prototype.createSheet = function(name) {
+
+    /** Abort if sheet already exists */
+    if (this.sheets.hasOwnProperty(name)) return void 0;
+
+    /** Create a virgin sheet object */
+    this.sheets[name] = {
+      /** Cell object */
+      cells: {},
+      /** Resize object */
+      resize: {
+        columns: {},
+        rows: {}
+      },
+      /** Master object */
+      master: {
+        columns: {},
+        rows: {}
+      }
+    };
 
   };
 

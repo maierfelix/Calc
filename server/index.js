@@ -139,7 +139,7 @@
                   delete callback.data.token;
                   /** No sheets yet, create one first */
                   if (!Object.keys(callback.data.sheets).length) {
-                    callback.data.sheets["Example"] = {};
+                    callback.data.sheets["Sheet1"] = {};
                   }
                   socket.emit("message", {type: "roomdata", data: callback.data, state: 1});
                 }
@@ -177,7 +177,7 @@
                     Bucket.updateUser(socket.id, "level", 3);
                     /** Update sheet where user currently is */
                     Bucket.updateUser(socket.id, "sheet", data.sheet);
-                    callback(result.sheets);
+                    callback(1);
                     /** Wrong security token */
                   } else callback(0);
                 });
@@ -266,22 +266,9 @@
         }
 
         /** Check if sheet is already registered */
-        if (!userRoom.sheets[data.sheet] || !userRoom.sheets[data.sheet].cells) {
-          /** Register new sheet */
-          userRoom.sheets[data.sheet] = {
-            /** Cell object */
-            cells: {},
-            /** Resize object */
-            resize: {
-              columns: {},
-              rows: {}
-            },
-            /** Master object */
-            master: {
-              columns: {},
-              rows: {}
-            }
-          };
+        if (!userRoom.sheetExists(data.sheet)) {
+          /** Create the sheet */
+          userRoom.createSheet(data.sheet);
         }
 
         /** Boolean conversion */
@@ -384,16 +371,9 @@
             !Security.isSecure(data.size)) return void 0;
 
         /** Check if sheet is already registered */
-        if (!userRoom.sheets[data.sheet] || !userRoom.sheets[data.sheet].cells) {
-          /** Register new sheet */
-          userRoom.sheets[data.sheet] = {
-            cells: {},
-            /** Resize object */
-            resize: {
-              columns: {},
-              rows: {}
-            }
-          };
+        if (!userRoom.sheetExists(data.sheet)) {
+          /** Create the sheet */
+          userRoom.createSheet(data.sheet);
         }
 
         /** Column resize */
@@ -428,6 +408,13 @@
 
         /** Share resize with everyone in the room */
         Bucket.shareData({sheet: data.sheet, type: data.type, name: data.name, size: data.size}, socket.id, "resize", false);
+
+      });
+
+      /** Master style a column or row */
+      socket.on('masterstyle', function(data) {
+
+        console.log(data);
 
       });
 
@@ -613,16 +600,9 @@
             if (Bucket.isValidUser(socket.id)) {
               userRoom = Bucket.getCurrentUserRoom(socket.id);
               /** Check if sheet exists in the room, if not create it */
-              if (!userRoom.sheets[data.sheet]) {
-                /** Create the sheet in the bucket room sheets */
-                userRoom.sheets[data.sheet] = {
-                  cells: {},
-                  /** Resize object */
-                  resize: {
-                    rows: {},
-                    columns: {}
-                  }
-                };
+              if (!userRoom.sheetExists(data.sheet)) {
+                /** Create the sheet */
+                userRoom.createSheet(data.sheet);
                 /** Save new sheet in the database */
                 Database.updateSheet("rooms", {sheets: userRoom.sheets}, userRoom.id, function(finished) {
                   /** Share the new sheet update to all clients in the room */
@@ -687,16 +667,9 @@
           userRoom = Bucket.getCurrentUserRoom(socket.id);
 
           /** Check if sheet exists in the room, if not create it */
-          if (!userRoom.sheets[data.newName] && userRoom.sheets[data.oldName]) {
-            /** Create the sheet in the bucket room sheets */
-            userRoom.sheets[data.newName] = {
-              cells: {},
-              /** Resize object */
-              resize: {
-                rows: {},
-                columns: {}
-              }
-            };
+          if (!userRoom.sheetExists(data.newName) && userRoom.sheetExists(data.oldName)) {
+            /** Create the sheet */
+            userRoom.createSheet(data.newName);
             /** Move sheet data */
             userRoom.sheets[data.newName].cells = userRoom.sheets[data.oldName].cells;
             userRoom.sheets[data.newName].resize.rows = userRoom.sheets[data.oldName].resize.rows;
