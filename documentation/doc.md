@@ -117,7 +117,7 @@ A7 = TRUE;
 ```
 ### Conditions
 Conditions can be typed as operators or in english and german and are case insensitive.
-<br/>The following example aussumes:
+<br/>The following example assumes:
 ```
 A1 = 0;
 ```
@@ -130,7 +130,7 @@ A1 = 0;
 ```
 
 The next example shows, how to mix the SUM function with conditions.
-<br/>This example aussumes:
+<br/>This example assumes:
 ```
 A1 = 1;
 A2 = 2;
@@ -144,7 +144,7 @@ A5 = 1;
 ```
 
 Another example, showing how to calculate with a condition's result and use the SUM function.
-<br/>This example aussumes:
+<br/>This example assumes:
 ```
 A1 = 5;
 A2 = 25;
@@ -155,7 +155,7 @@ A2 = 25;
 ```
 
 This example shows, how to use nested IF conditions.
-<br/>This example aussumes:
+<br/>This example assumes:
 ```
 A1 = 10;
 ```
