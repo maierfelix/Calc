@@ -80,6 +80,18 @@ If you want to test the latest multi-user functionality, go to:
 - [ ] Reversed selection resize ghost switch bug
 - [ ] Sheet dictionary in ENGEL variable stack
 
+## Contributors:
+
+<table id="contributors">
+  <tr>
+    <td><a href="https://github.com/felixmaier"><img src=https://avatars0.githubusercontent.com/u/2356692?v=3&s=360>felixmaier</a></td>
+    <td><a href="#"><img src=https://avatars0.githubusercontent.com/u/0?v=3> </a></td>
+    <td><a href="#"><img src=https://avatars0.githubusercontent.com/u/0?v=3> </a></td>
+    <td><a href="#"><img src=https://avatars0.githubusercontent.com/u/0?v=3> </a></td>
+    <td><a href="#"><img src=https://avatars0.githubusercontent.com/u/0?v=3> </a></td>
+  </tr>
+</table>
+
 ## Licensing
 ### BSD License:
  - [NovaeCalc](https://github.com/felixmaier/NovaeCalc/blob/master/LICENSE.BSD)
