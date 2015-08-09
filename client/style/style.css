@@ -1119,6 +1119,7 @@ thead {
 
 .closeButton {
   position: absolute;
+  z-index: 4;
   top: 0px;
   right: 0px;
   font-size: 10px;
@@ -1130,6 +1131,15 @@ thead {
   padding-left: 2px;
   background-color: rgba(21, 101, 192, 0.55);
   color: #fff;
+}
+
+.closeLine {
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #fff;
+  margin: 4px 5px;
+  padding: 0;
+  width: 4px;
 }
 
 .usersInRoom {

@@ -171,7 +171,7 @@
     /** User selected another cell, delete edited cell */
     } else if (NOVAE.Sheets[NOVAE.CurrentSheet].Input.Mouse.Edit) {
       /** User clicked inside the cell grid */
-      if (e.target.parentNode.id === NOVAE.DOM.Output.id) {
+      if (e.target.parentNode.id === NOVAE.DOM.TableBody.id) {
         NOVAE.Sheets[NOVAE.CurrentSheet].cleanEditSelection();
       /** User chose the dark space */
       } else {
