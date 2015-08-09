@@ -312,7 +312,7 @@
 
           /** User edited sheet name and click on the sheet again while editing */
           if (NOVAE.Sheets[NOVAE.CurrentSheet].changeSheetName) {
-            self.renameSheet(target.getAttribute("name"), name);
+            self.renameSheetEvent(e, target.getAttribute("name"), name);
             NOVAE.Sheets[NOVAE.CurrentSheet].changeSheetName = false;
             return void 0;
           }
@@ -363,7 +363,7 @@
 
         /** [ENTER] */
         if (e.keyCode === 13) {
-          self.renameSheet(oldName, newName);
+          self.renameSheetEvent(e, oldName, newName);
         /** [ESC] */
         } else if (e.keyCode === 27) {
           e.target.setAttribute("name", oldName);
@@ -389,7 +389,7 @@
         if (oldName.length && newName.length) {
           e.target.contentEditable = false;
           NOVAE.Sheets[NOVAE.CurrentSheet].changeSheetName = false;
-          self.renameSheet(oldName, newName);
+          self.renameSheetEvent(e, oldName, newName);
         }
       }
 
@@ -409,7 +409,7 @@
 
     var target = Object.prototype.toString.call(e);
 
-    if (["[object MouseEvent]", "[object FocusEvent]"].indexOf(target) >= 0) {
+    if (["[object MouseEvent]", "[object FocusEvent]", "[object KeyboardEvent]"].indexOf(target) >= 0) {
       target = e.target;
     }
 
@@ -457,6 +457,75 @@
   };
 
   /**
+   * Get a sheet button by it's child index
+   *
+   * @method getSheetButtonByIndex
+   * @static
+   */
+  NOVAE.Sheets.prototype.getSheetButtonByIndex = function(id) {
+
+    var node = NOVAE.DOM.Sheets;
+
+    if (node.children[id]) {
+      return (node.children[id]);
+    }
+
+    return void 0;
+
+  };
+
+  /**
+   * Got a sheet rename, submitted from the DOM
+   *
+   * @method renameSheetEvent
+   * @static
+   */
+  NOVAE.Sheets.prototype.renameSheetEvent = function(e, oldName, newName) {
+
+    /** Nothing to change */
+    if (oldName === newName) return void 0;
+
+    /** Abort if sheet to rename does not exist */
+    if (!NOVAE.Sheets.hasOwnProperty(oldName)) {
+      return void 0;
+    }
+
+    var target = this.getParentSheetButton(e);
+
+    /** Abort, if the choosen sheet name is already taken */
+    if (NOVAE.Sheets.hasOwnProperty(newName)) {
+
+      /** Css class helper */
+      var muiButton = "mdl-button mdl-js-button mdl-button--primary";
+
+      /** The modal content */
+      var title = "<h1>This sheet name is already taken! Please choose another.</h1>";
+      var buttons = "<button class='"+muiButton+" alertOk' name='ok'>Ok</button><button class='"+muiButton+" alertAbort' name='abort' style='display:none'></button>";
+
+      /** Delayed, so we prevent instant skipping of warning dialog */
+      setTimeout(function() {
+        NOVAE_UI.Modal(title, buttons, function() {});
+      }, 15);
+
+      if (target) {
+        target.children[0].innerHTML = oldName;
+        target.setAttribute("name", oldName);
+      }
+
+      return void 0;
+    }
+
+    if (!this.validSheetName(newName)) {
+      throw new Error("Invalid sheet name!");
+    }
+
+    target.setAttribute("name", newName);
+
+    this.renameSheet(oldName, newName);
+
+  };
+
+  /**
    * Rename a sheet
    *
    * @method renameSheet
@@ -472,37 +541,6 @@
       return void 0;
     }
 
-    /** Abort, if the choosen sheet name is already taken */
-    if (NOVAE.Sheets.hasOwnProperty(newName)) {
-
-      /** Css class helper */
-      var muiButton = "mdl-button mdl-js-button mdl-button--primary";
-
-      /** The modal content */
-      var title = "<h1>This sheet name is already taken! Please choose another.</h1>";
-      var buttons = "<button class='"+muiButton+" alertOk' name='ok'>Ok</button><button class='"+muiButton+" alertAbort' name='abort' style='display:none' ></button>";
-
-      NOVAE_UI.Modal(title, buttons, function() {});
-
-      return void 0;
-    }
-
-    /** Check if new sheet name is valid */
-    var testObj = {};
-
-    try {
-      testObj[newName] = 0;
-      if (!testObj.hasOwnProperty(newName)) return void 0;
-    } catch(e) {
-      if (e) {
-        return void 0;
-      }
-    }
-
-    var sheetButton = this.getSheetButtonByName(newName);
-
-    sheetButton.setAttribute("name", newName);
-
     NOVAE.$.renameSheet(oldName, newName);
 
     /** User is currently on the renamed sheet */
@@ -510,5 +548,32 @@
       NOVAE.CurrentSheet = newName;
       ENGEL.CurrentSheet = newName;
     }
+
+  };
+
+  /**
+   * Check if a sheet name is valid
+   *
+   * @method validSheetName
+   * @static
+   */
+  NOVAE.Sheets.prototype.validSheetName = function(name) {
+
+    if (!name.length) return (false);
+
+    var obj = {};
+
+    try {
+      obj[name] = 1;
+      if (!obj.hasOwnProperty(name) || !obj[name]) {
+        return (false);
+      }
+    } catch(e) {
+      if (e) {
+        return (false);
+      }
+    }
+
+    return (true);
 
   };
