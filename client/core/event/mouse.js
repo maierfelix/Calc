@@ -221,7 +221,7 @@
     }
 
     /** Seems like user selected something */
-    if (e.target.parentNode.parentNode && e.target.parentNode.parentNode.id === NOVAE.DOM.TableBody.id) {
+    if (e.target.parentNode && e.target.parentNode.parentNode && e.target.parentNode.parentNode.id === NOVAE.DOM.TableBody.id) {
 
       if (currentSheet.Selector.Selected.First.Letter &&
           currentSheet.Selector.Selected.First.Number &&

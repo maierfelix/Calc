@@ -393,7 +393,7 @@
 
     var jumps = ((number - sheet.Settings.scrolledY) - 1) * (sheet.Settings.x) + (letter - 1 - sheet.Settings.scrolledX);
 
-    if (NOVAE.$.isInView(number, jumps, sheet)) return (jumps);
+    if (NOVAE.$.isInView(number, jumps, sheet) && NOVAE.DOM.Cache[jumps]) return (jumps);
 
     return void 0;
 

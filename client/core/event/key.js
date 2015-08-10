@@ -47,6 +47,9 @@
       return void 0;
     }
 
+    /** User pressed [F11] (Fullscreen) */
+    if (e.keyCode === 122) return void 0;
+
     /** User pressed the [DEL] */
     if (e.keyCode === 46) {
       e.preventDefault();
@@ -180,7 +183,7 @@
       e.preventDefault();
       /** Disable master selection */
       NOVAE.Cells.Master[NOVAE.CurrentSheet].Current = null;
-      NOVAE.Sheets[NOVAE.CurrentSheet].Selector.jump("up", NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y);
+      NOVAE.Sheets[NOVAE.CurrentSheet].Selector.jump("up", Math.floor(NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y / 4) - 2);
       return void 0;
     }
 
@@ -189,7 +192,7 @@
       e.preventDefault();
       /** Disable master selection */
       NOVAE.Cells.Master[NOVAE.CurrentSheet].Current = null;
-      NOVAE.Sheets[NOVAE.CurrentSheet].Selector.jump("down", NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y);
+      NOVAE.Sheets[NOVAE.CurrentSheet].Selector.jump("down", Math.floor(NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y / 4) - 2);
       return void 0;
     }
 

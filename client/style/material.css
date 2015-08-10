@@ -6544,6 +6544,8 @@ input.mdl-button[type="submit"] {
   .mdl-layout__header--scroll .mdl-layout__header-row {
     width: 100%; }
   .mdl-layout__header-row .mdl-navigation {
+    position: absolute;
+    top: 5px;
     margin-top: 0px;
     padding: 0;
     height: 64px;
@@ -8623,12 +8625,12 @@ _:-ms-input-placeholder, :root .mdl-slider.mdl-slider.is-upgraded {
   font-size: 16px;
   display: inline-block;
   box-sizing: border-box;
-  width: calc(100% - 20px);
+  width: calc(100% - 50px);
   max-width: 100%;
   margin: 0;
-  margin-left: 10px;
+  margin-left: 42px;
   height: 40px;
-  margin-top: 3px; }
+  margin-top: 5px; }
   .mdl-textfield .mdl-button {
     position: absolute;
     bottom: 20px; }

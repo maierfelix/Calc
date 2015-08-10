@@ -44,19 +44,19 @@
       /** Check if cell has a custom font */
       if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell].Font) {
         /** Update font menu value */
-        NOVAE.DOM.ChangeFont.value = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell].Font;
+        NOVAE.DOM.ChangeFont.innerHTML = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell].Font;
       /** Reset font menu value to default */
       } else {
-        NOVAE.DOM.ChangeFont.value = "Arial";
+        NOVAE.DOM.ChangeFont.innerHTML = "Arial";
       }
 
       /** Check if cell has a custom font size */
       if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell].FontSize) {
         /** Update font size menu value */
-        NOVAE.DOM.ChangeFontSize.value = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell].FontSize;
+        NOVAE.DOM.ChangeFontSize.innerHTML = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell].FontSize;
       /** Reset font size menu value to default */
       } else {
-        NOVAE.DOM.ChangeFontSize.value = 12;
+        NOVAE.DOM.ChangeFontSize.innerHTML = 12;
       }
 
       /** Check if cell has a custom font color */
@@ -114,13 +114,13 @@
 
       /** Column */
       if (masterColumns[letter].Font) {
-        NOVAE.DOM.ChangeFont.value = masterColumns[letter].Font;
-      } else NOVAE.DOM.ChangeFont.value = "Arial";
+        NOVAE.DOM.ChangeFont.innerHTML = masterColumns[letter].Font;
+      } else NOVAE.DOM.ChangeFont.innerHTML = "Arial";
 
       /** Column */
       if (masterColumns[letter].FontSize) {
-        NOVAE.DOM.ChangeFont.value = masterColumns[letter].FontSize;
-      } else NOVAE.DOM.ChangeFontSize.value = 12;
+        NOVAE.DOM.ChangeFontSize.innerHTML = masterColumns[letter].FontSize;
+      } else NOVAE.DOM.ChangeFontSize.innerHTML = 12;
 
       /** Column */
       if (masterColumns[letter].Color) {
@@ -136,16 +136,16 @@
 
       /** Column */
       if (masterColumns[letter].FontItalic) {
-        NOVAE.DOM.ChangeFontBold.style.background = hoverColor;
+        NOVAE.DOM.ChangeFontItalic.style.background = hoverColor;
       } else {
-        NOVAE.DOM.ChangeFontBold.style.background = bgColor;
+        NOVAE.DOM.ChangeFontItalic.style.background = bgColor;
       }
 
       /** Column */
       if (masterColumns[letter].FontUnderlined) {
-        NOVAE.DOM.ChangeFontBold.style.background = hoverColor;
+        NOVAE.DOM.ChangeFontUnderline.style.background = hoverColor;
       } else {
-        NOVAE.DOM.ChangeFontBold.style.background = bgColor;
+        NOVAE.DOM.ChangeFontUnderline.style.background = bgColor;
       }
 
       /** Master row styling */
@@ -158,44 +158,44 @@
 
       /** Row */
       if (masterRows[number].Font) {
-        NOVAE.DOM.ChangeFont.value = masterRows[number].Font;
-      } else NOVAE.DOM.ChangeFont.value = NOVAE.DOM.ChangeFont.children[0].getAttribute("value");
+        NOVAE.DOM.ChangeFont.innerHTML = masterRows[number].Font;
+      } else NOVAE.DOM.ChangeFont.innerHTML = NOVAE.DOM.ChangeFont.innerHTML;
 
       /** Row */
       if (masterRows[number].FontSize) {
-        NOVAE.DOM.ChangeFont.value = masterRows[number].FontSize;
-      } else NOVAE.DOM.ChangeFontSize.value = NOVAE.DOM.ChangeFontSize.children[6].getAttribute("value");
+        NOVAE.DOM.ChangeFontSize.innerHTML = masterRows[number].FontSize;
+      } else NOVAE.DOM.ChangeFontSize.innerHTML = NOVAE.DOM.ChangeFontSize.innerHTML;
 
       /** Row */
       if (masterRows[number].Color) {
-        NOVAE.DOM.ChangeFont.value = masterRows[number].Color;
-      } else NOVAE.DOM.ChangeFontColorPreview.style.color = "#c7c7c7";
+        NOVAE.DOM.ChangeFontColor.innerHTML = masterRows[number].Color;
+      } else NOVAE.DOM.ChangeFontColor.style.color = "#c7c7c7";
 
       /** Row */
       if (masterRows[number].FontBold) {
-        NOVAE.DOM.ChangeFontBoldPreview.parentNode.style.background = hoverColor;
-        NOVAE.DOM.ChangeFontBoldPreview.style.color = "#7d7d7d";
+        NOVAE.DOM.ChangeFontBold.style.background = hoverColor;
+        NOVAE.DOM.ChangeFontBold.style.color = "#7d7d7d";
       } else {
-        NOVAE.DOM.ChangeFontBoldPreview.parentNode.style.background = "#fff";
-        NOVAE.DOM.ChangeFontBoldPreview.style.color = "#c7c7c7";
+        NOVAE.DOM.ChangeFontBold.style.background = "#fff";
+        NOVAE.DOM.ChangeFontBold.style.color = "#c7c7c7";
       }
 
       /** Row */
       if (masterRows[number].FontItalic) {
-        NOVAE.DOM.ChangeFontBoldPreview.parentNode.style.background = hoverColor;
-        NOVAE.DOM.ChangeFontBoldPreview.style.color = "#7d7d7d";
+        NOVAE.DOM.ChangeFontItalic.style.background = hoverColor;
+        NOVAE.DOM.ChangeFontItalic.style.color = "#7d7d7d";
       } else {
-        NOVAE.DOM.ChangeFontBoldPreview.parentNode.style.background = "#fff";
-        NOVAE.DOM.ChangeFontBoldPreview.style.color = "#c7c7c7";
+        NOVAE.DOM.ChangeFontItalic.style.background = "#fff";
+        NOVAE.DOM.ChangeFontItalic.style.color = "#c7c7c7";
       }
 
       /** Row */
       if (masterRows[number].FontUnderlined) {
-        NOVAE.DOM.ChangeFontBoldPreview.parentNode.style.background = hoverColor;
-        NOVAE.DOM.ChangeFontBoldPreview.style.color = "#7d7d7d";
+        NOVAE.DOM.ChangeFontUnderline.style.background = hoverColor;
+        NOVAE.DOM.ChangeFontUnderline.style.color = "#7d7d7d";
       } else {
-        NOVAE.DOM.ChangeFontBoldPreview.parentNode.style.background = "#fff";
-        NOVAE.DOM.ChangeFontBoldPreview.style.color = "#c7c7c7";
+        NOVAE.DOM.ChangeFontUnderline.style.background = "#fff";
+        NOVAE.DOM.ChangeFontUnderline.style.color = "#c7c7c7";
       }
 
     /** Reset the whole menu */
@@ -203,9 +203,9 @@
       /** Reset cell input */
       NOVAE.DOM.CellInput.textContent = "";
       /** Reset font menu */
-      NOVAE.DOM.ChangeFont.value = "Arial";
+      NOVAE.DOM.ChangeFont.innerHTML = "Arial";
       /** Reset font size menu */
-      NOVAE.DOM.ChangeFontSize.value = 12;
+      NOVAE.DOM.ChangeFontSize.innerHTML = 12;
       /** Reset font color menu */
       NOVAE.DOM.ChangeFontColor.style.background = bgColor;
       /** Reset font bold menu color to default */

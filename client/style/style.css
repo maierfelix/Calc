@@ -1448,3 +1448,116 @@ ul.rotate_wrapper li.rotate_item {
       opacity: 0;
     }
 }
+
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  text-align: left;
+  width: 132px;
+}
+
+.dropdown-text {
+  cursor: pointer;
+  position: absolute;
+  text-indent: 5px;
+  padding-top: 1px;
+  line-height: 22px;
+  background-color: rgba(0,0,0,0);
+  border: 1px solid #e1e1e1;
+  border-radius: 0px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  min-width: 70px;
+  width: auto;
+  padding-right: 5px;
+}
+
+.dropdown-text:after {
+  position: absolute;
+  right: 6px;
+  top: 15px;
+  content: '';
+  width: 0px;
+  height: 0px;
+}
+
+.dropdown-text,
+.dropdown-content a {
+  color: #fff;
+}
+
+.dropdown-toggle {
+  font-size: 0;
+  z-index: 1;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  border: none;
+  padding: 0;
+  margin: 0 0 0 1px;
+  background: transparent;
+  text-indent: -10px;
+  height: 22px;
+  width: 60px;
+}
+
+.dropdown-toggle:focus {
+  outline: 0;
+}
+
+.dropdown-content {
+  -webkit-transition: all .25s ease;
+  -moz-transition: all .25s ease;
+  -ms-transition: all .25s ease;
+  -o-transition: all .25s ease;
+  transition: all .25s ease;
+  list-style-type: none;
+  position: absolute;
+  top: 32px;
+  padding: 0;
+  margin: 0;
+  opacity: 0;
+  visibility: hidden;
+  border-radius: 0px;
+  text-indent: 10px;
+  line-height: 32px;
+  background-color: #fff;
+  border: 1px solid #AFCCFD;
+  width: 140px;
+  z-index: 9;
+  margin-top: -16px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  font-size: 13px;
+}
+
+.dropdown-content li {
+  display: block;
+  color: #444 !important;
+}
+
+.dropdown-content>li:hover {
+  background-color: rgba(175, 204, 253, 0.35) !important;
+}
+
+.dropdown-toggle:hover ~ .dropdown-text,
+.dropdown-toggle:focus ~ .dropdown-text {
+  border: 1px solid #AFCCFD;
+}
+
+.dropdown-toggle:focus ~ .dropdown-text {
+  z-index: 2;
+}
+
+.dropdown-toggle:focus ~ .dropdown-text:after {
+  border-width: 0 4px 5px 4px;
+  border-color: transparent transparent #555 transparent;
+}
+
+.dropdown-content:hover,
+.dropdown-toggle:focus ~ .dropdown-content {
+  opacity: 1;
+  visibility: visible;
+  top: 42px;
+}

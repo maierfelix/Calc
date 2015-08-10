@@ -54,13 +54,42 @@
         <div class="mdl-layout__header-row">
           <!-- Navigation -->
           <nav class="waterfall-demo-header-nav mdl-navigation">
+            <div class="mdl-navigation__link" style="margin-top: -28px;width: 90px;">
+              <div class="dropdown">
+                <input class="dropdown-toggle" type="text">
+                <div id="change_font" class="dropdown-text">Arial</div>
+                <ul id="change_font_ul" class="dropdown-content">
+                  <li>Arial</li>
+                  <li>Courier New</li>
+                  <li>Georgia</li>
+                </ul>
+              </div>
+            </div>
+            <div class="mdl-navigation__link" style="margin-top: -28px;width: 65px;">
+              <div class="dropdown">
+                <input class="dropdown-toggle" type="text">
+                <div id="change_fontSize" class="dropdown-text" style="min-width: 60px;">12</div>
+                <ul id="change_fontSize_ul" class="dropdown-content">
+                  <li>7</li>
+                  <li>8</li>
+                  <li>9</li>
+                  <li>10</li>
+                  <li>11</li>
+                  <li>12</li>
+                  <li>14</li>
+                  <li>18</li>
+                  <li>24</li>
+                  <li>36</li>
+                </ul>
+              </div>
+            </div>
             <div id="change_bold" class="mdl-navigation__link"><i class="material-icons">format_bold</i></div>
             <div id="change_italic" class="mdl-navigation__link"><i class="material-icons">format_italic</i></div>
             <div id="change_underline" class="mdl-navigation__link"><i class="material-icons" style="font-size: 20px;">format_underlined</i></div>
-            <div class="mdl-navigation__link">&nbsp; </div>
+            <div class="mdl-navigation__link"></div>
             <div id="change_fontColor" class="mdl-navigation__link"><i class="material-icons" style="font-size: 20px;">format_color_text</i></div>
             <div id="change_background" class="mdl-navigation__link"><i class="material-icons" style="font-size: 20px;">format_color_fill</i></div>
-            <div class="mdl-navigation__link">&nbsp; </div>
+            <div class="mdl-navigation__link"></div>
             <div class="mdl-navigation__link" id="demo-menu-lower-left"><i class="material-icons" style="font-size: 22px;">border_all</i></div>
             <div id="insert_column" class="mdl-navigation__link" style="background-color: transparent;height: 24px;overflow: hidden;cursor: pointer;text-align: center;padding-left: 15px;">
               <img unselectable="on" alt="" src="./icon/injection.png" class="" style="width: 36px;margin-top: -48px;">
@@ -161,7 +190,7 @@
                 Arial
                 <span class="mui-caret"></span>
               </button>
-              <ul id="change_font_ul" class="mui-dropdown-menu">
+              <ul class="mui-dropdown-menu">
                 <li><a href="#">Arial</a></li>
                 <li><a href="#">Courier New</a></li>
                 <li><a href="#">Georgia</a></li>

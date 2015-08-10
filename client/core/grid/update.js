@@ -150,16 +150,22 @@
     /** Check if cell has a custom font bold property */
     if (NOVAE.Cells.Used[NOVAE.CurrentSheet][name][cell].FontBold) {
       NOVAE.DOM.Cache[ii].style.fontWeight = "bold";
+    } else {
+      NOVAE.DOM.Cache[ii].style.fontWeight = "normal";
     }
 
     /** Check if cell has a custom font italic property */
     if (NOVAE.Cells.Used[NOVAE.CurrentSheet][name][cell].FontItalic) {
       NOVAE.DOM.Cache[ii].style.fontStyle = "italic";
+    } else {
+      NOVAE.DOM.Cache[ii].style.fontStyle = "normal";
     }
 
     /** Check if cells font is underlined */
     if (NOVAE.Cells.Used[NOVAE.CurrentSheet][name][cell].FontUnderlined) {
       NOVAE.DOM.Cache[ii].style.textDecoration = "underline";
+    } else {
+      NOVAE.DOM.Cache[ii].style.textDecoration = "none";
     }
 
     /** Check if cell has a custom background color */
@@ -222,16 +228,22 @@
     /** Check if cell has a custom font bold property */
     if (data.FontBold) {
       NOVAE.DOM.Cache[ii].style.fontWeight = "bold";
+    } else {
+      NOVAE.DOM.Cache[ii].style.fontWeight = "normal";
     }
 
     /** Check if cell has a custom font italic property */
     if (data.FontItalic) {
       NOVAE.DOM.Cache[ii].style.fontStyle = "italic";
+    } else {
+      NOVAE.DOM.Cache[ii].style.fontStyle = "normal";
     }
 
     /** Check if cells font is underlined */
     if (data.FontUnderlined) {
       NOVAE.DOM.Cache[ii].style.textDecoration = "underline";
+    } else {
+      NOVAE.DOM.Cache[ii].style.textDecoration = "none";
     }
 
     /** Check if cell has a custom background color */
@@ -294,16 +306,22 @@
     /** Check if cell has a custom font bold property */
     if (data.FontBold) {
       NOVAE.DOM.Cache[ii].style.fontWeight = "bold";
+    } else {
+      NOVAE.DOM.Cache[ii].style.fontWeight = "normal";
     }
 
     /** Check if cell has a custom font italic property */
     if (data.FontItalic) {
       NOVAE.DOM.Cache[ii].style.fontStyle = "italic";
+    } else {
+      NOVAE.DOM.Cache[ii].style.fontStyle = "normal";
     }
 
     /** Check if cells font is underlined */
     if (data.FontUnderlined) {
       NOVAE.DOM.Cache[ii].style.textDecoration = "underline";
+    } else {
+      NOVAE.DOM.Cache[ii].style.textDecoration = "none";
     }
 
     /** Check if cell has a custom background color */
