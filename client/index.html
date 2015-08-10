@@ -33,99 +33,87 @@
   <link rel="stylesheet" type="text/css" href="style/font-awesome.min.css"></link>
   <link rel="stylesheet" type="text/css" href="style/style.css"></link>
   <link rel="stylesheet" type="text/css" href="style/eight-bit-color-picker.css"></link>
-  <!--<link rel="stylesheet" type="text/css" href="style/mui/css/mui.css"/>-->
   <link rel="stylesheet" type="text/css" href="style/material.css">
   <link rel="stylesheet" type="text/css" href="style/animations.css">
   <link rel="stylesheet" type="text/css" href="style/codemirror.css">
   <link rel="stylesheet" type="text/css" href="style/modal.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 <body>
 
 <div class="modal_overlay fadeIn" id="modal_helper" style="display:none;"></div>
 
-<!-- Simple header with scrollable tabs. -->
-<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-  <header class="mdl-layout__header">
-    <div class="mdl-layout__header-row"></div>
-    <div class="menu_container">
-      <!-- Change Font Bold -->
-      <button id="change_bold" class="mdl-button mdl-js-button mdl-js-ripple-effect">
-        <img unselectable="on" alt="" src="./icon/icon_res.png" class="ico bold">
-      </button>
-      <!-- Change Font Italic -->
-      <button id="change_italic" class="mdl-button mdl-js-button mdl-js-ripple-effect">
-        <img unselectable="on" alt="" src="./icon/icon_res.png" class="ico italic">
-      </button>
-      <!-- Change Font Underline -->
-      <button id="change_underline" class="mdl-button mdl-js-button mdl-js-ripple-effect">
-        <img unselectable="on" alt="" src="./icon/icon_res.png" class="ico underline">
-      </button>
-      <!-- Change Font Color -->
-      <button id="change_fontColor" class="mdl-button mdl-js-button mdl-js-ripple-effect">
-        <img unselectable="on" alt="" src="./icon/icon_res.png" class="ico fontColor">
-      </button>
-      <!-- Change Background Color -->
-      <button id="change_background" class="mdl-button mdl-js-button mdl-js-ripple-effect">
-        <img unselectable="on" alt="" src="./icon/icon_res.png" class="ico bgColor">
-      </button>
-      <!-- Change Border -->
-      <button hide="true" id="change_border" class="mdl-button mdl-js-button mdl-js-ripple-effect">
-        <img unselectable="on" alt="" src="./icon/icon_res.png" class="ico border">
-      </button>
-      <!-- Insert Column -->
-      <button id="insert_column" class="mdl-button mdl-js-button mdl-js-ripple-effect">
-        <img unselectable="on" alt="" src="./icon/icon_res.png" class="ico insertColumn">
-      </button>
-      <!-- Insert Row -->
-      <button id="insert_row" class="mdl-button mdl-js-button mdl-js-ripple-effect">
-        <img unselectable="on" alt="" src="./icon/icon_res.png" class="ico insertRow">
-      </button>
-      <!-- Delete Column -->
-      <button id="delete_column" class="mdl-button mdl-js-button mdl-js-ripple-effect">
-        <img unselectable="on" alt="" src="./icon/icon_res.png" class="ico deleteColumn">
-      </button>
-      <!-- Delete Row -->
-      <button id="delete_row" class="change_font mdl-button mdl-js-button mdl-js-ripple-effect">
-        <img unselectable="on" alt="" src="./icon/icon_res.png" class="ico deleteRow">
-      </button>
-      <div style="position: absolute;z-index: 99999;left: 15px;top: -20px;background: lightgrey;width: 1px;height: 80px;"></div>
-      <div style="position: absolute;z-index: 99999;left: 140px;top: -20px;background: lightgrey;width: 1px;height: 80px;"></div>
-      <div style="position: absolute;z-index: 99999;left: 240px;top: -20px;background: lightgrey;width: 1px;height: 80px;"></div>
-      <span class="mdl-layout-title" style="margin-top: -21px;font-size: 10px;margin-left: 65px;">Styling</span>
-      <span class="mdl-layout-title" style="margin-top: -10px;font-size: 10px;margin-left: 180px;">Cells</span>
-    </div>
-  </header>
-  <button id="demo-menu-lower-left" class="mdl-button mdl-js-button mdl-button--icon" style="position:absolute">
-        <i class="material-icons">Change font</i>
-      </button>
-      <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-left">
-        <li class="mdl-menu__item">Some Action</li>
-        <li class="mdl-menu__item">Another Action</li>
-        <li disabled class="mdl-menu__item">Disabled Action</li>
-        <li class="mdl-menu__item">Yet Another Action</li>
-      </ul>
+    <div class="mdl-layout mdl-js-layout mdl-layout--overlay-drawer-button">
+      <header class="mdl-layout__header mdl-layout__header--waterfall">
+        <!-- Top row, always visible -->
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <span class="mdl-layout-title"></span>
+        </div>
+        <!-- Bottom row, not visible on scroll -->
+        <div class="mdl-layout__header-row">
+          <!-- Navigation -->
+          <nav class="waterfall-demo-header-nav mdl-navigation">
+            <div id="change_bold" class="mdl-navigation__link"><i class="material-icons">format_bold</i></div>
+            <div id="change_italic" class="mdl-navigation__link"><i class="material-icons">format_italic</i></div>
+            <div id="change_underline" class="mdl-navigation__link"><i class="material-icons" style="font-size: 20px;">format_underlined</i></div>
+            <div class="mdl-navigation__link">&nbsp; </div>
+            <div id="change_fontColor" class="mdl-navigation__link"><i class="material-icons" style="font-size: 20px;">format_color_text</i></div>
+            <div id="change_background" class="mdl-navigation__link"><i class="material-icons" style="font-size: 20px;">format_color_fill</i></div>
+            <div class="mdl-navigation__link">&nbsp; </div>
+            <div class="mdl-navigation__link" id="demo-menu-lower-left"><i class="material-icons" style="font-size: 22px;">border_all</i></div>
+            <div id="insert_column" class="mdl-navigation__link" style="background-color: transparent;height: 24px;overflow: hidden;cursor: pointer;text-align: center;padding-left: 15px;">
+              <img unselectable="on" alt="" src="./injection.png" class="" style="width: 36px;margin-top: -48px;">
+            </div>
+            <div id="delete_column" class="mdl-navigation__link" style="background-color: transparent;height: 24px;overflow: hidden;cursor: pointer;text-align: center;margin-left: -15px;">
+              <img unselectable="on" alt="" src="./injection.png" class="" style="width: 36px;">
+            </div>
+            <div id="insert_row" class="mdl-navigation__link" style="background-color: transparent;height: 24px;overflow: hidden;cursor: pointer;text-align: center;margin-left: -15px;margin-top: 2px;">
+              <img unselectable="on" alt="" src="./injection.png" class="" style="width: 36px;margin-top: -71px;">
+            </div>
+            <div id="delete_row" class="mdl-navigation__link" style="background-color: transparent;height: 24px;overflow: hidden;cursor: pointer;text-align: center;margin-left: -10px;margin-top: 2px;">
+              <img unselectable="on" alt="" src="./injection.png" class="" style="width: 36px;margin-top: -24px;">
+            </div>
+          </nav>
+        </div>
+        <div spellcheck="false" class="cell_input mdl-textfield mdl-js-textfield textfield-demo">
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+            <input id="cell_input" class="mdl-textfield__input" type="text" id="sample3" />
+            <label class="mdl-textfield__label" for="sample3"></label>
+          </div>
+        </div>
+      </header>
+
+  <!-- Border settings -->
+  <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu" for="demo-menu-lower-left">
+    <li class="mdl-menu__item">
+      <i id="border_all" class="material-icons" style="padding-top: 12px;">border_all</i>
+      <i id="border_outer" class="material-icons">border_outer</i>
+      <i class="material-icons">border_style</i>
+      <i class="material-icons">border_clear</i>
+    </li>
+    <li class="mdl-menu__item">
+      <i id="border_left" class="material-icons" style="padding-top: 12px;">border_left</i>
+      <i id="border_right" class="material-icons">border_right</i>
+      <i id="border_top" class="material-icons">border_top</i>
+      <i id="border_bottom" class="material-icons">border_bottom</i>
+    </li>
+  </ul>
+
   <div class="mdl-layout__drawer">
     <span class="mdl-layout-title">NovaeCalc</span>
-    <div class="mdl-navigation">
-      <div class="mdl-navigation__link" href="">New</div>
-      <div class="mdl-navigation__link" href="">Save</div>
-      <div id="script_button" class="mdl-navigation__link" href="">Script Manager</div>
-    </div>
-   </div>
-</div>
-
-  <span class="bottom_layer">
+    <nav class="mdl-navigation">
+      <a class="mdl-navigation__link" href="">New</a>
+      <a class="mdl-navigation__link" href="">Save</a>
+      <a id="script_button" class="mdl-navigation__link" href="">Script Manager</a>
+    </nav>
+  </div>
+  <main class="mdl-layout__content">
+    <div class="page-content"><span class="bottom_layer">
     <!-- Container holding all active sheets -->
     <span id="current_sheets"></span>
     <button id="add_sheet" class="mdl-button mdl-js-button mdl-button--fab">+</button>
   </span>
-
-  <div spellcheck="false" class="cell_input mdl-textfield mdl-js-textfield textfield-demo">
-    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
-      <input id="cell_input" class="mdl-textfield__input" type="text" id="sample3" />
-      <label class="mdl-textfield__label" for="sample3"></label>
-    </div>
-  </div>
 
   <div class="mui-container" style="margin-bottom: -19px;display:none;">
     <div class="mui-panel">
@@ -238,6 +226,9 @@
     <div id="windows">
       <div id="container" tabindex="0" class="g-cursor-select">
 
+        <!-- White space fix -->
+        <div class="whitespace_fix"></div>
+
         <!-- Resize helpers -->
         <div id="column_resize_helper" style="left:0px;top:0px;"></div>
         <div id="row_resize_helper" style="left:0px;top:0px;"></div>
@@ -307,7 +298,14 @@
       </div>
     </div>
 
-  </div>
+  </div></div>
+  </main>
+</div>
+
+
+
+
+  
 
   <h2 id="copyright_loading">The NovaeCalc Project</h2>
   <div id="loader">

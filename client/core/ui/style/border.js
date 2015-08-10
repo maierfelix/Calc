@@ -16,26 +16,6 @@
   /** Initialize the border settings menu */
   NOVAE_UI.initBorderChangeMenu = function() {
 
-    /** Initialize border menu */
-    NOVAE.DOM.ChangeCellBorder.addEventListener('click', function(e) {
-
-      var element = NOVAE.DOM.ChangeCellBorder;
-
-      /** Display menu switch */
-      if (element.getAttribute("hide") === "true") {
-        NOVAE.DOM.ChangeCellBorderMenu.style.display = "block";
-        element.setAttribute("hide", "false");
-      }
-      else if (element.getAttribute("hide") === "false") {
-        NOVAE.DOM.ChangeCellBorderMenu.style.display = "none";
-        element.setAttribute("hide", "true");
-      }
-
-      /** Dont loose the selection */
-      NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
-
-    });
-
     /** Click listeners for all border settings menu items */
     for (var ii = 0; ii < NOVAE.DOM.ChangeCellBorderMenuItems.children.length; ++ii) {
       if (NOVAE.DOM.ChangeCellBorderMenuItems.children[ii].id) {

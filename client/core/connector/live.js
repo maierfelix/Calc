@@ -89,6 +89,7 @@
 
       NOVAE.Sheets.changeSheet(NOVAE.CurrentSheet);
       NOVAE.Event.resize();
+      NOVAE.eval();
 
     }
 
@@ -234,6 +235,7 @@
         NOVAE.Sheets.addSheet(object.sheet, false);
         NOVAE.Sheets.changeSheet(object.sheet);
         NOVAE.Event.resize();
+        NOVAE.eval();
       }
     }
 
@@ -281,6 +283,7 @@
       NOVAE.CurrentSheet = object.newSheet;
       ENGEL.CurrentSheet = object.newSheet;
       NOVAE.Event.resize(NOVAE.CurrentSheet);
+      NOVAE.eval();
     }
 
     /** Update the sheet button with it's new name */

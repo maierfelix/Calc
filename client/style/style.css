@@ -147,29 +147,7 @@ button, input, select, textArea {
   position: absolute;
   width: 100%;
   height: 100%;
-  margin-top: 75px;
-}
-
-.cell_input {
-  position: absolute;
-  left: 50px;
-  top: 75px;
-  z-index: 9;
-  display: block;
-  width: calc(100% - 100px) !important;
-}
-
-.cell_input>input {
-  left: 50px;
-  padding: 11px 5px;
-  background: rgba(0,0,0,0);
-  border: none;
-  color: #fff;
-  border-bottom: 1px solid #FFF;
-}
-
-.cell_input>label {
-  width: calc(100% - 100px) !important;
+  margin-top: 0px;
 }
 
 .menu_container {
@@ -200,16 +178,27 @@ button, input, select, textArea {
 }
 
 #current_cell {
-  height: 26px;
+  height: 23px;
   width: 44px;
   left: -1px;
   top: 0px;
   z-index: 5;
   border: none;
   position: absolute;
-  padding-top: 7px;
+  padding-top: 5px;
   text-align: center;
   border-left: none !important;
+}
+
+.whitespace_fix {
+  position: absolute;
+  z-index: 3;
+  background-color: #448aff;
+  height: 9px;
+  width: 100%;
+  left: 10px;
+  top: -7px;
+  display: block;
 }
 
 #current_sheets>button {
@@ -287,7 +276,7 @@ button, input, select, textArea {
   width: 100%;
   height: 100%;
   left: 0px;
-  top: 3px;
+  top: 0px;
 }
 
 .menu_hor {
@@ -385,9 +374,9 @@ button, input, select, textArea {
   overflow: hidden;
   margin-top: 23px;
   margin-left: 0px;
-  height: -webkit-calc(100% - 125px); 
-  height: -moz-calc(100% - 125px); 
-  height: -o-calc(100% - 125px);
+  height: -webkit-calc(100% - 110px); 
+  height: -moz-calc(100% - 110px); 
+  height: -o-calc(100% - 110px);
 }
 
 table {
@@ -433,6 +422,10 @@ thead {
   border-left: 1px solid darkgrey !important;
   border-bottom: 1px solid darkgrey !important;
   border: 1px solid darkgrey !important;
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 .single_row_hovered {
@@ -444,6 +437,10 @@ thead {
   padding-top: 2px;
   padding-right: 3px;
   z-index: 1;
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 .autofill_button {
@@ -713,129 +710,6 @@ thead {
   image-rendering: pixelated;
   image-rendering: optimize-contrast;
   -ms-interpolation-mode: nearest-neighbor;
-}
-
-#change_bold {
-  background-color: transparent;
-  display: inline-block;
-  position: absolute;
-  top: 0px;
-  left: 45px;
-  width: 16px;
-  height: 20px;
-  min-width: 20px !important;
-}
-
-#change_italic {
-  background-color: transparent;
-  display: inline-block;
-  position: absolute;
-  top: 0px;
-  left: 70px;
-  width: 16px;
-  height: 20px;
-  min-width: 20px !important;
-}
-
-#change_underline {
-  background-color: transparent;
-  display: inline-block;
-  position: absolute;
-  top: 0px;
-  left: 95px;
-  width: 16px;
-  height: 20px;
-  min-width: 20px !important
-}
-
-#change_fontColor {
-  background-color: transparent;
-  display: inline-block;
-  position: absolute;
-  top: 25px;
-  left: 46px;
-  width: 16px;
-  height: 20px;
-  min-width: 20px !important;
-}
-
-#change_background {
-  background-color: transparent;
-  display: inline-block;
-  position: absolute;
-  top: 25px;
-  left: 70px;
-  width: 16px;
-  height: 20px;
-  min-width: 20px !important;
-}
-
-#change_border {
-  background-color: transparent;
-  display: inline-block;
-  position: absolute;
-  top: 25px;
-  left: 95px;
-  width: 16px;
-  height: 20px;
-  min-width: 20px !important;
-}
-
-#insert_column {
-  background-color: transparent;
-  display: inline-block;
-  position: absolute;
-  top: 0px;
-  left: 165px;
-  width: 16px;
-  height: 20px;
-  min-width: 20px !important;
-}
-
-#delete_column {
-  background-color: transparent;
-  display: inline-block;
-  position: absolute;
-  top: 0px;
-  left: 195px;
-  width: 16px;
-  height: 20px;
-  min-width: 20px !important;
-}
-
-#insert_row {
-  background-color: transparent;
-  display: inline-block;
-  position: absolute;
-  top: 24px;
-  left: 165px;
-  width: 16px;
-  height: 20px;
-  min-width: 20px !important;
-}
-
-#delete_row {
-  background-color: transparent;
-  display: inline-block;
-  position: absolute;
-  top: 25px;
-  left: 195px;
-  width: 16px;
-  height: 20px;
-  min-width: 20px !important;
-}
-
-#change_font {
-  min-width: 110px;
-  max-width: 110px;
-  left: 40px;
-  top: 40px;
-}
-
-#change_fontSize {
-  min-width: 70px;
-  max-width: 75px;
-  padding: 0px;
 }
 
 .menu_items {
