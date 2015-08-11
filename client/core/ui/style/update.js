@@ -20,7 +20,7 @@
     var number = cellName.number;
     var cell = letter + number;
 
-		var hoverColor = "rgba(129, 212, 250, 0.45)";
+		var hoverColor = "rgba(255, 255, 255, 0.45)";
     var bgColor = "transparent";
 
     var masterColumns = NOVAE.Cells.Master[NOVAE.CurrentSheet].Columns;

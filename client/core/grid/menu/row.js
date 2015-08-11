@@ -33,11 +33,43 @@
       height += customCellSizes.Rows[y].Height;
     }
 
+    var node = document.createElement(this.Templates.Menu.Numeric.element);
+        node.className = this.Templates.Menu.Numeric.class;
+        node.innerHTML = y;
+        node.style.width = Math.floor(this.Templates.Menu.Alphabetical.style.width / 2) + "px";
+        node.style.height = height + 1 + "px";
+
+    element.appendChild(node);
+
+    return (element);
+
+  };
+
+  /**
+   * Generate absolute menu row
+   *
+   * @method generateAbsoluteMenuRow
+   * @static
+   */
+  NOVAE.Grid.prototype.generateAbsoluteMenuRow = function(number) {
+
+    var height = this.Templates.Menu.Numeric.style.height;
+
+    var customCellSizes = NOVAE.Cells.Resized[NOVAE.CurrentSheet];
+
+    var y = this.Settings.y - number;
+
+    var element = document.createElement("th");
+
+    if (customCellSizes.Rows[y]) {
+      height += customCellSizes.Rows[y].Height;
+    }
+
     var node = this.initialiseRow();
 
     node.innerHTML = y;
-    node.style.width = Math.floor(this.Templates.Menu.Alphabetical.style.width / 2) + "px";
-    node.style.height = height + 1 + "px";
+    node.style.width = Math.floor(this.Templates.Menu.Alphabetical.style.width / 2) - 4 + "px";
+    node.style.height = height + "px";
 
     element.appendChild(node);
 

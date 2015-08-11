@@ -151,6 +151,7 @@
           if (fastScroll) {
 
             NOVAE.DOM.Viewport.scrollTop += scrollAmount;
+            NOVAE.DOM.AbsoluteVerticalViewport.scrollTop += scrollAmount;
 
             var downSettingsY = Math.floor(NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y / 3);
 
@@ -161,6 +162,7 @@
               console.log("Re-render Down");
 
               NOVAE.DOM.Viewport.scrollTop = 0;
+              NOVAE.DOM.AbsoluteVerticalViewport.scrollTop = 0;
 
               NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY += (downReRender - downSettingsY);
               NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = NOVAE.Settings.Scroll.Vertical;
@@ -176,6 +178,7 @@
           } else {
 
             NOVAE.DOM.Viewport.scrollTop = 0;
+            NOVAE.DOM.AbsoluteVerticalViewport.scrollTop = 0;
 
             NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY += NOVAE.Settings.Scroll.Vertical;
             NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = NOVAE.Settings.Scroll.Vertical;
@@ -194,6 +197,7 @@
           if (fastScroll) {
 
             NOVAE.DOM.Viewport.scrollTop -= scrollAmount;
+            NOVAE.DOM.AbsoluteVerticalViewport.scrollTop -= scrollAmount;
 
             var upSettingsY = Math.floor(NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y / 3);
 
@@ -205,12 +209,24 @@
 
               console.log("Re-render Up");
 
-              var calcAmount = NOVAE.DOM.TableBody.offsetHeight - (NOVAE.Settings.GridSizes.Rows * NOVAE.Settings.GridSizes.Rows + (NOVAE.Settings.GridSizes.Rows * 10));
+              var value = NOVAE.DOM.Viewport.scrollHeight - NOVAE.DOM.Viewport.clientHeight;
 
-              NOVAE.DOM.Viewport.scrollTop = Math.roundTo(calcAmount, 25);
+              NOVAE.DOM.Viewport.scrollTop = value;
+              NOVAE.DOM.AbsoluteVerticalViewport.scrollTop = value;
 
-              NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY -= (upReRender + upSettingsY) - 2;
-              NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = NOVAE.Settings.Scroll.Vertical;
+              value = Math.roundTo(upSettingsY + scrollAmount, 25) * 3;
+
+              NOVAE.DOM.Viewport.scrollTop -= value;
+              NOVAE.DOM.AbsoluteVerticalViewport.scrollTop -= value;
+
+              if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY < NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y) {
+                value = NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y + (upReRender + upSettingsY);
+              } else {
+                value = (upReRender + upSettingsY);
+              }
+
+              NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY -= value;
+              NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollY = value;
               NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Vertical);
               NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
               NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
@@ -223,6 +239,7 @@
           } else {
 
             NOVAE.DOM.Viewport.scrollTop = 0;
+            NOVAE.DOM.AbsoluteVerticalViewport.scrollTop = 0;
 
             if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY - NOVAE.Settings.Scroll.Vertical <= 0) {
 
@@ -258,36 +275,60 @@
         /** DOWN */
         case "down":
 
-          NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX += NOVAE.Settings.Scroll.Horizontal;
-          NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollX = NOVAE.Settings.Scroll.Horizontal;
-          NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
-          NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Horizontal);
-          NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
+          NOVAE.DOM.Viewport.scrollLeft += scrollAmount;
+          NOVAE.DOM.AbsoluteHorizontalViewport.scrollLeft += scrollAmount;
+
+          var leftSettingsX = Math.floor(NOVAE.Sheets[NOVAE.CurrentSheet].Settings.x / 2);
+
+          var leftReRender = Math.floor(NOVAE.DOM.Viewport.scrollLeft / NOVAE.Sheets[NOVAE.CurrentSheet].CellTemplate.Width) * 2;
+
+          if (leftReRender >= NOVAE.Sheets[NOVAE.CurrentSheet].Settings.x) {
+            
+            console.log("Re-render Right");
+
+            NOVAE.DOM.Viewport.scrollLeft = 0;
+            NOVAE.DOM.AbsoluteHorizontalViewport.scrollLeft = 0;
+
+            NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX += (leftReRender - leftSettingsX);
+            NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollX = NOVAE.Settings.Scroll.Horizontal;
+            NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Horizontal);
+            NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
+            NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
+
+          }
+
+          NOVAE.Sheets[NOVAE.CurrentSheet].Settings.nativeScrollPosition.x = NOVAE.DOM.Viewport.scrollLeft;
 
           break;
 
         /** UP */
         case "up":
 
-          /** Zero scroll */
-          if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX - NOVAE.Settings.Scroll.Horizontal <= 0) {
+          NOVAE.DOM.Viewport.scrollLeft -= scrollAmount;
+          NOVAE.DOM.AbsoluteHorizontalViewport.scrollLeft -= scrollAmount;
 
-            NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX = 0;
-            NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollX = 0;
-            NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
-            NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Horizontal);
-            NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
+          var leftSettingsX = Math.floor(NOVAE.Sheets[NOVAE.CurrentSheet].Settings.x / 2);
 
-          /** Default scroll */
-          } else if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX - NOVAE.Settings.Scroll.Horizontal >= 0) {
+          var leftReRender = Math.floor(NOVAE.DOM.Viewport.scrollLeft / NOVAE.Sheets[NOVAE.CurrentSheet].CellTemplate.Width) * 2;
+
+          if (leftReRender <= 0) {
+
+            console.log("Re-render Left");
+
+            var value = NOVAE.DOM.Viewport.scrollWidth - NOVAE.DOM.Viewport.clientWidth;
+
+            NOVAE.DOM.Viewport.scrollLeft = value;
+            NOVAE.DOM.AbsoluteHorizontalViewport.scrollLeft = value;
 
             NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX -= NOVAE.Settings.Scroll.Horizontal;
             NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollX = NOVAE.Settings.Scroll.Horizontal;
-            NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
             NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Horizontal);
+            NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
             NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
 
           }
+
+          NOVAE.Sheets[NOVAE.CurrentSheet].Settings.nativeScrollPosition.x = NOVAE.DOM.Viewport.scrollLeft;
 
           break;
 

@@ -132,11 +132,12 @@
   <div class="mdl-layout__drawer">
     <span class="mdl-layout-title">NovaeCalc</span>
     <nav class="mdl-navigation">
-      <a class="mdl-navigation__link" href="">New</a>
-      <a class="mdl-navigation__link" href="">Save</a>
-      <a id="script_button" class="mdl-navigation__link" href="">Script Manager</a>
+      <div class="mdl-navigation__link">New</div>
+      <div class="mdl-navigation__link">Save</div>
+      <div id="script_button" class="mdl-navigation__link">Script Manager</div>
     </nav>
   </div>
+
   <main class="mdl-layout__content">
     <div class="page-content"><span class="bottom_layer">
     <!-- Container holding all active sheets -->
@@ -146,35 +147,20 @@
 
   <div class="mui-container" style="margin-bottom: -19px;display:none;">
     <div class="mui-panel">
+
         <span class="bottom_layer">
           <!-- Container holding all active sheets -->
           <span id="current_sheets"></span>
           <button id="add_sheet" class="mui-btn mui-btn-floating mui-btn-floating-mini">+</button>
         </span>
+
         <span class="top_layer">
           <span class="fa fa-undo white top-undo"></span>
           <button id="button_undo" class="mui-btn mui-btn-floating mui-btn-floating-mini"></button>
           <span class="fa fa-undo flipped white top-undo"></span>
           <button id="button_redo" class="mui-btn mui-btn-floating mui-btn-floating-mini"></button>
         </span>
-        <ul class="mui-tabs" style="background-color: #448AFF;margin-left: -5px;">
-          <li class="mui-active">
-            <span class="fa fa-home" style="color: #fff;margin-left: 10px;margin-top: 20px;position: absolute;"></span>
-            <button class="mui-btn mui-btn-hiddenPurple mui-btn-lg" data-mui-toggle="tab" data-mui-controls="pane-justified-1">Home</button>
-          </li>
-          <li>
-            <span class="fa fa-edit" style="color: #fff;margin-left: 10px;margin-top: 20px;position: absolute;"></span>
-            <button class="mui-btn mui-btn-hiddenPurple mui-btn-lg" data-mui-toggle="tab" data-mui-controls="pane-justified-2"> Styling</button>
-          </li>
-          <li>
-            <span class="fa fa-gear" style="color: #fff;margin-left: 10px;margin-top: 20px;position: absolute;"></span>
-            <button class="mui-btn mui-btn-hiddenPurple mui-btn-lg" data-mui-toggle="tab" data-mui-controls="pane-justified-3"> Cells</button>
-          </li>
-          <li>
-            <span class="fa fa-coffee" style="color: #fff;margin-left: 8px;margin-top: 20px;position: absolute;"></span>
-            <button class="mui-btn mui-btn-hiddenPurple mui-btn-lg"> Script</button>
-          </li>
-        </ul>
+
         <div class="mui-tab-content">
           <div class="mui-tab-pane" id="pane-justified-1">
             <button id="menu_file" class="mui-btn mui-btn-default mui-btn-raised mui-btn-sm"><span class="fa fa-folder-open"></span></button>
@@ -182,42 +168,6 @@
             <button id="menu_undo" class="mui-btn mui-btn-default mui-btn-raised mui-btn-sm"><span class="fa fa-undo"></span> Undo</button>
             <button id="menu_redo" class="mui-btn mui-btn-default mui-btn-raised mui-btn-sm"><span class="fa fa-undo flipped"></span> Redo</button>
             <button id="menu_connect" class="mui-btn mui-btn-default mui-btn-raised mui-btn-sm"><span class="fa fa-group"></span></button>
-          </div>
-          <div class="mui-tab-pane mui-active" id="pane-justified-2">
-            <div>
-              <!-- Change Font -->
-              <button id="change_font" class="mui-btn mui-btn-raised mui-btn-primary" data-mui-toggle="dropdown">
-                Arial
-                <span class="mui-caret"></span>
-              </button>
-              <ul class="mui-dropdown-menu">
-                <li><a href="#">Arial</a></li>
-                <li><a href="#">Courier New</a></li>
-                <li><a href="#">Georgia</a></li>
-              </ul>
-              <!-- Change Font Size -->
-              <button id="change_fontSize" class="mui-btn mui-btn-raised mui-btn-primary" data-mui-toggle="dropdown">
-                12
-                <span class="mui-caret"></span>
-              </button>
-              <ul id="change_fontSize_ul" class="mui-dropdown-menu">
-                <li><a href="#">6</a></li>
-                <li><a href="#">7</a></li>
-                <li><a href="#">8</a></li>
-                <li><a href="#">9</a></li>
-                <li><a href="#">10</a></li>
-                <li><a href="#">11</a></li>
-                <li><a href="#">12</a></li>
-                <li><a href="#">14</a></li>
-                <li><a href="#">18</a></li>
-                <li><a href="#">24</a></li>
-                <li><a href="#">36</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="mui-tab-pane" id="pane-justified-3">
-            <div style="height:34px;margin-top:5px;">
-            </div>
           </div>
         </div>
 
@@ -282,6 +232,17 @@
               <tbody id="table_body"></tbody>
             </table>
           </div>
+          <div id="absolute_vertical_viewport" class="viewport" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+            <table border="0" cellpadding="0" cellspacing="0" style="table-layout: fixed;width: 100%;">
+              <tbody id="table_absolute_body"></tbody>
+            </table>
+          </div>
+          <div id="absolute_horizontal_viewport" class="viewport" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+            <table border="0" cellpadding="0" cellspacing="0" style="table-layout: fixed;width: 100%;">
+              <colgroup id="absolute_column_group"></colgroup>
+              <thead id="table_absolute_head"></thead>
+            </table>
+          </div>
         </div>
 
       </div>
@@ -294,32 +255,7 @@
           <div class="panels-frame" style="height: 138px;">
             <div class="panel-container panel-properties">
               <div class="properties-panels">
-                <div id="border_settings_menu_items" class="properties-panel-content" style="width: 250px;">
-                  <button class="mui-btn mui-btn-default mui-btn-mini activeSheet" id="border_left" style="left: 23px; top: 10px;">
-                    <span>Left</span>
-                  </button>
-                  <button class="mui-btn mui-btn-default mui-btn-mini activeSheet" id="border_right" style="left: 75px; top: 10px;">
-                    <span>Right</span>
-                  </button>
-                  <button class="mui-btn mui-btn-default mui-btn-mini activeSheet" id="border_top" style="left: 15px; top: 40px;">
-                    <span>Top</span>
-                  </button>
-                  <button class="mui-btn mui-btn-default mui-btn-mini activeSheet" id="border_bottom" style="left: 75px; top: 40px;">
-                    <span>Bottom</span>
-                  </button>
-                  <button class="mui-btn mui-btn-default mui-btn-mini activeSheet" id="border_all" style="left: 15px; top: 70px;">
-                    <span>All</span>
-                  </button>
-                  <button class="mui-btn mui-btn-default mui-btn-mini activeSheet" id="border_outer" style="position: absolute; left: 75px; top: 70px;">
-                    <span>Outer</span>
-                  </button>
-                  <button class="mui-btn mui-btn-default mui-btn-mini activeSheet" style="left: 15px;top: 100px;">
-                    <span>Color</span>
-                  </button>
-                  <button class="mui-btn mui-btn-default mui-btn-mini activeSheet" style="left: 75px;top: 100px;">
-                    <span>Style</span>
-                  </button>
-                </div>
+                <div id="border_settings_menu_items" class="properties-panel-content" style="width: 250px;"></div>
               </div>
             </div>
           </div>
@@ -330,11 +266,6 @@
   </div></div>
   </main>
 </div>
-
-
-
-
-  
 
   <h2 id="copyright_loading">The NovaeCalc Project</h2>
   <div id="loader">

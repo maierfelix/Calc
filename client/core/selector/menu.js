@@ -39,15 +39,15 @@
     y -= NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY;
 
     /** Clean the horizontal menu */
-    for (var ii = 0; ii < NOVAE.DOM.TableHead.children.length; ++ii) {
-      NOVAE.DOM.TableHead.children[ii].children[0].classList.remove("cell_dark");
-      NOVAE.DOM.TableHead.children[ii].children[0].classList.remove("cell_bright");
+    for (var ii = 0; ii < NOVAE.DOM.TableHeadAbsolute.children.length; ++ii) {
+      NOVAE.DOM.TableHeadAbsolute.children[ii].children[0].classList.remove("cell_dark");
+      NOVAE.DOM.TableHeadAbsolute.children[ii].children[0].classList.remove("cell_bright");
     }
 
     /** Clean the vertical menu */
-    for (var ii = 0; ii < NOVAE.DOM.TableBody.children.length; ++ii) {
-      NOVAE.DOM.TableBody.children[ii].children[0].children[0].classList.remove("cell_dark");
-      NOVAE.DOM.TableBody.children[ii].children[0].children[0].classList.remove("cell_bright");
+    for (var ii = 0; ii < NOVAE.DOM.TableBodyAbsolute.children.length; ++ii) {
+      NOVAE.DOM.TableBodyAbsolute.children[ii].children[0].children[0].classList.remove("cell_dark");
+      NOVAE.DOM.TableBodyAbsolute.children[ii].children[0].children[0].classList.remove("cell_bright");
     }
 
     /** Dont select anything if all selected */
@@ -57,14 +57,14 @@
     this.MenuSelection.Horizontal = x;
     this.MenuSelection.Vertical = y;
 
-    if (NOVAE.DOM.TableHead.children[x]) {
-      NOVAE.DOM.TableHead.children[x].children[0].classList.add("cell_bright");
-      NOVAE.DOM.TableHead.children[x].children[0].classList.remove("cell_dark");
+    if (NOVAE.DOM.TableHeadAbsolute.children[x]) {
+      NOVAE.DOM.TableHeadAbsolute.children[x].children[0].classList.add("cell_bright");
+      NOVAE.DOM.TableHeadAbsolute.children[x].children[0].classList.remove("cell_dark");
     }
 
-    if (NOVAE.DOM.TableBody.children[y]) {
-      NOVAE.DOM.TableBody.children[y].children[0].children[0].classList.add("cell_bright");
-      NOVAE.DOM.TableBody.children[y].children[0].children[0].classList.remove("cell_dark");
+    if (NOVAE.DOM.TableBodyAbsolute.children[y]) {
+      NOVAE.DOM.TableBodyAbsolute.children[y].children[0].children[0].classList.add("cell_bright");
+      NOVAE.DOM.TableBodyAbsolute.children[y].children[0].children[0].classList.remove("cell_dark");
     }
 
   };

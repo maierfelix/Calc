@@ -150,6 +150,40 @@ button, input, select, textArea {
   margin-top: 0px;
 }
 
+#table_absolute_body {
+  position: absolute;
+  top: 23px;
+}
+
+#table_absolute_head {
+  z-index: 5;
+  margin-top: 0px;
+  margin-left: 0px;
+}
+
+#absolute_vertical_viewport {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  margin-top: 0px;
+  margin-left: 0px;
+  width: 44px;
+  height: -webkit-calc(100% - 80px);
+  overflow: hidden;
+}
+
+#absolute_horizontal_viewport {
+  position: absolute;
+  z-index: 3;
+  top: 1px;
+  left: -5px;
+  margin-top: 0px;
+  margin-left: 0px;
+  height: 24px;
+  overflow: hidden;
+  width: 100%;
+}
+
 .menu_container {
   position: absolute;
   left: 35px;
@@ -374,9 +408,10 @@ button, input, select, textArea {
   overflow: hidden;
   margin-top: 23px;
   margin-left: 0px;
-  height: -webkit-calc(100% - 110px); 
-  height: -moz-calc(100% - 110px); 
-  height: -o-calc(100% - 110px);
+  height: -webkit-calc(100% - 80px); 
+  height: -moz-calc(100% - 80px); 
+  height: -o-calc(100% - 80px);
+  width: 100%;
 }
 
 table {

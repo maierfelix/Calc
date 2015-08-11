@@ -28,14 +28,29 @@
   /** Select and prepare the viewport container */
   NOVAE.DOM.Viewport = document.querySelector(".viewport");
 
+  /** Select and prepare the absolute vertical viewport container */
+  NOVAE.DOM.AbsoluteVerticalViewport = document.querySelector("#absolute_vertical_viewport");
+
+  /** Select and prepare the absolute horizontal viewport container */
+  NOVAE.DOM.AbsoluteHorizontalViewport = document.querySelector("#absolute_horizontal_viewport");
+
   /** Select and prepare the column group container */
   NOVAE.DOM.ColumnGroup = document.querySelector("#column_group");
+
+  /** Select and prepare the absolute column group container */
+  NOVAE.DOM.ColumnGroupAbsolute = document.querySelector("#absolute_column_group");
 
   /** Select and prepare the table head container */
   NOVAE.DOM.TableHead = document.querySelector("#table_head");
 
   /** Select and prepare the table body container */
   NOVAE.DOM.TableBody = document.querySelector("#table_body");
+
+  /** Select and prepare the absolute table body container */
+  NOVAE.DOM.TableBodyAbsolute = document.querySelector("#table_absolute_body");
+
+  /** Select and prepare the absolute table head container */
+  NOVAE.DOM.TableHeadAbsolute = document.querySelector("#table_absolute_head");
 
   /** Select and prepare the vertical menu */
   NOVAE.DOM.VerticalMenu = document.querySelector("#number_menu");

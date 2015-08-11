@@ -48,6 +48,40 @@
   };
 
   /**
+   * Generate a absolute empty column
+   *
+   * @method generateAbsoluteEmptyColumn
+   * @static
+   */
+  NOVAE.Grid.prototype.generateAbsoluteEmptyColumn = function() {
+
+    var column;
+
+    var style;
+
+    var width = Math.floor(this.Templates.Menu.Alphabetical.style.width / 2);
+
+    var height = this.Templates.Menu.Alphabetical.style.height;
+
+    style = "height: " + height + "px; width: " + (width + 1) + "px;";
+
+    var column = document.createElement(this.Templates.Menu.Alphabetical.element);
+
+    column.setAttribute("style", style);
+
+    column.innerHTML = " ";
+
+    /** Append col group */
+    this.generateAbsoluteColGroup(width - 4);
+
+    var th = document.createElement("th");
+        th.appendChild(column);
+
+    NOVAE.DOM.TableHeadAbsolute.appendChild(th);
+
+  };
+
+  /**
    * Generate menu columns
    *
    * @method generateMenuColumn
@@ -82,9 +116,50 @@
     var th = document.createElement("th");
         th.appendChild(column);
 
-    document.querySelector("#table_head").appendChild(th);
+    NOVAE.DOM.TableHead.appendChild(th);
 
     this.generateColGroup(width);
+
+  };
+
+  /**
+   * Generate absolute menu column
+   *
+   * @method generateAbsoluteMenuColumn
+   * @static
+   */
+  NOVAE.Grid.prototype.generateAbsoluteMenuColumn = function(letter) {
+
+    var compiledLetter = NOVAE.$.numberToAlpha(letter);
+
+    var customCellSizes = NOVAE.Cells.Resized[NOVAE.CurrentSheet];
+
+    var width = this.Templates.Menu.Alphabetical.style.width;
+
+    var height = this.Templates.Menu.Alphabetical.style.height;
+
+    var style;
+
+    var column;
+
+    if (customCellSizes.Columns[compiledLetter]) {
+      width += customCellSizes.Columns[compiledLetter].Width;
+    }
+
+    style = "height: " + height + "px; width: " + (width) + "px;";
+
+    column = this.initialiseColumn();
+
+    column.setAttribute("style", style);
+
+    column.innerHTML = compiledLetter;
+
+    var th = document.createElement("th");
+        th.appendChild(column);
+
+    NOVAE.DOM.TableHeadAbsolute.appendChild(th);
+
+    this.generateAbsoluteColGroup(width);
 
   };
 
@@ -100,6 +175,21 @@
         col.setAttribute("style", "width:" + width + "px;");
 
     NOVAE.DOM.ColumnGroup.appendChild(col);
+
+  };
+
+  /**
+   * Generate a absolute column group
+   *
+   * @method generateColGroup
+   * @static
+   */
+  NOVAE.Grid.prototype.generateAbsoluteColGroup = function(width) {
+
+    var col = document.createElement("col");
+        col.setAttribute("style", "width:" + width + "px;");
+
+    NOVAE.DOM.ColumnGroupAbsolute.appendChild(col);
 
   };
 

@@ -34,6 +34,7 @@
     height += 1;
 
     this.generateEmptyColumn();
+    this.generateAbsoluteEmptyColumn();
 
     for (var xx = 0; xx < width; ++xx) {
 
@@ -44,6 +45,7 @@
           if (xx !== lastX) {
             lastX = xx;
             this.generateMenuColumn((lastX + this.Settings.scrolledX));
+            this.generateAbsoluteMenuColumn((lastX + this.Settings.scrolledX));
           }
         }
 
@@ -85,6 +87,21 @@
 
     for (var xx = 0; xx < this.Settings.x; ++xx) {
       if (xx > 0) {
+        element = NOVAE.DOM.TableHeadAbsolute.children[xx].children[0];
+        letter = NOVAE.$.numberToAlpha(scrolled + xx);
+        element.innerHTML = letter;
+        if (letter = NOVAE.Cells.Resized[NOVAE.CurrentSheet].Columns[letter]) {
+          element.style.width = resetValue + letter.Width + "px";
+          NOVAE.DOM.ColumnGroupAbsolute.children[xx].style.width = resetValue + letter.Width + "px";
+        } else {
+          element.style.width = resetValue + "px";
+          NOVAE.DOM.ColumnGroupAbsolute.children[xx].style.width = resetValue + "px";
+        }
+      }
+    }
+
+    for (var xx = 0; xx < this.Settings.x; ++xx) {
+      if (xx > 0) {
         element = NOVAE.DOM.TableHead.children[xx].children[0];
         letter = NOVAE.$.numberToAlpha(scrolled + xx);
         element.innerHTML = letter;
@@ -118,12 +135,23 @@
 
     for (var yy = 0; yy < this.Settings.y; ++yy) {
       value = scrolled + yy;
+      element = NOVAE.DOM.TableBodyAbsolute.children[yy].children[0].children[0];
+      element.innerHTML = value;
+      if (value = NOVAE.Cells.Resized[NOVAE.CurrentSheet].Rows[value]) {
+        element.style.height = resetValue + value.Height + 1 + "px";
+      } else {
+        element.style.height = resetValue + 1 + "px";
+      }
+    }
+
+    for (var yy = 0; yy < this.Settings.y; ++yy) {
+      value = scrolled + yy;
       element = NOVAE.DOM.TableBody.children[yy].children[0].children[0];
       element.innerHTML = value;
       if (value = NOVAE.Cells.Resized[NOVAE.CurrentSheet].Rows[value]) {
-        element.style.height = resetValue + value.Height + "px";
+        element.style.height = resetValue + value.Height + 1 + "px";
       } else {
-        element.style.height = resetValue + "px";
+        element.style.height = resetValue + 1 + "px";
       }
     }
 

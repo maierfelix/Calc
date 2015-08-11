@@ -104,6 +104,10 @@
     }
 
     NOVAE.DOM.Viewport.scrollTop = NOVAE.Sheets[NOVAE.CurrentSheet].Settings.nativeScrollPosition.y;
+    NOVAE.DOM.AbsoluteVerticalViewport.scrollTop = NOVAE.Sheets[NOVAE.CurrentSheet].Settings.nativeScrollPosition.y;
+
+    NOVAE.DOM.Viewport.scrollLeft = NOVAE.Sheets[NOVAE.CurrentSheet].Settings.nativeScrollPosition.x;
+    NOVAE.DOM.AbsoluteHorizontalViewport.scrollLeft = NOVAE.Sheets[NOVAE.CurrentSheet].Settings.nativeScrollPosition.x;
 
   };
 
@@ -130,6 +134,10 @@
     NOVAE.Sheets[sheet].updateMenu();
 
     NOVAE.DOM.Viewport.scrollTop = NOVAE.Sheets[sheet].Settings.nativeScrollPosition.y;
+    NOVAE.DOM.AbsoluteVerticalViewport.scrollTop = NOVAE.Sheets[sheet].Settings.nativeScrollPosition.y;
+
+    NOVAE.DOM.Viewport.scrollLeft = NOVAE.Sheets[sheet].Settings.nativeScrollPosition.x;
+    NOVAE.DOM.AbsoluteHorizontalViewport.scrollLeft = NOVAE.Sheets[sheet].Settings.nativeScrollPosition.x;
 
     NOVAE.Sheets[sheet].Selector.getSelection();
 

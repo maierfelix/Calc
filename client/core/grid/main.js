@@ -197,6 +197,7 @@
 
     /** Preload */
     this.Settings.y *= 4;
+    this.Settings.x *= 2;
 
     /** Expand grid width if columns got resized smaller */
     if (resizedX <= 0) {
@@ -208,6 +209,9 @@
       this.Settings.y += ( ~ Math.floor(resizedY / this.CellTemplate.Height) + 1 ) + 1;
     }
 
+    /** Recalculate the width */
+    this.reCalculateWidth();
+
     /** Speed up scrolling */
     if (this.Settings.x + this.Settings.y >= 100) {
       NOVAE.SystemSpeed = 5;
@@ -217,6 +221,31 @@
 
     /** Auto calculate scroll method */
     this.calculateScrollMethod();
+
+  };
+
+  /**
+   * Calculate scroll method
+   *
+   * @method reCalculateWidth
+   * @static
+   */
+  NOVAE.Grid.prototype.reCalculateWidth = function() {
+
+    var minus;
+
+    var columns = NOVAE.Cells.Resized[arguments[0] || NOVAE.CurrentSheet].Columns;
+
+    for (var cell in columns) {
+      /** Resized column is not in view */
+      if (NOVAE.$.alphaToNumber(cell) < this.Settings.scrolledX) {
+        minus += ( ~ columns[cell].Width ) + 1;
+      }
+    }
+
+    if (minus === null) return void 0;
+
+    this.Settings.x -= Math.floor(minus / this.CellTemplate.Width) || 0;
 
   };
 
@@ -317,8 +346,11 @@
 
     /** Clean the whole menu */
     NOVAE.DOM.TableHead.innerHTML = "";
+    NOVAE.DOM.TableHeadAbsolute.innerHTML = "";
     NOVAE.DOM.TableBody.innerHTML = "";
+    NOVAE.DOM.TableBodyAbsolute.innerHTML = "";
     NOVAE.DOM.ColumnGroup.innerHTML = "";
+    NOVAE.DOM.ColumnGroupAbsolute.innerHTML = "";
 
     this.generateMenu();
 
@@ -352,7 +384,13 @@
           var element = document.createElement("tr");
               element.innerHTML = output;
 
+          /** Crutch row */
           element.insertBefore(this.generateMenuRow(this.Settings.y - Breaks), element.firstChild);
+
+          /** Generate a floating row, so its visibile on horizontal scrolling */
+          var node = document.createElement("tr");
+          node.insertBefore(this.generateAbsoluteMenuRow(this.Settings.y - Breaks), node.firstChild);
+          NOVAE.DOM.TableBodyAbsolute.appendChild(node);
 
           NOVAE.DOM.TableBody.appendChild(element);
 
