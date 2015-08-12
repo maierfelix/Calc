@@ -278,7 +278,8 @@
     button.addEventListener(NOVAE.Events.mouseDown, function(e) {
 
       /** Only accept left click */
-      if (e.button === 1 || /** Middle click */
+      if (NOVAE.Settings.Mobile &&
+          e.button === 1 || /** Middle click */
           e.button === 2 || /** Right click */
           e.which  === 3 || /** Right click */
           e.which  === 2) { return void 0; }
@@ -430,7 +431,7 @@
 
     var target = Object.prototype.toString.call(e);
 
-    if (["[object MouseEvent]", "[object FocusEvent]", "[object KeyboardEvent]"].indexOf(target) >= 0) {
+    if (["[object MouseEvent]", "[object FocusEvent]", "[object KeyboardEvent]", "[object TouchEvent]"].indexOf(target) >= 0) {
       target = e.target;
     }
 

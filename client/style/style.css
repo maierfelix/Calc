@@ -172,9 +172,7 @@ button, input, select, textArea {
   margin-top: 0px;
   margin-left: 0px;
   width: 44px;
-  height: -webkit-calc(100% - 23px); 
-  height: -moz-calc(100% - 23px); 
-  height: -o-calc(100% - 23px);
+  height: 100%;
   overflow: hidden;
 }
 
@@ -926,8 +924,8 @@ thead {
 
 .bottom_layer {
   position: absolute;
-  padding-left: 5px;
-  bottom: 0px;
+  /** Header top layer hack */
+  bottom: -1px;
   right: 10px;
   z-index: 4;
 }
