@@ -17,22 +17,22 @@
   NOVAE_UI.initInjectionButtons = function() {
 
     /** Initialize insert column button */
-    NOVAE.DOM.InsertColumn.addEventListener('click', function() {
+    NOVAE.DOM.InsertColumn.addEventListener(NOVAE.Events.mouseDown, function() {
       NOVAE.Injector.insertColumn();
     });
 
     /** Initialize delete column button */
-    NOVAE.DOM.DeleteColumn.addEventListener('click', function() {
+    NOVAE.DOM.DeleteColumn.addEventListener(NOVAE.Events.mouseDown, function() {
       NOVAE.Injector.deleteColumn();
     });
 
     /** Initialize insert row button */
-    NOVAE.DOM.InsertRow.addEventListener('click', function() {
+    NOVAE.DOM.InsertRow.addEventListener(NOVAE.Events.mouseDown, function() {
       NOVAE.Injector.insertRow();
     });
 
     /** Initialize delete row button */
-    NOVAE.DOM.DeleteRow.addEventListener('click', function() {
+    NOVAE.DOM.DeleteRow.addEventListener(NOVAE.Events.mouseDown, function() {
       NOVAE.Injector.deleteRow();
     });
 

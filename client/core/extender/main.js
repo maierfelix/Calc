@@ -112,10 +112,10 @@
   /**
    * Create an extend button and return it
    *
-   * @method extendButton
+   * @method getExtendButton
    * @static
    */
-  NOVAE.Extender.prototype.extendButton = function() {
+  NOVAE.Extender.prototype.getExtendButton = function() {
 
     var self = this;
 

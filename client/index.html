@@ -55,8 +55,9 @@
           <!-- Navigation -->
           <nav class="waterfall-demo-header-nav mdl-navigation">
             <div class="mdl-navigation__link" style="margin-top: -28px;width: 90px;">
+              <!-- FONT -->
               <div class="dropdown">
-                <input class="dropdown-toggle" type="text">
+                <input id="c_font" class="dropdown-toggle" type="text">
                 <div id="change_font" class="dropdown-text">Arial</div>
                 <ul id="change_font_ul" class="dropdown-content">
                   <li>Arial</li>
@@ -64,10 +65,12 @@
                   <li>Georgia</li>
                 </ul>
               </div>
+              <div class="mdl-tooltip font-tooltip" for="c_font">Font</div>
             </div>
+            <!-- FONT SIZE -->
             <div class="mdl-navigation__link" style="margin-top: -28px;width: 65px;">
               <div class="dropdown">
-                <input class="dropdown-toggle" type="text">
+                <input id="c_fontSize" class="dropdown-toggle" type="text">
                 <div id="change_fontSize" class="dropdown-text" style="min-width: 60px;">12</div>
                 <ul id="change_fontSize_ul" class="dropdown-content">
                   <li>7</li>
@@ -82,27 +85,48 @@
                   <li>36</li>
                 </ul>
               </div>
+              <div class="mdl-tooltip font-tooltip" for="c_fontSize">Font size</div>
             </div>
+            <!-- BOLD -->
             <div id="change_bold" class="mdl-navigation__link"><i class="material-icons">format_bold</i></div>
+            <div class="mdl-tooltip font-tooltip" for="change_bold">Bold</div>
+            <!-- ITALIC -->
             <div id="change_italic" class="mdl-navigation__link"><i class="material-icons">format_italic</i></div>
+            <div class="mdl-tooltip font-tooltip" for="change_italic">Italic</div>
+            <!-- UNDERLINE -->
             <div id="change_underline" class="mdl-navigation__link"><i class="material-icons" style="font-size: 20px;">format_underlined</i></div>
+            <div class="mdl-tooltip font-tooltip" for="change_underline">Underline</div>
             <div class="mdl-navigation__link"></div>
+            <!-- TEXT COLOR -->
             <div id="change_fontColor" class="mdl-navigation__link"><i class="material-icons" style="font-size: 20px;">format_color_text</i></div>
+            <div class="mdl-tooltip font-tooltip" for="change_fontColor">Color</div>
+            <!-- FILL COLOR -->
             <div id="change_background" class="mdl-navigation__link"><i class="material-icons" style="font-size: 20px;">format_color_fill</i></div>
+            <div class="mdl-tooltip font-tooltip" for="change_background">Fill color</div>
             <div class="mdl-navigation__link"></div>
+            <!-- BORDER -->
             <div class="mdl-navigation__link" id="demo-menu-lower-left"><i class="material-icons" style="font-size: 22px;">border_all</i></div>
+            <div class="mdl-tooltip font-tooltip" for="demo-menu-lower-left">Border</div>
+            <!-- INSERT COLUMN -->
             <div id="insert_column" class="mdl-navigation__link" style="background-color: transparent;height: 24px;overflow: hidden;cursor: pointer;text-align: center;padding-left: 15px;">
               <img unselectable="on" alt="" src="./icon/injection.png" class="" style="width: 36px;margin-top: -48px;">
             </div>
+            <div class="mdl-tooltip font-tooltip" for="insert_column">Insert column</div>
+            <!-- DELETE COLUMN -->
             <div id="delete_column" class="mdl-navigation__link" style="background-color: transparent;height: 24px;overflow: hidden;cursor: pointer;text-align: center;margin-left: -15px;">
               <img unselectable="on" alt="" src="./icon/injection.png" class="" style="width: 36px;">
             </div>
+            <div class="mdl-tooltip font-tooltip" for="delete_column">Delete column</div>
+            <!-- INSERT ROW -->
             <div id="insert_row" class="mdl-navigation__link" style="background-color: transparent;height: 24px;overflow: hidden;cursor: pointer;text-align: center;margin-left: -15px;margin-top: 2px;">
               <img unselectable="on" alt="" src="./icon/injection.png" class="" style="width: 36px;margin-top: -71px;">
             </div>
+            <div class="mdl-tooltip font-tooltip" for="insert_row">Insert row</div>
+            <!-- DELETE ROW -->
             <div id="delete_row" class="mdl-navigation__link" style="background-color: transparent;height: 24px;overflow: hidden;cursor: pointer;text-align: center;margin-left: -10px;margin-top: 2px;">
               <img unselectable="on" alt="" src="./icon/injection.png" class="" style="width: 36px;margin-top: -24px;">
             </div>
+            <div class="mdl-tooltip font-tooltip" for="delete_row">Delete row</div>
           </nav>
         </div>
         <div spellcheck="false" class="cell_input mdl-textfield mdl-js-textfield textfield-demo">

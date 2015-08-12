@@ -71,25 +71,8 @@
 
     /** Got a sheet variable reference */
     if (ast.SheetReference) {
-      var sheet = ast.SheetReference.Sheet;
-      var value = ast.SheetReference.value;
-      var result = "ReferenceError";
-      if (ENGEL.STACK.VAR[sheet]) {
-        if (ENGEL.STACK.VAR[sheet][value]) {
-          var letter = value.match(NOVAE.REGEX.numbers).join("");
-          if (NOVAE.Cells.Used[sheet][letter][value].Formula.Stream) {
-            result = ENGEL.interpret(value + NOVAE.Cells.Used[sheet][letter][value].Formula.Stream).Stack.VAR[sheet][value].value.value;
-          } else {
-            result = NOVAE.Cells.Used[sheet][letter][value].Content;
-          }
-          if (!isNaN(result)) result = parseFloat(result);
-          NOVAE.updateCell(value, result);
-        } else {
-          result = 0;
-        }
-      } else {
-        result = 0;
-      }
+      /** Insert COIN here */
+      result = 0;
       return (result);
     }
 

@@ -19,7 +19,7 @@
     /** Click listeners for all border settings menu items */
     for (var ii = 0; ii < NOVAE.DOM.ChangeCellBorderMenuItems.children.length; ++ii) {
       if (NOVAE.DOM.ChangeCellBorderMenuItems.children[ii].id) {
-        NOVAE.DOM.ChangeCellBorderMenuItems.children[ii].addEventListener('click', function(e) {
+        NOVAE.DOM.ChangeCellBorderMenuItems.children[ii].addEventListener(NOVAE.Events.mouseDown, function(e) {
 
           var mode = null;
 

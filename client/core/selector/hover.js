@@ -43,12 +43,13 @@
 
           this.appendSelectionStyling(newLetter, number, jumps, style);
 
+          /** Add extender button to the single cell */
           if (singleCell) {
-            NOVAE.DOM.Cache[jumps].appendChild(NOVAE.Extender.extendButton());
+            NOVAE.DOM.Cache[jumps].appendChild(NOVAE.Extender.getExtendButton());
           } else {
             /** Add extender button to last selected cell */
             if (ii + 1 === this.SelectedCells.length) {
-              NOVAE.DOM.Cache[jumps].appendChild(NOVAE.Extender.extendButton());
+              NOVAE.DOM.Cache[jumps].appendChild(NOVAE.Extender.getExtendButton());
             }
           }
 

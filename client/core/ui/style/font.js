@@ -23,7 +23,7 @@
 
     /** Font family */
     for (var ii = 0; ii < NOVAE.DOM.ChangeFontUl.children.length; ++ii) {
-      NOVAE.DOM.ChangeFontUl.children[ii].addEventListener('click', function(e) {
+      NOVAE.DOM.ChangeFontUl.children[ii].addEventListener(NOVAE.Events.mouseDown, function(e) {
         NOVAE.Styler.fontFamily(e.target.innerHTML);
         /** Dont loose the selection */
         NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
@@ -32,7 +32,7 @@
 
     /** Font size */
     for (var ii = 0; ii < NOVAE.DOM.ChangeFontSizeUl.children.length; ++ii) {
-      NOVAE.DOM.ChangeFontSizeUl.children[ii].addEventListener('click', function(e) {
+      NOVAE.DOM.ChangeFontSizeUl.children[ii].addEventListener(NOVAE.Events.mouseDown, function(e) {
         NOVAE.Styler.fontSize(e.target.innerHTML);
         /** Dont loose the selection */
         NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
@@ -40,7 +40,7 @@
     }
 
     /** Fix selection loss on click */
-    NOVAE.DOM.ChangeFontSize.addEventListener('click', function(e) {
+    NOVAE.DOM.ChangeFontSize.addEventListener(NOVAE.Events.mouseDown, function(e) {
 
       /** Dont loose the selection */
       NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
@@ -48,21 +48,21 @@
     });
 
     /** Initialize font bold menu item */
-    NOVAE.DOM.ChangeFontBold.addEventListener('click', function(e) {
+    NOVAE.DOM.ChangeFontBold.addEventListener(NOVAE.Events.mouseDown, function(e) {
 
       NOVAE.Styler.fontBold();
 
     });
 
     /** Initialize font italic menu item */
-    NOVAE.DOM.ChangeFontItalic.addEventListener('click', function(e) {
+    NOVAE.DOM.ChangeFontItalic.addEventListener(NOVAE.Events.mouseDown, function(e) {
 
       NOVAE.Styler.fontItalic();
 
     });
 
     /** Initialize font underline menu item */
-    NOVAE.DOM.ChangeFontUnderline.addEventListener('click', function(e) {
+    NOVAE.DOM.ChangeFontUnderline.addEventListener(NOVAE.Events.mouseDown, function(e) {
 
       NOVAE.Styler.fontUnderline();
 
@@ -79,7 +79,7 @@
     });
 
     /** Initialize font color menu */
-    NOVAE.DOM.ChangeFontColor.addEventListener('click', function(e) {
+    NOVAE.DOM.ChangeFontColor.addEventListener(NOVAE.Events.mouseDown, function(e) {
 
       /** Display the color picker */
       pickers.style.display = "block";

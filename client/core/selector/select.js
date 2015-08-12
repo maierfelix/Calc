@@ -169,6 +169,15 @@
         lastCell.Number = backup;
         /** Inversion END */
 
+        /** Inversion START */
+        backup = firstCell.Letter;
+
+        /** Switch real selection */
+        this.Selected.First.Letter = this.Selected.Last.Letter;
+        this.Selected.Last.Letter = backup;
+
+        /** Inversion END */
+
         for (var xx = 0; xx <= width; ++xx) {
           for (var yy = 0; yy < height; ++yy) {
             if ((yy + 1) >= firstCell.Number) {

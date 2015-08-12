@@ -65,14 +65,6 @@
 
     /** Loop through selected cells */
     for (var ii = 0; ii < this.SelectedCells.length; ++ii) {
-      /** Get outer left */
-      if (first.Letter === this.SelectedCells[ii].letter) {
-        object.left.push(this.SelectedCells[ii]);
-      }
-      /** Get outer right */
-      if (last.Letter === this.SelectedCells[ii].letter) {
-        object.right.push(this.SelectedCells[ii]);
-      }
       /** Get outer top */
       if (first.Number === this.SelectedCells[ii].number) {
         object.top.push(this.SelectedCells[ii]);
@@ -80,6 +72,14 @@
       /** Get outer bottom */
       if (last.Number === this.SelectedCells[ii].number) {
         object.bottom.push(this.SelectedCells[ii]);
+      }
+      /** Get outer left */
+      if (first.Letter === this.SelectedCells[ii].letter) {
+        object.left.push(this.SelectedCells[ii]);
+      }
+      /** Get outer right */
+      if (last.Letter === this.SelectedCells[ii].letter) {
+        object.right.push(this.SelectedCells[ii]);
       }
     }
 
@@ -149,36 +149,82 @@
 
     var jumps = 0;
 
-    /** Top */
-    for (var ii = 0; ii < object.top.length; ++ii) {
-      jumps = NOVAE.$.getCell(object.top[ii]);
-      if (jumps >= 0 && NOVAE.DOM.Cache[jumps]) {
-        NOVAE.DOM.Cache[jumps].classList.add("border_top");
+    /** Special case, fix that weird thingy */
+    if (this.selectionMode === "horizontalNegativePositive") {
+
+      /** Top */
+      for (var ii = 0; ii < object.top.length; ++ii) {
+        jumps = NOVAE.$.getCell(object.top[ii]);
+        if (jumps >= 0 && NOVAE.DOM.Cache[jumps]) {
+          NOVAE.DOM.Cache[jumps].classList.add("border_bottom");
+        }
       }
+
+      /** Bottom */
+      for (var ii = 0; ii < object.bottom.length; ++ii) {
+        jumps = NOVAE.$.getCell(object.bottom[ii]);
+        if (jumps >= 0 && NOVAE.DOM.Cache[jumps]) {
+          NOVAE.DOM.Cache[jumps].classList.add("border_top");
+        }
+      }
+
+    } else {
+
+      /** Top */
+      for (var ii = 0; ii < object.top.length; ++ii) {
+        jumps = NOVAE.$.getCell(object.top[ii]);
+        if (jumps >= 0 && NOVAE.DOM.Cache[jumps]) {
+          NOVAE.DOM.Cache[jumps].classList.add("border_top");
+        }
+      }
+
+      /** Bottom */
+      for (var ii = 0; ii < object.bottom.length; ++ii) {
+        jumps = NOVAE.$.getCell(object.bottom[ii]);
+        if (jumps >= 0 && NOVAE.DOM.Cache[jumps]) {
+          NOVAE.DOM.Cache[jumps].classList.add("border_bottom");
+        }
+      }
+
     }
 
-    /** Bottom */
-    for (var ii = 0; ii < object.bottom.length; ++ii) {
-      jumps = NOVAE.$.getCell(object.bottom[ii]);
-      if (jumps >= 0 && NOVAE.DOM.Cache[jumps]) {
-        NOVAE.DOM.Cache[jumps].classList.add("border_bottom");
-      }
-    }
+    /** Special case, fix that weird thingy */
+    if (this.selectionMode === "horizontalNegative") {
 
-    /** Left */
-    for (var ii = 0; ii < object.left.length; ++ii) {
-      jumps = NOVAE.$.getCell(object.left[ii]);
-      if (jumps >= 0 && NOVAE.DOM.Cache[jumps]) {
-        NOVAE.DOM.Cache[jumps].classList.add("border_left");
+      /** Left */
+      for (var ii = 0; ii < object.left.length; ++ii) {
+        jumps = NOVAE.$.getCell(object.left[ii]);
+        if (jumps >= 0 && NOVAE.DOM.Cache[jumps]) {
+          NOVAE.DOM.Cache[jumps].classList.add("border_right");
+        }
       }
-    }
 
-    /** Right */
-    for (var ii = 0; ii < object.right.length; ++ii) {
-      jumps = NOVAE.$.getCell(object.right[ii]);
-      if (jumps >= 0 && NOVAE.DOM.Cache[jumps]) {
-        NOVAE.DOM.Cache[jumps].classList.add("border_right");
+      /** Right */
+      for (var ii = 0; ii < object.right.length; ++ii) {
+        jumps = NOVAE.$.getCell(object.right[ii]);
+        if (jumps >= 0 && NOVAE.DOM.Cache[jumps]) {
+          NOVAE.DOM.Cache[jumps].classList.add("border_left");
+        }
       }
+
+    } else {
+
+      /** Left */
+      for (var ii = 0; ii < object.left.length; ++ii) {
+        jumps = NOVAE.$.getCell(object.left[ii]);
+        if (jumps >= 0 && NOVAE.DOM.Cache[jumps]) {
+          NOVAE.DOM.Cache[jumps].classList.add("border_left");
+        }
+      }
+
+      /** Right */
+      for (var ii = 0; ii < object.right.length; ++ii) {
+        jumps = NOVAE.$.getCell(object.right[ii]);
+        if (jumps >= 0 && NOVAE.DOM.Cache[jumps]) {
+          NOVAE.DOM.Cache[jumps].classList.add("border_right");
+        }
+      }
+
     }
 
   };

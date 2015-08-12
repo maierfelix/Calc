@@ -20,8 +20,8 @@
     var number = cellName.number;
     var cell = letter + number;
 
-		var hoverColor = "rgba(255, 255, 255, 0.45)";
-    var bgColor = "transparent";
+		var hoverColor = "#fff";
+    var bgColor = "rgba(255, 255, 255, 0.45)";
 
     var masterColumns = NOVAE.Cells.Master[NOVAE.CurrentSheet].Columns;
     var masterRows = NOVAE.Cells.Master[NOVAE.CurrentSheet].Rows;
@@ -62,46 +62,46 @@
       /** Check if cell has a custom font color */
       if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell].Color) {
         /** Update font color menu value */
-        NOVAE.DOM.ChangeFontColor.style.background = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell].Color;
+        NOVAE.DOM.ChangeFontColor.style.color = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell].Color;
       /** Reset font color menu value to default */
       } else {
-        NOVAE.DOM.ChangeFontColor.style.background = bgColor;
+        NOVAE.DOM.ChangeFontColor.style.color = bgColor;
       }
 
       /** Check if cell has font bold */
       if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell].FontBold) {
         /** Update font bold menu color */
-        NOVAE.DOM.ChangeFontBold.style.background = hoverColor;
+        NOVAE.DOM.ChangeFontBold.style.color = hoverColor;
       /** Reset font bold menu color to default */
       } else {
-        NOVAE.DOM.ChangeFontBold.style.background = bgColor;
+        NOVAE.DOM.ChangeFontBold.style.color = bgColor;
       }
 
       /** Check if cell has font italic */
       if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell].FontItalic) {
         /** Update font italic menu color */
-        NOVAE.DOM.ChangeFontItalic.style.background = hoverColor;
+        NOVAE.DOM.ChangeFontItalic.style.color = hoverColor;
       /** Reset font italic menu color to default */
       } else {
-        NOVAE.DOM.ChangeFontItalic.style.background = bgColor;
+        NOVAE.DOM.ChangeFontItalic.style.color = bgColor;
       }
 
       /** Check if cell font is underlined */
       if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell].FontUnderlined) {
         /** Update font italic menu color */
-        NOVAE.DOM.ChangeFontUnderline.style.background = hoverColor;
+        NOVAE.DOM.ChangeFontUnderline.style.color = hoverColor;
       /** Reset cell font underlined menu color to default */
       } else {
-        NOVAE.DOM.ChangeFontUnderline.style.background = bgColor;
+        NOVAE.DOM.ChangeFontUnderline.style.color = bgColor;
       }
 
       /** Check if cell has a custom background */
       if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell].BackgroundColor) {
         /** Update cell background color */
-        NOVAE.DOM.ChangeCellBackground.style.background = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell].BackgroundColor;
+        NOVAE.DOM.ChangeCellBackground.style.color = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cell].BackgroundColor;
       /** Reset cell background color to default */
       } else {
-        NOVAE.DOM.ChangeCellBackground.style.background = bgColor;
+        NOVAE.DOM.ChangeCellBackground.style.color = bgColor;
       }
 
     /** Master column styling */
@@ -109,43 +109,51 @@
 
       /** Column */
       if (masterColumns[letter].BackgroundColor) {
-        NOVAE.DOM.ChangeCellBackground.style.background = masterColumns[letter].BackgroundColor;
-      } else NOVAE.DOM.ChangeCellBackground.style.background = bgColor;
+        NOVAE.DOM.ChangeCellBackground.style.color = masterColumns[letter].BackgroundColor;
+      } else {
+        NOVAE.DOM.ChangeCellBackground.style.color = bgColor;
+      }
 
       /** Column */
       if (masterColumns[letter].Font) {
         NOVAE.DOM.ChangeFont.innerHTML = masterColumns[letter].Font;
-      } else NOVAE.DOM.ChangeFont.innerHTML = "Arial";
+      } else {
+        NOVAE.DOM.ChangeFont.innerHTML = "Arial";
+      }
 
       /** Column */
       if (masterColumns[letter].FontSize) {
         NOVAE.DOM.ChangeFontSize.innerHTML = masterColumns[letter].FontSize;
-      } else NOVAE.DOM.ChangeFontSize.innerHTML = 12;
+      } else {
+        NOVAE.DOM.ChangeFontSize.innerHTML = 12;
+      }
 
       /** Column */
       if (masterColumns[letter].Color) {
-        NOVAE.DOM.ChangeFontColor.style.background = masterColumns[letter].Color;
-      } else NOVAE.DOM.ChangeFontColor.style.background = bgColor;
+        NOVAE.DOM.ChangeFontColor.style.color = masterColumns[letter].Color;
+      } else {
+        NOVAE.DOM.ChangeFontColor.style.color = bgColor;
+      }
 
       /** Column */
       if (masterColumns[letter].FontBold) {
-        NOVAE.DOM.ChangeFontBold.style.background = hoverColor;
+        NOVAE.DOM.ChangeFontBold.style.color = hoverColor;
       } else {
-        NOVAE.DOM.ChangeFontBold.style.background = bgColor;
+        NOVAE.DOM.ChangeFontBold.style.color = bgColor;
       }
 
       /** Column */
       if (masterColumns[letter].FontItalic) {
-        NOVAE.DOM.ChangeFontItalic.style.background = hoverColor;
+        NOVAE.DOM.ChangeFontItalic.style.color = hoverColor;
       } else {
-        NOVAE.DOM.ChangeFontItalic.style.background = bgColor;
+        NOVAE.DOM.ChangeFontItalic.style.color = bgColor;
       }
 
       /** Column */
       if (masterColumns[letter].FontUnderlined) {
-        NOVAE.DOM.ChangeFontUnderline.style.background = hoverColor;
+        NOVAE.DOM.ChangeFontUnderline.style.color = hoverColor;
       } else {
-        NOVAE.DOM.ChangeFontUnderline.style.background = bgColor;
+        NOVAE.DOM.ChangeFontUnderline.style.color = bgColor;
       }
 
       /** Master row styling */
@@ -153,49 +161,51 @@
 
       /** Row */
       if (masterRows[number].BackgroundColor) {
-        NOVAE.DOM.ChangeCellBackground.style.background = masterRows[number].BackgroundColor;
-      } else NOVAE.DOM.ChangeCellBackground.style.background = bgColor;
+        NOVAE.DOM.ChangeCellBackground.style.color = masterRows[number].BackgroundColor;
+      } else {
+        NOVAE.DOM.ChangeCellBackground.style.color = bgColor;
+      }
 
       /** Row */
       if (masterRows[number].Font) {
         NOVAE.DOM.ChangeFont.innerHTML = masterRows[number].Font;
-      } else NOVAE.DOM.ChangeFont.innerHTML = NOVAE.DOM.ChangeFont.innerHTML;
+      } else {
+        NOVAE.DOM.ChangeFont.innerHTML = NOVAE.DOM.ChangeFont.innerHTML;
+      }
 
       /** Row */
       if (masterRows[number].FontSize) {
         NOVAE.DOM.ChangeFontSize.innerHTML = masterRows[number].FontSize;
-      } else NOVAE.DOM.ChangeFontSize.innerHTML = NOVAE.DOM.ChangeFontSize.innerHTML;
+      } else {
+        NOVAE.DOM.ChangeFontSize.innerHTML = NOVAE.DOM.ChangeFontSize.innerHTML;
+      }
 
       /** Row */
       if (masterRows[number].Color) {
-        NOVAE.DOM.ChangeFontColor.innerHTML = masterRows[number].Color;
-      } else NOVAE.DOM.ChangeFontColor.style.color = "#c7c7c7";
+        NOVAE.DOM.ChangeFontColor.style.color = masterRows[number].Color;
+      } else {
+        NOVAE.DOM.ChangeFontColor.style.color = bgColor;
+      }
 
       /** Row */
       if (masterRows[number].FontBold) {
-        NOVAE.DOM.ChangeFontBold.style.background = hoverColor;
-        NOVAE.DOM.ChangeFontBold.style.color = "#7d7d7d";
+        NOVAE.DOM.ChangeFontBold.style.color = hoverColor;
       } else {
-        NOVAE.DOM.ChangeFontBold.style.background = "#fff";
-        NOVAE.DOM.ChangeFontBold.style.color = "#c7c7c7";
+        NOVAE.DOM.ChangeFontBold.style.color = bgColor;
       }
 
       /** Row */
       if (masterRows[number].FontItalic) {
-        NOVAE.DOM.ChangeFontItalic.style.background = hoverColor;
-        NOVAE.DOM.ChangeFontItalic.style.color = "#7d7d7d";
+        NOVAE.DOM.ChangeFontItalic.style.color = hoverColor;
       } else {
-        NOVAE.DOM.ChangeFontItalic.style.background = "#fff";
-        NOVAE.DOM.ChangeFontItalic.style.color = "#c7c7c7";
+        NOVAE.DOM.ChangeFontItalic.style.color = bgColor;
       }
 
       /** Row */
       if (masterRows[number].FontUnderlined) {
-        NOVAE.DOM.ChangeFontUnderline.style.background = hoverColor;
-        NOVAE.DOM.ChangeFontUnderline.style.color = "#7d7d7d";
+        NOVAE.DOM.ChangeFontUnderline.style.color = hoverColor;
       } else {
-        NOVAE.DOM.ChangeFontUnderline.style.background = "#fff";
-        NOVAE.DOM.ChangeFontUnderline.style.color = "#c7c7c7";
+        NOVAE.DOM.ChangeFontUnderline.style.color = bgColor;
       }
 
     /** Reset the whole menu */
@@ -207,15 +217,15 @@
       /** Reset font size menu */
       NOVAE.DOM.ChangeFontSize.innerHTML = 12;
       /** Reset font color menu */
-      NOVAE.DOM.ChangeFontColor.style.background = bgColor;
+      NOVAE.DOM.ChangeFontColor.style.color = bgColor;
       /** Reset font bold menu color to default */
-      NOVAE.DOM.ChangeFontBold.style.background = bgColor;
+      NOVAE.DOM.ChangeFontBold.style.color = bgColor;
       /** Reset font italic menu color to default */
-      NOVAE.DOM.ChangeFontItalic.style.background = bgColor;
+      NOVAE.DOM.ChangeFontItalic.style.color = bgColor;
       /** Reset font underline menu color to default */
-      NOVAE.DOM.ChangeFontUnderline.style.background = bgColor;
+      NOVAE.DOM.ChangeFontUnderline.style.color = bgColor;
       /** Reset cell background color to default */
-      NOVAE.DOM.ChangeCellBackground.style.background = bgColor;
+      NOVAE.DOM.ChangeCellBackground.style.color = bgColor;
     }
 
   };
