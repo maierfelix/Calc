@@ -184,8 +184,8 @@
 
               value = Math.roundTo(upSettingsY + scrollAmount, 25) * 3;
 
-              NOVAE.DOM.Viewport.scrollTop -= value;
               NOVAE.DOM.AbsoluteVerticalViewport.scrollTop -= value;
+              NOVAE.DOM.Viewport.scrollTop = NOVAE.DOM.AbsoluteVerticalViewport.scrollTop;
 
               if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledY < NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y) {
                 value = NOVAE.Sheets[NOVAE.CurrentSheet].Settings.y + (upReRender + upSettingsY);

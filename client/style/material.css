@@ -6247,19 +6247,7 @@ input.mdl-button[type="submit"] {
 .mdl-layout {
   width: 100%;
   height: 100%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  overflow-y: auto;
-  overflow-x: hidden;
-  position: relative;
-  -webkit-overflow-scrolling: touch; }
+}
 
 .mdl-layout.is-small-screen .mdl-layout--large-screen-only {
   display: none; }

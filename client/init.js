@@ -42,6 +42,7 @@ Import.scripts = [
   "core/dom.js",
   "core/eval.js",
   "core/storage.js",
+  "core/used.js",
   /** Input */
   "core/event/main.js",
   "core/event/animate.js",
@@ -60,9 +61,7 @@ Import.scripts = [
   "core/grid/menu/column.js",
   "core/grid/menu/row.js",
   "core/grid/update.js",
-  "core/grid/resize.js",
   "core/grid/cell.js",
-  "core/grid/livecell.js",
   /** Injector */
   "core/injector/main.js",
   "core/injector/insert.js",
@@ -100,7 +99,6 @@ Import.scripts = [
   "core/functions.js",
   "core/edit.js",
   "core/file.js",
-  "core/awakener.js",
   "core/clipboard.js",
   /** Connector */
   "core/connector/main.js",

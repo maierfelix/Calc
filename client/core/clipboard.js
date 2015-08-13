@@ -97,20 +97,17 @@
     for (var ii = 0; ii < copiedCells.length; ++ii) {
       var letter = NOVAE.$.numberToAlpha(copiedCells[ii].letter);
       var number = copiedCells[ii].number;
-      /** Cell dictionary exists */
-      if (NOVAE.Cells.Used[sheet][letter]) {
-        /** Check if cell exists */
-        if (NOVAE.Cells.Used[sheet][letter][letter + number]) {
-          content = NOVAE.Cells.Used[sheet][letter][letter + number].Content;
-          formula = NOVAE.Cells.Used[sheet][letter][letter + number].Formula.Stream;
-          /** Valid content */
-          if (content !== undefined && content !== null) {
-            copiedCells[ii].value = content;
-          }
-          /** Valid formula */
-          if (formula !== undefined && formula !== null) {
-            copiedCells[ii].formula = formula;
-          }
+      /** Cell exists */
+      if (NOVAE.Cells.Used.cellExists(letter + number, sheet)) {
+        content = NOVAE.Cells.Used[sheet][letter][letter + number].Content;
+        formula = NOVAE.Cells.Used[sheet][letter][letter + number].Formula.Stream;
+        /** Valid content */
+        if (content !== undefined && content !== null) {
+          copiedCells[ii].value = content;
+        }
+        /** Valid formula */
+        if (formula !== undefined && formula !== null) {
+          copiedCells[ii].formula = formula;
         }
       }
     }
@@ -174,13 +171,12 @@
       var letter = NOVAE.$.numberToAlpha(data[ii].letter);
       var number = data[ii].number;
 
-      NOVAE.registerCell(letter + number);
-      NOVAE.updateCell(letter + number, data[ii].value);
-      NOVAE.Cells.Used[sheet][letter][letter + number].Content = data[ii].value;
-      NOVAE.Cells.Used[sheet][letter][letter + number].Formula = {
+      NOVAE.Cells.Used.registerCell(letter + number, sheet);
+      NOVAE.Cells.Used.updateCell(letter + number, {property: "Content", value: data[ii].value}, sheet);
+      NOVAE.Cells.Used.updateCell(letter + number, {property: "Formula", value: {
         Stream: data[ii].formula,
         Lexed: null
-      };
+      }}, sheet);
 
     }
 

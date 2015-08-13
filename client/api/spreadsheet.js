@@ -228,8 +228,8 @@
     for (var ii = 0; ii < range.length; ++ii) {
       var letter = NOVAE.$.numberToAlpha(range[ii].letter);
       var number = range[ii].number;
-      NOVAE.$.registerCell({letter: letter, number: number});
-      NOVAE.Cells.Used[SpreadSheet.CurrentSheetName][letter][letter + number][property] = data;
+      NOVAE.Cells.Used.registerCell(letter + number, SpreadSheet.CurrentSheetName);
+      NOVAE.Cells.Used.updateCell(letter + number, {property: property, value: data}, SpreadSheet.CurrentSheetName);
     }
 
   };
@@ -251,8 +251,8 @@
     for (var ii = 0; ii < range.length; ++ii) {
       var letter = NOVAE.$.numberToAlpha(range[ii].letter);
       var number = range[ii].number;
-      NOVAE.$.registerCell({letter: letter, number: number});
-      NOVAE.Cells.Used[SpreadSheet.CurrentSheetName][letter][letter + number][property] = array[ii];
+      NOVAE.Cells.Used.registerCell(letter + number, SpreadSheet.CurrentSheetName);
+      NOVAE.Cells.Used.updateCell(letter + number, {property: property, value: array[ii]}, SpreadSheet.CurrentSheetName);
     }
 
   };

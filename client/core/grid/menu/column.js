@@ -263,7 +263,7 @@
     element.addEventListener(NOVAE.Events.mouseDown, function(e) {
 
       /** Double click */
-      if (new Date().getTime() - parseInt(this.getAttribute("timestamp")) <= 150) {
+      if (new Date().getTime() - parseInt(this.getAttribute("timestamp")) <= 250) {
 
         /** Do a master selection */
         NOVAE.Sheets[NOVAE.CurrentSheet].Selector.masterSelect(e.target.innerHTML);

@@ -150,7 +150,7 @@
     /** Overwrite all registered cells background style */
     for (var letter in usedCells) {
       for (var cell in usedCells[letter]) {
-        usedCells[letter][cell].BackgroundColor = color;
+        NOVAE.Cells.Used.updateCell(cell, {property: "BackgroundColor", value: color}, NOVAE.CurrentSheet);
       }
     }
 
@@ -158,6 +158,7 @@
     for (var cell in masterCells.Columns) {
       masterCells.Columns[cell].BackgroundColor = color;
     }
+
     /** Overwrite all master rows background style */
     for (var cell in masterCells.Rows) {
       masterCells.Rows[cell].BackgroundColor = color;
@@ -172,7 +173,7 @@
   /**
    * Convert all background style action into command
    *
-   * @method appendAllBackgroundStyle
+   * @method allBackgroundStyleCommand
    * @static
    */
   NOVAE.Styler.prototype.allBackgroundStyleCommand = function(color) {

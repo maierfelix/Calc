@@ -61,13 +61,13 @@
       /** User wants to disable underlined property by executing again */
       if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].FontUnderlined) {
         /** Update the font underlined */
-        NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].FontUnderlined = false;
+        NOVAE.Cells.Used.updateCell(cellName, {property: "FontUnderlined", value: false}, NOVAE.CurrentSheet);
         /** Immediately update cells font underlined */
         jumps = NOVAE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
         if (jumps >= 0) NOVAE.DOM.Cache[jumps].style.textDecoration = "none";
       } else {
         /** Update the font underlined */
-        NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].FontUnderlined = true;
+        NOVAE.Cells.Used.updateCell(cellName, {property: "FontUnderlined", value: true}, NOVAE.CurrentSheet);
         /** Immediately update cells font underlined */
         jumps = NOVAE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
         if (jumps >= 0) NOVAE.DOM.Cache[jumps].style.textDecoration = "underline";

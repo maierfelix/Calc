@@ -1488,6 +1488,14 @@ ul.rotate_wrapper li.rotate_item {
     }
 }
 
+/** Extend material icons with color transition */
+.material-icons {
+  -webkit-transition: color 0.15s;
+  -moz-transition: color 0.15s;
+  -o-transition: color 0.15s;
+  -ms-transition: color 0.15s;
+  transition: color 0.15s;
+}
 
 .dropdown {
   position: relative;

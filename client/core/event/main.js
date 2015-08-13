@@ -92,10 +92,6 @@
 
     NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
 
-    NOVAE.Awakener.reset();
-
-    NOVAE.Awakener.evalLive();
-
     NOVAE.Sheets[NOVAE.CurrentSheet].Input.Keyboard.Strg = false;
 
     /** Remove grid animation if grid is larger than 65 */

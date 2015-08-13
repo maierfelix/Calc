@@ -149,9 +149,9 @@
    * @method inheritStyling
    * @static
    */
-  NOVAE.Grid.prototype.Cell.prototype.inheritStyling = function() {
+  NOVAE.Grid.prototype.Cell.prototype.inheritStyling = function(sheet) {
 
-    var allCell = NOVAE.Cells.All[NOVAE.CurrentSheet].Cell;
+    var allCell = NOVAE.Cells.All[sheet].Cell;
 
     if (!this.name || !allCell) return void 0;
 
@@ -159,20 +159,20 @@
     var letter = this.name.match(NOVAE.REGEX.numbers).join("");
     var number = this.name.match(NOVAE.REGEX.letters).join("");
 
-    var Cells = NOVAE.Cells.Used[NOVAE.CurrentSheet];
+    var Cells = NOVAE.Cells.Used[sheet];
 
-    this.inheritProperties(this, allCell);
+    this.inheritProperties(this, allCell, sheet);
 
-    var masterCells = NOVAE.Cells.Master[NOVAE.CurrentSheet];
+    var masterCells = NOVAE.Cells.Master[sheet];
 
     /** Inherit master column properties */
     if (masterCells.Columns[letter]) {
-      this.inheritProperties(this, masterCells.Columns[letter]);
+      this.inheritProperties(this, masterCells.Columns[letter], sheet);
     }
 
     /** Inherit master row properties */
     if (masterCells.Rows[number]) {
-      this.inheritProperties(this, masterCells.Rows[number]);
+      this.inheritProperties(this, masterCells.Rows[number], sheet);
     }
 
   };
@@ -183,14 +183,19 @@
    * @method inheritProperties
    * @static
    */
-  NOVAE.Grid.prototype.Cell.prototype.inheritProperties = function(a, b) {
+  NOVAE.Grid.prototype.Cell.prototype.inheritProperties = function(a, b, sheet) {
 
     for (var property in b) {
       if (b.hasOwnProperty(property)) {
         if (typeof b[property] === "object") {
           this.inheritProperties(this[property], b[property]);
         } else {
-          if (b[property] !== null) a[property] = b[property];
+          if (b[property] !== null) {
+            if (a.hasOwnProperty("name") && b.hasOwnProperty("name")) {
+              NOVAE.Cells.Used.updateCell(a.name, {property: property, value: b[property]}, sheet);
+            }
+            a[property] = b[property];
+          }
         }
       }
     }

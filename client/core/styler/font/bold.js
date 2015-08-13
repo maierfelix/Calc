@@ -61,13 +61,13 @@
       /** User wants to disable bold property by executing again */
       if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].FontBold) {
         /** Update the font bold */
-        NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].FontBold = false;
+        NOVAE.Cells.Used.updateCell(cellName, {property: "FontBold", value: false}, NOVAE.CurrentSheet);
         /** Immediately update cells font bold */
         jumps = NOVAE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
         if (jumps >= 0) NOVAE.DOM.Cache[jumps].style.fontWeight = "normal";
       } else {
         /** Update the font bold */
-        NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].FontBold = true;
+        NOVAE.Cells.Used.updateCell(cellName, {property: "FontBold", value: true}, NOVAE.CurrentSheet);
         /** Immediately update cells font bold */
         jumps = NOVAE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
         if (jumps >= 0) NOVAE.DOM.Cache[jumps].style.fontWeight = "bold";
@@ -111,7 +111,7 @@
     /** Overwrite all registered cells font bold */
     for (var letter in usedCells) {
       for (var cell in usedCells[letter]) {
-        usedCells[letter][cell].FontBold = NOVAE.Cells.All[NOVAE.CurrentSheet].Cell.FontBold;
+        NOVAE.Cells.Used.updateCell(cell, {property: "FontBold", value: NOVAE.Cells.All[NOVAE.CurrentSheet].Cell.FontBold}, NOVAE.CurrentSheet);
       }
     }
 

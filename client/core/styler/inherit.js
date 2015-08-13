@@ -59,7 +59,7 @@
         var letter = NOVAE.$.numberToAlpha(selectedCells[kk].letter);
         var number = selectedCells[kk].number;
         /** Register the styled cells from the master sheet to all slave sheets */
-        NOVAE.$.registerCell({ letter: letter, number: number, sheet: inheritSheets[ii] });
+        NOVAE.Cells.Used.registerCell(letter + number, inheritSheets[ii]);
         /** Reverse if data is a boolean */
         if (dataType === "boolean") {
           /** Reverse boolean */
@@ -139,7 +139,7 @@
         NOVAE.Cells.Used[inheritSheets[ii]] = {};
       }
       /** Register the styled cells from the master sheet to all slave sheets */
-      NOVAE.$.registerCell({ letter: letter, number: number, sheet: inheritSheets[ii] });
+      NOVAE.Cells.Used.registerCell(letter + number, inheritSheets[ii]);
       /** Update slave sheets cells */
       NOVAE.Cells.Used[inheritSheets[ii]][letter][letter + number][object.type] = object.value;
     }
@@ -228,7 +228,7 @@
       for (var ii = 0; ii < cells.length; ++ii) {
         var letter = NOVAE.$.numberToAlpha(cells[ii].letter);
         var number = cells[ii].number;
-        NOVAE.$.registerCell({letter: letter, number: number, sheet: inheritSheets[sheet]});
+        NOVAE.Cells.Used.registerCell(letter + number, inheritSheets[sheet]);
         NOVAE.Cells.Used[inheritSheets[sheet]][letter][letter + number].Content = "";
       }
     }
@@ -274,7 +274,7 @@
         var letter = NOVAE.$.numberToAlpha(cells[ii].letter);
         var number = cells[ii].number;
 
-        NOVAE.$.registerCell({letter: letter, number: number, sheet: inheritSheets[sheet]});
+        NOVAE.Cells.Used.registerCell(letter + number, inheritSheets[sheet]);
         NOVAE.Cells.Used[inheritSheets[sheet]][letter][letter + number].Content = cells[ii].value;
 
       }

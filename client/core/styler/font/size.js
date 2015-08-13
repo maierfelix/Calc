@@ -56,7 +56,7 @@
       var letter = NOVAE.$.numberToAlpha(selectSheet.SelectedCells[ii].letter);
       var cellName = letter + selectSheet.SelectedCells[ii].number;
       /** Update the font size */
-      NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].FontSize = size;
+      NOVAE.Cells.Used.updateCell(cellName, {property: "FontSize", value: size}, NOVAE.CurrentSheet);
       /** Immediately update cells font size */
       jumps = NOVAE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
       if (jumps >= 0) NOVAE.DOM.Cache[jumps].style.fontSize = size + "px";
@@ -95,7 +95,7 @@
     /** Overwrite all registered cells background style */
     for (var letter in usedCells) {
       for (var cell in usedCells[letter]) {
-        usedCells[letter][cell].FontSize = size;
+        NOVAE.Cells.Used.updateCell(cell, {property: "FontSize", value: size}, NOVAE.CurrentSheet);
       }
     }
 

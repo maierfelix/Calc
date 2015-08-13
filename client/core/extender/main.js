@@ -146,10 +146,10 @@
       var letter = NOVAE.$.numberToAlpha(Cells[ii].letter);
       var number = Cells[ii].number;
       if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter]) {
-        if (!NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number]) {
-          NOVAE.$.registerCell({letter: letter, number: number});
+        if (!NOVAE.Cells.Used.cellExists(letter + number, NOVAE.CurrentSheet)) {
+          NOVAE.Cells.Used.registerCell(letter + number, NOVAE.CurrentSheet);
         }
-        NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number].Content = Cells[ii].value;
+        NOVAE.Cells.Used.updateCell(letter + number, {property: "Content", value: Cells[ii].value}, NOVAE.CurrentSheet);
       }
     }
 

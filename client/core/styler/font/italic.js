@@ -61,13 +61,13 @@
       /** User wants to disable italic property by executing again */
       if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].FontItalic) {
         /** Update the font italic */
-        NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].FontItalic = false;
+        NOVAE.Cells.Used.updateCell(cellName, {property: "FontItalic", value: false}, NOVAE.CurrentSheet);
         /** Immediately update cells font italic */
         jumps = NOVAE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
         if (jumps >= 0) NOVAE.DOM.Cache[jumps].style.fontStyle = "normal";
       } else {
         /** Update the font italic */
-        NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][cellName].FontItalic = true;
+        NOVAE.Cells.Used.updateCell(cellName, {property: "FontItalic", value: true}, NOVAE.CurrentSheet);
         /** Immediately update cells font italic */
         jumps = NOVAE.$.getCell({ letter: selectSheet.SelectedCells[ii].letter, number: selectSheet.SelectedCells[ii].number });
         if (jumps >= 0) NOVAE.DOM.Cache[jumps].style.fontStyle = "italic";
@@ -111,7 +111,7 @@
     /** Overwrite all registered cells font bold */
     for (var letter in usedCells) {
       for (var cell in usedCells[letter]) {
-        usedCells[letter][cell].FontItalic = NOVAE.Cells.All[NOVAE.CurrentSheet].Cell.FontItalic;
+        NOVAE.Cells.Used.updateCell(cellName, {property: "FontItalic", value: NOVAE.Cells.All[NOVAE.CurrentSheet].Cell.FontItalic}, NOVAE.CurrentSheet);
       }
     }
 

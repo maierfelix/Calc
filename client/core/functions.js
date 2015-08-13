@@ -63,9 +63,6 @@
     /** Initialize File Plugin */
     NOVAE.File = new NOVAE.File();
 
-    /** Initialize Awakener Plugin */
-    NOVAE.Awakener = new NOVAE.Awakener();
-
     /** Initialize Sheet Plugin */
     NOVAE.Sheets = new NOVAE.Sheets();
 
@@ -121,6 +118,77 @@
     if (NOVAE.Connector.getURL()) NOVAE.Connector.connect();
 
     NOVAE.Event.resize();
+
+  };
+
+  /**
+   * Create resized object for a sheet
+   *
+   * @method createResizedObject
+   * @static
+   */
+  NOVAE.$.createResizedObject = function() {
+
+    var name = arguments[0] || NOVAE.CurrentSheet;
+
+    if (!NOVAE.Cells.Resized[name]) {
+      /** Create resized object */
+      NOVAE.Cells.Resized[name] = {
+        /** Save resized columns */
+        Columns: {},
+        /** Save resized rows */
+        Rows: {},
+        /** Fast access arrays */
+        columnArray: [],
+        rowArray: []
+      };
+    }
+
+  };
+
+  /**
+   * Create all object for a sheet
+   *
+   * @method createAllObject
+   * @static
+   */
+  NOVAE.$.createAllObject = function() {
+
+    var name = arguments[0] || NOVAE.CurrentSheet;
+
+    if (!NOVAE.Cells.All[name]) {
+      /** Create resized object */
+      NOVAE.Cells.All[name] = {
+        /** Cell */
+        Cell: new NOVAE.Grid.Cell(),
+        Resize: {
+          Column: null,
+          Row: null
+        }
+      };
+    }
+
+  };
+
+  /**
+   * Create master object for a sheet
+   *
+   * @method createMasterObject
+   * @static
+   */
+  NOVAE.$.createMasterObject = function() {
+
+    var name = arguments[0] || NOVAE.CurrentSheet;
+
+    if (!NOVAE.Cells.Master[name]) {
+      /** Create resized object */
+      NOVAE.Cells.Master[name] = {
+        /** Current selected master cell */
+        Current: null,
+        Columns: {},
+        Rows: {}
+      };
+    }
 
   };
 
@@ -430,10 +498,16 @@
 
       /** Valid cell selection */
       if (letter && number > 0) {
-        /** Cell is not used yet */
-        NOVAE.$.registerCell({ letter: letter, number: number });
-        /** Cell was successfully registered ? */
-        if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][letter + number]) return (true);
+
+        /** Not existing yet, register it */
+        if (!NOVAE.Cells.Used.cellExists(letter + number, NOVAE.CurrentSheet)) {
+           NOVAE.Cells.Used.registerCell(letter + number, NOVAE.CurrentSheet);
+           return (true);
+        /** Seems like it already exists */
+        } else {
+          return (true);
+        }
+
       }
 
     }
@@ -459,31 +533,7 @@
     for (var ii = 0; ii < length; ++ii) {
       var letter = NOVAE.$.numberToAlpha(NOVAE.Sheets[name].Selector.SelectedCells[ii].letter);
       var number = NOVAE.Sheets[name].Selector.SelectedCells[ii].number;
-      NOVAE.$.registerCell({ letter: letter, number: number, sheet: name });
-    }
-
-  };
-
-  /**
-   * Register a used cell
-   *
-   * @method registerCell
-   * @static
-   */
-  NOVAE.$.registerCell = function(object) {
-
-    var sheet = object.sheet || NOVAE.CurrentSheet;
-    var letter = object.letter;
-    var number = object.number;
-    var name = letter + number;
-
-    if (!NOVAE.Cells.Used[sheet][letter]) {
-      NOVAE.Cells.Used[sheet][letter] = {};
-    }
-
-    if (!NOVAE.Cells.Used[sheet][letter][name]) {
-      NOVAE.Cells.Used[sheet][letter][name] = new NOVAE.Grid.Cell(name);
-      NOVAE.Cells.Used[sheet][letter][name].inheritStyling();
+      NOVAE.Cells.Used.registerCell(letter + number, name);
     }
 
   };
@@ -729,6 +779,9 @@
     NOVAE.Cells.Used[name] = null;
     delete NOVAE.Cells.Used[name];
 
+    ENGEL.STACK.VAR[name] = null;
+    delete ENGEL.STACK.VAR[name];
+
     NOVAE.eval();
 
     /** Send sheet change to server */
@@ -797,7 +850,8 @@
           /** Cell contains formula */
           if (NOVAE.Cells.Used[sheet][letter][cell].Formula.Stream && NOVAE.Cells.Used[sheet][letter][cell].Formula.Stream.length &&
               NOVAE.Cells.Used[sheet][letter][cell].Formula.Lexed && NOVAE.Cells.Used[sheet][letter][cell].Formula.Lexed.tokens) {
-            var tokens = NOVAE.Cells.Used[sheet][letter][cell].Formula.Lexed.tokens;
+            var lexed = NOVAE.Cells.Used[sheet][letter][cell].Formula.Lexed;
+            var tokens = lexed.tokens;
             var length = tokens.length;
             var replaced = false;
             for (var ii = 0; ii < length; ++ii) {
@@ -812,7 +866,10 @@
             }
             /** Something got replaced */
             if (replaced) {
-              NOVAE.Cells.Used[sheet][letter][cell].Formula.Stream = ENGEL.tokensToStream(tokens);
+              NOVAE.Cells.Used.updateCell(cell, {property: "Formula", value: {
+                Lexed: lexed,
+                Stream: ENGEL.tokensToStream(tokens)
+              }}, sheet);
             }
           }
         }
@@ -873,8 +930,6 @@
             }
           }
         }
-      } else {
-        console.log(letter, number);
       }
     }
 
@@ -1035,77 +1090,6 @@
     }
 
     return (result || 0);
-
-  };
-
-  /**
-   * Create resized object for a sheet
-   *
-   * @method createResizedObject
-   * @static
-   */
-  NOVAE.$.createResizedObject = function() {
-
-    var name = arguments[0] || NOVAE.CurrentSheet;
-
-    if (!NOVAE.Cells.Resized[name]) {
-      /** Create resized object */
-      NOVAE.Cells.Resized[name] = {
-        /** Save resized columns */
-        Columns: {},
-        /** Save resized rows */
-        Rows: {},
-        /** Fast access arrays */
-        columnArray: [],
-        rowArray: []
-      };
-    }
-
-  };
-
-  /**
-   * Create all object for a sheet
-   *
-   * @method createAllObject
-   * @static
-   */
-  NOVAE.$.createAllObject = function() {
-
-    var name = arguments[0] || NOVAE.CurrentSheet;
-
-    if (!NOVAE.Cells.All[name]) {
-      /** Create resized object */
-      NOVAE.Cells.All[name] = {
-        /** Cell */
-        Cell: new NOVAE.Grid.Cell(),
-        Resize: {
-          Column: null,
-          Row: null
-        }
-      };
-    }
-
-  };
-
-  /**
-   * Create master object for a sheet
-   *
-   * @method createMasterObject
-   * @static
-   */
-  NOVAE.$.createMasterObject = function() {
-
-    var name = arguments[0] || NOVAE.CurrentSheet;
-
-    if (!NOVAE.Cells.Master[name]) {
-      /** Create resized object */
-      NOVAE.Cells.Master[name] = {
-        /** Current selected master cell */
-        Current: null,
-        Columns: {},
-        Rows: {}
-      };
-    }
 
   };
 

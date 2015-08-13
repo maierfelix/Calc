@@ -214,24 +214,13 @@
    * @method registerCell
    * @static
    */
-  NOVAE.registerCell = function() {
+  NOVAE.registerCell = function(name, sheet) {
+
+    sheet = sheet || NOVAE.CurrentSheet;
 
     var letter = arguments[0].match(NOVAE.REGEX.numbers).join("");
     var number = arguments[0].match(NOVAE.REGEX.letters).join("");
 
-    NOVAE.$.registerCell({ letter: letter, number: number });
+    NOVAE.Cells.Used.registerCell(letter + number, sheet);
 
-    /** Register the cell into the interpreter variable stack */
-    NOVAE.registerCellVariable(arguments[0]);
-
-  };
-
-  /**
-   * Register a live cell into the cell live stack
-   *
-   * @method registerLiveCell
-   * @static
-   */
-  NOVAE.registerLiveCell = function() {
-    NOVAE.Cells.Live[arguments[0]] = new NOVAE.Sheets[NOVAE.CurrentSheet].LiveCell();
   };

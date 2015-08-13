@@ -44,12 +44,12 @@
       element.classList.add("cell_edit");
 
       /** Register new cell */
-      if (!NOVAE.Cells.Used[NOVAE.CurrentSheet][newLetter]) {
-        NOVAE.registerCell(newLetter + newNumber);
-      } else if (!NOVAE.Cells.Used[NOVAE.CurrentSheet][newLetter][newLetter + newNumber]) NOVAE.registerCell(newLetter + newNumber);
+      if (!NOVAE.Cells.Used.cellExists(newLetter + newNumber, NOVAE.CurrentSheet)) {
+        NOVAE.Cells.Used.registerCell(newLetter + newNumber, NOVAE.CurrentSheet);
+      }
 
       /** Cell was successfully registered */
-      if (NOVAE.Cells.Used[NOVAE.CurrentSheet][newLetter] && NOVAE.Cells.Used[NOVAE.CurrentSheet][newLetter][newLetter + newNumber]) {
+      if (NOVAE.Cells.Used.cellExists(newLetter + newNumber, NOVAE.CurrentSheet)) {
         /** Cell was successfully registered into the interpreter cell stack */
         if (NOVAE.validCell(newLetter + newNumber)) {
           /** Cell has a formula */

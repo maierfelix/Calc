@@ -51,8 +51,8 @@
    */
   NOVAE.Selector.prototype.inheritMasterStyling = function(name, masterCell, property) {
 
-    for (var ii in NOVAE.Cells.Used[NOVAE.CurrentSheet][name]) {
-      NOVAE.Cells.Used[NOVAE.CurrentSheet][name][ii][property] = masterCell[property];
+    for (var cell in NOVAE.Cells.Used[NOVAE.CurrentSheet][name]) {
+      NOVAE.Cells.Used.updateCell(cell, {property: property, value: masterCell[property]}, NOVAE.CurrentSheet);
     }
 
   };

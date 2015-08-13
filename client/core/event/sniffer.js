@@ -91,7 +91,9 @@
 
       /** Get cell content and pass it into the cell edit cell stack */
       jumps = NOVAE.$.getCell({ letter: letter, number: number });
-      if (jumps >= 0) NOVAE.Cells.Used[NOVAE.CurrentSheet][NOVAE.$.numberToAlpha(letter)][NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Edit].Content = NOVAE.DOM.CellInput.value;
+      if (jumps >= 0) {
+        NOVAE.Cells.Used.updateCell(NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Edit, {property: "Content", value: NOVAE.DOM.CellInput.value}, NOVAE.CurrentSheet);
+      }
     }
 
     /** Check if user pressed [ENTER] */
@@ -129,7 +131,13 @@
       if (cellEditContent !== null) {
         /** Cell starts with a "=" and will be interpreted as a formula */
         if (cellEditContent && cellEditContent[0] === "=") {
-          NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Formula.Stream = cellEditContent;
+
+          var lexed = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Formula.Lexed;
+
+          NOVAE.Cells.Used.updateCell(editCell, {property: "Formula", value: {
+            Lexed: lexed,
+            Stream: cellEditContent
+          }}, NOVAE.CurrentSheet);
 
           /** Inherit cell formula to slave sheets */
           if (NOVAE.Sheets[NOVAE.CurrentSheet].isMasterSheet()) {
@@ -140,13 +148,12 @@
         } else {
 
           /** Clean the cell formula if it has content */
-          if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Formula.Stream && NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Formula.Stream.length) {
-            NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Formula.Stream = null;
-            NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Formula.Lexed = null;
-          }
+          NOVAE.Cells.Used.updateCell(editCell, {property: "Formula", value: {
+            Lexed: null,
+            Stream: null
+          }}, NOVAE.CurrentSheet);
 
-          /** Update the cell stacks content */
-          NOVAE.updateCell(editCell, NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Content);
+          NOVAE.Cells.Used.updateCell(editCell, {property: "Content", value: NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Content}, NOVAE.CurrentSheet);
 
           /** Inherit cell content to slave sheets */
           if (NOVAE.Sheets[NOVAE.CurrentSheet].isMasterSheet()) {
@@ -177,13 +184,15 @@
     NOVAE.DOM.CellInput.focus();
 
     setTimeout(function() {
-      NOVAE.$.registerCell({ letter: letter, number: number });
+      NOVAE.Cells.Used.registerCell(letter + number, NOVAE.CurrentSheet);
       jumps = NOVAE.$.getCell({ letter: NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First.Letter, number: NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Selected.First.Number });
       if (jumps >= 0) element = NOVAE.DOM.Cache[jumps];
       /** Update cell used stack value with cell input fields value */
-      if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell]) NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Content = NOVAE.DOM.CellInput.value;
+      if (NOVAE.Cells.Used.cellExists(editCell, NOVAE.CurrentSheet)) {
+        NOVAE.Cells.Used.updateCell(editCell, {property: "Content", value: NOVAE.DOM.CellInput.value}, NOVAE.CurrentSheet);
+      }
       /** Cell is not in view, register it anyway */
-      else NOVAE.registerCell(editCell);
+      else NOVAE.Cells.Used.registerCell(editCell, NOVAE.CurrentSheet);
       /** Update cell content with cell used stack value */
       if (element) {
         element.innerHTML = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Content;
