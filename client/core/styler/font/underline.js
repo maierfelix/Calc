@@ -39,15 +39,13 @@
         if (masterCell.FontUnderlined) masterCell.FontUnderlined = false;
         else masterCell.FontUnderlined = true;
       }
+      /** Inherit underline to all cells in this row or column */
+      this.inheritMasterStyling(currentMaster, "FontUnderlined", masterCell.FontUnderlined);
+      return void 0;
     }
 
     /** Validate all selected cells */
     NOVAE.$.validateCells();
-
-    /** Overwrite used cells styling, if active master selection */
-    if (NOVAE.Cells.Used[NOVAE.CurrentSheet][currentMaster]) {
-      selectSheet.inheritMasterStyling(currentMaster, masterCell, "FontUnderlined");
-    }
 
     /** Append all font underline style */
     if (NOVAE.Sheets[NOVAE.CurrentSheet].Selector.allSelected) {

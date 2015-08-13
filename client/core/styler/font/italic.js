@@ -39,15 +39,13 @@
         if (masterCell.FontItalic) masterCell.FontItalic = false;
         else masterCell.FontItalic = true;
       }
+      /** Inherit italic to all cells in this row or column */
+      this.inheritMasterStyling(currentMaster, "FontItalic", masterCell.FontItalic);
+      return void 0;
     }
 
     /** Validate all selected cells */
     NOVAE.$.validateCells();
-
-    /** Overwrite used cells styling, if active master selection */
-    if (NOVAE.Cells.Used[NOVAE.CurrentSheet][currentMaster]) {
-      selectSheet.inheritMasterStyling(currentMaster, masterCell, "FontItalic");
-    }
 
     /** Append all font italic style */
     if (NOVAE.Sheets[NOVAE.CurrentSheet].Selector.allSelected) {

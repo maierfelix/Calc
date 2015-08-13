@@ -36,18 +36,14 @@
       }
       masterCell = masterCell.Columns[masterCell.Current] || masterCell.Rows[masterCell.Current];
       /** Check if master cell exists */
-      if (masterCell) {
-        masterCell.BackgroundColor = color;
-      }
+      if (masterCell) masterCell.BackgroundColor = color;
+      /** Inherit background color to all cells in this row or column */
+      this.inheritMasterStyling(currentMaster, "BackgroundColor", masterCell.BackgroundColor);
+      return void 0;
     }
 
     /** Validate all selected cells */
     NOVAE.$.validateCells();
-
-    /** Overwrite used cells styling, if active master selection */
-    if (NOVAE.Cells.Used[NOVAE.CurrentSheet][currentMaster]) {
-      selectSheet.inheritMasterStyling(currentMaster, masterCell, "BackgroundColor");
-    }
 
     /** Append all cell background style */
     if (NOVAE.Sheets[NOVAE.CurrentSheet].Selector.allSelected) {

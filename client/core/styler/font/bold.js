@@ -39,15 +39,13 @@
         if (masterCell.FontBold) masterCell.FontBold = false;
         else masterCell.FontBold = true;
       }
+      /** Inherit bold to all cells in this row or column */
+      this.inheritMasterStyling(currentMaster, "FontBold", masterCell.FontBold);
+      return void 0;
     }
 
     /** Validate all selected cells */
     NOVAE.$.validateCells();
-
-    /** Overwrite used cells styling, if active master selection */
-    if (NOVAE.Cells.Used[NOVAE.CurrentSheet][currentMaster]) {
-      selectSheet.inheritMasterStyling(currentMaster, masterCell, "FontBold");
-    }
 
     /** Append all font bold style */
     if (NOVAE.Sheets[NOVAE.CurrentSheet].Selector.allSelected) {

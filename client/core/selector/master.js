@@ -42,17 +42,3 @@
     NOVAE.Cells.Master[NOVAE.CurrentSheet].Current = name;
 
   };
-
-  /**
-   * Overwrite cell styling with master styling
-   *
-   * @method inheritMasterStyling
-   * @static
-   */
-  NOVAE.Selector.prototype.inheritMasterStyling = function(name, masterCell, property) {
-
-    for (var cell in NOVAE.Cells.Used[NOVAE.CurrentSheet][name]) {
-      NOVAE.Cells.Used.updateCell(cell, {property: property, value: masterCell[property]}, NOVAE.CurrentSheet);
-    }
-
-  };

@@ -37,15 +37,13 @@
       masterCell = masterCell.Columns[masterCell.Current] || masterCell.Rows[masterCell.Current];
       /** Check if master cell exists */
       if (masterCell) masterCell.Color = color;
+      /** Inherit color to all cells in this row or column */
+      this.inheritMasterStyling(currentMaster, "Color", masterCell.Color);
+      return void 0;
     }
 
     /** Validate all selected cells */
     NOVAE.$.validateCells();
-
-    /** Overwrite used cells styling */
-    if (NOVAE.Cells.Used[NOVAE.CurrentSheet][currentMaster]) {
-      selectSheet.inheritMasterStyling(currentMaster, masterCell, "Color");
-    }
 
     /** Append all font color style */
     if (NOVAE.Sheets[NOVAE.CurrentSheet].Selector.allSelected) {

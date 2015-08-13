@@ -36,15 +36,13 @@
       masterCell = masterCell.Columns[masterCell.Current] || masterCell.Rows[masterCell.Current];
       /** Check if master cell exists */
       if (masterCell) masterCell.FontSize = size;
+      /** Inherit italic to all cells in this row or column */
+      this.inheritMasterStyling(currentMaster, "FontSize", masterCell.FontSize);
+      return void 0;
     }
 
     /** Validate all selected cells */
     NOVAE.$.validateCells();
-
-    /** Overwrite used cells styling */
-    if (NOVAE.Cells.Used[NOVAE.CurrentSheet][currentMaster]) {
-      selectSheet.inheritMasterStyling(currentMaster, masterCell, "FontSize");
-    }
 
     /** Append all font size style */
     if (NOVAE.Sheets[NOVAE.CurrentSheet].Selector.allSelected) {

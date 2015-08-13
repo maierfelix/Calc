@@ -334,3 +334,45 @@
     }
 
   };
+
+  /**
+   * Inherit a master styling to cells
+   *
+   * @method inheritMasterStyling
+   * @static
+   */
+  NOVAE.Styler.prototype.inheritMasterStyling = function(target, property, value) {
+
+    var isColumn = isNaN(target) ? true : false;
+
+    switch (isColumn) {
+
+      /** Column */
+      case true:
+
+        for (var cell in NOVAE.Cells.Used[NOVAE.CurrentSheet][target]) {
+          NOVAE.Cells.Used.updateCell(cell, {property: property, value: value}, NOVAE.CurrentSheet);
+        }
+
+      break;
+
+      /** Row */
+      case false:
+
+        for (var dictionary in NOVAE.Cells.Used[NOVAE.CurrentSheet]) {
+          for (var cell in NOVAE.Cells.Used[NOVAE.CurrentSheet][dictionary]) {
+            var number = parseInt(cell.match(NOVAE.REGEX.letters).join(""));
+            if (number === target) {
+              NOVAE.Cells.Used.updateCell(cell, {property: property, value: value}, NOVAE.CurrentSheet);
+            }
+          }
+        }
+
+      break;
+
+    }
+
+    NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Vertical);
+    NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
+
+  };
