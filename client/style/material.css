@@ -6315,7 +6315,7 @@ input.mdl-button[type="submit"] {
   color: rgb(66,66,66);
   overflow: visible;
   overflow-y: auto;
-  z-index: 5; }
+  z-index: 6; }
   .mdl-layout__drawer.is-visible {
     -webkit-transform: translateX(0);
         -ms-transform: translateX(0);
@@ -6422,6 +6422,7 @@ input.mdl-button[type="submit"] {
           flex-shrink: 0;
   width: 100%;
   margin: 0;
+  margin-bottom: -15px;
   padding: 0;
   border: none;
   min-height: 64px;

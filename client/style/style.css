@@ -161,7 +161,7 @@ button, input, select, textArea {
 
 #table_absolute_head {
   z-index: 5;
-  margin-top: 0px;
+  margin-top: 1px;
   margin-left: 0px;
 }
 
@@ -179,11 +179,11 @@ button, input, select, textArea {
 #absolute_horizontal_viewport {
   position: absolute;
   z-index: 3;
-  top: 1px;
+  top: 0px;
   left: -5px;
   margin-top: 0px;
   margin-left: 0px;
-  height: 24px;
+  height: 25px;
   overflow: hidden;
   width: 100%;
 }
