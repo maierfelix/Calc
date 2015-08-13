@@ -361,7 +361,7 @@
 
         for (var dictionary in NOVAE.Cells.Used[NOVAE.CurrentSheet]) {
           for (var cell in NOVAE.Cells.Used[NOVAE.CurrentSheet][dictionary]) {
-            var number = parseInt(cell.match(NOVAE.REGEX.letters).join(""));
+            var number = NOVAE.$.getNumbers(cell);
             if (number === target) {
               NOVAE.Cells.Used.updateCell(cell, {property: property, value: value}, NOVAE.CurrentSheet);
             }

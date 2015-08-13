@@ -170,7 +170,7 @@
     /** Validate data */
     if (object.range || object.cell) {
       if (!object.range) {
-        object.letter = object.cell.match(NOVAE.REGEX.numbers).join("");
+        object.letter = NOVAE.$.getLetters(object.cell);
       }
       object.sheet = NOVAE.CurrentSheet;
       this.socket.emit("updatecell", object);

@@ -156,8 +156,8 @@
     if (!this.name || !allCell) return void 0;
 
     /** Get letter of cell name for dictionary lookup */
-    var letter = this.name.match(NOVAE.REGEX.numbers).join("");
-    var number = this.name.match(NOVAE.REGEX.letters).join("");
+    var letter = NOVAE.$.getLetters(this.name);
+    var number = NOVAE.$.getNumbers(this.name);
 
     var Cells = NOVAE.Cells.Used[sheet];
 

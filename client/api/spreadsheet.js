@@ -169,13 +169,13 @@
     var last = this.range[1];
 
     var firstCoordinates = {
-      letter: NOVAE.$.alphaToNumber(first.match(NOVAE.REGEX.numbers).join("")),
-      number: parseInt(first.match(NOVAE.REGEX.letters).join(""))
+      letter: NOVAE.$.getLetters(first),
+      number: NOVAE.$.getNumbers(first)
     };
 
     var lastCoordinates = {
-      letter: NOVAE.$.alphaToNumber(last.match(NOVAE.REGEX.numbers).join("")),
-      number: parseInt(last.match(NOVAE.REGEX.letters).join(""))
+      letter: NOVAE.$.getLetters(last),
+      number: NOVAE.$.getNumbers(last)
     };
 
     this.range = {first: firstCoordinates, last: lastCoordinates};

@@ -879,6 +879,30 @@
   };
 
   /**
+   * Get letters of a cell name
+   *
+   * @method getLetters
+   * @static
+   */
+  NOVAE.$.getLetters = function(name) {
+
+    return (name.match(NOVAE.REGEX.numbers).join(""));
+
+  };
+
+  /**
+   * Get numbers of a cell name
+   *
+   * @method getNumbers
+   * @static
+   */
+  NOVAE.$.getNumbers = function(name) {
+
+    return (parseInt(name.match(NOVAE.REGEX.letters).join("")));
+
+  };
+
+  /**
    * Convert coordinates into a selection array
    *
    * @method coordToSelection
@@ -987,13 +1011,13 @@
     var last = range[1];
 
     first = {
-      letter: NOVAE.$.alphaToNumber(first.match(NOVAE.REGEX.numbers).join("")),
-      number: parseInt(first.match(NOVAE.REGEX.letters).join(""))
+      letter: NOVAE.$.getLetters(first),
+      number: NOVAE.$.getNumbers(first)
     };
 
     last = {
-      letter: NOVAE.$.alphaToNumber(last.match(NOVAE.REGEX.numbers).join("")),
-      number: parseInt(last.match(NOVAE.REGEX.letters).join(""))
+      letter: NOVAE.$.getLetters(last),
+      number: NOVAE.$.getNumbers(last)
     };
 
     var selection = NOVAE.$.coordToSelection(first, last);

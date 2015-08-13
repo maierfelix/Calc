@@ -68,6 +68,7 @@ Import.scripts = [
   "core/injector/delete.js",
   /** Extender */
   "core/extender/main.js",
+  "core/extender/formula.js",
   "core/extender/numeric.js",
   "core/extender/string.js",
   /** Selector */

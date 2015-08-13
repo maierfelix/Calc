@@ -107,8 +107,8 @@
 
     if (NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Edit) {
 
-      var letter = NOVAE.$.alphaToNumber(NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Edit.match(NOVAE.REGEX.numbers).join(""));
-      var number = ~~(NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Edit.match(NOVAE.REGEX.letters).join(""));
+      var letter = NOVAE.$.alphaToNumber(NOVAE.$.getLetters(NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Edit));
+      var number = NOVAE.$.getNumbers(NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Edit);
 
       var jumps = NOVAE.$.getCell({letter: letter, number: number});
 

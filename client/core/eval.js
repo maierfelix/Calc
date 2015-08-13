@@ -21,18 +21,10 @@
    * @method eval
    * @static
    */
-  NOVAE.eval = function() {
+  NOVAE.eval = function(strict) {
 
-    var cells = null;
-    var usedCellSheet = null;
-
-    if (arguments[0]) {
-      cells = NOVAE.Cells.Used[arguments[0]];
-      usedCellSheet = NOVAE.Cells.Used[arguments[0]];
-    } else {
-      cells = NOVAE.Cells.Used[NOVAE.CurrentSheet];
-      usedCellSheet = NOVAE.Cells.Used[NOVAE.CurrentSheet];
-    }
+    var cells = NOVAE.Cells.Used[NOVAE.CurrentSheet];
+    var usedCellSheet = NOVAE.Cells.Used[NOVAE.CurrentSheet];
 
     var formulas = [];
 
@@ -70,18 +62,20 @@
       for (var ii = 0; ii < formulas.length; ++ii) {
 
         /** Receive the result */
-        var result = this.evaluateFormula(formulas[ii].lexed);
+        var result = this.evaluateFormula(formulas[ii].lexed, void 0);
 
         var name = formulas[ii].name;
-        var letter = name.match(NOVAE.REGEX.numbers).join("");
-        var number = ~~(name.match(NOVAE.REGEX.letters).join(""));
+        var letter = NOVAE.$.getLetters(name);
+        var number = NOVAE.$.getNumbers(name);
 
         /** Update used cell stack content */
         usedCellSheet[letter][formulas[ii].name].Content = result;
 
         /** Display the result, if cell is in view */
-        var jumps = NOVAE.$.getCell({ letter: NOVAE.$.alphaToNumber(letter), number: number });
-        if (jumps >= 0) NOVAE.DOM.Cache[jumps].innerHTML = result;
+        if (!strict) {
+          var jumps = NOVAE.$.getCell({ letter: NOVAE.$.alphaToNumber(letter), number: number });
+          if (jumps >= 0) NOVAE.DOM.Cache[jumps].innerHTML = result;
+        }
 
       }
 
@@ -97,9 +91,7 @@
    * @method evaluateFormula
    * @static
    */
-  NOVAE.evaluateFormula = function(formula) {
-
-    var index = arguments[1] || void 0;
+  NOVAE.evaluateFormula = function(formula, index) {
 
     var interpret = ENGEL.interpretTokens(formula.tokens.slice(0));
 
@@ -118,7 +110,7 @@
 
     /** Natural order recalculation */
     for (var ii = 0; ii < formula.variables.length; ++ii) {
-      var letter = formula.variables[ii].match(NOVAE.REGEX.numbers).join("");
+      var letter = NOVAE.$.getLetters(formula.variables[ii]);
       if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter] &&
           NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][formula.variables[ii]] &&
           NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][formula.variables[ii]].Formula.Lexed &&
@@ -141,7 +133,7 @@
    * @method registerCellVariable
    * @static
    */
-  NOVAE.registerCellVariable = function() {
+  NOVAE.registerCellVariable = function(name) {
 
     /** Register sheet if not existing yet */
     if (!ENGEL.STACK.VAR[NOVAE.CurrentSheet]) {
@@ -150,14 +142,14 @@
     }
 
     /** Cell is not registered yet */
-    if (!ENGEL.STACK.get(arguments[0])) {
+    if (!ENGEL.STACK.get(name)) {
       /** Register the cell */
-      ENGEL.STACK.createVariable(arguments[0]);
+      ENGEL.STACK.createVariable(name);
       /** Update cell stack name, check if it was successfully registered */
-      if (ENGEL.STACK.VAR[ENGEL.CurrentSheet] && ENGEL.STACK.VAR[ENGEL.CurrentSheet][arguments[0]]) {
+      if (ENGEL.STACK.VAR[ENGEL.CurrentSheet] && ENGEL.STACK.VAR[ENGEL.CurrentSheet][name]) {
         /** Update the name */
-        ENGEL.STACK.VAR[ENGEL.CurrentSheet][arguments[0]].name = arguments[0];
-      } else throw new Error("Fatal Error, failed to register " + arguments[0] + "!");
+        ENGEL.STACK.VAR[ENGEL.CurrentSheet][name].name = name;
+      } else throw new Error("Fatal Error, failed to register " + name + "!");
     }
 
   };
@@ -168,10 +160,10 @@
    * @method validCell
    * @static
    */
-  NOVAE.validCell = function() {
+  NOVAE.validCell = function(name) {
 
     /** Cell is registered */
-    if (ENGEL.STACK.get(arguments[0])) return (true);
+    if (ENGEL.STACK.get(name)) return (true);
     /** Cell is not registered */
     return (false);
 
@@ -218,8 +210,8 @@
 
     sheet = sheet || NOVAE.CurrentSheet;
 
-    var letter = arguments[0].match(NOVAE.REGEX.numbers).join("");
-    var number = arguments[0].match(NOVAE.REGEX.letters).join("");
+    var letter = NOVAE.$.getLetters(name);
+    var number = NOVAE.$.getNumbers(name);
 
     NOVAE.Cells.Used.registerCell(letter + number, sheet);
 

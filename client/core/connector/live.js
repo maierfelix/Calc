@@ -428,8 +428,8 @@
     var position = object.range.end.split(":")[0];
 
     position = {
-      Letter: NOVAE.$.alphaToNumber(position.match(NOVAE.REGEX.numbers).join("")),
-      Number: parseInt(position.match(NOVAE.REGEX.letters).join(""))
+      Letter: NOVAE.$.getLetters(position),
+      Number: NOVAE.$.getNumbers(position)
     };
 
     NOVAE.ClipBoard.pasteCellsIntoSheet(position, true, object.sheet);

@@ -26,7 +26,7 @@
       /** User edits a valid cell */
       if (NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Edit) {
         /** Check if edited cell got successfully registered inside the cell edit stack */
-        var letter = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Edit.match(NOVAE.REGEX.numbers).join("");
+        var letter = NOVAE.$.getLetters(NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Edit);
         if (NOVAE.Cells.Used[NOVAE.CurrentSheet][letter] && NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Edit]) return (true);
       }
     }
@@ -86,8 +86,8 @@
       /** Go to the end of a cell text if edit first time */
       NOVAE.Sheets[NOVAE.CurrentSheet].Selector.cellFocusSwitch = false;
 
-      var letter = NOVAE.$.alphaToNumber(NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Edit.match(NOVAE.REGEX.numbers).join(""));
-      var number = ~~(NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Edit.match(NOVAE.REGEX.letters).join(""));
+      var letter = NOVAE.$.alphaToNumber(NOVAE.$.getLetters(NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Edit));
+      var number = NOVAE.$.getNumbers(NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Edit);
 
       /** Get cell content and pass it into the cell edit cell stack */
       jumps = NOVAE.$.getCell({ letter: letter, number: number });
@@ -124,8 +124,8 @@
 
     /** User is in edit mode? */
     if (NOVAE.Event.inEditMode()) {
-      var letter = editCell.match(NOVAE.REGEX.numbers).join("");
-      var number = editCell.match(NOVAE.REGEX.letters).join("");
+      var letter = NOVAE.$.getLetters(editCell);
+      var number = NOVAE.$.getNumbers(editCell);
       var cellEditContent = NOVAE.Cells.Used[NOVAE.CurrentSheet][letter] && NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Content ? NOVAE.Cells.Used[NOVAE.CurrentSheet][letter][editCell].Content : undefined;
       /** Check if cell is filled and valid */
       if (cellEditContent !== null) {
@@ -177,8 +177,8 @@
     var editCell = NOVAE.Sheets[NOVAE.CurrentSheet].Selector.Edit;
     var element = null;
     var jumps = 0;
-    var letter = editCell.match(NOVAE.REGEX.numbers).join("");
-    var number = editCell.match(NOVAE.REGEX.letters).join("");
+    var letter = NOVAE.$.getLetters(editCell);
+    var number = NOVAE.$.getNumbers(editCell);
 
     /** Focus the cell input field on start typing */
     NOVAE.DOM.CellInput.focus();

@@ -35,7 +35,7 @@
    */
   NOVAE.Cells.Used.prototype.cellExists = function(name, sheet) {
 
-    var letter = name.match(NOVAE.REGEX.numbers).join("");
+    var letter = NOVAE.$.getLetters(name);
 
     if (this[sheet] &&
         this[sheet][letter] &&
@@ -58,7 +58,7 @@
    */
   NOVAE.Cells.Used.prototype.registerCell = function(name, sheet) {
 
-    var letter = name.match(NOVAE.REGEX.numbers).join("");
+    var letter = NOVAE.$.getLetters(name);
 
     /** Register sheet */
     if (!this[sheet]) {
@@ -71,11 +71,11 @@
     }
 
     /** Cell already exists, abort */
-    if (this[sheet][letter][name]) return void 0;
-
-    /** Register the cell */
-    this[sheet][letter][name] = new NOVAE.Grid.Cell(name);
-    this[sheet][letter][name].inheritStyling(sheet);
+    if (!this[sheet][letter][name]) {
+      /** Register the cell */
+      this[sheet][letter][name] = new NOVAE.Grid.Cell(name);
+      this[sheet][letter][name].inheritStyling(sheet);
+    }
 
     /** Register sheet in the ENGEL stack */
     if (!ENGEL.STACK.VAR[sheet]) {
@@ -118,12 +118,10 @@
 
     targetSheet = targetSheet || NOVAE.CurrentSheet;
 
-    var letter = name.match(NOVAE.REGEX.numbers).join("");
+    var letter = NOVAE.$.getLetters(name);
 
-    /** You shall not pass */
-    if (!this.cellExists(name, targetSheet)) {
-      this.registerCell(name, targetSheet);
-    }
+    /** Make sure it's registered */
+    this.registerCell(name, targetSheet);
 
     var cell = this[targetSheet][letter][name];
 
@@ -172,5 +170,17 @@
       break;
 
     }
+
+  };
+
+  /**
+   * Update a master row or column
+   *
+   * @method updateMasterCell
+   * @static
+   */
+  NOVAE.Cells.Used.prototype.updateMasterCell = function() {
+
+    
 
   };

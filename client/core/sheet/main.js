@@ -343,6 +343,7 @@
           if (!deleteSheet) {
             self.changeSheet(name);
             self.setActiveSheet(name);
+            NOVAE.eval();
           } else {
             self.deleteSheet(name);
           }

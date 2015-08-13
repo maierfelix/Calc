@@ -66,15 +66,28 @@
       /** Cell has content */
       if (cell && cell[letter + number]) {
         cell = cell[letter + number];
-        if (cell.Content !== undefined && cell.Content !== null) {
+        /** Formula */
+        if (cell.Formula && cell.Formula.Lexed !== null) {
           if (Columns[letter].mode === null) {
-            /** Its a number */
-            if (!isNaN(cell.Content)) Columns[letter].mode = "numeric";
-            else Columns[letter].mode = "string";
+            /** Its a formula */
+            Columns[letter].mode = "formula";
           }
           /** Only push 2 values */
           if (extendStack[letter].length < 2) {
-            extendStack[letter].push(cell.Content);
+            extendStack[letter].push({name: {letter: letter, number: number}, value: cell.Formula.Lexed});
+          }
+        /** Content */
+        } else {
+          if (cell.Content !== undefined && cell.Content !== null) {
+            if (Columns[letter].mode === null) {
+              /** Its a number */
+              if (!isNaN(cell.Content)) Columns[letter].mode = "numeric";
+              else Columns[letter].mode = "string";
+            }
+            /** Only push 2 values */
+            if (extendStack[letter].length < 2) {
+              extendStack[letter].push(cell.Content);
+            }
           }
         }
         /** Get the cells content */
@@ -96,13 +109,15 @@
     /** Abort if nothing to extend */
     if (!Object.keys(Columns).length) return void 0;
 
-    /** Extend numbers */
+    /** Extend */
     for (var ii in Columns) {
       if (extendStack[ii]) {
         if (Columns[ii].mode === "numeric") {
           this.extendNumbers(Columns[ii].array, extendStack[ii]);
         } else if (Columns[ii].mode === "string") {
           this.extendStrings(Columns[ii].array, extendStack[ii]);
+        } else if (Columns[ii].mode === "formula") {
+          this.extendFormulas(Columns[ii].array, extendStack[ii]);
         }
       }
     }

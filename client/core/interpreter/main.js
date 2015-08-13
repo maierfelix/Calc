@@ -18,9 +18,12 @@
   /** Static namespace class */
   var ENGEL = ENGEL || {};
 
-      ENGEL.prototype = ENGEL;
+  ENGEL.CurrentSheet = null;
 
-      ENGEL.prototype.constructor = ENGEL;
+  ENGEL.strict = [];
+
+  ENGEL.prototype = ENGEL;
+  ENGEL.prototype.constructor = ENGEL;
 
   /**
    * Initialise lexer, parser, evaluator

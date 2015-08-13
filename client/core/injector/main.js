@@ -56,14 +56,14 @@
 
           switch (mode) {
             case "insert":
-              cellLetter = NOVAE.$.numberToAlpha(NOVAE.$.alphaToNumber(cell.match(NOVAE.REGEX.numbers).join("")) + 1);
+              cellLetter = NOVAE.$.numberToAlpha(NOVAE.$.alphaToNumber(NOVAE.$.getLetters(cell)) + 1);
               break;
             case "delete":
-              cellLetter = NOVAE.$.numberToAlpha(NOVAE.$.alphaToNumber(cell.match(NOVAE.REGEX.numbers).join("")) - 1);
+              cellLetter = NOVAE.$.numberToAlpha(NOVAE.$.alphaToNumber(NOVAE.$.getLetters(cell)) - 1);
               break;
           }
 
-          cellNumber = ~~(cell.match(NOVAE.REGEX.letters).join(""));
+          cellNumber = NOVAE.$.getNumbers(cell);
           usedCells[ii][cellLetter + cellNumber] = usedCells[ii][cell];
           delete usedCells[ii][cell];
         }
@@ -185,8 +185,8 @@
       /** Go through each cell */
       for (var cell in usedCells[ii]) {
 
-        match = parseInt(cell.match(NOVAE.REGEX.letters).join(""));
-        cellLetter = cell.match(NOVAE.REGEX.numbers).join("");
+        cellLetter = NOVAE.$.getLetters(cell);
+        match = NOVAE.$.getNumbers(cell);
 
         /** Get all cell rows behind */
         if (match >= selectedCell.Number) {

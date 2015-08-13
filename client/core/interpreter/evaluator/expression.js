@@ -71,9 +71,49 @@
 
     /** Got a sheet variable reference */
     if (ast.SheetReference) {
-      /** Insert COIN here */
-      result = 0;
+
+      /** Sadly not working yet */
+      return (0);
+
+      var result;
+
+      ENGEL.strict.push(ast.SheetReference.Sheet);
+
+      /** Anti circular reference */
+      if (ENGEL.strict.indexOf(ENGEL.CurrentSheet) >= 0 && ENGEL.strict.length >= Object.keys(NOVAE.Sheets).length) {
+        var originalSheet = ENGEL.CurrentSheet;
+        ENGEL.CurrentSheet = ast.SheetReference.Sheet;
+        NOVAE.CurrentSheet = ast.SheetReference.Sheet;
+        result = ENGEL.STACK.get(ast.SheetReference.value);
+        ENGEL.CurrentSheet = originalSheet;
+        NOVAE.CurrentSheet = originalSheet;
+        if (result) {
+          result = result.value.value;
+        } else {
+          result = 0;
+        }
+        return (result);
+      }
+
+      ENGEL.strict.push(ast.SheetReference.Sheet);
+
+      var originalSheet = ENGEL.CurrentSheet;
+      ENGEL.CurrentSheet = ast.SheetReference.Sheet;
+      NOVAE.CurrentSheet = ast.SheetReference.Sheet;
+      NOVAE.eval(true);
+      result = ENGEL.STACK.get(ast.SheetReference.value);
+      if (result) {
+        result = result.value.value;
+      } else {
+        result = 0;
+      }
+      ENGEL.CurrentSheet = originalSheet;
+      NOVAE.CurrentSheet = originalSheet;
+
+      ENGEL.strict = [];
+
       return (result);
+
     }
 
     /** Got a number or string */
