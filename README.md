@@ -78,6 +78,7 @@ If you want to test the latest multi-user functionality, go to:
 - [ ] Key scrolling
 - [ ] Reversed selection extending doesnt work
 - [ ] Reversed selection resize ghost switch bug
+- [ ] ENGEL Stack column/row insert/delete methods
 
 ## Contributors:
 
