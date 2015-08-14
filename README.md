@@ -68,7 +68,7 @@ If you want to test the latest multi-user functionality, go to:
    - [x] Multi-user cell resizing
    - [x] Multi-sheet support
    - [x] Delete sheets
-   - [ ] Rename sheets
+   - [x] Rename sheets
    - [ ] Row, Column injection methods
    - [ ] Extend cell content & formulas
    - [ ] Paste, Delete, Cut Out Cells
@@ -78,7 +78,6 @@ If you want to test the latest multi-user functionality, go to:
 - [ ] Key scrolling
 - [ ] Reversed selection extending doesnt work
 - [ ] Reversed selection resize ghost switch bug
-- [ ] Sheet dictionary in ENGEL variable stack
 
 ## Contributors:
 
