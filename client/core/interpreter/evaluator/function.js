@@ -137,6 +137,47 @@
           }
         break;
 
+        /** NOT */
+        case "not":
+          result = ENGEL.TypeMaster.parseBoolean(argumentArray[0]) ? "FALSE" : "TRUE";
+        break;
+
+        /** IS NUMBER */
+        case "isnumber":
+          var strictConditon = true;
+          for (var ii = 0; ii < argumentArray.length; ++ii) {
+            if (typeof argumentArray[ii] !== "number" || isNaN(argumentArray[ii]) || argumentArray[ii] === Infinity) {
+              strictConditon = false;
+              break;
+            }
+          }
+          result = strictConditon ? "TRUE" : "FALSE";
+        break;
+
+        /** IS TEXT */
+        case "istext":
+          var strictConditon = true;
+          for (var ii = 0; ii < argumentArray.length; ++ii) {
+            if (typeof argumentArray[ii] !== "string" || !argumentArray[ii].length) {
+              strictConditon = false;
+              break;
+            }
+          }
+          result = strictConditon ? "TRUE" : "FALSE";
+        break;
+
+        /** IS LOGICAL */
+        case "islogical":
+          var strictConditon = true;
+          for (var ii = 0; ii < argumentArray.length; ++ii) {
+            if (["TRUE", "FALSE", true, false].indexOf(argumentArray[ii]) <= -1) {
+              strictConditon = false;
+              break;
+            }
+          }
+          result = strictConditon ? "TRUE" : "FALSE";
+        break;
+
       }
 
       /** Update variable in the stack */

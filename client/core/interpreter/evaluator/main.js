@@ -29,65 +29,85 @@
     /** Function names globally visible */
     this.functionName = null;
 
-    this.Functions = {
-      LX_POW: function(c) {
-        return (Math.pow(self[self.switcher](c.left, self.functionName), self[self.switcher](c.right, self.functionName)));
-      },
+    this.executeFunction = function(operator, ast) {
+
+      var a = self[self.switcher](ast.left, self.functionName);
+
+      var b = self[self.switcher](ast.right, self.functionName);
+
+      if (a.range) {
+        a = a.result;
+      }
+
+      if (b.range) {
+        b = b.range;
+      }
+
+      var result = null;
+
+      switch (operator) {
+        case "LX_POW":
+          result = (Math.pow(a, b));
+        break;
+        case "LX_PLUS":
+          result = (a + b);
+        break;
+        case "LX_MINUS":
+          result = (a - b);
+        break;
+        case "LX_MULT":
+          result = (a * b);
+        break;
+        case "LX_DIV":
+          result = (a / b);
+        break;
+        case "LX_EQ":
+          result = (a == b);
+        break;
+        case "LX_NEQ":
+          result = (a != b);
+        break;
+        case "LX_GR":
+          result = (a > b);
+        break;
+        case "LX_GRE":
+          result = (a >= b);
+        break;
+        case "LX_LW":
+          result = (a < b);
+        break;
+        case "LX_LWE":
+          result = (a <= b);
+        break;
+        case "LX_AND":
+          result = (!a ? a : b);
+        break;
+        case "LX_OR":
+          result = (a ? a : b);
+        break;
+      }
+
+      return (result);
+
+    };
+
+    this.UnaryFunction = {
       LX_UPLUS: function(c) {
         return +(self.interpretExpression(c));
       },
       LX_UMINUS: function(c) {
         return -(self.interpretExpression(c));
       },
-      LX_PLUS: function(c) {
-        return self[self.switcher](c.left, self.functionName) + self[self.switcher](c.right, self.functionName);
-      },
-      LX_MINUS: function(c) {
-        return self[self.switcher](c.left, self.functionName) - self[self.switcher](c.right, self.functionName);
-      },
-      LX_MULT: function(c) {
-        return self[self.switcher](c.left, self.functionName) * self[self.switcher](c.right, self.functionName);
-      },
-      LX_DIV: function(c) {
-        return self[self.switcher](c.left, self.functionName) / self[self.switcher](c.right, self.functionName);
-      },
-      LX_EQ: function(c) {
-        return self[self.switcher](c.left, self.functionName) == self[self.switcher](c.right, self.functionName);
-      },
-      LX_NEQ: function(c) {
-        return self[self.switcher](c.left, self.functionName) != self[self.switcher](c.right, self.functionName);
-      },
-      LX_LW: function(c) {
-        return self[self.switcher](c.left, self.functionName) < self[self.switcher](c.right, self.functionName);
-      },
-      LX_GR: function(c) {
-        return self[self.switcher](c.left, self.functionName) > self[self.switcher](c.right, self.functionName);
-      },
-      LX_LWE: function(c) {
-        return self[self.switcher](c.left, self.functionName) <= self[self.switcher](c.right, self.functionName);
-      },
-      LX_GRE: function(c) {
-        return self[self.switcher](c.left, self.functionName) >= self[self.switcher](c.right, self.functionName);
-      },
-      LX_AND: function(c) {
-        var a = self[self.switcher](c.left, self.functionName);
-        return (!a ? a : self[self.switcher](c.right, self.functionName));
-      },
-      LX_OR: function(c) {
-        var a = self[self.switcher](c.left, self.functionName);
-        return (a ? a : self[self.switcher](c.right, self.functionName));
-      }
     };
 
     /** Pre defined functions */
     this.preDefFunc = {
-      display: ["log", "print"],
       /** Math api */
       math: ["asin", "sin", "acos", "cos", "atan", "atan2", "tan", "sqrt", "cbrt", "exp", "random", "min", "max", "round", "floor", "ceil", "roundTo"],
       json: ["json"],
       ajax: ["connect"],
       /** Functions */
-      func: ["sum", "count", "countif", "between", "average"]
+      func: ["sum", "count", "countif", "between", "average", "not", "isnumber", "istext", "islogical"]
     };
 
   };

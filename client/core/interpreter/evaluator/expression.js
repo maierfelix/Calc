@@ -29,7 +29,13 @@
 
     /** Got something special */
     if (ast.init) {
-      return (this.Functions[ast.operator](ast.init));
+      /** Operator */
+      if (["LX_UPLUS", "LX_UMINUS"].indexOf(ast.operator) <= -1) {
+        return (this.executeFunction(ast.operator, ast.init));
+      /** Unary operator precedence */
+      } else {
+        return (this.UnaryFunction[ast.operator](ast.init));
+      }
     }
 
     /** Function call */
@@ -46,12 +52,11 @@
     if (ast.Identifier) {
       var value = ENGEL.STACK.getValue(ast.Identifier.value);
       /** Handle boolean types */
-      if (["TRUE", "FALSE"].indexOf(value) >= 0) {
-        return (value === "TRUE" || false);
+      if (["TRUE", "FALSE", true, false].indexOf(value) >= 0) {
+        return (value === "TRUE" ? true : false);
       }
       if (value || value === "" || value === 0) return value;
-      /** Return boolean to detect a undefined variable and the boolean =^ 0 */
-      return (false);
+      return ("");
     }
 
     /** Got a range */
@@ -131,9 +136,12 @@
       return (ast.Literal.value);
     }
 
-    /** Got an operator */
-    if (this.Functions[ast.operator]) {
-      return (this.Functions[ast.operator](ast));
+    /** Operator */
+    if (["LX_UPLUS", "LX_UMINUS"].indexOf(ast.operator) <= -1) {
+      return (this.executeFunction(ast.operator, ast));
+    /** Unary operator precedence */
+    } else {
+      return (this.UnaryFunction[ast.operator](ast));
     }
 
     return void 0;
@@ -155,10 +163,7 @@
     var length = array.length;
 
     for (var ii = 0; ii < length; ++ii) {
-      var letter = NOVAE.$.numberToAlpha(array[ii].letter);
-      var number = array[ii].number;
-      var name = letter + number;
-      var value = ENGEL.STACK.getValue(name);
+      var value = ENGEL.STACK.getValue(array[ii].letter + array[ii].number);
       if (value !== null && value !== void 0) {
         if (["TRUE", "FALSE"].indexOf(value) <= -1) {
           if (!isNaN(value)) {

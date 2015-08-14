@@ -32,7 +32,7 @@
 
     /** Boolean */
     if (typeof data === "boolean") {
-      object.value = data ? "TRUE" : "FALSE";
+      object.value = ENGEL.TypeMaster.parseBoolean(data) ? "TRUE" : "FALSE";
     }
 
     /** Numeric */
@@ -46,5 +46,35 @@
     object.type = typeof(object.value);
 
     return (object);
+
+  };
+
+  /**
+   * Boolean conversion
+   *
+   * @method parseBoolean
+   * @static
+   */
+  ENGEL.TypeMaster.parseBoolean = function(data) {
+
+    var result;
+
+    /** Simulated boolean */
+    if (["TRUE", "FALSE"].indexOf(data) >= 0) {
+      result = data === "TRUE" || false;
+    /** Boolean */
+    } else if (typeof data === "boolean") {
+      result = data || false;
+    /** Number */
+    } else if (typeof data === "number") {
+      result = data === 1 || false;
+    /** String */
+    } else if (typeof data === "string") {
+      result = data === "1" || false;
+    } else {
+      result = false;
+    }
+
+    return (result);
 
   };

@@ -67,14 +67,15 @@
       { name: "LX_MATH", rx: /^(roundTo|asin|sin|acos|cos|atan|atan2|tan|sqrt|cbrt|exp|random|min|max|round|floor|ceil)/ },
 
       /** Built-in Functions */
-      { name: "LX_SUM",     rx: /^(sum)/i      },
-      { name: "LX_COUNTIF", rx: /^(countif)/i  },
-      { name: "LX_COUNT",   rx: /^(count)/i    },
-      { name: "LX_BETWEEN", rx: /^(between)/i  },
-      { name: "LX_AVERAGE", rx: /^(average)/i  },
-
-      /** Connect function */
-      { name: "LX_CONNECT", rx: /^(connect)/ },
+      { name: "LX_SUM",       rx: /^(sum)/i       },
+      { name: "LX_COUNTIF",   rx: /^(countif)/i   },
+      { name: "LX_COUNT",     rx: /^(count)/i     },
+      { name: "LX_BETWEEN",   rx: /^(between)/i   },
+      { name: "LX_AVERAGE",   rx: /^(average)/i   },
+      { name: "LX_NOT",       rx: /^(not)/i       },
+      { name: "LX_ISNUMBER",  rx: /^(isnumber)/i  },
+      { name: "LX_ISTEXT",    rx: /^(istext)/i    },
+      { name: "LX_ISLOGICAL", rx: /^(islogical)/i },
 
       /** Sheet reference */
       { name: "LX_SHEET", rx: /^[a-zA-Z0-9_]+(::)/i },
@@ -117,6 +118,9 @@
 
     /** Precompile regex */
     this.getNumbers = /[^0-9]/g;
+
+    /** Precompile regex */
+    this.hasQuotes = /".*?"/g;
 
     /** Is blank */
     this.isBlank = function(a) { return a.match(this.blank); };
