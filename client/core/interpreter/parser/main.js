@@ -34,7 +34,7 @@
     this.MathFunctions = ["LX_MATH"];
 
     /** Functions */
-    this.Functions = ["LX_SUM", "LX_COUNT", "LX_COUNTIF", "LX_BETWEEN", "LX_AVERAGE", "LX_NOT", "LX_ISNUMBER", "LX_ISTEXT", "LX_ISLOGICAL"];
+    this.Functions = ["LX_SUM", "LX_COUNT", "LX_COUNTIF", "LX_COUNTIFS", "LX_BETWEEN", "LX_AVERAGE", "LX_NOT", "LX_ISNUMBER", "LX_ISTEXT", "LX_ISLOGICAL"];
 
   };
 

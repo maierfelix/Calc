@@ -107,7 +107,7 @@
       json: ["json"],
       ajax: ["connect"],
       /** Functions */
-      func: ["sum", "count", "countif", "between", "average", "not", "isnumber", "istext", "islogical"]
+      func: ["sum", "count", "countif", "countifs", "between", "average", "not", "isnumber", "istext", "islogical"]
     };
 
   };
@@ -154,6 +154,8 @@
         declared = node.id.name;
       }
 
+      return (rawValue);
+
     }
 
   };
@@ -168,7 +170,7 @@
 
     /** Variable value assignment */
     if (ast.AssignmentExpression) {
-      this.evalVariable(ast.AssignmentExpression);
+      return (this.evalVariable(ast.AssignmentExpression));
     }
 
   };

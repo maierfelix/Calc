@@ -67,25 +67,88 @@
         /** COUNT */
         case "count":
 
-          var length = 0;
+          result = this.count(argumentArray);
 
-          for (var ii = 0; ii < argumentArray.length; ++ii) {
-            if (argumentArray[ii] && argumentArray[ii].range) {
-              for (var kk = 0; kk < argumentArray[ii].length.length; ++kk) {
-                var value = argumentArray[ii].length[kk];
-                if (value !== "" && !isNaN(value)) {
-                  length++;
-                }
-              }
+        break;
+
+        /** COUNT IF */
+        case "countif":
+
+          var a = argumentArray[0];
+          var condition = argumentArray[1];
+
+          /** Make sure we have a maximum of 2 arguments */
+          argumentArray.length = 1;
+
+          if (a.range) {
+
+            var range = a.range[0].letter + a.range[0].number;
+                range += ":" + a.range[a.range.length - 1].letter + a.range[a.range.length - 1].number;
+
+            var string = "_PLACEHOLDER = " + range + condition;
+
+            var lex = ENGEL.Lexer.lex(string);
+            var ast = ENGEL.Parser.parse(lex.tokens);
+
+            /** Condition met */
+            if (this.evaluate(ast)) {
+              result = this.count(argumentArray[0]);
+            }
+
+          } else {
+            result = 0;
+          }
+
+        /** Clean placeholder */
+        if (ENGEL.STACK.VAR[ENGEL.CurrentSheet]) {
+          if (ENGEL.STACK.VAR[ENGEL.CurrentSheet]["_PLACEHOLDER"]) {
+            delete ENGEL.STACK.VAR[ENGEL.CurrentSheet]["_PLACEHOLDER"];
+          }
+         }
+
+        break;
+
+        /** COUNT IFS */
+        case "countifs":
+
+          result = 0;
+
+          for (var ii = 0, jumper = 1; ii < argumentArray.length; ++ii) {
+            /** Range or cell */
+            if (jumper >= 1) {
+              jumper = 0;
+            /** Condition */
             } else {
-              /** Don't count booleans */
-              if (typeof argumentArray[ii] !== "boolean") {
-                length++;
+              jumper++;
+
+              var a = argumentArray[ii - 1];
+              var condition = argumentArray[ii];
+
+              var range = a.range[0].letter + a.range[0].number;
+                  range += ":" + a.range[a.range.length - 1].letter + a.range[a.range.length - 1].number;
+
+              var string = "_PLACEHOLDER = " + range + condition;
+
+              var lex = ENGEL.Lexer.lex(string);
+              var ast = ENGEL.Parser.parse(lex.tokens);
+
+              /** Condition met */
+              if (this.evaluate(ast)) {
+                result += this.count(argumentArray[ii - 1]);
+              } else {
+                result = 0;
+                break;
               }
+
             }
           }
 
-          result = length;
+          /** Clean placeholder */
+          if (ENGEL.STACK.VAR[ENGEL.CurrentSheet]) {
+            if (ENGEL.STACK.VAR[ENGEL.CurrentSheet]["_PLACEHOLDER"]) {
+              delete ENGEL.STACK.VAR[ENGEL.CurrentSheet]["_PLACEHOLDER"];
+            }
+          }
 
         break;
 
@@ -268,5 +331,59 @@
     }
 
     return (data[value]);
+
+  };
+
+  /**
+   * Count function
+   *
+   * @method count
+   * @static
+   */
+  ENGEL.EVAL.prototype.count = function(args) {
+
+    var length = 0;
+
+    if (args instanceof Array) {
+
+      for (var ii = 0; ii < args.length; ++ii) {
+        /** Range */
+        if (args[ii] && args[ii].range) {
+          for (var kk = 0; kk < args[ii].length.length; ++kk) {
+            var value = args[ii].length[kk];
+            if (value !== "" && !isNaN(value)) {
+              length++;
+            }
+          }
+        /** Identifier */
+        } else {
+          /** Don't count booleans */
+          if (typeof args[ii] !== "boolean") {
+            length++;
+          }
+        }
+      }
+
+      return (length);
+
+    }
+
+    /** Range */
+    if (args && args.range) {
+      for (var ii = 0; ii < args.length.length; ++ii) {
+        var value = args.length[ii];
+        if (value !== "" && !isNaN(value)) {
+          length++;
+        }
+      }
+    /** Identifier */
+    } else {
+      /** Don't count booleans */
+      if (typeof args !== "boolean") {
+        length++;
+      }
+    }
+
+    return (length);
 
   };

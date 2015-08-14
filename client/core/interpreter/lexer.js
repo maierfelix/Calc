@@ -64,10 +64,11 @@
       { name: "LX_JSON_CALL", rx: /^->/     },
 
       /** Math functions */
-      { name: "LX_MATH", rx: /^(roundTo|asin|sin|acos|cos|atan|atan2|tan|sqrt|cbrt|exp|random|min|max|round|floor|ceil)/ },
+      { name: "LX_MATH", rx: /^(asin|sin|acos|cos|atan|atan2|tan|sqrt|cbrt|exp|random|min|max|round|roundTo|floor|ceil)/ },
 
       /** Built-in Functions */
       { name: "LX_SUM",       rx: /^(sum)/i       },
+      { name: "LX_COUNTIFS",  rx: /^(countifs)/i  },
       { name: "LX_COUNTIF",   rx: /^(countif)/i   },
       { name: "LX_COUNT",     rx: /^(count)/i     },
       { name: "LX_BETWEEN",   rx: /^(between)/i   },
@@ -149,7 +150,7 @@
    * @return {array} of Tokens
    * @static
    */
-  ENGEL.LEXER.prototype.lex = function(input) {
+  ENGEL.LEXER.prototype.lex = function(input, strict) {
 
     /** Clean tokens */
     this.Tokens = [];
@@ -198,7 +199,7 @@
                   value: ":"
                 });
               } else {
-                throw new Error(match[0] + " is a invalid variable name!");
+                if (strict) throw new Error(match[0] + " is a invalid variable name!");
               }
             }
             /** Ignore sheet reference variables */

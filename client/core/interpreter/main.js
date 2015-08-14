@@ -51,7 +51,7 @@
   ENGEL.prototype.interpret = function(stream) {
 
     /** Lexical analysis */
-    this.lexed = this.Lexer.lex(stream);
+    this.lexed = this.Lexer.lex(stream, true);
 
     /** Save tokens to prevent unnecessary lexical analysis in future */
     var tokens = this.lexed.tokens.slice(0);
