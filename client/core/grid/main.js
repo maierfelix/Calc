@@ -232,20 +232,26 @@
    */
   NOVAE.Grid.prototype.reCalculateWidth = function() {
 
-    var minus;
+    var minus = 0;
 
     var columns = NOVAE.Cells.Resized[arguments[0] || NOVAE.CurrentSheet].Columns;
 
     for (var cell in columns) {
+      var name = NOVAE.$.alphaToNumber(cell);
       /** Resized column is not in view */
-      if (NOVAE.$.alphaToNumber(cell) < this.Settings.scrolledX) {
-        minus += ( ~ columns[cell].Width ) + 1;
+      if (name < this.Settings.scrolledX || name - this.Settings.x > this.Settings.scrolledX) {
+        if (columns[cell].Width < 0) {
+          minus += columns[cell].Width;
+        }
       }
     }
 
-    if (minus === null) return void 0;
-
-    this.Settings.x -= Math.floor(minus / this.CellTemplate.Width) || 0;
+    if (!isNaN(minus)) {
+      if (minus < 0) {
+        minus = ~(minus);
+        this.Settings.x -= Math.floor(minus / this.CellTemplate.Width);
+      }
+    }
 
   };
 

@@ -238,6 +238,8 @@
     /** Horizontal Scroll */
     } else {
 
+      NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastWidth = NOVAE.Sheets[NOVAE.CurrentSheet].Settings.x;
+
       switch (direction) {
 
         /** RIGHT */
@@ -246,9 +248,13 @@
           NOVAE.DOM.Viewport.scrollLeft += scrollAmount;
           NOVAE.DOM.AbsoluteHorizontalViewport.scrollLeft += scrollAmount;
 
+          var resizedX = NOVAE.Sheets[NOVAE.CurrentSheet].getResizedX();
+
           var leftSettingsX = Math.floor(NOVAE.Sheets[NOVAE.CurrentSheet].Settings.x / 2);
 
           var leftReRender = Math.floor(NOVAE.DOM.Viewport.scrollLeft / NOVAE.Sheets[NOVAE.CurrentSheet].CellTemplate.Width) * 2;
+
+          leftReRender += (~ Math.floor(resizedX / NOVAE.Sheets[NOVAE.CurrentSheet].CellTemplate.Width)) + 1;
 
           if (leftReRender >= NOVAE.Sheets[NOVAE.CurrentSheet].Settings.x) {
 
@@ -257,9 +263,17 @@
 
             NOVAE.Sheets[NOVAE.CurrentSheet].Settings.scrolledX += (leftReRender - leftSettingsX);
             NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollX = NOVAE.Settings.Scroll.Horizontal;
-            NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Horizontal);
-            NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
-            NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
+
+            NOVAE.Sheets[NOVAE.CurrentSheet].calculateGrid();
+
+            /** New grid dimensions */
+            if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.x !== NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastWidth) {
+              NOVAE.Event.redraw();
+            } else {
+              NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Horizontal);
+              NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
+              NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
+            }
 
           }
 
@@ -294,9 +308,16 @@
               NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastScrollX = NOVAE.Settings.Scroll.Horizontal;
             }
 
-            NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Horizontal);
-            NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
-            NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
+            NOVAE.Sheets[NOVAE.CurrentSheet].calculateGrid();
+
+            /** New grid dimensions */
+            if (NOVAE.Sheets[NOVAE.CurrentSheet].Settings.x !== NOVAE.Sheets[NOVAE.CurrentSheet].Settings.lastWidth) {
+              NOVAE.Event.redraw();
+            } else {
+              NOVAE.Sheets[NOVAE.CurrentSheet].updateHeight("down", NOVAE.Settings.Scroll.Horizontal);
+              NOVAE.Sheets[NOVAE.CurrentSheet].updateMenu();
+              NOVAE.Sheets[NOVAE.CurrentSheet].Selector.getSelection();
+            }
 
           }
 
