@@ -108,13 +108,18 @@
    */
   NOVAE.Connector.prototype.resetSession = function() {
 
+    for (var sheet in NOVAE.Cells.Used) {
+      if (NOVAE.Cells.Used.hasOwnProperty(sheet) && NOVAE.Sheets[sheet]) {
+        NOVAE.Cells.Used[sheet] = null;
+        delete NOVAE.Cells.Used[sheet];
+      }
+    }
+
     for (var sheet in NOVAE.Sheets) {
       if (NOVAE.Sheets[sheet] instanceof NOVAE.Grid) {
         delete NOVAE.Sheets[sheet];
       }
     }
-
-    NOVAE.Cells.Used = {};
 
     NOVAE.Cells.All = null;
     NOVAE.Cells.All = {};
