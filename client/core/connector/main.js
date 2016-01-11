@@ -1,5 +1,5 @@
 /**
- * This file is part of the NovaeCalc project.
+ * This file is part of the Calc project.
  *
  * It is permitted to use, redistribute and/or modify this software
  * under the terms of the BSD License
@@ -62,7 +62,7 @@
    */
   NOVAE.Connector.prototype.connect = function() {
 
-    if (!window.io) throw new Error("NovaeCalc requires socket.io!");
+    if (!window.io) throw new Error("Calc requires socket.io!");
 
     this.socket = io.connect(this.url + ":" + this.port);
 

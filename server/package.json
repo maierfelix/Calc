@@ -1,7 +1,7 @@
 {
-  "name": "NovaeCalc",
+  "name": "Calc",
   "version": "1.0.0",
-  "description": "Server for the NovaeCalc project",
+  "description": "Server for the Calc project",
   "main": "index.js",
   "engines": {
     "node": "0.12.4",
@@ -17,13 +17,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/felixmaier/NovaeCalc"
+    "url": "https://github.com/felixmaier/Calc"
   },
   "keywords": [
     "Novae",
-    "NovaeCalc"
+    "Calc"
   ],
   "license": "BSD",
   "author": "Felix Maier",
-  "bugs": "https://github.com/felixmaier/NovaeCalc/issues"
+  "bugs": "https://github.com/felixmaier/Calc/issues"
 }

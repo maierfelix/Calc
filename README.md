@@ -1,14 +1,8 @@
-![NovaeCalc](http://i.imgur.com/hYWetxs.png)
-
 # Description
-[![Join the chat at https://gitter.im/felixmaier/NovaeCalc](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/felixmaier/NovaeCalc?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)<br>
-NovaeCalc is a lightning browserbased spreadsheet software.<br/>
-NovaeCalc is not stable yet.<br/>
-NovaeCalc runs the best on Google Chrome.
-
-# Multi-user test project
-If you want to test the latest multi-user functionality, go to:
-* [Link](http://felixmaier.info/NovaeCalc/?testroom3&key=bc84f9b24615476392f18d4e313c45e1ad95379873a41f442b6f89a291c3d934)<br/>
+[![Join the chat at https://gitter.im/felixmaier/Calc](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/felixmaier/Calc?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)<br>
+Calc is a lightning browserbased spreadsheet software.<br/>
+Calc is not stable yet.<br/>
+Calc runs the best on Google Chrome.
 
 ## Current state:
 
@@ -94,7 +88,7 @@ If you want to test the latest multi-user functionality, go to:
 
 ## Licensing
 ### BSD License:
- - [NovaeCalc](https://github.com/felixmaier/NovaeCalc/blob/master/LICENSE.BSD)
+ - [Calc](https://github.com/felixmaier/Calc/blob/master/LICENSE.BSD)
 
 ### MIT License:
  - [Eight Bit Color Picker](https://github.com/bilalq/eight-bit-color-picker/blob/master/LICENSE)

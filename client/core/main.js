@@ -1,5 +1,5 @@
 /**
- * This file is part of the NovaeCalc project.
+ * This file is part of the Calc project.
  *
  * It is permitted to use, redistribute and/or modify this software
  * under the terms of the BSD License
@@ -18,7 +18,7 @@
   /** Static Namespace Class */
   var NOVAE = NOVAE || {};
 
-  /** NovaeCalc Version */
+  /** Calc Version */
   NOVAE.VERSION = "0.4";
 
   /** Create DOM Object */

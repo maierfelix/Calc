@@ -1,6 +1,6 @@
-# NovaeCalc Documenation
+# Calc Documenation
 
-This is the included documentation for the NovaeCalc project.
+This is the included documentation for the Calc project.
 
 ## Table of contents
 
@@ -164,7 +164,7 @@ A1 = 10;
 ```
 
 ## Scripts
-NovaeCalc has a own scripting language based on Javascript, which provides you some great ways to write your own makros and functions.
+Calc has a own scripting language based on Javascript, which provides you some great ways to write your own makros and functions.
 You can write scripts as modules and combine them. See the example below how to do so.
 
 Define a module:
@@ -213,13 +213,13 @@ Click on "*File*" on the left top and choose "*Open..*".
 Click on "*File*" on the left top and click on "*Export..*".
 
 ## Sheets
-NovaeCalc starts with Sheet1 by default.
+Calc starts with Sheet1 by default.
 To add a new sheet, press the *+* button on the right bottom.
 To navigate to a sheet, simply click on it's name.
 To delete a sheet, click on the small *-* button on the right top of the sheet button.
 
 ### Master and slave sheets
-NovaeCalc supports master and slave sheets. If you create a master sheet, all style changes, formula and content changes, column and row resizement etc. will be inherited to each slave sheet.
+Calc supports master and slave sheets. If you create a master sheet, all style changes, formula and content changes, column and row resizement etc. will be inherited to each slave sheet.
 A maximum of 1 master sheets can exist at the same time.
 Master sheets are green colored by default.
 To create a master sheet, press the *+* button on the right bottom at least for 2 seconds.
